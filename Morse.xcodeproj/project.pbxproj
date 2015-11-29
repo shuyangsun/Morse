@@ -8,13 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		1052A7431C0BACE90085B0C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7421C0BACE90085B0C9 /* AppDelegate.swift */; };
-		1052A7451C0BACE90085B0C9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7441C0BACE90085B0C9 /* ViewController.swift */; };
 		1052A7481C0BACE90085B0C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1052A7461C0BACE90085B0C9 /* Main.storyboard */; };
 		1052A74B1C0BACE90085B0C9 /* Morse.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7491C0BACE90085B0C9 /* Morse.xcdatamodeld */; };
 		1052A74D1C0BACE90085B0C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1052A74C1C0BACE90085B0C9 /* Assets.xcassets */; };
 		1052A7501C0BACE90085B0C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1052A74E1C0BACE90085B0C9 /* LaunchScreen.storyboard */; };
 		1052A75B1C0BACEA0085B0C9 /* MorseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A75A1C0BACEA0085B0C9 /* MorseTests.swift */; };
 		1052A7661C0BACEA0085B0C9 /* MorseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7651C0BACEA0085B0C9 /* MorseUITests.swift */; };
+		1052A7741C0BAED50085B0C9 /* MCTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7731C0BAED50085B0C9 /* MCTabBarController.swift */; };
+		1052A7751C0BAED50085B0C9 /* MCTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7731C0BAED50085B0C9 /* MCTabBarController.swift */; };
+		1052A7761C0BAED50085B0C9 /* MCTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7731C0BAED50085B0C9 /* MCTabBarController.swift */; };
+		1052A77C1C0BB09B0085B0C9 /* MCHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A77B1C0BB09B0085B0C9 /* MCHomeViewController.swift */; };
+		1052A77D1C0BB09B0085B0C9 /* MCHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A77B1C0BB09B0085B0C9 /* MCHomeViewController.swift */; };
+		1052A77E1C0BB09B0085B0C9 /* MCHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A77B1C0BB09B0085B0C9 /* MCHomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +42,6 @@
 /* Begin PBXFileReference section */
 		1052A73F1C0BACE90085B0C9 /* Morse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Morse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1052A7421C0BACE90085B0C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1052A7441C0BACE90085B0C9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1052A7471C0BACE90085B0C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1052A74A1C0BACE90085B0C9 /* Morse.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Morse.xcdatamodel; sourceTree = "<group>"; };
 		1052A74C1C0BACE90085B0C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +53,8 @@
 		1052A7611C0BACEA0085B0C9 /* MorseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MorseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1052A7651C0BACEA0085B0C9 /* MorseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorseUITests.swift; sourceTree = "<group>"; };
 		1052A7671C0BACEA0085B0C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1052A7731C0BAED50085B0C9 /* MCTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCTabBarController.swift; sourceTree = "<group>"; };
+		1052A77B1C0BB09B0085B0C9 /* MCHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCHomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				1052A7421C0BACE90085B0C9 /* AppDelegate.swift */,
-				1052A7441C0BACE90085B0C9 /* ViewController.swift */,
+				1052A7731C0BAED50085B0C9 /* MCTabBarController.swift */,
+				1052A77B1C0BB09B0085B0C9 /* MCHomeViewController.swift */,
 				1052A7461C0BACE90085B0C9 /* Main.storyboard */,
 				1052A74C1C0BACE90085B0C9 /* Assets.xcassets */,
 				1052A74E1C0BACE90085B0C9 /* LaunchScreen.storyboard */,
@@ -259,7 +266,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1052A7451C0BACE90085B0C9 /* ViewController.swift in Sources */,
+				1052A7741C0BAED50085B0C9 /* MCTabBarController.swift in Sources */,
+				1052A77C1C0BB09B0085B0C9 /* MCHomeViewController.swift in Sources */,
 				1052A74B1C0BACE90085B0C9 /* Morse.xcdatamodeld in Sources */,
 				1052A7431C0BACE90085B0C9 /* AppDelegate.swift in Sources */,
 			);
@@ -269,6 +277,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1052A77D1C0BB09B0085B0C9 /* MCHomeViewController.swift in Sources */,
+				1052A7751C0BAED50085B0C9 /* MCTabBarController.swift in Sources */,
 				1052A75B1C0BACEA0085B0C9 /* MorseTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,6 +287,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1052A77E1C0BB09B0085B0C9 /* MCHomeViewController.swift in Sources */,
+				1052A7761C0BAED50085B0C9 /* MCTabBarController.swift in Sources */,
 				1052A7661C0BACEA0085B0C9 /* MorseUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -488,6 +500,7 @@
 				1052A76C1C0BACEA0085B0C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1052A76D1C0BACEA0085B0C9 /* Build configuration list for PBXNativeTarget "MorseTests" */ = {
 			isa = XCConfigurationList;
@@ -496,6 +509,7 @@
 				1052A76F1C0BACEA0085B0C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1052A7701C0BACEA0085B0C9 /* Build configuration list for PBXNativeTarget "MorseUITests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +518,7 @@
 				1052A7721C0BACEA0085B0C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
