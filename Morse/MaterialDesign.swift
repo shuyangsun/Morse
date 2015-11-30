@@ -83,6 +83,20 @@ extension UIView {
 				}
 			}
 		}
+
+		if shadowDepth == nil || shadowDepth! < 1 || shadowDepth! > 5 {
+			self.layer.shadowPath = nil
+			self.layer.shadowColor = UIColor.clearColor().CGColor
+			if let subLayers = self.layer.sublayers {
+				for subLayer in subLayers {
+					// If there existed a shadow layer
+					if subLayer is ShadowLayer {
+						subLayer.shadowPath = nil
+						subLayer.shadowColor = UIColor.clearColor().CGColor
+					}
+				}
+			}
+		}
 	}
 
 	func triggerTapFeedBack(atLocation location:CGPoint, withColor color:UIColor = UIColor.whiteColor(), duration:NSTimeInterval = 0.2, completion: ((Void) -> Void)? = nil) {

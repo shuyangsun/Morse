@@ -10,10 +10,19 @@ import UIKit
 
 class MCTabBarController: UITabBarController {
 
+	private var theme:Theme {
+		if let delegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+			return delegate.theme
+		} else {
+			return Theme.Default
+		}
+	}
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+		self.tabBar.barTintColor = self.theme.colorPalates.primary.P50
     }
 
     override func didReceiveMemoryWarning() {

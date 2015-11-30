@@ -27,6 +27,9 @@
 		107FF6AC1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6AA1C0BC1FC003EB294 /* MaterialDesign.swift */; };
 		107FF6AD1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6AA1C0BC1FC003EB294 /* MaterialDesign.swift */; };
 		107FF6C21C0BE11C003EB294 /* SnapKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 107FF6B81C0BDEC0003EB294 /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		107FF6C41C0C223D003EB294 /* Coder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6C31C0C223D003EB294 /* Coder.swift */; };
+		107FF6C51C0C223D003EB294 /* Coder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6C31C0C223D003EB294 /* Coder.swift */; };
+		107FF6C61C0C223D003EB294 /* Coder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6C31C0C223D003EB294 /* Coder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +117,7 @@
 		107FF6A61C0BC128003EB294 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		107FF6AA1C0BC1FC003EB294 /* MaterialDesign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDesign.swift; sourceTree = "<group>"; };
 		107FF6B01C0BDEC0003EB294 /* SnapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SnapKit.xcodeproj; path = SnapKit/SnapKit.xcodeproj; sourceTree = "<group>"; };
+		107FF6C31C0C223D003EB294 /* Coder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +172,7 @@
 				1052A7421C0BACE90085B0C9 /* AppDelegate.swift */,
 				107FF6AF1C0BDD1F003EB294 /* View Controllers */,
 				107FF6AE1C0BC20B003EB294 /* UI */,
+				107FF6C71C0C2246003EB294 /* Model */,
 				1052A7461C0BACE90085B0C9 /* Main.storyboard */,
 				1052A74C1C0BACE90085B0C9 /* Assets.xcassets */,
 				1052A74E1C0BACE90085B0C9 /* LaunchScreen.storyboard */,
@@ -222,6 +227,14 @@
 				107FF6BE1C0BDEC0003EB294 /* SnapKit OSX Tests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		107FF6C71C0C2246003EB294 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				107FF6C31C0C223D003EB294 /* Coder.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -394,6 +407,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				107FF6C41C0C223D003EB294 /* Coder.swift in Sources */,
 				1052A7741C0BAED50085B0C9 /* MCTabBarController.swift in Sources */,
 				1052A77C1C0BB09B0085B0C9 /* MCHomeViewController.swift in Sources */,
 				107FF6AB1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
@@ -408,6 +422,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1052A77D1C0BB09B0085B0C9 /* MCHomeViewController.swift in Sources */,
+				107FF6C51C0C223D003EB294 /* Coder.swift in Sources */,
 				107FF6A81C0BC128003EB294 /* Theme.swift in Sources */,
 				1052A7751C0BAED50085B0C9 /* MCTabBarController.swift in Sources */,
 				1052A75B1C0BACEA0085B0C9 /* MorseTests.swift in Sources */,
@@ -420,6 +435,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1052A77E1C0BB09B0085B0C9 /* MCHomeViewController.swift in Sources */,
+				107FF6C61C0C223D003EB294 /* Coder.swift in Sources */,
 				107FF6A91C0BC128003EB294 /* Theme.swift in Sources */,
 				1052A7761C0BAED50085B0C9 /* MCTabBarController.swift in Sources */,
 				1052A7661C0BACEA0085B0C9 /* MorseUITests.swift in Sources */,
@@ -555,6 +571,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Morse/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = shuyangsun.Morse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -566,6 +583,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Morse/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = shuyangsun.Morse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
