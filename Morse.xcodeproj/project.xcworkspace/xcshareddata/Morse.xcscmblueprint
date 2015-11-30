@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F1D9B430925E993918FD44B9698F87B82B6EFB98",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "F1D9B430925E993918FD44B9698F87B82B6EFB98" : 0,
+    "3AF18F9C6F5D633BAA0B3F935459E0C777C82047" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "3661A1D1-5047-40DE-8A6D-F2418222C6FC",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "F1D9B430925E993918FD44B9698F87B82B6EFB98" : "Morse\/",
+    "3AF18F9C6F5D633BAA0B3F935459E0C777C82047" : "Morse\/SnapKit\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Morse",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Morse.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/SnapKit\/SnapKit.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3AF18F9C6F5D633BAA0B3F935459E0C777C82047"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/shuyangsun\/Morse.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F1D9B430925E993918FD44B9698F87B82B6EFB98"
+    }
+  ]
+}

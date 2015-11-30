@@ -20,6 +20,15 @@ class MCTabBarController: UITabBarController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
+	// Only support landscape when it's on an iPad
+	override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+		if self.traitCollection.horizontalSizeClass == .Regular && self.traitCollection.verticalSizeClass == .Regular {
+			return [UIInterfaceOrientationMask.Portrait, UIInterfaceOrientationMask.Landscape]
+		} else {
+			return UIInterfaceOrientationMask.Portrait
+		}
+	}
     
 
 	/*

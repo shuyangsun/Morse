@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 let INPUT_TEXT_FIELD_HEIGHT:CGFloat = 300
 
@@ -20,8 +21,9 @@ class MCHomeViewController: UIViewController {
 	// MARK: Private Properties
 	// *****************************
 
-	private var inputTextField = UITextField()
-	private var scrollView = UIScrollView()
+	private var inputTextField:UITextField!
+	private var scrollView:UIScrollView!
+	private var swithButton:UIButton!
 
 	private var viewWidth:CGFloat {
 		return self.view.bounds.width
@@ -56,7 +58,7 @@ class MCHomeViewController: UIViewController {
 		self.inputTextField = UITextField(frame: CGRect(x: 0, y: 0, width: self.viewWidth, height: INPUT_TEXT_FIELD_HEIGHT))
 		self.view.addSubview(self.inputTextField)
 
-		self.scrollView = UIScrollView(frame: CGRect(x: 0, y: INPUT_TEXT_FIELD_HEIGHT + 1, width: self.viewWidth, height: self.viewHeight - INPUT_TEXT_FIELD_HEIGHT))
+		self.scrollView = UIScrollView(frame: CGRect(x: 0, y: INPUT_TEXT_FIELD_HEIGHT, width: self.viewWidth, height: self.viewHeight - INPUT_TEXT_FIELD_HEIGHT))
 		self.view.addSubview(self.scrollView)
 	}
 
