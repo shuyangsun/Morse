@@ -111,11 +111,15 @@ extension UIView {
 		overlayView.addSubview(feedBackView)
 		self.insertSubview(overlayView, atIndex: 0)
 
-		let topDistance = location.y
-		let rightDistance = self.bounds.width - location.x
-		let bottomDistance = self.bounds.height - location.y
-		let leftDistance = location.x
-		let scaleFactor = max(topDistance, rightDistance, bottomDistance, leftDistance)
+		let dtXLeftSquare = location.x * location.x
+		let	dtYTopSquare = location.y * location.y
+		let dtXRightSquare = (self.bounds.width - location.x) * (self.bounds.width - location.x)
+		let dtYBottomSquare = (self.bounds.height - location.y) * (self.bounds.height - location.y)
+		let topLeftDistance = sqrt(dtXLeftSquare + dtYTopSquare)
+		let topRightDistance = sqrt(dtXRightSquare + dtYTopSquare)
+		let bottomLeftDistance = sqrt(dtXLeftSquare + dtYBottomSquare)
+		let bottomRightDistance = sqrt(dtXRightSquare + dtYBottomSquare)
+		let scaleFactor = max(topLeftDistance, topRightDistance, bottomLeftDistance, bottomRightDistance)
 
 		UIView.animateWithDuration(duration * 2.0 / 3.0,
 			delay: 0.0,

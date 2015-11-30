@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 
 	var theme:Theme = .Default
+	var animationDurationScalar:Double = 1.0
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
@@ -22,6 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		// TODO: Pull theme out of user default
 		self.theme = .BlueGrey
+
+		#if DEBUG
+			self.animationDurationScalar = 1.0
+		#endif
 
 		return true
 	}

@@ -17,7 +17,7 @@ enum Theme: String {
 		switch self {
 		case .Default: return (.Yellow, .BlueGrey)
 		case .Blue: return (.Blue, .Pink)
-		case .BlueGrey: return (.BlueGrey, .Pink)
+		case .BlueGrey: return (.BlueGrey, .Red)
 		}
 	}
 
