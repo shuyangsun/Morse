@@ -22,18 +22,24 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	// MARK: Private Properties
 	// *****************************
 
+	// Top bar views
+	private var statusBarView:UIView!
+	private var topBarView:UIView!
+
+	// Text views
+	private var hiddenLineView:UIView!
+	private var textBackgroundView:UIView!
+	private var inputTextView:UITextView!
+	private var lineBreakView:UIView!
+	private var outputTextView:UITextView!
+//	private var textBoxTapFeedBackView:UIView!
+
 	private let inputTextViewZPosition:CGFloat = 2.0
 	private let outputTextViewZPosition:CGFloat = 2.0
 	private let textBoxShadowViewZPosition:CGFloat = 1.0
 	private let scrollViewZPosition:CGFloat = 0.0
 
-	private var statusBarView:UIView!
-	private var topBarView:UIView!
-	private var hiddenLineView:UIView!
-	private var inputTextView:UITextView!
-	private var lineBreakView:UIView!
-	private var outputTextView:UITextView!
-	private var textBoxShadowView:UIView!
+	// Scroll views
 	private var scrollView:UIScrollView!
 	private var isDirectionEncode:Bool = true
 	private let coder = MorseCoder()
@@ -131,9 +137,27 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			})
 		}
 
+		if self.textBackgroundView == nil {
+			self.textBackgroundView = UIView(frame: CGRect(x: 0, y: self.topBarHeight + self.statusBarHeight, width: self.viewWidth, height: TEXT_VIEW_HEIGHT))
+			self.textBackgroundView.backgroundColor = self.theme.colorPalates.primary.P50
+			self.textBackgroundView.layer.borderColor = UIColor.clearColor().CGColor
+			self.textBackgroundView.layer.borderWidth = 0
+			self.textBackgroundView.layer.zPosition = self.textBoxShadowViewZPosition
+			self.view.addSubview(self.textBackgroundView)
+
+			// Configure contraints
+			self.textBackgroundView.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(self.topBarView.snp_bottom)
+				make.right.equalTo(self.view)
+				make.left.equalTo(self.view)
+				make.height.equalTo(TEXT_VIEW_HEIGHT)
+			}
+		}
+
 		if self.inputTextView == nil {
-			self.inputTextView = UITextView(frame: CGRect(x: 0, y: 0, width: self.viewWidth, height: TEXT_VIEW_HEIGHT/2.0))
-			self.inputTextView.backgroundColor = self.theme.colorPalates.primary.P50
+			self.inputTextView = UITextView(frame: CGRect(x: 0, y: 0, width: self.textBackgroundView.bounds.width, height: TEXT_VIEW_HEIGHT/2.0))
+			self.inputTextView.backgroundColor = UIColor.clearColor()
+			self.inputTextView.opaque = false
 			self.inputTextView.keyboardType = .ASCIICapable
 			self.inputTextView.returnKeyType = .Done
 			self.inputTextView.attributedText = self.attributedHintText
@@ -141,15 +165,21 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			self.inputTextView.layer.borderColor = UIColor.clearColor().CGColor
 			self.inputTextView.layer.borderWidth = 0
 			self.inputTextView.layer.zPosition = self.inputTextViewZPosition
-			self.view.addSubview(self.inputTextView)
+			self.textBackgroundView.addSubview(self.inputTextView)
 
 			// Configure contraints
 			self.inputTextView.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(self.topBarView.snp_bottom)
-				make.right.equalTo(self.view)
-				make.left.equalTo(self.view)
+				make.top.equalTo(self.textBackgroundView)
+				make.right.equalTo(self.textBackgroundView)
+				make.left.equalTo(self.textBackgroundView)
 				make.height.equalTo(TEXT_VIEW_HEIGHT/2.0)
 			}
+		}
+
+		if self.inputTextView.isFirstResponder() {
+			self.textBackgroundView.addMDShadow(withDepth: 2)
+		} else {
+			self.textBackgroundView.addMDShadow(withDepth: 1)
 		}
 
 		if self.hiddenLineView == nil {
@@ -158,7 +188,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 				self.hiddenLineView.backgroundColor = color
 			}
 			self.hiddenLineView.layer.zPosition = CGFloat.max - 1
-			self.view.addSubview(self.hiddenLineView)
+			self.textBackgroundView.addSubview(self.hiddenLineView)
 
 			self.hiddenLineView.snp_remakeConstraints(closure: { (make) -> Void in
 				make.left.equalTo(self.inputTextView)
@@ -168,31 +198,10 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			})
 		}
 
-		if self.textBoxShadowView == nil {
-			self.textBoxShadowView = UIView(frame: CGRect(x: 0, y: self.inputTextView.bounds.height + self.topBarHeight + self.statusBarHeight, width: self.viewWidth, height: TEXT_VIEW_HEIGHT/2.0))
-			self.textBoxShadowView.backgroundColor = self.theme.colorPalates.primary.P50
-			self.textBoxShadowView.layer.borderColor = UIColor.clearColor().CGColor
-			self.textBoxShadowView.layer.borderWidth = 0
-			self.textBoxShadowView.layer.zPosition = self.textBoxShadowViewZPosition
-			self.view.addSubview(self.textBoxShadowView)
-
-			// Configure contraints
-			self.textBoxShadowView.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(self.inputTextView.snp_bottom)
-				make.right.equalTo(self.view)
-				make.left.equalTo(self.view)
-				make.height.equalTo(TEXT_VIEW_HEIGHT/2.0)
-			}
-		}
-
-		if self.inputTextView.isFirstResponder() {
-			self.textBoxShadowView.addMDShadow(withDepth: 2)
-		} else {
-			self.textBoxShadowView.addMDShadow(withDepth: 1)
-		}
-
 		if self.outputTextView == nil {
-			self.outputTextView = UITextView(frame: CGRect(x: 0, y: self.inputTextView.bounds.height + self.topBarHeight + self.statusBarHeight, width: self.viewWidth, height: TEXT_VIEW_HEIGHT/2.0))
+			self.outputTextView = UITextView(frame: CGRect(x: 0, y: TEXT_VIEW_HEIGHT/2.0, width: self.viewWidth, height: TEXT_VIEW_HEIGHT/2.0))
+			self.outputTextView.backgroundColor = UIColor.clearColor()
+			self.outputTextView.opaque = false
 			let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "outputTextViewTapped:")
 			tapGestureRecognizer.cancelsTouchesInView = false
 			self.outputTextView.addGestureRecognizer(tapGestureRecognizer)
@@ -201,27 +210,30 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			self.outputTextView.layer.borderColor = UIColor.clearColor().CGColor
 			self.outputTextView.layer.borderWidth = 0
 			self.outputTextView.layer.zPosition = self.outputTextViewZPosition
-			self.view.addSubview(self.outputTextView)
+			self.textBackgroundView.addSubview(self.outputTextView)
 
 			// Configure contraints
 			self.outputTextView.snp_makeConstraints { (make) -> Void in
-				make.edges.equalTo(self.textBoxShadowView).inset(UIEdgeInsetsMake(0, 0, 0, 0))
+				make.top.equalTo(self.inputTextView.snp_bottom)
+				make.right.equalTo(self.textBackgroundView)
+				make.bottom.equalTo(self.textBackgroundView)
+				make.left.equalTo(self.textBackgroundView)
 			}
 		}
 
 		self.outputTextView.bounds = CGRect(x: 0, y: 0, width: self.outputTextView.frame.width, height: self.outputTextView.frame.height)
 
 		if self.scrollView == nil {
-			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: TEXT_VIEW_HEIGHT, width: self.viewWidth, height: self.viewHeight - TEXT_VIEW_HEIGHT))
+			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: self.statusBarHeight + self.topBarHeight + TEXT_VIEW_HEIGHT, width: self.viewWidth, height: self.viewHeight - TEXT_VIEW_HEIGHT))
 			self.scrollView.backgroundColor = self.theme.colorPalates.primary.P50
 			self.scrollView.layer.zPosition = self.scrollViewZPosition
 			self.view.addSubview(self.scrollView)
 
 			self.scrollView.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(self.outputTextView.snp_bottom)
-				make.right.equalTo(self.view).offset(0)
+				make.top.equalTo(self.textBackgroundView.snp_bottom)
+				make.right.equalTo(self.view)
 				make.bottom.equalTo(self.view).offset(-self.tabBarHeight)
-				make.left.equalTo(self.view).offset(0)
+				make.left.equalTo(self.view)
 			}
 		}
 	}
@@ -239,18 +251,18 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		self.inputTextView.attributedText = self.getAttributedStringFrom(" ")
 
 		if self.lineBreakView == nil {
-			self.lineBreakView = UIView(frame: CGRect(x: 0, y: TEXT_VIEW_HEIGHT + self.statusBarHeight + self.topBarHeight - LINE_BREAK_HEIGHT, width: textView.bounds.width, height: LINE_BREAK_HEIGHT))
+			self.lineBreakView = UIView(frame: CGRect(x: 0, y: TEXT_VIEW_HEIGHT, width: self.textBackgroundView.bounds.width, height: LINE_BREAK_HEIGHT))
 			self.lineBreakView.backgroundColor = UIColor(hex: 0x000, alpha: 0.1)
 			self.lineBreakView.layer.zPosition = CGFloat.max
-			self.view.addSubview(self.lineBreakView)
+			self.textBackgroundView.addSubview(self.lineBreakView)
 		}
 
 		self.lineBreakView.hidden = false
 		self.inputTextView.layer.zPosition = self.inputTextViewZPosition + 1
 		self.outputTextView.layer.zPosition = self.outputTextViewZPosition + 1
 		self.lineBreakView.snp_remakeConstraints(closure: { (make) -> Void in
-			make.left.equalTo(self.outputTextView)
-			make.right.equalTo(self.outputTextView)
+			make.left.equalTo(self.textBackgroundView)
+			make.right.equalTo(self.textBackgroundView)
 			make.bottom.equalTo(self.inputTextView)
 			make.height.equalTo(LINE_BREAK_HEIGHT)
 		})
@@ -276,9 +288,9 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		self.outputTextView.text = nil
 		textView.attributedText = self.attributedHintText
 		self.lineBreakView.snp_remakeConstraints(closure: { (make) -> Void in
-			make.left.equalTo(textView)
-			make.right.equalTo(textView)
-			make.bottom.equalTo(self.outputTextView)
+			make.left.equalTo(self.textBackgroundView)
+			make.right.equalTo(self.textBackgroundView)
+			make.bottom.equalTo(self.textBackgroundView)
 			make.height.equalTo(LINE_BREAK_HEIGHT)
 		})
 		UIView.animateWithDuration(0.15,
@@ -286,6 +298,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			options: .CurveLinear,
 			animations: { () -> Void in
 				self.view.layoutIfNeeded()
+				self.textBackgroundView.addMDShadow(withDepth: 1)
 			}) { (succeed) -> Void in
 				if succeed {
 					self.lineBreakView.hidden = true
