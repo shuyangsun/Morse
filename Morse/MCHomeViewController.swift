@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-let INPUT_TEXT_VIEW_HEIGHT:CGFloat = 140
+let TEXT_VIEW_HEIGHT:CGFloat = 140
 let LINE_BREAK_HEIGHT:CGFloat = 1.0
 
 class MCHomeViewController: UIViewController, UITextViewDelegate {
@@ -24,8 +24,9 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 
 	private var statusBarView:UIView!
 	private var topBarView:UIView!
+	private var hiddenLineView:UIView!
 	private var inputTextView:UITextView!
-	private var breakLineView:UIView!
+	private var lineBreakView:UIView!
 	private var outputTextView:UITextView!
 	private var scrollView:UIScrollView!
 	private var isDirectionEncode:Bool = true
@@ -125,14 +126,15 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		}
 
 		if self.inputTextView == nil {
-			self.inputTextView = UITextView(frame: CGRect(x: 0, y: 0, width: self.viewWidth, height: INPUT_TEXT_VIEW_HEIGHT))
-			self.inputTextView.addMDShadow(withDepth: 1)
+			self.inputTextView = UITextView(frame: CGRect(x: 0, y: 0, width: self.viewWidth, height: TEXT_VIEW_HEIGHT/2.0))
 			self.inputTextView.backgroundColor = self.theme.colorPalates.primary.P50
 			self.inputTextView.keyboardType = .ASCIICapable
 			self.inputTextView.returnKeyType = .Done
 			self.inputTextView.attributedText = self.attributedHintText
-			self.inputTextView.layer.zPosition = 1
 			self.inputTextView.delegate = self
+			self.inputTextView.layer.borderColor = UIColor.clearColor().CGColor
+			self.inputTextView.layer.borderWidth = 0
+			self.inputTextView.layer.zPosition = 1
 			self.view.addSubview(self.inputTextView)
 
 			// Configure contraints
@@ -140,15 +142,33 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 				make.top.equalTo(self.topBarView.snp_bottom)
 				make.right.equalTo(self.view)
 				make.left.equalTo(self.view)
-				make.height.equalTo(INPUT_TEXT_VIEW_HEIGHT)
+				make.height.equalTo(TEXT_VIEW_HEIGHT/2.0)
 			}
 		}
 
+		if self.hiddenLineView == nil {
+			self.hiddenLineView = UIView(frame: CGRect(x: 0, y: TEXT_VIEW_HEIGHT/2.0 + self.statusBarHeight + self.topBarHeight - LINE_BREAK_HEIGHT, width: self.inputTextView.bounds.width, height: LINE_BREAK_HEIGHT))
+			if let color = self.inputTextView.backgroundColor {
+				self.hiddenLineView.backgroundColor = color
+			}
+			self.hiddenLineView.layer.zPosition = CGFloat.max - 1
+			self.view.addSubview(self.hiddenLineView)
+
+			self.hiddenLineView.snp_remakeConstraints(closure: { (make) -> Void in
+				make.left.equalTo(self.inputTextView)
+				make.right.equalTo(self.inputTextView)
+				make.bottom.equalTo(self.inputTextView)
+				make.height.equalTo(LINE_BREAK_HEIGHT)
+			})
+		}
+
 		if self.outputTextView == nil {
-			self.outputTextView = UITextView(frame: CGRect(x: 0, y: self.inputTextView.bounds.height + self.topBarHeight, width: self.viewWidth, height: 0))
+			self.outputTextView = UITextView(frame: CGRect(x: 0, y: self.inputTextView.bounds.height + self.topBarHeight + self.statusBarHeight, width: self.viewWidth, height: TEXT_VIEW_HEIGHT/2.0))
 			self.outputTextView.backgroundColor = self.theme.colorPalates.primary.P50
 			self.outputTextView.editable = false
-			self.outputTextView.hidden = true
+			self.outputTextView.layer.borderColor = UIColor.clearColor().CGColor
+			self.outputTextView.layer.borderWidth = 0
+			self.outputTextView.layer.zPosition = 1
 			self.view.addSubview(self.outputTextView)
 
 			// Configure contraints
@@ -156,12 +176,18 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 				make.top.equalTo(self.inputTextView.snp_bottom)
 				make.right.equalTo(self.view)
 				make.left.equalTo(self.view)
-				make.bottom.equalTo(self.view.snp_top).offset(self.statusBarHeight + self.topBarHeight + INPUT_TEXT_VIEW_HEIGHT)
+				make.height.equalTo(TEXT_VIEW_HEIGHT/2.0)
 			}
 		}
 
+		if self.inputTextView.isFirstResponder() {
+			self.outputTextView.addMDShadow(withDepth: 2)
+		} else {
+			self.outputTextView.addMDShadow(withDepth: 1)
+		}
+
 		if self.scrollView == nil {
-			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: INPUT_TEXT_VIEW_HEIGHT, width: self.viewWidth, height: self.viewHeight - INPUT_TEXT_VIEW_HEIGHT))
+			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: TEXT_VIEW_HEIGHT, width: self.viewWidth, height: self.viewHeight - TEXT_VIEW_HEIGHT))
 			self.scrollView.backgroundColor = self.theme.colorPalates.primary.P50
 			self.scrollView.layer.zPosition = 0
 			self.view.addSubview(self.scrollView)
@@ -185,40 +211,31 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	// *****************************
 	func textViewDidBeginEditing(textView: UITextView) {
 
-		if self.breakLineView == nil {
-			self.breakLineView = UIView(frame: CGRect(x: 0, y: textView.bounds.height + self.topBarHeight - LINE_BREAK_HEIGHT, width: textView.bounds.width, height: LINE_BREAK_HEIGHT))
-			self.breakLineView!.backgroundColor = UIColor(hex: 0x000, alpha: 0.1)
-			self.breakLineView!.layer.zPosition = CGFloat.max
-			self.view.addSubview(self.breakLineView!)
-			self.breakLineView.snp_makeConstraints(closure: { (make) -> Void in
-				make.left.equalTo(textView).offset(0)
-				make.right.equalTo(textView).offset(0)
-				make.bottom.equalTo(textView.snp_bottom)
-				make.height.equalTo(LINE_BREAK_HEIGHT)
-			})
+		self.inputTextView.attributedText = self.getAttributedStringFrom(" ")
+
+		if self.lineBreakView == nil {
+			self.lineBreakView = UIView(frame: CGRect(x: 0, y: TEXT_VIEW_HEIGHT + self.statusBarHeight + self.topBarHeight - LINE_BREAK_HEIGHT, width: textView.bounds.width, height: LINE_BREAK_HEIGHT))
+			self.lineBreakView.backgroundColor = UIColor(hex: 0x000, alpha: 0.1)
+			self.lineBreakView.layer.zPosition = CGFloat.max
+			self.view.addSubview(self.lineBreakView)
 		}
-		self.breakLineView.hidden = false
-		self.outputTextView.hidden = false
+
+		self.lineBreakView.hidden = false
 		self.inputTextView.layer.zPosition = 1
 		self.outputTextView.layer.zPosition = 1
+		self.lineBreakView.snp_remakeConstraints(closure: { (make) -> Void in
+			make.left.equalTo(self.outputTextView)
+			make.right.equalTo(self.outputTextView)
+			make.bottom.equalTo(self.inputTextView)
+			make.height.equalTo(LINE_BREAK_HEIGHT)
+		})
 
-		textView.attributedText = self.getAttributedStringFrom(" ")
-		textView.addMDShadow(withDepth: 0)
-		textView.layer.masksToBounds = true
-		textView.snp_remakeConstraints { (make) -> Void in
-			make.top.equalTo(self.topBarView.snp_bottom)
-			make.right.equalTo(self.view)
-			make.left.equalTo(self.view)
-			make.height.equalTo(INPUT_TEXT_VIEW_HEIGHT/2.0)
-		}
 		UIView.animateWithDuration(0.15,
 			delay: 0.0,
 			options: .CurveLinear,
 			animations: { () -> Void in
 				self.view.layoutIfNeeded()
-				self.outputTextView.addMDShadow(withDepth: 1)
 			}) { (succeed) -> Void in
-				textView.bounds = CGRect(x: 0, y: 0, width: textView.frame.width, height: textView.frame.height)
 		}
 	}
 
@@ -232,27 +249,22 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	}
 
 	func textViewDidEndEditing(textView: UITextView) {
-		textView.snp_remakeConstraints { (make) -> Void in
-			make.top.equalTo(self.topBarView.snp_bottom)
-			make.right.equalTo(self.view)
-			make.left.equalTo(self.view)
-			make.height.equalTo(INPUT_TEXT_VIEW_HEIGHT)
-		}
+		self.outputTextView.text = nil
+		textView.attributedText = self.attributedHintText
+		self.lineBreakView.snp_remakeConstraints(closure: { (make) -> Void in
+			make.left.equalTo(textView)
+			make.right.equalTo(textView)
+			make.bottom.equalTo(self.outputTextView)
+			make.height.equalTo(LINE_BREAK_HEIGHT)
+		})
 		UIView.animateWithDuration(0.15,
 			delay: 0.0,
 			options: .CurveLinear,
 			animations: { () -> Void in
 				self.view.layoutIfNeeded()
-				self.outputTextView.addMDShadow(withDepth: 0)
 			}) { (succeed) -> Void in
 				if succeed {
-					textView.layer.masksToBounds = false
-					textView.bounds = CGRect(x: 0, y: 0, width: textView.frame.width, height: textView.frame.height)
-					textView.addMDShadow(withDepth: 1)
-					textView.attributedText = self.attributedHintText
-					self.outputTextView.text = nil
-					self.breakLineView.hidden = true
-					self.outputTextView.hidden = true
+					self.lineBreakView.hidden = true
 				}
 		}
 	}
