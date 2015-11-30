@@ -22,6 +22,11 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	// MARK: Private Properties
 	// *****************************
 
+	private let inputTextViewZPosition:CGFloat = 2.0
+	private let outputTextViewZPosition:CGFloat = 2.0
+	private let textBoxShadowViewZPosition:CGFloat = 1.0
+	private let scrollViewZPosition:CGFloat = 0.0
+
 	private var statusBarView:UIView!
 	private var topBarView:UIView!
 	private var hiddenLineView:UIView!
@@ -135,7 +140,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			self.inputTextView.delegate = self
 			self.inputTextView.layer.borderColor = UIColor.clearColor().CGColor
 			self.inputTextView.layer.borderWidth = 0
-			self.inputTextView.layer.zPosition = 2
+			self.inputTextView.layer.zPosition = self.inputTextViewZPosition
 			self.view.addSubview(self.inputTextView)
 
 			// Configure contraints
@@ -163,40 +168,20 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			})
 		}
 
-		if self.outputTextView == nil {
-			self.outputTextView = UITextView(frame: CGRect(x: 0, y: self.inputTextView.bounds.height + self.topBarHeight + self.statusBarHeight, width: self.viewWidth, height: TEXT_VIEW_HEIGHT/2.0))
-			let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "outputTextViewTapped:")
-			tapGestureRecognizer.cancelsTouchesInView = false
-			self.outputTextView.addGestureRecognizer(tapGestureRecognizer)
-			self.outputTextView.backgroundColor = self.theme.colorPalates.primary.P50
-			self.outputTextView.editable = false
-			self.outputTextView.layer.borderColor = UIColor.clearColor().CGColor
-			self.outputTextView.layer.borderWidth = 0
-			self.outputTextView.layer.zPosition = 2
-			self.view.addSubview(self.outputTextView)
-
-			// Configure contraints
-			self.outputTextView.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(self.inputTextView.snp_bottom)
-				make.right.equalTo(self.view)
-				make.left.equalTo(self.view)
-				make.height.equalTo(TEXT_VIEW_HEIGHT/2.0)
-			}
-		}
-
-		self.outputTextView.bounds = CGRect(x: 0, y: 0, width: self.outputTextView.frame.width, height: self.outputTextView.frame.height)
-
 		if self.textBoxShadowView == nil {
-			self.textBoxShadowView = UITextView(frame: CGRect(x: 0, y: self.inputTextView.bounds.height + self.topBarHeight + self.statusBarHeight, width: self.viewWidth, height: TEXT_VIEW_HEIGHT/2.0))
+			self.textBoxShadowView = UIView(frame: CGRect(x: 0, y: self.inputTextView.bounds.height + self.topBarHeight + self.statusBarHeight, width: self.viewWidth, height: TEXT_VIEW_HEIGHT/2.0))
 			self.textBoxShadowView.backgroundColor = self.theme.colorPalates.primary.P50
 			self.textBoxShadowView.layer.borderColor = UIColor.clearColor().CGColor
 			self.textBoxShadowView.layer.borderWidth = 0
-			self.textBoxShadowView.layer.zPosition = 1
+			self.textBoxShadowView.layer.zPosition = self.textBoxShadowViewZPosition
 			self.view.addSubview(self.textBoxShadowView)
 
 			// Configure contraints
 			self.textBoxShadowView.snp_makeConstraints { (make) -> Void in
-				make.edges.equalTo(self.outputTextView).inset(UIEdgeInsetsMake(0, 0, 0, 0))
+				make.top.equalTo(self.inputTextView.snp_bottom)
+				make.right.equalTo(self.view)
+				make.left.equalTo(self.view)
+				make.height.equalTo(TEXT_VIEW_HEIGHT/2.0)
 			}
 		}
 
@@ -206,10 +191,30 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			self.textBoxShadowView.addMDShadow(withDepth: 1)
 		}
 
+		if self.outputTextView == nil {
+			self.outputTextView = UITextView(frame: CGRect(x: 0, y: self.inputTextView.bounds.height + self.topBarHeight + self.statusBarHeight, width: self.viewWidth, height: TEXT_VIEW_HEIGHT/2.0))
+			let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "outputTextViewTapped:")
+			tapGestureRecognizer.cancelsTouchesInView = false
+			self.outputTextView.addGestureRecognizer(tapGestureRecognizer)
+			self.outputTextView.backgroundColor = self.theme.colorPalates.primary.P50
+			self.outputTextView.editable = false
+			self.outputTextView.layer.borderColor = UIColor.clearColor().CGColor
+			self.outputTextView.layer.borderWidth = 0
+			self.outputTextView.layer.zPosition = self.outputTextViewZPosition
+			self.view.addSubview(self.outputTextView)
+
+			// Configure contraints
+			self.outputTextView.snp_makeConstraints { (make) -> Void in
+				make.edges.equalTo(self.textBoxShadowView).inset(UIEdgeInsetsMake(0, 0, 0, 0))
+			}
+		}
+
+		self.outputTextView.bounds = CGRect(x: 0, y: 0, width: self.outputTextView.frame.width, height: self.outputTextView.frame.height)
+
 		if self.scrollView == nil {
 			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: TEXT_VIEW_HEIGHT, width: self.viewWidth, height: self.viewHeight - TEXT_VIEW_HEIGHT))
 			self.scrollView.backgroundColor = self.theme.colorPalates.primary.P50
-			self.scrollView.layer.zPosition = 0
+			self.scrollView.layer.zPosition = self.scrollViewZPosition
 			self.view.addSubview(self.scrollView)
 
 			self.scrollView.snp_makeConstraints { (make) -> Void in
@@ -241,8 +246,8 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		}
 
 		self.lineBreakView.hidden = false
-		self.inputTextView.layer.zPosition = 1
-		self.outputTextView.layer.zPosition = 1
+		self.inputTextView.layer.zPosition = self.inputTextViewZPosition + 1
+		self.outputTextView.layer.zPosition = self.outputTextViewZPosition + 1
 		self.lineBreakView.snp_remakeConstraints(closure: { (make) -> Void in
 			make.left.equalTo(self.outputTextView)
 			make.right.equalTo(self.outputTextView)
@@ -255,8 +260,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			options: .CurveLinear,
 			animations: { () -> Void in
 				self.view.layoutIfNeeded()
-			}) { (succeed) -> Void in
-		}
+		}, completion: nil)
 	}
 
 	func textViewDidChange(textView: UITextView) {
