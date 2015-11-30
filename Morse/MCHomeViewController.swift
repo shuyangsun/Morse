@@ -28,6 +28,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	private var inputTextView:UITextView!
 	private var lineBreakView:UIView!
 	private var outputTextView:UITextView!
+	private var textBoxShadowView:UIView!
 	private var scrollView:UIScrollView!
 	private var isDirectionEncode:Bool = true
 	private let coder = MorseCoder()
@@ -134,7 +135,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			self.inputTextView.delegate = self
 			self.inputTextView.layer.borderColor = UIColor.clearColor().CGColor
 			self.inputTextView.layer.borderWidth = 0
-			self.inputTextView.layer.zPosition = 1
+			self.inputTextView.layer.zPosition = 2
 			self.view.addSubview(self.inputTextView)
 
 			// Configure contraints
@@ -164,11 +165,14 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 
 		if self.outputTextView == nil {
 			self.outputTextView = UITextView(frame: CGRect(x: 0, y: self.inputTextView.bounds.height + self.topBarHeight + self.statusBarHeight, width: self.viewWidth, height: TEXT_VIEW_HEIGHT/2.0))
+			let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "outputTextViewTapped:")
+			tapGestureRecognizer.cancelsTouchesInView = false
+			self.outputTextView.addGestureRecognizer(tapGestureRecognizer)
 			self.outputTextView.backgroundColor = self.theme.colorPalates.primary.P50
 			self.outputTextView.editable = false
 			self.outputTextView.layer.borderColor = UIColor.clearColor().CGColor
 			self.outputTextView.layer.borderWidth = 0
-			self.outputTextView.layer.zPosition = 1
+			self.outputTextView.layer.zPosition = 2
 			self.view.addSubview(self.outputTextView)
 
 			// Configure contraints
@@ -180,10 +184,26 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			}
 		}
 
+		self.outputTextView.bounds = CGRect(x: 0, y: 0, width: self.outputTextView.frame.width, height: self.outputTextView.frame.height)
+
+		if self.textBoxShadowView == nil {
+			self.textBoxShadowView = UITextView(frame: CGRect(x: 0, y: self.inputTextView.bounds.height + self.topBarHeight + self.statusBarHeight, width: self.viewWidth, height: TEXT_VIEW_HEIGHT/2.0))
+			self.textBoxShadowView.backgroundColor = self.theme.colorPalates.primary.P50
+			self.textBoxShadowView.layer.borderColor = UIColor.clearColor().CGColor
+			self.textBoxShadowView.layer.borderWidth = 0
+			self.textBoxShadowView.layer.zPosition = 1
+			self.view.addSubview(self.textBoxShadowView)
+
+			// Configure contraints
+			self.textBoxShadowView.snp_makeConstraints { (make) -> Void in
+				make.edges.equalTo(self.outputTextView).inset(UIEdgeInsetsMake(0, 0, 0, 0))
+			}
+		}
+
 		if self.inputTextView.isFirstResponder() {
-			self.outputTextView.addMDShadow(withDepth: 2)
+			self.textBoxShadowView.addMDShadow(withDepth: 2)
 		} else {
-			self.outputTextView.addMDShadow(withDepth: 1)
+			self.textBoxShadowView.addMDShadow(withDepth: 1)
 		}
 
 		if self.scrollView == nil {
@@ -274,6 +294,12 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			textView.resignFirstResponder()
 		}
 		return true
+	}
+
+	func outputTextViewTapped(gestureRecognizer:UITapGestureRecognizer) {
+		if !self.inputTextView.isFirstResponder() {
+			self.inputTextView.becomeFirstResponder()
+		}
 	}
 
 	// *****************************
