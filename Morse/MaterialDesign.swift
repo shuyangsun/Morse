@@ -99,15 +99,30 @@ extension UIView {
 		}
 	}
 
-	func triggerTapFeedBack(atLocation location:CGPoint, withColor color:UIColor = UIColor.whiteColor(), duration:NSTimeInterval = 0.2, completion: ((Void) -> Void)? = nil) {
+	func triggerTapFeedBack(atLocation location:CGPoint, withColor color:UIColor = UIColor.whiteColor(), duration:NSTimeInterval = 0.2, showSurfaceReaction:Bool = true, completion: ((Void) -> Void)? = nil) {
 		let overlayView = UIView(frame: self.bounds)
 		overlayView.clipsToBounds = true
 		overlayView.layer.cornerRadius = self.layer.cornerRadius
 		overlayView.backgroundColor = UIColor.clearColor()
 
+		let surfaceReactionView = UIView(frame: overlayView.bounds)
+		if showSurfaceReaction {
+			var r:CGFloat = 0
+			var g:CGFloat = 0
+			var b:CGFloat = 0
+			var a:CGFloat = 0
+			color.getRed(&r, green: &g, blue: &b, alpha: &a)
+			surfaceReactionView.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: a/2.0)
+			surfaceReactionView.opaque = false
+			surfaceReactionView.alpha = 0.0
+			overlayView.addSubview(surfaceReactionView)
+		}
+
 		let feedBackView = UIView(frame: CGRect(x: location.x, y: location.y, width: 2, height: 2))
 		feedBackView.backgroundColor = color
 		feedBackView.layer.cornerRadius = 1
+		feedBackView.opaque = false
+		feedBackView.alpha = 0.0
 		overlayView.addSubview(feedBackView)
 		self.insertSubview(overlayView, atIndex: 0)
 
@@ -119,31 +134,66 @@ extension UIView {
 		let topRightDistance = sqrt(dtXRightSquare + dtYTopSquare)
 		let bottomLeftDistance = sqrt(dtXLeftSquare + dtYBottomSquare)
 		let bottomRightDistance = sqrt(dtXRightSquare + dtYBottomSquare)
-		let scaleFactor = max(topLeftDistance, topRightDistance, bottomLeftDistance, bottomRightDistance)
+		let scaleFactor = max(topLeftDistance, topRightDistance, bottomLeftDistance, bottomRightDistance) - self.layer.cornerRadius * 0.414
 
-		UIView.animateWithDuration(duration * 2.0 / 3.0,
+		if showSurfaceReaction {
+			// Show surface reaction
+			UIView.animateWithDuration(duration / 3.0,
+				delay: 0.0,
+				options: .CurveEaseIn,
+				animations: { () -> Void in
+					surfaceReactionView.alpha = 1.0
+				}) { (succeed) -> Void in
+					if succeed {
+						// Hide surface reaction
+						UIView.animateWithDuration(duration * 2.0/3.0,
+							delay: 0.0,
+							options: .CurveEaseOut,
+							animations: { () -> Void in
+								surfaceReactionView.alpha = 0.0
+							}, completion: nil)
+					}
+			}
+		}
+
+		let circilAnimationDuration = showSurfaceReaction ? duration * 2.0/3.0 : duration
+
+		// Expand the circle
+		UIView.animateWithDuration(circilAnimationDuration,
 			delay: 0.0,
-			options: .CurveLinear,
+			options: .CurveEaseOut,
 			animations: { () -> Void in
 				feedBackView.transform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
-			}) { (success) -> Void in
-				if success {
-					UIView.animateWithDuration(duration / 3.0,
-						delay: 0.0,
-						options: .CurveLinear,
-						animations: { () -> Void in
-							feedBackView.alpha = 0.0
-						}) { (success) -> Void in
-							if success {
-								feedBackView.removeFromSuperview()
-								overlayView.removeFromSuperview()
-								if completion != nil {
-									completion!()
-								}
-							}
+			}) { (succeed) -> Void in
+				if succeed {
+					feedBackView.removeFromSuperview()
+					if showSurfaceReaction {
+						surfaceReactionView.removeFromSuperview()
+					}
+					overlayView.removeFromSuperview()
+					if completion != nil {
+						completion!()
 					}
 				}
 		}
+
+		// Show the circle
+		UIView.animateWithDuration(circilAnimationDuration/8.0,
+			delay: 0.0,
+			options: .CurveEaseOut,
+			animations: { () -> Void in
+				feedBackView.alpha = 1.0
+		}, completion: nil)
+
+		// Hid the circle
+		UIView.animateWithDuration(circilAnimationDuration * (1.0 - 1.0/8.0 - 1.0/3.0),
+			delay: circilAnimationDuration * (1.0/8.0 + 1.0/3.0),
+			options: .CurveEaseOut,
+			animations: { () -> Void in
+				feedBackView.alpha = 0.0
+		}, completion: nil)
+
+		// Change background color
 	}
 }
 

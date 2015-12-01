@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10286CCB1C0D1BCF00BD2B43 /* MCCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* MCCardView.swift */; };
+		10286CCC1C0D1BCF00BD2B43 /* MCCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* MCCardView.swift */; };
+		10286CCD1C0D1BCF00BD2B43 /* MCCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* MCCardView.swift */; };
 		1052A7431C0BACE90085B0C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7421C0BACE90085B0C9 /* AppDelegate.swift */; };
 		1052A7481C0BACE90085B0C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1052A7461C0BACE90085B0C9 /* Main.storyboard */; };
 		1052A74B1C0BACE90085B0C9 /* Morse.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7491C0BACE90085B0C9 /* Morse.xcdatamodeld */; };
@@ -30,6 +33,9 @@
 		107FF6C41C0C223D003EB294 /* Coder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6C31C0C223D003EB294 /* Coder.swift */; };
 		107FF6C51C0C223D003EB294 /* Coder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6C31C0C223D003EB294 /* Coder.swift */; };
 		107FF6C61C0C223D003EB294 /* Coder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6C31C0C223D003EB294 /* Coder.swift */; };
+		10826A181C0D5C4C00902BCC /* General UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10826A171C0D5C4C00902BCC /* General UI.swift */; };
+		10826A191C0D5C4C00902BCC /* General UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10826A171C0D5C4C00902BCC /* General UI.swift */; };
+		10826A1A1C0D5C4C00902BCC /* General UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10826A171C0D5C4C00902BCC /* General UI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +105,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		10286CCA1C0D1BCF00BD2B43 /* MCCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCCardView.swift; sourceTree = "<group>"; };
 		1052A73F1C0BACE90085B0C9 /* Morse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Morse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1052A7421C0BACE90085B0C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1052A7471C0BACE90085B0C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -118,6 +125,7 @@
 		107FF6AA1C0BC1FC003EB294 /* MaterialDesign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDesign.swift; sourceTree = "<group>"; };
 		107FF6B01C0BDEC0003EB294 /* SnapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SnapKit.xcodeproj; path = SnapKit/SnapKit.xcodeproj; sourceTree = "<group>"; };
 		107FF6C31C0C223D003EB294 /* Coder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coder.swift; sourceTree = "<group>"; };
+		10826A171C0D5C4C00902BCC /* General UI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "General UI.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +153,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		10286CD11C0D1BD800BD2B43 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				10286CCA1C0D1BCF00BD2B43 /* MCCardView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		1052A7361C0BACE90085B0C9 = {
 			isa = PBXGroup;
 			children = (
@@ -171,8 +187,9 @@
 			children = (
 				1052A7421C0BACE90085B0C9 /* AppDelegate.swift */,
 				107FF6AF1C0BDD1F003EB294 /* View Controllers */,
-				107FF6AE1C0BC20B003EB294 /* UI */,
+				10286CD11C0D1BD800BD2B43 /* Views */,
 				107FF6C71C0C2246003EB294 /* Model */,
+				107FF6AE1C0BC20B003EB294 /* UI */,
 				1052A7461C0BACE90085B0C9 /* Main.storyboard */,
 				1052A74C1C0BACE90085B0C9 /* Assets.xcassets */,
 				1052A74E1C0BACE90085B0C9 /* LaunchScreen.storyboard */,
@@ -204,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				107FF6A61C0BC128003EB294 /* Theme.swift */,
+				10826A171C0D5C4C00902BCC /* General UI.swift */,
 				107FF6AA1C0BC1FC003EB294 /* MaterialDesign.swift */,
 			);
 			name = UI;
@@ -407,6 +425,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10286CCB1C0D1BCF00BD2B43 /* MCCardView.swift in Sources */,
+				10826A181C0D5C4C00902BCC /* General UI.swift in Sources */,
 				107FF6C41C0C223D003EB294 /* Coder.swift in Sources */,
 				1052A7741C0BAED50085B0C9 /* MCTabBarController.swift in Sources */,
 				1052A77C1C0BB09B0085B0C9 /* MCHomeViewController.swift in Sources */,
@@ -422,11 +442,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1052A77D1C0BB09B0085B0C9 /* MCHomeViewController.swift in Sources */,
+				10286CCC1C0D1BCF00BD2B43 /* MCCardView.swift in Sources */,
 				107FF6C51C0C223D003EB294 /* Coder.swift in Sources */,
 				107FF6A81C0BC128003EB294 /* Theme.swift in Sources */,
 				1052A7751C0BAED50085B0C9 /* MCTabBarController.swift in Sources */,
 				1052A75B1C0BACEA0085B0C9 /* MorseTests.swift in Sources */,
 				107FF6AC1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
+				10826A191C0D5C4C00902BCC /* General UI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,11 +457,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1052A77E1C0BB09B0085B0C9 /* MCHomeViewController.swift in Sources */,
+				10286CCD1C0D1BCF00BD2B43 /* MCCardView.swift in Sources */,
 				107FF6C61C0C223D003EB294 /* Coder.swift in Sources */,
 				107FF6A91C0BC128003EB294 /* Theme.swift in Sources */,
 				1052A7761C0BAED50085B0C9 /* MCTabBarController.swift in Sources */,
 				1052A7661C0BACEA0085B0C9 /* MorseUITests.swift in Sources */,
 				107FF6AD1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
+				10826A1A1C0D5C4C00902BCC /* General UI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

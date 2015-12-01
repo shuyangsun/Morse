@@ -37,10 +37,11 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	// Scroll views
 	private var scrollViewOverlay:UIButton!
 	private var scrollView:UIScrollView!
-	private var isDirectionEncode:Bool = true
-	private let coder = MorseCoder()
+	private var cardViews:[MCCardView] = []
 
 	// Other private variables
+	private var isDirectionEncode:Bool = true
+	private let coder = MorseCoder()
 	private var viewWidth:CGFloat {
 		return self.view.bounds.width
 	}
@@ -91,6 +92,35 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		return NSMutableAttributedString(string: self.hintText, attributes:
 			[NSFontAttributeName: UIFont.systemFontOfSize(16),
 				NSForegroundColorAttributeName: UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)])
+	}
+
+	private var cardViewLeftMargin:CGFloat {
+		if self.traitCollection.horizontalSizeClass == .Compact {
+			return 8
+		} else if self.traitCollection.horizontalSizeClass == .Regular {
+			return 16
+		}
+		return 8
+	}
+
+	private var cardViewRightMargin:CGFloat {
+		return self.cardViewLeftMargin
+	}
+
+	private var cardViewTopMargin:CGFloat {
+		return 10
+	}
+
+	private var cardViewBottomMargin:CGFloat {
+		return self.cardViewTopMargin
+	}
+
+	private var cardViewGapY:CGFloat {
+		return 8
+	}
+
+	private var cardViewHeight:CGFloat {
+		return 74
 	}
 
 	// *****************************
@@ -162,6 +192,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			self.inputTextView = UITextView(frame: CGRect(x: 0, y: 0, width: self.textBackgroundView.bounds.width, height: TEXT_VIEW_HEIGHT/2.0))
 			self.inputTextView.backgroundColor = UIColor.clearColor()
 			self.inputTextView.opaque = false
+			self.inputTextView.keyboardAppearance = .Dark
 			self.inputTextView.keyboardType = .ASCIICapable
 			self.inputTextView.returnKeyType = .Done
 			self.inputTextView.attributedText = self.attributedHintText
@@ -240,6 +271,10 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		if self.scrollView == nil {
 			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: self.statusBarHeight + self.topBarHeight + TEXT_VIEW_HEIGHT, width: self.viewWidth, height: self.viewHeight - TEXT_VIEW_HEIGHT))
 			self.scrollView.backgroundColor = self.theme.colorPalates.primary.P50
+			self.scrollView.userInteractionEnabled = true
+			self.scrollView.bounces = true
+			self.scrollView.showsHorizontalScrollIndicator = false
+			self.scrollView.showsVerticalScrollIndicator = true
 			self.view.insertSubview(self.scrollView, belowSubview: self.textBackgroundView)
 
 			self.scrollView.snp_makeConstraints { (make) -> Void in
@@ -338,6 +373,9 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 
 	func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
 		if text == "\n" {
+			let text = self.isDirectionEncode ? self.inputTextView.text : self.outputTextView.text
+			let morse = self.isDirectionEncode ? self.outputTextView.text : self.inputTextView.text
+			self.addCardViewWithText(text, morse: morse, textOnTop: self.isDirectionEncode, animateWithDuration: 0.3)
 			textView.resignFirstResponder()
 		}
 		return true
@@ -349,12 +387,19 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		if !self.inputTextView.isFirstResponder() {
 			self.inputTextView.becomeFirstResponder()
 		}
-		self.textBackgroundView.triggerTapFeedBack(atLocation: gestureRecognizer.locationInView(self.textBackgroundView), withColor: self.theme.colorPalates.primary.P100, duration: 0.2 * self.animationDurationScalar)
+		self.textBackgroundView.triggerTapFeedBack(atLocation: gestureRecognizer.locationInView(self.textBackgroundView), withColor: self.theme.colorPalates.primary.P100, duration: TAP_FEED_BACK_DURATION * self.animationDurationScalar)
 	}
+
 
 	func scrollViewOverlayTapped(button:UIButton) {
 		if self.inputTextView.isFirstResponder() {
 			self.inputTextView.resignFirstResponder()
+		}
+	}
+
+	func cardViewTapped(gestureRecognizer:UITapGestureRecognizer) {
+		for ele in self.cardViews {
+			let location = gestureRecognizer.locationInView(ele)
 		}
 	}
 
@@ -368,14 +413,54 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 				NSForegroundColorAttributeName: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha)])
 	}
 
-    /*
-    // MARK: - Navigation
+	private func addCardViewWithText(text:String, morse:String, textOnTop:Bool = true, animateWithDuration duration:NSTimeInterval = 0.0) {
+		let cardView = MCCardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), theme: self.theme, text: text, morse: morse, textOnTop: textOnTop)
+		cardView.opaque = false
+		cardView.alpha = 0.0
+		let tapGR = UITapGestureRecognizer(target: self, action: "cardViewTapped:")
+		tapGR.cancelsTouchesInView = false
+		cardView.addGestureRecognizer(tapGR)
+		self.scrollView.addSubview(cardView)
+		self.cardViews.insert(cardView, atIndex: 0)
+		self.updateCardViews()
+		UIView.animateWithDuration(duration / 3.0,
+			delay: 0.0,
+			options: .CurveEaseInOut,
+			animations: { () -> Void in
+				self.scrollView.layoutIfNeeded()
+			}) { (succeed) -> Void in
+				UIView.animateWithDuration(duration * 2.0 / 3.0,
+					delay: 0.0,
+					options: .CurveEaseInOut,
+					animations: { () -> Void in
+						cardView.alpha = 1.0
+					}) { (succeed) -> Void in
+						cardView.opaque = true
+				}
+		}
+	}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+	private func updateCardViews() {
+		let views = self.cardViews
+		for i in 0..<views.count {
+			if i == 0 {
+				views[i].snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(self.cardViewTopMargin)
+					make.left.equalTo(self.cardViewLeftMargin)
+//					make.right.equalTo(self.scrollView.snp_right)
+					make.width.equalTo(self.view.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin)
+					make.height.equalTo(self.cardViewHeight)
+				})
+			} else {
+				views[i].snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(views[i - 1].snp_bottom).offset(self.cardViewGapY)
+					make.left.equalTo(self.cardViewLeftMargin)
+//					make.right.equalTo(self.scrollView.snp_right)
+					make.width.equalTo(self.view.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin)
+					make.height.equalTo(self.cardViewHeight)
+				})
+			}
+		}
+		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: self.cardViewTopMargin + CGFloat(self.cardViews.count) * self.cardViewHeight + self.cardViewBottomMargin)
+	}
 }
