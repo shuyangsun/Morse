@@ -46,9 +46,6 @@ extension UIView {
 					//					self.layer.addSublayer(bottomLayer)
 				}
 
-				topLayer.masksToBounds = false
-				bottomLayer.masksToBounds = false
-
 				typealias ShadowProperties = (alpha:CGFloat, xOffset:CGFloat, yOffset:CGFloat, blur:CGFloat)
 				var shadowValues:(topShadowProperties:ShadowProperties, bottomShadowProperties:ShadowProperties)?
 				switch depth {
@@ -141,17 +138,21 @@ extension UIView {
 			UIView.animateWithDuration(duration / 3.0,
 				delay: 0.0,
 				options: .CurveEaseIn,
-				animations: { () -> Void in
+				animations: {
 					surfaceReactionView.alpha = 1.0
-				}) { (succeed) -> Void in
+				}) { succeed in
 					if succeed {
 						// Hide surface reaction
 						UIView.animateWithDuration(duration * 2.0/3.0,
 							delay: 0.0,
 							options: .CurveEaseOut,
-							animations: { () -> Void in
+							animations: {
 								surfaceReactionView.alpha = 0.0
-							}, completion: nil)
+							}) { succeed in
+								if succeed {
+									surfaceReactionView.removeFromSuperview()
+								}
+						}
 					}
 			}
 		}
@@ -162,14 +163,11 @@ extension UIView {
 		UIView.animateWithDuration(circilAnimationDuration,
 			delay: 0.0,
 			options: .CurveEaseOut,
-			animations: { () -> Void in
+			animations: {
 				feedBackView.transform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
-			}) { (succeed) -> Void in
+			}) { succeed in
 				if succeed {
 					feedBackView.removeFromSuperview()
-					if showSurfaceReaction {
-						surfaceReactionView.removeFromSuperview()
-					}
 					overlayView.removeFromSuperview()
 					if completion != nil {
 						completion!()
@@ -181,7 +179,7 @@ extension UIView {
 		UIView.animateWithDuration(circilAnimationDuration/8.0,
 			delay: 0.0,
 			options: .CurveEaseOut,
-			animations: { () -> Void in
+			animations: {
 				feedBackView.alpha = 1.0
 		}, completion: nil)
 
@@ -189,7 +187,7 @@ extension UIView {
 		UIView.animateWithDuration(circilAnimationDuration * (1.0 - 1.0/8.0 - 1.0/3.0),
 			delay: circilAnimationDuration * (1.0/8.0 + 1.0/3.0),
 			options: .CurveEaseOut,
-			animations: { () -> Void in
+			animations: {
 				feedBackView.alpha = 0.0
 		}, completion: nil)
 

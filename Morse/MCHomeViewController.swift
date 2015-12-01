@@ -15,10 +15,6 @@ let LINE_BREAK_HEIGHT:CGFloat = 1.0
 class MCHomeViewController: UIViewController, UITextViewDelegate {
 
 	// *****************************
-	// MARK: Internal Properties
-	// *****************************
-
-	// *****************************
 	// MARK: Private Properties
 	// *****************************
 
@@ -42,6 +38,10 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	// Other private variables
 	private var isDirectionEncode:Bool = true
 	private let coder = MorseCoder()
+
+	// *****************************
+	// MARK: View related variables
+	// *****************************
 	private var viewWidth:CGFloat {
 		return self.view.bounds.width
 	}
@@ -72,6 +72,8 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		}
 	}
 
+	private let roundButtonRadius:CGFloat = 28.0
+
 	private var theme:Theme {
 		if let delegate = UIApplication.sharedApplication().delegate as? AppDelegate {
 			return delegate.theme
@@ -96,11 +98,11 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 
 	private var cardViewLeftMargin:CGFloat {
 		if self.traitCollection.horizontalSizeClass == .Compact {
-			return 8
-		} else if self.traitCollection.horizontalSizeClass == .Regular {
 			return 16
+		} else if self.traitCollection.horizontalSizeClass == .Regular {
+			return 32
 		}
-		return 8
+		return 16
 	}
 
 	private var cardViewRightMargin:CGFloat {
@@ -108,15 +110,25 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	}
 
 	private var cardViewTopMargin:CGFloat {
-		return 10
+		if self.traitCollection.verticalSizeClass == .Regular &&
+			self.traitCollection.horizontalSizeClass == .Regular {
+			return self.roundButtonRadius + 6
+		} else {
+			return self.roundButtonRadius + 3
+		}
 	}
 
 	private var cardViewBottomMargin:CGFloat {
-		return self.cardViewTopMargin
+		return self.cardViewLeftMargin
 	}
 
 	private var cardViewGapY:CGFloat {
-		return 8
+		if self.traitCollection.verticalSizeClass == .Regular &&
+			self.traitCollection.horizontalSizeClass == .Regular {
+			return 16
+		} else {
+			return 8
+		}
 	}
 
 	private var cardViewHeight:CGFloat {
@@ -139,7 +151,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 
 		if self.statusBarView == nil {
 			self.statusBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.statusBarHeight))
-			self.statusBarView.backgroundColor = self.theme.colorPalates.primary.P700
+			self.statusBarView.backgroundColor = self.theme.statusBarBackgroundColor
 			self.view.addSubview(self.statusBarView)
 			self.statusBarView.snp_makeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.view)
@@ -151,7 +163,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 
 		if self.topBarView == nil {
 			self.topBarView = UIView(frame: CGRect(x: 0, y: self.statusBarHeight, width: self.view.bounds.width, height: self.topBarHeight))
-			self.topBarView.backgroundColor = self.theme.primaryColor(withLevel: .Dark)
+			self.topBarView.backgroundColor = self.theme.topBarBackgroundColor
 			self.view.addSubview(topBarView)
 			let topBarLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.topBarView.bounds.width, height: self.topBarHeight))
 			topBarLabel.textAlignment = .Center
@@ -174,7 +186,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 
 		if self.textBackgroundView == nil {
 			self.textBackgroundView = UIView(frame: CGRect(x: 0, y: self.topBarHeight + self.statusBarHeight, width: self.viewWidth, height: TEXT_VIEW_HEIGHT))
-			self.textBackgroundView.backgroundColor = self.theme.colorPalates.primary.P50
+			self.textBackgroundView.backgroundColor = UIColor.whiteColor()
 			self.textBackgroundView.layer.borderColor = UIColor.clearColor().CGColor
 			self.textBackgroundView.layer.borderWidth = 0
 			self.view.addSubview(self.textBackgroundView)
@@ -192,7 +204,6 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			self.inputTextView = UITextView(frame: CGRect(x: 0, y: 0, width: self.textBackgroundView.bounds.width, height: TEXT_VIEW_HEIGHT/2.0))
 			self.inputTextView.backgroundColor = UIColor.clearColor()
 			self.inputTextView.opaque = false
-			self.inputTextView.keyboardAppearance = .Dark
 			self.inputTextView.keyboardType = .ASCIICapable
 			self.inputTextView.returnKeyType = .Done
 			self.inputTextView.attributedText = self.attributedHintText
@@ -206,14 +217,14 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 				make.top.equalTo(self.textBackgroundView)
 				make.right.equalTo(self.textBackgroundView)
 				make.left.equalTo(self.textBackgroundView)
-				make.height.equalTo(TEXT_VIEW_HEIGHT/2.0)
+				make.height.equalTo(self.textBackgroundView.snp_height).multipliedBy(0.5)
 			}
 		}
 
 		if self.inputTextView.isFirstResponder() {
-			self.textBackgroundView.addMDShadow(withDepth: 2)
+			self.textBackgroundView.addMDShadow(withDepth: 3)
 		} else {
-			self.textBackgroundView.addMDShadow(withDepth: 1)
+			self.textBackgroundView.addMDShadow(withDepth: 2)
 		}
 
 		if self.hiddenLineView == nil {
@@ -221,7 +232,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			if let color = self.inputTextView.backgroundColor {
 				self.hiddenLineView.backgroundColor = color
 			}
-			self.hiddenLineView.layer.zPosition = CGFloat.max - 1
+			self.hiddenLineView.layer.zPosition = CGFloat.max - 2
 			self.textBackgroundView.addSubview(self.hiddenLineView)
 
 			self.hiddenLineView.snp_remakeConstraints(closure: { (make) -> Void in
@@ -270,7 +281,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 
 		if self.scrollView == nil {
 			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: self.statusBarHeight + self.topBarHeight + TEXT_VIEW_HEIGHT, width: self.viewWidth, height: self.viewHeight - TEXT_VIEW_HEIGHT))
-			self.scrollView.backgroundColor = self.theme.colorPalates.primary.P50
+			self.scrollView.backgroundColor = UIColor.whiteColor()
 			self.scrollView.userInteractionEnabled = true
 			self.scrollView.bounces = true
 			self.scrollView.showsHorizontalScrollIndicator = false
@@ -288,7 +299,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		if self.scrollViewOverlay == nil {
 			self.scrollViewOverlay = UIButton(frame: CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: self.scrollView.bounds.height))
 			self.scrollViewOverlay.addTarget(self, action: "scrollViewOverlayTapped:", forControlEvents: .TouchUpInside)
-			self.scrollViewOverlay.backgroundColor = UIColor(hex: 0x000, alpha: 0.2)
+			self.scrollViewOverlay.backgroundColor = UIColor(hex: 0x000, alpha: 0.35)
 			self.scrollViewOverlay.opaque = false
 			self.scrollViewOverlay.layer.borderColor = UIColor.clearColor().CGColor
 			self.scrollViewOverlay.layer.borderWidth = 0
@@ -299,6 +310,12 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 				make.edges.equalTo(self.scrollView)
 			})
 		}
+
+		self.updateCardViews()
+	}
+
+	override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+		self.updateCardViews()
 	}
 
     override func didReceiveMemoryWarning() {
@@ -311,13 +328,13 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	// *****************************
 	func textViewDidBeginEditing(textView: UITextView) {
 
-		self.inputTextView.attributedText = self.getAttributedStringFrom(" ")
+		self.inputTextView.attributedText = getAttributedStringFrom(" ", withFontSize: 16, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
 		self.textBoxTapFeedBackView.hidden = true
 
 		if self.lineBreakView == nil {
 			self.lineBreakView = UIView(frame: CGRect(x: 0, y: TEXT_VIEW_HEIGHT, width: self.textBackgroundView.bounds.width, height: LINE_BREAK_HEIGHT))
 			self.lineBreakView.backgroundColor = UIColor(hex: 0x000, alpha: 0.1)
-			self.lineBreakView.layer.zPosition = CGFloat.max
+			self.lineBreakView.layer.zPosition = CGFloat.max - 1
 			self.textBackgroundView.addSubview(self.lineBreakView)
 		}
 
@@ -341,7 +358,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	func textViewDidChange(textView: UITextView) {
 		self.coder.text = textView.text
 		let outputText = self.coder.morse
-		self.outputTextView.attributedText = self.getAttributedStringFrom(outputText)
+		self.outputTextView.attributedText = getAttributedStringFrom(outputText, withFontSize: 16, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
 		if outputText != nil {
 			self.outputTextView.scrollRangeToVisible(NSMakeRange(outputText!.startIndex.distanceTo(outputText!.endIndex), 0))
 		}
@@ -363,7 +380,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			animations: { () -> Void in
 				self.view.layoutIfNeeded()
 				self.scrollViewOverlay.hidden = true
-				self.textBackgroundView.addMDShadow(withDepth: 1)
+				self.textBackgroundView.addMDShadow(withDepth: 2)
 			}) { (succeed) -> Void in
 				if succeed {
 					self.lineBreakView.hidden = true
@@ -375,7 +392,9 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		if text == "\n" {
 			let text = self.isDirectionEncode ? self.inputTextView.text : self.outputTextView.text
 			let morse = self.isDirectionEncode ? self.outputTextView.text : self.inputTextView.text
-			self.addCardViewWithText(text, morse: morse, textOnTop: self.isDirectionEncode, animateWithDuration: 0.3)
+			if self.inputTextView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) != "" || self.outputTextView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) != "" {
+				self.addCardViewWithText(text, morse: morse, textOnTop: self.isDirectionEncode, animateWithDuration: 0.3)
+			}
 			textView.resignFirstResponder()
 		}
 		return true
@@ -387,7 +406,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		if !self.inputTextView.isFirstResponder() {
 			self.inputTextView.becomeFirstResponder()
 		}
-		self.textBackgroundView.triggerTapFeedBack(atLocation: gestureRecognizer.locationInView(self.textBackgroundView), withColor: self.theme.colorPalates.primary.P100, duration: TAP_FEED_BACK_DURATION * self.animationDurationScalar)
+		self.textBackgroundView.triggerTapFeedBack(atLocation: gestureRecognizer.locationInView(self.textBackgroundView), withColor: self.theme.textViewTapFeedbackColor, duration: TAP_FEED_BACK_DURATION * self.animationDurationScalar)
 	}
 
 
@@ -397,29 +416,14 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		}
 	}
 
-	func cardViewTapped(gestureRecognizer:UITapGestureRecognizer) {
-		for ele in self.cardViews {
-			let location = gestureRecognizer.locationInView(ele)
-		}
-	}
-
 	// *****************************
 	// MARK: Private Functions
 	// *****************************
-
-	private func getAttributedStringFrom(text:String?) -> NSMutableAttributedString? {
-		return text == nil ? nil : NSMutableAttributedString(string: text!, attributes:
-			[NSFontAttributeName: UIFont.systemFontOfSize(16),
-				NSForegroundColorAttributeName: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha)])
-	}
 
 	private func addCardViewWithText(text:String, morse:String, textOnTop:Bool = true, animateWithDuration duration:NSTimeInterval = 0.0) {
 		let cardView = MCCardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), theme: self.theme, text: text, morse: morse, textOnTop: textOnTop)
 		cardView.opaque = false
 		cardView.alpha = 0.0
-		let tapGR = UITapGestureRecognizer(target: self, action: "cardViewTapped:")
-		tapGR.cancelsTouchesInView = false
-		cardView.addGestureRecognizer(tapGR)
 		self.scrollView.addSubview(cardView)
 		self.cardViews.insert(cardView, atIndex: 0)
 		self.updateCardViews()
@@ -441,13 +445,18 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	}
 
 	private func updateCardViews() {
+		var contentHeight = self.cardViewTopMargin + CGFloat(self.cardViews.count) * (self.cardViewHeight + self.cardViewGapY) + self.cardViewBottomMargin
+		if !self.cardViews.isEmpty {
+			contentHeight -= self.cardViewGapY
+		}
+		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
 		let views = self.cardViews
 		for i in 0..<views.count {
+			// TODO: If view is expanded (selected)
 			if i == 0 {
 				views[i].snp_remakeConstraints(closure: { (make) -> Void in
 					make.top.equalTo(self.cardViewTopMargin)
 					make.left.equalTo(self.cardViewLeftMargin)
-//					make.right.equalTo(self.scrollView.snp_right)
 					make.width.equalTo(self.view.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin)
 					make.height.equalTo(self.cardViewHeight)
 				})
@@ -455,12 +464,10 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 				views[i].snp_remakeConstraints(closure: { (make) -> Void in
 					make.top.equalTo(views[i - 1].snp_bottom).offset(self.cardViewGapY)
 					make.left.equalTo(self.cardViewLeftMargin)
-//					make.right.equalTo(self.scrollView.snp_right)
 					make.width.equalTo(self.view.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin)
 					make.height.equalTo(self.cardViewHeight)
 				})
 			}
 		}
-		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: self.cardViewTopMargin + CGFloat(self.cardViews.count) * self.cardViewHeight + self.cardViewBottomMargin)
 	}
 }

@@ -22,7 +22,7 @@ class MCTabBarController: UITabBarController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-		self.tabBar.barTintColor = self.theme.colorPalates.primary.P50
+		self.tabBar.barTintColor = self.theme.tabBarBackgroundColor
     }
 
     override func didReceiveMemoryWarning() {

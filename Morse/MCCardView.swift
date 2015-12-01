@@ -10,7 +10,7 @@ import UIKit
 
 class MCCardView: UIView {
 
-	private let paddingTop:CGFloat = 8
+	private let paddingTop:CGFloat = 16
 	private let paddingLeft:CGFloat = 15
 	private let paddingRight:CGFloat = 15
 	private let paddingBottom:CGFloat = 8
@@ -20,10 +20,13 @@ class MCCardView: UIView {
 	var morse:String?
 	var textOnTop = true
 	var theme:Theme = .Default
+	let defaultMDShadowLevel:Int = 1
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		self.layer.cornerRadius = 2.0
+		self.layer.cornerRadius = 0.0
+		self.backgroundColor = self.theme.cardViewBackgroudColor
+		self.addMDShadow(withDepth: self.defaultMDShadowLevel)
 	}
 
 	convenience init(frame:CGRect, theme:Theme = .Default, text:String?, morse:String?, textOnTop:Bool = true) {
@@ -33,11 +36,6 @@ class MCCardView: UIView {
 		self.textOnTop = textOnTop
 		self.theme = theme
 
-		// Custom things
-		self.layer.cornerRadius = 2.0
-		self.backgroundColor = self.theme.colorPalates.primary.P300
-		self.addMDShadow(withDepth: 1)
-
 		let topLabel = UILabel(frame: CGRect(x: self.paddingLeft, y: self.paddingTop, width: self.bounds.width - self.paddingLeft - self.paddingRight, height: (self.bounds.width - self.paddingTop - self.paddingBottom - self.gapY)/2.0))
 		topLabel.opaque = false
 		topLabel.backgroundColor = UIColor.clearColor()
@@ -45,9 +43,9 @@ class MCCardView: UIView {
 		topLabel.layer.borderColor = UIColor.clearColor().CGColor
 		topLabel.userInteractionEnabled = false
 		if self.textOnTop {
-			topLabel.attributedText = self.getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()))
+			topLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 16, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
 		} else {
-			topLabel.attributedText = self.getAttributedStringFrom(self.morse)
+			topLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 12, color: UIColor(hex: 0x000, alpha: MDDarkTextSecondaryAlpha))
 			topLabel.lineBreakMode = .ByClipping
 		}
 		self.addSubview(topLabel)
@@ -66,10 +64,10 @@ class MCCardView: UIView {
 		bottomLabel.layer.borderColor = UIColor.clearColor().CGColor
 		bottomLabel.userInteractionEnabled = false
 		if self.textOnTop {
-			bottomLabel.attributedText = self.getAttributedStringFrom(self.morse)
+			bottomLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 12, color: UIColor(hex: 0x000, alpha: MDDarkTextSecondaryAlpha))
 			bottomLabel.lineBreakMode = .ByClipping
 		} else {
-			bottomLabel.attributedText = self.getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()))
+			bottomLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 16, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
 		}
 		self.addSubview(bottomLabel)
 
@@ -89,18 +87,8 @@ class MCCardView: UIView {
 		for touch in touches {
 			let location = touch.locationInView(self)
 			if self.bounds.contains(location) {
-				self.triggerTapFeedBack(atLocation: location, withColor: self.theme.colorPalates.primary.P500, duration: TAP_FEED_BACK_DURATION)
+				self.triggerTapFeedBack(atLocation: location, withColor: self.theme.cardViewTapfeedbackColor, duration: TAP_FEED_BACK_DURATION)
 			}
 		}
-	}
-
-	// *****************************
-	// MARK: Private Functions
-	// *****************************
-
-	private func getAttributedStringFrom(text:String?) -> NSMutableAttributedString? {
-		return text == nil ? nil : NSMutableAttributedString(string: text!, attributes:
-			[NSFontAttributeName: UIFont.systemFontOfSize(16),
-				NSForegroundColorAttributeName: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha)])
 	}
 }

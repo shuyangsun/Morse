@@ -36,6 +36,9 @@
 		10826A181C0D5C4C00902BCC /* General UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10826A171C0D5C4C00902BCC /* General UI.swift */; };
 		10826A191C0D5C4C00902BCC /* General UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10826A171C0D5C4C00902BCC /* General UI.swift */; };
 		10826A1A1C0D5C4C00902BCC /* General UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10826A171C0D5C4C00902BCC /* General UI.swift */; };
+		109ACDC01C0E0D12006AC535 /* MCRoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* MCRoundButtonView.swift */; };
+		109ACDC11C0E0D12006AC535 /* MCRoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* MCRoundButtonView.swift */; };
+		109ACDC21C0E0D12006AC535 /* MCRoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* MCRoundButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +129,7 @@
 		107FF6B01C0BDEC0003EB294 /* SnapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SnapKit.xcodeproj; path = SnapKit/SnapKit.xcodeproj; sourceTree = "<group>"; };
 		107FF6C31C0C223D003EB294 /* Coder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coder.swift; sourceTree = "<group>"; };
 		10826A171C0D5C4C00902BCC /* General UI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "General UI.swift"; sourceTree = "<group>"; };
+		109ACDBF1C0E0D12006AC535 /* MCRoundButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCRoundButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				10286CCA1C0D1BCF00BD2B43 /* MCCardView.swift */,
+				109ACDBF1C0E0D12006AC535 /* MCRoundButtonView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -425,6 +430,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				109ACDC01C0E0D12006AC535 /* MCRoundButtonView.swift in Sources */,
 				10286CCB1C0D1BCF00BD2B43 /* MCCardView.swift in Sources */,
 				10826A181C0D5C4C00902BCC /* General UI.swift in Sources */,
 				107FF6C41C0C223D003EB294 /* Coder.swift in Sources */,
@@ -446,6 +452,7 @@
 				107FF6C51C0C223D003EB294 /* Coder.swift in Sources */,
 				107FF6A81C0BC128003EB294 /* Theme.swift in Sources */,
 				1052A7751C0BAED50085B0C9 /* MCTabBarController.swift in Sources */,
+				109ACDC11C0E0D12006AC535 /* MCRoundButtonView.swift in Sources */,
 				1052A75B1C0BACEA0085B0C9 /* MorseTests.swift in Sources */,
 				107FF6AC1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
 				10826A191C0D5C4C00902BCC /* General UI.swift in Sources */,
@@ -461,6 +468,7 @@
 				107FF6C61C0C223D003EB294 /* Coder.swift in Sources */,
 				107FF6A91C0BC128003EB294 /* Theme.swift in Sources */,
 				1052A7761C0BAED50085B0C9 /* MCTabBarController.swift in Sources */,
+				109ACDC21C0E0D12006AC535 /* MCRoundButtonView.swift in Sources */,
 				1052A7661C0BACEA0085B0C9 /* MorseUITests.swift in Sources */,
 				107FF6AD1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
 				10826A1A1C0D5C4C00902BCC /* General UI.swift in Sources */,

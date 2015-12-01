@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UIApplication.sharedApplication().statusBarStyle = .LightContent
 
 		// TODO: Pull theme out of user default
-		self.theme = .BlueGrey
+		self.theme = .Default
 
 		#if DEBUG
 			self.animationDurationScalar = 1.0
