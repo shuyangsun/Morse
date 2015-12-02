@@ -17,13 +17,13 @@ enum Theme: String {
 
 	var statusBarBackgroundColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.BlueGrey.P700
+		case .Default: return MDColorPalette.Indigo.P700
 		}
 	}
 
 	var topBarBackgroundColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.BlueGrey.P500
+		case .Default: return MDColorPalette.Indigo.P500
 		}
 	}
 
@@ -35,19 +35,19 @@ enum Theme: String {
 
 	var textViewTapFeedbackColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.BlueGrey.P200
+		case .Default: return MDColorPalette.Indigo.P200
 		}
 	}
 
-	var roundButtonBackGroundColor:UIColor {
+	var roundButtonBackgroundColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Pink.P300
+		case .Default: return MDColorPalette.Pink.A200!
 		}
 	}
 
-	var roundButtonTapFeedBackColor:UIColor {
+	var roundButtonTapFeedbackColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Pink.P500
+		case .Default: return MDColorPalette.Pink.A400!
 		}
 	}
 
@@ -65,13 +65,25 @@ enum Theme: String {
 
 	var cardViewBackgroudColor:UIColor {
 		switch self {
-		default: return MDColorPalette.BlueGrey.P500
+		default: return MDColorPalette.Indigo.P400
 		}
 	}
 
 	var cardViewTapfeedbackColor:UIColor {
 		switch self {
-		default: return MDColorPalette.BlueGrey.P300
+		default: return MDColorPalette.Indigo.P500
+		}
+	}
+
+	var cardViewTextColor:UIColor {
+		switch self {
+		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		}
+	}
+
+	var cardViewMorseColor:UIColor {
+		switch self {
+		default: return UIColor(hex:0xFFFFFF, alpha: MDLightTextSecondaryAlpha)
 		}
 	}
 

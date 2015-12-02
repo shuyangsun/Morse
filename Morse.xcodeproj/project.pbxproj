@@ -23,6 +23,8 @@
 		1052A77C1C0BB09B0085B0C9 /* MCHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A77B1C0BB09B0085B0C9 /* MCHomeViewController.swift */; };
 		1052A77D1C0BB09B0085B0C9 /* MCHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A77B1C0BB09B0085B0C9 /* MCHomeViewController.swift */; };
 		1052A77E1C0BB09B0085B0C9 /* MCHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A77B1C0BB09B0085B0C9 /* MCHomeViewController.swift */; };
+		107869491C0E5EC00025AD45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7421C0BACE90085B0C9 /* AppDelegate.swift */; };
+		1078694D1C0E5EC00025AD45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7421C0BACE90085B0C9 /* AppDelegate.swift */; };
 		107FF6A71C0BC128003EB294 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6A61C0BC128003EB294 /* Theme.swift */; };
 		107FF6A81C0BC128003EB294 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6A61C0BC128003EB294 /* Theme.swift */; };
 		107FF6A91C0BC128003EB294 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6A61C0BC128003EB294 /* Theme.swift */; };
@@ -455,6 +457,7 @@
 				109ACDC11C0E0D12006AC535 /* MCRoundButtonView.swift in Sources */,
 				1052A75B1C0BACEA0085B0C9 /* MorseTests.swift in Sources */,
 				107FF6AC1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
+				107869491C0E5EC00025AD45 /* AppDelegate.swift in Sources */,
 				10826A191C0D5C4C00902BCC /* General UI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -471,6 +474,7 @@
 				109ACDC21C0E0D12006AC535 /* MCRoundButtonView.swift in Sources */,
 				1052A7661C0BACEA0085B0C9 /* MorseUITests.swift in Sources */,
 				107FF6AD1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
+				1078694D1C0E5EC00025AD45 /* AppDelegate.swift in Sources */,
 				10826A1A1C0D5C4C00902BCC /* General UI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

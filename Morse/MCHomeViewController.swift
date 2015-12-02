@@ -8,9 +8,7 @@
 
 import UIKit
 import SnapKit
-
-let TEXT_VIEW_HEIGHT:CGFloat = 140
-let LINE_BREAK_HEIGHT:CGFloat = 1.0
+import AVFoundation
 
 class MCHomeViewController: UIViewController, UITextViewDelegate {
 
@@ -30,6 +28,9 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	private var outputTextView:UITextView!
 	private var textBoxTapFeedBackView:UIView!
 
+	// Button
+	private var roundButton:MCRoundButtonView!
+
 	// Scroll views
 	private var scrollViewOverlay:UIButton!
 	private var scrollView:UIScrollView!
@@ -38,6 +39,14 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	// Other private variables
 	private var isDirectionEncode:Bool = true
 	private let coder = MorseCoder()
+
+	private var interactionSoundEnabled:Bool {
+		if let delegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+			return delegate.interactionSoundEnabled
+		} else {
+			return true
+		}
+	}
 
 	// *****************************
 	// MARK: View related variables
@@ -72,7 +81,14 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		}
 	}
 
-	private let roundButtonRadius:CGFloat = 28.0
+	private var roundButtonRadius:CGFloat {
+		if self.traitCollection.verticalSizeClass == .Regular &&
+			self.traitCollection.horizontalSizeClass == .Regular {
+			return 36
+		} else {
+			return 28
+		}
+	}
 
 	private var theme:Theme {
 		if let delegate = UIApplication.sharedApplication().delegate as? AppDelegate {
@@ -135,6 +151,14 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		return 74
 	}
 
+	private var roundButtonRightMargin:CGFloat {
+		return self.cardViewRightMargin
+	}
+
+	private var textViewHeight:CGFloat {
+		return 140
+	}
+
 	// *****************************
 	// MARK: Public Functions
 	// *****************************
@@ -185,7 +209,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		}
 
 		if self.textBackgroundView == nil {
-			self.textBackgroundView = UIView(frame: CGRect(x: 0, y: self.topBarHeight + self.statusBarHeight, width: self.viewWidth, height: TEXT_VIEW_HEIGHT))
+			self.textBackgroundView = UIView(frame: CGRect(x: 0, y: self.topBarHeight + self.statusBarHeight, width: self.viewWidth, height: self.textViewHeight))
 			self.textBackgroundView.backgroundColor = UIColor.whiteColor()
 			self.textBackgroundView.layer.borderColor = UIColor.clearColor().CGColor
 			self.textBackgroundView.layer.borderWidth = 0
@@ -196,12 +220,12 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 				make.top.equalTo(self.topBarView.snp_bottom)
 				make.right.equalTo(self.view)
 				make.left.equalTo(self.view)
-				make.height.equalTo(TEXT_VIEW_HEIGHT)
+				make.height.equalTo(self.textViewHeight)
 			}
 		}
 
 		if self.inputTextView == nil {
-			self.inputTextView = UITextView(frame: CGRect(x: 0, y: 0, width: self.textBackgroundView.bounds.width, height: TEXT_VIEW_HEIGHT/2.0))
+			self.inputTextView = UITextView(frame: CGRect(x: 0, y: 0, width: self.textBackgroundView.bounds.width, height: self.textViewHeight/2.0))
 			self.inputTextView.backgroundColor = UIColor.clearColor()
 			self.inputTextView.opaque = false
 			self.inputTextView.keyboardType = .ASCIICapable
@@ -228,7 +252,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		}
 
 		if self.hiddenLineView == nil {
-			self.hiddenLineView = UIView(frame: CGRect(x: 0, y: TEXT_VIEW_HEIGHT/2.0 + self.statusBarHeight + self.topBarHeight - LINE_BREAK_HEIGHT, width: self.inputTextView.bounds.width, height: LINE_BREAK_HEIGHT))
+			self.hiddenLineView = UIView(frame: CGRect(x: 0, y: self.textViewHeight/2.0 + self.statusBarHeight + self.topBarHeight - self.textViewHeight, width: self.inputTextView.bounds.width, height: 1.0))
 			if let color = self.inputTextView.backgroundColor {
 				self.hiddenLineView.backgroundColor = color
 			}
@@ -239,12 +263,12 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 				make.left.equalTo(self.inputTextView)
 				make.right.equalTo(self.inputTextView)
 				make.bottom.equalTo(self.inputTextView)
-				make.height.equalTo(LINE_BREAK_HEIGHT)
+				make.height.equalTo(self.textViewHeight)
 			})
 		}
 
 		if self.outputTextView == nil {
-			self.outputTextView = UITextView(frame: CGRect(x: 0, y: TEXT_VIEW_HEIGHT/2.0, width: self.viewWidth, height: TEXT_VIEW_HEIGHT/2.0))
+			self.outputTextView = UITextView(frame: CGRect(x: 0, y: self.textViewHeight/2.0, width: self.viewWidth, height: self.textViewHeight/2.0))
 			self.outputTextView.backgroundColor = UIColor.clearColor()
 			self.outputTextView.opaque = false
 			self.outputTextView.editable = false
@@ -279,8 +303,19 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			})
 		}
 
+		if self.roundButton == nil {
+			self.roundButton = MCRoundButtonView(origin: CGPoint(x:self.view.bounds.width - self.roundButtonRightMargin - self.roundButtonRadius * 2, y:self.statusBarHeight + self.topBarHeight + self.textViewHeight - self.roundButtonRadius), radius: self.roundButtonRadius)
+			self.view.addSubview(self.roundButton)
+			self.roundButton.snp_makeConstraints(closure: { (make) -> Void in
+				make.width.equalTo(self.roundButtonRadius * 2)
+				make.height.equalTo(self.roundButton.snp_width)
+				make.right.equalTo(self.view).offset(-self.roundButtonRightMargin)
+				make.centerY.equalTo(self.textBackgroundView.snp_bottom)
+			})
+		}
+
 		if self.scrollView == nil {
-			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: self.statusBarHeight + self.topBarHeight + TEXT_VIEW_HEIGHT, width: self.viewWidth, height: self.viewHeight - TEXT_VIEW_HEIGHT))
+			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: self.statusBarHeight + self.topBarHeight + self.textViewHeight, width: self.viewWidth, height: self.viewHeight - self.textViewHeight))
 			self.scrollView.backgroundColor = UIColor.whiteColor()
 			self.scrollView.userInteractionEnabled = true
 			self.scrollView.bounces = true
@@ -332,7 +367,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		self.textBoxTapFeedBackView.hidden = true
 
 		if self.lineBreakView == nil {
-			self.lineBreakView = UIView(frame: CGRect(x: 0, y: TEXT_VIEW_HEIGHT, width: self.textBackgroundView.bounds.width, height: LINE_BREAK_HEIGHT))
+			self.lineBreakView = UIView(frame: CGRect(x: 0, y: self.textViewHeight, width: self.textBackgroundView.bounds.width, height: 1.0))
 			self.lineBreakView.backgroundColor = UIColor(hex: 0x000, alpha: 0.1)
 			self.lineBreakView.layer.zPosition = CGFloat.max - 1
 			self.textBackgroundView.addSubview(self.lineBreakView)
@@ -343,7 +378,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			make.left.equalTo(self.textBackgroundView)
 			make.right.equalTo(self.textBackgroundView)
 			make.bottom.equalTo(self.inputTextView)
-			make.height.equalTo(LINE_BREAK_HEIGHT)
+			make.height.equalTo(1.0)
 		})
 
 		UIView.animateWithDuration(0.15 * self.animationDurationScalar,
@@ -353,6 +388,8 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 				self.view.layoutIfNeeded()
 				self.scrollViewOverlay.hidden = false
 		}, completion: nil)
+
+		self.roundButton.disappearWithAnimationType([.Scale, .Fade], duration: TAP_FEED_BACK_DURATION/5.0)
 	}
 
 	func textViewDidChange(textView: UITextView) {
@@ -372,7 +409,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			make.left.equalTo(self.textBackgroundView)
 			make.right.equalTo(self.textBackgroundView)
 			make.bottom.equalTo(self.textBackgroundView)
-			make.height.equalTo(LINE_BREAK_HEIGHT)
+			make.height.equalTo(1.0)
 		})
 		UIView.animateWithDuration(0.15 * self.animationDurationScalar,
 			delay: 0.0,
@@ -386,6 +423,8 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 					self.lineBreakView.hidden = true
 				}
 		}
+
+		self.roundButton.appearWithAnimationType([.Scale, .Fade], duration: TAP_FEED_BACK_DURATION/5.0)
 	}
 
 	func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
@@ -402,6 +441,20 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 
 	// Gesture call backs.
 	func textViewTapped(gestureRecognizer:UITapGestureRecognizer) {
+		if self.interactionSoundEnabled {
+			// TODO: Not working.
+			if let path = NSBundle.mainBundle().pathForResource("Tock", ofType: "caf") {
+				let tockURL = NSURL(fileURLWithPath: path)
+				do {
+					let audioPlayer = try AVAudioPlayer(contentsOfURL: tockURL)
+					audioPlayer.play()
+				} catch {
+					NSLog("Tap feedback sound on text view play failed.")
+				}
+			} else {
+				NSLog("Can't find \"Tock.caf\" file.")
+			}
+		}
 		self.textBoxTapFeedBackView.hidden = true
 		if !self.inputTextView.isFirstResponder() {
 			self.inputTextView.becomeFirstResponder()
@@ -421,12 +474,13 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	// *****************************
 
 	private func addCardViewWithText(text:String, morse:String, textOnTop:Bool = true, animateWithDuration duration:NSTimeInterval = 0.0) {
-		let cardView = MCCardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), theme: self.theme, text: text, morse: morse, textOnTop: textOnTop)
+		let cardView = MCCardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), text: text, morse: morse, textOnTop: textOnTop)
 		cardView.opaque = false
 		cardView.alpha = 0.0
 		self.scrollView.addSubview(cardView)
 		self.cardViews.insert(cardView, atIndex: 0)
 		self.updateCardViews()
+		self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
 		UIView.animateWithDuration(duration / 3.0,
 			delay: 0.0,
 			options: .CurveEaseInOut,

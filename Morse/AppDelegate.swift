@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var theme:Theme = .Default
 	var animationDurationScalar:Double = 1.0
+	var interactionSoundEnabled = true
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
@@ -23,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		// TODO: Pull theme out of user default
 		self.theme = .Default
+		self.interactionSoundEnabled = true
 
 		#if DEBUG
 			self.animationDurationScalar = 1.0

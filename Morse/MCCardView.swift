@@ -15,26 +15,39 @@ class MCCardView: UIView {
 	private let paddingRight:CGFloat = 15
 	private let paddingBottom:CGFloat = 8
 	private let gapY:CGFloat = 10
+	private var theme:Theme {
+		if let delegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+			return delegate.theme
+		} else {
+			return Theme.Default
+		}
+	}
+
+	private var animationDurationScalar:Double {
+		if let delegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+			return delegate.animationDurationScalar
+		} else {
+			return 1.0
+		}
+	}
 
 	var text:String?
 	var morse:String?
 	var textOnTop = true
-	var theme:Theme = .Default
 	let defaultMDShadowLevel:Int = 1
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		self.layer.cornerRadius = 0.0
+		self.layer.cornerRadius = 2.0
 		self.backgroundColor = self.theme.cardViewBackgroudColor
 		self.addMDShadow(withDepth: self.defaultMDShadowLevel)
 	}
 
-	convenience init(frame:CGRect, theme:Theme = .Default, text:String?, morse:String?, textOnTop:Bool = true) {
+	convenience init(frame:CGRect, text:String?, morse:String?, textOnTop:Bool = true) {
 		self.init(frame:frame)
 		self.text = text
 		self.morse = morse
 		self.textOnTop = textOnTop
-		self.theme = theme
 
 		let topLabel = UILabel(frame: CGRect(x: self.paddingLeft, y: self.paddingTop, width: self.bounds.width - self.paddingLeft - self.paddingRight, height: (self.bounds.width - self.paddingTop - self.paddingBottom - self.gapY)/2.0))
 		topLabel.opaque = false
@@ -43,9 +56,9 @@ class MCCardView: UIView {
 		topLabel.layer.borderColor = UIColor.clearColor().CGColor
 		topLabel.userInteractionEnabled = false
 		if self.textOnTop {
-			topLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 16, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
+			topLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 16, color: self.theme.cardViewTextColor)
 		} else {
-			topLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 12, color: UIColor(hex: 0x000, alpha: MDDarkTextSecondaryAlpha))
+			topLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 12, color: self.theme.cardViewMorseColor)
 			topLabel.lineBreakMode = .ByClipping
 		}
 		self.addSubview(topLabel)
@@ -64,10 +77,10 @@ class MCCardView: UIView {
 		bottomLabel.layer.borderColor = UIColor.clearColor().CGColor
 		bottomLabel.userInteractionEnabled = false
 		if self.textOnTop {
-			bottomLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 12, color: UIColor(hex: 0x000, alpha: MDDarkTextSecondaryAlpha))
+			bottomLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 12, color: self.theme.cardViewMorseColor)
 			bottomLabel.lineBreakMode = .ByClipping
 		} else {
-			bottomLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 16, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
+			bottomLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 16, color: self.theme.cardViewTextColor)
 		}
 		self.addSubview(bottomLabel)
 
