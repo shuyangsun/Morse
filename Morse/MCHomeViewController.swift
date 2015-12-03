@@ -14,7 +14,7 @@ import CoreData
 class MCHomeViewController: UIViewController, UITextViewDelegate {
 
 	// *****************************
-	// MARK: Private Properties
+	// MARK: Views
 	// *****************************
 
 	// Top bar views
@@ -37,7 +37,10 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	private var scrollView:UIScrollView!
 	private var cardViews:[MCCardView] = []
 
-	// Other private variables
+	// *****************************
+	// MARK: Private variables
+	// *****************************
+
 	private var isDirectionEncode:Bool = true
 	private let coder = MorseCoder()
 
@@ -47,7 +50,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	}
 
 	// *****************************
-	// MARK: View related variables
+	// MARK: UI Related Variables
 	// *****************************
 	private var viewWidth:CGFloat {
 		return self.view.bounds.width
@@ -152,7 +155,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	}
 
 	// *****************************
-	// MARK: Public Functions
+	// MARK: MVC Life Cycle
 	// *****************************
 
     override func viewDidLoad() {
@@ -266,6 +269,10 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			self.outputTextView.editable = false
 			self.outputTextView.layer.borderColor = UIColor.clearColor().CGColor
 			self.outputTextView.layer.borderWidth = 0
+			// This gestureRecognizer is here to fix a bug where double tapping on outputTextView would resign inputTextView as first responder.
+			let disableDoubleTapGR = UITapGestureRecognizer(target: nil, action: "")
+			disableDoubleTapGR.numberOfTapsRequired = 2
+			self.outputTextView.addGestureRecognizer(disableDoubleTapGR)
 			self.textBackgroundView.insertSubview(self.outputTextView, belowSubview: self.hiddenLineView)
 
 			// Configure contraints
@@ -344,7 +351,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		if self.cardViews.isEmpty {
+		if self.scrollView.subviews.isEmpty {
 			self.fetchCardsAndUpdateCardViews()
 		}
 	}
@@ -357,10 +364,12 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	// *****************************
 	// MARK: Text View Delegate
 	// *****************************
+
 	func textViewDidBeginEditing(textView: UITextView) {
 
 		self.inputTextView.attributedText = getAttributedStringFrom(" ", withFontSize: 16, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
 		self.textBoxTapFeedBackView.hidden = true
+		self.textBoxTapFeedBackView.userInteractionEnabled = false
 
 		if self.lineBreakView == nil {
 			self.lineBreakView = UIView(frame: CGRect(x: 0, y: self.textViewHeight, width: self.textBackgroundView.bounds.width, height: 1.0))
@@ -399,6 +408,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 
 	func textViewDidEndEditing(textView: UITextView) {
 		self.textBoxTapFeedBackView.hidden = false
+		self.textBoxTapFeedBackView.userInteractionEnabled = true
 		self.outputTextView.text = nil
 		textView.attributedText = self.attributedHintText
 		self.lineBreakView.snp_remakeConstraints(closure: { (make) -> Void in
@@ -435,6 +445,10 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		return true
 	}
 
+	// *****************************
+	// MARK: User Interaction Handler
+	// *****************************
+
 	// Gesture call backs.
 	func textViewTapped(gestureRecognizer:UITapGestureRecognizer) {
 		if self.interactionSoundEnabled {
@@ -456,6 +470,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			self.inputTextView.becomeFirstResponder()
 		}
 		self.textBackgroundView.triggerTapFeedBack(atLocation: gestureRecognizer.locationInView(self.textBackgroundView), withColor: self.theme.textViewTapFeedbackColor, duration: TAP_FEED_BACK_DURATION * self.animationDurationScalar)
+		self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
 	}
 
 
@@ -466,11 +481,12 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	}
 
 	// *****************************
-	// MARK: Private Functions
+	// MARK: Card View Manipulation
 	// *****************************
 
 	private func addCardViewWithText(text:String, morse:String, textOnTop:Bool = true, animateWithDuration duration:NSTimeInterval = 0.0) {
 		let cardView = MCCardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), text: text, morse: morse, textOnTop: textOnTop)
+		// TODO: Animation
 		cardView.opaque = false
 		cardView.alpha = 0.0
 		self.scrollView.addSubview(cardView)
@@ -526,6 +542,10 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			views[i].addMDShadow(withDepth: 1)
 		}
 	}
+
+	// *****************************
+	// MARK: Core Data
+	// *****************************
 
 	private func saveCard(text: String, morse:String, index:Int, textOnTop:Bool = true, favorite:Bool = false, deletable:Bool = true) {
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
