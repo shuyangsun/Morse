@@ -16,19 +16,13 @@ class MCCardView: UIView {
 	private let paddingBottom:CGFloat = 8
 	private let gapY:CGFloat = 10
 	private var theme:Theme {
-		if let delegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-			return delegate.theme
-		} else {
-			return Theme.Default
-		}
+		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		return delegate.theme
 	}
 
 	private var animationDurationScalar:Double {
-		if let delegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-			return delegate.animationDurationScalar
-		} else {
-			return 1.0
-		}
+		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		return delegate.animationDurationScalar
 	}
 
 	var text:String?

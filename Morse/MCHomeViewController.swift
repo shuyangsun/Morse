@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import AVFoundation
+import CoreData
 
 class MCHomeViewController: UIViewController, UITextViewDelegate {
 
@@ -41,11 +42,8 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	private let coder = MorseCoder()
 
 	private var interactionSoundEnabled:Bool {
-		if let delegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-			return delegate.interactionSoundEnabled
-		} else {
-			return true
-		}
+		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		return delegate.interactionSoundEnabled
 	}
 
 	// *****************************
@@ -74,11 +72,8 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	private let topBarHeight:CGFloat = 56
 
 	private var animationDurationScalar:Double {
-		if let delegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-			return delegate.animationDurationScalar
-		} else {
-			return 1.0
-		}
+		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		return delegate.animationDurationScalar
 	}
 
 	private var roundButtonRadius:CGFloat {
@@ -91,11 +86,8 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	}
 
 	private var theme:Theme {
-		if let delegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-			return delegate.theme
-		} else {
-			return Theme.Default
-		}
+		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		return delegate.theme
 	}
 
 	private var hintText:String {
@@ -165,7 +157,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+		
 		// TODO: Custom tab bar item
 		self.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Featured, tag: 0)
     }
@@ -346,11 +338,15 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			})
 		}
 
-		self.updateCardViews()
+		self.updateCardViewsConstraints()
+		self.view.layoutIfNeeded()
 	}
 
-	override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-		self.updateCardViews()
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		if self.cardViews.isEmpty {
+			self.fetchCardsAndUpdateCardViews()
+		}
 	}
 
     override func didReceiveMemoryWarning() {
@@ -478,36 +474,41 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		cardView.opaque = false
 		cardView.alpha = 0.0
 		self.scrollView.addSubview(cardView)
-		self.cardViews.insert(cardView, atIndex: 0)
-		self.updateCardViews()
+		self.cardViews.append(cardView)
+		self.updateCardViewsConstraints()
 		self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
 		UIView.animateWithDuration(duration / 3.0,
 			delay: 0.0,
 			options: .CurveEaseInOut,
 			animations: { () -> Void in
 				self.scrollView.layoutIfNeeded()
-			}) { (succeed) -> Void in
-				UIView.animateWithDuration(duration * 2.0 / 3.0,
-					delay: 0.0,
-					options: .CurveEaseInOut,
-					animations: { () -> Void in
-						cardView.alpha = 1.0
-					}) { (succeed) -> Void in
-						cardView.opaque = true
+			}) { succeed in
+				if succeed {
+					UIView.animateWithDuration(duration * 2.0 / 3.0,
+						delay: 0.0,
+						options: .CurveEaseInOut,
+						animations: { () -> Void in
+							cardView.alpha = 1.0
+						}) { succeed in
+							if succeed {
+								cardView.opaque = true
+								self.saveCard(text, morse: morse, index: self.cardViews.count - 1, textOnTop: self.isDirectionEncode, favorite: false, deletable: true)
+							}
+					}
 				}
 		}
 	}
 
-	private func updateCardViews() {
+	private func updateCardViewsConstraints() {
 		var contentHeight = self.cardViewTopMargin + CGFloat(self.cardViews.count) * (self.cardViewHeight + self.cardViewGapY) + self.cardViewBottomMargin
 		if !self.cardViews.isEmpty {
 			contentHeight -= self.cardViewGapY
 		}
 		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
 		let views = self.cardViews
-		for i in 0..<views.count {
+		for var i = views.count - 1; i >= 0; i-- {
 			// TODO: If view is expanded (selected)
-			if i == 0 {
+			if i >= views.count - 1 {
 				views[i].snp_remakeConstraints(closure: { (make) -> Void in
 					make.top.equalTo(self.cardViewTopMargin)
 					make.left.equalTo(self.cardViewLeftMargin)
@@ -516,11 +517,59 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 				})
 			} else {
 				views[i].snp_remakeConstraints(closure: { (make) -> Void in
-					make.top.equalTo(views[i - 1].snp_bottom).offset(self.cardViewGapY)
+					make.top.equalTo(views[i + 1].snp_bottom).offset(self.cardViewGapY)
 					make.left.equalTo(self.cardViewLeftMargin)
 					make.width.equalTo(self.view.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin)
 					make.height.equalTo(self.cardViewHeight)
 				})
+			}
+			views[i].addMDShadow(withDepth: 1)
+		}
+	}
+
+	private func saveCard(text: String, morse:String, index:Int, textOnTop:Bool = true, favorite:Bool = false, deletable:Bool = true) {
+		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		let managedContext = appDelegate.managedObjectContext
+		let entity = NSEntityDescription.entityForName("Card", inManagedObjectContext:managedContext)
+		let card = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+		card.setValue(text, forKey: "text")
+		card.setValue(morse, forKey: "morse")
+		card.setValue(index, forKey: "index")
+		card.setValue(textOnTop, forKey: "textOnTop")
+		card.setValue(favorite, forKey: "favorite")
+		card.setValue(deletable, forKey: "deletable")
+		card.setValue(NSDate(), forKey: "dateCreated")
+
+		do {
+			try managedContext.save()
+		} catch let error as NSError {
+			print("Could not save \(error), \(error.userInfo)")
+		}
+	}
+
+	private func fetchCardsAndUpdateCardViews() {
+		// If there is no card on the board, fetch some cards
+		if self.cardViews.isEmpty {
+			let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+			let managedContext = appDelegate.managedObjectContext
+
+			let fetchRequest = NSFetchRequest(entityName: "Card")
+			let sortDescriptor = NSSortDescriptor(key: "index", ascending: true)
+			fetchRequest.sortDescriptors = [sortDescriptor]
+
+			do {
+				let results = try managedContext.executeFetchRequest(fetchRequest)
+				let cards = results as! [NSManagedObject]
+				for card in cards {
+					let cardView = MCCardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), text: card.valueForKey("text") as? String, morse: card.valueForKey("morse") as? String, textOnTop: card.valueForKey("textOnTop") as! Bool)
+					self.scrollView.addSubview(cardView)
+					self.cardViews.append(cardView)
+					self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
+					self.updateCardViewsConstraints()
+					self.view.layoutIfNeeded()
+				}
+			} catch let error as NSError {
+				print("Could not fetch \(error), \(error.userInfo)")
 			}
 		}
 	}

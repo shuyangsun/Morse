@@ -41,6 +41,7 @@
 		109ACDC01C0E0D12006AC535 /* MCRoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* MCRoundButtonView.swift */; };
 		109ACDC11C0E0D12006AC535 /* MCRoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* MCRoundButtonView.swift */; };
 		109ACDC21C0E0D12006AC535 /* MCRoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* MCRoundButtonView.swift */; };
+		10B9C8151C0FB5A4001C5847 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10B9C8141C0FB5A4001C5847 /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +133,7 @@
 		107FF6C31C0C223D003EB294 /* Coder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coder.swift; sourceTree = "<group>"; };
 		10826A171C0D5C4C00902BCC /* General UI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "General UI.swift"; sourceTree = "<group>"; };
 		109ACDBF1C0E0D12006AC535 /* MCRoundButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCRoundButtonView.swift; sourceTree = "<group>"; };
+		10B9C8141C0FB5A4001C5847 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10B9C8151C0FB5A4001C5847 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +174,7 @@
 		1052A7361C0BACE90085B0C9 = {
 			isa = PBXGroup;
 			children = (
+				10B9C8141C0FB5A4001C5847 /* CoreData.framework */,
 				1052A7411C0BACE90085B0C9 /* Morse */,
 				1052A7591C0BACEA0085B0C9 /* MorseTests */,
 				1052A7641C0BACEA0085B0C9 /* MorseUITests */,
