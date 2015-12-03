@@ -43,8 +43,8 @@ class MorseCoder {
 		if scalar <= 1.0/60 {
 			NSLog("Scalar(\(scalar)) is less than 1/60, may cause serious encoding or decoding problem.")
 		}
+		var res:[NSTimeInterval] = [0.0]
 		dispatch_sync(dispatch_queue_create("Get Time Stamp Queue", nil)) {
-			var res:[NSTimeInterval] = [0.0]
 			// Seperate words
 			let words = self.morse!.componentsSeparatedByString(WORD_GAP_STRING)
 			var appendedWord = false
