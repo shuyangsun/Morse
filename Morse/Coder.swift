@@ -43,43 +43,45 @@ class MorseCoder {
 		if scalar <= 1.0/60 {
 			NSLog("Scalar(\(scalar)) is less than 1/60, may cause serious encoding or decoding problem.")
 		}
-		var res:[NSTimeInterval] = [0.0]
-		// Seperate words
-		let words = self.morse!.componentsSeparatedByString(WORD_GAP_STRING)
-		var appendedWord = false
-		for word in words {
-			// Seperate letters
-			let letters = word.componentsSeparatedByString(LETTER_GAP_STRING)
-			var appendedLetter = false
-			for letter in letters {
-				// Seperate units
-				let units = letter.componentsSeparatedByString(UNIT_GAP_STRING)
-				var appendedUnit = false
-				for unit in units {
-					if unit == UNIT_DOT_STRING  {
-						res.append(res.last! + NSTimeInterval(DOT_LENGTH * scalar))
-						res.append(res.last! + NSTimeInterval(UNIT_GAP_LENGTH * scalar))
-						appendedUnit = true
-					} else if unit == UNIT_DASH_STRING {
-						res.append(res.last! + NSTimeInterval(DASH_LENGTH * scalar))
-						res.append(res.last! + NSTimeInterval(UNIT_GAP_LENGTH * scalar))
-						appendedUnit = true
+		dispatch_sync(dispatch_queue_create("Get Time Stamp Queue", nil)) {
+			var res:[NSTimeInterval] = [0.0]
+			// Seperate words
+			let words = self.morse!.componentsSeparatedByString(WORD_GAP_STRING)
+			var appendedWord = false
+			for word in words {
+				// Seperate letters
+				let letters = word.componentsSeparatedByString(LETTER_GAP_STRING)
+				var appendedLetter = false
+				for letter in letters {
+					// Seperate units
+					let units = letter.componentsSeparatedByString(UNIT_GAP_STRING)
+					var appendedUnit = false
+					for unit in units {
+						if unit == UNIT_DOT_STRING  {
+							res.append(res.last! + NSTimeInterval(DOT_LENGTH * scalar))
+							res.append(res.last! + NSTimeInterval(UNIT_GAP_LENGTH * scalar))
+							appendedUnit = true
+						} else if unit == UNIT_DASH_STRING {
+							res.append(res.last! + NSTimeInterval(DASH_LENGTH * scalar))
+							res.append(res.last! + NSTimeInterval(UNIT_GAP_LENGTH * scalar))
+							appendedUnit = true
+						}
+					}
+					if appendedUnit {
+						res.removeLast()
+						res.append(res.last! + NSTimeInterval(LETTER_GAP_LENGTH * scalar))
+						appendedLetter = true
 					}
 				}
-				if appendedUnit {
+				if appendedLetter {
 					res.removeLast()
-					res.append(res.last! + NSTimeInterval(LETTER_GAP_LENGTH * scalar))
-					appendedLetter = true
+					res.append(res.last! + NSTimeInterval(WORD_GAP_LENGTH * scalar))
+					appendedWord = true
 				}
 			}
-			if appendedLetter {
+			if appendedWord {
 				res.removeLast()
-				res.append(res.last! + NSTimeInterval(WORD_GAP_LENGTH * scalar))
-				appendedWord = true
 			}
-		}
-		if appendedWord {
-			res.removeLast()
 		}
 		return res.count == 1 ? nil : res
 	}
@@ -89,25 +91,27 @@ class MorseCoder {
 private func encodeTextToMorse(text:String!) -> String? {
 	if text == nil || text.isEmpty { return nil }
 	var res = ""
-	let words = text.lowercaseString.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: " \t\n\r"))
-	for word in words {
-		let chArr = word.characters
-		var wordStr:String = ""
-		for ch in chArr {
-			if let chMorseString = encoderTextToMorseStringDictionary[String(ch)] {
-				wordStr += chMorseString
-				wordStr += LETTER_GAP_STRING
+	dispatch_sync(dispatch_queue_create("Encode Queue", nil)) {
+		let words = text.lowercaseString.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: " \t\n\r"))
+		for word in words {
+			let chArr = word.characters
+			var wordStr:String = ""
+			for ch in chArr {
+				if let chMorseString = encoderTextToMorseStringDictionary[String(ch)] {
+					wordStr += chMorseString
+					wordStr += LETTER_GAP_STRING
+				}
+			}
+
+			if !wordStr.isEmpty {
+				res += wordStr
+				// 4 spaces, on top of the last 3, make it 7
+				res += "    "
 			}
 		}
-
-		if !wordStr.isEmpty {
-			res += wordStr
-			// 4 spaces, on top of the last 3, make it 7
-			res += "    "
+		if !res.isEmpty {
+			res.removeRange(res.endIndex.advancedBy(-7)..<res.endIndex)
 		}
-	}
-	if !res.isEmpty {
-		res.removeRange(res.endIndex.advancedBy(-7)..<res.endIndex)
 	}
 	return res.isEmpty ? nil : res
 }
@@ -116,23 +120,25 @@ private func encodeTextToMorse(text:String!) -> String? {
 private func decodeMorseToText(morse:String!) -> String? {
 	if morse == nil || morse.isEmpty { return nil }
 	var res = ""
-	let words = morse.componentsSeparatedByString(WORD_GAP_STRING)
-	for word in words {
-		let chArr = word.componentsSeparatedByString(LETTER_GAP_STRING)
-		var wordStr:String = ""
-		for ch in chArr {
-			if let chText = decoderMorseStringToTextDictionary[String(ch)] {
-				wordStr += chText
+	dispatch_sync(dispatch_queue_create("Decode Queue", nil)) {
+		let words = morse.componentsSeparatedByString(WORD_GAP_STRING)
+		for word in words {
+			let chArr = word.componentsSeparatedByString(LETTER_GAP_STRING)
+			var wordStr:String = ""
+			for ch in chArr {
+				if let chText = decoderMorseStringToTextDictionary[String(ch)] {
+					wordStr += chText
+				}
+			}
+
+			if !wordStr.isEmpty {
+				res += wordStr
+				res += " "
 			}
 		}
-
-		if !wordStr.isEmpty {
-			res += wordStr
-			res += " "
+		if !res.isEmpty {
+			res.removeAtIndex(res.endIndex.advancedBy(-1))
 		}
-	}
-	if !res.isEmpty {
-		res.removeAtIndex(res.endIndex.advancedBy(-1))
 	}
 	return res.isEmpty ? nil : res
 }
