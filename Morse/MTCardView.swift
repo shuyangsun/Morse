@@ -1,5 +1,5 @@
 //
-//  MCCardView.swift
+//  MTCardView.swift
 //  Morse
 //
 //  Created by Shuyang Sun on 11/30/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MCCardView: UIView {
+class MTCardView: UIView {
 
 	private let paddingTop:CGFloat = 16
 	private let paddingLeft:CGFloat = 15
@@ -86,8 +86,8 @@ class MCCardView: UIView {
 		}
 	}
 
-	required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
+	required init?(coder aCoder: NSCoder) {
+		super.init(coder: aCoder)
 	}
 
 	override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {

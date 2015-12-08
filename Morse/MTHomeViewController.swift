@@ -1,5 +1,5 @@
 //
-//  MCHomeViewController.swift
+//  MTHomeViewController.swift
 //  Morse
 //
 //  Created by Shuyang Sun on 11/29/15.
@@ -11,15 +11,16 @@ import SnapKit
 import AVFoundation
 import CoreData
 
-class MCHomeViewController: UIViewController, UITextViewDelegate {
+class MTHomeViewController: UIViewController, UITextViewDelegate {
 
 	// *****************************
 	// MARK: Views
 	// *****************************
 
-	// Top bar views
+	// Top bar views4
 	private var statusBarView:UIView!
 	private var topBarView:UIView!
+	private var cancelButton:MTCancelButton!
 
 	// Text views
 	private var hiddenLineView:UIView!
@@ -30,19 +31,23 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	private var textBoxTapFeedBackView:UIView!
 
 	// Button
-	private var roundButton:MCRoundButtonView!
+	private var roundButtonView:MTRoundButtonView!
 
 	// Scroll views
 	private var scrollViewOverlay:UIButton!
 	private var scrollView:UIScrollView!
-	private var cardViews:[MCCardView] = []
+	private var cardViews:[MTCardView] = []
 
 	// *****************************
 	// MARK: Private variables
 	// *****************************
 
-	private var isDirectionEncode:Bool = true
-	private let coder = MorseCoder()
+	private var isDirectionEncode:Bool = true {
+		didSet {
+			self.inputTextView.attributedText = self.attributedHintText
+		}
+	}
+	private let transmitter = MorseTansmitter()
 
 	private var interactionSoundEnabled:Bool {
 		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -95,9 +100,9 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 
 	private var hintText:String {
 		if self.isDirectionEncode {
-			return "Encode text to Morse"
+			return "Encode text to Morse code"
 		} else {
-			return "Decode Morse to Text"
+			return "Decode Morse code to text"
 		}
 	}
 
@@ -105,6 +110,10 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		return NSMutableAttributedString(string: self.hintText, attributes:
 			[NSFontAttributeName: UIFont.systemFontOfSize(16),
 				NSForegroundColorAttributeName: UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)])
+	}
+
+	private var cancelButtonWidth:CGFloat {
+		return self.topBarHeight
 	}
 
 	private var cardViewLeftMargin:CGFloat {
@@ -165,6 +174,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		self.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Featured, tag: 0)
     }
 
+	// Views are created and constraints are added in this callback
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 
@@ -187,7 +197,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			let topBarLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.topBarView.bounds.width, height: self.topBarHeight))
 			topBarLabel.textAlignment = .Center
 			topBarLabel.tintColor = UIColor.whiteColor()
-			topBarLabel.attributedText = NSAttributedString(string: "Morse Coder", attributes:
+			topBarLabel.attributedText = NSAttributedString(string: "Morse Transmitter", attributes:
 				[NSFontAttributeName: UIFont.boldSystemFontOfSize(23),
 					NSForegroundColorAttributeName: UIColor.whiteColor()])
 			self.topBarView.addSubview(topBarLabel)
@@ -201,6 +211,21 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			topBarLabel.snp_makeConstraints(closure: { (make) -> Void in
 				 make.edges.equalTo(self.topBarView)
 			})
+		}
+
+		if self.cancelButton == nil {
+			self.cancelButton = MTCancelButton(origin: CGPoint(x: 0, y: 0), width: self.cancelButtonWidth)
+			self.cancelButton.addTarget(self, action: "dismissInputTextKeyboard", forControlEvents: .TouchUpInside)
+			self.topBarView.addSubview(self.cancelButton)
+
+			self.cancelButton.snp_makeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.topBarView)
+				make.left.equalTo(self.topBarView)
+				make.width.equalTo(self.topBarHeight)
+				make.height.equalTo(self.cancelButton.snp_width)
+			})
+
+			self.cancelButton.disappearWithDuration(0)
 		}
 
 		if self.textBackgroundView == nil {
@@ -240,12 +265,14 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			}
 		}
 
+		// Change shadow level of background text view according to inputTextView status
 		if self.inputTextView.isFirstResponder() {
 			self.textBackgroundView.addMDShadow(withDepth: 3)
 		} else {
 			self.textBackgroundView.addMDShadow(withDepth: 2)
 		}
 
+		// Hidden line view is used to hide the gap between input and output text view
 		if self.hiddenLineView == nil {
 			self.hiddenLineView = UIView(frame: CGRect(x: 0, y: self.textViewHeight/2.0 + self.statusBarHeight + self.topBarHeight - self.textViewHeight, width: self.inputTextView.bounds.width, height: 1.0))
 			if let color = self.inputTextView.backgroundColor {
@@ -302,12 +329,14 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 			})
 		}
 
-		if self.roundButton == nil {
-			self.roundButton = MCRoundButtonView(origin: CGPoint(x:self.view.bounds.width - self.roundButtonRightMargin - self.roundButtonRadius * 2, y:self.statusBarHeight + self.topBarHeight + self.textViewHeight - self.roundButtonRadius), radius: self.roundButtonRadius)
-			self.view.addSubview(self.roundButton)
-			self.roundButton.snp_makeConstraints(closure: { (make) -> Void in
+		if self.roundButtonView == nil {
+			self.roundButtonView = MTRoundButtonView(origin: CGPoint(x:self.view.bounds.width - self.roundButtonRightMargin - self.roundButtonRadius * 2, y:self.statusBarHeight + self.topBarHeight + self.textViewHeight - self.roundButtonRadius), radius: self.roundButtonRadius)
+			let tapGR = UITapGestureRecognizer(target: self, action: "roundButtonTapped:")
+			roundButtonView.addGestureRecognizer(tapGR)
+			self.view.addSubview(self.roundButtonView)
+			self.roundButtonView.snp_makeConstraints(closure: { (make) -> Void in
 				make.width.equalTo(self.roundButtonRadius * 2)
-				make.height.equalTo(self.roundButton.snp_width)
+				make.height.equalTo(self.roundButtonView.snp_width)
 				make.right.equalTo(self.view).offset(-self.roundButtonRightMargin)
 				make.centerY.equalTo(self.textBackgroundView.snp_bottom)
 			})
@@ -332,7 +361,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 
 		if self.scrollViewOverlay == nil {
 			self.scrollViewOverlay = UIButton(frame: CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: self.scrollView.bounds.height))
-			self.scrollViewOverlay.addTarget(self, action: "scrollViewOverlayTapped:", forControlEvents: .TouchUpInside)
+			self.scrollViewOverlay.addTarget(self, action: "dismissInputTextKeyboard", forControlEvents: .TouchUpInside)
 			self.scrollViewOverlay.backgroundColor = UIColor(hex: 0x000, alpha: 0.35)
 			self.scrollViewOverlay.opaque = false
 			self.scrollViewOverlay.layer.borderColor = UIColor.clearColor().CGColor
@@ -394,12 +423,21 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 				self.scrollViewOverlay.hidden = false
 		}, completion: nil)
 
-		self.roundButton.disappearWithAnimationType([.Scale, .Fade], duration: TAP_FEED_BACK_DURATION/5.0)
+		let buttonAnimationDuration = TAP_FEED_BACK_DURATION/3.0
+		self.cancelButton.appearWithDuration(buttonAnimationDuration)
+		self.roundButtonView.disappearWithAnimationType([.Scale, .Fade], duration: buttonAnimationDuration)
 	}
 
 	func textViewDidChange(textView: UITextView) {
-		self.coder.text = textView.text
-		let outputText = self.coder.morse
+		var outputText:String?
+		if self.isDirectionEncode {
+			self.transmitter.text = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+			outputText = self.transmitter.morse
+		} else {
+			self.transmitter.morse = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+			outputText = self.transmitter.text
+		}
+		print("\(outputText)")
 		self.outputTextView.attributedText = getAttributedStringFrom(outputText, withFontSize: 16, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
 		if outputText != nil {
 			self.outputTextView.scrollRangeToVisible(NSMakeRange(outputText!.startIndex.distanceTo(outputText!.endIndex), 0))
@@ -430,7 +468,9 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 				}
 		}
 
-		self.roundButton.appearWithAnimationType([.Scale, .Fade], duration: TAP_FEED_BACK_DURATION/5.0)
+		let buttonAnimationDuration = TAP_FEED_BACK_DURATION/3.0
+		self.cancelButton.disappearWithDuration(buttonAnimationDuration)
+		self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: buttonAnimationDuration)
 	}
 
 	func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
@@ -473,8 +513,38 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
 	}
 
+	func roundButtonTapped(gestureRecognizer:UITapGestureRecognizer) {
+		// Switch Direction
+		switch self.roundButtonView.buttonAction {
+		case .Switch:
+			self.isDirectionEncode = !self.isDirectionEncode
+		}
 
-	func scrollViewOverlayTapped(button:UIButton) {
+		// Animations
+		let tapLocation = gestureRecognizer.locationInView(self.roundButtonView)
+		if self.roundButtonView.bounds.contains(tapLocation) {
+			let originalTransform = self.roundButtonView.transform
+			self.roundButtonView.triggerTapFeedBack(atLocation: tapLocation, withColor: self.theme.roundButtonTapFeedbackColor, duration: TAP_FEED_BACK_DURATION)
+			UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0,
+				delay: 0.0,
+				options: .CurveEaseIn,
+				animations: {
+					self.roundButtonView.transform = CGAffineTransformScale(self.roundButtonView.transform, 1.05, 1.05)
+				}) { succeed in
+					if succeed {
+						UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0,
+							delay: 0.0,
+							options: .CurveEaseIn,
+							animations: {
+								self.roundButtonView.transform = originalTransform
+							}, completion: nil)
+					}
+			}
+		}
+	}
+
+
+	func dismissInputTextKeyboard() {
 		if self.inputTextView.isFirstResponder() {
 			self.inputTextView.resignFirstResponder()
 		}
@@ -485,7 +555,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 	// *****************************
 
 	private func addCardViewWithText(text:String, morse:String, textOnTop:Bool = true, animateWithDuration duration:NSTimeInterval = 0.0) {
-		let cardView = MCCardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), text: text, morse: morse, textOnTop: textOnTop)
+		let cardView = MTCardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), text: text, morse: morse, textOnTop: textOnTop)
 		// TODO: Animation
 		cardView.opaque = false
 		cardView.alpha = 0.0
@@ -559,6 +629,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 		card.setValue(favorite, forKey: "favorite")
 		card.setValue(deletable, forKey: "deletable")
 		card.setValue(NSDate(), forKey: "dateCreated")
+		card.setValue("Text Morse", forKey: "transmitterType")
 
 		do {
 			try managedContext.save()
@@ -581,7 +652,7 @@ class MCHomeViewController: UIViewController, UITextViewDelegate {
 				let results = try managedContext.executeFetchRequest(fetchRequest)
 				let cards = results as! [NSManagedObject]
 				for card in cards {
-					let cardView = MCCardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), text: card.valueForKey("text") as? String, morse: card.valueForKey("morse") as? String, textOnTop: card.valueForKey("textOnTop") as! Bool)
+					let cardView = MTCardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), text: card.valueForKey("text") as? String, morse: card.valueForKey("morse") as? String, textOnTop: card.valueForKey("textOnTop") as! Bool)
 					self.scrollView.addSubview(cardView)
 					self.cardViews.append(cardView)
 					self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)

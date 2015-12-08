@@ -8,8 +8,9 @@
         <attribute name="morse" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="textOnTop" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="transmitterType" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Card" positionX="-63" positionY="-18" width="128" height="148"/>
+        <element name="Card" positionX="-63" positionY="-18" width="128" height="165"/>
     </elements>
 </model>

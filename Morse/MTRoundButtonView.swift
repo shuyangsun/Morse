@@ -1,5 +1,5 @@
 //
-//  MCRoundButtonView.swift
+//  MTRoundButtonView.swift
 //  Morse
 //
 //  Created by Shuyang Sun on 12/1/15.
@@ -8,10 +8,15 @@
 
 import UIKit
 
-class MCRoundButtonView: UIView {
+enum ButtonActionType {
+	case Switch
+}
+
+class MTRoundButtonView: UIView {
 
 	var originalTransform:CGAffineTransform?
 	var originalAlpha:CGFloat = 1.0
+	var buttonAction:ButtonActionType = .Switch
 
 	private var theme:Theme {
 		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -32,7 +37,7 @@ class MCRoundButtonView: UIView {
 	}
 
 	convenience init(origin:CGPoint, radius:CGFloat) {
-		self.init(frame:CGRect(x: origin.x, y: origin.y, width: radius * 2, height: radius * 2))
+		self.init(frame:CGRect(origin: origin, size: CGSize(width: radius * 2, height: radius * 2)))
 		self.backgroundColor = self.theme.roundButtonBackgroundColor
 		self.layer.cornerRadius = radius
 		self.addMDShadow(withDepth: self.shadowLevel)
@@ -40,15 +45,6 @@ class MCRoundButtonView: UIView {
 
 	required init?(coder aDecoder: NSCoder) {
 	    super.init(coder: aDecoder)
-	}
-
-	override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		for touch in touches {
-			let location = touch.locationInView(self)
-			if self.bounds.contains(location) {
-				self.triggerTapFeedBack(atLocation: location, withColor: self.theme.roundButtonTapFeedbackColor, duration: TAP_FEED_BACK_DURATION)
-			}
-		}
 	}
 
 	func disappearWithAnimationType(animationTypes:Set<AnimationType>, duration:NSTimeInterval) {
@@ -70,6 +66,7 @@ class MCRoundButtonView: UIView {
 			animations: animationClosure) { succeed in
 				if succeed {
 					self.hidden = true
+					self.userInteractionEnabled = false
 				}
 		}
 	}
@@ -88,6 +85,7 @@ class MCRoundButtonView: UIView {
 			}
 			if animationTypes.contains(.Fade) {
 				self.alpha = self.originalAlpha
+				self.userInteractionEnabled = true
 			}
 			self.addMDShadow(withDepth: self.shadowLevel)
 		}

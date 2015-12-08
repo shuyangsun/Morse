@@ -1,5 +1,5 @@
 //
-//  MCTabBarController.swift
+//  MTTabBarController.swift
 //  Morse
 //
 //  Created by Shuyang Sun on 11/29/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MCTabBarController: UITabBarController {
+class MTTabBarController: UITabBarController {
 
 	private var theme:Theme {
 		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -42,8 +42,8 @@ class MCTabBarController: UITabBarController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if segue.destinationViewController is MCHomeViewController {
-			(segue.destinationViewController as! MCHomeViewController).tabBarHeight = self.tabBar.bounds.height
+		if segue.destinationViewController is MTHomeViewController {
+			(segue.destinationViewController as! MTHomeViewController).tabBarHeight = self.tabBar.bounds.height
 		}
     }
 	*/

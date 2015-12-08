@@ -27,6 +27,12 @@ enum Theme: String {
 		}
 	}
 
+	var cancelButtonColor:UIColor {
+		switch self {
+		case .Default: return UIColor.whiteColor()
+		}
+	}
+
 	var textViewBackgroundColor:UIColor {
 		switch self {
 		default: return UIColor.whiteColor()
@@ -35,7 +41,8 @@ enum Theme: String {
 
 	var textViewTapFeedbackColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Indigo.P200
+//		case .Default: return MDColorPalette.Indigo.P200
+		default: return UIColor(hex: 0x000000, alpha: 0.3)
 		}
 	}
 
@@ -47,7 +54,8 @@ enum Theme: String {
 
 	var roundButtonTapFeedbackColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Pink.A400!
+//		case .Default: return MDColorPalette.Pink.A400!
+		default: return UIColor(hex: 0xFFFFFF, alpha: 0.3)
 		}
 	}
 
@@ -65,13 +73,14 @@ enum Theme: String {
 
 	var cardViewBackgroudColor:UIColor {
 		switch self {
-		default: return MDColorPalette.Indigo.P400
+		case .Default: return MDColorPalette.Indigo.P400
 		}
 	}
 
 	var cardViewTapfeedbackColor:UIColor {
 		switch self {
-		default: return MDColorPalette.Indigo.P500
+//		case .Default: return MDColorPalette.Indigo.P500
+		default: return UIColor(hex: 0xFFFFFF, alpha: 0.3)
 		}
 	}
 

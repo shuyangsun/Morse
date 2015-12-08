@@ -1,5 +1,5 @@
 //
-//  Coder.swift
+//  MorseTansmitter.swift
 //  Morse
 //
 //  Created by Shuyang Sun on 11/30/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MorseCoder {
+class MorseTansmitter {
 	private var _text:String?
 	private var _morse:String?
 
@@ -97,7 +97,7 @@ private func encodeTextToMorse(text:String!) -> String? {
 			let chArr = word.characters
 			var wordStr:String = ""
 			for ch in chArr {
-				if let chMorseString = encoderTextToMorseStringDictionary[String(ch)] {
+				if let chMorseString = entansmitterTextToMorseStringDictionary[String(ch)] {
 					wordStr += chMorseString
 					wordStr += LETTER_GAP_STRING
 				}
@@ -126,7 +126,7 @@ private func decodeMorseToText(morse:String!) -> String? {
 			let chArr = word.componentsSeparatedByString(LETTER_GAP_STRING)
 			var wordStr:String = ""
 			for ch in chArr {
-				if let chText = decoderMorseStringToTextDictionary[String(ch)] {
+				if let chText = detansmitterMorseStringToTextDictionary[String(ch)] {
 					wordStr += chText
 				}
 			}
@@ -154,7 +154,7 @@ private let DASH_LENGTH:Float = 3.0
 private let LETTER_GAP_LENGTH:Float = 3.0
 private let WORD_GAP_LENGTH:Float = 7.0
 
-private let encoderTextToMorseStringDictionary:Dictionary<String, String> = [
+private let entansmitterTextToMorseStringDictionary:Dictionary<String, String> = [
 	"a": ". ___",
 	"b": "___ . . .",
 	"c": "___ . ___ .",
@@ -211,7 +211,7 @@ private let encoderTextToMorseStringDictionary:Dictionary<String, String> = [
 	"$": ". . . ___ . . ___"
 ]
 
-private let decoderMorseStringToTextDictionary:Dictionary<String, String> = [
+private let detansmitterMorseStringToTextDictionary:Dictionary<String, String> = [
 	". ___": "a",
 	"___ . . .": "b",
 	"___ . ___ .": "c",

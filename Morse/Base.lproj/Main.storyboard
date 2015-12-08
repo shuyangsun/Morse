@@ -48,7 +48,7 @@
         <!--Item 1-->
         <scene sceneID="yvc-Kx-Yq5">
             <objects>
-                <viewController id="82o-bk-XH1" customClass="MCHomeViewController" customModule="Morse" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="82o-bk-XH1" customClass="MTHomeViewController" customModule="Morse" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wHl-Y8-2Vd"/>
                         <viewControllerLayoutGuide type="bottom" id="dPH-PJ-8Su"/>
@@ -69,7 +69,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="p09-JV-ZS3">
             <objects>
-                <tabBarController id="G9v-hM-49G" customClass="MCTabBarController" customModule="Morse" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="G9v-hM-49G" customClass="MTTabBarController" customModule="Morse" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="zKf-Mg-hxv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
