@@ -28,13 +28,22 @@ class MTCardView: UIView {
 	var text:String?
 	var morse:String?
 	var textOnTop = true
-	let defaultMDShadowLevel:Int = 1
+	var delegate:MTCardViewDelegate?
+	private let defaultMDShadowLevel:Int = 1
+
+	// Subviews
+	var topTextView:UITextView!
+	var bottomTextView:UITextView!
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		self.layer.cornerRadius = 2.0
 		self.backgroundColor = self.theme.cardViewBackgroudColor
 		self.addMDShadow(withDepth: self.defaultMDShadowLevel)
+		let tapGR = UITapGestureRecognizer(target: self, action: "tapped:")
+		self.addGestureRecognizer(tapGR)
+		let holdGR = UILongPressGestureRecognizer(target: self, action: "held:")
+		self.addGestureRecognizer(holdGR)
 	}
 
 	convenience init(frame:CGRect, text:String?, morse:String?, textOnTop:Bool = true) {
@@ -50,9 +59,9 @@ class MTCardView: UIView {
 		topLabel.layer.borderColor = UIColor.clearColor().CGColor
 		topLabel.userInteractionEnabled = false
 		if self.textOnTop {
-			topLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 16, color: self.theme.cardViewTextColor)
+			topLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 18, color: self.theme.cardViewTextColor)
 		} else {
-			topLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 12, color: self.theme.cardViewMorseColor)
+			topLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 18, color: self.theme.cardViewMorseColor)
 			topLabel.lineBreakMode = .ByClipping
 		}
 		self.addSubview(topLabel)
@@ -71,10 +80,10 @@ class MTCardView: UIView {
 		bottomLabel.layer.borderColor = UIColor.clearColor().CGColor
 		bottomLabel.userInteractionEnabled = false
 		if self.textOnTop {
-			bottomLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 12, color: self.theme.cardViewMorseColor)
+			bottomLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 18, color: self.theme.cardViewMorseColor)
 			bottomLabel.lineBreakMode = .ByClipping
 		} else {
-			bottomLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 16, color: self.theme.cardViewTextColor)
+			bottomLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 18, color: self.theme.cardViewTextColor)
 		}
 		self.addSubview(bottomLabel)
 
@@ -90,12 +99,44 @@ class MTCardView: UIView {
 		super.init(coder: aCoder)
 	}
 
-	override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		for touch in touches {
-			let location = touch.locationInView(self)
+	func tapped(gestureRecognizer:UITapGestureRecognizer) {
+		let location = gestureRecognizer.locationInView(self)
+		if self.bounds.contains(location) {
+			self.animateUserInteractionFeedbackAtLocation(location)
+		}
+		if let myDelegate = self.delegate {
+			myDelegate.cardViewTapped(self)
+		}
+	}
+
+	func held(gestureRecognizer:UILongPressGestureRecognizer) {
+		if gestureRecognizer.state == .Began {
+			let location = gestureRecognizer.locationInView(self)
 			if self.bounds.contains(location) {
-				self.triggerTapFeedBack(atLocation: location, withColor: self.theme.cardViewTapfeedbackColor, duration: TAP_FEED_BACK_DURATION)
+				self.animateUserInteractionFeedbackAtLocation(location)
 			}
+		}
+	}
+
+	private func animateUserInteractionFeedbackAtLocation(location:CGPoint) {
+		let originalTransform = self.transform
+		self.triggerTapFeedBack(atLocation: location, withColor: self.theme.cardViewTapfeedbackColor, duration: TAP_FEED_BACK_DURATION * self.animationDurationScalar)
+		UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * self.animationDurationScalar,
+			delay: 0.0,
+			options: .CurveEaseIn,
+			animations: {
+				self.transform = CGAffineTransformScale(self.transform, 1.02, 1.02)
+				self.addMDShadow(withDepth: self.defaultMDShadowLevel + 1)
+			}) { succeed in
+				if succeed {
+					UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * self.animationDurationScalar,
+						delay: 0.0,
+						options: .CurveEaseOut,
+						animations: {
+							self.transform = originalTransform
+							self.addMDShadow(withDepth: self.defaultMDShadowLevel)
+						}, completion: nil)
+				}
 		}
 	}
 }

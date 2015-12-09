@@ -45,7 +45,8 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 
 	private var isDirectionEncode:Bool = true {
 		didSet {
-			self.inputTextView.attributedText = self.attributedHintText
+			self.inputTextView.attributedText = self.attributedHintTextInput
+			self.outputTextView.attributedText = self.attributedHintTextOutput
 		}
 	}
 	private let transmitter = MorseTansmitter()
@@ -68,7 +69,9 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 		return self.view.bounds.height - self.tabBarHeight
 	}
 
-	private var cameraAndMicButtonViewHeight:CGFloat = 72
+	private var cameraAndMicButtonViewHeight:CGFloat {
+		return self.topBarHeight
+	}
 
 	private var tabBarHeight:CGFloat {
 		if let tabBarController = self.tabBarController {
@@ -103,16 +106,30 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 		return delegate.theme
 	}
 
-	private var hintText:String {
+	private var hintTextInput:String {
 		if self.isDirectionEncode {
-			return "Encode text to Morse code"
+			return "Touch to type"
 		} else {
-			return "Decode Morse code to text"
+			return "___ ___   ___ ___ ___   . ___ .   . . .   ."
 		}
 	}
 
-	private var attributedHintText:NSMutableAttributedString {
-		return NSMutableAttributedString(string: self.hintText, attributes:
+	private var hintTextOutput:String {
+		if self.isDirectionEncode {
+			return "___ ___   ___ ___ ___   . ___ .   . . .   ."
+		} else {
+			return "Touch to type"
+		}
+	}
+
+	private var attributedHintTextInput:NSMutableAttributedString {
+		return NSMutableAttributedString(string: self.hintTextInput, attributes:
+			[NSFontAttributeName: UIFont.systemFontOfSize(16),
+				NSForegroundColorAttributeName: UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)])
+	}
+
+	private var attributedHintTextOutput:NSMutableAttributedString {
+		return NSMutableAttributedString(string: self.hintTextOutput, attributes:
 			[NSFontAttributeName: UIFont.systemFontOfSize(16),
 				NSForegroundColorAttributeName: UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)])
 	}
@@ -137,9 +154,9 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 	private var cardViewTopMargin:CGFloat {
 		if self.traitCollection.verticalSizeClass == .Regular &&
 			self.traitCollection.horizontalSizeClass == .Regular {
-			return self.roundButtonRadius + 6
+			return self.roundButtonRadius + 8
 		} else {
-			return self.roundButtonRadius + 3
+			return self.roundButtonRadius + 6
 		}
 	}
 
@@ -157,7 +174,8 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 	}
 
 	private var cardViewHeight:CGFloat {
-		return 74
+//		return 74
+		return 86
 	}
 
 	private var roundButtonRightMargin:CGFloat {
@@ -168,15 +186,12 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 		return 140
 	}
 
-	private let defaultAnimationDurationQuick = TAP_FEED_BACK_DURATION/3.0
-
 	// *****************************
 	// MARK: MVC Life Cycle
 	// *****************************
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		
 		// TODO: Custom tab bar item
 		self.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Featured, tag: 0)
     }
@@ -242,7 +257,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 			self.inputTextView.opaque = false
 			self.inputTextView.keyboardType = .ASCIICapable
 			self.inputTextView.returnKeyType = .Done
-			self.inputTextView.attributedText = self.attributedHintText
+			self.inputTextView.attributedText = self.attributedHintTextInput
 			self.inputTextView.delegate = self
 			self.inputTextView.layer.borderColor = UIColor.clearColor().CGColor
 			self.inputTextView.layer.borderWidth = 0
@@ -270,7 +285,6 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 			if let color = self.inputTextView.backgroundColor {
 				self.hiddenLineView.backgroundColor = color
 			}
-			self.hiddenLineView.layer.zPosition = CGFloat.max - 2
 			self.textBackgroundView.addSubview(self.hiddenLineView)
 
 			self.hiddenLineView.snp_remakeConstraints(closure: { (make) -> Void in
@@ -286,6 +300,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 			self.outputTextView.backgroundColor = UIColor.clearColor()
 			self.outputTextView.opaque = false
 			self.outputTextView.editable = false
+			self.outputTextView.attributedText = self.attributedHintTextOutput
 			self.outputTextView.layer.borderColor = UIColor.clearColor().CGColor
 			self.outputTextView.layer.borderWidth = 0
 			// This gestureRecognizer is here to fix a bug where double tapping on outputTextView would resign inputTextView as first responder.
@@ -324,7 +339,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 		if self.roundButtonView == nil {
 			self.roundButtonView = MTRoundButtonView(origin: CGPoint(x:self.view.bounds.width - self.roundButtonRightMargin - self.roundButtonRadius * 2, y:self.statusBarHeight + self.topBarHeight + self.textBackgroundViewHeight - self.roundButtonRadius), radius: self.roundButtonRadius)
 			let tapGR = UITapGestureRecognizer(target: self, action: "roundButtonTapped:")
-			roundButtonView.addGestureRecognizer(tapGR)
+			self.roundButtonView.addGestureRecognizer(tapGR)
 			self.view.addSubview(self.roundButtonView)
 			self.roundButtonView.snp_makeConstraints(closure: { (make) -> Void in
 				make.width.equalTo(self.roundButtonRadius * 2)
@@ -421,13 +436,13 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 	func textViewDidBeginEditing(textView: UITextView) {
 
 		self.inputTextView.attributedText = getAttributedStringFrom(" ", withFontSize: 16, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
+		self.outputTextView.attributedText = getAttributedStringFrom(" ", withFontSize: 16, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
 		self.textBoxTapFeedBackView.hidden = true
 		self.textBoxTapFeedBackView.userInteractionEnabled = false
 
 		if self.lineBreakView == nil {
 			self.lineBreakView = UIView(frame: CGRect(x: 0, y: self.textBackgroundViewHeight, width: self.textBackgroundView.bounds.width, height: 1.0))
 			self.lineBreakView.backgroundColor = UIColor(hex: 0x000, alpha: 0.1)
-			self.lineBreakView.layer.zPosition = CGFloat.max - 1
 			self.textBackgroundView.addSubview(self.lineBreakView)
 		}
 
@@ -461,7 +476,6 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 			self.transmitter.morse = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
 			outputText = self.transmitter.text
 		}
-		print("\(outputText)")
 		self.outputTextView.attributedText = getAttributedStringFrom(outputText, withFontSize: 16, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
 		if outputText != nil {
 			self.outputTextView.scrollRangeToVisible(NSMakeRange(outputText!.startIndex.distanceTo(outputText!.endIndex), 0))
@@ -472,7 +486,8 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 		self.textBoxTapFeedBackView.hidden = false
 		self.textBoxTapFeedBackView.userInteractionEnabled = true
 		self.outputTextView.text = nil
-		textView.attributedText = self.attributedHintText
+		textView.attributedText = self.attributedHintTextInput
+		self.outputTextView.attributedText = self.attributedHintTextOutput
 		self.lineBreakView.snp_remakeConstraints(closure: { (make) -> Void in
 			make.left.equalTo(self.textBackgroundView)
 			make.right.equalTo(self.textBackgroundView)
@@ -492,15 +507,16 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 				}
 		}
 
-		self.cancelButton.disappearWithDuration(self.defaultAnimationDurationQuick)
-		self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: self.defaultAnimationDurationQuick)
+		let buttonAnimationDuration = TAP_FEED_BACK_DURATION/3.0
+		self.cancelButton.disappearWithDuration(buttonAnimationDuration)
+		self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: buttonAnimationDuration)
 	}
 
 	func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
 		if text == "\n" {
 			let text = self.isDirectionEncode ? self.inputTextView.text : self.outputTextView.text
 			let morse = self.isDirectionEncode ? self.outputTextView.text : self.inputTextView.text
-			if self.inputTextView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) != "" || self.outputTextView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) != "" {
+			if self.inputTextView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) != "" && self.outputTextView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) != "" {
 				self.addCardViewWithText(text, morse: morse, textOnTop: self.isDirectionEncode, animateWithDuration: 0.3)
 			}
 			textView.resignFirstResponder()
@@ -513,9 +529,10 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 	// *****************************
 
 	func scrollViewDidScroll(scrollView: UIScrollView) {
-		let topSectionHeight = self.statusBarHeight + self.topBarHeight + self.textBackgroundViewHeight - self.cameraAndMicButtonViewHeight
-		if scrollView.contentOffset.y <= 0 && self.inputAreaHidden {
-			// Scroll down, show input area
+		let topSectionHeight = self.topBarHeight + self.textBackgroundViewHeight - self.cameraAndMicButtonViewHeight
+		let animationDuration = 0.2
+		if scrollView.contentOffset.y <= self.roundButtonView.bounds.height && self.inputAreaHidden {
+			// Show input area
 
 			self.statusBarView.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.view)
@@ -524,18 +541,23 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 				make.height.equalTo(self.statusBarHeight)
 			})
 
-			self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: self.defaultAnimationDurationQuick)
-			UIView.animateWithDuration(self.defaultAnimationDurationQuick * self.animationDurationScalar
+			if !self.inputTextView.isFirstResponder() {
+				self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: animationDuration)
+			}
+			UIView.animateWithDuration(animationDuration * self.animationDurationScalar
 				, delay: 0,
 				options: .CurveEaseOut,
 				animations: {
 					self.view.layoutIfNeeded()
+					self.inputTextView.alpha = 1
+					self.outputTextView.alpha = 1
 				}, completion: { succeed in
 					self.inputAreaHidden = false
 			})
 
-		} else if scrollView.contentOffset.y >= topSectionHeight && !self.inputAreaHidden {
-			// Scroll up, hode input area
+		} else if scrollView.contentOffset.y >= topSectionHeight && scrollView.contentSize.height > self.view.bounds.height && !self.inputAreaHidden {
+			// Only hide input view if the content for scroll view is large enough to be displayed on a full size scroll view.
+			// Hide input area
 
 			self.statusBarView.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.view).offset(-topSectionHeight)
@@ -544,12 +566,16 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 				make.height.equalTo(self.statusBarHeight)
 			})
 
-			self.roundButtonView.disappearWithAnimationType([.Scale, .Fade], duration: self.defaultAnimationDurationQuick)
-			UIView.animateWithDuration(self.defaultAnimationDurationQuick * self.animationDurationScalar
+			if !self.inputTextView.isFirstResponder() {
+				self.roundButtonView.disappearWithAnimationType([.Scale, .Fade], duration: animationDuration)
+			}
+			UIView.animateWithDuration(animationDuration * self.animationDurationScalar
 				, delay: 0,
 				options: .CurveEaseOut,
 				animations: {
 					self.view.layoutIfNeeded()
+					self.inputTextView.alpha = 0
+					self.outputTextView.alpha = 0
 				}, completion: { succeed in
 					self.inputAreaHidden = true
 			})
@@ -595,19 +621,22 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 		let tapLocation = gestureRecognizer.locationInView(self.roundButtonView)
 		if self.roundButtonView.bounds.contains(tapLocation) {
 			let originalTransform = self.roundButtonView.transform
-			self.roundButtonView.triggerTapFeedBack(atLocation: tapLocation, withColor: self.theme.roundButtonTapFeedbackColor, duration: TAP_FEED_BACK_DURATION)
-			UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0,
+			self.roundButtonView.triggerTapFeedBack(atLocation: tapLocation, withColor: self.theme.roundButtonTapFeedbackColor, duration: TAP_FEED_BACK_DURATION * self.animationDurationScalar)
+			self.roundButtonView.rotateBackgroundImageWithDuration(TAP_FEED_BACK_DURATION/2.0)
+			UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * self.animationDurationScalar,
 				delay: 0.0,
 				options: .CurveEaseIn,
 				animations: {
 					self.roundButtonView.transform = CGAffineTransformScale(self.roundButtonView.transform, 1.05, 1.05)
+					self.roundButtonView.addMDShadow(withDepth: 4)
 				}) { succeed in
 					if succeed {
-						UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0,
+						UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * self.animationDurationScalar,
 							delay: 0.0,
-							options: .CurveEaseIn,
+							options: .CurveEaseOut,
 							animations: {
 								self.roundButtonView.transform = originalTransform
+								self.roundButtonView.addMDShadow(withDepth: 3)
 							}, completion: nil)
 					}
 			}

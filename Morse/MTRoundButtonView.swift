@@ -14,6 +14,7 @@ enum ButtonActionType {
 
 class MTRoundButtonView: UIView {
 	var buttonAction:ButtonActionType = .Switch
+	var backgroundImageView:UIImageView!
 
 	private var theme:Theme {
 		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -35,6 +36,11 @@ class MTRoundButtonView: UIView {
 
 	convenience init(origin:CGPoint, radius:CGFloat) {
 		self.init(frame:CGRect(origin: origin, size: CGSize(width: radius * 2, height: radius * 2)))
+		let backgroundImage = UIImage(named: "Round Button")
+		self.backgroundImageView = UIImageView(frame: self.bounds)
+		self.backgroundImageView.image = backgroundImage
+		self.addSubview(self.backgroundImageView)
+		self.opaque = false
 		self.backgroundColor = self.theme.roundButtonBackgroundColor
 		self.layer.cornerRadius = radius
 		self.addMDShadow(withDepth: self.shadowLevel)
@@ -85,6 +91,25 @@ class MTRoundButtonView: UIView {
 			options: .CurveEaseInOut,
 			animations: animationClosure, completion: nil)
 	}
+
+	func rotateBackgroundImageWithDuration(duration:NSTimeInterval) {
+		UIView.animateWithDuration(duration / 2.0 * self.animationDurationScalar,
+			delay: 0.0,
+			options: .CurveLinear,
+			animations: {
+				self.backgroundImageView.transform = CGAffineTransformRotate(self.backgroundImageView.transform, CGFloat(M_PI_2))
+			}) { succeed in
+				if succeed {
+					UIView.animateWithDuration(duration / 2.0 * self.animationDurationScalar,
+						delay: 0.0,
+						options: .CurveLinear,
+						animations: {
+							self.backgroundImageView.transform = CGAffineTransformRotate(self.backgroundImageView.transform, CGFloat(M_PI_2))
+					}, completion: nil)
+				}
+		}
+	}
+
 }
 
 enum AnimationType {

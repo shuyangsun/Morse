@@ -31,6 +31,7 @@ class MTCancelButton: UIButton {
 	}
 
     override func drawRect(rect: CGRect) {
+		super.drawRect(rect)
 		let frame = self.frame
 		let path = UIBezierPath()
 		self.theme.cancelButtonColor.setStroke()

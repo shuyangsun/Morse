@@ -10,6 +10,9 @@
 		10286CCB1C0D1BCF00BD2B43 /* MTCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* MTCardView.swift */; };
 		10286CCC1C0D1BCF00BD2B43 /* MTCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* MTCardView.swift */; };
 		10286CCD1C0D1BCF00BD2B43 /* MTCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* MTCardView.swift */; };
+		1030BA0F1C1890C20099F2E4 /* MTCardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* MTCardViewDelegate.swift */; };
+		1030BA101C1890C20099F2E4 /* MTCardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* MTCardViewDelegate.swift */; };
+		1030BA111C1890C20099F2E4 /* MTCardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* MTCardViewDelegate.swift */; };
 		1052A7431C0BACE90085B0C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7421C0BACE90085B0C9 /* AppDelegate.swift */; };
 		1052A7481C0BACE90085B0C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1052A7461C0BACE90085B0C9 /* Main.storyboard */; };
 		1052A74B1C0BACE90085B0C9 /* Morse.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7491C0BACE90085B0C9 /* Morse.xcdatamodeld */; };
@@ -115,6 +118,7 @@
 
 /* Begin PBXFileReference section */
 		10286CCA1C0D1BCF00BD2B43 /* MTCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTCardView.swift; sourceTree = "<group>"; };
+		1030BA0E1C1890C20099F2E4 /* MTCardViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTCardViewDelegate.swift; sourceTree = "<group>"; };
 		1052A73F1C0BACE90085B0C9 /* Morse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Morse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1052A7421C0BACE90085B0C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1052A7471C0BACE90085B0C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -170,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				10286CCA1C0D1BCF00BD2B43 /* MTCardView.swift */,
+				1030BA0E1C1890C20099F2E4 /* MTCardViewDelegate.swift */,
 				109ACDBF1C0E0D12006AC535 /* MTRoundButtonView.swift */,
 				1073948E1C11F75800EF8C16 /* MTCancelButton.swift */,
 			);
@@ -449,6 +454,7 @@
 				1052A77C1C0BB09B0085B0C9 /* MTHomeViewController.swift in Sources */,
 				107FF6AB1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
 				107FF6A71C0BC128003EB294 /* Theme.swift in Sources */,
+				1030BA0F1C1890C20099F2E4 /* MTCardViewDelegate.swift in Sources */,
 				1073948F1C11F75800EF8C16 /* MTCancelButton.swift in Sources */,
 				1052A74B1C0BACE90085B0C9 /* Morse.xcdatamodeld in Sources */,
 				1052A7431C0BACE90085B0C9 /* AppDelegate.swift in Sources */,
@@ -467,6 +473,7 @@
 				109ACDC11C0E0D12006AC535 /* MTRoundButtonView.swift in Sources */,
 				1052A75B1C0BACEA0085B0C9 /* MorseTests.swift in Sources */,
 				107FF6AC1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
+				1030BA101C1890C20099F2E4 /* MTCardViewDelegate.swift in Sources */,
 				107394901C11F75800EF8C16 /* MTCancelButton.swift in Sources */,
 				107869491C0E5EC00025AD45 /* AppDelegate.swift in Sources */,
 				10826A191C0D5C4C00902BCC /* General UI.swift in Sources */,
@@ -485,6 +492,7 @@
 				109ACDC21C0E0D12006AC535 /* MTRoundButtonView.swift in Sources */,
 				1052A7661C0BACEA0085B0C9 /* MorseUITests.swift in Sources */,
 				107FF6AD1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
+				1030BA111C1890C20099F2E4 /* MTCardViewDelegate.swift in Sources */,
 				107394911C11F75800EF8C16 /* MTCancelButton.swift in Sources */,
 				1078694D1C0E5EC00025AD45 /* AppDelegate.swift in Sources */,
 				10826A1A1C0D5C4C00902BCC /* General UI.swift in Sources */,

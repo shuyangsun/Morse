@@ -25,13 +25,13 @@ enum Theme: String {
 
 	var statusBarBackgroundColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Indigo.P700
+		case .Default: return MDColorPalette.Blue.P700
 		}
 	}
 
 	var topBarBackgroundColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Indigo.P500
+		case .Default: return MDColorPalette.Blue.P500
 		}
 	}
 
@@ -56,7 +56,7 @@ enum Theme: String {
 
 	var roundButtonBackgroundColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Pink.A200!
+		case .Default: return MDColorPalette.Red.A200!
 		}
 	}
 
@@ -69,13 +69,13 @@ enum Theme: String {
 
 	var keyboardButtonViewBackgroundColor:UIColor {
 		switch self {
-		default: return UIColor.whiteColor()
+		default: return self.textViewBackgroundColor
 		}
 	}
 
 	var keyboardButtonViewTapFeedbackColor:UIColor {
 		switch self {
-		default: return self.defaultTapFeedbackColorDark
+		default: return self.textViewTapFeedbackColor
 		}
 	}
 
@@ -93,7 +93,7 @@ enum Theme: String {
 
 	var cardViewBackgroudColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Indigo.P400
+		case .Default: return MDColorPalette.Blue.P400
 		}
 	}
 
