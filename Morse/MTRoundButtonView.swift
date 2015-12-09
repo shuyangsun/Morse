@@ -13,9 +13,6 @@ enum ButtonActionType {
 }
 
 class MTRoundButtonView: UIView {
-
-	var originalTransform:CGAffineTransform?
-	var originalAlpha:CGFloat = 1.0
 	var buttonAction:ButtonActionType = .Switch
 
 	private var theme:Theme {
@@ -48,8 +45,6 @@ class MTRoundButtonView: UIView {
 	}
 
 	func disappearWithAnimationType(animationTypes:Set<AnimationType>, duration:NSTimeInterval) {
-		self.originalTransform = self.transform
-		self.originalAlpha = self.alpha
 		// Define animation here according to animation types, call it later
 		let animationClosure = {
 			if animationTypes.contains(.Scale) {
@@ -77,14 +72,10 @@ class MTRoundButtonView: UIView {
 		// Define animation here according to animation types, call it later
 		let animationClosure = {
 			if animationTypes.contains(.Scale) {
-				if self.originalTransform != nil {
-					self.transform = self.originalTransform!
-				} else {
-					self.transform = CGAffineTransformIdentity
-				}
+				self.transform = CGAffineTransformIdentity
 			}
 			if animationTypes.contains(.Fade) {
-				self.alpha = self.originalAlpha
+				self.alpha = 1
 				self.userInteractionEnabled = true
 			}
 			self.addMDShadow(withDepth: self.shadowLevel)

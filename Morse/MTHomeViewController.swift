@@ -11,7 +11,7 @@ import SnapKit
 import AVFoundation
 import CoreData
 
-class MTHomeViewController: UIViewController, UITextViewDelegate {
+class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDelegate {
 
 	// *****************************
 	// MARK: Views
@@ -20,7 +20,6 @@ class MTHomeViewController: UIViewController, UITextViewDelegate {
 	// Top bar views4
 	private var statusBarView:UIView!
 	private var topBarView:UIView!
-	private var cancelButton:MTCancelButton!
 
 	// Text views
 	private var hiddenLineView:UIView!
@@ -32,6 +31,8 @@ class MTHomeViewController: UIViewController, UITextViewDelegate {
 
 	// Button
 	private var roundButtonView:MTRoundButtonView!
+	private var cancelButton:MTCancelButton!
+	private var keyboardButtonView:UIView!
 
 	// Scroll views
 	private var scrollViewOverlay:UIButton!
@@ -54,6 +55,8 @@ class MTHomeViewController: UIViewController, UITextViewDelegate {
 		return delegate.interactionSoundEnabled
 	}
 
+	private var inputAreaHidden = false
+
 	// *****************************
 	// MARK: UI Related Variables
 	// *****************************
@@ -64,6 +67,8 @@ class MTHomeViewController: UIViewController, UITextViewDelegate {
 	private var viewHeight:CGFloat {
 		return self.view.bounds.height - self.tabBarHeight
 	}
+
+	private var cameraAndMicButtonViewHeight:CGFloat = 72
 
 	private var tabBarHeight:CGFloat {
 		if let tabBarController = self.tabBarController {
@@ -159,9 +164,11 @@ class MTHomeViewController: UIViewController, UITextViewDelegate {
 		return self.cardViewRightMargin
 	}
 
-	private var textViewHeight:CGFloat {
+	private var textBackgroundViewHeight:CGFloat {
 		return 140
 	}
+
+	private let defaultAnimationDurationQuick = TAP_FEED_BACK_DURATION/3.0
 
 	// *****************************
 	// MARK: MVC Life Cycle
@@ -203,7 +210,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate {
 			self.topBarView.addSubview(topBarLabel)
 
 			self.topBarView.snp_makeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.view).offset(self.statusBarHeight)
+				make.top.equalTo(self.statusBarView.snp_bottom)
 				make.left.equalTo(self.view).offset(0)
 				make.right.equalTo(self.view).offset(0)
 				make.height.equalTo(self.topBarHeight)
@@ -213,23 +220,8 @@ class MTHomeViewController: UIViewController, UITextViewDelegate {
 			})
 		}
 
-		if self.cancelButton == nil {
-			self.cancelButton = MTCancelButton(origin: CGPoint(x: 0, y: 0), width: self.cancelButtonWidth)
-			self.cancelButton.addTarget(self, action: "dismissInputTextKeyboard", forControlEvents: .TouchUpInside)
-			self.topBarView.addSubview(self.cancelButton)
-
-			self.cancelButton.snp_makeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.topBarView)
-				make.left.equalTo(self.topBarView)
-				make.width.equalTo(self.topBarHeight)
-				make.height.equalTo(self.cancelButton.snp_width)
-			})
-
-			self.cancelButton.disappearWithDuration(0)
-		}
-
 		if self.textBackgroundView == nil {
-			self.textBackgroundView = UIView(frame: CGRect(x: 0, y: self.topBarHeight + self.statusBarHeight, width: self.viewWidth, height: self.textViewHeight))
+			self.textBackgroundView = UIView(frame: CGRect(x: 0, y: self.topBarHeight + self.statusBarHeight, width: self.viewWidth, height: self.textBackgroundViewHeight))
 			self.textBackgroundView.backgroundColor = UIColor.whiteColor()
 			self.textBackgroundView.layer.borderColor = UIColor.clearColor().CGColor
 			self.textBackgroundView.layer.borderWidth = 0
@@ -240,12 +232,12 @@ class MTHomeViewController: UIViewController, UITextViewDelegate {
 				make.top.equalTo(self.topBarView.snp_bottom)
 				make.right.equalTo(self.view)
 				make.left.equalTo(self.view)
-				make.height.equalTo(self.textViewHeight)
+				make.height.equalTo(self.textBackgroundViewHeight)
 			}
 		}
 
 		if self.inputTextView == nil {
-			self.inputTextView = UITextView(frame: CGRect(x: 0, y: 0, width: self.textBackgroundView.bounds.width, height: self.textViewHeight/2.0))
+			self.inputTextView = UITextView(frame: CGRect(x: 0, y: 0, width: self.textBackgroundView.bounds.width, height: self.textBackgroundViewHeight/2.0))
 			self.inputTextView.backgroundColor = UIColor.clearColor()
 			self.inputTextView.opaque = false
 			self.inputTextView.keyboardType = .ASCIICapable
@@ -274,7 +266,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate {
 
 		// Hidden line view is used to hide the gap between input and output text view
 		if self.hiddenLineView == nil {
-			self.hiddenLineView = UIView(frame: CGRect(x: 0, y: self.textViewHeight/2.0 + self.statusBarHeight + self.topBarHeight - self.textViewHeight, width: self.inputTextView.bounds.width, height: 1.0))
+			self.hiddenLineView = UIView(frame: CGRect(x: 0, y: self.textBackgroundViewHeight/2.0 + self.statusBarHeight + self.topBarHeight - self.textBackgroundViewHeight, width: self.inputTextView.bounds.width, height: 1.0))
 			if let color = self.inputTextView.backgroundColor {
 				self.hiddenLineView.backgroundColor = color
 			}
@@ -285,12 +277,12 @@ class MTHomeViewController: UIViewController, UITextViewDelegate {
 				make.left.equalTo(self.inputTextView)
 				make.right.equalTo(self.inputTextView)
 				make.bottom.equalTo(self.inputTextView)
-				make.height.equalTo(self.textViewHeight)
+				make.height.equalTo(self.textBackgroundViewHeight)
 			})
 		}
 
 		if self.outputTextView == nil {
-			self.outputTextView = UITextView(frame: CGRect(x: 0, y: self.textViewHeight/2.0, width: self.viewWidth, height: self.textViewHeight/2.0))
+			self.outputTextView = UITextView(frame: CGRect(x: 0, y: self.textBackgroundViewHeight/2.0, width: self.viewWidth, height: self.textBackgroundViewHeight/2.0))
 			self.outputTextView.backgroundColor = UIColor.clearColor()
 			self.outputTextView.opaque = false
 			self.outputTextView.editable = false
@@ -330,7 +322,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate {
 		}
 
 		if self.roundButtonView == nil {
-			self.roundButtonView = MTRoundButtonView(origin: CGPoint(x:self.view.bounds.width - self.roundButtonRightMargin - self.roundButtonRadius * 2, y:self.statusBarHeight + self.topBarHeight + self.textViewHeight - self.roundButtonRadius), radius: self.roundButtonRadius)
+			self.roundButtonView = MTRoundButtonView(origin: CGPoint(x:self.view.bounds.width - self.roundButtonRightMargin - self.roundButtonRadius * 2, y:self.statusBarHeight + self.topBarHeight + self.textBackgroundViewHeight - self.roundButtonRadius), radius: self.roundButtonRadius)
 			let tapGR = UITapGestureRecognizer(target: self, action: "roundButtonTapped:")
 			roundButtonView.addGestureRecognizer(tapGR)
 			self.view.addSubview(self.roundButtonView)
@@ -342,13 +334,45 @@ class MTHomeViewController: UIViewController, UITextViewDelegate {
 			})
 		}
 
+		if self.cancelButton == nil {
+			self.cancelButton = MTCancelButton(origin: CGPoint(x: 0, y: 0), width: self.cancelButtonWidth)
+			self.cancelButton.addTarget(self, action: "dismissInputTextKeyboard", forControlEvents: .TouchUpInside)
+			self.topBarView.addSubview(self.cancelButton)
+
+			self.cancelButton.snp_makeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.topBarView)
+				make.left.equalTo(self.topBarView)
+				make.width.equalTo(self.topBarHeight)
+				make.height.equalTo(self.cancelButton.snp_width)
+			})
+
+			self.cancelButton.disappearWithDuration(0)
+		}
+
+		if self.keyboardButtonView == nil {
+			self.keyboardButtonView = UIView(frame: CGRect(x: 0, y: self.textBackgroundView.bounds.height - self.cameraAndMicButtonViewHeight, width: self.textBackgroundView.bounds.width, height: self.cameraAndMicButtonViewHeight))
+			self.keyboardButtonView.backgroundColor = self.theme.keyboardButtonViewBackgroundColor
+			self.keyboardButtonView.opaque = false
+			self.keyboardButtonView.alpha = 0
+			self.keyboardButtonView.hidden = true
+			self.textBackgroundView.addSubview(self.keyboardButtonView)
+
+			self.keyboardButtonView.snp_makeConstraints(closure: { (make) -> Void in
+				make.height.equalTo(self.cameraAndMicButtonViewHeight)
+				make.left.equalTo(self.textBackgroundView)
+				make.right.equalTo(self.textBackgroundView)
+				make.bottom.equalTo(self.textBackgroundView)
+			})
+		}
+
 		if self.scrollView == nil {
-			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: self.statusBarHeight + self.topBarHeight + self.textViewHeight, width: self.viewWidth, height: self.viewHeight - self.textViewHeight))
+			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: self.statusBarHeight + self.topBarHeight + self.textBackgroundViewHeight, width: self.viewWidth, height: self.viewHeight - self.textBackgroundViewHeight))
 			self.scrollView.backgroundColor = UIColor.whiteColor()
 			self.scrollView.userInteractionEnabled = true
 			self.scrollView.bounces = true
 			self.scrollView.showsHorizontalScrollIndicator = false
 			self.scrollView.showsVerticalScrollIndicator = true
+			self.scrollView.delegate = self
 			self.view.insertSubview(self.scrollView, belowSubview: self.textBackgroundView)
 
 			self.scrollView.snp_makeConstraints { (make) -> Void in
@@ -401,7 +425,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate {
 		self.textBoxTapFeedBackView.userInteractionEnabled = false
 
 		if self.lineBreakView == nil {
-			self.lineBreakView = UIView(frame: CGRect(x: 0, y: self.textViewHeight, width: self.textBackgroundView.bounds.width, height: 1.0))
+			self.lineBreakView = UIView(frame: CGRect(x: 0, y: self.textBackgroundViewHeight, width: self.textBackgroundView.bounds.width, height: 1.0))
 			self.lineBreakView.backgroundColor = UIColor(hex: 0x000, alpha: 0.1)
 			self.lineBreakView.layer.zPosition = CGFloat.max - 1
 			self.textBackgroundView.addSubview(self.lineBreakView)
@@ -468,9 +492,8 @@ class MTHomeViewController: UIViewController, UITextViewDelegate {
 				}
 		}
 
-		let buttonAnimationDuration = TAP_FEED_BACK_DURATION/3.0
-		self.cancelButton.disappearWithDuration(buttonAnimationDuration)
-		self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: buttonAnimationDuration)
+		self.cancelButton.disappearWithDuration(self.defaultAnimationDurationQuick)
+		self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: self.defaultAnimationDurationQuick)
 	}
 
 	func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
@@ -483,6 +506,54 @@ class MTHomeViewController: UIViewController, UITextViewDelegate {
 			textView.resignFirstResponder()
 		}
 		return true
+	}
+
+	// *****************************
+	// MARK: Scroll View Delegate
+	// *****************************
+
+	func scrollViewDidScroll(scrollView: UIScrollView) {
+		let topSectionHeight = self.statusBarHeight + self.topBarHeight + self.textBackgroundViewHeight - self.cameraAndMicButtonViewHeight
+		if scrollView.contentOffset.y <= 0 && self.inputAreaHidden {
+			// Scroll down, show input area
+
+			self.statusBarView.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.view)
+				make.left.equalTo(self.view)
+				make.right.equalTo(self.view)
+				make.height.equalTo(self.statusBarHeight)
+			})
+
+			self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: self.defaultAnimationDurationQuick)
+			UIView.animateWithDuration(self.defaultAnimationDurationQuick * self.animationDurationScalar
+				, delay: 0,
+				options: .CurveEaseOut,
+				animations: {
+					self.view.layoutIfNeeded()
+				}, completion: { succeed in
+					self.inputAreaHidden = false
+			})
+
+		} else if scrollView.contentOffset.y >= topSectionHeight && !self.inputAreaHidden {
+			// Scroll up, hode input area
+
+			self.statusBarView.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.view).offset(-topSectionHeight)
+				make.left.equalTo(self.view)
+				make.right.equalTo(self.view)
+				make.height.equalTo(self.statusBarHeight)
+			})
+
+			self.roundButtonView.disappearWithAnimationType([.Scale, .Fade], duration: self.defaultAnimationDurationQuick)
+			UIView.animateWithDuration(self.defaultAnimationDurationQuick * self.animationDurationScalar
+				, delay: 0,
+				options: .CurveEaseOut,
+				animations: {
+					self.view.layoutIfNeeded()
+				}, completion: { succeed in
+					self.inputAreaHidden = true
+			})
+		}
 	}
 
 	// *****************************

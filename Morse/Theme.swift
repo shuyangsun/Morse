@@ -15,6 +15,14 @@ enum Theme: String {
 	// MARK: Colors For UI
 	// *****************************
 
+	private var defaultTapFeedbackColorDark:UIColor {
+		return UIColor(hex: 0x000000, alpha: 0.3)
+	}
+
+	private var defaultTapFeedbackColorLight:UIColor {
+		return UIColor(hex: 0xFFFFFF, alpha: 0.3)
+	}
+
 	var statusBarBackgroundColor:UIColor {
 		switch self {
 		case .Default: return MDColorPalette.Indigo.P700
@@ -42,7 +50,7 @@ enum Theme: String {
 	var textViewTapFeedbackColor:UIColor {
 		switch self {
 //		case .Default: return MDColorPalette.Indigo.P200
-		default: return UIColor(hex: 0x000000, alpha: 0.3)
+		default: return self.defaultTapFeedbackColorDark
 		}
 	}
 
@@ -55,7 +63,19 @@ enum Theme: String {
 	var roundButtonTapFeedbackColor:UIColor {
 		switch self {
 //		case .Default: return MDColorPalette.Pink.A400!
-		default: return UIColor(hex: 0xFFFFFF, alpha: 0.3)
+		default: return self.defaultTapFeedbackColorLight
+		}
+	}
+
+	var keyboardButtonViewBackgroundColor:UIColor {
+		switch self {
+		default: return UIColor.whiteColor()
+		}
+	}
+
+	var keyboardButtonViewTapFeedbackColor:UIColor {
+		switch self {
+		default: return self.defaultTapFeedbackColorDark
 		}
 	}
 
