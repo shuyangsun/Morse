@@ -10,5 +10,4 @@ import Foundation
 
 protocol MTCardViewDelegate {
 	func cardViewTapped(cardView:MTCardView)
-	func cardViewOutputButtonTapped(cardView:MTCardView)
 }

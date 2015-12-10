@@ -11,7 +11,7 @@ import SnapKit
 import AVFoundation
 import CoreData
 
-class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDelegate {
+class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDelegate, MTCardViewDelegate {
 
 	// *****************************
 	// MARK: Views
@@ -38,6 +38,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 	private var scrollViewOverlay:UIButton!
 	private var scrollView:UIScrollView!
 	private var cardViews:[MTCardView] = []
+	private var currentExpandedView:MTCardView?
 
 	// *****************************
 	// MARK: Private variables
@@ -583,6 +584,25 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 	}
 
 	// *****************************
+	// MARK: Card View Delegate
+	// *****************************
+
+	func cardViewTapped(cardView: MTCardView) {
+		// Expand card view.
+		cardView.expanded = !cardView.expanded
+		if cardView.expanded {
+			self.currentExpandedView = cardView
+		}
+		self.updateCardViewsConstraints()
+		UIView.animateWithDuration(TAP_FEED_BACK_DURATION/3.0 * self.animationDurationScalar,
+			delay: 0,
+			options: .CurveEaseOut,
+			animations: {
+				self.scrollView.layoutIfNeeded()
+		}, completion: nil)
+	}
+
+	// *****************************
 	// MARK: User Interaction Handler
 	// *****************************
 
@@ -656,6 +676,8 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 
 	private func addCardViewWithText(text:String, morse:String, textOnTop:Bool = true, animateWithDuration duration:NSTimeInterval = 0.0) {
 		let cardView = MTCardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), text: text, morse: morse, textOnTop: textOnTop)
+		cardView.delegate = self
+
 		// TODO: Animation
 		cardView.opaque = false
 		cardView.alpha = 0.0
@@ -686,31 +708,57 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 	}
 
 	private func updateCardViewsConstraints() {
-		var contentHeight = self.cardViewTopMargin + CGFloat(self.cardViews.count) * (self.cardViewHeight + self.cardViewGapY) + self.cardViewBottomMargin
+		let views = self.cardViews
+		var contentHeight = self.cardViewTopMargin
+		for var i = views.count - 1; i >= 0; i-- {
+			let cardView = views[i]
+			if i >= views.count - 1 {
+				cardView.snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(self.cardViewTopMargin)
+					make.left.equalTo(self.cardViewLeftMargin)
+					make.width.equalTo(self.view.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin)
+				})
+			} else {
+				cardView.snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(views[i + 1].snp_bottom).offset(self.cardViewGapY)
+					make.left.equalTo(self.cardViewLeftMargin)
+					make.width.equalTo(self.view.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin)
+				})
+			}
+
+			// Update view height depends on if it's expanded.
+			if cardView.expanded {
+
+				cardView.topLabel.lineBreakMode = .ByWordWrapping
+				cardView.topLabel.numberOfLines = 0
+				cardView.bottomLabel.lineBreakMode = .ByWordWrapping
+				cardView.bottomLabel.numberOfLines = 0
+
+				let labelWidth = cardView.topLabel.frame.width
+
+				let topTextSize = cardView.topLabel.attributedText?.size()
+				let topLabelHeight = ceil(topTextSize!.width/labelWidth) * topTextSize!.height
+
+				let bottomTextSize = cardView.bottomLabel.attributedText?.size()
+				let bottomLabelHeight = ceil(bottomTextSize!.width/labelWidth) * bottomTextSize!.height
+
+				cardView.snp_updateConstraints { (make) -> Void in
+					make.height.equalTo(cardView.paddingTop + topLabelHeight + cardView.gapY + bottomLabelHeight + cardView.paddingBottom)
+				}
+			} else {
+				cardView.snp_updateConstraints(closure: { (make) -> Void in
+					make.height.equalTo(self.cardViewHeight)
+				})
+			}
+			cardView.addMDShadow(withDepth: 1)
+			contentHeight += (cardView.frame.height + self.cardViewGapY)
+		}
+
+		contentHeight += self.cardViewBottomMargin
 		if !self.cardViews.isEmpty {
 			contentHeight -= self.cardViewGapY
 		}
 		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
-		let views = self.cardViews
-		for var i = views.count - 1; i >= 0; i-- {
-			// TODO: If view is expanded (selected)
-			if i >= views.count - 1 {
-				views[i].snp_remakeConstraints(closure: { (make) -> Void in
-					make.top.equalTo(self.cardViewTopMargin)
-					make.left.equalTo(self.cardViewLeftMargin)
-					make.width.equalTo(self.view.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin)
-					make.height.equalTo(self.cardViewHeight)
-				})
-			} else {
-				views[i].snp_remakeConstraints(closure: { (make) -> Void in
-					make.top.equalTo(views[i + 1].snp_bottom).offset(self.cardViewGapY)
-					make.left.equalTo(self.cardViewLeftMargin)
-					make.width.equalTo(self.view.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin)
-					make.height.equalTo(self.cardViewHeight)
-				})
-			}
-			views[i].addMDShadow(withDepth: 1)
-		}
 	}
 
 	// *****************************
@@ -753,6 +801,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 				let cards = results as! [NSManagedObject]
 				for card in cards {
 					let cardView = MTCardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), text: card.valueForKey("text") as? String, morse: card.valueForKey("morse") as? String, textOnTop: card.valueForKey("textOnTop") as! Bool)
+					cardView.delegate = self
 					self.scrollView.addSubview(cardView)
 					self.cardViews.append(cardView)
 					self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)

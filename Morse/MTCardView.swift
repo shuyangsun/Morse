@@ -10,11 +10,14 @@ import UIKit
 
 class MTCardView: UIView {
 
-	private let paddingTop:CGFloat = 16
-	private let paddingLeft:CGFloat = 15
-	private let paddingRight:CGFloat = 15
-	private let paddingBottom:CGFloat = 8
-	private let gapY:CGFloat = 10
+	let paddingTop:CGFloat = 16
+	let paddingLeft:CGFloat = 15
+	let paddingRight:CGFloat = 15
+	let paddingBottom:CGFloat = 16
+	let gapY:CGFloat = 10
+
+	var expanded = false
+
 	private var theme:Theme {
 		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
 		return delegate.theme
@@ -32,8 +35,8 @@ class MTCardView: UIView {
 	private let defaultMDShadowLevel:Int = 1
 
 	// Subviews
-	var topTextView:UITextView!
-	var bottomTextView:UITextView!
+	var topLabel:UILabel!
+	var bottomLabel:UILabel!
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -52,43 +55,44 @@ class MTCardView: UIView {
 		self.morse = morse
 		self.textOnTop = textOnTop
 
-		let topLabel = UILabel(frame: CGRect(x: self.paddingLeft, y: self.paddingTop, width: self.bounds.width - self.paddingLeft - self.paddingRight, height: (self.bounds.width - self.paddingTop - self.paddingBottom - self.gapY)/2.0))
-		topLabel.opaque = false
-		topLabel.backgroundColor = UIColor.clearColor()
-		topLabel.layer.borderWidth = 0
-		topLabel.layer.borderColor = UIColor.clearColor().CGColor
-		topLabel.userInteractionEnabled = false
+		self.topLabel = UILabel(frame: CGRect(x: self.paddingLeft, y: self.paddingTop, width: self.bounds.width - self.paddingLeft - self.paddingRight, height: (self.bounds.width - self.paddingTop - self.paddingBottom - self.gapY)/2.0))
+		self.topLabel.opaque = false
+		self.topLabel.backgroundColor = UIColor.clearColor()
+		self.topLabel.layer.borderWidth = 0
+		self.topLabel.layer.borderColor = UIColor.clearColor().CGColor
+		self.topLabel.userInteractionEnabled = false
 		if self.textOnTop {
-			topLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 18, color: self.theme.cardViewTextColor)
+			self.topLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 18, color: self.theme.cardViewTextColor)
 		} else {
-			topLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 18, color: self.theme.cardViewMorseColor)
-			topLabel.lineBreakMode = .ByClipping
+			self.topLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 18, color: self.theme.cardViewMorseColor)
+			self.topLabel.lineBreakMode = .ByClipping
 		}
-		self.addSubview(topLabel)
+		self.addSubview(self.topLabel)
 
-		topLabel.snp_makeConstraints { (make) -> Void in
+		self.topLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self).offset(self.paddingTop)
 			make.right.equalTo(self).offset(-self.paddingRight)
 			make.left.equalTo(self).offset(self.paddingLeft)
 			make.height.equalTo((self.bounds.height - self.paddingTop - self.paddingBottom - self.gapY)/2.0)
 		}
 
-		let bottomLabel = UILabel(frame: CGRect(x: self.paddingLeft, y: self.paddingTop + topLabel.bounds.height + self.gapY, width: self.bounds.width - self.paddingLeft - self.paddingRight, height: (self.bounds.width - self.paddingTop - self.paddingBottom - self.gapY)/2.0))
-		bottomLabel.opaque = false
-		bottomLabel.backgroundColor = UIColor.clearColor()
-		bottomLabel.layer.borderWidth = 0
-		bottomLabel.layer.borderColor = UIColor.clearColor().CGColor
-		bottomLabel.userInteractionEnabled = false
+		self.bottomLabel = UILabel(frame: CGRect(x: self.paddingLeft, y: self.paddingTop + self.topLabel.bounds.height + self.gapY, width: self.bounds.width - self.paddingLeft - self.paddingRight, height: (self.bounds.width - self.paddingTop - self.paddingBottom - self.gapY)/2.0))
+		self.bottomLabel.opaque = false
+		self.bottomLabel.backgroundColor = UIColor.clearColor()
+		self.bottomLabel.layer.borderWidth = 0
+		self.bottomLabel.layer.borderColor = UIColor.clearColor().CGColor
+		self.bottomLabel.userInteractionEnabled = false
 		if self.textOnTop {
-			bottomLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 18, color: self.theme.cardViewMorseColor)
-			bottomLabel.lineBreakMode = .ByClipping
+			self.bottomLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 18, color: self.theme.cardViewMorseColor)
+			self.bottomLabel.lineBreakMode = .ByClipping
 		} else {
-			bottomLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 18, color: self.theme.cardViewTextColor)
+			// TODO: Capitalize each word at the beginning of the sentence?
+			self.bottomLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 18, color: self.theme.cardViewTextColor)
 		}
 		self.addSubview(bottomLabel)
 
-		bottomLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(topLabel).offset(self.gapY)
+		self.bottomLabel.snp_makeConstraints { (make) -> Void in
+			make.top.equalTo(self.topLabel.snp_bottom).offset(self.gapY)
 			make.right.equalTo(self).offset(-self.paddingRight)
 			make.left.equalTo(self).offset(self.paddingLeft)
 			make.bottom.equalTo(self).offset(-self.paddingBottom)
