@@ -22,7 +22,7 @@ class MTRoundButtonView: UIView {
 	}
 
 	private var shadowLevel:Int {
-		return 3
+		return 2
 	}
 
 	private var animationDurationScalar:Double {

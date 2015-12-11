@@ -35,6 +35,12 @@ enum Theme: String {
 		}
 	}
 
+	var topBarLabelTextColor:UIColor {
+		switch self {
+		case .Default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		}
+	}
+
 	var cancelButtonColor:UIColor {
 		switch self {
 		case .Default: return UIColor.whiteColor()
@@ -94,6 +100,12 @@ enum Theme: String {
 	var cardViewBackgroudColor:UIColor {
 		switch self {
 		case .Default: return MDColorPalette.Blue.P400
+		}
+	}
+
+	var cardViewExpandedBackgroudColor:UIColor {
+		switch self {
+		case .Default: return self.roundButtonBackgroundColor
 		}
 	}
 

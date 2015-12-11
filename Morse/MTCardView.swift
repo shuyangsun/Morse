@@ -65,7 +65,7 @@ class MTCardView: UIView {
 			self.topLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 18, color: self.theme.cardViewTextColor)
 		} else {
 			self.topLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 18, color: self.theme.cardViewMorseColor)
-			self.topLabel.lineBreakMode = .ByClipping
+			self.topLabel.lineBreakMode = .ByWordWrapping
 		}
 		self.addSubview(self.topLabel)
 
@@ -84,7 +84,7 @@ class MTCardView: UIView {
 		self.bottomLabel.userInteractionEnabled = false
 		if self.textOnTop {
 			self.bottomLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 18, color: self.theme.cardViewMorseColor)
-			self.bottomLabel.lineBreakMode = .ByClipping
+			self.bottomLabel.lineBreakMode = .ByWordWrapping
 		} else {
 			// TODO: Capitalize each word at the beginning of the sentence?
 			self.bottomLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 18, color: self.theme.cardViewTextColor)
@@ -107,9 +107,9 @@ class MTCardView: UIView {
 		let location = gestureRecognizer.locationInView(self)
 		if self.bounds.contains(location) {
 			self.animateUserInteractionFeedbackAtLocation(location)
-		}
-		if let myDelegate = self.delegate {
-			myDelegate.cardViewTapped(self)
+			if let myDelegate = self.delegate {
+				myDelegate.cardViewTapped(self)
+			}
 		}
 	}
 
@@ -122,9 +122,11 @@ class MTCardView: UIView {
 		}
 	}
 
-	private func animateUserInteractionFeedbackAtLocation(location:CGPoint) {
+	private func animateUserInteractionFeedbackAtLocation(location:CGPoint, completion:((Void) -> Void)? = nil) {
 		let originalTransform = self.transform
-		self.triggerTapFeedBack(atLocation: location, withColor: self.theme.cardViewTapfeedbackColor, duration: TAP_FEED_BACK_DURATION * self.animationDurationScalar)
+		if !self.expanded {
+			self.triggerTapFeedBack(atLocation: location, withColor: self.theme.cardViewTapfeedbackColor, duration: TAP_FEED_BACK_DURATION * self.animationDurationScalar)
+		}
 		UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * self.animationDurationScalar,
 			delay: 0.0,
 			options: .CurveEaseIn,
@@ -139,7 +141,13 @@ class MTCardView: UIView {
 						animations: {
 							self.transform = originalTransform
 							self.addMDShadow(withDepth: self.defaultMDShadowLevel)
-						}, completion: nil)
+						}) { succeed in
+							if succeed {
+								if completion != nil {
+									completion!()
+								}
+							}
+					}
 				}
 		}
 	}

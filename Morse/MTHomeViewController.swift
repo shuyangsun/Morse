@@ -17,9 +17,11 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 	// MARK: Views
 	// *****************************
 
-	// Top bar views4
+	// Top bar views
 	private var statusBarView:UIView!
 	private var topBarView:UIView!
+	private var topBarLabelText:UILabel!
+	private var topBarLabelMorse:UILabel!
 
 	// Text views
 	private var hiddenLineView:UIView!
@@ -93,13 +95,12 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 		return delegate.animationDurationScalar
 	}
 
+	private var roundButtonMargin:CGFloat {
+		return 8
+	}
+
 	private var roundButtonRadius:CGFloat {
-		if self.traitCollection.verticalSizeClass == .Regular &&
-			self.traitCollection.horizontalSizeClass == .Regular {
-			return 36
-		} else {
-			return 28
-		}
+		return self.topBarHeight/2.0 - self.roundButtonMargin
 	}
 
 	private var theme:Theme {
@@ -108,19 +109,22 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 	}
 
 	private var hintTextInput:String {
-		if self.isDirectionEncode {
-			return "Touch to type"
-		} else {
-			return "___ ___   ___ ___ ___   . ___ .   . . .   ."
-		}
+//		if self.isDirectionEncode {
+//			return "Touch to type"
+//		} else {
+//			return "___ ___   ___ ___ ___   . ___ .   . . .   ."
+//		}
+		return "Touch to type"
 	}
 
+	// This is deprecatec code, but may be useful in the future
 	private var hintTextOutput:String {
-		if self.isDirectionEncode {
-			return "___ ___   ___ ___ ___   . ___ .   . . .   ."
-		} else {
-			return "Touch to type"
-		}
+//		if self.isDirectionEncode {
+//			return "___ ___   ___ ___ ___   . ___ .   . . .   ."
+//		} else {
+//			return "Touch to type"
+//		}
+		return ""
 	}
 
 	private var attributedHintTextInput:NSMutableAttributedString {
@@ -153,12 +157,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 	}
 
 	private var cardViewTopMargin:CGFloat {
-		if self.traitCollection.verticalSizeClass == .Regular &&
-			self.traitCollection.horizontalSizeClass == .Regular {
-			return self.roundButtonRadius + 8
-		} else {
-			return self.roundButtonRadius + 6
-		}
+		return cardViewLeftMargin
 	}
 
 	private var cardViewBottomMargin:CGFloat {
@@ -177,10 +176,6 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 	private var cardViewHeight:CGFloat {
 //		return 74
 		return 86
-	}
-
-	private var roundButtonRightMargin:CGFloat {
-		return self.cardViewRightMargin
 	}
 
 	private var textBackgroundViewHeight:CGFloat {
@@ -217,22 +212,63 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 			self.topBarView = UIView(frame: CGRect(x: 0, y: self.statusBarHeight, width: self.view.bounds.width, height: self.topBarHeight))
 			self.topBarView.backgroundColor = self.theme.topBarBackgroundColor
 			self.view.addSubview(topBarView)
-			let topBarLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.topBarView.bounds.width, height: self.topBarHeight))
-			topBarLabel.textAlignment = .Center
-			topBarLabel.tintColor = UIColor.whiteColor()
-			topBarLabel.attributedText = NSAttributedString(string: "Morse Transmitter", attributes:
-				[NSFontAttributeName: UIFont.boldSystemFontOfSize(23),
-					NSForegroundColorAttributeName: UIColor.whiteColor()])
-			self.topBarView.addSubview(topBarLabel)
 
-			self.topBarView.snp_makeConstraints(closure: { (make) -> Void in
+			// Add Text label
+			if self.topBarLabelText == nil {
+				self.topBarLabelText = UILabel(frame: CGRect(x: 0, y: 0, width: self.topBarView.bounds.width/2.0 - self.roundButtonRadius - self.roundButtonMargin, height: self.topBarHeight))
+				self.topBarLabelText.textAlignment = .Center
+				self.topBarLabelText.tintColor = self.theme.topBarLabelTextColor
+				self.topBarLabelText.attributedText = NSAttributedString(string: "Text", attributes:
+					[NSFontAttributeName: UIFont.boldSystemFontOfSize(23),
+						NSForegroundColorAttributeName: self.theme.topBarLabelTextColor])
+				self.topBarView.addSubview(self.topBarLabelText)
+			}
+
+			// Add Morse label
+			if self.topBarLabelMorse == nil {
+				self.topBarLabelMorse = UILabel(frame: CGRect(x: self.topBarView.bounds.width/2.0 + self.roundButtonRadius + self.roundButtonMargin, y: 0, width: self.topBarView.bounds.width/2.0 - self.roundButtonRadius - self.roundButtonMargin, height: self.topBarHeight))
+				self.topBarLabelMorse.textAlignment = .Center
+				self.topBarLabelMorse.tintColor = self.theme.topBarLabelTextColor
+				self.topBarLabelMorse.attributedText = NSAttributedString(string: "Morse", attributes:
+					[NSFontAttributeName: UIFont.boldSystemFontOfSize(23),
+						NSForegroundColorAttributeName: self.theme.topBarLabelTextColor])
+				self.topBarView.addSubview(self.topBarLabelMorse)
+			}
+
+			// Add round button
+			if self.roundButtonView == nil {
+				self.roundButtonView = MTRoundButtonView(origin: CGPoint(x: self.topBarView.bounds.width/2.0 - self.roundButtonRadius, y: self.roundButtonMargin), radius: self.roundButtonRadius)
+				let tapGR = UITapGestureRecognizer(target: self, action: "roundButtonTapped:")
+				self.roundButtonView.addGestureRecognizer(tapGR)
+				self.topBarView.addSubview(self.roundButtonView)
+			}
+
+			self.topBarView.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.statusBarView.snp_bottom)
 				make.left.equalTo(self.view).offset(0)
 				make.right.equalTo(self.view).offset(0)
 				make.height.equalTo(self.topBarHeight)
 			})
-			topBarLabel.snp_makeConstraints(closure: { (make) -> Void in
-				 make.edges.equalTo(self.topBarView)
+
+			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.topBarView)
+				make.left.equalTo(self.topBarView)
+				make.bottom.equalTo(self.topBarView)
+				make.right.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
+			})
+
+			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.topBarView)
+				make.right.equalTo(self.topBarView)
+				make.bottom.equalTo(self.topBarView)
+				make.left.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
+			})
+
+			self.roundButtonView.snp_makeConstraints(closure: { (make) -> Void in
+				make.centerX.equalTo(self.topBarView)
+				make.centerY.equalTo(self.topBarView)
+				make.height.equalTo(self.roundButtonRadius * 2)
+				make.width.equalTo(self.roundButtonView.snp_height)
 			})
 		}
 
@@ -334,19 +370,6 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 
 			self.textBoxTapFeedBackView.snp_makeConstraints(closure: { (make) -> Void in
 				make.edges.equalTo(self.textBackgroundView)
-			})
-		}
-
-		if self.roundButtonView == nil {
-			self.roundButtonView = MTRoundButtonView(origin: CGPoint(x:self.view.bounds.width - self.roundButtonRightMargin - self.roundButtonRadius * 2, y:self.statusBarHeight + self.topBarHeight + self.textBackgroundViewHeight - self.roundButtonRadius), radius: self.roundButtonRadius)
-			let tapGR = UITapGestureRecognizer(target: self, action: "roundButtonTapped:")
-			self.roundButtonView.addGestureRecognizer(tapGR)
-			self.view.addSubview(self.roundButtonView)
-			self.roundButtonView.snp_makeConstraints(closure: { (make) -> Void in
-				make.width.equalTo(self.roundButtonRadius * 2)
-				make.height.equalTo(self.roundButtonView.snp_width)
-				make.right.equalTo(self.view).offset(-self.roundButtonRightMargin)
-				make.centerY.equalTo(self.textBackgroundView.snp_bottom)
 			})
 		}
 
@@ -531,7 +554,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 
 	func scrollViewDidScroll(scrollView: UIScrollView) {
 		let topSectionHeight = self.topBarHeight + self.textBackgroundViewHeight - self.cameraAndMicButtonViewHeight
-		let animationDuration = 0.2
+		let animationDuration = 0.25 * self.animationDurationScalar
 		if scrollView.contentOffset.y <= self.roundButtonView.bounds.height && self.inputAreaHidden {
 			// Show input area
 
@@ -545,7 +568,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 			if !self.inputTextView.isFirstResponder() {
 				self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: animationDuration)
 			}
-			UIView.animateWithDuration(animationDuration * self.animationDurationScalar
+			UIView.animateWithDuration(animationDuration
 				, delay: 0,
 				options: .CurveEaseOut,
 				animations: {
@@ -570,7 +593,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 			if !self.inputTextView.isFirstResponder() {
 				self.roundButtonView.disappearWithAnimationType([.Scale, .Fade], duration: animationDuration)
 			}
-			UIView.animateWithDuration(animationDuration * self.animationDurationScalar
+			UIView.animateWithDuration(animationDuration
 				, delay: 0,
 				options: .CurveEaseOut,
 				animations: {
@@ -591,7 +614,11 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 		// Expand card view.
 		cardView.expanded = !cardView.expanded
 		if cardView.expanded {
+			self.currentExpandedView?.expanded = false
+			self.currentExpandedView?.backgroundColor = self.theme.cardViewBackgroudColor
 			self.currentExpandedView = cardView
+		} else {
+			self.currentExpandedView = nil
 		}
 		self.updateCardViewsConstraints()
 		UIView.animateWithDuration(TAP_FEED_BACK_DURATION/3.0 * self.animationDurationScalar,
@@ -599,6 +626,11 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 			options: .CurveEaseOut,
 			animations: {
 				self.scrollView.layoutIfNeeded()
+				if cardView.expanded {
+					cardView.backgroundColor = self.theme.cardViewExpandedBackgroudColor
+				} else {
+					cardView.backgroundColor = self.theme.cardViewBackgroudColor
+				}
 		}, completion: nil)
 	}
 
@@ -637,10 +669,11 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 			self.isDirectionEncode = !self.isDirectionEncode
 		}
 
-		// Animations
 		let tapLocation = gestureRecognizer.locationInView(self.roundButtonView)
 		if self.roundButtonView.bounds.contains(tapLocation) {
 			let originalTransform = self.roundButtonView.transform
+
+			// Animations for button
 			self.roundButtonView.triggerTapFeedBack(atLocation: tapLocation, withColor: self.theme.roundButtonTapFeedbackColor, duration: TAP_FEED_BACK_DURATION * self.animationDurationScalar)
 			self.roundButtonView.rotateBackgroundImageWithDuration(TAP_FEED_BACK_DURATION/2.0)
 			UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * self.animationDurationScalar,
@@ -660,6 +693,46 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 							}, completion: nil)
 					}
 			}
+
+			// Switch text and morse label
+			if self.isDirectionEncode {
+				self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(self.topBarView)
+					make.left.equalTo(self.topBarView)
+					make.bottom.equalTo(self.topBarView)
+					make.right.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
+				})
+
+				self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(self.topBarView)
+					make.right.equalTo(self.topBarView)
+					make.bottom.equalTo(self.topBarView)
+					make.left.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
+				})
+			} else {
+				self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(self.topBarView)
+					make.right.equalTo(self.topBarView)
+					make.bottom.equalTo(self.topBarView)
+					make.left.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
+				})
+
+				self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(self.topBarView)
+					make.left.equalTo(self.topBarView)
+					make.bottom.equalTo(self.topBarView)
+					make.right.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
+				})
+			}
+
+			UIView.animateWithDuration(TAP_FEED_BACK_DURATION * self.animationDurationScalar,
+				delay: 0,
+				usingSpringWithDamping: 0.5,
+				initialSpringVelocity: 0.8,
+				options: .CurveEaseInOut,
+				animations: {
+					self.topBarView.layoutIfNeeded()
+				}, completion: nil)
 		}
 	}
 
@@ -738,6 +811,9 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 
 				let topTextSize = cardView.topLabel.attributedText?.size()
 				let topLabelHeight = ceil(topTextSize!.width/labelWidth) * topTextSize!.height
+				cardView.topLabel.snp_updateConstraints(closure: { (make) -> Void in
+					make.height.equalTo(topLabelHeight)
+				})
 
 				let bottomTextSize = cardView.bottomLabel.attributedText?.size()
 				let bottomLabelHeight = ceil(bottomTextSize!.width/labelWidth) * bottomTextSize!.height
@@ -745,7 +821,13 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 				cardView.snp_updateConstraints { (make) -> Void in
 					make.height.equalTo(cardView.paddingTop + topLabelHeight + cardView.gapY + bottomLabelHeight + cardView.paddingBottom)
 				}
-			} else {
+			} else { // TODO Constraints BUG
+				cardView.topLabel.snp_remakeConstraints { (make) -> Void in
+					make.top.equalTo(cardView).offset(cardView.paddingTop)
+					make.right.equalTo(cardView).offset(-cardView.paddingRight)
+					make.left.equalTo(cardView).offset(cardView.paddingLeft)
+					make.height.equalTo((cardView.bounds.height - cardView.paddingTop - cardView.paddingBottom - cardView.gapY)/2.0)
+				}
 				cardView.snp_updateConstraints(closure: { (make) -> Void in
 					make.height.equalTo(self.cardViewHeight)
 				})
@@ -757,6 +839,8 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 		contentHeight += self.cardViewBottomMargin
 		if !self.cardViews.isEmpty {
 			contentHeight -= self.cardViewGapY
+		} else {
+			contentHeight = 0
 		}
 		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
 	}
