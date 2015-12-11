@@ -296,6 +296,8 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 			self.inputTextView.returnKeyType = .Done
 			self.inputTextView.attributedText = self.attributedHintTextInput
 			self.inputTextView.delegate = self
+			self.inputTextView.userInteractionEnabled = true
+			self.inputTextView.selectable = true
 			self.inputTextView.layer.borderColor = UIColor.clearColor().CGColor
 			self.inputTextView.layer.borderWidth = 0
 			self.textBackgroundView.addSubview(self.inputTextView)
@@ -412,7 +414,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 			self.scrollView.showsHorizontalScrollIndicator = false
 			self.scrollView.showsVerticalScrollIndicator = true
 			self.scrollView.delegate = self
-			self.view.insertSubview(self.scrollView, belowSubview: self.textBackgroundView)
+			self.view.insertSubview(self.scrollView, atIndex: 0)
 
 			self.scrollView.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(self.textBackgroundView.snp_bottom)
@@ -489,6 +491,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 		let buttonAnimationDuration = TAP_FEED_BACK_DURATION/3.0
 		self.cancelButton.appearWithDuration(buttonAnimationDuration)
 		self.roundButtonView.disappearWithAnimationType([.Scale, .Fade], duration: buttonAnimationDuration)
+		self.collapseCurrentExpandedView()
 	}
 
 	func textViewDidChange(textView: UITextView) {
@@ -557,6 +560,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 		let animationDuration = 0.25 * self.animationDurationScalar
 		if scrollView.contentOffset.y <= self.roundButtonView.bounds.height && self.inputAreaHidden {
 			// Show input area
+			self.inputAreaHidden = false
 
 			self.statusBarView.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.view)
@@ -565,9 +569,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 				make.height.equalTo(self.statusBarHeight)
 			})
 
-			if !self.inputTextView.isFirstResponder() {
-				self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: animationDuration)
-			}
+
 			UIView.animateWithDuration(animationDuration
 				, delay: 0,
 				options: .CurveEaseOut,
@@ -575,13 +577,18 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 					self.view.layoutIfNeeded()
 					self.inputTextView.alpha = 1
 					self.outputTextView.alpha = 1
-				}, completion: { succeed in
-					self.inputAreaHidden = false
-			})
+				}) { succeed in
+					if succeed {
+						if !self.inputTextView.isFirstResponder() {
+							self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: animationDuration)
+						}
+					}
+			}
 
 		} else if scrollView.contentOffset.y >= topSectionHeight && scrollView.contentSize.height > self.view.bounds.height && !self.inputAreaHidden {
 			// Only hide input view if the content for scroll view is large enough to be displayed on a full size scroll view.
 			// Hide input area
+			self.inputAreaHidden = true
 
 			self.statusBarView.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.view).offset(-topSectionHeight)
@@ -600,9 +607,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 					self.view.layoutIfNeeded()
 					self.inputTextView.alpha = 0
 					self.outputTextView.alpha = 0
-				}, completion: { succeed in
-					self.inputAreaHidden = true
-			})
+			}, completion: nil)
 		}
 	}
 
@@ -612,26 +617,27 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 
 	func cardViewTapped(cardView: MTCardView) {
 		// Expand card view.
-		cardView.expanded = !cardView.expanded
-		if cardView.expanded {
-			self.currentExpandedView?.expanded = false
-			self.currentExpandedView?.backgroundColor = self.theme.cardViewBackgroudColor
-			self.currentExpandedView = cardView
+		if self.currentExpandedView == cardView {
+			// If the current expanded view is the tapped card view, collapse it and done.
+			self.collapseCurrentExpandedView()
 		} else {
-			self.currentExpandedView = nil
-		}
-		self.updateCardViewsConstraints()
-		UIView.animateWithDuration(TAP_FEED_BACK_DURATION/3.0 * self.animationDurationScalar,
-			delay: 0,
-			options: .CurveEaseOut,
-			animations: {
-				self.scrollView.layoutIfNeeded()
-				if cardView.expanded {
+			// If the current expanded view is not the tapped card view, collapse the expanded view and expand card view.
+			self.collapseCurrentExpandedView()
+			cardView.expanded = true
+			self.currentExpandedView = cardView
+			self.updateCardViewsConstraints()
+			UIView.animateWithDuration(TAP_FEED_BACK_DURATION/3.0 * self.animationDurationScalar,
+				delay: 0,
+				options: .CurveEaseOut,
+				animations: {
+					self.scrollView.layoutIfNeeded()
 					cardView.backgroundColor = self.theme.cardViewExpandedBackgroudColor
-				} else {
-					cardView.backgroundColor = self.theme.cardViewBackgroudColor
-				}
-		}, completion: nil)
+				}) { succeed in
+					if succeed {
+						cardView.addMDShadow(withDepth: 1)
+					}
+			}
+		}
 	}
 
 	// *****************************
@@ -895,6 +901,24 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 			} catch let error as NSError {
 				print("Could not fetch \(error), \(error.userInfo)")
 			}
+		}
+	}
+
+	private func collapseCurrentExpandedView() {
+		let cardView = self.currentExpandedView
+		self.currentExpandedView = nil
+		cardView?.expanded = false
+		self.updateCardViewsConstraints()
+		UIView.animateWithDuration(TAP_FEED_BACK_DURATION/3.0 * self.animationDurationScalar,
+			delay: 0,
+			options: .CurveEaseOut,
+			animations: {
+				cardView?.backgroundColor = self.theme.cardViewBackgroudColor
+				self.scrollView.layoutIfNeeded()
+			}) { succeed in
+				if succeed {
+					cardView?.addMDShadow(withDepth: 1)
+				}
 		}
 	}
 }
