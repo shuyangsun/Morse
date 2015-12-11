@@ -24,7 +24,6 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 	private var topBarLabelMorse:UILabel!
 
 	// Text views
-	private var hiddenLineView:UIView!
 	private var textBackgroundView:UIView!
 	private var inputTextView:UITextView!
 	private var lineBreakView:UIView!
@@ -274,7 +273,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 
 		if self.textBackgroundView == nil {
 			self.textBackgroundView = UIView(frame: CGRect(x: 0, y: self.topBarHeight + self.statusBarHeight, width: self.viewWidth, height: self.textBackgroundViewHeight))
-			self.textBackgroundView.backgroundColor = UIColor.whiteColor()
+			self.textBackgroundView.backgroundColor = self.theme.textViewBackgroundColor
 			self.textBackgroundView.layer.borderColor = UIColor.clearColor().CGColor
 			self.textBackgroundView.layer.borderWidth = 0
 			self.view.addSubview(self.textBackgroundView)
@@ -318,22 +317,6 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 			self.textBackgroundView.addMDShadow(withDepth: 2)
 		}
 
-		// Hidden line view is used to hide the gap between input and output text view
-		if self.hiddenLineView == nil {
-			self.hiddenLineView = UIView(frame: CGRect(x: 0, y: self.textBackgroundViewHeight/2.0 + self.statusBarHeight + self.topBarHeight - self.textBackgroundViewHeight, width: self.inputTextView.bounds.width, height: 1.0))
-			if let color = self.inputTextView.backgroundColor {
-				self.hiddenLineView.backgroundColor = color
-			}
-			self.textBackgroundView.addSubview(self.hiddenLineView)
-
-			self.hiddenLineView.snp_remakeConstraints(closure: { (make) -> Void in
-				make.left.equalTo(self.inputTextView)
-				make.right.equalTo(self.inputTextView)
-				make.bottom.equalTo(self.inputTextView)
-				make.height.equalTo(self.textBackgroundViewHeight)
-			})
-		}
-
 		if self.outputTextView == nil {
 			self.outputTextView = UITextView(frame: CGRect(x: 0, y: self.textBackgroundViewHeight/2.0, width: self.viewWidth, height: self.textBackgroundViewHeight/2.0))
 			self.outputTextView.backgroundColor = UIColor.clearColor()
@@ -346,7 +329,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 			let disableDoubleTapGR = UITapGestureRecognizer(target: nil, action: "")
 			disableDoubleTapGR.numberOfTapsRequired = 2
 			self.outputTextView.addGestureRecognizer(disableDoubleTapGR)
-			self.textBackgroundView.insertSubview(self.outputTextView, belowSubview: self.hiddenLineView)
+			self.textBackgroundView.addSubview(self.outputTextView)
 
 			// Configure contraints
 			self.outputTextView.snp_makeConstraints { (make) -> Void in
@@ -469,7 +452,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 		if self.lineBreakView == nil {
 			self.lineBreakView = UIView(frame: CGRect(x: 0, y: self.textBackgroundViewHeight, width: self.textBackgroundView.bounds.width, height: 1.0))
 			self.lineBreakView.backgroundColor = UIColor(hex: 0x000, alpha: 0.1)
-			self.textBackgroundView.addSubview(self.lineBreakView)
+			self.textBackgroundView.insertSubview(self.lineBreakView, aboveSubview: self.outputTextView)
 		}
 
 		self.lineBreakView.hidden = false
