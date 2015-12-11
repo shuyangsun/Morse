@@ -16,23 +16,23 @@ class MTHomeTopSectionViewController: UIViewController, UITextViewDelegate {
 	// *****************************
 
 	// Top bar views
-	@IBOutlet weak var statusBarView: UIView!
-	@IBOutlet weak var topBarView: UIView!
-	@IBOutlet weak var topBarLabelText: UILabel!
-	@IBOutlet weak var topBarLabelMorse: UILabel!
+	var statusBarView: UIView!
+	var topBarView: UIView!
+	var topBarLabelText: UILabel!
+	var topBarLabelMorse: UILabel!
 
 	// Text views
-	@IBOutlet weak var textBackgroundView: UIView!
-	@IBOutlet weak var inputTextView: UITextView!
-	@IBOutlet weak var outputTextView: UITextView!
-	@IBOutlet weak var textBoxTapFeedBackView: UIView!
+	var textBackgroundView: UIView!
+	var inputTextView: UITextView!
+	var outputTextView: UITextView!
+	var textBoxTapFeedBackView: UIView!
 
 	var lineBreakView:UIView!
 
 	// Button
-	@IBOutlet weak var roundButtonView: MTRoundButtonView!
-	@IBOutlet weak var cancelButton: MTCancelButton!
-	@IBOutlet weak var keyboardButtonView: UIView!
+	var roundButtonView: MTRoundButtonView!
+	var cancelButton: MTCancelButton!
+	var keyboardButtonView: UIView!
 
 	// *****************************
 	// MARK: UI Related Variables
@@ -125,8 +125,8 @@ class MTHomeTopSectionViewController: UIViewController, UITextViewDelegate {
 	// *****************************
 
 	// Return the home view controller this one is embedded in
-	private var homeViewController:MTHomeViewController {
-		return self.presentingViewController as! MTHomeViewController
+	var homeViewController:MTHomeViewController! {
+		return self.parentViewController as! MTHomeViewController
 	}
 
 	private var animationDurationScalar:Double {
@@ -140,194 +140,232 @@ class MTHomeTopSectionViewController: UIViewController, UITextViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
 
-	override func viewDidLayoutSubviews() {
 		self.view.backgroundColor = self.theme.textViewBackgroundColor
 
 		// *****************************
 		// Configure Status Bar View
 		// *****************************
 
-		self.statusBarView.backgroundColor = self.theme.statusBarBackgroundColor
-		self.statusBarView.snp_makeConstraints(closure: { (make) -> Void in
-			make.top.equalTo(self.view)
-			make.left.equalTo(self.view)
-			make.right.equalTo(self.view)
-			make.height.equalTo(self.statusBarHeight)
-		})
+		if self.statusBarView == nil {
+			self.statusBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.statusBarHeight))
+			self.statusBarView.backgroundColor = self.theme.statusBarBackgroundColor
+			self.view.addSubview(self.statusBarView)
+			self.statusBarView.snp_makeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.view)
+				make.left.equalTo(self.view)
+				make.right.equalTo(self.view)
+				make.height.equalTo(self.statusBarHeight)
+			})
+		}
 
 		// *****************************
 		// Configure Top Bar View
 		// *****************************
 
-		self.topBarView.backgroundColor = self.theme.topBarBackgroundColor
+		if self.topBarView == nil {
+			self.topBarView = UIView(frame: CGRect(x: 0, y: self.statusBarHeight, width: self.view.bounds.width, height: self.topBarHeight))
+			self.topBarView.backgroundColor = self.theme.topBarBackgroundColor
+			self.view.addSubview(topBarView)
 
-		// Text label
-		self.topBarLabelText.tintColor = self.theme.topBarLabelTextColor
-		self.topBarLabelText.attributedText = NSAttributedString(string: "Text", attributes:
-			[NSFontAttributeName: UIFont.boldSystemFontOfSize(23),
-				NSForegroundColorAttributeName: self.theme.topBarLabelTextColor])
+			// Text label
+			self.topBarLabelText = UILabel(frame: CGRect(x: 0, y: 0, width: self.topBarView.bounds.width/2.0 - self.roundButtonRadius - self.roundButtonMargin, height: self.topBarHeight))
+			self.topBarLabelText.textAlignment = .Center
+			self.topBarLabelText.tintColor = self.theme.topBarLabelTextColor
+			self.topBarLabelText.attributedText = NSAttributedString(string: "Text", attributes:
+				[NSFontAttributeName: UIFont.boldSystemFontOfSize(23),
+					NSForegroundColorAttributeName: self.theme.topBarLabelTextColor])
+			self.topBarView.addSubview(self.topBarLabelText)
 
-		// Morse label
-		self.topBarLabelMorse.tintColor = self.theme.topBarLabelTextColor
-		self.topBarLabelMorse.attributedText = NSAttributedString(string: "Morse", attributes:
-			[NSFontAttributeName: UIFont.boldSystemFontOfSize(23),
-				NSForegroundColorAttributeName: self.theme.topBarLabelTextColor])
+			// Morse label
+			self.topBarLabelMorse = UILabel(frame: CGRect(x: self.topBarView.bounds.width/2.0 + self.roundButtonRadius + self.roundButtonMargin, y: 0, width: self.topBarView.bounds.width/2.0 - self.roundButtonRadius - self.roundButtonMargin, height: self.topBarHeight))
+			self.topBarLabelMorse.textAlignment = .Center
+			self.topBarLabelMorse.tintColor = self.theme.topBarLabelTextColor
+			self.topBarLabelMorse.attributedText = NSAttributedString(string: "Morse", attributes:
+				[NSFontAttributeName: UIFont.boldSystemFontOfSize(23),
+					NSForegroundColorAttributeName: self.theme.topBarLabelTextColor])
+			self.topBarView.addSubview(self.topBarLabelMorse)
 
-		// Add round button
-		let tapGR = UITapGestureRecognizer(target: self, action: "roundButtonTapped:")
-		self.roundButtonView.addGestureRecognizer(tapGR)
+			// Add round button
+			self.roundButtonView = MTRoundButtonView(origin: CGPoint(x: self.topBarView.bounds.width/2.0 - self.roundButtonRadius, y: self.roundButtonMargin), radius: self.roundButtonRadius)
+			let tapGR = UITapGestureRecognizer(target: self, action: "roundButtonTapped:")
+			self.roundButtonView.addGestureRecognizer(tapGR)
+			self.topBarView.addSubview(self.roundButtonView)
 
-		self.topBarView.snp_remakeConstraints(closure: { (make) -> Void in
-			make.top.equalTo(self.statusBarView.snp_bottom)
-			make.left.equalTo(self.view).offset(0)
-			make.right.equalTo(self.view).offset(0)
-			make.height.equalTo(self.topBarHeight)
-		})
+			// Add cancel button
+			self.cancelButton = MTCancelButton(origin: CGPoint(x: 0, y: 0), width: self.cancelButtonWidth)
+			self.cancelButton.addTarget(self, action: "dismissInputTextKeyboard", forControlEvents: .TouchUpInside)
+			self.topBarView.addSubview(self.cancelButton)
 
-		self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
-			make.top.equalTo(self.topBarView)
-			make.left.equalTo(self.topBarView)
-			make.bottom.equalTo(self.topBarView)
-			make.right.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
-		})
+			self.cancelButton.snp_makeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.topBarView)
+				make.left.equalTo(self.topBarView)
+				make.width.equalTo(self.topBarHeight)
+				make.height.equalTo(self.cancelButton.snp_width)
+			})
 
-		self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
-			make.top.equalTo(self.topBarView)
-			make.right.equalTo(self.topBarView)
-			make.bottom.equalTo(self.topBarView)
-			make.left.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
-		})
+			self.cancelButton.disappearWithDuration(0)
 
-		self.roundButtonView.snp_makeConstraints(closure: { (make) -> Void in
-			make.centerX.equalTo(self.topBarView)
-			make.centerY.equalTo(self.topBarView)
-			make.height.equalTo(self.roundButtonRadius * 2)
-			make.width.equalTo(self.roundButtonView.snp_height)
-		})
+			// Configure constraints
+			self.topBarView.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.statusBarView.snp_bottom)
+				make.left.equalTo(self.view).offset(0)
+				make.right.equalTo(self.view).offset(0)
+				make.height.equalTo(self.topBarHeight)
+			})
+
+			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.topBarView)
+				make.left.equalTo(self.topBarView)
+				make.bottom.equalTo(self.topBarView)
+				make.right.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
+			})
+
+			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.topBarView)
+				make.right.equalTo(self.topBarView)
+				make.bottom.equalTo(self.topBarView)
+				make.left.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
+			})
+
+			self.roundButtonView.snp_makeConstraints(closure: { (make) -> Void in
+				make.centerX.equalTo(self.topBarView)
+				make.centerY.equalTo(self.topBarView)
+				make.height.equalTo(self.roundButtonRadius * 2)
+				make.width.equalTo(self.roundButtonView.snp_height)
+			})
+		}
 
 		// *******************************
 		// Configure Text Background View
 		// *******************************
 
-		self.textBackgroundView.backgroundColor = self.theme.textViewBackgroundColor
-		self.textBackgroundView.layer.borderColor = UIColor.clearColor().CGColor
-		self.textBackgroundView.layer.borderWidth = 0
+		if self.textBackgroundView == nil {
+			self.textBackgroundView = UIView(frame: CGRect(x: 0, y: self.statusBarHeight + self.topBarHeight, width: self.view.bounds.width, height: self.textBackgroundViewHeight))
+			self.textBackgroundView.backgroundColor = self.theme.textViewBackgroundColor
+			self.textBackgroundView.layer.borderColor = UIColor.clearColor().CGColor
+			self.textBackgroundView.layer.borderWidth = 0
+			self.view.addSubview(self.textBackgroundView)
 
-		self.textBackgroundView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.topBarView.snp_bottom)
-			make.right.equalTo(self.view)
-			make.left.equalTo(self.view)
-			make.bottom.equalTo(self.view)
+			self.textBackgroundView.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(self.topBarView.snp_bottom)
+				make.right.equalTo(self.view)
+				make.left.equalTo(self.view)
+				make.bottom.equalTo(self.view)
+			}
 		}
 
 		// *****************************
 		// Configure Input Text View
 		// *****************************
 
-		self.inputTextView.backgroundColor = UIColor.clearColor()
-		self.inputTextView.opaque = false
-		self.inputTextView.keyboardType = .ASCIICapable
-		self.inputTextView.returnKeyType = .Done
-		self.inputTextView.attributedText = self.attributedHintTextInput
-		self.inputTextView.delegate = self
-		self.inputTextView.layer.borderColor = UIColor.clearColor().CGColor
-		self.inputTextView.layer.borderWidth = 0
+		if self.inputTextView == nil {
+			self.inputTextView = UITextView(frame: CGRect(x: 0, y: 0, width: self.textBackgroundView.bounds.width, height: self.textBackgroundViewHeight/2.0))
+			self.inputTextView.backgroundColor = UIColor.clearColor()
+			self.inputTextView.opaque = false
+			self.inputTextView.keyboardType = .ASCIICapable
+			self.inputTextView.returnKeyType = .Done
+			self.inputTextView.attributedText = self.attributedHintTextInput
+			self.inputTextView.delegate = self
+			self.inputTextView.layer.borderColor = UIColor.clearColor().CGColor
+			self.inputTextView.layer.borderWidth = 0
+			self.textBackgroundView.addSubview(self.inputTextView)
 
-		self.inputTextView.snp_remakeConstraints { (make) -> Void in
-			make.top.equalTo(self.textBackgroundView)
-			make.right.equalTo(self.textBackgroundView)
-			make.left.equalTo(self.textBackgroundView)
-			make.height.equalTo(self.textBackgroundView.snp_height).multipliedBy(0.5)
+			self.inputTextView.snp_remakeConstraints { (make) -> Void in
+				make.top.equalTo(self.textBackgroundView)
+				make.right.equalTo(self.textBackgroundView)
+				make.left.equalTo(self.textBackgroundView)
+				make.height.equalTo(self.textBackgroundView.snp_height).multipliedBy(0.5)
+			}
 		}
 
 		// *****************************
 		// Configure Output Text View
 		// *****************************
 
-		self.outputTextView.backgroundColor = UIColor.clearColor()
-		self.outputTextView.opaque = false
-		self.outputTextView.editable = false
-		self.outputTextView.attributedText = self.attributedHintTextOutput
-		self.outputTextView.layer.borderColor = UIColor.clearColor().CGColor
-		self.outputTextView.layer.borderWidth = 0
-		// This gestureRecognizer is here to fix a bug where double tapping on outputTextView would resign inputTextView as first responder.
-		let disableDoubleTapGR = UITapGestureRecognizer(target: nil, action: "")
-		disableDoubleTapGR.numberOfTapsRequired = 2
-		self.outputTextView.addGestureRecognizer(disableDoubleTapGR)
+		if self.outputTextView == nil {
+			self.outputTextView = UITextView(frame: CGRect(x: 0, y: self.textBackgroundViewHeight/2.0, width: self.view.bounds.width, height: self.textBackgroundViewHeight/2.0))
+			self.outputTextView.backgroundColor = UIColor.clearColor()
+			self.outputTextView.opaque = false
+			self.outputTextView.editable = false
+			self.outputTextView.attributedText = self.attributedHintTextOutput
+			self.outputTextView.layer.borderColor = UIColor.clearColor().CGColor
+			self.outputTextView.layer.borderWidth = 0
+			// This gestureRecognizer is here to fix a bug where double tapping on outputTextView would resign inputTextView as first responder.
+			let disableDoubleTapGR = UITapGestureRecognizer(target: nil, action: "")
+			disableDoubleTapGR.numberOfTapsRequired = 2
+			self.outputTextView.addGestureRecognizer(disableDoubleTapGR)
+			self.textBackgroundView.addSubview(self.outputTextView)
 
-		self.outputTextView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.inputTextView.snp_bottom)
-			make.right.equalTo(self.textBackgroundView)
-			make.bottom.equalTo(self.textBackgroundView)
-			make.left.equalTo(self.textBackgroundView)
+			self.outputTextView.snp_makeConstraints { (make) -> Void in
+				make.top.equalTo(self.inputTextView.snp_bottom)
+				make.right.equalTo(self.textBackgroundView)
+				make.bottom.equalTo(self.textBackgroundView)
+				make.left.equalTo(self.textBackgroundView)
+			}
 		}
 
 		// *****************************
 		// Configure Line Break View
 		// *****************************
 
-		self.lineBreakView = UIView(frame: CGRect(x: 0, y: self.textBackgroundView.bounds.height, width: self.textBackgroundView.bounds.width, height: 1.0))
-		self.lineBreakView.backgroundColor = UIColor(hex: 0x000, alpha: 0.1)
-		self.lineBreakView.hidden = true
-		self.textBackgroundView.addSubview(self.lineBreakView)
+		if self.lineBreakView == nil {
+			self.lineBreakView = UIView(frame: CGRect(x: 0, y: self.textBackgroundView.bounds.height, width: self.textBackgroundView.bounds.width, height: 1.0))
+			self.lineBreakView.backgroundColor = UIColor(hex: 0x000, alpha: 0.1)
+			self.lineBreakView.hidden = true
+			self.textBackgroundView.addSubview(self.lineBreakView)
 
-		self.lineBreakView.snp_remakeConstraints(closure: { (make) -> Void in
-			make.left.equalTo(self.textBackgroundView)
-			make.right.equalTo(self.textBackgroundView)
-			make.bottom.equalTo(self.textBackgroundView)
-			make.height.equalTo(1.0)
-		})
+			self.lineBreakView.snp_remakeConstraints(closure: { (make) -> Void in
+				make.left.equalTo(self.textBackgroundView)
+				make.right.equalTo(self.textBackgroundView)
+				make.bottom.equalTo(self.textBackgroundView)
+				make.height.equalTo(1.0)
+			})
+		}
 
 		// *********************************
 		// Configure Text Tap Feedback View
 		// *********************************
 
-		self.textBoxTapFeedBackView.backgroundColor = UIColor.clearColor()
-		self.textBoxTapFeedBackView.layer.borderColor = UIColor.clearColor().CGColor
-		self.textBoxTapFeedBackView.layer.borderWidth = 0
-		self.textBoxTapFeedBackView.opaque = false
-		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "textViewTapped:")
-		tapGestureRecognizer.cancelsTouchesInView = true
-		self.textBoxTapFeedBackView.addGestureRecognizer(tapGestureRecognizer)
-		self.textBackgroundView.addSubview(self.textBoxTapFeedBackView)
+		if self.textBoxTapFeedBackView == nil {
+			self.textBoxTapFeedBackView = UIView(frame: CGRect(x: 0, y: 0, width: self.textBackgroundView.bounds.width, height: self.textBackgroundView.bounds.height))
+			self.textBoxTapFeedBackView.backgroundColor = UIColor.clearColor()
+			self.textBoxTapFeedBackView.layer.borderColor = UIColor.clearColor().CGColor
+			self.textBoxTapFeedBackView.layer.borderWidth = 0
+			self.textBoxTapFeedBackView.opaque = false
+			let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "textViewTapped:")
+			tapGestureRecognizer.cancelsTouchesInView = true
+			self.textBoxTapFeedBackView.addGestureRecognizer(tapGestureRecognizer)
+			self.textBackgroundView.addSubview(self.textBoxTapFeedBackView)
 
-		self.textBoxTapFeedBackView.snp_makeConstraints(closure: { (make) -> Void in
-			make.edges.equalTo(self.textBackgroundView)
-		})
-
-		// *********************************
-		// Configure Cancel Button
-		// *********************************
-
-		self.cancelButton.titleLabel?.text = nil
-		self.cancelButton.addTarget(self, action: "dismissInputTextKeyboard", forControlEvents: .TouchUpInside)
-
-		self.cancelButton.snp_makeConstraints(closure: { (make) -> Void in
-			make.top.equalTo(self.topBarView)
-			make.left.equalTo(self.topBarView)
-			make.width.equalTo(self.topBarHeight)
-			make.height.equalTo(self.cancelButton.snp_width)
-		})
-
-		self.cancelButton.disappearWithDuration(0)
+			self.textBoxTapFeedBackView.snp_makeConstraints(closure: { (make) -> Void in
+				make.edges.equalTo(self.textBackgroundView)
+			})
+		}
 
 		// *********************************
 		// Configure Keyboard Button View
 		// *********************************
 
-		self.keyboardButtonView.backgroundColor = self.theme.keyboardButtonViewBackgroundColor
-		self.keyboardButtonView.opaque = false
-		self.keyboardButtonView.alpha = 0
-		self.keyboardButtonView.hidden = true
+		if self.keyboardButtonView == nil {
+			self.keyboardButtonView = UIView(frame: CGRect(x: 0, y: self.textBackgroundView.bounds.height - self.keyboardButtonViewHeight, width: self.textBackgroundView.bounds.width, height: self.keyboardButtonViewHeight))
+			self.keyboardButtonView.backgroundColor = self.theme.keyboardButtonViewBackgroundColor
+			self.keyboardButtonView.opaque = false
+			self.keyboardButtonView.alpha = 0
+			self.keyboardButtonView.hidden = true
+			self.view.addSubview(self.keyboardButtonView)
 
-		self.keyboardButtonView.snp_makeConstraints(closure: { (make) -> Void in
-			make.height.equalTo(self.keyboardButtonViewHeight)
-			make.left.equalTo(self.textBackgroundView)
-			make.right.equalTo(self.textBackgroundView)
-			make.bottom.equalTo(self.textBackgroundView)
-		})
+			self.keyboardButtonView.snp_makeConstraints(closure: { (make) -> Void in
+				make.height.equalTo(self.keyboardButtonViewHeight)
+				make.left.equalTo(self.textBackgroundView)
+				make.right.equalTo(self.textBackgroundView)
+				make.bottom.equalTo(self.textBackgroundView)
+			})
+		}
+    }
+
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
 
 		// Layout views based on the new constraints
 		self.view.layoutIfNeeded()

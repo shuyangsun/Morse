@@ -16,9 +16,9 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 	// *****************************
 	// MARK: Views
 	// *****************************
-	@IBOutlet weak var topSectionContainerView: UIView!
-	@IBOutlet weak var scrollView: UIScrollView!
-	@IBOutlet weak var scrollViewOverlay: UIButton!
+	var topSectionContainerView: UIView!
+	var scrollView: UIScrollView!
+	var scrollViewOverlay: UIButton!
 
 	private var topSectionViewController:MTHomeTopSectionViewController!
 
@@ -104,6 +104,69 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
 
+		// *****************************
+		// Configure Top Section Container View
+		// *****************************
+
+		if self.topSectionViewController == nil {
+			self.topSectionViewController = MTHomeTopSectionViewController()
+			self.addChildViewController(self.topSectionViewController)
+			self.topSectionViewController.didMoveToParentViewController(self)
+			self.topSectionViewController.view.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.topSectionContainerViewHeight)
+			self.topSectionContainerView = self.topSectionViewController.view
+			self.view.addSubview(self.topSectionContainerView)
+
+			self.topSectionContainerView.clipsToBounds = false
+			self.topSectionContainerView.snp_remakeConstraints { (make) -> Void in
+				make.top.equalTo(self.view)
+				make.right.equalTo(self.view)
+				make.left.equalTo(self.view)
+				make.height.equalTo(self.topSectionContainerViewHeight)
+			}
+		}
+
+		// *****************************
+		// Configure Scroll View
+		// *****************************
+
+		if self.scrollView == nil {
+			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: self.topSectionContainerViewHeight, width: self.view.bounds.width, height: self.view.bounds.height - self.topSectionContainerViewHeight - self.tabBarHeight))
+			self.scrollView.backgroundColor = UIColor.whiteColor()
+			self.scrollView.userInteractionEnabled = true
+			self.scrollView.bounces = true
+			self.scrollView.showsHorizontalScrollIndicator = false
+			self.scrollView.showsVerticalScrollIndicator = true
+			self.scrollView.delegate = self
+			self.view.insertSubview(self.scrollView, atIndex: 0)
+
+			self.scrollView.snp_remakeConstraints { (make) -> Void in
+				make.top.equalTo(self.topSectionContainerView.snp_bottom)
+				make.right.equalTo(self.view)
+				make.left.equalTo(self.view)
+				make.bottom.equalTo(self.view).offset(-self.tabBarHeight)
+			}
+		}
+
+		// *****************************
+		// Configure Scroll View Overlay
+		// *****************************
+
+		if self.scrollViewOverlay == nil {
+			self.scrollViewOverlay = UIButton(frame: CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: self.scrollView.bounds.height))
+			self.scrollViewOverlay.addTarget(self.topSectionViewController, action: "dismissInputTextKeyboard", forControlEvents: .TouchUpInside)
+			self.scrollViewOverlay.backgroundColor = UIColor(hex: 0x000, alpha: 0.35)
+			self.scrollViewOverlay.opaque = false
+			self.scrollViewOverlay.layer.borderColor = UIColor.clearColor().CGColor
+			self.scrollViewOverlay.layer.borderWidth = 0
+			self.scrollViewOverlay.hidden = true
+			self.scrollViewOverlay.titleLabel?.text = nil
+			self.view.insertSubview(self.scrollViewOverlay, aboveSubview: self.scrollView)
+
+			self.scrollViewOverlay.snp_remakeConstraints(closure: { (make) -> Void in
+				make.edges.equalTo(self.scrollView)
+			})
+		}
+
 		// TODO: Custom tab bar item
 		self.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Featured, tag: 0)
     }
@@ -112,51 +175,11 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 
-		// *****************************
-		// Configure Top Section Container View
-		// *****************************
-
-		self.topSectionContainerView.clipsToBounds = false
-		self.topSectionContainerView.snp_remakeConstraints { (make) -> Void in
-			make.top.equalTo(self.view)
-			make.right.equalTo(self.view)
-			make.left.equalTo(self.view)
-			make.height.equalTo(self.topSectionContainerViewHeight)
+		if self.topSectionViewController.inputTextView.isFirstResponder() {
+			self.topSectionContainerView.addMDShadow(withDepth: 3)
+		} else {
+			self.topSectionContainerView.addMDShadow(withDepth: 2)
 		}
-
-		// *****************************
-		// Configure Scroll View
-		// *****************************
-
-		self.scrollView.backgroundColor = UIColor.whiteColor()
-		self.scrollView.userInteractionEnabled = true
-		self.scrollView.bounces = true
-		self.scrollView.showsHorizontalScrollIndicator = false
-		self.scrollView.showsVerticalScrollIndicator = true
-		self.scrollView.delegate = self
-
-		self.scrollView.snp_remakeConstraints { (make) -> Void in
-			make.top.equalTo(self.topSectionContainerView.snp_bottom)
-			make.right.equalTo(self.view)
-			make.left.equalTo(self.view)
-			make.bottom.equalTo(self.view).offset(-self.tabBarHeight)
-		}
-
-		// *****************************
-		// Configure Scroll View Overlay
-		// *****************************
-
-		self.scrollViewOverlay.addTarget(self.topSectionViewController, action: "dismissInputTextKeyboard", forControlEvents: .TouchUpInside)
-		self.scrollViewOverlay.backgroundColor = UIColor(hex: 0x000, alpha: 0.35)
-		self.scrollViewOverlay.opaque = false
-		self.scrollViewOverlay.layer.borderColor = UIColor.clearColor().CGColor
-		self.scrollViewOverlay.layer.borderWidth = 0
-		self.scrollViewOverlay.hidden = true
-		self.scrollViewOverlay.titleLabel?.text = nil
-
-		self.scrollViewOverlay.snp_remakeConstraints(closure: { (make) -> Void in
-			make.edges.equalTo(self.scrollView)
-		})
 
 		self.updateCardViewsConstraints()
 		self.view.layoutIfNeeded()

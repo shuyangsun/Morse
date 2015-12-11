@@ -54,29 +54,10 @@
                     <view key="view" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="600" id="Xd2-3e-wF8">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="239" translatesAutoresizingMaskIntoConstraints="NO" id="JUz-0A-N9h">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="239"/>
-                                <connections>
-                                    <segue destination="scf-ZE-tWw" kind="embed" identifier="Top Section Embed Segue" id="cxs-GU-fnp"/>
-                                </connections>
-                            </containerView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="315" translatesAutoresizingMaskIntoConstraints="NO" id="ndZ-OG-7JO">
-                                <rect key="frame" x="0.0" y="236" width="600" height="315"/>
-                            </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="315" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1br-9v-cNc">
-                                <rect key="frame" x="0.0" y="143" width="600" height="315"/>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="FMP-mQ-pYz"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-                    <connections>
-                        <outlet property="scrollView" destination="ndZ-OG-7JO" id="5qL-yI-YBy"/>
-                        <outlet property="scrollViewOverlay" destination="1br-9v-cNc" id="Med-bB-jDG"/>
-                        <outlet property="topSectionContainerView" destination="JUz-0A-N9h" id="meo-Gm-spF"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yEx-sh-50y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -100,92 +81,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VpN-eT-Kds" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="424" y="76"/>
-        </scene>
-        <!--Home Top Section View Controller-->
-        <scene sceneID="Rrw-Cx-vDN">
-            <objects>
-                <viewController id="scf-ZE-tWw" customClass="MTHomeTopSectionViewController" customModule="Morse" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="239" id="dyB-pK-Nh9">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="239"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="asn-lQ-gWu">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="22"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="53" translatesAutoresizingMaskIntoConstraints="NO" id="red-RB-J6m">
-                                <rect key="frame" x="0.0" y="20" width="600" height="53"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" placeholderIntrinsicWidth="255" placeholderIntrinsicHeight="53" text="Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvR-rm-gf5">
-                                        <rect key="frame" x="0.0" y="0.0" width="255" height="53"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" placeholderIntrinsicWidth="217" placeholderIntrinsicHeight="53" text="Morse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xx-v6-crt">
-                                        <rect key="frame" x="383" y="0.0" width="217" height="53"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="57" placeholderIntrinsicHeight="53" translatesAutoresizingMaskIntoConstraints="NO" id="03m-h1-IoR" customClass="MTRoundButtonView" customModule="Morse" customModuleProvider="target">
-                                        <rect key="frame" x="280" y="0.0" width="57" height="53"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="66" placeholderIntrinsicHeight="53" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tz4-Pk-zkt" customClass="MTCancelButton" customModule="Morse" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="66" height="53"/>
-                                        <state key="normal" title="Cancel">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="166" translatesAutoresizingMaskIntoConstraints="NO" id="vFR-y0-qgc">
-                                <rect key="frame" x="0.0" y="73" width="600" height="166"/>
-                                <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="77" text="Touch to type (input)" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DDc-2M-d3E">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="77"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="89" text="Output text view" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ur6-45-cAS">
-                                        <rect key="frame" x="0.0" y="77" width="600" height="89"/>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="166" translatesAutoresizingMaskIntoConstraints="NO" id="izn-lm-vYZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="166"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="54" translatesAutoresizingMaskIntoConstraints="NO" id="St1-Gm-qzE">
-                                        <rect key="frame" x="0.0" y="112" width="600" height="54"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="cancelButton" destination="tz4-Pk-zkt" id="RrA-zh-puZ"/>
-                        <outlet property="inputTextView" destination="DDc-2M-d3E" id="ZAy-Nt-I4r"/>
-                        <outlet property="keyboardButtonView" destination="St1-Gm-qzE" id="WK1-12-3cC"/>
-                        <outlet property="outputTextView" destination="Ur6-45-cAS" id="pne-lb-usm"/>
-                        <outlet property="roundButtonView" destination="03m-h1-IoR" id="f44-bJ-3Kq"/>
-                        <outlet property="statusBarView" destination="asn-lQ-gWu" id="e4Z-VN-3lv"/>
-                        <outlet property="textBackgroundView" destination="vFR-y0-qgc" id="kFq-fi-RQy"/>
-                        <outlet property="textBoxTapFeedBackView" destination="izn-lm-vYZ" id="eCp-VJ-70w"/>
-                        <outlet property="topBarLabelMorse" destination="1Xx-v6-crt" id="pZu-Wh-BVd"/>
-                        <outlet property="topBarLabelText" destination="bvR-rm-gf5" id="N1V-H5-GSl"/>
-                        <outlet property="topBarView" destination="red-RB-J6m" id="Wzk-CS-2en"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="shB-is-Wqa" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2020.5" y="-815.5"/>
         </scene>
     </scenes>
 </document>
