@@ -104,6 +104,26 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
 
+		// TODO: Custom tab bar item
+		self.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Featured, tag: 0)
+    }
+
+	// Views are created and constraints are added in this callback
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+
+		// *****************************
+		// Configure Top Section Container View
+		// *****************************
+
+		self.topSectionContainerView.clipsToBounds = false
+		self.topSectionContainerView.snp_remakeConstraints { (make) -> Void in
+			make.top.equalTo(self.view)
+			make.right.equalTo(self.view)
+			make.left.equalTo(self.view)
+			make.height.equalTo(self.topSectionContainerViewHeight)
+		}
+
 		// *****************************
 		// Configure Scroll View
 		// *****************************
@@ -115,7 +135,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 		self.scrollView.showsVerticalScrollIndicator = true
 		self.scrollView.delegate = self
 
-		self.scrollView.snp_makeConstraints { (make) -> Void in
+		self.scrollView.snp_remakeConstraints { (make) -> Void in
 			make.top.equalTo(self.topSectionContainerView.snp_bottom)
 			make.right.equalTo(self.view)
 			make.left.equalTo(self.view)
@@ -134,36 +154,9 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 		self.scrollViewOverlay.hidden = true
 		self.scrollViewOverlay.titleLabel?.text = nil
 
-		self.scrollViewOverlay.snp_makeConstraints(closure: { (make) -> Void in
+		self.scrollViewOverlay.snp_remakeConstraints(closure: { (make) -> Void in
 			make.edges.equalTo(self.scrollView)
 		})
-
-		// *****************************
-		// Configure Top Section Container View
-		// *****************************
-
-		self.topSectionContainerView.clipsToBounds = false
-		self.topSectionContainerView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.view)
-			make.right.equalTo(self.view)
-			make.left.equalTo(self.view)
-			make.height.equalTo(self.topSectionContainerViewHeight)
-		}
-
-		// TODO: Custom tab bar item
-		self.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Featured, tag: 0)
-    }
-
-	// Views are created and constraints are added in this callback
-	override func viewDidLayoutSubviews() {
-		super.viewDidLayoutSubviews()
-
-		// Change shadow level of container view according to inputTextView status
-		if self.topSectionViewController.inputTextView.isFirstResponder() {
-			self.topSectionContainerView.addMDShadow(withDepth: 3)
-		} else {
-			self.topSectionContainerView.addMDShadow(withDepth: 2)
-		}
 
 		self.updateCardViewsConstraints()
 		self.view.layoutIfNeeded()

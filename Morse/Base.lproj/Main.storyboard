@@ -51,20 +51,20 @@
                         <viewControllerLayoutGuide type="top" id="wHl-Y8-2Vd"/>
                         <viewControllerLayoutGuide type="bottom" id="dPH-PJ-8Su"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Xd2-3e-wF8">
+                    <view key="view" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="600" id="Xd2-3e-wF8">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JUz-0A-N9h">
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="239" translatesAutoresizingMaskIntoConstraints="NO" id="JUz-0A-N9h">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="239"/>
                                 <connections>
                                     <segue destination="scf-ZE-tWw" kind="embed" identifier="Top Section Embed Segue" id="cxs-GU-fnp"/>
                                 </connections>
                             </containerView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ndZ-OG-7JO">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="315" translatesAutoresizingMaskIntoConstraints="NO" id="ndZ-OG-7JO">
                                 <rect key="frame" x="0.0" y="236" width="600" height="315"/>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1br-9v-cNc">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="315" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1br-9v-cNc">
                                 <rect key="frame" x="0.0" y="143" width="600" height="315"/>
                             </button>
                         </subviews>
@@ -105,34 +105,34 @@
         <scene sceneID="Rrw-Cx-vDN">
             <objects>
                 <viewController id="scf-ZE-tWw" customClass="MTHomeTopSectionViewController" customModule="Morse" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="dyB-pK-Nh9">
+                    <view key="view" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="239" id="dyB-pK-Nh9">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="239"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="asn-lQ-gWu">
+                            <view contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="asn-lQ-gWu">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="22"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="red-RB-J6m">
+                            <view contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="53" translatesAutoresizingMaskIntoConstraints="NO" id="red-RB-J6m">
                                 <rect key="frame" x="0.0" y="20" width="600" height="53"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvR-rm-gf5">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" placeholderIntrinsicWidth="255" placeholderIntrinsicHeight="53" text="Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvR-rm-gf5">
                                         <rect key="frame" x="0.0" y="0.0" width="255" height="53"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Morse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xx-v6-crt">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" placeholderIntrinsicWidth="217" placeholderIntrinsicHeight="53" text="Morse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xx-v6-crt">
                                         <rect key="frame" x="383" y="0.0" width="217" height="53"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="03m-h1-IoR" customClass="MTRoundButtonView" customModule="Morse" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="57" placeholderIntrinsicHeight="53" translatesAutoresizingMaskIntoConstraints="NO" id="03m-h1-IoR" customClass="MTRoundButtonView" customModule="Morse" customModuleProvider="target">
                                         <rect key="frame" x="280" y="0.0" width="57" height="53"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tz4-Pk-zkt" customClass="MTCancelButton" customModule="Morse" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="66" placeholderIntrinsicHeight="53" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tz4-Pk-zkt" customClass="MTCancelButton" customModule="Morse" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="66" height="53"/>
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -141,25 +141,25 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vFR-y0-qgc">
+                            <view contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="166" translatesAutoresizingMaskIntoConstraints="NO" id="vFR-y0-qgc">
                                 <rect key="frame" x="0.0" y="73" width="600" height="166"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Touch to type (input)" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DDc-2M-d3E">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="77" text="Touch to type (input)" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DDc-2M-d3E">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="77"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Output text view" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ur6-45-cAS">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="89" text="Output text view" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ur6-45-cAS">
                                         <rect key="frame" x="0.0" y="77" width="600" height="89"/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="izn-lm-vYZ">
+                                    <view contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="166" translatesAutoresizingMaskIntoConstraints="NO" id="izn-lm-vYZ">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="166"/>
                                     </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="St1-Gm-qzE">
+                                    <view contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="54" translatesAutoresizingMaskIntoConstraints="NO" id="St1-Gm-qzE">
                                         <rect key="frame" x="0.0" y="112" width="600" height="54"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -185,7 +185,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="shB-is-Wqa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1856" y="-815.5"/>
+            <point key="canvasLocation" x="2020.5" y="-815.5"/>
         </scene>
     </scenes>
 </document>

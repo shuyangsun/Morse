@@ -140,7 +140,9 @@ class MTHomeTopSectionViewController: UIViewController, UITextViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
 
+	override func viewDidLayoutSubviews() {
 		self.view.backgroundColor = self.theme.textViewBackgroundColor
 
 		// *****************************
@@ -326,11 +328,6 @@ class MTHomeTopSectionViewController: UIViewController, UITextViewDelegate {
 			make.right.equalTo(self.textBackgroundView)
 			make.bottom.equalTo(self.textBackgroundView)
 		})
-    }
-
-	override func viewDidLayoutSubviews() {
-		// Input and output text view's height depends on root view's height, so constraint must be set here.
-
 
 		// Layout views based on the new constraints
 		self.view.layoutIfNeeded()
