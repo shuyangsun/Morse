@@ -513,6 +513,7 @@ class MTHomeTopSectionViewController: UIViewController, UITextViewDelegate {
 			animations: { () -> Void in
 				self.view.layoutIfNeeded()
 				self.homeViewController.scrollViewOverlay.hidden = false
+				self.homeViewController.topSectionContainerView.addMDShadow(withDepth: 3)
 			}, completion: nil)
 
 		let buttonAnimationDuration = TAP_FEED_BACK_DURATION/3.0
@@ -554,7 +555,7 @@ class MTHomeTopSectionViewController: UIViewController, UITextViewDelegate {
 			animations: { () -> Void in
 				self.view.layoutIfNeeded()
 				self.homeViewController.scrollViewOverlay.hidden = true
-				self.textBackgroundView.addMDShadow(withDepth: 2)
+				self.homeViewController.topSectionContainerView.addMDShadow(withDepth: 2)
 			}) { (succeed) -> Void in
 				if succeed {
 					self.lineBreakView.hidden = true

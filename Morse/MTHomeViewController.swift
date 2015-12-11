@@ -16,11 +16,11 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 	// *****************************
 	// MARK: Views
 	// *****************************
+	var topSectionViewController:MTHomeTopSectionViewController!
 	var topSectionContainerView: UIView!
+	
 	var scrollView: UIScrollView!
 	var scrollViewOverlay: UIButton!
-
-	private var topSectionViewController:MTHomeTopSectionViewController!
 
 	private var cardViews:[MTCardView] = []
 	private var currentExpandedView:MTCardView?
@@ -180,7 +180,6 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 		} else {
 			self.topSectionContainerView.addMDShadow(withDepth: 2)
 		}
-
 		self.updateCardViewsConstraints()
 		self.view.layoutIfNeeded()
 	}
@@ -209,7 +208,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 	// *****************************
 
 	func scrollViewDidScroll(scrollView: UIScrollView) {
-		let hiddingSectionHeight = self.topSectionContainerViewHeight - self.topSectionViewController.keyboardButtonViewHeight
+		let hiddingSectionHeight = self.topSectionContainerViewHeight - self.topSectionViewController.keyboardButtonViewHeight - self.topSectionViewController.statusBarHeight
 		let animationDuration = 0.25 * self.animationDurationScalar
 		if scrollView.contentOffset.y <= 20 && self.topSectionHidden {
 			// Show input area
