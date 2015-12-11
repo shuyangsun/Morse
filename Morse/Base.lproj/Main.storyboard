@@ -51,7 +51,7 @@
                         <viewControllerLayoutGuide type="top" id="wHl-Y8-2Vd"/>
                         <viewControllerLayoutGuide type="bottom" id="dPH-PJ-8Su"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Xd2-3e-wF8">
+                    <view key="view" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="600" id="Xd2-3e-wF8">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
