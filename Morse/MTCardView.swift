@@ -45,8 +45,6 @@ class MTCardView: UIView {
 		self.addMDShadow(withDepth: self.defaultMDShadowLevel)
 		let tapGR = UITapGestureRecognizer(target: self, action: "tapped:")
 		self.addGestureRecognizer(tapGR)
-		let holdGR = UILongPressGestureRecognizer(target: self, action: "held:")
-		self.addGestureRecognizer(holdGR)
 	}
 
 	convenience init(frame:CGRect, text:String?, morse:String?, textOnTop:Bool = true) {
@@ -109,15 +107,6 @@ class MTCardView: UIView {
 			self.animateUserInteractionFeedbackAtLocation(location)
 			if let myDelegate = self.delegate {
 				myDelegate.cardViewTapped(self)
-			}
-		}
-	}
-
-	func held(gestureRecognizer:UILongPressGestureRecognizer) {
-		if gestureRecognizer.state == .Began {
-			let location = gestureRecognizer.locationInView(self)
-			if self.bounds.contains(location) {
-				self.animateUserInteractionFeedbackAtLocation(location)
 			}
 		}
 	}

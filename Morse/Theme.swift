@@ -105,7 +105,7 @@ enum Theme: String {
 
 	var cardViewExpandedBackgroudColor:UIColor {
 		switch self {
-		case .Default: return self.roundButtonBackgroundColor
+		case .Default: return MDColorPalette.Blue.P600
 		}
 	}
 
