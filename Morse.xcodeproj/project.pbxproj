@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		101A0A981C1B28F40030A51A /* MTHomeTopSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0A971C1B28F40030A51A /* MTHomeTopSectionViewController.swift */; };
+		101A0A991C1B28F40030A51A /* MTHomeTopSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0A971C1B28F40030A51A /* MTHomeTopSectionViewController.swift */; };
+		101A0A9A1C1B28F40030A51A /* MTHomeTopSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0A971C1B28F40030A51A /* MTHomeTopSectionViewController.swift */; };
 		10286CCB1C0D1BCF00BD2B43 /* MTCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* MTCardView.swift */; };
 		10286CCC1C0D1BCF00BD2B43 /* MTCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* MTCardView.swift */; };
 		10286CCD1C0D1BCF00BD2B43 /* MTCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* MTCardView.swift */; };
@@ -117,6 +120,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		101A0A971C1B28F40030A51A /* MTHomeTopSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTHomeTopSectionViewController.swift; sourceTree = "<group>"; };
 		10286CCA1C0D1BCF00BD2B43 /* MTCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTCardView.swift; sourceTree = "<group>"; };
 		1030BA0E1C1890C20099F2E4 /* MTCardViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTCardViewDelegate.swift; sourceTree = "<group>"; };
 		1052A73F1C0BACE90085B0C9 /* Morse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Morse.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -253,6 +257,7 @@
 			children = (
 				1052A7731C0BAED50085B0C9 /* MTTabBarController.swift */,
 				1052A77B1C0BB09B0085B0C9 /* MTHomeViewController.swift */,
+				101A0A971C1B28F40030A51A /* MTHomeTopSectionViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -450,6 +455,7 @@
 				10286CCB1C0D1BCF00BD2B43 /* MTCardView.swift in Sources */,
 				10826A181C0D5C4C00902BCC /* General UI.swift in Sources */,
 				107FF6C41C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
+				101A0A981C1B28F40030A51A /* MTHomeTopSectionViewController.swift in Sources */,
 				1052A7741C0BAED50085B0C9 /* MTTabBarController.swift in Sources */,
 				1052A77C1C0BB09B0085B0C9 /* MTHomeViewController.swift in Sources */,
 				107FF6AB1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
@@ -469,6 +475,7 @@
 				10286CCC1C0D1BCF00BD2B43 /* MTCardView.swift in Sources */,
 				107FF6C51C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
 				107FF6A81C0BC128003EB294 /* Theme.swift in Sources */,
+				101A0A991C1B28F40030A51A /* MTHomeTopSectionViewController.swift in Sources */,
 				1052A7751C0BAED50085B0C9 /* MTTabBarController.swift in Sources */,
 				109ACDC11C0E0D12006AC535 /* MTRoundButtonView.swift in Sources */,
 				1052A75B1C0BACEA0085B0C9 /* MorseTests.swift in Sources */,
@@ -488,6 +495,7 @@
 				10286CCD1C0D1BCF00BD2B43 /* MTCardView.swift in Sources */,
 				107FF6C61C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
 				107FF6A91C0BC128003EB294 /* Theme.swift in Sources */,
+				101A0A9A1C1B28F40030A51A /* MTHomeTopSectionViewController.swift in Sources */,
 				1052A7761C0BAED50085B0C9 /* MTTabBarController.swift in Sources */,
 				109ACDC21C0E0D12006AC535 /* MTRoundButtonView.swift in Sources */,
 				1052A7661C0BACEA0085B0C9 /* MorseUITests.swift in Sources */,
