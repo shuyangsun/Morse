@@ -131,7 +131,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 		if self.scrollView == nil {
 			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: self.topSectionContainerViewHeight, width: self.view.bounds.width, height: self.view.bounds.height - self.topSectionContainerViewHeight - self.tabBarHeight))
-			self.scrollView.backgroundColor = UIColor.whiteColor()
+			self.scrollView.backgroundColor = self.theme.scrollViewBackgroundColor
 			self.scrollView.userInteractionEnabled = true
 			self.scrollView.bounces = true
 			self.scrollView.showsHorizontalScrollIndicator = false
@@ -154,7 +154,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		if self.scrollViewOverlay == nil {
 			self.scrollViewOverlay = UIButton(frame: CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: self.scrollView.bounds.height))
 			self.scrollViewOverlay.addTarget(self.topSectionViewController, action: "dismissInputTextKeyboard", forControlEvents: .TouchUpInside)
-			self.scrollViewOverlay.backgroundColor = UIColor(hex: 0x000, alpha: 0.35)
+			self.scrollViewOverlay.backgroundColor = self.theme.scrollViewOverlayColor
 			self.scrollViewOverlay.opaque = false
 			self.scrollViewOverlay.layer.borderColor = UIColor.clearColor().CGColor
 			self.scrollViewOverlay.layer.borderWidth = 0
@@ -271,6 +271,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 					// Change cardView background color animation.
 					UIView.animateWithDuration(TAP_FEED_BACK_DURATION/3.0 * self.animationDurationScalar,
 						delay: 0,
+//						delay: TAP_FEED_BACK_DURATION * self.animationDurationScalar, // This happens after the tap feedback is animated.
 						options: .CurveEaseOut,
 						animations: {
 							self.scrollView.layoutIfNeeded()

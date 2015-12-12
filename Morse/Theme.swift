@@ -16,7 +16,7 @@ enum Theme: String {
 	// *****************************
 
 	private var defaultTapFeedbackColorDark:UIColor {
-		return UIColor(hex: 0x000000, alpha: 0.3)
+		return UIColor(hex: 0x000000, alpha: 0.2)
 	}
 
 	private var defaultTapFeedbackColorLight:UIColor {
@@ -85,7 +85,7 @@ enum Theme: String {
 
 	var scrollViewBackgroundColor:UIColor {
 		switch self {
-		default: return UIColor.whiteColor()
+		default: return UIColor(hex: 0xEEEEEE)
 		}
 	}
 
@@ -97,7 +97,7 @@ enum Theme: String {
 
 	var cardViewBackgroudColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Blue.P400
+		case .Default: return UIColor.whiteColor()
 		}
 	}
 
@@ -109,25 +109,25 @@ enum Theme: String {
 
 	var cardViewTapfeedbackColor:UIColor {
 		switch self {
-		default: return UIColor(hex: 0xFFFFFF, alpha: 0.3)
+		default: return self.defaultTapFeedbackColorDark
 		}
 	}
 
 	var cardViewTextColor:UIColor {
 		switch self {
-		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		default: return UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha)
 		}
 	}
 
 	var cardViewMorseColor:UIColor {
 		switch self {
-		default: return UIColor(hex:0xFFFFFF, alpha: MDLightTextSecondaryAlpha)
+		default: return UIColor(hex:0x000, alpha: MDDarkTextHintAlpha)
 		}
 	}
 
 	var tabBarBackgroundColor:UIColor {
 		switch self {
-		default: return UIColor.whiteColor()
+		case .Default: return UIColor(hex: 0xEEEEEE)
 		}
 	}
 }

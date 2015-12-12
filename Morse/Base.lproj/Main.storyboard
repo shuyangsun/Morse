@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
-        <!--Item 2-->
+        <!--View Controller-->
         <scene sceneID="rbg-Ae-KT2">
             <objects>
                 <viewController id="Y2E-HP-CEW" sceneMemberID="viewController">
@@ -18,13 +18,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="C3z-i1-JLP"/>
+                    <tabBarItem key="tabBarItem" title="" id="C3z-i1-JLP"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hkz-U7-7bX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1170" y="76"/>
         </scene>
-        <!--Item-->
+        <!--View Controller-->
         <scene sceneID="Pvp-O6-84W">
             <objects>
                 <viewController id="vOV-Q7-pR8" sceneMemberID="viewController">
@@ -37,13 +37,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="Ahh-Dh-r1Y"/>
+                    <tabBarItem key="tabBarItem" title="" id="Ahh-Dh-r1Y"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YQ9-vL-aoF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1170" y="808"/>
         </scene>
-        <!--Item 1-->
+        <!--Home View Controller-->
         <scene sceneID="yvc-Kx-Yq5">
             <objects>
                 <viewController id="82o-bk-XH1" customClass="HomeViewController" customModule="Morse" customModuleProvider="target" sceneMemberID="viewController">
@@ -56,7 +56,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="FMP-mQ-pYz"/>
+                    <tabBarItem key="tabBarItem" title="" id="FMP-mQ-pYz"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yEx-sh-50y" userLabel="First Responder" sceneMemberID="firstResponder"/>

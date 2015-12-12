@@ -18,9 +18,15 @@ class CardView: UIView {
 
 	var expanded = false
 
+	// User setting related variables
 	private var theme:Theme {
 		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
 		return delegate.theme
+	}
+
+	private var leftHandUse:Bool {
+		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		return delegate.leftHandUse
 	}
 
 	private var animationDurationScalar:Double {
@@ -61,9 +67,9 @@ class CardView: UIView {
 		self.topLabel.layer.borderColor = UIColor.clearColor().CGColor
 		self.topLabel.userInteractionEnabled = false
 		if self.textOnTop {
-			self.topLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 18, color: self.theme.cardViewTextColor)
+			self.topLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 16, color: self.theme.cardViewTextColor, bold: true)
 		} else {
-			self.topLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 18, color: self.theme.cardViewMorseColor)
+			self.topLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 14, color: self.theme.cardViewMorseColor)
 			self.topLabel.lineBreakMode = .ByWordWrapping
 		}
 		self.addSubview(self.topLabel)
@@ -82,11 +88,11 @@ class CardView: UIView {
 		self.bottomLabel.layer.borderColor = UIColor.clearColor().CGColor
 		self.bottomLabel.userInteractionEnabled = false
 		if self.textOnTop {
-			self.bottomLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 18, color: self.theme.cardViewMorseColor)
+			self.bottomLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 14, color: self.theme.cardViewMorseColor)
 			self.bottomLabel.lineBreakMode = .ByWordWrapping
 		} else {
 			// TODO: Capitalize each word at the beginning of the sentence?
-			self.bottomLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 18, color: self.theme.cardViewTextColor)
+			self.bottomLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 16, color: self.theme.cardViewTextColor, bold: true)
 		}
 		self.addSubview(bottomLabel)
 

@@ -10,6 +10,14 @@
 		101A0A981C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */; };
 		101A0A991C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */; };
 		101A0A9A1C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */; };
+		101A0AB31C1BBA820030A51A /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0AB21C1BBA820030A51A /* LocalizedStrings.swift */; };
+		101A0AB41C1BBA820030A51A /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0AB21C1BBA820030A51A /* LocalizedStrings.swift */; };
+		101A0AB51C1BBA820030A51A /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0AB21C1BBA820030A51A /* LocalizedStrings.swift */; };
+		101A0ABD1C1BBB890030A51A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 101A0ABF1C1BBB890030A51A /* Localizable.strings */; };
+		101A0AC21C1BBB890030A51A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 101A0AC41C1BBB890030A51A /* InfoPlist.strings */; };
+		101A0AC71C1BBB8A0030A51A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 101A0AC91C1BBB8A0030A51A /* InfoPlist.strings */; };
+		101A0ACC1C1BBC3B0030A51A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 101A0ACE1C1BBC3B0030A51A /* Localizable.strings */; };
+		101A0AD81C1BC01C0030A51A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 101A0ADA1C1BC01C0030A51A /* Localizable.strings */; };
 		10286CCB1C0D1BCF00BD2B43 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* CardView.swift */; };
 		10286CCC1C0D1BCF00BD2B43 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* CardView.swift */; };
 		10286CCD1C0D1BCF00BD2B43 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* CardView.swift */; };
@@ -121,6 +129,21 @@
 
 /* Begin PBXFileReference section */
 		101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTopSectionViewController.swift; sourceTree = "<group>"; };
+		101A0AB01C1BB8CF0030A51A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		101A0AB11C1BB8CF0030A51A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		101A0AB21C1BBA820030A51A /* LocalizedStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
+		101A0ABE1C1BBB890030A51A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		101A0AC31C1BBB890030A51A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		101A0AC81C1BBB8A0030A51A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		101A0ACD1C1BBC3B0030A51A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		101A0ACF1C1BBEC40030A51A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
+		101A0AD01C1BBEC40030A51A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		101A0AD11C1BBEC40030A51A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		101A0AD31C1BBEC40030A51A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		101A0AD41C1BBEC40030A51A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		101A0AD51C1BBEC40030A51A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		101A0AD91C1BC01C0030A51A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		101A0ADB1C1BC0F50030A51A /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		10286CCA1C0D1BCF00BD2B43 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewDelegate.swift; sourceTree = "<group>"; };
 		1052A73F1C0BACE90085B0C9 /* Morse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Morse.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,11 +211,11 @@
 		1052A7361C0BACE90085B0C9 = {
 			isa = PBXGroup;
 			children = (
-				10B9C8141C0FB5A4001C5847 /* CoreData.framework */,
 				1052A7411C0BACE90085B0C9 /* Morse */,
 				1052A7591C0BACEA0085B0C9 /* MorseTests */,
 				1052A7641C0BACEA0085B0C9 /* MorseUITests */,
 				1052A7401C0BACE90085B0C9 /* Products */,
+				10B9C8141C0FB5A4001C5847 /* CoreData.framework */,
 				107FF6B01C0BDEC0003EB294 /* SnapKit.xcodeproj */,
 			);
 			sourceTree = "<group>";
@@ -210,6 +233,7 @@
 		1052A7411C0BACE90085B0C9 /* Morse */ = {
 			isa = PBXGroup;
 			children = (
+				101A0ABF1C1BBB890030A51A /* Localizable.strings */,
 				1052A7421C0BACE90085B0C9 /* AppDelegate.swift */,
 				107FF6AF1C0BDD1F003EB294 /* View Controllers */,
 				10286CD11C0D1BD800BD2B43 /* Views */,
@@ -227,6 +251,8 @@
 		1052A7591C0BACEA0085B0C9 /* MorseTests */ = {
 			isa = PBXGroup;
 			children = (
+				101A0ACE1C1BBC3B0030A51A /* Localizable.strings */,
+				101A0AC91C1BBB8A0030A51A /* InfoPlist.strings */,
 				1052A75A1C0BACEA0085B0C9 /* MorseTests.swift */,
 				1052A75C1C0BACEA0085B0C9 /* Info.plist */,
 			);
@@ -236,6 +262,8 @@
 		1052A7641C0BACEA0085B0C9 /* MorseUITests */ = {
 			isa = PBXGroup;
 			children = (
+				101A0ADA1C1BC01C0030A51A /* Localizable.strings */,
+				101A0AC41C1BBB890030A51A /* InfoPlist.strings */,
 				1052A7651C0BACEA0085B0C9 /* MorseUITests.swift */,
 				1052A7671C0BACEA0085B0C9 /* Info.plist */,
 			);
@@ -276,6 +304,7 @@
 		107FF6C71C0C2246003EB294 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				101A0AB21C1BBA820030A51A /* LocalizedStrings.swift */,
 				107FF6C31C0C223D003EB294 /* MorseTransmitter.swift */,
 			);
 			name = Model;
@@ -369,6 +398,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hant",
 			);
 			mainGroup = 1052A7361C0BACE90085B0C9;
 			productRefGroup = 1052A7401C0BACE90085B0C9 /* Products */;
@@ -424,6 +454,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				101A0ABD1C1BBB890030A51A /* Localizable.strings in Resources */,
 				1052A7501C0BACE90085B0C9 /* LaunchScreen.storyboard in Resources */,
 				1052A74D1C0BACE90085B0C9 /* Assets.xcassets in Resources */,
 				1052A7481C0BACE90085B0C9 /* Main.storyboard in Resources */,
@@ -434,6 +465,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				101A0AC71C1BBB8A0030A51A /* InfoPlist.strings in Resources */,
+				101A0ACC1C1BBC3B0030A51A /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +474,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				101A0AC21C1BBB890030A51A /* InfoPlist.strings in Resources */,
+				101A0AD81C1BC01C0030A51A /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,6 +490,7 @@
 				10286CCB1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				10826A181C0D5C4C00902BCC /* General UI.swift in Sources */,
 				107FF6C41C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
+				101A0AB31C1BBA820030A51A /* LocalizedStrings.swift in Sources */,
 				101A0A981C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */,
 				1052A7741C0BAED50085B0C9 /* TabBarController.swift in Sources */,
 				1052A77C1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */,
@@ -475,6 +511,7 @@
 				10286CCC1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				107FF6C51C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
 				107FF6A81C0BC128003EB294 /* Theme.swift in Sources */,
+				101A0AB41C1BBA820030A51A /* LocalizedStrings.swift in Sources */,
 				101A0A991C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */,
 				1052A7751C0BAED50085B0C9 /* TabBarController.swift in Sources */,
 				109ACDC11C0E0D12006AC535 /* RoundButtonView.swift in Sources */,
@@ -495,6 +532,7 @@
 				10286CCD1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				107FF6C61C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
 				107FF6A91C0BC128003EB294 /* Theme.swift in Sources */,
+				101A0AB51C1BBA820030A51A /* LocalizedStrings.swift in Sources */,
 				101A0A9A1C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */,
 				1052A7761C0BAED50085B0C9 /* TabBarController.swift in Sources */,
 				109ACDC21C0E0D12006AC535 /* RoundButtonView.swift in Sources */,
@@ -528,10 +566,57 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		101A0ABF1C1BBB890030A51A /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				101A0ABE1C1BBB890030A51A /* zh-Hans */,
+				101A0AD11C1BBEC40030A51A /* zh-Hant */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		101A0AC41C1BBB890030A51A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				101A0AC31C1BBB890030A51A /* zh-Hans */,
+				101A0AD51C1BBEC40030A51A /* zh-Hant */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		101A0AC91C1BBB8A0030A51A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				101A0AC81C1BBB8A0030A51A /* zh-Hans */,
+				101A0AD41C1BBEC40030A51A /* zh-Hant */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		101A0ACE1C1BBC3B0030A51A /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				101A0ACD1C1BBC3B0030A51A /* zh-Hans */,
+				101A0AD31C1BBEC40030A51A /* zh-Hant */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		101A0ADA1C1BC01C0030A51A /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				101A0AD91C1BC01C0030A51A /* zh-Hans */,
+				101A0ADB1C1BC0F50030A51A /* zh-Hant */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		1052A7461C0BACE90085B0C9 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				1052A7471C0BACE90085B0C9 /* Base */,
+				101A0AB01C1BB8CF0030A51A /* zh-Hans */,
+				101A0ACF1C1BBEC40030A51A /* zh-Hant */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -540,6 +625,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				1052A74F1C0BACE90085B0C9 /* Base */,
+				101A0AB11C1BB8CF0030A51A /* zh-Hans */,
+				101A0AD01C1BBEC40030A51A /* zh-Hant */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

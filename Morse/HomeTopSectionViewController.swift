@@ -9,6 +9,10 @@
 import UIKit
 import AVFoundation
 
+// *****************************
+// MARK: Localized Strings
+// *****************************
+
 class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 
 	// *****************************
@@ -86,7 +90,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 		//		} else {
 		//			return "___ ___   ___ ___ ___   . ___ .   . . .   ."
 		//		}
-		return "Touch to type"
+		return "  " + LocalizedStrings.Hint.textInputHint
 	}
 
 	// This is deprecatec code, but may be useful in the future
@@ -172,7 +176,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 			self.topBarLabelText = UILabel(frame: CGRect(x: 0, y: 0, width: self.topBarView.bounds.width/2.0 - self.roundButtonRadius - self.roundButtonMargin, height: self.topBarHeight))
 			self.topBarLabelText.textAlignment = .Center
 			self.topBarLabelText.tintColor = self.theme.topBarLabelTextColor
-			self.topBarLabelText.attributedText = NSAttributedString(string: "Text", attributes:
+			self.topBarLabelText.attributedText = NSAttributedString(string: LocalizedStrings.Label.topBarTextLabel, attributes:
 				[NSFontAttributeName: UIFont.boldSystemFontOfSize(23),
 					NSForegroundColorAttributeName: self.theme.topBarLabelTextColor])
 			self.topBarView.addSubview(self.topBarLabelText)
@@ -181,7 +185,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 			self.topBarLabelMorse = UILabel(frame: CGRect(x: self.topBarView.bounds.width/2.0 + self.roundButtonRadius + self.roundButtonMargin, y: 0, width: self.topBarView.bounds.width/2.0 - self.roundButtonRadius - self.roundButtonMargin, height: self.topBarHeight))
 			self.topBarLabelMorse.textAlignment = .Center
 			self.topBarLabelMorse.tintColor = self.theme.topBarLabelTextColor
-			self.topBarLabelMorse.attributedText = NSAttributedString(string: "Morse", attributes:
+			self.topBarLabelMorse.attributedText = NSAttributedString(string: LocalizedStrings.Label.topBarMorseLabel, attributes:
 				[NSFontAttributeName: UIFont.boldSystemFontOfSize(23),
 					NSForegroundColorAttributeName: self.theme.topBarLabelTextColor])
 			self.topBarView.addSubview(self.topBarLabelMorse)
@@ -392,6 +396,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 	// *****************************
 
 	func textViewTapped(gestureRecognizer:UITapGestureRecognizer) {
+		// Play sound effect
 		if self.interactionSoundEnabled {
 			// TODO: Not working.
 			if let path = NSBundle.mainBundle().pathForResource("Tock", ofType: "caf") {
@@ -406,9 +411,11 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 				NSLog("Can't find \"Tock.caf\" file.")
 			}
 		}
+
 		self.textBoxTapFeedBackView.hidden = true
 		if !self.inputTextView.isFirstResponder() {
 			self.inputTextView.becomeFirstResponder()
+			self.animateAndLayoutUIForInputStart()
 		}
 		self.textBackgroundView.triggerTapFeedBack(atLocation: gestureRecognizer.locationInView(self.textBackgroundView), withColor: self.theme.textViewTapFeedbackColor, duration: TAP_FEED_BACK_DURATION * self.animationDurationScalar)
 		self.homeViewController.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.homeViewController.scrollView.bounds.width, height: 1), animated: true)
@@ -432,7 +439,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 				delay: 0.0,
 				options: .CurveEaseIn,
 				animations: {
-					self.roundButtonView.transform = CGAffineTransformScale(self.roundButtonView.transform, 1.05, 1.05)
+					self.roundButtonView.transform = CGAffineTransformScale(self.roundButtonView.transform, 1.15, 1.15)
 					self.roundButtonView.addMDShadow(withDepth: 4)
 				}) { succeed in
 					if succeed {
@@ -515,11 +522,6 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 				self.homeViewController.scrollViewOverlay.hidden = false
 				self.homeViewController.topSectionContainerView.addMDShadow(withDepth: 3)
 			}, completion: nil)
-
-		let buttonAnimationDuration = TAP_FEED_BACK_DURATION/3.0
-		self.cancelButton.appearWithDuration(buttonAnimationDuration)
-		self.roundButtonView.disappearWithAnimationType([.Scale, .Fade], duration: buttonAnimationDuration)
-		self.homeViewController.collapseCurrentExpandedView()
 	}
 
 	func textViewDidChange(textView: UITextView) {
@@ -562,9 +564,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 				}
 		}
 
-		let buttonAnimationDuration = TAP_FEED_BACK_DURATION/3.0
-		self.cancelButton.disappearWithDuration(buttonAnimationDuration)
-		self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: buttonAnimationDuration)
+		self.animateAndLayoutUIForInputEnd()
 	}
 
 	func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
@@ -587,5 +587,18 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 		if self.inputTextView.isFirstResponder() {
 			self.inputTextView.resignFirstResponder()
 		}
+	}
+
+	private func animateAndLayoutUIForInputStart() {
+		let buttonAnimationDuration = TAP_FEED_BACK_DURATION/3.0
+		self.cancelButton.appearWithDuration(buttonAnimationDuration)
+		self.roundButtonView.disappearWithAnimationType([.Scale, .Fade], duration: buttonAnimationDuration)
+		self.homeViewController.collapseCurrentExpandedView()
+	}
+
+	private func animateAndLayoutUIForInputEnd() {
+		let buttonAnimationDuration = TAP_FEED_BACK_DURATION/3.0
+		self.cancelButton.disappearWithDuration(buttonAnimationDuration)
+		self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: buttonAnimationDuration)
 	}
 }

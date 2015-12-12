@@ -1,0 +1,9 @@
+/* On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse (in English). */
+"Morse" = "摩斯电码";
+
+/* On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse (in English). */
+"Text" = "文本";
+
+/* There is a string on the input text view on home screen, promoting user to touch the text box to start typing. */
+"Touch to type" = "开始输入";
+

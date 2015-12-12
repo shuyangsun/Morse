@@ -10,8 +10,8 @@ import UIKit
 
 let TAP_FEED_BACK_DURATION:NSTimeInterval = 0.5
 
-func getAttributedStringFrom(text:String?, withFontSize fontSize:CGFloat = UIFont.systemFontSize(), color:UIColor = UIColor.blackColor()) -> NSMutableAttributedString? {
+func getAttributedStringFrom(text:String?, withFontSize fontSize:CGFloat = UIFont.systemFontSize(), color:UIColor = UIColor.blackColor(), bold:Bool = false) -> NSMutableAttributedString? {
 	return text == nil ? nil : NSMutableAttributedString(string: text!, attributes:
-		[NSFontAttributeName: UIFont.systemFontOfSize(fontSize),
+		[NSFontAttributeName: bold ? UIFont.boldSystemFontOfSize(fontSize) : UIFont.systemFontOfSize(fontSize),
 			NSForegroundColorAttributeName: color])
 }
