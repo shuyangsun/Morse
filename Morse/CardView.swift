@@ -1,5 +1,5 @@
 //
-//  MTCardView.swift
+//  CardView.swift
 //  Morse
 //
 //  Created by Shuyang Sun on 11/30/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MTCardView: UIView {
+class CardView: UIView {
 
 	let paddingTop:CGFloat = 16
 	let paddingLeft:CGFloat = 15
@@ -31,7 +31,8 @@ class MTCardView: UIView {
 	var text:String?
 	var morse:String?
 	var textOnTop = true
-	var delegate:MTCardViewDelegate?
+	var uniqueID:Int?
+	var delegate:CardViewDelegate?
 	private let defaultMDShadowLevel:Int = 1
 
 	// Subviews

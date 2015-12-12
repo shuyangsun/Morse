@@ -1,5 +1,5 @@
 //
-//  MTHomeViewController.swift
+//  HomeViewController.swift
 //  Morse
 //
 //  Created by Shuyang Sun on 11/29/15.
@@ -11,19 +11,19 @@ import SnapKit
 import AVFoundation
 import CoreData
 
-class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDelegate, MTCardViewDelegate {
+class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDelegate, CardViewDelegate {
 
 	// *****************************
 	// MARK: Views
 	// *****************************
-	var topSectionViewController:MTHomeTopSectionViewController!
+	var topSectionViewController:HomeTopSectionViewController!
 	var topSectionContainerView: UIView!
 	
 	var scrollView: UIScrollView!
 	var scrollViewOverlay: UIButton!
 
-	private var cardViews:[MTCardView] = []
-	private var currentExpandedView:MTCardView?
+	private var cardViews:[CardView] = []
+	private var currentExpandedView:CardView?
 
 	// *****************************
 	// MARK: Private variables
@@ -109,7 +109,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 		// *****************************
 
 		if self.topSectionViewController == nil {
-			self.topSectionViewController = MTHomeTopSectionViewController()
+			self.topSectionViewController = HomeTopSectionViewController()
 			self.addChildViewController(self.topSectionViewController)
 			self.topSectionViewController.didMoveToParentViewController(self)
 			self.topSectionViewController.view.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.topSectionContainerViewHeight)
@@ -253,7 +253,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 	// MARK: Card View Delegate
 	// *****************************
 
-	func cardViewTapped(cardView: MTCardView) {
+	func cardViewTapped(cardView: CardView) {
 		// Expand card view.
 		if self.currentExpandedView == cardView {
 			// If the current expanded view is the tapped card view, collapse it and done.
@@ -261,18 +261,24 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 		} else {
 			// If the current expanded view is not the tapped card view, collapse the expanded view and expand card view.
 			self.collapseCurrentExpandedView()
-			cardView.expanded = true
-			self.currentExpandedView = cardView
-			self.updateCardViewsConstraints()
-			UIView.animateWithDuration(TAP_FEED_BACK_DURATION/3.0 * self.animationDurationScalar,
-				delay: 0,
-				options: .CurveEaseOut,
-				animations: {
-					self.scrollView.layoutIfNeeded()
-					cardView.backgroundColor = self.theme.cardViewExpandedBackgroudColor
-				}) { succeed in
-					if succeed {
-						cardView.addMDShadow(withDepth: 1)
+			// Calculate if we need to expand the card.
+			let labelWidth = cardView.topLabel.bounds.width
+			if ceil(cardView.topLabel.attributedText!.size().width/labelWidth) > 1 ||
+				ceil(cardView.bottomLabel.attributedText!.size().width/labelWidth) > 1 {
+					cardView.expanded = true
+					self.currentExpandedView = cardView
+					self.updateCardViewsConstraints()
+					// Change cardView background color animation.
+					UIView.animateWithDuration(TAP_FEED_BACK_DURATION/3.0 * self.animationDurationScalar,
+						delay: 0,
+						options: .CurveEaseOut,
+						animations: {
+							self.scrollView.layoutIfNeeded()
+							cardView.backgroundColor = self.theme.cardViewExpandedBackgroudColor
+						}) { succeed in
+							if succeed {
+								cardView.addMDShadow(withDepth: 1)
+							}
 					}
 			}
 		}
@@ -289,7 +295,7 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 	// *****************************
 
 	func addCardViewWithText(text:String, morse:String, textOnTop:Bool = true, animateWithDuration duration:NSTimeInterval = 0.0) {
-		let cardView = MTCardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), text: text, morse: morse, textOnTop: textOnTop)
+		let cardView = CardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), text: text, morse: morse, textOnTop: textOnTop)
 		cardView.delegate = self
 
 		// TODO: Animation
@@ -390,18 +396,21 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 	// MARK: Core Data
 	// *****************************
 
+	// This method is called after creating a new card on the scrollView, to save it's data into CoreData.
 	private func saveCard(text: String, morse:String, index:Int, textOnTop:Bool = true, favorite:Bool = false, deletable:Bool = true) {
 		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 		let managedContext = appDelegate.managedObjectContext
 		let entity = NSEntityDescription.entityForName("Card", inManagedObjectContext:managedContext)
 		let card = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+		let date = NSDate()
 		card.setValue(text, forKey: "text")
 		card.setValue(morse, forKey: "morse")
 		card.setValue(index, forKey: "index")
 		card.setValue(textOnTop, forKey: "textOnTop")
 		card.setValue(favorite, forKey: "favorite")
 		card.setValue(deletable, forKey: "deletable")
-		card.setValue(NSDate(), forKey: "dateCreated")
+		card.setValue(date, forKey: "dateCreated")
+		card.setValue("\(UIDevice.currentDevice().identifierForVendor)\(date)".hashValue, forKey: "cardUniqueID")
 		card.setValue("Text Morse", forKey: "transmitterType")
 
 		do {
@@ -425,8 +434,9 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
 				let results = try managedContext.executeFetchRequest(fetchRequest)
 				let cards = results as! [NSManagedObject]
 				for card in cards {
-					let cardView = MTCardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), text: card.valueForKey("text") as? String, morse: card.valueForKey("morse") as? String, textOnTop: card.valueForKey("textOnTop") as! Bool)
+					let cardView = CardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), text: card.valueForKey("text") as? String, morse: card.valueForKey("morse") as? String, textOnTop: card.valueForKey("textOnTop") as! Bool)
 					cardView.delegate = self
+					cardView.uniqueID = card.valueForKey("cardUniqueID") as? Int
 					self.scrollView.addSubview(cardView)
 					self.cardViews.append(cardView)
 					self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)

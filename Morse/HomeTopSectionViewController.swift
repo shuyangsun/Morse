@@ -1,5 +1,5 @@
 //
-//  MTHomeTopSectionViewController.swift
+//  HomeTopSectionViewController.swift
 //  Morse
 //
 //  Created by Shuyang Sun on 12/11/15.
@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class MTHomeTopSectionViewController: UIViewController, UITextViewDelegate {
+class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 
 	// *****************************
 	// MARK: Views
@@ -30,8 +30,8 @@ class MTHomeTopSectionViewController: UIViewController, UITextViewDelegate {
 	var lineBreakView:UIView!
 
 	// Button
-	var roundButtonView: MTRoundButtonView!
-	var cancelButton: MTCancelButton!
+	var roundButtonView: RoundButtonView!
+	var cancelButton: CancelButton!
 	var keyboardButtonView: UIView!
 
 	// *****************************
@@ -125,8 +125,8 @@ class MTHomeTopSectionViewController: UIViewController, UITextViewDelegate {
 	// *****************************
 
 	// Return the home view controller this one is embedded in
-	var homeViewController:MTHomeViewController! {
-		return self.parentViewController as! MTHomeViewController
+	var homeViewController:HomeViewController! {
+		return self.parentViewController as! HomeViewController
 	}
 
 	private var animationDurationScalar:Double {
@@ -187,13 +187,13 @@ class MTHomeTopSectionViewController: UIViewController, UITextViewDelegate {
 			self.topBarView.addSubview(self.topBarLabelMorse)
 
 			// Add round button
-			self.roundButtonView = MTRoundButtonView(origin: CGPoint(x: self.topBarView.bounds.width/2.0 - self.roundButtonRadius, y: self.roundButtonMargin), radius: self.roundButtonRadius)
+			self.roundButtonView = RoundButtonView(origin: CGPoint(x: self.topBarView.bounds.width/2.0 - self.roundButtonRadius, y: self.roundButtonMargin), radius: self.roundButtonRadius)
 			let tapGR = UITapGestureRecognizer(target: self, action: "roundButtonTapped:")
 			self.roundButtonView.addGestureRecognizer(tapGR)
 			self.topBarView.addSubview(self.roundButtonView)
 
 			// Add cancel button
-			self.cancelButton = MTCancelButton(origin: CGPoint(x: 0, y: 0), width: self.cancelButtonWidth)
+			self.cancelButton = CancelButton(origin: CGPoint(x: 0, y: 0), width: self.cancelButtonWidth)
 			self.cancelButton.addTarget(self, action: "dismissInputTextKeyboard", forControlEvents: .TouchUpInside)
 			self.topBarView.addSubview(self.cancelButton)
 

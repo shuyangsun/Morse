@@ -1,5 +1,5 @@
 //
-//  MTCardViewDelegate.swift
+//  CardViewDelegate.swift
 //  Morse
 //
 //  Created by Shuyang Sun on 12/9/15.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol MTCardViewDelegate {
-	func cardViewTapped(cardView:MTCardView)
+protocol CardViewDelegate {
+	func cardViewTapped(cardView:CardView)
 }

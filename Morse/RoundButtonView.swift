@@ -1,5 +1,5 @@
 //
-//  MTRoundButtonView.swift
+//  RoundButtonView.swift
 //  Morse
 //
 //  Created by Shuyang Sun on 12/1/15.
@@ -12,7 +12,7 @@ enum ButtonActionType {
 	case Switch
 }
 
-class MTRoundButtonView: UIView {
+class RoundButtonView: UIView {
 	var buttonAction:ButtonActionType = .Switch
 	var backgroundImageView:UIImageView!
 

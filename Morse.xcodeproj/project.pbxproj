@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		101A0A981C1B28F40030A51A /* MTHomeTopSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0A971C1B28F40030A51A /* MTHomeTopSectionViewController.swift */; };
-		101A0A991C1B28F40030A51A /* MTHomeTopSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0A971C1B28F40030A51A /* MTHomeTopSectionViewController.swift */; };
-		101A0A9A1C1B28F40030A51A /* MTHomeTopSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0A971C1B28F40030A51A /* MTHomeTopSectionViewController.swift */; };
-		10286CCB1C0D1BCF00BD2B43 /* MTCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* MTCardView.swift */; };
-		10286CCC1C0D1BCF00BD2B43 /* MTCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* MTCardView.swift */; };
-		10286CCD1C0D1BCF00BD2B43 /* MTCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* MTCardView.swift */; };
-		1030BA0F1C1890C20099F2E4 /* MTCardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* MTCardViewDelegate.swift */; };
-		1030BA101C1890C20099F2E4 /* MTCardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* MTCardViewDelegate.swift */; };
-		1030BA111C1890C20099F2E4 /* MTCardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* MTCardViewDelegate.swift */; };
+		101A0A981C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */; };
+		101A0A991C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */; };
+		101A0A9A1C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */; };
+		10286CCB1C0D1BCF00BD2B43 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* CardView.swift */; };
+		10286CCC1C0D1BCF00BD2B43 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* CardView.swift */; };
+		10286CCD1C0D1BCF00BD2B43 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* CardView.swift */; };
+		1030BA0F1C1890C20099F2E4 /* CardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */; };
+		1030BA101C1890C20099F2E4 /* CardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */; };
+		1030BA111C1890C20099F2E4 /* CardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */; };
 		1052A7431C0BACE90085B0C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7421C0BACE90085B0C9 /* AppDelegate.swift */; };
 		1052A7481C0BACE90085B0C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1052A7461C0BACE90085B0C9 /* Main.storyboard */; };
 		1052A74B1C0BACE90085B0C9 /* Morse.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7491C0BACE90085B0C9 /* Morse.xcdatamodeld */; };
@@ -23,15 +23,15 @@
 		1052A7501C0BACE90085B0C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1052A74E1C0BACE90085B0C9 /* LaunchScreen.storyboard */; };
 		1052A75B1C0BACEA0085B0C9 /* MorseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A75A1C0BACEA0085B0C9 /* MorseTests.swift */; };
 		1052A7661C0BACEA0085B0C9 /* MorseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7651C0BACEA0085B0C9 /* MorseUITests.swift */; };
-		1052A7741C0BAED50085B0C9 /* MTTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7731C0BAED50085B0C9 /* MTTabBarController.swift */; };
-		1052A7751C0BAED50085B0C9 /* MTTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7731C0BAED50085B0C9 /* MTTabBarController.swift */; };
-		1052A7761C0BAED50085B0C9 /* MTTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7731C0BAED50085B0C9 /* MTTabBarController.swift */; };
-		1052A77C1C0BB09B0085B0C9 /* MTHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A77B1C0BB09B0085B0C9 /* MTHomeViewController.swift */; };
-		1052A77D1C0BB09B0085B0C9 /* MTHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A77B1C0BB09B0085B0C9 /* MTHomeViewController.swift */; };
-		1052A77E1C0BB09B0085B0C9 /* MTHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A77B1C0BB09B0085B0C9 /* MTHomeViewController.swift */; };
-		1073948F1C11F75800EF8C16 /* MTCancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073948E1C11F75800EF8C16 /* MTCancelButton.swift */; };
-		107394901C11F75800EF8C16 /* MTCancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073948E1C11F75800EF8C16 /* MTCancelButton.swift */; };
-		107394911C11F75800EF8C16 /* MTCancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073948E1C11F75800EF8C16 /* MTCancelButton.swift */; };
+		1052A7741C0BAED50085B0C9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7731C0BAED50085B0C9 /* TabBarController.swift */; };
+		1052A7751C0BAED50085B0C9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7731C0BAED50085B0C9 /* TabBarController.swift */; };
+		1052A7761C0BAED50085B0C9 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7731C0BAED50085B0C9 /* TabBarController.swift */; };
+		1052A77C1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A77B1C0BB09B0085B0C9 /* HomeViewController.swift */; };
+		1052A77D1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A77B1C0BB09B0085B0C9 /* HomeViewController.swift */; };
+		1052A77E1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A77B1C0BB09B0085B0C9 /* HomeViewController.swift */; };
+		1073948F1C11F75800EF8C16 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073948E1C11F75800EF8C16 /* CancelButton.swift */; };
+		107394901C11F75800EF8C16 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073948E1C11F75800EF8C16 /* CancelButton.swift */; };
+		107394911C11F75800EF8C16 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073948E1C11F75800EF8C16 /* CancelButton.swift */; };
 		107869491C0E5EC00025AD45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7421C0BACE90085B0C9 /* AppDelegate.swift */; };
 		1078694D1C0E5EC00025AD45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7421C0BACE90085B0C9 /* AppDelegate.swift */; };
 		107FF6A71C0BC128003EB294 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6A61C0BC128003EB294 /* Theme.swift */; };
@@ -47,9 +47,9 @@
 		10826A181C0D5C4C00902BCC /* General UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10826A171C0D5C4C00902BCC /* General UI.swift */; };
 		10826A191C0D5C4C00902BCC /* General UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10826A171C0D5C4C00902BCC /* General UI.swift */; };
 		10826A1A1C0D5C4C00902BCC /* General UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10826A171C0D5C4C00902BCC /* General UI.swift */; };
-		109ACDC01C0E0D12006AC535 /* MTRoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* MTRoundButtonView.swift */; };
-		109ACDC11C0E0D12006AC535 /* MTRoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* MTRoundButtonView.swift */; };
-		109ACDC21C0E0D12006AC535 /* MTRoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* MTRoundButtonView.swift */; };
+		109ACDC01C0E0D12006AC535 /* RoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */; };
+		109ACDC11C0E0D12006AC535 /* RoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */; };
+		109ACDC21C0E0D12006AC535 /* RoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */; };
 		10B9C8151C0FB5A4001C5847 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10B9C8141C0FB5A4001C5847 /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
@@ -120,9 +120,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		101A0A971C1B28F40030A51A /* MTHomeTopSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTHomeTopSectionViewController.swift; sourceTree = "<group>"; };
-		10286CCA1C0D1BCF00BD2B43 /* MTCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTCardView.swift; sourceTree = "<group>"; };
-		1030BA0E1C1890C20099F2E4 /* MTCardViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTCardViewDelegate.swift; sourceTree = "<group>"; };
+		101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTopSectionViewController.swift; sourceTree = "<group>"; };
+		10286CCA1C0D1BCF00BD2B43 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewDelegate.swift; sourceTree = "<group>"; };
 		1052A73F1C0BACE90085B0C9 /* Morse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Morse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1052A7421C0BACE90085B0C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1052A7471C0BACE90085B0C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -136,15 +136,15 @@
 		1052A7611C0BACEA0085B0C9 /* MorseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MorseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1052A7651C0BACEA0085B0C9 /* MorseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MorseUITests.swift; sourceTree = "<group>"; };
 		1052A7671C0BACEA0085B0C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1052A7731C0BAED50085B0C9 /* MTTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTTabBarController.swift; sourceTree = "<group>"; };
-		1052A77B1C0BB09B0085B0C9 /* MTHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTHomeViewController.swift; sourceTree = "<group>"; };
-		1073948E1C11F75800EF8C16 /* MTCancelButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTCancelButton.swift; sourceTree = "<group>"; };
+		1052A7731C0BAED50085B0C9 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		1052A77B1C0BB09B0085B0C9 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		1073948E1C11F75800EF8C16 /* CancelButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelButton.swift; sourceTree = "<group>"; };
 		107FF6A61C0BC128003EB294 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		107FF6AA1C0BC1FC003EB294 /* MaterialDesign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDesign.swift; sourceTree = "<group>"; };
 		107FF6B01C0BDEC0003EB294 /* SnapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SnapKit.xcodeproj; path = SnapKit/SnapKit.xcodeproj; sourceTree = "<group>"; };
 		107FF6C31C0C223D003EB294 /* MorseTransmitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseTransmitter.swift; sourceTree = "<group>"; };
 		10826A171C0D5C4C00902BCC /* General UI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "General UI.swift"; sourceTree = "<group>"; };
-		109ACDBF1C0E0D12006AC535 /* MTRoundButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTRoundButtonView.swift; sourceTree = "<group>"; };
+		109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButtonView.swift; sourceTree = "<group>"; };
 		10B9C8141C0FB5A4001C5847 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -177,10 +177,10 @@
 		10286CD11C0D1BD800BD2B43 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				10286CCA1C0D1BCF00BD2B43 /* MTCardView.swift */,
-				1030BA0E1C1890C20099F2E4 /* MTCardViewDelegate.swift */,
-				109ACDBF1C0E0D12006AC535 /* MTRoundButtonView.swift */,
-				1073948E1C11F75800EF8C16 /* MTCancelButton.swift */,
+				10286CCA1C0D1BCF00BD2B43 /* CardView.swift */,
+				1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */,
+				109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */,
+				1073948E1C11F75800EF8C16 /* CancelButton.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -255,9 +255,9 @@
 		107FF6AF1C0BDD1F003EB294 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1052A7731C0BAED50085B0C9 /* MTTabBarController.swift */,
-				1052A77B1C0BB09B0085B0C9 /* MTHomeViewController.swift */,
-				101A0A971C1B28F40030A51A /* MTHomeTopSectionViewController.swift */,
+				1052A7731C0BAED50085B0C9 /* TabBarController.swift */,
+				1052A77B1C0BB09B0085B0C9 /* HomeViewController.swift */,
+				101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -451,17 +451,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				109ACDC01C0E0D12006AC535 /* MTRoundButtonView.swift in Sources */,
-				10286CCB1C0D1BCF00BD2B43 /* MTCardView.swift in Sources */,
+				109ACDC01C0E0D12006AC535 /* RoundButtonView.swift in Sources */,
+				10286CCB1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				10826A181C0D5C4C00902BCC /* General UI.swift in Sources */,
 				107FF6C41C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
-				101A0A981C1B28F40030A51A /* MTHomeTopSectionViewController.swift in Sources */,
-				1052A7741C0BAED50085B0C9 /* MTTabBarController.swift in Sources */,
-				1052A77C1C0BB09B0085B0C9 /* MTHomeViewController.swift in Sources */,
+				101A0A981C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */,
+				1052A7741C0BAED50085B0C9 /* TabBarController.swift in Sources */,
+				1052A77C1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */,
 				107FF6AB1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
 				107FF6A71C0BC128003EB294 /* Theme.swift in Sources */,
-				1030BA0F1C1890C20099F2E4 /* MTCardViewDelegate.swift in Sources */,
-				1073948F1C11F75800EF8C16 /* MTCancelButton.swift in Sources */,
+				1030BA0F1C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
+				1073948F1C11F75800EF8C16 /* CancelButton.swift in Sources */,
 				1052A74B1C0BACE90085B0C9 /* Morse.xcdatamodeld in Sources */,
 				1052A7431C0BACE90085B0C9 /* AppDelegate.swift in Sources */,
 			);
@@ -471,17 +471,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1052A77D1C0BB09B0085B0C9 /* MTHomeViewController.swift in Sources */,
-				10286CCC1C0D1BCF00BD2B43 /* MTCardView.swift in Sources */,
+				1052A77D1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */,
+				10286CCC1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				107FF6C51C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
 				107FF6A81C0BC128003EB294 /* Theme.swift in Sources */,
-				101A0A991C1B28F40030A51A /* MTHomeTopSectionViewController.swift in Sources */,
-				1052A7751C0BAED50085B0C9 /* MTTabBarController.swift in Sources */,
-				109ACDC11C0E0D12006AC535 /* MTRoundButtonView.swift in Sources */,
+				101A0A991C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */,
+				1052A7751C0BAED50085B0C9 /* TabBarController.swift in Sources */,
+				109ACDC11C0E0D12006AC535 /* RoundButtonView.swift in Sources */,
 				1052A75B1C0BACEA0085B0C9 /* MorseTests.swift in Sources */,
 				107FF6AC1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
-				1030BA101C1890C20099F2E4 /* MTCardViewDelegate.swift in Sources */,
-				107394901C11F75800EF8C16 /* MTCancelButton.swift in Sources */,
+				1030BA101C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
+				107394901C11F75800EF8C16 /* CancelButton.swift in Sources */,
 				107869491C0E5EC00025AD45 /* AppDelegate.swift in Sources */,
 				10826A191C0D5C4C00902BCC /* General UI.swift in Sources */,
 			);
@@ -491,17 +491,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1052A77E1C0BB09B0085B0C9 /* MTHomeViewController.swift in Sources */,
-				10286CCD1C0D1BCF00BD2B43 /* MTCardView.swift in Sources */,
+				1052A77E1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */,
+				10286CCD1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				107FF6C61C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
 				107FF6A91C0BC128003EB294 /* Theme.swift in Sources */,
-				101A0A9A1C1B28F40030A51A /* MTHomeTopSectionViewController.swift in Sources */,
-				1052A7761C0BAED50085B0C9 /* MTTabBarController.swift in Sources */,
-				109ACDC21C0E0D12006AC535 /* MTRoundButtonView.swift in Sources */,
+				101A0A9A1C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */,
+				1052A7761C0BAED50085B0C9 /* TabBarController.swift in Sources */,
+				109ACDC21C0E0D12006AC535 /* RoundButtonView.swift in Sources */,
 				1052A7661C0BACEA0085B0C9 /* MorseUITests.swift in Sources */,
 				107FF6AD1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
-				1030BA111C1890C20099F2E4 /* MTCardViewDelegate.swift in Sources */,
-				107394911C11F75800EF8C16 /* MTCancelButton.swift in Sources */,
+				1030BA111C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
+				107394911C11F75800EF8C16 /* CancelButton.swift in Sources */,
 				1078694D1C0E5EC00025AD45 /* AppDelegate.swift in Sources */,
 				10826A1A1C0D5C4C00902BCC /* General UI.swift in Sources */,
 			);

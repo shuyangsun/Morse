@@ -103,7 +103,7 @@ enum Theme: String {
 
 	var cardViewExpandedBackgroudColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Blue.P600
+		default: return self.cardViewBackgroudColor
 		}
 	}
 

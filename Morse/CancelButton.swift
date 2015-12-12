@@ -1,5 +1,5 @@
 //
-//  MTCancelButton.swift
+//  CancelButton.swift
 //  Morse
 //
 //  Created by Shuyang Sun on 12/4/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MTCancelButton: UIButton {
+class CancelButton: UIButton {
 
 	private var originalTransform:CGAffineTransform!
 
