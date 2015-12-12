@@ -590,15 +590,98 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 	}
 
 	private func animateAndLayoutUIForInputStart() {
-		let buttonAnimationDuration = TAP_FEED_BACK_DURATION/3.0
-		self.cancelButton.appearWithDuration(buttonAnimationDuration)
-		self.roundButtonView.disappearWithAnimationType([.Scale, .Fade], duration: buttonAnimationDuration)
+		let animationDuration = TAP_FEED_BACK_DURATION/3.0
+		// Show cancel button
+		self.cancelButton.appearWithDuration(animationDuration)
+		// Hide round button
+		self.roundButtonView.disappearWithAnimationType([.Scale, .Fade], duration: animationDuration)
+		// Move text and morse label
+		let labelWidth = self.topBarLabelText.bounds.width
+		if self.isDirectionEncode {
+			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.topBarView)
+				make.bottom.equalTo(self.topBarView)
+				make.width.equalTo(labelWidth)
+				make.centerX.equalTo(self.topBarView)
+			})
+			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.topBarView)
+				make.bottom.equalTo(self.topBarView)
+				make.width.equalTo(labelWidth)
+				make.left.equalTo(self.topBarView.snp_right)
+			})
+		} else {
+			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.topBarView)
+				make.bottom.equalTo(self.topBarView)
+				make.width.equalTo(labelWidth)
+				make.left.equalTo(self.topBarView.snp_right)
+			})
+			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.topBarView)
+				make.bottom.equalTo(self.topBarView)
+				make.width.equalTo(labelWidth)
+				make.centerX.equalTo(self.topBarView)
+			})
+		}
+		UIView.animateWithDuration(animationDuration,
+			delay: animationDuration,
+//			usingSpringWithDamping: 0.5,
+//			initialSpringVelocity: 0.8,
+			options: .CurveEaseOut,
+			animations: {
+				self.topBarView.layoutIfNeeded()
+			}, completion: nil)
+		// Collapse expanded card view if there is one
 		self.homeViewController.collapseCurrentExpandedView()
 	}
 
 	private func animateAndLayoutUIForInputEnd() {
-		let buttonAnimationDuration = TAP_FEED_BACK_DURATION/3.0
-		self.cancelButton.disappearWithDuration(buttonAnimationDuration)
-		self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: buttonAnimationDuration)
+		let animationDuration = TAP_FEED_BACK_DURATION/3.0
+		// Hide cancel button
+		self.cancelButton.disappearWithDuration(animationDuration)
+		// Move text and morse label
+		if self.isDirectionEncode {
+			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.topBarView)
+				make.left.equalTo(self.topBarView)
+				make.bottom.equalTo(self.topBarView)
+				make.right.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
+			})
+
+			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.topBarView)
+				make.right.equalTo(self.topBarView)
+				make.bottom.equalTo(self.topBarView)
+				make.left.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
+			})
+		} else {
+			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.topBarView)
+				make.right.equalTo(self.topBarView)
+				make.bottom.equalTo(self.topBarView)
+				make.left.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
+			})
+
+			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.topBarView)
+				make.left.equalTo(self.topBarView)
+				make.bottom.equalTo(self.topBarView)
+				make.right.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
+			})
+		}
+		UIView.animateWithDuration(animationDuration,
+			delay: 0,
+//			usingSpringWithDamping: 0.5,
+//			initialSpringVelocity: 0.8,
+			options: .CurveEaseOut,
+			animations: {
+				self.topBarView.layoutIfNeeded()
+			}) { succeed in
+				if succeed {
+					// Show round button
+					self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: animationDuration)
+				}
+		}
 	}
 }

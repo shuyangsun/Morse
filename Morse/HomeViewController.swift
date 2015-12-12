@@ -349,7 +349,6 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 			// Update view height depends on if it's expanded.
 			if cardView.expanded {
-
 				cardView.topLabel.lineBreakMode = .ByWordWrapping
 				cardView.topLabel.numberOfLines = 0
 				cardView.bottomLabel.lineBreakMode = .ByWordWrapping
@@ -366,9 +365,11 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				let bottomTextSize = cardView.bottomLabel.attributedText?.size()
 				let bottomLabelHeight = ceil(bottomTextSize!.width/labelWidth) * bottomTextSize!.height
 
+				let height = cardView.paddingTop + topLabelHeight + cardView.gapY + bottomLabelHeight + cardView.paddingBottom
 				cardView.snp_updateConstraints { (make) -> Void in
-					make.height.equalTo(cardView.paddingTop + topLabelHeight + cardView.gapY + bottomLabelHeight + cardView.paddingBottom)
+					make.height.equalTo(height)
 				}
+				contentHeight += (height + self.cardViewGapY)
 			} else { // TODO Constraints BUG
 				cardView.topLabel.snp_remakeConstraints { (make) -> Void in
 					make.top.equalTo(cardView).offset(cardView.paddingTop)
@@ -379,9 +380,13 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				cardView.snp_updateConstraints(closure: { (make) -> Void in
 					make.height.equalTo(self.cardViewHeight)
 				})
+
+				cardView.topLabel.snp_updateConstraints(closure: { (make) -> Void in
+					make.height.equalTo((self.cardViewHeight - cardView.paddingTop - cardView.gapY - cardView.paddingBottom)/2.0)
+				})
+				contentHeight += (self.cardViewHeight + self.cardViewGapY)
 			}
 			cardView.addMDShadow(withDepth: 1)
-			contentHeight += (cardView.frame.height + self.cardViewGapY)
 		}
 
 		contentHeight += self.cardViewBottomMargin
