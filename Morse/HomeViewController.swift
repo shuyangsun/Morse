@@ -354,22 +354,20 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				cardView.bottomLabel.lineBreakMode = .ByWordWrapping
 				cardView.bottomLabel.numberOfLines = 0
 
+				// Calculate the new height for top and bottom label.
 				let labelWidth = cardView.topLabel.frame.width
+				let topLabelHeight = cardView.topLabel.attributedText?.boundingRectWithSize(CGSizeMake(labelWidth, 10000), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
+				let bottomLabelHeight = cardView.bottomLabel.attributedText?.boundingRectWithSize(CGSizeMake(labelWidth, 10000), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
+				let expandedCardViewHeight = cardView.paddingTop + topLabelHeight! + cardView.gapY + bottomLabelHeight! + cardView.paddingBottom
 
-				let topTextSize = cardView.topLabel.attributedText?.size()
-				let topLabelHeight = ceil(topTextSize!.width/labelWidth) * topTextSize!.height
 				cardView.topLabel.snp_updateConstraints(closure: { (make) -> Void in
-					make.height.equalTo(topLabelHeight)
+					make.height.equalTo(topLabelHeight!)
 				})
 
-				let bottomTextSize = cardView.bottomLabel.attributedText?.size()
-				let bottomLabelHeight = ceil(bottomTextSize!.width/labelWidth) * bottomTextSize!.height
-
-				let height = cardView.paddingTop + topLabelHeight + cardView.gapY + bottomLabelHeight + cardView.paddingBottom
 				cardView.snp_updateConstraints { (make) -> Void in
-					make.height.equalTo(height)
+					make.height.equalTo(expandedCardViewHeight)
 				}
-				contentHeight += (height + self.cardViewGapY)
+				contentHeight += (expandedCardViewHeight + self.cardViewGapY)
 			} else { // TODO Constraints BUG
 				cardView.topLabel.snp_remakeConstraints { (make) -> Void in
 					make.top.equalTo(cardView).offset(cardView.paddingTop)
