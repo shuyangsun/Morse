@@ -196,13 +196,6 @@ class MTHomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDe
         // Dispose of any resources that can be recreated.
     }
 
-	// Grab the view controller for the embedded view controller
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if segue.identifier == "Top Section Embed Segue" {
-			self.topSectionViewController = segue.destinationViewController as! MTHomeTopSectionViewController
-		}
-	}
-
 	// *****************************
 	// MARK: Scroll View Delegate
 	// *****************************
