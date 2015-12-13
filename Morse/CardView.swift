@@ -19,20 +19,6 @@ class CardView: UIView {
 	var expanded = false
 
 	// User setting related variables
-	private var theme:Theme {
-		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-		return delegate.theme
-	}
-
-	private var swapButtonLayout:Bool {
-		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-		return delegate.swapButtonLayout
-	}
-
-	private var animationDurationScalar:Double {
-		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-		return delegate.animationDurationScalar
-	}
 
 	var text:String?
 	var morse:String?
@@ -48,7 +34,7 @@ class CardView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		self.layer.cornerRadius = 2.0
-		self.backgroundColor = self.theme.cardViewBackgroudColor
+		self.backgroundColor = appDelegate.theme.cardViewBackgroudColor
 		self.addMDShadow(withDepth: self.defaultMDShadowLevel)
 		let tapGR = UITapGestureRecognizer(target: self, action: "tapped:")
 		self.addGestureRecognizer(tapGR)
@@ -67,9 +53,9 @@ class CardView: UIView {
 		self.topLabel.layer.borderColor = UIColor.clearColor().CGColor
 		self.topLabel.userInteractionEnabled = false
 		if self.textOnTop {
-			self.topLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 16, color: self.theme.cardViewTextColor, bold: true)
+			self.topLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 16, color: appDelegate.theme.cardViewTextColor, bold: true)
 		} else {
-			self.topLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 14, color: self.theme.cardViewMorseColor)
+			self.topLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 14, color: appDelegate.theme.cardViewMorseColor)
 			self.topLabel.lineBreakMode = .ByWordWrapping
 		}
 		self.addSubview(self.topLabel)
@@ -88,11 +74,11 @@ class CardView: UIView {
 		self.bottomLabel.layer.borderColor = UIColor.clearColor().CGColor
 		self.bottomLabel.userInteractionEnabled = false
 		if self.textOnTop {
-			self.bottomLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 14, color: self.theme.cardViewMorseColor)
+			self.bottomLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 14, color: appDelegate.theme.cardViewMorseColor)
 			self.bottomLabel.lineBreakMode = .ByWordWrapping
 		} else {
 			// TODO: Capitalize each word at the beginning of the sentence?
-			self.bottomLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 16, color: self.theme.cardViewTextColor, bold: true)
+			self.bottomLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 16, color: appDelegate.theme.cardViewTextColor, bold: true)
 		}
 		self.addSubview(bottomLabel)
 
@@ -121,15 +107,15 @@ class CardView: UIView {
 
 	private func animateUserInteractionFeedbackAtLocation(location:CGPoint, completion:((Void) -> Void)? = nil) {
 		let originalTransform = self.transform
-		self.triggerTapFeedBack(atLocation: location, withColor: self.theme.cardViewTapfeedbackColor, duration: TAP_FEED_BACK_DURATION/2.0 * self.animationDurationScalar, showSurfaceReaction: true, completion: completion)
-		UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * self.animationDurationScalar,
+		self.triggerTapFeedBack(atLocation: location, withColor: appDelegate.theme.cardViewTapfeedbackColor, duration: TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar, showSurfaceReaction: true, completion: completion)
+		UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
 			delay: 0.0,
 			options: .CurveEaseIn,
 			animations: {
 				self.transform = CGAffineTransformScale(self.transform, 1.02, 1.02)
 			}) { succeed in
 				if succeed {
-					UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * self.animationDurationScalar,
+					UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
 						delay: 0.0,
 						options: .CurveEaseOut,
 						animations: {

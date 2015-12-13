@@ -8,6 +8,17 @@
 
 import UIKit
 
+var appDelegate:AppDelegate {
+	return UIApplication.sharedApplication().delegate as! AppDelegate
+}
+
+// NSUserDefaultKeys
+let userDefaultsKeyTheme = "Theme"
+let userDefaultsKeySwapButtonLayout = "Swap Button Layout"
+let userDefaultsKeyNotFirstLaunch = "Not First Launch"
+let userDefaultKeyInteractionSoundDisabled = "Interaction Sound Disabled"
+let userDefaultKeyAnimationDurationScalar = "Animation Duration Scalar"
+
 let TAP_FEED_BACK_DURATION:NSTimeInterval = 0.5
 
 func getAttributedStringFrom(text:String?, withFontSize fontSize:CGFloat = UIFont.systemFontSize(), color:UIColor = UIColor.blackColor(), bold:Bool = false) -> NSMutableAttributedString? {

@@ -66,11 +66,6 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 		return self.topBarHeight
 	}
 
-	private var theme:Theme {
-		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-		return delegate.theme
-	}
-
 	// *****************************
 	// MARK: Data Related Variables
 	// *****************************
@@ -116,26 +111,12 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 	}
 
 	// *****************************
-	// MARK: Some User Defaults
-	// *****************************
-
-	private var interactionSoundEnabled:Bool {
-		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-		return delegate.interactionSoundEnabled
-	}
-
-	// *****************************
 	// MARK: Other Variables
 	// *****************************
 
 	// Return the home view controller this one is embedded in
 	var homeViewController:HomeViewController! {
 		return self.parentViewController as! HomeViewController
-	}
-
-	private var animationDurationScalar:Double {
-		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-		return delegate.animationDurationScalar
 	}
 
 	// *****************************
@@ -145,7 +126,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-		self.view.backgroundColor = self.theme.textViewBackgroundColor
+		self.view.backgroundColor = appDelegate.theme.textViewBackgroundColor
 
 		// *****************************
 		// Configure Status Bar View
@@ -153,7 +134,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 
 		if self.statusBarView == nil {
 			self.statusBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.statusBarHeight))
-			self.statusBarView.backgroundColor = self.theme.statusBarBackgroundColor
+			self.statusBarView.backgroundColor = appDelegate.theme.statusBarBackgroundColor
 			self.view.addSubview(self.statusBarView)
 			self.statusBarView.snp_makeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.view)
@@ -169,25 +150,25 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 
 		if self.topBarView == nil {
 			self.topBarView = UIView(frame: CGRect(x: 0, y: self.statusBarHeight, width: self.view.bounds.width, height: self.topBarHeight))
-			self.topBarView.backgroundColor = self.theme.topBarBackgroundColor
+			self.topBarView.backgroundColor = appDelegate.theme.topBarBackgroundColor
 			self.view.addSubview(topBarView)
 
 			// Text label
 			self.topBarLabelText = UILabel(frame: CGRect(x: 0, y: 0, width: self.topBarView.bounds.width/2.0 - self.roundButtonRadius - self.roundButtonMargin, height: self.topBarHeight))
 			self.topBarLabelText.textAlignment = .Center
-			self.topBarLabelText.tintColor = self.theme.topBarLabelTextColor
+			self.topBarLabelText.tintColor = appDelegate.theme.topBarLabelTextColor
 			self.topBarLabelText.attributedText = NSAttributedString(string: LocalizedStrings.Label.topBarTextLabel, attributes:
 				[NSFontAttributeName: UIFont.boldSystemFontOfSize(23),
-					NSForegroundColorAttributeName: self.theme.topBarLabelTextColor])
+					NSForegroundColorAttributeName: appDelegate.theme.topBarLabelTextColor])
 			self.topBarView.addSubview(self.topBarLabelText)
 
 			// Morse label
 			self.topBarLabelMorse = UILabel(frame: CGRect(x: self.topBarView.bounds.width/2.0 + self.roundButtonRadius + self.roundButtonMargin, y: 0, width: self.topBarView.bounds.width/2.0 - self.roundButtonRadius - self.roundButtonMargin, height: self.topBarHeight))
 			self.topBarLabelMorse.textAlignment = .Center
-			self.topBarLabelMorse.tintColor = self.theme.topBarLabelTextColor
+			self.topBarLabelMorse.tintColor = appDelegate.theme.topBarLabelTextColor
 			self.topBarLabelMorse.attributedText = NSAttributedString(string: LocalizedStrings.Label.topBarMorseLabel, attributes:
 				[NSFontAttributeName: UIFont.boldSystemFontOfSize(23),
-					NSForegroundColorAttributeName: self.theme.topBarLabelTextColor])
+					NSForegroundColorAttributeName: appDelegate.theme.topBarLabelTextColor])
 			self.topBarView.addSubview(self.topBarLabelMorse)
 
 			// Add round button
@@ -246,7 +227,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 
 		if self.textBackgroundView == nil {
 			self.textBackgroundView = UIView(frame: CGRect(x: 0, y: self.statusBarHeight + self.topBarHeight, width: self.view.bounds.width, height: self.textBackgroundViewHeight))
-			self.textBackgroundView.backgroundColor = self.theme.textViewBackgroundColor
+			self.textBackgroundView.backgroundColor = appDelegate.theme.textViewBackgroundColor
 			self.textBackgroundView.layer.borderColor = UIColor.clearColor().CGColor
 			self.textBackgroundView.layer.borderWidth = 0
 			self.view.addSubview(self.textBackgroundView)
@@ -353,7 +334,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 
 		if self.keyboardButtonView == nil {
 			self.keyboardButtonView = UIView(frame: CGRect(x: 0, y: self.textBackgroundView.bounds.height - self.keyboardButtonViewHeight, width: self.textBackgroundView.bounds.width, height: self.keyboardButtonViewHeight))
-			self.keyboardButtonView.backgroundColor = self.theme.keyboardButtonViewBackgroundColor
+			self.keyboardButtonView.backgroundColor = appDelegate.theme.keyboardButtonViewBackgroundColor
 			self.keyboardButtonView.opaque = false
 			self.keyboardButtonView.alpha = 0
 			self.keyboardButtonView.hidden = true
@@ -397,7 +378,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 
 	func textViewTapped(gestureRecognizer:UITapGestureRecognizer) {
 		// Play sound effect
-		if self.interactionSoundEnabled {
+		if !appDelegate.interactionSoundDisabled {
 			// TODO: Not working.
 			if let path = NSBundle.mainBundle().pathForResource("Tock", ofType: "caf") {
 				let tockURL = NSURL(fileURLWithPath: path)
@@ -417,7 +398,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 			self.inputTextView.becomeFirstResponder()
 			self.animateAndLayoutUIForInputStart()
 		}
-		self.textBackgroundView.triggerTapFeedBack(atLocation: gestureRecognizer.locationInView(self.textBackgroundView), withColor: self.theme.textViewTapFeedbackColor, duration: TAP_FEED_BACK_DURATION * self.animationDurationScalar)
+		self.textBackgroundView.triggerTapFeedBack(atLocation: gestureRecognizer.locationInView(self.textBackgroundView), withColor: appDelegate.theme.textViewTapFeedbackColor, duration: TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar)
 		self.homeViewController.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.homeViewController.scrollView.bounds.width, height: 1), animated: true)
 	}
 
@@ -434,9 +415,9 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 				let originalTransform = self.roundButtonView.transform
 
 				// Animations for button
-				self.roundButtonView.triggerTapFeedBack(atLocation: tapLocation, withColor: self.theme.roundButtonTapFeedbackColor, duration: TAP_FEED_BACK_DURATION * self.animationDurationScalar)
+				self.roundButtonView.triggerTapFeedBack(atLocation: tapLocation, withColor: appDelegate.theme.roundButtonTapFeedbackColor, duration: TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar)
 				self.roundButtonView.rotateBackgroundImageWithDuration(TAP_FEED_BACK_DURATION/2.0)
-				UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * self.animationDurationScalar,
+				UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * appDelegate.animationDurationScalar,
 					delay: 0.0,
 					options: .CurveEaseIn,
 					animations: {
@@ -444,7 +425,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 						self.roundButtonView.addMDShadow(withDepth: 4)
 					}) { succeed in
 						if succeed {
-							UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * self.animationDurationScalar,
+							UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * appDelegate.animationDurationScalar,
 								delay: 0.0,
 								options: .CurveEaseOut,
 								animations: {
@@ -487,7 +468,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 			})
 		}
 
-		UIView.animateWithDuration(TAP_FEED_BACK_DURATION * self.animationDurationScalar,
+		UIView.animateWithDuration(TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar,
 			delay: 0,
 			usingSpringWithDamping: 0.5,
 			initialSpringVelocity: 0.8,
@@ -517,7 +498,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 			make.height.equalTo(1.0)
 		})
 
-		UIView.animateWithDuration(0.15 * self.animationDurationScalar,
+		UIView.animateWithDuration(0.15 * appDelegate.animationDurationScalar,
 			delay: 0.0,
 			options: .CurveLinear,
 			animations: { () -> Void in
@@ -554,7 +535,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 			make.bottom.equalTo(self.textBackgroundView)
 			make.height.equalTo(1.0)
 		})
-		UIView.animateWithDuration(0.15 * self.animationDurationScalar,
+		UIView.animateWithDuration(0.15 * appDelegate.animationDurationScalar,
 			delay: 0.0,
 			options: .CurveLinear,
 			animations: { () -> Void in

@@ -16,11 +16,6 @@ class RoundButtonView: UIView {
 	var buttonAction:ButtonActionType = .Switch
 	var backgroundImageView:UIImageView!
 
-	private var theme:Theme {
-		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-		return delegate.theme
-	}
-
 	private var shadowLevel:Int {
 		return 2
 	}
@@ -41,7 +36,7 @@ class RoundButtonView: UIView {
 		self.backgroundImageView.image = backgroundImage
 		self.addSubview(self.backgroundImageView)
 		self.opaque = false
-		self.backgroundColor = self.theme.roundButtonBackgroundColor
+		self.backgroundColor = appDelegate.theme.roundButtonBackgroundColor
 		self.layer.cornerRadius = radius
 		self.addMDShadow(withDepth: self.shadowLevel)
 	}

@@ -14,21 +14,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 
-	var theme:Theme = .Default
-	var swapButtonLayout:Bool = true
-	var animationDurationScalar:Double = 1.0
-	var interactionSoundEnabled = true
+	var userDefaults:NSUserDefaults {
+		return NSUserDefaults.standardUserDefaults()
+	}
+
+	// UI theme
+	var theme:Theme {
+		if let result = self.userDefaults.stringForKey(userDefaultsKeyTheme) {
+			return Theme(rawValue: result)!
+		} else {
+			return Theme(rawValue: "Default")!
+		}
+	}
+
+	// 
+	var swapButtonLayout:Bool {
+		return self.userDefaults.boolForKey(userDefaultsKeyTheme)
+	}
+
+	var notFirstLaunch:Bool {
+		return self.userDefaults.boolForKey(userDefaultsKeyNotFirstLaunch)
+	}
+
+	var interactionSoundDisabled:Bool {
+		return self.userDefaults.boolForKey(userDefaultKeyInteractionSoundDisabled)
+	}
+
+	var animationDurationScalar:NSTimeInterval {
+		let result = self.userDefaults.floatForKey(userDefaultKeyAnimationDurationScalar)
+		return result == 0 ? 1 : NSTimeInterval(result)
+	}
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		UIApplication.sharedApplication().statusBarStyle = .LightContent
 
 		// TODO: Pull theme out of user default
-		self.theme = .Default
-		self.interactionSoundEnabled = true
 
 		#if DEBUG
-			self.animationDurationScalar = 1.0
+			self.userDefaults.setValue(1.0, forKey: userDefaultKeyAnimationDurationScalar)
+			self.userDefaults.synchronize()
 		#endif
 
 		return true
@@ -55,6 +80,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationWillTerminate(application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 		// Saves changes in the application's managed object context before the application terminates.
+
+		// If the app is going to terminate, set notFirstLaunch to true.
+		self.userDefaults.setBool(true, forKey: userDefaultsKeyNotFirstLaunch)
+		self.userDefaults.synchronize()
 		self.saveContext()
 	}
 

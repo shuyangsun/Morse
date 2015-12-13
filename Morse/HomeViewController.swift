@@ -30,11 +30,6 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	// MARK: Private variables
 	// *****************************
 
-	private var interactionSoundEnabled:Bool {
-		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-		return delegate.interactionSoundEnabled
-	}
-
 	private var topSectionHidden = false
 
 	// *****************************
@@ -47,16 +42,6 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		} else {
 			return 0
 		}
-	}
-
-	private var animationDurationScalar:Double {
-		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-		return delegate.animationDurationScalar
-	}
-
-	private var theme:Theme {
-		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-		return delegate.theme
 	}
 
 	private var cardViewLeadingMargin:CGFloat {
@@ -132,7 +117,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 		if self.scrollView == nil {
 			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: self.topSectionContainerViewHeight, width: self.view.bounds.width, height: self.view.bounds.height - self.topSectionContainerViewHeight - self.tabBarHeight))
-			self.scrollView.backgroundColor = self.theme.scrollViewBackgroundColor
+			self.scrollView.backgroundColor = appDelegate.theme.scrollViewBackgroundColor
 			self.scrollView.userInteractionEnabled = true
 			self.scrollView.bounces = true
 			self.scrollView.showsHorizontalScrollIndicator = false
@@ -155,7 +140,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		if self.scrollViewOverlay == nil {
 			self.scrollViewOverlay = UIButton(frame: CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: self.scrollView.bounds.height))
 			self.scrollViewOverlay.addTarget(self.topSectionViewController, action: "dismissInputTextKeyboard", forControlEvents: .TouchUpInside)
-			self.scrollViewOverlay.backgroundColor = self.theme.scrollViewOverlayColor
+			self.scrollViewOverlay.backgroundColor = appDelegate.theme.scrollViewOverlayColor
 			self.scrollViewOverlay.opaque = false
 			self.scrollViewOverlay.layer.borderColor = UIColor.clearColor().CGColor
 			self.scrollViewOverlay.layer.borderWidth = 0
@@ -203,7 +188,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 	func scrollViewDidScroll(scrollView: UIScrollView) {
 		let hiddingSectionHeight = self.topSectionContainerViewHeight - self.topSectionViewController.keyboardButtonViewHeight - self.topSectionViewController.statusBarHeight
-		let animationDuration = 0.25 * self.animationDurationScalar
+		let animationDuration = 0.25 * appDelegate.animationDurationScalar
 		if scrollView.contentOffset.y <= 20 && self.topSectionHidden {
 			// Show input area
 			self.topSectionHidden = false
@@ -271,12 +256,12 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 					self.currentExpandedView = cardView
 					self.updateCardViewsConstraints()
 					// Change cardView background color animation.
-					UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * self.animationDurationScalar,
+					UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
 						delay: 0,
 						options: .CurveEaseOut,
 						animations: {
 							self.scrollView.layoutIfNeeded()
-							cardView.backgroundColor = self.theme.cardViewExpandedBackgroudColor
+							cardView.backgroundColor = appDelegate.theme.cardViewExpandedBackgroudColor
 							cardView.addMDShadow(withDepth: 1)
 					}, completion: nil)
 			}
@@ -337,13 +322,13 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			if i >= views.count - 1 {
 				cardView.snp_remakeConstraints(closure: { (make) -> Void in
 					make.top.equalTo(self.scrollView).offset(self.cardViewTopMargin)
-					make.leading.equalTo(self.scrollView).offset(self.cardViewLeadingMargin)
+					make.left.equalTo(self.scrollView).offset(self.cardViewLeadingMargin)
 					make.width.equalTo(self.scrollView.bounds.width - self.cardViewLeadingMargin - self.cardViewTrailingMargin)
 				})
 			} else {
 				cardView.snp_remakeConstraints(closure: { (make) -> Void in
 					make.top.equalTo(views[i + 1].snp_bottom).offset(self.cardViewGapY)
-					make.leading.equalTo(self.scrollView).offset(self.cardViewLeadingMargin)
+					make.left.equalTo(self.scrollView).offset(self.cardViewLeadingMargin)
 					make.width.equalTo(self.view.bounds.width - self.cardViewLeadingMargin - self.cardViewTrailingMargin)
 				})
 			}
@@ -405,7 +390,6 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 	// This method is called after creating a new card on the scrollView, to save it's data into CoreData.
 	private func saveCard(text: String, morse:String, index:Int, textOnTop:Bool = true, favorite:Bool = false, deletable:Bool = true) {
-		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 		let managedContext = appDelegate.managedObjectContext
 		let entity = NSEntityDescription.entityForName("Card", inManagedObjectContext:managedContext)
 		let card = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
@@ -430,7 +414,6 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	private func fetchCardsAndUpdateCardViews() {
 		// If there is no card on the board, fetch some cards
 		if self.cardViews.isEmpty {
-			let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 			let managedContext = appDelegate.managedObjectContext
 
 			let fetchRequest = NSFetchRequest(entityName: "Card")
@@ -468,11 +451,11 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		if cardView != nil {
 			cardView!.expanded = false
 			self.updateCardViewsConstraints()
-			UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * self.animationDurationScalar,
+			UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
 				delay: 0,
 				options: .CurveEaseOut,
 				animations: {
-					cardView!.backgroundColor = self.theme.cardViewBackgroudColor
+					cardView!.backgroundColor = appDelegate.theme.cardViewBackgroudColor
 					cardView!.addMDShadow(withDepth: 1)
 					self.scrollView.layoutIfNeeded()
 				}) { succeed in

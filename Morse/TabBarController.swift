@@ -10,15 +10,10 @@ import UIKit
 
 class TabBarController: UITabBarController {
 
-	private var theme:Theme {
-		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-		return delegate.theme
-	}
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-		self.tabBar.barTintColor = self.theme.tabBarBackgroundColor
+		self.tabBar.barTintColor = appDelegate.theme.tabBarBackgroundColor
     }
 
     override func didReceiveMemoryWarning() {

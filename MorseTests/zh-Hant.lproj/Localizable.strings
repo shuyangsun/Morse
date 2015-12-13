@@ -5,5 +5,5 @@
 "Text" = "文本";
 
 /* There is a string on the input text view on home screen, promoting user to touch the text box to start typing. */
-"Touch to type" = "開始輸入";
+"Touch to type" = "开始输入";
 
