@@ -59,7 +59,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		return delegate.theme
 	}
 
-	private var cardViewLeftMargin:CGFloat {
+	private var cardViewLeadingMargin:CGFloat {
 		if self.traitCollection.horizontalSizeClass == .Compact {
 			return 16
 		} else if self.traitCollection.horizontalSizeClass == .Regular {
@@ -68,16 +68,16 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		return 16
 	}
 
-	private var cardViewRightMargin:CGFloat {
-		return self.cardViewLeftMargin
+	private var cardViewTrailingMargin:CGFloat {
+		return self.cardViewLeadingMargin
 	}
 
 	private var cardViewTopMargin:CGFloat {
-		return cardViewLeftMargin
+		return cardViewLeadingMargin
 	}
 
 	private var cardViewBottomMargin:CGFloat {
-		return self.cardViewLeftMargin
+		return self.cardViewLeadingMargin
 	}
 
 	private var cardViewGapY:CGFloat {
@@ -120,8 +120,8 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			self.topSectionContainerView.clipsToBounds = false
 			self.topSectionContainerView.snp_remakeConstraints { (make) -> Void in
 				make.top.equalTo(self.view)
-				make.right.equalTo(self.view)
-				make.left.equalTo(self.view)
+				make.trailing.equalTo(self.view)
+				make.leading.equalTo(self.view)
 				make.height.equalTo(self.topSectionContainerViewHeight)
 			}
 		}
@@ -142,8 +142,8 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 			self.scrollView.snp_remakeConstraints { (make) -> Void in
 				make.top.equalTo(self.topSectionContainerView.snp_bottom)
-				make.right.equalTo(self.view)
-				make.left.equalTo(self.view)
+				make.trailing.equalTo(self.view)
+				make.leading.equalTo(self.view)
 				make.bottom.equalTo(self.view).offset(-self.tabBarHeight)
 			}
 		}
@@ -294,7 +294,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	// *****************************
 
 	func addCardViewWithText(text:String, morse:String, textOnTop:Bool = true, animateWithDuration duration:NSTimeInterval = 0.0) {
-		let cardView = CardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), text: text, morse: morse, textOnTop: textOnTop)
+		let cardView = CardView(frame: CGRect(x: self.cardViewLeadingMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeadingMargin - self.cardViewTrailingMargin, height: self.cardViewHeight), text: text, morse: morse, textOnTop: textOnTop)
 		cardView.delegate = self
 
 		cardView.opaque = false
@@ -336,15 +336,15 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			let cardView = views[i]
 			if i >= views.count - 1 {
 				cardView.snp_remakeConstraints(closure: { (make) -> Void in
-					make.top.equalTo(self.cardViewTopMargin)
-					make.left.equalTo(self.cardViewLeftMargin)
-					make.width.equalTo(self.view.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin)
+					make.top.equalTo(self.scrollView).offset(self.cardViewTopMargin)
+					make.leading.equalTo(self.scrollView).offset(self.cardViewLeadingMargin)
+					make.width.equalTo(self.scrollView.bounds.width - self.cardViewLeadingMargin - self.cardViewTrailingMargin)
 				})
 			} else {
 				cardView.snp_remakeConstraints(closure: { (make) -> Void in
 					make.top.equalTo(views[i + 1].snp_bottom).offset(self.cardViewGapY)
-					make.left.equalTo(self.cardViewLeftMargin)
-					make.width.equalTo(self.view.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin)
+					make.leading.equalTo(self.scrollView).offset(self.cardViewLeadingMargin)
+					make.width.equalTo(self.view.bounds.width - self.cardViewLeadingMargin - self.cardViewTrailingMargin)
 				})
 			}
 
@@ -374,8 +374,8 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			} else { // FIX ME: Constraints BUG
 				cardView.topLabel.snp_remakeConstraints { (make) -> Void in
 					make.top.equalTo(cardView).offset(cardView.paddingTop)
-					make.right.equalTo(cardView).offset(-cardView.paddingRight)
-					make.left.equalTo(cardView).offset(cardView.paddingLeft)
+					make.trailing.equalTo(cardView).offset(-cardView.paddingTrailing)
+					make.leading.equalTo(cardView).offset(cardView.paddingLeading)
 					make.height.equalTo((cardView.bounds.height - cardView.paddingTop - cardView.paddingBottom - cardView.gapY)/2.0)
 				}
 				cardView.snp_updateConstraints(closure: { (make) -> Void in
@@ -442,7 +442,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				let cards = results as! [NSManagedObject]
 				var lastCardView:CardView? = nil
 				for card in cards {
-					let cardView = CardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), text: card.valueForKey("text") as? String, morse: card.valueForKey("morse") as? String, textOnTop: card.valueForKey("textOnTop") as! Bool)
+					let cardView = CardView(frame: CGRect(x: self.cardViewLeadingMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeadingMargin - self.cardViewTrailingMargin, height: self.cardViewHeight), text: card.valueForKey("text") as? String, morse: card.valueForKey("morse") as? String, textOnTop: card.valueForKey("textOnTop") as! Bool)
 					cardView.delegate = self
 					cardView.uniqueID = card.valueForKey("cardUniqueID") as? Int
 					if lastCardView == nil {

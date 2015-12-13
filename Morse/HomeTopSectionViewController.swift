@@ -157,8 +157,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 			self.view.addSubview(self.statusBarView)
 			self.statusBarView.snp_makeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.view)
-				make.left.equalTo(self.view)
-				make.right.equalTo(self.view)
+				make.leading.equalTo(self.view)
+				make.trailing.equalTo(self.view)
 				make.height.equalTo(self.statusBarHeight)
 			})
 		}
@@ -203,7 +203,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 
 			self.cancelButton.snp_makeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.topBarView)
-				make.left.equalTo(self.topBarView)
+				make.leading.equalTo(self.topBarView)
 				make.width.equalTo(self.topBarHeight)
 				make.height.equalTo(self.cancelButton.snp_width)
 			})
@@ -213,23 +213,23 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 			// Configure constraints
 			self.topBarView.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.statusBarView.snp_bottom)
-				make.left.equalTo(self.view).offset(0)
-				make.right.equalTo(self.view).offset(0)
+				make.leading.equalTo(self.view).offset(0)
+				make.trailing.equalTo(self.view).offset(0)
 				make.height.equalTo(self.topBarHeight)
 			})
 
 			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.topBarView)
-				make.left.equalTo(self.topBarView)
+				make.leading.equalTo(self.topBarView)
 				make.bottom.equalTo(self.topBarView)
-				make.right.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
+				make.trailing.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
 			})
 
 			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.topBarView)
-				make.right.equalTo(self.topBarView)
+				make.trailing.equalTo(self.topBarView)
 				make.bottom.equalTo(self.topBarView)
-				make.left.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
+				make.leading.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
 			})
 
 			self.roundButtonView.snp_makeConstraints(closure: { (make) -> Void in
@@ -253,8 +253,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 
 			self.textBackgroundView.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(self.topBarView.snp_bottom)
-				make.right.equalTo(self.view)
-				make.left.equalTo(self.view)
+				make.trailing.equalTo(self.view)
+				make.leading.equalTo(self.view)
 				make.bottom.equalTo(self.view)
 			}
 		}
@@ -277,8 +277,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 
 			self.inputTextView.snp_remakeConstraints { (make) -> Void in
 				make.top.equalTo(self.textBackgroundView)
-				make.right.equalTo(self.textBackgroundView)
-				make.left.equalTo(self.textBackgroundView)
+				make.trailing.equalTo(self.textBackgroundView)
+				make.leading.equalTo(self.textBackgroundView)
 				make.height.equalTo(self.textBackgroundView.snp_height).multipliedBy(0.5)
 			}
 		}
@@ -303,9 +303,9 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 
 			self.outputTextView.snp_makeConstraints { (make) -> Void in
 				make.top.equalTo(self.inputTextView.snp_bottom)
-				make.right.equalTo(self.textBackgroundView)
+				make.trailing.equalTo(self.textBackgroundView)
 				make.bottom.equalTo(self.textBackgroundView)
-				make.left.equalTo(self.textBackgroundView)
+				make.leading.equalTo(self.textBackgroundView)
 			}
 		}
 
@@ -320,8 +320,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 			self.textBackgroundView.addSubview(self.lineBreakView)
 
 			self.lineBreakView.snp_remakeConstraints(closure: { (make) -> Void in
-				make.left.equalTo(self.textBackgroundView)
-				make.right.equalTo(self.textBackgroundView)
+				make.leading.equalTo(self.textBackgroundView)
+				make.trailing.equalTo(self.textBackgroundView)
 				make.bottom.equalTo(self.textBackgroundView)
 				make.height.equalTo(1.0)
 			})
@@ -361,8 +361,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 
 			self.keyboardButtonView.snp_makeConstraints(closure: { (make) -> Void in
 				make.height.equalTo(self.keyboardButtonViewHeight)
-				make.left.equalTo(self.textBackgroundView)
-				make.right.equalTo(self.textBackgroundView)
+				make.leading.equalTo(self.textBackgroundView)
+				make.trailing.equalTo(self.textBackgroundView)
 				make.bottom.equalTo(self.textBackgroundView)
 			})
 		}
@@ -460,30 +460,30 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 		if self.isDirectionEncode {
 			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.topBarView)
-				make.left.equalTo(self.topBarView)
+				make.leading.equalTo(self.topBarView)
 				make.bottom.equalTo(self.topBarView)
-				make.right.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
+				make.trailing.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
 			})
 
 			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.topBarView)
-				make.right.equalTo(self.topBarView)
+				make.trailing.equalTo(self.topBarView)
 				make.bottom.equalTo(self.topBarView)
-				make.left.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
+				make.leading.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
 			})
 		} else {
 			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.topBarView)
-				make.right.equalTo(self.topBarView)
+				make.trailing.equalTo(self.topBarView)
 				make.bottom.equalTo(self.topBarView)
-				make.left.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
+				make.leading.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
 			})
 
 			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.topBarView)
-				make.left.equalTo(self.topBarView)
+				make.leading.equalTo(self.topBarView)
 				make.bottom.equalTo(self.topBarView)
-				make.right.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
+				make.trailing.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
 			})
 		}
 
@@ -511,8 +511,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 
 		self.lineBreakView.hidden = false
 		self.lineBreakView.snp_remakeConstraints(closure: { (make) -> Void in
-			make.left.equalTo(self.textBackgroundView)
-			make.right.equalTo(self.textBackgroundView)
+			make.leading.equalTo(self.textBackgroundView)
+			make.trailing.equalTo(self.textBackgroundView)
 			make.bottom.equalTo(self.inputTextView)
 			make.height.equalTo(1.0)
 		})
@@ -549,8 +549,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 		textView.attributedText = self.attributedHintTextInput
 		self.outputTextView.attributedText = self.attributedHintTextOutput
 		self.lineBreakView.snp_remakeConstraints(closure: { (make) -> Void in
-			make.left.equalTo(self.textBackgroundView)
-			make.right.equalTo(self.textBackgroundView)
+			make.leading.equalTo(self.textBackgroundView)
+			make.trailing.equalTo(self.textBackgroundView)
 			make.bottom.equalTo(self.textBackgroundView)
 			make.height.equalTo(1.0)
 		})
@@ -611,14 +611,14 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 				make.top.equalTo(self.topBarView)
 				make.bottom.equalTo(self.topBarView)
 				make.width.equalTo(labelWidth)
-				make.left.equalTo(self.topBarView.snp_right)
+				make.leading.equalTo(self.topBarView.snp_trailing)
 			})
 		} else {
 			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.topBarView)
 				make.bottom.equalTo(self.topBarView)
 				make.width.equalTo(labelWidth)
-				make.left.equalTo(self.topBarView.snp_right)
+				make.leading.equalTo(self.topBarView.snp_trailing)
 			})
 			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.topBarView)
@@ -647,30 +647,30 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 		if self.isDirectionEncode {
 			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.topBarView)
-				make.left.equalTo(self.topBarView)
+				make.leading.equalTo(self.topBarView)
 				make.bottom.equalTo(self.topBarView)
-				make.right.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
+				make.trailing.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
 			})
 
 			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.topBarView)
-				make.right.equalTo(self.topBarView)
+				make.trailing.equalTo(self.topBarView)
 				make.bottom.equalTo(self.topBarView)
-				make.left.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
+				make.leading.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
 			})
 		} else {
 			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.topBarView)
-				make.right.equalTo(self.topBarView)
+				make.trailing.equalTo(self.topBarView)
 				make.bottom.equalTo(self.topBarView)
-				make.left.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
+				make.leading.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
 			})
 
 			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.topBarView)
-				make.left.equalTo(self.topBarView)
+				make.leading.equalTo(self.topBarView)
 				make.bottom.equalTo(self.topBarView)
-				make.right.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
+				make.trailing.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
 			})
 		}
 		UIView.animateWithDuration(animationDuration,

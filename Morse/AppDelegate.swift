@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 
 	var theme:Theme = .Default
-	var leftHandUse:Bool = true
+	var swapButtonLayout:Bool = true
 	var animationDurationScalar:Double = 1.0
 	var interactionSoundEnabled = true
 
