@@ -111,39 +111,30 @@ class CardView: UIView {
 	func tapped(gestureRecognizer:UITapGestureRecognizer) {
 		let location = gestureRecognizer.locationInView(self)
 		if self.bounds.contains(location) {
-			self.animateUserInteractionFeedbackAtLocation(location)
-			if let myDelegate = self.delegate {
-				myDelegate.cardViewTapped(self)
+			self.animateUserInteractionFeedbackAtLocation(location) {
+				if let myDelegate = self.delegate {
+					myDelegate.cardViewTapped(self)
+				}
 			}
 		}
 	}
 
 	private func animateUserInteractionFeedbackAtLocation(location:CGPoint, completion:((Void) -> Void)? = nil) {
 		let originalTransform = self.transform
-		if !self.expanded {
-			self.triggerTapFeedBack(atLocation: location, withColor: self.theme.cardViewTapfeedbackColor, duration: TAP_FEED_BACK_DURATION * self.animationDurationScalar)
-		}
-		UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * self.animationDurationScalar,
+		self.triggerTapFeedBack(atLocation: location, withColor: self.theme.cardViewTapfeedbackColor, duration: TAP_FEED_BACK_DURATION/2.0 * self.animationDurationScalar, showSurfaceReaction: true, completion: completion)
+		UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * self.animationDurationScalar,
 			delay: 0.0,
 			options: .CurveEaseIn,
 			animations: {
 				self.transform = CGAffineTransformScale(self.transform, 1.02, 1.02)
-				self.addMDShadow(withDepth: self.defaultMDShadowLevel + 1)
 			}) { succeed in
 				if succeed {
-					UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * self.animationDurationScalar,
+					UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * self.animationDurationScalar,
 						delay: 0.0,
 						options: .CurveEaseOut,
 						animations: {
 							self.transform = originalTransform
-							self.addMDShadow(withDepth: self.defaultMDShadowLevel)
-						}) { succeed in
-							if succeed {
-								if completion != nil {
-									completion!()
-								}
-							}
-					}
+					}, completion: nil)
 				}
 		}
 	}

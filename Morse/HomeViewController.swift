@@ -16,6 +16,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	// *****************************
 	// MARK: Views
 	// *****************************
+
 	var topSectionViewController:HomeTopSectionViewController!
 	var topSectionContainerView: UIView!
 	
@@ -263,24 +264,21 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			self.collapseCurrentExpandedView()
 			// Calculate if we need to expand the card.
 			let labelWidth = cardView.topLabel.bounds.width
+			// FIX ME: Calculation not right, should use the other way, but it has a BUG.
 			if ceil(cardView.topLabel.attributedText!.size().width/labelWidth) > 1 ||
 				ceil(cardView.bottomLabel.attributedText!.size().width/labelWidth) > 1 {
 					cardView.expanded = true
 					self.currentExpandedView = cardView
 					self.updateCardViewsConstraints()
 					// Change cardView background color animation.
-					UIView.animateWithDuration(TAP_FEED_BACK_DURATION/3.0 * self.animationDurationScalar,
+					UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * self.animationDurationScalar,
 						delay: 0,
-//						delay: TAP_FEED_BACK_DURATION * self.animationDurationScalar, // This happens after the tap feedback is animated.
 						options: .CurveEaseOut,
 						animations: {
 							self.scrollView.layoutIfNeeded()
 							cardView.backgroundColor = self.theme.cardViewExpandedBackgroudColor
-						}) { succeed in
-							if succeed {
-								cardView.addMDShadow(withDepth: 1)
-							}
-					}
+							cardView.addMDShadow(withDepth: 1)
+					}, completion: nil)
 			}
 		}
 	}
@@ -299,10 +297,13 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		let cardView = CardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), text: text, morse: morse, textOnTop: textOnTop)
 		cardView.delegate = self
 
-		// TODO: Animation
 		cardView.opaque = false
 		cardView.alpha = 0.0
-		self.scrollView.addSubview(cardView)
+		if self.cardViews.isEmpty {
+			self.scrollView.addSubview(cardView)
+		} else {
+			self.scrollView.insertSubview(cardView, belowSubview: self.cardViews.last!)
+		}
 		self.cardViews.append(cardView)
 		self.updateCardViewsConstraints()
 		self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
@@ -355,20 +356,22 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				cardView.bottomLabel.numberOfLines = 0
 
 				// Calculate the new height for top and bottom label.
+				// FIX ME: using "+ (self.cardViewHeight - cardView.paddingTop - cardView.gapY - cardView.paddingBottom)/2.0" because of a bug in this calculation.
 				let labelWidth = cardView.topLabel.frame.width
-				let topLabelHeight = cardView.topLabel.attributedText?.boundingRectWithSize(CGSizeMake(labelWidth, 10000), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
-				let bottomLabelHeight = cardView.bottomLabel.attributedText?.boundingRectWithSize(CGSizeMake(labelWidth, 10000), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
-				let expandedCardViewHeight = cardView.paddingTop + topLabelHeight! + cardView.gapY + bottomLabelHeight! + cardView.paddingBottom
+				let topLabelHeight = cardView.topLabel.attributedText!.boundingRectWithSize(CGSizeMake(labelWidth, CGFloat.max), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
+					+ (self.cardViewHeight - cardView.paddingTop - cardView.gapY - cardView.paddingBottom)/2.0
+				let bottomLabelHeight = cardView.bottomLabel.attributedText!.boundingRectWithSize(CGSizeMake(labelWidth, CGFloat.max), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
+				let expandedCardViewHeight = cardView.paddingTop + topLabelHeight + cardView.gapY + bottomLabelHeight + cardView.paddingBottom
 
 				cardView.topLabel.snp_updateConstraints(closure: { (make) -> Void in
-					make.height.equalTo(topLabelHeight!)
+					make.height.equalTo(topLabelHeight)
 				})
 
 				cardView.snp_updateConstraints { (make) -> Void in
 					make.height.equalTo(expandedCardViewHeight)
 				}
 				contentHeight += (expandedCardViewHeight + self.cardViewGapY)
-			} else { // TODO Constraints BUG
+			} else { // FIX ME: Constraints BUG
 				cardView.topLabel.snp_remakeConstraints { (make) -> Void in
 					make.top.equalTo(cardView).offset(cardView.paddingTop)
 					make.right.equalTo(cardView).offset(-cardView.paddingRight)
@@ -437,11 +440,17 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			do {
 				let results = try managedContext.executeFetchRequest(fetchRequest)
 				let cards = results as! [NSManagedObject]
+				var lastCardView:CardView? = nil
 				for card in cards {
 					let cardView = CardView(frame: CGRect(x: self.cardViewLeftMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeftMargin - self.cardViewRightMargin, height: self.cardViewHeight), text: card.valueForKey("text") as? String, morse: card.valueForKey("morse") as? String, textOnTop: card.valueForKey("textOnTop") as! Bool)
 					cardView.delegate = self
 					cardView.uniqueID = card.valueForKey("cardUniqueID") as? Int
-					self.scrollView.addSubview(cardView)
+					if lastCardView == nil {
+						self.scrollView.addSubview(cardView)
+					} else {
+						self.scrollView.insertSubview(cardView, belowSubview: lastCardView!)
+					}
+					lastCardView = cardView
 					self.cardViews.append(cardView)
 					self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
 					self.updateCardViewsConstraints()
@@ -456,18 +465,21 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	func collapseCurrentExpandedView() {
 		let cardView = self.currentExpandedView
 		self.currentExpandedView = nil
-		cardView?.expanded = false
-		self.updateCardViewsConstraints()
-		UIView.animateWithDuration(TAP_FEED_BACK_DURATION/3.0 * self.animationDurationScalar,
-			delay: 0,
-			options: .CurveEaseOut,
-			animations: {
-				cardView?.backgroundColor = self.theme.cardViewBackgroudColor
-				self.scrollView.layoutIfNeeded()
-			}) { succeed in
-				if succeed {
-					cardView?.addMDShadow(withDepth: 1)
-				}
+		if cardView != nil {
+			cardView!.expanded = false
+			self.updateCardViewsConstraints()
+			UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * self.animationDurationScalar,
+				delay: 0,
+				options: .CurveEaseOut,
+				animations: {
+					cardView!.backgroundColor = self.theme.cardViewBackgroudColor
+					cardView!.addMDShadow(withDepth: 1)
+					self.scrollView.layoutIfNeeded()
+				}) { succeed in
+					if succeed {
+						cardView!.addMDShadow(withDepth: 1)
+					}
+			}
 		}
 	}
 }

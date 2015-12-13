@@ -421,77 +421,80 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 		self.homeViewController.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.homeViewController.scrollView.bounds.width, height: 1), animated: true)
 	}
 
-	func roundButtonTapped(gestureRecognizer:UITapGestureRecognizer) {
+	func roundButtonTapped(gestureRecognizer:UITapGestureRecognizer?) {
 		// Switch Direction
 		switch self.roundButtonView.buttonAction {
 		case .Switch:
 			self.isDirectionEncode = !self.isDirectionEncode
 		}
 
-		let tapLocation = gestureRecognizer.locationInView(self.roundButtonView)
-		if self.roundButtonView.bounds.contains(tapLocation) {
-			let originalTransform = self.roundButtonView.transform
+		if gestureRecognizer != nil {
+			let tapLocation = gestureRecognizer!.locationInView(self.roundButtonView)
+			if self.roundButtonView.bounds.contains(tapLocation) {
+				let originalTransform = self.roundButtonView.transform
 
-			// Animations for button
-			self.roundButtonView.triggerTapFeedBack(atLocation: tapLocation, withColor: self.theme.roundButtonTapFeedbackColor, duration: TAP_FEED_BACK_DURATION * self.animationDurationScalar)
-			self.roundButtonView.rotateBackgroundImageWithDuration(TAP_FEED_BACK_DURATION/2.0)
-			UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * self.animationDurationScalar,
-				delay: 0.0,
-				options: .CurveEaseIn,
-				animations: {
-					self.roundButtonView.transform = CGAffineTransformScale(self.roundButtonView.transform, 1.15, 1.15)
-					self.roundButtonView.addMDShadow(withDepth: 4)
-				}) { succeed in
-					if succeed {
-						UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * self.animationDurationScalar,
-							delay: 0.0,
-							options: .CurveEaseOut,
-							animations: {
-								self.roundButtonView.transform = originalTransform
-								self.roundButtonView.addMDShadow(withDepth: 3)
-							}, completion: nil)
-					}
-			}
+				// Animations for button
+				self.roundButtonView.triggerTapFeedBack(atLocation: tapLocation, withColor: self.theme.roundButtonTapFeedbackColor, duration: TAP_FEED_BACK_DURATION * self.animationDurationScalar)
+				self.roundButtonView.rotateBackgroundImageWithDuration(TAP_FEED_BACK_DURATION/2.0)
+				UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * self.animationDurationScalar,
+					delay: 0.0,
+					options: .CurveEaseIn,
+					animations: {
+						self.roundButtonView.transform = CGAffineTransformScale(self.roundButtonView.transform, 1.15, 1.15)
+						self.roundButtonView.addMDShadow(withDepth: 4)
+					}) { succeed in
+						if succeed {
+							UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * self.animationDurationScalar,
+								delay: 0.0,
+								options: .CurveEaseOut,
+								animations: {
+									self.roundButtonView.transform = originalTransform
+									self.roundButtonView.addMDShadow(withDepth: 3)
+								}, completion: nil)
+						}
+				}
+				
+		}
 
-			// Switch text and morse label
-			if self.isDirectionEncode {
-				self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
-					make.top.equalTo(self.topBarView)
-					make.left.equalTo(self.topBarView)
-					make.bottom.equalTo(self.topBarView)
-					make.right.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
-				})
+		// Switch text and morse label
+		if self.isDirectionEncode {
+			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.topBarView)
+				make.left.equalTo(self.topBarView)
+				make.bottom.equalTo(self.topBarView)
+				make.right.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
+			})
 
-				self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
-					make.top.equalTo(self.topBarView)
-					make.right.equalTo(self.topBarView)
-					make.bottom.equalTo(self.topBarView)
-					make.left.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
-				})
-			} else {
-				self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
-					make.top.equalTo(self.topBarView)
-					make.right.equalTo(self.topBarView)
-					make.bottom.equalTo(self.topBarView)
-					make.left.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
-				})
+			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.topBarView)
+				make.right.equalTo(self.topBarView)
+				make.bottom.equalTo(self.topBarView)
+				make.left.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
+			})
+		} else {
+			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.topBarView)
+				make.right.equalTo(self.topBarView)
+				make.bottom.equalTo(self.topBarView)
+				make.left.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
+			})
 
-				self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
-					make.top.equalTo(self.topBarView)
-					make.left.equalTo(self.topBarView)
-					make.bottom.equalTo(self.topBarView)
-					make.right.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
-				})
-			}
+			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.topBarView)
+				make.left.equalTo(self.topBarView)
+				make.bottom.equalTo(self.topBarView)
+				make.right.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
+			})
+		}
 
-			UIView.animateWithDuration(TAP_FEED_BACK_DURATION * self.animationDurationScalar,
-				delay: 0,
-				usingSpringWithDamping: 0.5,
-				initialSpringVelocity: 0.8,
-				options: .CurveEaseInOut,
-				animations: {
-					self.topBarView.layoutIfNeeded()
-				}, completion: nil)
+		UIView.animateWithDuration(TAP_FEED_BACK_DURATION * self.animationDurationScalar,
+			delay: 0,
+			usingSpringWithDamping: 0.5,
+			initialSpringVelocity: 0.8,
+			options: .CurveEaseInOut,
+			animations: {
+				self.topBarView.layoutIfNeeded()
+			}, completion: nil)
 		}
 	}
 

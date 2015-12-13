@@ -28,7 +28,7 @@
             <trans-unit id="Morse">
                 <source>Morse</source>
                 <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse (in English).</note>
-                <target>摩斯電碼</target>
+                <target>電碼</target>
             </trans-unit>
             <trans-unit id="Text">
                 <source>Text</source>
@@ -63,7 +63,7 @@
             <trans-unit id="Morse">
                 <source>Morse</source>
                 <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse (in English).</note>
-                <target>摩斯電碼</target>
+                <target>電碼</target>
             </trans-unit>
             <trans-unit id="Text">
                 <source>Text</source>
@@ -98,7 +98,7 @@
             <trans-unit id="Morse">
                 <source>Morse</source>
                 <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse (in English).</note>
-                <target>摩斯電碼</target>
+                <target>電碼</target>
             </trans-unit>
             <trans-unit id="Text">
                 <source>Text</source>

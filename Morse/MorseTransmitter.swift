@@ -155,6 +155,7 @@ private let LETTER_GAP_LENGTH:Float = 3.0
 private let WORD_GAP_LENGTH:Float = 7.0
 
 private let entansmitterTextToMorseStringDictionary:Dictionary<String, String> = [
+	// English Alphabets
 	"a": ". ___",
 	"b": "___ . . .",
 	"c": "___ . ___ .",
@@ -181,6 +182,7 @@ private let entansmitterTextToMorseStringDictionary:Dictionary<String, String> =
 	"x": "___ . . ___",
 	"y": "___ . ___ ___",
 	"z": "___ ___ . .",
+	// Numbers
 	"1": ". ___ ___ ___ ___",
 	"2": ". . ___ ___ ___",
 	"3": ". . . ___ ___",
@@ -191,6 +193,7 @@ private let entansmitterTextToMorseStringDictionary:Dictionary<String, String> =
 	"8": "___ ___ ___ . .",
 	"9": "___ ___ ___ ___ .",
 	"0": "___ ___ ___ ___ ___",
+	// Special Characters
 	".": ". ___ . ___ . ___",
 	",": "___ ___ . . ___ ___",
 	"'": ". ___ ___ ___ ___ .",
@@ -212,6 +215,7 @@ private let entansmitterTextToMorseStringDictionary:Dictionary<String, String> =
 ]
 
 private let detansmitterMorseStringToTextDictionary:Dictionary<String, String> = [
+	// English Alphabets
 	". ___": "a",
 	"___ . . .": "b",
 	"___ . ___ .": "c",
@@ -238,6 +242,7 @@ private let detansmitterMorseStringToTextDictionary:Dictionary<String, String> =
 	"___ . . ___": "x",
 	"___ . ___ ___": "y",
 	"___ ___ . .": "z",
+	// Numbers
 	". ___ ___ ___ ___": "1",
 	". . ___ ___ ___": "2",
 	". . . ___ ___": "3",
@@ -248,6 +253,7 @@ private let detansmitterMorseStringToTextDictionary:Dictionary<String, String> =
 	"___ ___ ___ . .": "8",
 	"___ ___ ___ ___ .": "9",
 	"___ ___ ___ ___ ___": "0",
+	// Special Characters
 	". ___ . ___ . ___": ".",
 	"___ ___ . . ___ ___": ",",
 	". ___ ___ ___ ___ .": "'",

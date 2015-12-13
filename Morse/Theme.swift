@@ -121,7 +121,7 @@ enum Theme: String {
 
 	var cardViewMorseColor:UIColor {
 		switch self {
-		default: return UIColor(hex:0x000, alpha: MDDarkTextHintAlpha)
+		case .Default: return UIColor(hex:0x000, alpha: MDDarkTextHintAlpha)
 		}
 	}
 

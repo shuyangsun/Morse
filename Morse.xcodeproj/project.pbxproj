@@ -59,6 +59,7 @@
 		109ACDC11C0E0D12006AC535 /* RoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */; };
 		109ACDC21C0E0D12006AC535 /* RoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */; };
 		10B9C8151C0FB5A4001C5847 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10B9C8141C0FB5A4001C5847 /* CoreData.framework */; };
+		10CAF7F11C1C97DB00164258 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 10CAF7F31C1C97DB00164258 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +170,8 @@
 		10826A171C0D5C4C00902BCC /* General UI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "General UI.swift"; sourceTree = "<group>"; };
 		109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButtonView.swift; sourceTree = "<group>"; };
 		10B9C8141C0FB5A4001C5847 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		10CAF7F21C1C97DB00164258 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		10CAF7F41C1C97EC00164258 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +236,7 @@
 		1052A7411C0BACE90085B0C9 /* Morse */ = {
 			isa = PBXGroup;
 			children = (
+				10CAF7F31C1C97DB00164258 /* InfoPlist.strings */,
 				101A0ABF1C1BBB890030A51A /* Localizable.strings */,
 				1052A7421C0BACE90085B0C9 /* AppDelegate.swift */,
 				107FF6AF1C0BDD1F003EB294 /* View Controllers */,
@@ -458,6 +462,7 @@
 				1052A7501C0BACE90085B0C9 /* LaunchScreen.storyboard in Resources */,
 				1052A74D1C0BACE90085B0C9 /* Assets.xcassets in Resources */,
 				1052A7481C0BACE90085B0C9 /* Main.storyboard in Resources */,
+				10CAF7F11C1C97DB00164258 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,6 +634,15 @@
 				101A0AD01C1BBEC40030A51A /* zh-Hant */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		10CAF7F31C1C97DB00164258 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				10CAF7F21C1C97DB00164258 /* zh-Hans */,
+				10CAF7F41C1C97EC00164258 /* zh-Hant */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

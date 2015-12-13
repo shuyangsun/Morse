@@ -1,5 +1,5 @@
 /* On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse (in English). */
-"Morse" = "摩斯電碼";
+"Morse" = "電碼";
 
 /* On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse (in English). */
 "Text" = "文本";
