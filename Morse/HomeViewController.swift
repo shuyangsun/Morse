@@ -20,7 +20,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	var topSectionViewController:HomeTopSectionViewController!
 	var topSectionContainerView: UIView!
 	
-	var scrollView: HomeScrollView!
+	var scrollView: UIScrollView!
 	var scrollViewOverlay: UIButton!
 
 	private var cardViews:[CardView] = []
@@ -80,7 +80,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	}
 
 	private var topSectionContainerViewHeight:CGFloat {
-		return self.topSectionViewController.statusBarHeight + self.topSectionViewController.topBarHeight + self.topSectionViewController.textBackgroundViewHeight
+		return statusBarHeight + self.topSectionViewController.topBarHeight + self.topSectionViewController.textBackgroundViewHeight
 	}
 
 	// Animation related variables
@@ -123,7 +123,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		// *****************************
 
 		if self.scrollView == nil {
-			self.scrollView = HomeScrollView(frame: CGRect(x: 0, y: self.topSectionContainerViewHeight, width: self.view.bounds.width, height: self.view.bounds.height - self.topSectionContainerViewHeight - self.tabBarHeight))
+			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: self.topSectionContainerViewHeight, width: self.view.bounds.width, height: self.view.bounds.height - self.topSectionContainerViewHeight - self.tabBarHeight))
 			self.scrollView.backgroundColor = appDelegate.theme.scrollViewBackgroundColor
 			self.scrollView.userInteractionEnabled = true
 			self.scrollView.bounces = true
@@ -162,9 +162,6 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 		// Configure scrollView animator
 //		self.animator.addBehavior(self.gravityBehavior)
-
-		// TODO: Custom tab bar item
-		self.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Featured, tag: 0)
     }
 
 	// Views are created and constraints are added in this callback
@@ -199,7 +196,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	// *****************************
 
 	func scrollViewDidScroll(scrollView: UIScrollView) {
-		let hiddingSectionHeight = self.topSectionContainerViewHeight - self.topSectionViewController.keyboardButtonViewHeight - self.topSectionViewController.statusBarHeight
+		let hiddingSectionHeight = self.topSectionContainerViewHeight - self.topSectionViewController.keyboardButtonViewHeight - statusBarHeight
 		let animationDuration = 0.25 * appDelegate.animationDurationScalar
 		if scrollView.contentOffset.y <= 20 && self.topSectionHidden {
 			// Show input area
@@ -567,6 +564,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				morse = transmitter.morse
 				self.addCardViewWithText(text, morse: morse!)
 			}
+			appDelegate.userDefaults.setObject(NSLocale.preferredLanguages().first!, forKey: userDefaultsKeyFirstLaunchLanguageCode)
 			appDelegate.userDefaults.setValue(true, forKey: userDefaultsKeyNotFirstLaunch)
 		}
 	}

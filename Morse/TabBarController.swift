@@ -14,6 +14,17 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 		self.tabBar.barTintColor = appDelegate.theme.tabBarBackgroundColor
+		let controllers = self.viewControllers
+		// Customize tab bar items
+		if controllers != nil {
+			for controller in controllers! {
+				if let homeVC = controller as? HomeViewController {
+					homeVC.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Featured, tag: 0)
+				} else if let settingsVC = controller as? SettingsSplitViewController {
+					settingsVC.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.More, tag: 1)
+				}
+			}
+		}
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,17 +40,12 @@ class TabBarController: UITabBarController {
 			return UIInterfaceOrientationMask.Portrait
 		}
 	}
-    
 
 	/*
-    // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if segue.destinationViewController is HomeViewController {
-			(segue.destinationViewController as! HomeViewController).tabBarHeight = self.tabBar.bounds.height
-		}
+		// TODO: customize tabbar item
+
     }
 	*/
-
 }

@@ -10,18 +10,15 @@
 		101A0A981C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */; };
 		101A0A991C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */; };
 		101A0A9A1C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */; };
-		101A0AB31C1BBA820030A51A /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0AB21C1BBA820030A51A /* LocalizedStrings.swift */; };
-		101A0AB41C1BBA820030A51A /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0AB21C1BBA820030A51A /* LocalizedStrings.swift */; };
-		101A0AB51C1BBA820030A51A /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0AB21C1BBA820030A51A /* LocalizedStrings.swift */; };
+		101A0AB31C1BBA820030A51A /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0AB21C1BBA820030A51A /* Localization.swift */; };
+		101A0AB41C1BBA820030A51A /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0AB21C1BBA820030A51A /* Localization.swift */; };
+		101A0AB51C1BBA820030A51A /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0AB21C1BBA820030A51A /* Localization.swift */; };
 		10286CCB1C0D1BCF00BD2B43 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* CardView.swift */; };
 		10286CCC1C0D1BCF00BD2B43 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* CardView.swift */; };
 		10286CCD1C0D1BCF00BD2B43 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* CardView.swift */; };
 		1030BA0F1C1890C20099F2E4 /* CardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */; };
 		1030BA101C1890C20099F2E4 /* CardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */; };
 		1030BA111C1890C20099F2E4 /* CardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */; };
-		103FB0721C1E1B0D004B591F /* HomeScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103FB0711C1E1B0D004B591F /* HomeScrollView.swift */; };
-		103FB0731C1E1B0D004B591F /* HomeScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103FB0711C1E1B0D004B591F /* HomeScrollView.swift */; };
-		103FB0741C1E1B0D004B591F /* HomeScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103FB0711C1E1B0D004B591F /* HomeScrollView.swift */; };
 		1052A7431C0BACE90085B0C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7421C0BACE90085B0C9 /* AppDelegate.swift */; };
 		1052A7481C0BACE90085B0C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1052A7461C0BACE90085B0C9 /* Main.storyboard */; };
 		1052A74B1C0BACE90085B0C9 /* Morse.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7491C0BACE90085B0C9 /* Morse.xcdatamodeld */; };
@@ -57,6 +54,21 @@
 		109ACDC11C0E0D12006AC535 /* RoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */; };
 		109ACDC21C0E0D12006AC535 /* RoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */; };
 		10B9C8151C0FB5A4001C5847 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10B9C8141C0FB5A4001C5847 /* CoreData.framework */; };
+		10BFD38E1C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD38D1C1E964C00FA4C26 /* SettingsSplitViewController.swift */; };
+		10BFD38F1C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD38D1C1E964C00FA4C26 /* SettingsSplitViewController.swift */; };
+		10BFD3901C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD38D1C1E964C00FA4C26 /* SettingsSplitViewController.swift */; };
+		10BFD3921C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3911C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift */; };
+		10BFD3931C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3911C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift */; };
+		10BFD3941C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3911C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift */; };
+		10BFD39A1C1F1C1300FA4C26 /* General UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3991C1F1C1300FA4C26 /* General UI.swift */; };
+		10BFD39B1C1F1C1300FA4C26 /* General UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3991C1F1C1300FA4C26 /* General UI.swift */; };
+		10BFD39C1C1F1C1300FA4C26 /* General UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3991C1F1C1300FA4C26 /* General UI.swift */; };
+		10BFD39E1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD39D1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift */; };
+		10BFD39F1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD39D1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift */; };
+		10BFD3A01C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD39D1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift */; };
+		10BFD3A31C1F486700FA4C26 /* LanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3A21C1F486700FA4C26 /* LanguageTableViewCell.swift */; };
+		10BFD3A41C1F486700FA4C26 /* LanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3A21C1F486700FA4C26 /* LanguageTableViewCell.swift */; };
+		10BFD3A51C1F486700FA4C26 /* LanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3A21C1F486700FA4C26 /* LanguageTableViewCell.swift */; };
 		10CAF8141C1DDD4A00164258 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 10CAF8161C1DDD4A00164258 /* InfoPlist.strings */; };
 		10CAF8191C1DDD4A00164258 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 10CAF81B1C1DDD4A00164258 /* Localizable.strings */; };
 		10CAF81E1C1DDD4A00164258 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 10CAF8201C1DDD4A00164258 /* InfoPlist.strings */; };
@@ -133,10 +145,9 @@
 
 /* Begin PBXFileReference section */
 		101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTopSectionViewController.swift; sourceTree = "<group>"; };
-		101A0AB21C1BBA820030A51A /* LocalizedStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
+		101A0AB21C1BBA820030A51A /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		10286CCA1C0D1BCF00BD2B43 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewDelegate.swift; sourceTree = "<group>"; };
-		103FB0711C1E1B0D004B591F /* HomeScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScrollView.swift; sourceTree = "<group>"; };
 		103FB0751C1E8323004B591F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		103FB0761C1E8323004B591F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		103FB0771C1E8323004B591F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -169,6 +180,11 @@
 		10BFD37E1C1E865300FA4C26 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		10BFD3821C1E865300FA4C26 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		10BFD3831C1E866000FA4C26 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		10BFD38D1C1E964C00FA4C26 /* SettingsSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSplitViewController.swift; sourceTree = "<group>"; };
+		10BFD3911C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsMasterTableViewController.swift; sourceTree = "<group>"; };
+		10BFD3991C1F1C1300FA4C26 /* General UI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "General UI.swift"; sourceTree = "<group>"; };
+		10BFD39D1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsLanguagesTableViewController.swift; sourceTree = "<group>"; };
+		10BFD3A21C1F486700FA4C26 /* LanguageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageTableViewCell.swift; sourceTree = "<group>"; };
 		10CAF8101C1DDD1B00164258 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/Main.strings"; sourceTree = "<group>"; };
 		10CAF8111C1DDD1B00164258 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		10CAF8151C1DDD4A00164258 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -224,7 +240,6 @@
 			isa = PBXGroup;
 			children = (
 				10286CCA1C0D1BCF00BD2B43 /* CardView.swift */,
-				1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */,
 				109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */,
 				1073948E1C11F75800EF8C16 /* CancelButton.swift */,
 			);
@@ -261,6 +276,7 @@
 				1052A7421C0BACE90085B0C9 /* AppDelegate.swift */,
 				107FF6AF1C0BDD1F003EB294 /* View Controllers */,
 				10286CD11C0D1BD800BD2B43 /* Views */,
+				10BFD3981C1F1BF400FA4C26 /* Delegates */,
 				107FF6C71C0C2246003EB294 /* Model */,
 				107FF6AE1C0BC20B003EB294 /* UI */,
 				1052A7461C0BACE90085B0C9 /* Main.storyboard */,
@@ -297,8 +313,8 @@
 		107FF6AE1C0BC20B003EB294 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				10BFD3991C1F1C1300FA4C26 /* General UI.swift */,
 				107FF6A61C0BC128003EB294 /* Theme.swift */,
-				10826A171C0D5C4C00902BCC /* General.swift */,
 				107FF6AA1C0BC1FC003EB294 /* MaterialDesign.swift */,
 			);
 			name = UI;
@@ -308,9 +324,8 @@
 			isa = PBXGroup;
 			children = (
 				1052A7731C0BAED50085B0C9 /* TabBarController.swift */,
-				1052A77B1C0BB09B0085B0C9 /* HomeViewController.swift */,
-				101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */,
-				103FB0711C1E1B0D004B591F /* HomeScrollView.swift */,
+				10BFD3971C1F1BBA00FA4C26 /* Home VC */,
+				10BFD3961C1F1BAD00FA4C26 /* Settings VC */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -329,10 +344,39 @@
 		107FF6C71C0C2246003EB294 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				101A0AB21C1BBA820030A51A /* LocalizedStrings.swift */,
+				101A0AB21C1BBA820030A51A /* Localization.swift */,
 				107FF6C31C0C223D003EB294 /* MorseTransmitter.swift */,
+				10826A171C0D5C4C00902BCC /* General.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		10BFD3961C1F1BAD00FA4C26 /* Settings VC */ = {
+			isa = PBXGroup;
+			children = (
+				10BFD38D1C1E964C00FA4C26 /* SettingsSplitViewController.swift */,
+				10BFD3911C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift */,
+				10BFD39D1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift */,
+				10BFD3A21C1F486700FA4C26 /* LanguageTableViewCell.swift */,
+			);
+			name = "Settings VC";
+			sourceTree = "<group>";
+		};
+		10BFD3971C1F1BBA00FA4C26 /* Home VC */ = {
+			isa = PBXGroup;
+			children = (
+				1052A77B1C0BB09B0085B0C9 /* HomeViewController.swift */,
+				101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */,
+			);
+			name = "Home VC";
+			sourceTree = "<group>";
+		};
+		10BFD3981C1F1BF400FA4C26 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */,
+			);
+			name = Delegates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -514,18 +558,22 @@
 				109ACDC01C0E0D12006AC535 /* RoundButtonView.swift in Sources */,
 				10286CCB1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				10826A181C0D5C4C00902BCC /* General.swift in Sources */,
+				10BFD3921C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift in Sources */,
 				107FF6C41C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
-				103FB0721C1E1B0D004B591F /* HomeScrollView.swift in Sources */,
-				101A0AB31C1BBA820030A51A /* LocalizedStrings.swift in Sources */,
+				101A0AB31C1BBA820030A51A /* Localization.swift in Sources */,
 				101A0A981C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */,
 				1052A7741C0BAED50085B0C9 /* TabBarController.swift in Sources */,
+				10BFD38E1C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */,
 				1052A77C1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */,
 				107FF6AB1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
 				107FF6A71C0BC128003EB294 /* Theme.swift in Sources */,
 				1030BA0F1C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
 				1073948F1C11F75800EF8C16 /* CancelButton.swift in Sources */,
+				10BFD39E1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */,
+				10BFD3A31C1F486700FA4C26 /* LanguageTableViewCell.swift in Sources */,
 				1052A74B1C0BACE90085B0C9 /* Morse.xcdatamodeld in Sources */,
 				1052A7431C0BACE90085B0C9 /* AppDelegate.swift in Sources */,
+				10BFD39A1C1F1C1300FA4C26 /* General UI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,18 +584,22 @@
 				1052A77D1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */,
 				10286CCC1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				107FF6C51C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
+				10BFD3931C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift in Sources */,
 				107FF6A81C0BC128003EB294 /* Theme.swift in Sources */,
-				103FB0731C1E1B0D004B591F /* HomeScrollView.swift in Sources */,
-				101A0AB41C1BBA820030A51A /* LocalizedStrings.swift in Sources */,
+				101A0AB41C1BBA820030A51A /* Localization.swift in Sources */,
 				101A0A991C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */,
 				1052A7751C0BAED50085B0C9 /* TabBarController.swift in Sources */,
+				10BFD38F1C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */,
 				109ACDC11C0E0D12006AC535 /* RoundButtonView.swift in Sources */,
 				1052A75B1C0BACEA0085B0C9 /* MorseTests.swift in Sources */,
 				107FF6AC1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
 				1030BA101C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
 				107394901C11F75800EF8C16 /* CancelButton.swift in Sources */,
+				10BFD39F1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */,
+				10BFD3A41C1F486700FA4C26 /* LanguageTableViewCell.swift in Sources */,
 				107869491C0E5EC00025AD45 /* AppDelegate.swift in Sources */,
 				10826A191C0D5C4C00902BCC /* General.swift in Sources */,
+				10BFD39B1C1F1C1300FA4C26 /* General UI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,18 +610,22 @@
 				1052A77E1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */,
 				10286CCD1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				107FF6C61C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
+				10BFD3941C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift in Sources */,
 				107FF6A91C0BC128003EB294 /* Theme.swift in Sources */,
-				103FB0741C1E1B0D004B591F /* HomeScrollView.swift in Sources */,
-				101A0AB51C1BBA820030A51A /* LocalizedStrings.swift in Sources */,
+				101A0AB51C1BBA820030A51A /* Localization.swift in Sources */,
 				101A0A9A1C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */,
 				1052A7761C0BAED50085B0C9 /* TabBarController.swift in Sources */,
+				10BFD3901C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */,
 				109ACDC21C0E0D12006AC535 /* RoundButtonView.swift in Sources */,
 				1052A7661C0BACEA0085B0C9 /* MorseUITests.swift in Sources */,
 				107FF6AD1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
 				1030BA111C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
 				107394911C11F75800EF8C16 /* CancelButton.swift in Sources */,
+				10BFD3A01C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */,
+				10BFD3A51C1F486700FA4C26 /* LanguageTableViewCell.swift in Sources */,
 				1078694D1C0E5EC00025AD45 /* AppDelegate.swift in Sources */,
 				10826A1A1C0D5C4C00902BCC /* General.swift in Sources */,
+				10BFD39C1C1F1C1300FA4C26 /* General UI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

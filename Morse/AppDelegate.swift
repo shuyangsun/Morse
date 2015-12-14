@@ -37,12 +37,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	var interactionSoundDisabled:Bool {
-		return self.userDefaults.boolForKey(userDefaultKeyInteractionSoundDisabled)
+		return self.userDefaults.boolForKey(userDefaultsKeyInteractionSoundDisabled)
 	}
 
 	var animationDurationScalar:NSTimeInterval {
-		let result = self.userDefaults.floatForKey(userDefaultKeyAnimationDurationScalar)
+		let result = self.userDefaults.floatForKey(userDefaultsKeyAnimationDurationScalar)
 		return result == 0 ? 1 : NSTimeInterval(result)
+	}
+
+	var firstLaunchSystemLanguageCode:String {
+		return self.userDefaults.stringForKey(userDefaultsKeyFirstLaunchLanguageCode)!
 	}
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -50,9 +54,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UIApplication.sharedApplication().statusBarStyle = .LightContent
 
 		// TODO: Pull theme out of user default
-
 		#if DEBUG
-			self.userDefaults.setValue(1.0, forKey: userDefaultKeyAnimationDurationScalar)
+			self.userDefaults.setValue(1.0, forKey: userDefaultsKeyAnimationDurationScalar)
 			self.userDefaults.synchronize()
 		#endif
 
@@ -149,6 +152,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	        }
 	    }
 	}
-
 }
 

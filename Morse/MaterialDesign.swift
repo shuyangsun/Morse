@@ -169,9 +169,7 @@ extension UIView {
 				if succeed {
 					feedBackView.removeFromSuperview()
 					overlayView.removeFromSuperview()
-					if completion != nil {
-						completion!()
-					}
+					completion?()
 				}
 		}
 
@@ -190,8 +188,6 @@ extension UIView {
 			animations: {
 				feedBackView.alpha = 0.0
 		}, completion: nil)
-
-		// Change background color
 	}
 }
 

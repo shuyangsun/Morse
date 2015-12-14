@@ -130,4 +130,35 @@ enum Theme: String {
 		case .Default: return UIColor(hex: 0xEEEEEE)
 		}
 	}
+
+	var navigationBarBackgroundColor:UIColor {
+		switch self {
+		default: return self.topBarBackgroundColor
+		}
+	}
+
+	var navigationBarTitleTextColor:UIColor {
+		switch self {
+		default: return self.topBarLabelTextColor
+		}
+	}
+
+	var settingsCellTitleTextColor:UIColor {
+		switch self {
+		default: return UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha)
+		}
+	}
+
+	var settingsCellDetailTitleTextColor:UIColor {
+		switch self {
+		default: return UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)
+		}
+	}
+
+	var settingsCellCheckmarkColor:UIColor {
+		switch self {
+		default: return self.roundButtonBackgroundColor
+		}
+	}
+
 }

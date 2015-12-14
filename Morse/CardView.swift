@@ -162,7 +162,7 @@ class CardView: UIView {
 		let dtY = touch.locationInView(self.superview!).y - self._swipeBeganPosition.y
 		// If the user is swipping left or right
 		let scrollView = self.nextResponder() as? UIScrollView
-		if self._cardManipulation != nil && abs(dtX)/abs(dtY) >= 5.0 {
+		if self._cardManipulation != nil && abs(dtX)/abs(dtY) >= 2.0 {
 			scrollView?.scrollEnabled = false
 		} else {
 			scrollView?.scrollEnabled = true

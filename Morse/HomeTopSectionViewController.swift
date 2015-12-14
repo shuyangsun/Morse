@@ -42,13 +42,9 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 	// MARK: UI Related Variables
 	// *****************************
 
-	var statusBarHeight:CGFloat {
-		return UIApplication.sharedApplication().statusBarFrame.size.height
-	}
+	let textBackgroundViewHeight:CGFloat = 140
 
 	let topBarHeight:CGFloat = 56
-
-	let textBackgroundViewHeight:CGFloat = 140
 
 	var keyboardButtonViewHeight:CGFloat {
 		return self.topBarHeight
@@ -133,14 +129,14 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 		// *****************************
 
 		if self.statusBarView == nil {
-			self.statusBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.statusBarHeight))
+			self.statusBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: statusBarHeight))
 			self.statusBarView.backgroundColor = appDelegate.theme.statusBarBackgroundColor
 			self.view.addSubview(self.statusBarView)
 			self.statusBarView.snp_makeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.view)
 				make.leading.equalTo(self.view)
 				make.trailing.equalTo(self.view)
-				make.height.equalTo(self.statusBarHeight)
+				make.height.equalTo(statusBarHeight)
 			})
 		}
 
@@ -149,7 +145,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 		// *****************************
 
 		if self.topBarView == nil {
-			self.topBarView = UIView(frame: CGRect(x: 0, y: self.statusBarHeight, width: self.view.bounds.width, height: self.topBarHeight))
+			self.topBarView = UIView(frame: CGRect(x: 0, y: statusBarHeight, width: self.view.bounds.width, height: self.topBarHeight))
 			self.topBarView.backgroundColor = appDelegate.theme.topBarBackgroundColor
 			self.view.addSubview(topBarView)
 
@@ -226,7 +222,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 		// *******************************
 
 		if self.textBackgroundView == nil {
-			self.textBackgroundView = UIView(frame: CGRect(x: 0, y: self.statusBarHeight + self.topBarHeight, width: self.view.bounds.width, height: self.textBackgroundViewHeight))
+			self.textBackgroundView = UIView(frame: CGRect(x: 0, y: statusBarHeight + self.topBarHeight, width: self.view.bounds.width, height: self.textBackgroundViewHeight))
 			self.textBackgroundView.backgroundColor = appDelegate.theme.textViewBackgroundColor
 			self.textBackgroundView.layer.borderColor = UIColor.clearColor().CGColor
 			self.textBackgroundView.layer.borderWidth = 0
