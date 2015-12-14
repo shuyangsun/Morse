@@ -20,7 +20,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	var topSectionViewController:HomeTopSectionViewController!
 	var topSectionContainerView: UIView!
 	
-	var scrollView: UIScrollView!
+	var scrollView: HomeScrollView!
 	var scrollViewOverlay: UIButton!
 
 	private var cardViews:[CardView] = []
@@ -83,6 +83,13 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		return self.topSectionViewController.statusBarHeight + self.topSectionViewController.topBarHeight + self.topSectionViewController.textBackgroundViewHeight
 	}
 
+	// Animation related variables
+//	let gravityBehavior = UIGravityBehavior()
+//	lazy var animator:UIDynamicAnimator = {
+//		assert(self.scrollView != nil)
+//		return UIDynamicAnimator(referenceView: self.scrollView)
+//	}()
+
 	// *****************************
 	// MARK: MVC Life Cycle
 	// *****************************
@@ -116,7 +123,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		// *****************************
 
 		if self.scrollView == nil {
-			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: self.topSectionContainerViewHeight, width: self.view.bounds.width, height: self.view.bounds.height - self.topSectionContainerViewHeight - self.tabBarHeight))
+			self.scrollView = HomeScrollView(frame: CGRect(x: 0, y: self.topSectionContainerViewHeight, width: self.view.bounds.width, height: self.view.bounds.height - self.topSectionContainerViewHeight - self.tabBarHeight))
 			self.scrollView.backgroundColor = appDelegate.theme.scrollViewBackgroundColor
 			self.scrollView.userInteractionEnabled = true
 			self.scrollView.bounces = true
@@ -152,6 +159,9 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				make.edges.equalTo(self.scrollView)
 			})
 		}
+
+		// Configure scrollView animator
+//		self.animator.addBehavior(self.gravityBehavior)
 
 		// TODO: Custom tab bar item
 		self.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Featured, tag: 0)
@@ -268,6 +278,70 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		}
 	}
 
+	func cardViewTouchesBegan(cardView: CardView, touches: Set<UITouch>, withEvent event: UIEvent?) {
+		let ind = self.cardViews.indexOf(cardView)!
+		if ind < self.cardViews.count - 1 {
+			self.scrollView.insertSubview(cardView, atIndex: 0)
+		}
+	}
+
+	func cardViewTouchesEnded(cardView: CardView, touches: Set<UITouch>, withEvent event: UIEvent?, deleteCard:Bool) {
+		let ind = self.cardViews.indexOf(cardView)!
+		if deleteCard {
+			// Remove in UI
+			cardView.removeFromSuperview()
+			self.cardViews.removeAtIndex(ind)
+			self.updateCardViewsConstraints()
+			// Animations
+//			self.gravityBehavior.addItem(cardView)
+			UIView.animateWithDuration(TAP_FEED_BACK_DURATION / 2.0,
+				delay: 0,
+				options: .CurveEaseOut,
+				animations: {
+					self.scrollView.layoutIfNeeded()
+				}) { succeed in
+					if succeed {
+						// If the content size of scroll view is smaller than scroll view frame, show top section
+						if self.scrollView.contentSize.height < self.scrollView.bounds.height {
+							self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
+						}
+					}
+			}
+			// Remove in Core Data
+			let managedContext = appDelegate.managedObjectContext
+			let fetchRequest = NSFetchRequest(entityName: "Card")
+			let filter = NSPredicate(format: "cardUniqueID == \(cardView.cardUniqueID!)")
+			fetchRequest.predicate = filter
+			do {
+				let results = try managedContext.executeFetchRequest(fetchRequest)
+				let cards = results as! [NSManagedObject]
+				assert(cards.count == 1) // There should only be one card with this unique ID
+				for card in cards {
+					managedContext.deleteObject(card)
+				}
+				try managedContext.save()
+			} catch let error as NSError {
+				print("Could not fetch card to delete from Core Data \(error), \(error.userInfo)")
+			}
+		} else {
+			// If the card won't be deleted
+			// If there is a card above it:
+			if ind < self.cardViews.count - 1 {
+				let cardAbove:CardView = self.cardViews[ind + 1]
+				self.scrollView.insertSubview(cardView, aboveSubview: cardAbove)
+			}
+		}
+	}
+
+	func cardViewTouchesCancelled(cardView: CardView, touches: Set<UITouch>?, withEvent event: UIEvent?) {
+		let ind = self.cardViews.indexOf(cardView)!
+		// If there is a card above it:
+		if ind < self.cardViews.count - 1 {
+			let cardAbove:CardView = self.cardViews[ind + 1]
+			self.scrollView.insertSubview(cardView, aboveSubview: cardAbove)
+		}
+	}
+
 	// *****************************
 	// MARK: User Interaction Handler
 	// *****************************
@@ -278,12 +352,14 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	// MARK: Card View Manipulation
 	// *****************************
 
-	func addCardViewWithText(text:String, morse:String, textOnTop:Bool = true, animateWithDuration duration:NSTimeInterval = 0.0) {
+	func addCardViewWithText(text:String, morse:String, textOnTop:Bool = true, deletable:Bool = true, animateWithDuration duration:NSTimeInterval = 0.0) {
 		let cardView = CardView(frame: CGRect(x: self.cardViewLeadingMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeadingMargin - self.cardViewTrailingMargin, height: self.cardViewHeight), text: text, morse: morse, textOnTop: textOnTop)
 		cardView.delegate = self
+		cardView.cardUniqueID = "\(UIDevice.currentDevice().identifierForVendor)\(NSDate())\(text)\(morse)".hashValue
 
 		cardView.opaque = false
 		cardView.alpha = 0.0
+
 		if self.cardViews.isEmpty {
 			self.scrollView.addSubview(cardView)
 		} else {
@@ -299,7 +375,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				self.scrollView.layoutIfNeeded()
 			}) { succeed in
 				if succeed {
-					UIView.animateWithDuration(duration * 2.0 / 3.0,
+					UIView.animateWithDuration(duration * 2.0 / 3.0 * appDelegate.animationDurationScalar,
 						delay: 0.0,
 						options: .CurveEaseInOut,
 						animations: { () -> Void in
@@ -307,7 +383,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 						}) { succeed in
 							if succeed {
 								cardView.opaque = true
-								self.saveCard(text, morse: morse, index: self.cardViews.count - 1, textOnTop: self.topSectionViewController.isDirectionEncode, favorite: false, deletable: true)
+								self.saveCard(text, morse: morse, index: self.cardViews.count - 1, textOnTop: self.topSectionViewController.isDirectionEncode, favorite: false, deletable: true, cardUniqueID: cardView.cardUniqueID!)
 							}
 					}
 				}
@@ -389,7 +465,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	// *****************************
 
 	// This method is called after creating a new card on the scrollView, to save it's data into CoreData.
-	private func saveCard(text: String, morse:String, index:Int, textOnTop:Bool = true, favorite:Bool = false, deletable:Bool = true) {
+	private func saveCard(text: String, morse:String, index:Int, textOnTop:Bool = true, favorite:Bool = false, deletable:Bool = true, cardUniqueID:Int) {
 		let managedContext = appDelegate.managedObjectContext
 		let entity = NSEntityDescription.entityForName("Card", inManagedObjectContext:managedContext)
 		let card = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
@@ -401,9 +477,8 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		card.setValue(favorite, forKey: "favorite")
 		card.setValue(deletable, forKey: "deletable")
 		card.setValue(date, forKey: "dateCreated")
-		card.setValue("\(UIDevice.currentDevice().identifierForVendor)\(date)".hashValue, forKey: "cardUniqueID")
+		card.setValue(cardUniqueID, forKey: "cardUniqueID")
 		card.setValue("Text Morse", forKey: "transmitterType")
-
 		do {
 			try managedContext.save()
 		} catch let error as NSError {
@@ -427,7 +502,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				for card in cards {
 					let cardView = CardView(frame: CGRect(x: self.cardViewLeadingMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeadingMargin - self.cardViewTrailingMargin, height: self.cardViewHeight), text: card.valueForKey("text") as? String, morse: card.valueForKey("morse") as? String, textOnTop: card.valueForKey("textOnTop") as! Bool)
 					cardView.delegate = self
-					cardView.uniqueID = card.valueForKey("cardUniqueID") as? Int
+					cardView.cardUniqueID = card.valueForKey("cardUniqueID") as? Int
 					if lastCardView == nil {
 						self.scrollView.addSubview(cardView)
 					} else {

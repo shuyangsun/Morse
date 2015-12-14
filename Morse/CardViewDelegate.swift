@@ -6,8 +6,11 @@
 //  Copyright © 2015 Shuyang Sun. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol CardViewDelegate {
 	func cardViewTapped(cardView:CardView)
+	func cardViewTouchesBegan(cardView:CardView, touches: Set<UITouch>, withEvent event: UIEvent?)
+	func cardViewTouchesEnded(cardView:CardView, touches: Set<UITouch>, withEvent event: UIEvent?, deleteCard:Bool)
+	func cardViewTouchesCancelled(cardView:CardView, touches: Set<UITouch>?, withEvent event: UIEvent?)
 }

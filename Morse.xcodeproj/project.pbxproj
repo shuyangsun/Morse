@@ -19,6 +19,9 @@
 		1030BA0F1C1890C20099F2E4 /* CardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */; };
 		1030BA101C1890C20099F2E4 /* CardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */; };
 		1030BA111C1890C20099F2E4 /* CardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */; };
+		103FB0721C1E1B0D004B591F /* HomeScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103FB0711C1E1B0D004B591F /* HomeScrollView.swift */; };
+		103FB0731C1E1B0D004B591F /* HomeScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103FB0711C1E1B0D004B591F /* HomeScrollView.swift */; };
+		103FB0741C1E1B0D004B591F /* HomeScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103FB0711C1E1B0D004B591F /* HomeScrollView.swift */; };
 		1052A7431C0BACE90085B0C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7421C0BACE90085B0C9 /* AppDelegate.swift */; };
 		1052A7481C0BACE90085B0C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1052A7461C0BACE90085B0C9 /* Main.storyboard */; };
 		1052A74B1C0BACE90085B0C9 /* Morse.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7491C0BACE90085B0C9 /* Morse.xcdatamodeld */; };
@@ -133,6 +136,7 @@
 		101A0AB21C1BBA820030A51A /* LocalizedStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
 		10286CCA1C0D1BCF00BD2B43 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewDelegate.swift; sourceTree = "<group>"; };
+		103FB0711C1E1B0D004B591F /* HomeScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScrollView.swift; sourceTree = "<group>"; };
 		1052A73F1C0BACE90085B0C9 /* Morse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Morse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1052A7421C0BACE90085B0C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1052A7471C0BACE90085B0C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -297,6 +301,7 @@
 				1052A7731C0BAED50085B0C9 /* TabBarController.swift */,
 				1052A77B1C0BB09B0085B0C9 /* HomeViewController.swift */,
 				101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */,
+				103FB0711C1E1B0D004B591F /* HomeScrollView.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -501,6 +506,7 @@
 				10286CCB1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				10826A181C0D5C4C00902BCC /* General.swift in Sources */,
 				107FF6C41C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
+				103FB0721C1E1B0D004B591F /* HomeScrollView.swift in Sources */,
 				101A0AB31C1BBA820030A51A /* LocalizedStrings.swift in Sources */,
 				101A0A981C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */,
 				1052A7741C0BAED50085B0C9 /* TabBarController.swift in Sources */,
@@ -522,6 +528,7 @@
 				10286CCC1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				107FF6C51C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
 				107FF6A81C0BC128003EB294 /* Theme.swift in Sources */,
+				103FB0731C1E1B0D004B591F /* HomeScrollView.swift in Sources */,
 				101A0AB41C1BBA820030A51A /* LocalizedStrings.swift in Sources */,
 				101A0A991C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */,
 				1052A7751C0BAED50085B0C9 /* TabBarController.swift in Sources */,
@@ -543,6 +550,7 @@
 				10286CCD1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				107FF6C61C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
 				107FF6A91C0BC128003EB294 /* Theme.swift in Sources */,
+				103FB0741C1E1B0D004B591F /* HomeScrollView.swift in Sources */,
 				101A0AB51C1BBA820030A51A /* LocalizedStrings.swift in Sources */,
 				101A0A9A1C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */,
 				1052A7761C0BAED50085B0C9 /* TabBarController.swift in Sources */,

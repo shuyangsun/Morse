@@ -26,3 +26,10 @@ func getAttributedStringFrom(text:String?, withFontSize fontSize:CGFloat = UIFon
 		[NSFontAttributeName: bold ? UIFont.boldSystemFontOfSize(fontSize) : UIFont.systemFontOfSize(fontSize),
 			NSForegroundColorAttributeName: color])
 }
+
+enum Direction:Int {
+	case Top = 1
+	case Right = 2
+	case Bottom = 3
+	case Left = 4
+}
