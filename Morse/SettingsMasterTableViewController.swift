@@ -11,6 +11,14 @@ import UIKit
 class SettingsMasterTableViewController: UITableViewController {
 
 	private let _cellIdentifier = "Settings Default Cell Identifier"
+	private var _isIPad:Bool {
+		if self.traitCollection.verticalSizeClass == .Regular &&
+			self.traitCollection.horizontalSizeClass == .Regular {
+				return true
+		} else {
+			return false
+		}
+	}
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,9 +74,19 @@ class SettingsMasterTableViewController: UITableViewController {
 			switch indexPath.row {
 			case 0:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Languages Cell", forIndexPath: indexPath)
-				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.languages
-					, withFontSize: 16, color: appDelegate.theme.settingsCellTitleTextColor, bold: false)
-				cell.accessoryType = .DisclosureIndicator
+				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.languages, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				let currentLanguageName = supportedLanguages[appDelegate.currentLocaleLanguageCode]
+				var languageNameOriginal = ""
+				if currentLanguageName == nil {
+					languageNameOriginal = LocalizedStrings.Languages.systemDefault
+				} else {
+					languageNameOriginal = currentLanguageName!.original
+				}
+				// Detailed text displays the current language. 
+				cell.detailTextLabel?.attributedText = getAttributedStringFrom(languageNameOriginal, withFontSize: 16, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
+				if !self._isIPad {
+					cell.accessoryType = .DisclosureIndicator
+				}
 			default: break
 			}
 		} else if indexPath.section == 1 {
@@ -76,15 +94,17 @@ class SettingsMasterTableViewController: UITableViewController {
 			case 0:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Theme Cell", forIndexPath: indexPath)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.theme
-					, withFontSize: 16, color: appDelegate.theme.settingsCellTitleTextColor, bold: false)
-				cell.accessoryType = .DisclosureIndicator
+					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				if !self._isIPad {
+					cell.accessoryType = .DisclosureIndicator
+				}
 			case 1:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Layout Cell", forIndexPath: indexPath)
-				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.switchLayoutDirection, withFontSize: 16, color: appDelegate.theme.settingsCellTitleTextColor, bold: false)
+				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.switchLayoutDirection, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			default: break
 			}
 		}
-
+		
         // Configure the cell...
 
         return cell
@@ -94,7 +114,7 @@ class SettingsMasterTableViewController: UITableViewController {
 		switch section {
 		case 0: return LocalizedStrings.Settings.general
 		case 1: return LocalizedStrings.Settings.ui
-		case 2: return LocalizedStrings.Settings.developer
+		case 2: return LocalizedStrings.Settings.developerOptions
 		default: return nil
 		}
 	}

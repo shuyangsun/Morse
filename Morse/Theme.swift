@@ -61,7 +61,7 @@ enum Theme: String {
 
 	var roundButtonBackgroundColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Red.A200!
+		case .Default: return MDColorPalette.Orange.A400!
 		}
 	}
 
@@ -143,22 +143,46 @@ enum Theme: String {
 		}
 	}
 
-	var settingsCellTitleTextColor:UIColor {
+	var cellBackgroundColor:UIColor {
+		switch self {
+		default: return UIColor.whiteColor()
+		}
+	}
+
+	var cellSelectedBackgroundColor:UIColor {
+		switch self {
+		case .Default: return MDColorPalette.Orange.A200!
+		}
+	}
+
+	var cellTitleTextColor:UIColor {
 		switch self {
 		default: return UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha)
 		}
 	}
 
-	var settingsCellDetailTitleTextColor:UIColor {
+	var cellTitleTextSelectedColor:UIColor {
+		switch self {
+		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		}
+	}
+
+	var cellDetailTitleTextColor:UIColor {
 		switch self {
 		default: return UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)
 		}
 	}
 
-	var settingsCellCheckmarkColor:UIColor {
+	var cellDetailTitleTextSelectedColor:UIColor {
 		switch self {
-		default: return self.roundButtonBackgroundColor
+		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextSecondaryAlpha)
 		}
 	}
 
+	var cellCheckmarkColor:UIColor {
+		switch self {
+//		case .Default: return MDColorPalette.Red.A200!
+		default: return self.topBarLabelTextColor
+		}
+	}
 }

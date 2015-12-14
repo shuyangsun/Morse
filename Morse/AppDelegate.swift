@@ -58,7 +58,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			self.userDefaults.setValue(1.0, forKey: userDefaultsKeyAnimationDurationScalar)
 			self.userDefaults.synchronize()
 		#endif
-
 		return true
 	}
 

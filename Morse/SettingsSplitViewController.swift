@@ -19,15 +19,15 @@ class SettingsSplitViewController: UISplitViewController, UISplitViewControllerD
 		self.delegate = self
 		self.preferredDisplayMode = .AllVisible
 
-		self.statusBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: statusBarHeight))
-		self.statusBarView.backgroundColor = appDelegate.theme.statusBarBackgroundColor
-		self.view.addSubview(statusBarView)
-		self.statusBarView.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.view)
-			make.leading.equalTo(self.view)
-			make.trailing.equalTo(self.view)
-			make.height.equalTo(statusBarHeight)
-		}
+//		self.statusBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: statusBarHeight))
+//		self.statusBarView.backgroundColor = appDelegate.theme.statusBarBackgroundColor
+//		self.view.addSubview(statusBarView)
+//		self.statusBarView.snp_makeConstraints { (make) -> Void in
+//			make.top.equalTo(self.view)
+//			make.leading.equalTo(self.view)
+//			make.trailing.equalTo(self.view)
+//			make.height.equalTo(statusBarHeight)
+//		}
     }
 
     override func didReceiveMemoryWarning() {

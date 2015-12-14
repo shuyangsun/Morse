@@ -100,14 +100,15 @@ class SettingsLanguagesTableViewController: UITableViewController {
 				self.currentCheckedCell = cell
 			}
 		}
-		
-		// Configure the cell...
+
+		cell.updateColor()
 
 		return cell
 	}
 
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch section {
+		case 0: return LocalizedStrings.Languages.defaultGroup
 		case 1: return LocalizedStrings.Languages.asia
 		case 2: return LocalizedStrings.Languages.northAmerica
 		default: return nil
@@ -120,9 +121,13 @@ class SettingsLanguagesTableViewController: UITableViewController {
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let cell = tableView.cellForRowAtIndexPath(indexPath) as! LanguageTableViewCell
-		cell.accessoryType = .Checkmark
 		self.currentCheckedCell?.accessoryType = .None
+		if self.currentCheckedCell != cell {
+			self.currentCheckedCell?.updateColor()
+		}
+		cell.accessoryType = .Checkmark
 		self.currentCheckedCell = cell
+		cell.updateColor()
 		let languageCode = cell.languageCode
 		if languageCode.isEmpty {
 			appDelegate.resetLocaleToSystemDefault()

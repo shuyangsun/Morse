@@ -40,13 +40,14 @@ struct LocalizedStrings {
 		static let settings = NSLocalizedString("Settings", comment: "The title for settings page.")
 		static let general = NSLocalizedString("General", comment: "There are categories on the settings page, this is one of the category.")
 		static let ui = NSLocalizedString("User Interface", comment: "There are categories on the settings page, this is one of the category.")
-		static let developer = NSLocalizedString("Developer", comment: "There are categories on the settings page, this is one of the category.")
-		static let languages = NSLocalizedString("Languages", comment: "There are many sections on the settings page, this section let the user change the App's language.")
+		static let developerOptions = NSLocalizedString("Developer Options", comment: "There are categories on the settings page, this is one of the category.")
+		static let languages = NSLocalizedString("Display Language", comment: "There are many sections on the settings page, this section let the user change the App's language.")
 		static let switchLayoutDirection = NSLocalizedString("Switch Layout Direction", comment: "There are many sections on the settings page, this switch let the user change some of the UI's layout direction.")
 		static let theme = NSLocalizedString("Color Theme", comment: "There are many sections on the settings page, this switch let the user change the color theme of this App.")
 	}
 
 	struct Languages {
+		static let defaultGroup = NSLocalizedString("Default", comment: "Users can change language in settings app, this is one of the language groups.")
 		static let asia = NSLocalizedString("Asia", comment: "Users can change language in settings app, this is one of the language groups.")
 		static let northAmerica = NSLocalizedString("North America", comment: "Users can change language in settings app, this is one of the language groups.")
 		static let systemDefault = NSLocalizedString("System Default", comment: "Users can change language in settings app, this is one means the language is system default.")

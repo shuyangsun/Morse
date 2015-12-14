@@ -177,20 +177,12 @@
 		10826A171C0D5C4C00902BCC /* General.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = General.swift; sourceTree = "<group>"; };
 		109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButtonView.swift; sourceTree = "<group>"; };
 		10B9C8141C0FB5A4001C5847 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		10BFD37E1C1E865300FA4C26 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		10BFD3821C1E865300FA4C26 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		10BFD3831C1E866000FA4C26 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		10BFD38D1C1E964C00FA4C26 /* SettingsSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSplitViewController.swift; sourceTree = "<group>"; };
 		10BFD3911C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsMasterTableViewController.swift; sourceTree = "<group>"; };
 		10BFD3991C1F1C1300FA4C26 /* General UI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "General UI.swift"; sourceTree = "<group>"; };
 		10BFD39D1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsLanguagesTableViewController.swift; sourceTree = "<group>"; };
 		10BFD3A21C1F486700FA4C26 /* LanguageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageTableViewCell.swift; sourceTree = "<group>"; };
-		10CAF8101C1DDD1B00164258 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/Main.strings"; sourceTree = "<group>"; };
-		10CAF8111C1DDD1B00164258 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
-		10CAF8151C1DDD4A00164258 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		10CAF81A1C1DDD4A00164258 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		10CAF81F1C1DDD4A00164258 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		10CAF8241C1DDD4A00164258 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		10CAF8261C1DDD5A00164258 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		10CAF8271C1DDD5A00164258 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		10CAF8281C1DDDBB00164258 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -654,7 +646,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				1052A7471C0BACE90085B0C9 /* Base */,
-				10CAF8101C1DDD1B00164258 /* en-US */,
 				10CAF8261C1DDD5A00164258 /* zh-Hans */,
 				10CAF8281C1DDDBB00164258 /* zh-Hant */,
 				10CAF8331C1DDEF200164258 /* ar */,
@@ -666,7 +657,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				1052A74F1C0BACE90085B0C9 /* Base */,
-				10CAF8111C1DDD1B00164258 /* en-US */,
 				10CAF8271C1DDD5A00164258 /* zh-Hans */,
 				10CAF8291C1DDDBB00164258 /* zh-Hant */,
 				10CAF8341C1DDEF200164258 /* ar */,
@@ -677,7 +667,6 @@
 		10CAF8161C1DDD4A00164258 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				10CAF8151C1DDD4A00164258 /* en-US */,
 				10CAF8311C1DDE3100164258 /* zh-Hant */,
 				10CAF83D1C1DDFE700164258 /* ar */,
 				103FB0791C1E8324004B591F /* zh-Hans */,
@@ -688,7 +677,6 @@
 		10CAF81B1C1DDD4A00164258 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				10CAF81A1C1DDD4A00164258 /* en-US */,
 				10CAF82A1C1DDE3000164258 /* zh-Hant */,
 				10CAF8351C1DDFE600164258 /* ar */,
 				103FB0751C1E8323004B591F /* zh-Hans */,
@@ -699,7 +687,6 @@
 		10CAF8201C1DDD4A00164258 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				10CAF81F1C1DDD4A00164258 /* en-US */,
 				10CAF8301C1DDE3100164258 /* zh-Hant */,
 				10CAF83C1C1DDFE700164258 /* ar */,
 				103FB0781C1E8323004B591F /* zh-Hans */,
@@ -710,7 +697,6 @@
 		10CAF8251C1DDD4A00164258 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				10CAF8241C1DDD4A00164258 /* en-US */,
 				10CAF8321C1DDE3100164258 /* zh-Hant */,
 				10CAF83E1C1DDFE700164258 /* ar */,
 				103FB07A1C1E8324004B591F /* zh-Hans */,
@@ -724,7 +710,6 @@
 				10CAF82E1C1DDE3100164258 /* zh-Hant */,
 				10CAF83B1C1DDFE700164258 /* ar */,
 				103FB0771C1E8323004B591F /* zh-Hans */,
-				10BFD3821C1E865300FA4C26 /* en-US */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -734,7 +719,6 @@
 			children = (
 				10CAF8391C1DDFE700164258 /* ar */,
 				103FB0761C1E8323004B591F /* zh-Hans */,
-				10BFD37E1C1E865300FA4C26 /* en-US */,
 				10BFD3831C1E866000FA4C26 /* zh-Hant */,
 			);
 			name = Localizable.strings;

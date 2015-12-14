@@ -16,10 +16,10 @@ class LanguageTableViewCell: UITableViewCell {
 	var languageCode = "" {
 		willSet {
 			if newValue == "" {
-				self.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Languages.systemDefault, withFontSize: self._textLabelFontSize, color: appDelegate.theme.settingsCellTitleTextColor, bold: false)
+				self.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Languages.systemDefault, withFontSize: self._textLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			} else {
-				self.textLabel?.attributedText = getAttributedStringFrom(supportedLanguages[newValue]!.original, withFontSize: self._textLabelFontSize, color: appDelegate.theme.settingsCellTitleTextColor, bold: false)
-				self.detailTextLabel?.attributedText = getAttributedStringFrom(supportedLanguages[newValue]!.localized, withFontSize: self._detailTextLabelFontSize, color: appDelegate.theme.settingsCellDetailTitleTextColor, bold: false)
+				self.textLabel?.attributedText = getAttributedStringFrom(supportedLanguages[newValue]!.original, withFontSize: self._textLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				self.detailTextLabel?.attributedText = getAttributedStringFrom(supportedLanguages[newValue]!.localized, withFontSize: self._detailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
 			}
 		}
 	}
@@ -27,7 +27,7 @@ class LanguageTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-		self.tintColor = appDelegate.theme.settingsCellCheckmarkColor
+		self.tintColor = appDelegate.theme.cellCheckmarkColor
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -35,5 +35,25 @@ class LanguageTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+
+	func updateColor() {
+		if self.accessoryType == .None {
+			self.backgroundColor = appDelegate.theme.cellBackgroundColor
+			if self.languageCode == "" {
+				self.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Languages.systemDefault, withFontSize: self._textLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+			} else {
+				self.textLabel?.attributedText = getAttributedStringFrom(supportedLanguages[self.languageCode]!.original, withFontSize: self._textLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				self.detailTextLabel?.attributedText = getAttributedStringFrom(supportedLanguages[self.languageCode]!.localized, withFontSize: self._detailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
+			}
+		} else {
+			self.backgroundColor = appDelegate.theme.cellSelectedBackgroundColor
+			if self.languageCode == "" {
+				self.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Languages.systemDefault, withFontSize: self._textLabelFontSize, color: appDelegate.theme.cellTitleTextSelectedColor, bold: false)
+			} else {
+				self.textLabel?.attributedText = getAttributedStringFrom(supportedLanguages[self.languageCode]!.original, withFontSize: self._textLabelFontSize, color: appDelegate.theme.cellTitleTextSelectedColor, bold: false)
+				self.detailTextLabel?.attributedText = getAttributedStringFrom(supportedLanguages[self.languageCode]!.localized, withFontSize: self._detailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextSelectedColor, bold: false)
+			}
+		}
+	}
 
 }
