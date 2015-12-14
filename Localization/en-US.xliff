@@ -35,6 +35,26 @@
         <target>Morse</target>
         <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse (in English).</note>
       </trans-unit>
+      <trans-unit id="Swipe to left to delete me.">
+        <source>Swipe to left to delete me.</source>
+        <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+      </trans-unit>
+      <trans-unit id="Swipe to left to output and share this Morse code.">
+        <source>Swipe to left to output and share this Morse code.</source>
+        <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+      </trans-unit>
+      <trans-unit id="Swipe to right to delete me.">
+        <source>Swipe to right to delete me.</source>
+        <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+      </trans-unit>
+      <trans-unit id="Swipe to right to output and share this Morse code.">
+        <source>Swipe to right to output and share this Morse code.</source>
+        <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+      </trans-unit>
+      <trans-unit id="Tap me to expand.">
+        <source>Tap me to expand.</source>
+        <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+      </trans-unit>
       <trans-unit id="Text">
         <source>Text</source>
         <target>Text</target>
@@ -44,6 +64,10 @@
         <source>Touch to type</source>
         <target>Touch to type</target>
         <note>There is a string on the input text view on home screen, promoting user to touch the text box to start typing.</note>
+      </trans-unit>
+      <trans-unit id="Welcome to Morse Transmitter!">
+        <source>Welcome to Morse Transmitter!</source>
+        <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
       </trans-unit>
     </body>
   </file>
@@ -69,6 +93,26 @@
         <source>Morse</source>
         <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse (in English).</note>
       </trans-unit>
+      <trans-unit id="Swipe to left to delete me.">
+        <source>Swipe to left to delete me.</source>
+        <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+      </trans-unit>
+      <trans-unit id="Swipe to left to output and share this Morse code.">
+        <source>Swipe to left to output and share this Morse code.</source>
+        <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+      </trans-unit>
+      <trans-unit id="Swipe to right to delete me.">
+        <source>Swipe to right to delete me.</source>
+        <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+      </trans-unit>
+      <trans-unit id="Swipe to right to output and share this Morse code.">
+        <source>Swipe to right to output and share this Morse code.</source>
+        <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+      </trans-unit>
+      <trans-unit id="Tap me to expand.">
+        <source>Tap me to expand.</source>
+        <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+      </trans-unit>
       <trans-unit id="Text">
         <source>Text</source>
         <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse (in English).</note>
@@ -76,6 +120,10 @@
       <trans-unit id="Touch to type">
         <source>Touch to type</source>
         <note>There is a string on the input text view on home screen, promoting user to touch the text box to start typing.</note>
+      </trans-unit>
+      <trans-unit id="Welcome to Morse Transmitter!">
+        <source>Welcome to Morse Transmitter!</source>
+        <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
       </trans-unit>
     </body>
   </file>
@@ -89,6 +137,49 @@
       </trans-unit>
       <trans-unit id="CFBundleShortVersionString">
         <source>1.0</source>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="MorseUITests/Localizable.strings" source-language="en" datatype="plaintext" target-language="en-US">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
+    </header>
+    <body>
+      <trans-unit id="Morse">
+        <source>Morse</source>
+        <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse (in English).</note>
+      </trans-unit>
+      <trans-unit id="Swipe to left to delete me.">
+        <source>Swipe to left to delete me.</source>
+        <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+      </trans-unit>
+      <trans-unit id="Swipe to left to output and share this Morse code.">
+        <source>Swipe to left to output and share this Morse code.</source>
+        <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+      </trans-unit>
+      <trans-unit id="Swipe to right to delete me.">
+        <source>Swipe to right to delete me.</source>
+        <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+      </trans-unit>
+      <trans-unit id="Swipe to right to output and share this Morse code.">
+        <source>Swipe to right to output and share this Morse code.</source>
+        <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+      </trans-unit>
+      <trans-unit id="Tap me to expand.">
+        <source>Tap me to expand.</source>
+        <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+      </trans-unit>
+      <trans-unit id="Text">
+        <source>Text</source>
+        <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse (in English).</note>
+      </trans-unit>
+      <trans-unit id="Touch to type">
+        <source>Touch to type</source>
+        <note>There is a string on the input text view on home screen, promoting user to touch the text box to start typing.</note>
+      </trans-unit>
+      <trans-unit id="Welcome to Morse Transmitter!">
+        <source>Welcome to Morse Transmitter!</source>
+        <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
       </trans-unit>
     </body>
   </file>

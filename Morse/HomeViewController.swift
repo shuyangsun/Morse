@@ -182,8 +182,10 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		if self.scrollView.subviews.isEmpty {
+		// If there's no card view on the screen, fetch from core data or add some if first launch
+		if self.cardViews.isEmpty {
 			self.fetchCardsAndUpdateCardViews()
+			self.addCardsIfFirstLaunch()
 		}
 	}
 
@@ -486,6 +488,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		}
 	}
 
+	// Fetch existing cards from core data, and add them onto the scroll view, then layout them.
 	private func fetchCardsAndUpdateCardViews() {
 		// If there is no card on the board, fetch some cards
 		if self.cardViews.isEmpty {
@@ -520,6 +523,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		}
 	}
 
+	// This function is called by top section VC too, so keep it public.
 	func collapseCurrentExpandedView() {
 		let cardView = self.currentExpandedView
 		self.currentExpandedView = nil
@@ -538,6 +542,32 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 						cardView!.addMDShadow(withDepth: 1)
 					}
 			}
+		}
+	}
+
+	// On the first launch of the game, there are tutorial cards on the home screen, this function adds them.
+	private func addCardsIfFirstLaunch() {
+		if !appDelegate.notFirstLaunch {
+			let localizedTextArrays = [
+				(localized:LocalizedStrings.LaunchCard.text1, english: "Welcome to Morse Transmitter!"),
+				(localized:LocalizedStrings.LaunchCard.text2, english: "Tap me to expand."),
+				(localized:LocalizedStrings.LaunchCard.text3, english: "Swipe to right to delete me."),
+				(localized:LocalizedStrings.LaunchCard.text4, english: "Swipe to left to output and share this Morse code."),
+			]
+			let transmitter = MorseTansmitter()
+			for var i = localizedTextArrays.count - 1; i >= 0; i-- {
+				var text = localizedTextArrays[i].localized
+				// If morse is empty after trimming punchtuations, add english.
+				transmitter.text = text.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
+				var morse = transmitter.morse
+				if morse == nil || morse!.isEmpty {
+					text += "\n\(localizedTextArrays[i].english)"
+				}
+				transmitter.text = text
+				morse = transmitter.morse
+				self.addCardViewWithText(text, morse: morse!)
+			}
+			appDelegate.userDefaults.setValue(true, forKey: userDefaultsKeyNotFirstLaunch)
 		}
 	}
 }
