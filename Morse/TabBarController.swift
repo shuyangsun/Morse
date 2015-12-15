@@ -54,10 +54,10 @@ class TabBarController: UITabBarController {
 		coordinator.animateAlongsideTransition(nil) { context in
 			if let fromVC = context.viewControllerForKey(UITransitionContextFromViewControllerKey) as? TabBarController {
 				if fromVC === self {
-					if self.homeVC != nil && self.selectedViewController == self.homeVC {
+					if self.homeVC != nil {
 						self.homeVC.rotationDidChange()
 					}
-					if self.morseDictionaryVC != nil && self.selectedViewController == self.morseDictionaryVC {
+					if self.morseDictionaryVC != nil {
 						self.morseDictionaryVC.rotationDidChange()
 					}
 				}

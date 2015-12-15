@@ -164,6 +164,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			self.fetchCardsAndUpdateCardViews()
 			self.addCardsIfFirstLaunch()
 		}
+		self.updateMDShadows()
 	}
 
     override func didReceiveMemoryWarning() {
@@ -571,13 +572,6 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	}
 
 	func rotationDidChange() {
-		// Things to do after the rotation.
-		if self.topSectionViewController.inputTextView.isFirstResponder() {
-			self.topSectionContainerView.addMDShadow(withDepth: 3)
-		} else {
-			self.topSectionContainerView.addMDShadow(withDepth: 2)
-		}
-
 		if self.currentExpandedView != nil {
 			self.updateConstraintsForCardView(self.currentExpandedView!)
 		}
@@ -603,5 +597,18 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			}
 		}
 		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
+		self.updateMDShadows()
+	}
+
+	private func updateMDShadows() {
+		if self.topSectionViewController.inputTextView.isFirstResponder() {
+			self.topSectionContainerView.addMDShadow(withDepth: 3)
+		} else {
+			self.topSectionContainerView.addMDShadow(withDepth: 2)
+		}
+
+		for card in self.cardViews {
+			card.addMDShadow(withDepth: 1)
+		}
 	}
 }

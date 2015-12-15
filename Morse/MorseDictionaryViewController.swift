@@ -21,8 +21,6 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 	var scrollView:UIScrollView!
 
 	private var cardViews:[CardView] = []
-
-	private var currentExpandedView:CardView?
 	private var transmitter = MorseTransmitter()
 
 	// *****************************
@@ -50,7 +48,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 		return cardViewHorizontalMargin
 	}
 
-	private var cardViewVerticalGap:CGFloat {
+	private var cardViewGap:CGFloat {
 		if self.traitCollection.verticalSizeClass == .Regular &&
 			self.traitCollection.horizontalSizeClass == .Regular {
 				return 16
@@ -64,7 +62,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 		return 86
 	}
 
-	private let cardViewMinWidth:CGFloat = 200
+	private let cardViewMinWidth:CGFloat = 150
 
 	// *****************************
 	// MARK: MVC LifeCycle
@@ -134,6 +132,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		self.addCards()
+		self.updateMDShadows()
 	}
 
     override func didReceiveMemoryWarning() {
@@ -155,39 +154,11 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 	}
 
 	func cardViewTapped(cardView: CardView) {
-		// Expand card view.
-		if self.currentExpandedView == cardView {
-			// If the current expanded view is the tapped card view, collapse it and done.
-			self.collapseCurrentExpandedView()
-		} else {
-			// If the current expanded view is not the tapped card view, collapse the expanded view and expand card view.
-			self.collapseCurrentExpandedView()
-			// Calculate if we need to expand the card.
-			let labelWidth = cardView.topLabel.bounds.width
-			// FIX ME: Calculation not right, should use the other way, but it has a BUG.
-			if ceil(cardView.topLabel.attributedText!.size().width/labelWidth) > 1 ||
-				ceil(cardView.bottomLabel.attributedText!.size().width/labelWidth) > 1 {
-					cardView.expanded = true
-					self.currentExpandedView = cardView
-					self.updateConstraintsForCardView(cardView)
-					// Change cardView background color animation.
-					UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
-						delay: 0,
-						options: .CurveEaseOut,
-						animations: {
-							self.scrollView.setNeedsUpdateConstraints()
-							cardView.backgroundColor = appDelegate.theme.cardViewExpandedBackgroudColor
-							cardView.addMDShadow(withDepth: 1)
-						}, completion: nil)
-			}
-		}
+
 	}
 
 	func cardViewTouchesBegan(cardView: CardView, touches: Set<UITouch>, withEvent event: UIEvent?) {
-		let ind = self.cardViews.indexOf(cardView)!
-		if ind < self.cardViews.count - 1 {
-			self.scrollView.insertSubview(cardView, atIndex: 0)
-		}
+
 	}
 
 	func cardViewTouchesEnded(cardView: CardView, touches: Set<UITouch>, withEvent event: UIEvent?, deleteCard:Bool) {
@@ -198,28 +169,6 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 		self.scrollView.scrollEnabled = true
 	}
 
-	// This function is called by top section VC too, so keep it public.
-	func collapseCurrentExpandedView() {
-		let cardView = self.currentExpandedView
-		self.currentExpandedView = nil
-		if cardView != nil {
-			cardView!.expanded = false
-			self.updateConstraintsForCardView(cardView!)
-			UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
-				delay: 0,
-				options: .CurveEaseOut,
-				animations: {
-					cardView!.backgroundColor = appDelegate.theme.cardViewBackgroudColor
-					cardView!.addMDShadow(withDepth: 1)
-					self.scrollView.setNeedsUpdateConstraints()
-				}) { succeed in
-					if succeed {
-						cardView!.addMDShadow(withDepth: 1)
-					}
-			}
-		}
-	}
-
 	private func addCards() {
 		if self.cardViews.isEmpty {
 			let keys = MorseTransmitter.keys
@@ -228,7 +177,9 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 				dispatch_sync(dispatch_queue_create("Create Card Views On Dictonary VC Queue", nil)) {
 					let text = keys[i]
 					let morse = MorseTransmitter.encodeTextToMorseStringDictionary[text]!
-					let cardView = CardView(frame: CGRect(x: self.cardViewHorizontalMargin, y: self.cardViewGroupVerticalMargin, width: self.scrollView.bounds.width - self.cardViewHorizontalMargin - self.cardViewHorizontalMargin, height: self.cardViewHeight), text: text.uppercaseString, morse: morse, textOnTop: true, deletable: false)
+					let colNum = Int(max(1, floor((self.view.bounds.width - self.cardViewHorizontalMargin * 2 + self.cardViewGap) / (self.cardViewMinWidth + self.cardViewGap))))
+					let width = (self.scrollView.bounds.width - self.cardViewHorizontalMargin * 2 - CGFloat(colNum - 1) * self.cardViewGap)/CGFloat(colNum)
+					let cardView = CardView(frame: CGRect(x: self.cardViewHorizontalMargin, y: self.cardViewGroupVerticalMargin, width: width, height: self.cardViewHeight), text: text.uppercaseString, morse: morse, textOnTop: true, deletable: false, textFontSize: 22, morseFontSize: 18)
 					cardView.delegate = self
 					self.cardViews.append(cardView)
 				}
@@ -242,110 +193,60 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 				self.initializeCardViewsConstraints()
 			}
 			self.view.setNeedsUpdateConstraints()
-		}
-	}
-
-	private func updateConstraintsForCardView(cardView:CardView, indexInCardViewsArray index:Int? = nil) {
-		let ind = index == nil ? self.cardViews.indexOf(cardView)! : index!
-		var heightChange:CGFloat = 0
-		cardView.snp_remakeConstraints(closure: { (make) -> Void in
-			make.left.equalTo(self.scrollView.snp_left).offset(self.cardViewHorizontalMargin)
-			make.width.equalTo(self.scrollView).offset(-(self.cardViewHorizontalMargin + self.cardViewHorizontalMargin))
-		})
-		if ind == self.cardViews.count - 1 {
-			cardView.snp_updateConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.scrollView).offset(self.cardViewGroupVerticalMargin)
-			})
-		} else {
-			cardView.snp_updateConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.cardViews[ind + 1].snp_bottom).offset(self.cardViewVerticalGap)
-			})
-		}
-
-		let originalCardViewHeight = cardView.bounds.height
-		var resultHeight:CGFloat = 0
-		// Update view height depends on if it's expanded.
-		if cardView.expanded {
-			cardView.topLabel.lineBreakMode = .ByWordWrapping
-			cardView.topLabel.numberOfLines = 0
-			cardView.bottomLabel.lineBreakMode = .ByWordWrapping
-			cardView.bottomLabel.numberOfLines = 0
-
-			// Calculate the new height for top and bottom label.
-			// FIX ME: using "+ (self.cardViewHeight - cardView.paddingTop - cardView.gapY - cardView.paddingBottom)/2.0" because of a bug in this calculation.
-			let labelWidth = cardView.topLabel.frame.width
-			let topLabelHeight = cardView.topLabel.attributedText!.boundingRectWithSize(CGSizeMake(labelWidth, CGFloat.max), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
-				+ (self.cardViewHeight - cardView.paddingTop - cardView.labelVerticalGap - cardView.paddingBottom)/2.0
-			let bottomLabelHeight = cardView.bottomLabel.attributedText!.boundingRectWithSize(CGSizeMake(labelWidth, CGFloat.max), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
-			resultHeight = cardView.paddingTop + topLabelHeight + cardView.labelVerticalGap + bottomLabelHeight + cardView.paddingBottom
-
-			cardView.topLabel.snp_updateConstraints(closure: { (make) -> Void in
-				make.height.equalTo(topLabelHeight)
-			})
-
-			cardView.snp_updateConstraints { (make) -> Void in
-				make.height.equalTo(resultHeight)
+			for card in self.cardViews {
+				card.addMDShadow(withDepth: 1)
 			}
-		} else { // FIX ME: Constraints BUG
-			cardView.topLabel.snp_remakeConstraints { (make) -> Void in
-				make.top.equalTo(cardView).offset(cardView.paddingTop)
-				make.trailing.equalTo(cardView).offset(-cardView.paddingTrailing)
-				make.leading.equalTo(cardView).offset(cardView.paddingLeading)
-				make.height.equalTo((cardView.bounds.height - cardView.paddingTop - cardView.paddingBottom - cardView.labelVerticalGap)/2.0)
-			}
-			cardView.snp_updateConstraints(closure: { (make) -> Void in
-				make.height.equalTo(self.cardViewHeight)
-			})
-
-			resultHeight = self.cardViewHeight
 		}
-		heightChange = resultHeight - originalCardViewHeight
-		cardView.addMDShadow(withDepth: 1)
-		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: self.scrollView.contentSize.height + heightChange)
 	}
 
 	private func initializeCardViewsConstraints() {
+		let colNum = Int(max(1, floor((self.view.bounds.width - self.cardViewHorizontalMargin * 2 + self.cardViewGap) / (self.cardViewMinWidth + self.cardViewGap))))
+		let width = (self.scrollView.bounds.width - self.cardViewHorizontalMargin * 2 - CGFloat(colNum - 1) * self.cardViewGap)/CGFloat(colNum)
+		let height = self.cardViewHeight
 		for i in 0..<self.cardViews.count {
-			self.updateConstraintsForCardView(self.cardViews[i], indexInCardViewsArray: i)
+			let card = self.cardViews[(self.cardViews.count - 1 - i)]
+			var leftOffset = self.cardViewHorizontalMargin + CGFloat(i%colNum) * (width + self.cardViewGap)
+			if layoutDirection == .RightToLeft {
+				leftOffset = self.cardViewHorizontalMargin + CGFloat((colNum - 1) - (i%colNum)) * (width + self.cardViewGap)
+			}
+			card.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.scrollView).offset(self.cardViewGroupVerticalMargin + CGFloat(i/colNum) * (height + self.cardViewGap))
+				make.width.equalTo(width)
+				make.height.equalTo(height)
+				make.left.equalTo(self.scrollView).offset(leftOffset)
+			})
 		}
 
 		var contentHeight:CGFloat = 0
 		if !self.cardViews.isEmpty {
 			let count = self.cardViews.count
-			contentHeight = self.cardViewGroupVerticalMargin + self.cardViewGroupVerticalMargin + CGFloat(count) * self.cardViewHeight + CGFloat(count - 1) * self.cardViewVerticalGap
+			let rowNum = count/colNum + (count % colNum == 0 ? 0 : 1)
+			contentHeight = self.cardViewGroupVerticalMargin * 2 + CGFloat(rowNum) * self.cardViewHeight + CGFloat(rowNum - 1) * self.cardViewGap
 		}
 		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
 	}
 
 	func rotationDidChange() {
-		// Things to do after the rotation.
-		self.topBarView.addMDShadow(withDepth: 2)
+		dispatch_sync(dispatch_queue_create("Update Card View Constraints On Dictonary VC Queue", nil)) {
+			self.initializeCardViewsConstraints()
+		}
+		UIView.animateWithDuration(TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar,
+			delay: 0,
+			options: .CurveEaseOut,
+			animations: {
+				self.scrollView.layoutIfNeeded()
+			}) { succeed in
+				if succeed {
+					self.updateMDShadows()
+				}
+		}
+	}
 
-		if self.currentExpandedView != nil {
-			self.updateConstraintsForCardView(self.currentExpandedView!)
-		}
-		for i in 0..<self.cardViews.count {
-			self.cardViews[i].snp_updateConstraints(closure: { (make) -> Void in
-				make.width.equalTo(self.scrollView).offset(-(self.cardViewHorizontalMargin + self.cardViewHorizontalMargin))
-			})
-		}
-		self.scrollView.setNeedsUpdateConstraints()
+	private func updateMDShadows() {
+		self.topBarView.addMDShadow(withDepth: 2)
 		for card in self.cardViews {
 			card.addMDShadow(withDepth: 1)
 		}
-
-		let count = self.cardViews.count
-		var contentHeight = self.cardViewGroupVerticalMargin + self.cardViewGroupVerticalMargin + CGFloat(count - 1) * self.cardViewVerticalGap + CGFloat(count - 1) * self.cardViewHeight
-		if count == 0 {
-			contentHeight = 0
-		} else {
-			if self.currentExpandedView != nil {
-				contentHeight += self.currentExpandedView!.bounds.height
-			} else {
-				contentHeight += self.cardViewHeight
-			}
-		}
-		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
 	}
 
     /*

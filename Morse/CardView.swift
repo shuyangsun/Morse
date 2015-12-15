@@ -52,7 +52,7 @@ class CardView: UIView {
 		self.addGestureRecognizer(tapGR)
 	}
 
-	convenience init(frame:CGRect, text:String?, morse:String?, textOnTop:Bool = true, deletable:Bool = true) {
+	convenience init(frame:CGRect, text:String?, morse:String?, textOnTop:Bool = true, deletable:Bool = true, textFontSize:CGFloat = 16, morseFontSize:CGFloat = 14) {
 		self.init(frame:frame)
 		self.text = text
 		self.morse = morse
@@ -66,9 +66,9 @@ class CardView: UIView {
 		self.topLabel.layer.borderColor = UIColor.clearColor().CGColor
 		self.topLabel.userInteractionEnabled = false
 		if self.textOnTop {
-			self.topLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 16, color: appDelegate.theme.cardViewTextColor, bold: true)
+			self.topLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: textFontSize, color: appDelegate.theme.cardViewTextColor, bold: true)
 		} else {
-			self.topLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 14, color: appDelegate.theme.cardViewMorseColor)
+			self.topLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: morseFontSize, color: appDelegate.theme.cardViewMorseColor)
 			self.topLabel.lineBreakMode = .ByWordWrapping
 		}
 		self.addSubview(self.topLabel)
@@ -87,11 +87,11 @@ class CardView: UIView {
 		self.bottomLabel.layer.borderColor = UIColor.clearColor().CGColor
 		self.bottomLabel.userInteractionEnabled = false
 		if self.textOnTop {
-			self.bottomLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: 14, color: appDelegate.theme.cardViewMorseColor)
+			self.bottomLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: morseFontSize, color: appDelegate.theme.cardViewMorseColor)
 			self.bottomLabel.lineBreakMode = .ByWordWrapping
 		} else {
 			// TODO: Capitalize each word at the beginning of the sentence?
-			self.bottomLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: 16, color: appDelegate.theme.cardViewTextColor, bold: true)
+			self.bottomLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: textFontSize, color: appDelegate.theme.cardViewTextColor, bold: true)
 		}
 		self.addSubview(bottomLabel)
 
@@ -264,7 +264,6 @@ class CardView: UIView {
 
 	private func updateSwipeDirection() {
 		// Find which direction we need to swipe first.
-		let layoutDirection = UIView.userInterfaceLayoutDirectionForSemanticContentAttribute(.Unspecified)
 		var result = Direction.Right
 		if layoutDirection == .LeftToRight {
 			result = .Right
