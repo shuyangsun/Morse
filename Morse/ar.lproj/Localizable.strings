@@ -19,6 +19,9 @@
 /* There are categories on the settings page, this is one of the category. */
 "Developer Options" = "خيارات المطور";
 
+/* This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations. */
+"Dictionary" = "الرسم البياني";
+
 /* There are many sections on the settings page, this section let the user change the App's language. */
 "Display Language" = "لغة";
 
@@ -28,7 +31,7 @@
 /* There are categories on the settings page, this is one of the category. */
 "General" = "جنرال لواء";
 
-/* On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse (in English). */
+/* On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse. */
 "Morse" = "مورس";
 
 /* Users can change language in settings app, this is one of the language groups. */
@@ -58,7 +61,7 @@
 /* When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen. */
 "Tap me to expand." = "الاستفادة لي في التوسع.";
 
-/* On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse (in English). */
+/* On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse. */
 "Text" = "متن الكتاب";
 
 /* There is a string on the input text view on home screen, promoting user to touch the text box to start typing. */
