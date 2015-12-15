@@ -12,6 +12,8 @@ class MorseTansmitter {
 	private var _text:String?
 	private var _morse:String?
 
+	static let keys:[String] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "à", "å", "ä", "ą", "æ", "ć", "ĉ", "ç", "đ", "ð", "é", "ę", "è", "ĝ", "ĥ", "ĵ", "ł", "ń", "ñ", "ó", "ö", "ø", "ś", "ŝ", "š", "þ", "ü", "ŭ", "ź", "ż", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".", ",", "'", "\"", "_", ":", ";", "?", "!", "-", "+", "/", "(", ")", "&", "=", "@", "$"]
+
 	var text:String? {
 		set {
 			self._text = newValue
@@ -97,7 +99,7 @@ private func encodeTextToMorse(text:String!) -> String? {
 			let chArr = word.characters
 			var wordStr:String = ""
 			for ch in chArr {
-				if let chMorseString = entansmitterTextToMorseStringDictionary[String(ch)] {
+				if let chMorseString = encodeTextToMorseStringDictionary[String(ch)] {
 					wordStr += chMorseString
 					wordStr += LETTER_GAP_STRING
 				}
@@ -126,7 +128,7 @@ private func decodeMorseToText(morse:String!) -> String? {
 			let chArr = word.componentsSeparatedByString(LETTER_GAP_STRING)
 			var wordStr:String = ""
 			for ch in chArr {
-				if let chText = detansmitterMorseStringToTextDictionary[String(ch)] {
+				if let chText = decodeMorseStringToTextDictionary[String(ch)] {
 					wordStr += chText
 				}
 			}
@@ -154,7 +156,7 @@ private let DASH_LENGTH:Float = 3.0
 private let LETTER_GAP_LENGTH:Float = 3.0
 private let WORD_GAP_LENGTH:Float = 7.0
 
-private let entansmitterTextToMorseStringDictionary:Dictionary<String, String> = [
+private let encodeTextToMorseStringDictionary:Dictionary<String, String> = [
 	// English Alphabets
 	"a": ". ___",
 	"b": "___ . . .",
@@ -245,7 +247,7 @@ private let entansmitterTextToMorseStringDictionary:Dictionary<String, String> =
 	"$": ". . . ___ . . ___"
 ]
 
-private let detansmitterMorseStringToTextDictionary:Dictionary<String, String> = [
+private let decodeMorseStringToTextDictionary:Dictionary<String, String> = [
 	// English Alphabets
 	". ___": "a",
 	"___ . . .": "b",
@@ -322,6 +324,4 @@ private let detansmitterMorseStringToTextDictionary:Dictionary<String, String> =
 	". ___ ___ . ___ .": "@",
 	". . . ___ . . ___": "$"
 ]
-
-
 
