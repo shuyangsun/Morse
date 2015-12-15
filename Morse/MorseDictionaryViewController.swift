@@ -132,6 +132,10 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		self.addCards()
+		dispatch_sync(dispatch_queue_create("Update Card View Constraints On Dictonary VC Queue", nil)) {
+			self.initializeCardViewsConstraints()
+		}
+		self.view.setNeedsUpdateConstraints()
 		self.updateMDShadows()
 	}
 
@@ -169,6 +173,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 		self.scrollView.scrollEnabled = true
 	}
 
+	// This function does not take care of updating card constraints! It only put cardViews on the scrollView and array.
 	private func addCards() {
 		if self.cardViews.isEmpty {
 			let keys = MorseTransmitter.keys
@@ -187,14 +192,6 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 
 			for var i = self.cardViews.count - 1; i >= 0; i-- {
 				self.scrollView.addSubview(self.cardViews[i])
-			}
-
-			dispatch_sync(dispatch_queue_create("Update Card View Constraints On Dictonary VC Queue", nil)) {
-				self.initializeCardViewsConstraints()
-			}
-			self.view.setNeedsUpdateConstraints()
-			for card in self.cardViews {
-				card.addMDShadow(withDepth: 1)
 			}
 		}
 	}
