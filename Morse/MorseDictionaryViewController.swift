@@ -134,9 +134,12 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 				make.bottom.equalTo(self.view).offset(-self.tabBarHeight)
 			}
 		}
-
-		self.addCards()
     }
+
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		self.addCards()
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -177,7 +180,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 						delay: 0,
 						options: .CurveEaseOut,
 						animations: {
-							self.scrollView.layoutIfNeeded()
+							self.scrollView.setNeedsUpdateConstraints()
 							cardView.backgroundColor = appDelegate.theme.cardViewExpandedBackgroudColor
 							cardView.addMDShadow(withDepth: 1)
 						}, completion: nil)
@@ -213,7 +216,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 				animations: {
 					cardView!.backgroundColor = appDelegate.theme.cardViewBackgroudColor
 					cardView!.addMDShadow(withDepth: 1)
-					self.scrollView.layoutIfNeeded()
+					self.scrollView.setNeedsUpdateConstraints()
 				}) { succeed in
 					if succeed {
 						cardView!.addMDShadow(withDepth: 1)
@@ -225,24 +228,25 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 	private func addCards() {
 		if self.cardViews.isEmpty {
 			let keys = MorseTransmitter.keys
-			var lastCardView:CardView? = nil
 			for var i = keys.count - 1; i >= 0; i-- {
-				let text = keys[i]
-				let morse = MorseTransmitter.encodeTextToMorseStringDictionary[text]!
-				let cardView = CardView(frame: CGRect(x: self.cardViewLeadingMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeadingMargin - self.cardViewTrailingMargin, height: self.cardViewHeight), text: text.uppercaseString, morse: morse, textOnTop: true, deletable: false)
-				cardView.delegate = self
-				if lastCardView == nil {
-					self.scrollView.addSubview(cardView)
-				} else {
-					self.scrollView.insertSubview(cardView, belowSubview: lastCardView!)
+				// Adding cards may take a while, so do it in another thread. Has to be synced because it's about UI
+				dispatch_sync(dispatch_queue_create("Create Card Views On Dictonary VC Queue", nil)) {
+					let text = keys[i]
+					let morse = MorseTransmitter.encodeTextToMorseStringDictionary[text]!
+					let cardView = CardView(frame: CGRect(x: self.cardViewLeadingMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeadingMargin - self.cardViewTrailingMargin, height: self.cardViewHeight), text: text.uppercaseString, morse: morse, textOnTop: true, deletable: false)
+					cardView.delegate = self
+					self.cardViews.append(cardView)
 				}
-
-				lastCardView = cardView
-				self.cardViews.append(cardView)
 			}
-			
-			self.initializeCardViewsConstraints()
-			self.view.layoutIfNeeded()
+
+			for var i = self.cardViews.count - 1; i >= 0; i-- {
+				self.scrollView.addSubview(self.cardViews[i])
+			}
+
+			dispatch_sync(dispatch_queue_create("Update Card View Constraints On Dictonary VC Queue", nil)) {
+				self.initializeCardViewsConstraints()
+			}
+			self.view.setNeedsUpdateConstraints()
 		}
 	}
 
@@ -316,7 +320,6 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 			contentHeight = self.cardViewTopMargin + self.cardViewBottomMargin + CGFloat(count) * self.cardViewHeight + CGFloat(count - 1) * self.cardViewGapY
 		}
 		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
-		print(contentHeight)
 	}
 
 	func rotationDidChange() {
@@ -329,7 +332,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 				make.width.equalTo(self.scrollView).offset(-(self.cardViewLeadingMargin + self.cardViewTrailingMargin))
 			})
 		}
-		self.scrollView.layoutIfNeeded()
+		self.scrollView.setNeedsUpdateConstraints()
 		for card in self.cardViews {
 			card.addMDShadow(withDepth: 1)
 		}

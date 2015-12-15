@@ -116,6 +116,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				make.leading.equalTo(self.view)
 				make.height.equalTo(self.topSectionContainerViewHeight)
 			}
+			self.topSectionContainerView.addMDShadow(withDepth: 2)
 		}
 
 		// *****************************
@@ -164,19 +165,8 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 //		self.animator.addBehavior(self.gravityBehavior)
     }
 
-	// Views are created and constraints are added in this callback
-	override func viewDidLayoutSubviews() {
-		super.viewDidLayoutSubviews()
-
-		if self.topSectionViewController.inputTextView.isFirstResponder() {
-			self.topSectionContainerView.addMDShadow(withDepth: 3)
-		} else {
-			self.topSectionContainerView.addMDShadow(withDepth: 2)
-		}
-	}
-
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
 		// If there's no card view on the screen, fetch from core data or add some if first launch
 		if self.cardViews.isEmpty {
 			self.fetchCardsAndUpdateCardViews()
@@ -296,6 +286,10 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				// If there is one card above the deleting card, update it's constraint. Using "ind" instead of "ind - 1" because this card is already removed, from array.
 				self.updateConstraintsForCardView(self.cardViews[ind])
 			}
+			if self.currentExpandedView === cardView {
+				self.currentExpandedView = nil
+			}
+
 			// Animations
 //			self.gravityBehavior.addItem(cardView)
 			UIView.animateWithDuration(TAP_FEED_BACK_DURATION / 2.0,
@@ -305,12 +299,16 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 					self.scrollView.layoutIfNeeded()
 				}) { succeed in
 					if succeed {
+						// Update scrollView contentSize
+						self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height - cardView.bounds.height - self.cardViewGapY)
+
 						// If the content size of scroll view is smaller than scroll view frame, show top section
 						if self.scrollView.contentSize.height < self.scrollView.bounds.height {
 							self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
 						}
 					}
 			}
+
 			// Remove in Core Data
 			let managedContext = appDelegate.managedObjectContext
 			let fetchRequest = NSFetchRequest(entityName: "Card")
@@ -375,8 +373,8 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		if self.cardViews.count > 1 {
 			self.updateConstraintsForCardView(self.cardViews[self.cardViews.count - 2])
 		}
-		self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
 		self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height + self.cardViewHeight + self.cardViewGapY)
+		self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
 		UIView.animateWithDuration(duration / 3.0,
 			delay: 0.0,
 			options: .CurveEaseInOut,
@@ -508,28 +506,27 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			let sortDescriptor = NSSortDescriptor(key: "index", ascending: true)
 			fetchRequest.sortDescriptors = [sortDescriptor]
 
-			do {
-				let results = try managedContext.executeFetchRequest(fetchRequest)
-				let cards = results as! [NSManagedObject]
-				var lastCardView:CardView? = nil
-				for card in cards {
-					let cardView = CardView(frame: CGRect(x: self.cardViewLeadingMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeadingMargin - self.cardViewTrailingMargin, height: self.cardViewHeight), text: card.valueForKey("text") as? String, morse: card.valueForKey("morse") as? String, textOnTop: card.valueForKey("textOnTop") as! Bool)
-					cardView.delegate = self
-					cardView.cardUniqueID = card.valueForKey("cardUniqueID") as? Int
-					if lastCardView == nil {
-						self.scrollView.addSubview(cardView)
-					} else {
-						self.scrollView.insertSubview(cardView, belowSubview: lastCardView!)
-					}
-					lastCardView = cardView
-					self.cardViews.append(cardView)
+			var cards:[NSManagedObject] = []
+			dispatch_sync(dispatch_queue_create("Fetch Card Views On Home VC Queue", nil)) {
+				do {
+					let results = try managedContext.executeFetchRequest(fetchRequest)
+					cards = results as! [NSManagedObject]
+				} catch let error as NSError {
+					print("Could not fetch \(error), \(error.userInfo)")
 				}
-				self.initializeCardViewsConstraints()
-				self.scrollView.layoutIfNeeded()
-				self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
-			} catch let error as NSError {
-				print("Could not fetch \(error), \(error.userInfo)")
 			}
+
+			for var i = cards.count - 1; i >= 0; i-- {
+				let card = cards[i]
+				let cardView = CardView(frame: CGRect(x: self.cardViewLeadingMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeadingMargin - self.cardViewTrailingMargin, height: self.cardViewHeight), text: card.valueForKey("text") as? String, morse: card.valueForKey("morse") as? String, textOnTop: card.valueForKey("textOnTop") as! Bool)
+				cardView.delegate = self
+				cardView.cardUniqueID = card.valueForKey("cardUniqueID") as? Int
+				self.cardViews.append(cardView)
+				self.scrollView.addSubview(cardView)
+			}
+			self.initializeCardViewsConstraints()
+			self.scrollView.setNeedsUpdateConstraints()
+			self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
 		}
 	}
 
@@ -584,6 +581,12 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 	func rotationDidChange() {
 		// Things to do after the rotation.
+		if self.topSectionViewController.inputTextView.isFirstResponder() {
+			self.topSectionContainerView.addMDShadow(withDepth: 3)
+		} else {
+			self.topSectionContainerView.addMDShadow(withDepth: 2)
+		}
+
 		if self.currentExpandedView != nil {
 			self.updateConstraintsForCardView(self.currentExpandedView!)
 		}
@@ -592,7 +595,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				make.width.equalTo(self.scrollView).offset(-(self.cardViewLeadingMargin + self.cardViewTrailingMargin))
 			})
 		}
-		self.scrollView.layoutIfNeeded()
+		self.scrollView.setNeedsUpdateConstraints()
 		for card in self.cardViews {
 			card.addMDShadow(withDepth: 1)
 		}

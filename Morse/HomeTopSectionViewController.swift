@@ -343,13 +343,6 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 		}
     }
 
-	override func viewDidLayoutSubviews() {
-		super.viewDidLayoutSubviews()
-
-		// Layout views based on the new constraints
-		self.view.layoutIfNeeded()
-	}
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
