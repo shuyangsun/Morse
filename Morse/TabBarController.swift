@@ -19,9 +19,11 @@ class TabBarController: UITabBarController {
 		if controllers != nil {
 			for controller in controllers! {
 				if let homeVC = controller as? HomeViewController {
-					homeVC.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Featured, tag: 0)
+					homeVC.tabBarItem = UITabBarItem(tabBarSystemItem: .Featured, tag: 0)
+				} else if let morseDictionaryVC = controller as? MorseDictionaryViewController {
+					morseDictionaryVC.tabBarItem = UITabBarItem(tabBarSystemItem: .Bookmarks, tag: 1)
 				} else if let settingsVC = controller as? SettingsSplitViewController {
-					settingsVC.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.More, tag: 1)
+					settingsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .More, tag: 1)
 				}
 			}
 		}

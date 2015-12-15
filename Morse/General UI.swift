@@ -11,6 +11,12 @@ import UIKit
 let TAP_FEED_BACK_DURATION:NSTimeInterval = 0.5
 
 let tableViewCellHeight:CGFloat = 50
+let topBarHeight:CGFloat = 56
+
+private var cardViewHeight:CGFloat {
+	//		return 74 // This is Google Translate card view's height
+	return 86
+}
 
 var statusBarHeight:CGFloat {
 	return UIApplication.sharedApplication().statusBarFrame.size.height

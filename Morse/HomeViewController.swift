@@ -80,7 +80,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	}
 
 	private var topSectionContainerViewHeight:CGFloat {
-		return statusBarHeight + self.topSectionViewController.topBarHeight + self.topSectionViewController.textBackgroundViewHeight
+		return statusBarHeight + topBarHeight + self.topSectionViewController.textBackgroundViewHeight
 	}
 
 	// Animation related variables
@@ -205,7 +205,6 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				make.top.equalTo(self.view)
 			})
 
-
 			UIView.animateWithDuration(animationDuration
 				, delay: 0,
 				options: .CurveEaseOut,
@@ -285,6 +284,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	}
 
 	func cardViewTouchesEnded(cardView: CardView, touches: Set<UITouch>, withEvent event: UIEvent?, deleteCard:Bool) {
+		self.scrollView.scrollEnabled = true
 		let ind = self.cardViews.indexOf(cardView)!
 		if deleteCard {
 			// Remove in UI
@@ -333,6 +333,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	}
 
 	func cardViewTouchesCancelled(cardView: CardView, touches: Set<UITouch>?, withEvent event: UIEvent?) {
+		self.scrollView.scrollEnabled = true
 		let ind = self.cardViews.indexOf(cardView)!
 		// If there is a card above it:
 		if ind < self.cardViews.count - 1 {
@@ -510,10 +511,10 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 					}
 					lastCardView = cardView
 					self.cardViews.append(cardView)
-					self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
-					self.updateCardViewsConstraints()
-					self.view.layoutIfNeeded()
 				}
+				self.updateCardViewsConstraints()
+				self.view.layoutIfNeeded()
+				self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
 			} catch let error as NSError {
 				print("Could not fetch \(error), \(error.userInfo)")
 			}
@@ -551,7 +552,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				(localized:LocalizedStrings.LaunchCard.text3, english: "Swipe to right to delete me."),
 				(localized:LocalizedStrings.LaunchCard.text4, english: "Swipe to left to output and share this Morse code."),
 			]
-			let transmitter = MorseTansmitter()
+			let transmitter = MorseTransmitter()
 			for var i = localizedTextArrays.count - 1; i >= 0; i-- {
 				var text = localizedTextArrays[i].localized
 				// If morse is empty after trimming punchtuations, add english.

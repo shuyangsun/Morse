@@ -44,10 +44,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 
 	let textBackgroundViewHeight:CGFloat = 140
 
-	let topBarHeight:CGFloat = 56
-
 	var keyboardButtonViewHeight:CGFloat {
-		return self.topBarHeight
+		return topBarHeight
 	}
 
 	private var roundButtonMargin:CGFloat {
@@ -55,18 +53,18 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 	}
 
 	private var roundButtonRadius:CGFloat {
-		return self.topBarHeight/2.0 - self.roundButtonMargin
+		return topBarHeight/2.0 - self.roundButtonMargin
 	}
 
 	private var cancelButtonWidth:CGFloat {
-		return self.topBarHeight
+		return topBarHeight
 	}
 
 	// *****************************
 	// MARK: Data Related Variables
 	// *****************************
 
-	private let transmitter = MorseTansmitter()
+	private let transmitter = MorseTransmitter()
 
 	var isDirectionEncode:Bool = true {
 		didSet {
@@ -145,12 +143,12 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 		// *****************************
 
 		if self.topBarView == nil {
-			self.topBarView = UIView(frame: CGRect(x: 0, y: statusBarHeight, width: self.view.bounds.width, height: self.topBarHeight))
+			self.topBarView = UIView(frame: CGRect(x: 0, y: statusBarHeight, width: self.view.bounds.width, height: topBarHeight))
 			self.topBarView.backgroundColor = appDelegate.theme.topBarBackgroundColor
 			self.view.addSubview(topBarView)
 
 			// Text label
-			self.topBarLabelText = UILabel(frame: CGRect(x: 0, y: 0, width: self.topBarView.bounds.width/2.0 - self.roundButtonRadius - self.roundButtonMargin, height: self.topBarHeight))
+			self.topBarLabelText = UILabel(frame: CGRect(x: 0, y: 0, width: self.topBarView.bounds.width/2.0 - self.roundButtonRadius - self.roundButtonMargin, height: topBarHeight))
 			self.topBarLabelText.textAlignment = .Center
 			self.topBarLabelText.tintColor = appDelegate.theme.topBarLabelTextColor
 			self.topBarLabelText.attributedText = NSAttributedString(string: LocalizedStrings.Label.topBarTextLabel, attributes:
@@ -159,7 +157,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 			self.topBarView.addSubview(self.topBarLabelText)
 
 			// Morse label
-			self.topBarLabelMorse = UILabel(frame: CGRect(x: self.topBarView.bounds.width/2.0 + self.roundButtonRadius + self.roundButtonMargin, y: 0, width: self.topBarView.bounds.width/2.0 - self.roundButtonRadius - self.roundButtonMargin, height: self.topBarHeight))
+			self.topBarLabelMorse = UILabel(frame: CGRect(x: self.topBarView.bounds.width/2.0 + self.roundButtonRadius + self.roundButtonMargin, y: 0, width: self.topBarView.bounds.width/2.0 - self.roundButtonRadius - self.roundButtonMargin, height: topBarHeight))
 			self.topBarLabelMorse.textAlignment = .Center
 			self.topBarLabelMorse.tintColor = appDelegate.theme.topBarLabelTextColor
 			self.topBarLabelMorse.attributedText = NSAttributedString(string: LocalizedStrings.Label.topBarMorseLabel, attributes:
@@ -181,7 +179,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 			self.cancelButton.snp_makeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.topBarView)
 				make.leading.equalTo(self.topBarView)
-				make.width.equalTo(self.topBarHeight)
+				make.width.equalTo(topBarHeight)
 				make.height.equalTo(self.cancelButton.snp_width)
 			})
 
@@ -192,7 +190,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 				make.top.equalTo(self.statusBarView.snp_bottom)
 				make.leading.equalTo(self.view).offset(0)
 				make.trailing.equalTo(self.view).offset(0)
-				make.height.equalTo(self.topBarHeight)
+				make.height.equalTo(topBarHeight)
 			})
 
 			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
@@ -222,7 +220,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 		// *******************************
 
 		if self.textBackgroundView == nil {
-			self.textBackgroundView = UIView(frame: CGRect(x: 0, y: statusBarHeight + self.topBarHeight, width: self.view.bounds.width, height: self.textBackgroundViewHeight))
+			self.textBackgroundView = UIView(frame: CGRect(x: 0, y: statusBarHeight + topBarHeight, width: self.view.bounds.width, height: self.textBackgroundViewHeight))
 			self.textBackgroundView.backgroundColor = appDelegate.theme.textViewBackgroundColor
 			self.textBackgroundView.layer.borderColor = UIColor.clearColor().CGColor
 			self.textBackgroundView.layer.borderWidth = 0

@@ -144,13 +144,11 @@ class CardView: UIView {
 
 	// Do some initial setup when the user start touching this view.
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		if self.deletable {
-			self.delegate?.cardViewTouchesBegan(self, touches:touches, withEvent: event)
-			if let touch = touches.first {
-				self.updateSwipeDirection()
-				self._swipeBeganPosition = touch.locationInView(self.superview!)
-				self._originalOrigin = self.frame.origin
-			}
+		self.delegate?.cardViewTouchesBegan(self, touches:touches, withEvent: event)
+		if let touch = touches.first {
+			self.updateSwipeDirection()
+			self._swipeBeganPosition = touch.locationInView(self.superview!)
+			self._originalOrigin = self.frame.origin
 		}
 	}
 

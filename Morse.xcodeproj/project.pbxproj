@@ -19,6 +19,9 @@
 		1030BA0F1C1890C20099F2E4 /* CardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */; };
 		1030BA101C1890C20099F2E4 /* CardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */; };
 		1030BA111C1890C20099F2E4 /* CardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */; };
+		103BCF8C1C1FBA48003A26CA /* MorseDictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103BCF8B1C1FBA48003A26CA /* MorseDictionaryViewController.swift */; };
+		103BCF8D1C1FBA48003A26CA /* MorseDictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103BCF8B1C1FBA48003A26CA /* MorseDictionaryViewController.swift */; };
+		103BCF8E1C1FBA48003A26CA /* MorseDictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103BCF8B1C1FBA48003A26CA /* MorseDictionaryViewController.swift */; };
 		1052A7431C0BACE90085B0C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7421C0BACE90085B0C9 /* AppDelegate.swift */; };
 		1052A7481C0BACE90085B0C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1052A7461C0BACE90085B0C9 /* Main.storyboard */; };
 		1052A74B1C0BACE90085B0C9 /* Morse.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7491C0BACE90085B0C9 /* Morse.xcdatamodeld */; };
@@ -148,6 +151,7 @@
 		101A0AB21C1BBA820030A51A /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		10286CCA1C0D1BCF00BD2B43 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewDelegate.swift; sourceTree = "<group>"; };
+		103BCF8B1C1FBA48003A26CA /* MorseDictionaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseDictionaryViewController.swift; sourceTree = "<group>"; };
 		103FB0751C1E8323004B591F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		103FB0761C1E8323004B591F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		103FB0771C1E8323004B591F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -238,6 +242,14 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		103BCF921C1FBA52003A26CA /* Dictionary VC */ = {
+			isa = PBXGroup;
+			children = (
+				103BCF8B1C1FBA48003A26CA /* MorseDictionaryViewController.swift */,
+			);
+			name = "Dictionary VC";
+			sourceTree = "<group>";
+		};
 		1052A7361C0BACE90085B0C9 = {
 			isa = PBXGroup;
 			children = (
@@ -317,6 +329,7 @@
 			children = (
 				1052A7731C0BAED50085B0C9 /* TabBarController.swift */,
 				10BFD3971C1F1BBA00FA4C26 /* Home VC */,
+				103BCF921C1FBA52003A26CA /* Dictionary VC */,
 				10BFD3961C1F1BAD00FA4C26 /* Settings VC */,
 			);
 			name = "View Controllers";
@@ -548,6 +561,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				109ACDC01C0E0D12006AC535 /* RoundButtonView.swift in Sources */,
+				103BCF8C1C1FBA48003A26CA /* MorseDictionaryViewController.swift in Sources */,
 				10286CCB1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				10826A181C0D5C4C00902BCC /* General.swift in Sources */,
 				10BFD3921C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift in Sources */,
@@ -574,6 +588,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1052A77D1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */,
+				103BCF8D1C1FBA48003A26CA /* MorseDictionaryViewController.swift in Sources */,
 				10286CCC1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				107FF6C51C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
 				10BFD3931C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift in Sources */,
@@ -600,6 +615,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1052A77E1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */,
+				103BCF8E1C1FBA48003A26CA /* MorseDictionaryViewController.swift in Sources */,
 				10286CCD1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				107FF6C61C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
 				10BFD3941C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift in Sources */,
