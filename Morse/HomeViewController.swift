@@ -376,6 +376,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			self.updateConstraintsForCardView(self.cardViews[self.cardViews.count - 2])
 		}
 		self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
+		self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height + self.cardViewHeight + self.cardViewGapY)
 		UIView.animateWithDuration(duration / 3.0,
 			delay: 0.0,
 			options: .CurveEaseInOut,
