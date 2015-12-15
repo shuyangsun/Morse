@@ -164,6 +164,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			self.fetchCardsAndUpdateCardViews()
 			self.addCardsIfFirstLaunch()
 		}
+		self.updateScrollViewContentSize()
 		self.updateMDShadows()
 	}
 
@@ -585,6 +586,11 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			card.addMDShadow(withDepth: 1)
 		}
 
+		self.updateScrollViewContentSize()
+		self.updateMDShadows()
+	}
+
+	func updateScrollViewContentSize() {
 		let count = self.cardViews.count
 		var contentHeight = self.cardViewGroupVerticalMargin + self.cardViewGroupVerticalMargin + CGFloat(count - 1) * self.cardViewVerticalGap + CGFloat(count - 1) * self.cardViewHeight
 		if count == 0 {
@@ -597,7 +603,6 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			}
 		}
 		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
-		self.updateMDShadows()
 	}
 
 	private func updateMDShadows() {
