@@ -14,7 +14,7 @@ class CardView: UIView {
 	let paddingLeading:CGFloat = 15
 	let paddingTrailing:CGFloat = 15
 	let paddingBottom:CGFloat = 16
-	let gapY:CGFloat = 10
+	let labelVerticalGap:CGFloat = 10
 
 	var expanded = false
 
@@ -59,7 +59,7 @@ class CardView: UIView {
 		self.textOnTop = textOnTop
 		self.deletable = deletable
 
-		self.topLabel = UILabel(frame: CGRect(x: self.paddingLeading, y: self.paddingTop, width: self.bounds.width - self.paddingLeading - self.paddingTrailing, height: (self.bounds.width - self.paddingTop - self.paddingBottom - self.gapY)/2.0))
+		self.topLabel = UILabel(frame: CGRect(x: self.paddingLeading, y: self.paddingTop, width: self.bounds.width - self.paddingLeading - self.paddingTrailing, height: (self.bounds.width - self.paddingTop - self.paddingBottom - self.labelVerticalGap)/2.0))
 		self.topLabel.opaque = false
 		self.topLabel.backgroundColor = UIColor.clearColor()
 		self.topLabel.layer.borderWidth = 0
@@ -77,10 +77,10 @@ class CardView: UIView {
 			make.top.equalTo(self).offset(self.paddingTop)
 			make.trailing.equalTo(self).offset(-self.paddingTrailing)
 			make.leading.equalTo(self).offset(self.paddingLeading)
-			make.height.equalTo((self.bounds.height - self.paddingTop - self.paddingBottom - self.gapY)/2.0)
+			make.height.equalTo((self.bounds.height - self.paddingTop - self.paddingBottom - self.labelVerticalGap)/2.0)
 		}
 
-		self.bottomLabel = UILabel(frame: CGRect(x: self.paddingLeading, y: self.paddingTop + self.topLabel.bounds.height + self.gapY, width: self.bounds.width - self.paddingLeading - self.paddingTrailing, height: (self.bounds.width - self.paddingTop - self.paddingBottom - self.gapY)/2.0))
+		self.bottomLabel = UILabel(frame: CGRect(x: self.paddingLeading, y: self.paddingTop + self.topLabel.bounds.height + self.labelVerticalGap, width: self.bounds.width - self.paddingLeading - self.paddingTrailing, height: (self.bounds.width - self.paddingTop - self.paddingBottom - self.labelVerticalGap)/2.0))
 		self.bottomLabel.opaque = false
 		self.bottomLabel.backgroundColor = UIColor.clearColor()
 		self.bottomLabel.layer.borderWidth = 0
@@ -96,7 +96,7 @@ class CardView: UIView {
 		self.addSubview(bottomLabel)
 
 		self.bottomLabel.snp_makeConstraints { (make) -> Void in
-			make.top.equalTo(self.topLabel.snp_bottom).offset(self.gapY)
+			make.top.equalTo(self.topLabel.snp_bottom).offset(self.labelVerticalGap)
 			make.trailing.equalTo(self).offset(-self.paddingTrailing)
 			make.leading.equalTo(self).offset(self.paddingLeading)
 			make.bottom.equalTo(self).offset(-self.paddingBottom)

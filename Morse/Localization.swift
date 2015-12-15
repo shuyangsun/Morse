@@ -41,6 +41,7 @@ struct LocalizedStrings {
 		static let settings = NSLocalizedString("Settings", comment: "The title for settings page.")
 		static let general = NSLocalizedString("General", comment: "There are categories on the settings page, this is one of the category.")
 		static let ui = NSLocalizedString("User Interface", comment: "There are categories on the settings page, this is one of the category.")
+		static let about = NSLocalizedString("About", comment: "There are categories on the settings page, this is one of the category.")
 		static let developerOptions = NSLocalizedString("Developer Options", comment: "There are categories on the settings page, this is one of the category.")
 		static let languages = NSLocalizedString("Display Language", comment: "There are many sections on the settings page, this section let the user change the App's language.")
 		static let switchLayoutDirection = NSLocalizedString("Switch Layout Direction", comment: "There are many sections on the settings page, this switch let the user change some of the UI's layout direction.")

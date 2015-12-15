@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LanguageTableViewCell: UITableViewCell {
+class LanguageTableViewCell: TableViewCell {
 
 	private let _textLabelFontSize:CGFloat = 16
 	private let _detailTextLabelFontSize:CGFloat = 12

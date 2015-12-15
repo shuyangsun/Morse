@@ -44,7 +44,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		}
 	}
 
-	private var cardViewLeadingMargin:CGFloat {
+	private var cardViewHorizontalMargin:CGFloat {
 		if self.traitCollection.horizontalSizeClass == .Compact {
 			return 16
 		} else if self.traitCollection.horizontalSizeClass == .Regular {
@@ -53,19 +53,11 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		return 16
 	}
 
-	private var cardViewTrailingMargin:CGFloat {
-		return self.cardViewLeadingMargin
+	private var cardViewGroupVerticalMargin:CGFloat {
+		return cardViewHorizontalMargin
 	}
 
-	private var cardViewTopMargin:CGFloat {
-		return cardViewLeadingMargin
-	}
-
-	private var cardViewBottomMargin:CGFloat {
-		return self.cardViewLeadingMargin
-	}
-
-	private var cardViewGapY:CGFloat {
+	private var cardViewVerticalGap:CGFloat {
 		if self.traitCollection.verticalSizeClass == .Regular &&
 			self.traitCollection.horizontalSizeClass == .Regular {
 			return 16
@@ -300,7 +292,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				}) { succeed in
 					if succeed {
 						// Update scrollView contentSize
-						self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height - cardView.bounds.height - self.cardViewGapY)
+						self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height - cardView.bounds.height - self.cardViewVerticalGap)
 
 						// If the content size of scroll view is smaller than scroll view frame, show top section
 						if self.scrollView.contentSize.height < self.scrollView.bounds.height {
@@ -356,7 +348,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	// *****************************
 
 	func addCardViewWithText(text:String, morse:String, textOnTop:Bool = true, deletable:Bool = true, animateWithDuration duration:NSTimeInterval = 0.0) {
-		let cardView = CardView(frame: CGRect(x: self.cardViewLeadingMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeadingMargin - self.cardViewTrailingMargin, height: self.cardViewHeight), text: text, morse: morse, textOnTop: textOnTop)
+		let cardView = CardView(frame: CGRect(x: self.cardViewHorizontalMargin, y: self.cardViewGroupVerticalMargin, width: self.scrollView.bounds.width - self.cardViewHorizontalMargin - self.cardViewHorizontalMargin, height: self.cardViewHeight), text: text, morse: morse, textOnTop: textOnTop)
 		cardView.delegate = self
 		cardView.cardUniqueID = "\(UIDevice.currentDevice().identifierForVendor)\(NSDate())\(text)\(morse)".hashValue
 
@@ -373,7 +365,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		if self.cardViews.count > 1 {
 			self.updateConstraintsForCardView(self.cardViews[self.cardViews.count - 2])
 		}
-		self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height + self.cardViewHeight + self.cardViewGapY)
+		self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height + self.cardViewHeight + self.cardViewVerticalGap)
 		self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
 		UIView.animateWithDuration(duration / 3.0,
 			delay: 0.0,
@@ -402,16 +394,16 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		let ind = index == nil ? self.cardViews.indexOf(cardView)! : index!
 		var heightChange:CGFloat = 0
 		cardView.snp_remakeConstraints(closure: { (make) -> Void in
-			make.left.equalTo(self.scrollView.snp_left).offset(self.cardViewLeadingMargin)
-			make.width.equalTo(self.scrollView).offset(-(self.cardViewLeadingMargin + self.cardViewTrailingMargin))
+			make.left.equalTo(self.scrollView.snp_left).offset(self.cardViewHorizontalMargin)
+			make.width.equalTo(self.scrollView).offset(-(self.cardViewHorizontalMargin + self.cardViewHorizontalMargin))
 		})
 		if ind == self.cardViews.count - 1 {
 			cardView.snp_updateConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.scrollView).offset(self.cardViewTopMargin)
+				make.top.equalTo(self.scrollView).offset(self.cardViewGroupVerticalMargin)
 			})
 		} else {
 			cardView.snp_updateConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.cardViews[ind + 1].snp_bottom).offset(self.cardViewGapY)
+				make.top.equalTo(self.cardViews[ind + 1].snp_bottom).offset(self.cardViewVerticalGap)
 			})
 		}
 
@@ -425,12 +417,12 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			cardView.bottomLabel.numberOfLines = 0
 
 			// Calculate the new height for top and bottom label.
-			// FIX ME: using "+ (self.cardViewHeight - cardView.paddingTop - cardView.gapY - cardView.paddingBottom)/2.0" because of a bug in this calculation.
+			// FIX ME: using "+ (self.cardViewHeight - cardView.paddingTop - cardView.labelVerticalGap - cardView.paddingBottom)/2.0" because of a bug in this calculation.
 			let labelWidth = cardView.topLabel.frame.width
 			let topLabelHeight = cardView.topLabel.attributedText!.boundingRectWithSize(CGSizeMake(labelWidth, CGFloat.max), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
-				+ (self.cardViewHeight - cardView.paddingTop - cardView.gapY - cardView.paddingBottom)/2.0
+				+ (self.cardViewHeight - cardView.paddingTop - cardView.labelVerticalGap - cardView.paddingBottom)/2.0
 			let bottomLabelHeight = cardView.bottomLabel.attributedText!.boundingRectWithSize(CGSizeMake(labelWidth, CGFloat.max), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
-			resultHeight = cardView.paddingTop + topLabelHeight + cardView.gapY + bottomLabelHeight + cardView.paddingBottom
+			resultHeight = cardView.paddingTop + topLabelHeight + cardView.labelVerticalGap + bottomLabelHeight + cardView.paddingBottom
 
 			cardView.topLabel.snp_updateConstraints(closure: { (make) -> Void in
 				make.height.equalTo(topLabelHeight)
@@ -444,7 +436,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				make.top.equalTo(cardView).offset(cardView.paddingTop)
 				make.trailing.equalTo(cardView).offset(-cardView.paddingTrailing)
 				make.leading.equalTo(cardView).offset(cardView.paddingLeading)
-				make.height.equalTo((cardView.bounds.height - cardView.paddingTop - cardView.paddingBottom - cardView.gapY)/2.0)
+				make.height.equalTo((self.cardViewHeight - cardView.paddingTop - cardView.paddingBottom - cardView.labelVerticalGap)/2.0)
 			}
 			cardView.snp_updateConstraints(closure: { (make) -> Void in
 				make.height.equalTo(self.cardViewHeight)
@@ -465,7 +457,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		var contentHeight:CGFloat = 0
 		if !self.cardViews.isEmpty {
 			let count = self.cardViews.count
-			contentHeight = self.cardViewTopMargin + self.cardViewBottomMargin + CGFloat(count) * self.cardViewHeight + CGFloat(count - 1) * self.cardViewGapY
+			contentHeight = self.cardViewGroupVerticalMargin + self.cardViewGroupVerticalMargin + CGFloat(count) * self.cardViewHeight + CGFloat(count - 1) * self.cardViewVerticalGap
 		}
 		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
 	}
@@ -516,13 +508,12 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				}
 			}
 
-			for var i = cards.count - 1; i >= 0; i-- {
-				let card = cards[i]
-				let cardView = CardView(frame: CGRect(x: self.cardViewLeadingMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeadingMargin - self.cardViewTrailingMargin, height: self.cardViewHeight), text: card.valueForKey("text") as? String, morse: card.valueForKey("morse") as? String, textOnTop: card.valueForKey("textOnTop") as! Bool)
+			for card in cards {
+				let cardView = CardView(frame: CGRect(x: self.cardViewHorizontalMargin, y: self.cardViewGroupVerticalMargin, width: self.scrollView.bounds.width - self.cardViewHorizontalMargin - self.cardViewHorizontalMargin, height: self.cardViewHeight), text: card.valueForKey("text") as? String, morse: card.valueForKey("morse") as? String, textOnTop: card.valueForKey("textOnTop") as! Bool)
 				cardView.delegate = self
 				cardView.cardUniqueID = card.valueForKey("cardUniqueID") as? Int
 				self.cardViews.append(cardView)
-				self.scrollView.addSubview(cardView)
+				self.scrollView.insertSubview(cardView, atIndex: 0)
 			}
 			self.initializeCardViewsConstraints()
 			self.scrollView.setNeedsUpdateConstraints()
@@ -592,7 +583,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		}
 		for i in 0..<self.cardViews.count {
 			self.cardViews[i].snp_updateConstraints(closure: { (make) -> Void in
-				make.width.equalTo(self.scrollView).offset(-(self.cardViewLeadingMargin + self.cardViewTrailingMargin))
+				make.width.equalTo(self.scrollView).offset(-(self.cardViewHorizontalMargin + self.cardViewHorizontalMargin))
 			})
 		}
 		self.scrollView.setNeedsUpdateConstraints()
@@ -601,7 +592,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		}
 
 		let count = self.cardViews.count
-		var contentHeight = self.cardViewTopMargin + self.cardViewBottomMargin + CGFloat(count - 1) * self.cardViewGapY + CGFloat(count - 1) * self.cardViewHeight
+		var contentHeight = self.cardViewGroupVerticalMargin + self.cardViewGroupVerticalMargin + CGFloat(count - 1) * self.cardViewVerticalGap + CGFloat(count - 1) * self.cardViewHeight
 		if count == 0 {
 			contentHeight = 0
 		} else {

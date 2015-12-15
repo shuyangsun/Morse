@@ -61,7 +61,7 @@ enum Theme: String {
 
 	var roundButtonBackgroundColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Orange.A400!
+		case .Default: return MDColorPalette.Red.A200!
 		}
 	}
 
@@ -151,7 +151,7 @@ enum Theme: String {
 
 	var cellSelectedBackgroundColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Orange.A200!
+		case .Default: return self.cellBackgroundColor
 		}
 	}
 
@@ -163,7 +163,7 @@ enum Theme: String {
 
 	var cellTitleTextSelectedColor:UIColor {
 		switch self {
-		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		default: return self.cellTitleTextColor
 		}
 	}
 
@@ -175,14 +175,19 @@ enum Theme: String {
 
 	var cellDetailTitleTextSelectedColor:UIColor {
 		switch self {
-		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextSecondaryAlpha)
+		default: return self.cellDetailTitleTextColor
 		}
 	}
 
 	var cellCheckmarkColor:UIColor {
 		switch self {
-//		case .Default: return MDColorPalette.Red.A200!
-		default: return self.topBarLabelTextColor
+		case .Default: return MDColorPalette.Red.A200!
+		}
+	}
+
+	var cellTapFeedBackColor:UIColor {
+		switch self {
+		default: return self.defaultTapFeedbackColorDark
 		}
 	}
 }

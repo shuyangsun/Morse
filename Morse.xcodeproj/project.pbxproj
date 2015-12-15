@@ -53,6 +53,9 @@
 		10826A181C0D5C4C00902BCC /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10826A171C0D5C4C00902BCC /* General.swift */; };
 		10826A191C0D5C4C00902BCC /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10826A171C0D5C4C00902BCC /* General.swift */; };
 		10826A1A1C0D5C4C00902BCC /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10826A171C0D5C4C00902BCC /* General.swift */; };
+		109266841C2071EA00AD198E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109266831C2071EA00AD198E /* TableViewCell.swift */; };
+		109266851C2071EA00AD198E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109266831C2071EA00AD198E /* TableViewCell.swift */; };
+		109266861C2071EA00AD198E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109266831C2071EA00AD198E /* TableViewCell.swift */; };
 		109ACDC01C0E0D12006AC535 /* RoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */; };
 		109ACDC11C0E0D12006AC535 /* RoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */; };
 		109ACDC21C0E0D12006AC535 /* RoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */; };
@@ -179,6 +182,7 @@
 		107FF6B01C0BDEC0003EB294 /* SnapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SnapKit.xcodeproj; path = SnapKit/SnapKit.xcodeproj; sourceTree = "<group>"; };
 		107FF6C31C0C223D003EB294 /* MorseTransmitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseTransmitter.swift; sourceTree = "<group>"; };
 		10826A171C0D5C4C00902BCC /* General.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = General.swift; sourceTree = "<group>"; };
+		109266831C2071EA00AD198E /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButtonView.swift; sourceTree = "<group>"; };
 		10B9C8141C0FB5A4001C5847 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		10BFD3831C1E866000FA4C26 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -238,6 +242,8 @@
 				10286CCA1C0D1BCF00BD2B43 /* CardView.swift */,
 				109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */,
 				1073948E1C11F75800EF8C16 /* CancelButton.swift */,
+				109266831C2071EA00AD198E /* TableViewCell.swift */,
+				10BFD3A21C1F486700FA4C26 /* LanguageTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -362,7 +368,6 @@
 				10BFD38D1C1E964C00FA4C26 /* SettingsSplitViewController.swift */,
 				10BFD3911C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift */,
 				10BFD39D1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift */,
-				10BFD3A21C1F486700FA4C26 /* LanguageTableViewCell.swift */,
 			);
 			name = "Settings VC";
 			sourceTree = "<group>";
@@ -572,6 +577,7 @@
 				10BFD38E1C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */,
 				1052A77C1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */,
 				107FF6AB1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
+				109266841C2071EA00AD198E /* TableViewCell.swift in Sources */,
 				107FF6A71C0BC128003EB294 /* Theme.swift in Sources */,
 				1030BA0F1C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
 				1073948F1C11F75800EF8C16 /* CancelButton.swift in Sources */,
@@ -599,6 +605,7 @@
 				10BFD38F1C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */,
 				109ACDC11C0E0D12006AC535 /* RoundButtonView.swift in Sources */,
 				1052A75B1C0BACEA0085B0C9 /* MorseTests.swift in Sources */,
+				109266851C2071EA00AD198E /* TableViewCell.swift in Sources */,
 				107FF6AC1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
 				1030BA101C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
 				107394901C11F75800EF8C16 /* CancelButton.swift in Sources */,
@@ -626,6 +633,7 @@
 				10BFD3901C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */,
 				109ACDC21C0E0D12006AC535 /* RoundButtonView.swift in Sources */,
 				1052A7661C0BACEA0085B0C9 /* MorseUITests.swift in Sources */,
+				109266861C2071EA00AD198E /* TableViewCell.swift in Sources */,
 				107FF6AD1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
 				1030BA111C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
 				107394911C11F75800EF8C16 /* CancelButton.swift in Sources */,

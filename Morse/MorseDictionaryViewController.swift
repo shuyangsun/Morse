@@ -37,7 +37,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 		}
 	}
 
-	private var cardViewLeadingMargin:CGFloat {
+	private var cardViewHorizontalMargin:CGFloat {
 		if self.traitCollection.horizontalSizeClass == .Compact {
 			return 16
 		} else if self.traitCollection.horizontalSizeClass == .Regular {
@@ -46,19 +46,11 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 		return 16
 	}
 
-	private var cardViewTrailingMargin:CGFloat {
-		return self.cardViewLeadingMargin
+	private var cardViewGroupVerticalMargin:CGFloat {
+		return cardViewHorizontalMargin
 	}
 
-	private var cardViewTopMargin:CGFloat {
-		return cardViewLeadingMargin
-	}
-
-	private var cardViewBottomMargin:CGFloat {
-		return self.cardViewLeadingMargin
-	}
-
-	private var cardViewGapY:CGFloat {
+	private var cardViewVerticalGap:CGFloat {
 		if self.traitCollection.verticalSizeClass == .Regular &&
 			self.traitCollection.horizontalSizeClass == .Regular {
 				return 16
@@ -71,6 +63,8 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 		//		return 74 // This is Google Translate card view's height
 		return 86
 	}
+
+	private let cardViewMinWidth:CGFloat = 200
 
 	// *****************************
 	// MARK: MVC LifeCycle
@@ -116,6 +110,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 					make.edges.equalTo(self.topBarView).inset(UIEdgeInsetsMake(0, 0, 0, 0))
 				})
 			}
+			self.topBarView.addMDShadow(withDepth: 2)
 		}
 
 		if self.scrollView == nil {
@@ -147,7 +142,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
     }
 
 	private func addCardViewWithText(text:String, morse:String) {
-		let cardView = CardView(frame: CGRect(x: self.cardViewLeadingMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeadingMargin - self.cardViewTrailingMargin, height: self.cardViewHeight), text: text, morse: morse, textOnTop: true)
+		let cardView = CardView(frame: CGRect(x: self.cardViewHorizontalMargin, y: self.cardViewGroupVerticalMargin, width: self.scrollView.bounds.width - self.cardViewHorizontalMargin - self.cardViewHorizontalMargin, height: self.cardViewHeight), text: text, morse: morse, textOnTop: true)
 		cardView.delegate = self
 
 		if self.cardViews.isEmpty {
@@ -233,7 +228,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 				dispatch_sync(dispatch_queue_create("Create Card Views On Dictonary VC Queue", nil)) {
 					let text = keys[i]
 					let morse = MorseTransmitter.encodeTextToMorseStringDictionary[text]!
-					let cardView = CardView(frame: CGRect(x: self.cardViewLeadingMargin, y: self.cardViewTopMargin, width: self.scrollView.bounds.width - self.cardViewLeadingMargin - self.cardViewTrailingMargin, height: self.cardViewHeight), text: text.uppercaseString, morse: morse, textOnTop: true, deletable: false)
+					let cardView = CardView(frame: CGRect(x: self.cardViewHorizontalMargin, y: self.cardViewGroupVerticalMargin, width: self.scrollView.bounds.width - self.cardViewHorizontalMargin - self.cardViewHorizontalMargin, height: self.cardViewHeight), text: text.uppercaseString, morse: morse, textOnTop: true, deletable: false)
 					cardView.delegate = self
 					self.cardViews.append(cardView)
 				}
@@ -254,16 +249,16 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 		let ind = index == nil ? self.cardViews.indexOf(cardView)! : index!
 		var heightChange:CGFloat = 0
 		cardView.snp_remakeConstraints(closure: { (make) -> Void in
-			make.left.equalTo(self.scrollView.snp_left).offset(self.cardViewLeadingMargin)
-			make.width.equalTo(self.scrollView).offset(-(self.cardViewLeadingMargin + self.cardViewTrailingMargin))
+			make.left.equalTo(self.scrollView.snp_left).offset(self.cardViewHorizontalMargin)
+			make.width.equalTo(self.scrollView).offset(-(self.cardViewHorizontalMargin + self.cardViewHorizontalMargin))
 		})
 		if ind == self.cardViews.count - 1 {
 			cardView.snp_updateConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.scrollView).offset(self.cardViewTopMargin)
+				make.top.equalTo(self.scrollView).offset(self.cardViewGroupVerticalMargin)
 			})
 		} else {
 			cardView.snp_updateConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.cardViews[ind + 1].snp_bottom).offset(self.cardViewGapY)
+				make.top.equalTo(self.cardViews[ind + 1].snp_bottom).offset(self.cardViewVerticalGap)
 			})
 		}
 
@@ -280,9 +275,9 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 			// FIX ME: using "+ (self.cardViewHeight - cardView.paddingTop - cardView.gapY - cardView.paddingBottom)/2.0" because of a bug in this calculation.
 			let labelWidth = cardView.topLabel.frame.width
 			let topLabelHeight = cardView.topLabel.attributedText!.boundingRectWithSize(CGSizeMake(labelWidth, CGFloat.max), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
-				+ (self.cardViewHeight - cardView.paddingTop - cardView.gapY - cardView.paddingBottom)/2.0
+				+ (self.cardViewHeight - cardView.paddingTop - cardView.labelVerticalGap - cardView.paddingBottom)/2.0
 			let bottomLabelHeight = cardView.bottomLabel.attributedText!.boundingRectWithSize(CGSizeMake(labelWidth, CGFloat.max), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
-			resultHeight = cardView.paddingTop + topLabelHeight + cardView.gapY + bottomLabelHeight + cardView.paddingBottom
+			resultHeight = cardView.paddingTop + topLabelHeight + cardView.labelVerticalGap + bottomLabelHeight + cardView.paddingBottom
 
 			cardView.topLabel.snp_updateConstraints(closure: { (make) -> Void in
 				make.height.equalTo(topLabelHeight)
@@ -296,7 +291,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 				make.top.equalTo(cardView).offset(cardView.paddingTop)
 				make.trailing.equalTo(cardView).offset(-cardView.paddingTrailing)
 				make.leading.equalTo(cardView).offset(cardView.paddingLeading)
-				make.height.equalTo((cardView.bounds.height - cardView.paddingTop - cardView.paddingBottom - cardView.gapY)/2.0)
+				make.height.equalTo((cardView.bounds.height - cardView.paddingTop - cardView.paddingBottom - cardView.labelVerticalGap)/2.0)
 			}
 			cardView.snp_updateConstraints(closure: { (make) -> Void in
 				make.height.equalTo(self.cardViewHeight)
@@ -317,19 +312,21 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 		var contentHeight:CGFloat = 0
 		if !self.cardViews.isEmpty {
 			let count = self.cardViews.count
-			contentHeight = self.cardViewTopMargin + self.cardViewBottomMargin + CGFloat(count) * self.cardViewHeight + CGFloat(count - 1) * self.cardViewGapY
+			contentHeight = self.cardViewGroupVerticalMargin + self.cardViewGroupVerticalMargin + CGFloat(count) * self.cardViewHeight + CGFloat(count - 1) * self.cardViewVerticalGap
 		}
 		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
 	}
 
 	func rotationDidChange() {
 		// Things to do after the rotation.
+		self.topBarView.addMDShadow(withDepth: 2)
+
 		if self.currentExpandedView != nil {
 			self.updateConstraintsForCardView(self.currentExpandedView!)
 		}
 		for i in 0..<self.cardViews.count {
 			self.cardViews[i].snp_updateConstraints(closure: { (make) -> Void in
-				make.width.equalTo(self.scrollView).offset(-(self.cardViewLeadingMargin + self.cardViewTrailingMargin))
+				make.width.equalTo(self.scrollView).offset(-(self.cardViewHorizontalMargin + self.cardViewHorizontalMargin))
 			})
 		}
 		self.scrollView.setNeedsUpdateConstraints()
@@ -338,7 +335,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 		}
 
 		let count = self.cardViews.count
-		var contentHeight = self.cardViewTopMargin + self.cardViewBottomMargin + CGFloat(count - 1) * self.cardViewGapY + CGFloat(count - 1) * self.cardViewHeight
+		var contentHeight = self.cardViewGroupVerticalMargin + self.cardViewGroupVerticalMargin + CGFloat(count - 1) * self.cardViewVerticalGap + CGFloat(count - 1) * self.cardViewHeight
 		if count == 0 {
 			contentHeight = 0
 		} else {

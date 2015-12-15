@@ -52,9 +52,9 @@ class SettingsMasterTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-		var result = 2
+		var result = 3
 		#if DEBUG
-			result = 3
+			result++
 		#endif
         return result
     }
@@ -69,11 +69,11 @@ class SettingsMasterTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		var cell = UITableViewCell()
+		var cell = TableViewCell()
 		if indexPath.section == 0 {
 			switch indexPath.row {
 			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Languages Cell", forIndexPath: indexPath)
+				cell = tableView.dequeueReusableCellWithIdentifier("Settings Languages Cell", forIndexPath: indexPath) as! TableViewCell
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.languages, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				let currentLanguageName = supportedLanguages[appDelegate.currentLocaleLanguageCode]
 				var languageNameOriginal = ""
@@ -92,20 +92,21 @@ class SettingsMasterTableViewController: UITableViewController {
 		} else if indexPath.section == 1 {
 			switch indexPath.row {
 			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Theme Cell", forIndexPath: indexPath)
+				cell = tableView.dequeueReusableCellWithIdentifier("Settings Theme Cell", forIndexPath: indexPath) as! TableViewCell
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.theme
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				if !self._isIPad {
 					cell.accessoryType = .DisclosureIndicator
 				}
 			case 1:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Layout Cell", forIndexPath: indexPath)
+				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Layout Cell", forIndexPath: indexPath) as! TableViewCell
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.switchLayoutDirection, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			default: break
 			}
 		}
 		
         // Configure the cell...
+		cell.selectionStyle = .None
 
         return cell
     }
@@ -114,7 +115,8 @@ class SettingsMasterTableViewController: UITableViewController {
 		switch section {
 		case 0: return LocalizedStrings.Settings.general
 		case 1: return LocalizedStrings.Settings.ui
-		case 2: return LocalizedStrings.Settings.developerOptions
+		case 2: return	LocalizedStrings.Settings.about
+		case 3: return LocalizedStrings.Settings.developerOptions
 		default: return nil
 		}
 	}

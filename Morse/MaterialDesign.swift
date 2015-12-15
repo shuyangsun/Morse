@@ -96,7 +96,7 @@ extension UIView {
 		}
 	}
 
-	func triggerTapFeedBack(atLocation location:CGPoint, withColor color:UIColor = UIColor.whiteColor(), duration:NSTimeInterval = 0.2, showSurfaceReaction:Bool = true, completion: ((Void) -> Void)? = nil) {
+	func triggerTapFeedBack(atLocation location:CGPoint, withColor color:UIColor = UIColor.whiteColor(), duration:NSTimeInterval = 0.2, showSurfaceReaction:Bool = true, atBottom:Bool = true, completion: ((Void) -> Void)? = nil) {
 		let overlayView = UIView(frame: self.bounds)
 		overlayView.clipsToBounds = true
 		overlayView.layer.cornerRadius = self.layer.cornerRadius
@@ -121,7 +121,11 @@ extension UIView {
 		feedBackView.opaque = false
 		feedBackView.alpha = 0.0
 		overlayView.addSubview(feedBackView)
-		self.insertSubview(overlayView, atIndex: 0)
+		if atBottom {
+			self.insertSubview(overlayView, atIndex: 0)
+		} else {
+			self.addSubview(overlayView)
+		}
 
 		let dtXLeftSquare = location.x * location.x
 		let	dtYTopSquare = location.y * location.y
