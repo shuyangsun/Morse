@@ -138,38 +138,6 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 		self.addCards()
     }
 
-	override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-		super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-		coordinator.animateAlongsideTransition(nil) { context in
-			// Things to do after the rotation.
-			if self.currentExpandedView != nil {
-				self.updateConstraintsForCardView(self.currentExpandedView!)
-			}
-			for i in 0..<self.cardViews.count {
-				self.cardViews[i].snp_updateConstraints(closure: { (make) -> Void in
-					make.width.equalTo(self.scrollView).offset(-(self.cardViewLeadingMargin + self.cardViewTrailingMargin))
-				})
-			}
-			self.scrollView.layoutIfNeeded()
-			for card in self.cardViews {
-				card.addMDShadow(withDepth: 1)
-			}
-
-			let count = self.cardViews.count
-			var contentHeight = self.cardViewTopMargin + self.cardViewBottomMargin + CGFloat(count - 1) * self.cardViewGapY + CGFloat(count - 1) * self.cardViewHeight
-			if count == 0 {
-				contentHeight = 0
-			} else {
-				if self.currentExpandedView != nil {
-					contentHeight += self.currentExpandedView!.bounds.height
-				} else {
-					contentHeight += self.cardViewHeight
-				}
-			}
-			self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
-		}
-	}
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -349,6 +317,35 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 		}
 		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
 		print(contentHeight)
+	}
+
+	func rotationDidChange() {
+		// Things to do after the rotation.
+		if self.currentExpandedView != nil {
+			self.updateConstraintsForCardView(self.currentExpandedView!)
+		}
+		for i in 0..<self.cardViews.count {
+			self.cardViews[i].snp_updateConstraints(closure: { (make) -> Void in
+				make.width.equalTo(self.scrollView).offset(-(self.cardViewLeadingMargin + self.cardViewTrailingMargin))
+			})
+		}
+		self.scrollView.layoutIfNeeded()
+		for card in self.cardViews {
+			card.addMDShadow(withDepth: 1)
+		}
+
+		let count = self.cardViews.count
+		var contentHeight = self.cardViewTopMargin + self.cardViewBottomMargin + CGFloat(count - 1) * self.cardViewGapY + CGFloat(count - 1) * self.cardViewHeight
+		if count == 0 {
+			contentHeight = 0
+		} else {
+			if self.currentExpandedView != nil {
+				contentHeight += self.currentExpandedView!.bounds.height
+			} else {
+				contentHeight += self.cardViewHeight
+			}
+		}
+		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
 	}
 
     /*

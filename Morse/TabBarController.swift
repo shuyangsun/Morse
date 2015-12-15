@@ -9,6 +9,9 @@
 import UIKit
 
 class TabBarController: UITabBarController {
+	var homeVC:HomeViewController! = nil
+	var morseDictionaryVC:MorseDictionaryViewController! = nil
+	var settingsVC:SettingsSplitViewController! = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,12 +21,15 @@ class TabBarController: UITabBarController {
 		// Customize tab bar items
 		if controllers != nil {
 			for controller in controllers! {
-				if let homeVC = controller as? HomeViewController {
-					homeVC.tabBarItem = UITabBarItem(tabBarSystemItem: .Featured, tag: 0)
-				} else if let morseDictionaryVC = controller as? MorseDictionaryViewController {
-					morseDictionaryVC.tabBarItem = UITabBarItem(tabBarSystemItem: .Bookmarks, tag: 1)
-				} else if let settingsVC = controller as? SettingsSplitViewController {
-					settingsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .More, tag: 1)
+				if let homeViewController = controller as? HomeViewController {
+					self.homeVC = homeViewController
+					self.homeVC.tabBarItem = UITabBarItem(tabBarSystemItem: .Featured, tag: 0)
+				} else if let dictionaryViewController = controller as? MorseDictionaryViewController {
+					self.morseDictionaryVC = dictionaryViewController
+					self.morseDictionaryVC.tabBarItem = UITabBarItem(tabBarSystemItem: .Bookmarks, tag: 1)
+				} else if let settingsViewController = controller as? SettingsSplitViewController {
+					self.settingsVC = settingsViewController
+					self.settingsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .More, tag: 1)
 				}
 			}
 		}
@@ -40,6 +46,22 @@ class TabBarController: UITabBarController {
 			return [UIInterfaceOrientationMask.Portrait, UIInterfaceOrientationMask.Landscape]
 		} else {
 			return UIInterfaceOrientationMask.Portrait
+		}
+	}
+
+	override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+		super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+		coordinator.animateAlongsideTransition(nil) { context in
+			if let fromVC = context.viewControllerForKey(UITransitionContextFromViewControllerKey) as? TabBarController {
+				if fromVC === self {
+					if self.homeVC != nil && self.selectedViewController == self.homeVC {
+						self.homeVC.rotationDidChange()
+					}
+					if self.morseDictionaryVC != nil && self.selectedViewController == self.morseDictionaryVC {
+						self.morseDictionaryVC.rotationDidChange()
+					}
+				}
+			}
 		}
 	}
 
