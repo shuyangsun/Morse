@@ -173,8 +173,6 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		} else {
 			self.topSectionContainerView.addMDShadow(withDepth: 2)
 		}
-		self.updateCardViewsConstraints()
-		self.view.layoutIfNeeded()
 	}
 
 	override func viewWillAppear(animated: Bool) {
@@ -183,6 +181,38 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		if self.cardViews.isEmpty {
 			self.fetchCardsAndUpdateCardViews()
 			self.addCardsIfFirstLaunch()
+		}
+	}
+
+	override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+		super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+		coordinator.animateAlongsideTransition(nil) { context in
+			// Things to do after the rotation.
+			if self.currentExpandedView != nil {
+				self.updateConstraintsForCardView(self.currentExpandedView!)
+			}
+			for i in 0..<self.cardViews.count {
+				self.cardViews[i].snp_updateConstraints(closure: { (make) -> Void in
+					make.width.equalTo(self.scrollView).offset(-(self.cardViewLeadingMargin + self.cardViewTrailingMargin))
+				})
+			}
+			self.scrollView.layoutIfNeeded()
+			for card in self.cardViews {
+				card.addMDShadow(withDepth: 1)
+			}
+
+			let count = self.cardViews.count
+			var contentHeight = self.cardViewTopMargin + self.cardViewBottomMargin + CGFloat(count - 1) * self.cardViewGapY + CGFloat(count - 1) * self.cardViewHeight
+			if count == 0 {
+				contentHeight = 0
+			} else {
+				if self.currentExpandedView != nil {
+					contentHeight += self.currentExpandedView!.bounds.height
+				} else {
+					contentHeight += self.cardViewHeight
+				}
+			}
+			self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
 		}
 	}
 
@@ -262,7 +292,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				ceil(cardView.bottomLabel.attributedText!.size().width/labelWidth) > 1 {
 					cardView.expanded = true
 					self.currentExpandedView = cardView
-					self.updateCardViewsConstraints()
+					self.updateConstraintsForCardView(cardView)
 					// Change cardView background color animation.
 					UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
 						delay: 0,
@@ -290,7 +320,14 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			// Remove in UI
 			cardView.removeFromSuperview()
 			self.cardViews.removeAtIndex(ind)
-			self.updateCardViewsConstraints()
+			if ind > 0 {
+				// If there is one card below the deleting card, update it's constraint.
+				self.updateConstraintsForCardView(self.cardViews[ind - 1])
+			}
+			if ind < self.cardViews.count {
+				// If there is one card above the deleting card, update it's constraint. Using "ind" instead of "ind - 1" because this card is already removed, from array.
+				self.updateConstraintsForCardView(self.cardViews[ind])
+			}
 			// Animations
 //			self.gravityBehavior.addItem(cardView)
 			UIView.animateWithDuration(TAP_FEED_BACK_DURATION / 2.0,
@@ -366,7 +403,10 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			self.scrollView.insertSubview(cardView, belowSubview: self.cardViews.last!)
 		}
 		self.cardViews.append(cardView)
-		self.updateCardViewsConstraints()
+		self.updateConstraintsForCardView(cardView)
+		if self.cardViews.count > 1 {
+			self.updateConstraintsForCardView(self.cardViews[self.cardViews.count - 2])
+		}
 		self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
 		UIView.animateWithDuration(duration / 3.0,
 			delay: 0.0,
@@ -390,72 +430,75 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		}
 	}
 
-	private func updateCardViewsConstraints() {
-		let views = self.cardViews
-		var contentHeight = self.cardViewTopMargin
-		for var i = views.count - 1; i >= 0; i-- {
-			let cardView = views[i]
-			if i >= views.count - 1 {
-				cardView.snp_remakeConstraints(closure: { (make) -> Void in
-					make.top.equalTo(self.scrollView).offset(self.cardViewTopMargin)
-					make.left.equalTo(self.scrollView).offset(self.cardViewLeadingMargin)
-					make.width.equalTo(self.scrollView.bounds.width - self.cardViewLeadingMargin - self.cardViewTrailingMargin)
-				})
-			} else {
-				cardView.snp_remakeConstraints(closure: { (make) -> Void in
-					make.top.equalTo(views[i + 1].snp_bottom).offset(self.cardViewGapY)
-					make.left.equalTo(self.scrollView).offset(self.cardViewLeadingMargin)
-					make.width.equalTo(self.view.bounds.width - self.cardViewLeadingMargin - self.cardViewTrailingMargin)
-				})
-			}
-
-			// Update view height depends on if it's expanded.
-			if cardView.expanded {
-				cardView.topLabel.lineBreakMode = .ByWordWrapping
-				cardView.topLabel.numberOfLines = 0
-				cardView.bottomLabel.lineBreakMode = .ByWordWrapping
-				cardView.bottomLabel.numberOfLines = 0
-
-				// Calculate the new height for top and bottom label.
-				// FIX ME: using "+ (self.cardViewHeight - cardView.paddingTop - cardView.gapY - cardView.paddingBottom)/2.0" because of a bug in this calculation.
-				let labelWidth = cardView.topLabel.frame.width
-				let topLabelHeight = cardView.topLabel.attributedText!.boundingRectWithSize(CGSizeMake(labelWidth, CGFloat.max), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
-					+ (self.cardViewHeight - cardView.paddingTop - cardView.gapY - cardView.paddingBottom)/2.0
-				let bottomLabelHeight = cardView.bottomLabel.attributedText!.boundingRectWithSize(CGSizeMake(labelWidth, CGFloat.max), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
-				let expandedCardViewHeight = cardView.paddingTop + topLabelHeight + cardView.gapY + bottomLabelHeight + cardView.paddingBottom
-
-				cardView.topLabel.snp_updateConstraints(closure: { (make) -> Void in
-					make.height.equalTo(topLabelHeight)
-				})
-
-				cardView.snp_updateConstraints { (make) -> Void in
-					make.height.equalTo(expandedCardViewHeight)
-				}
-				contentHeight += (expandedCardViewHeight + self.cardViewGapY)
-			} else { // FIX ME: Constraints BUG
-				cardView.topLabel.snp_remakeConstraints { (make) -> Void in
-					make.top.equalTo(cardView).offset(cardView.paddingTop)
-					make.trailing.equalTo(cardView).offset(-cardView.paddingTrailing)
-					make.leading.equalTo(cardView).offset(cardView.paddingLeading)
-					make.height.equalTo((cardView.bounds.height - cardView.paddingTop - cardView.paddingBottom - cardView.gapY)/2.0)
-				}
-				cardView.snp_updateConstraints(closure: { (make) -> Void in
-					make.height.equalTo(self.cardViewHeight)
-				})
-
-				cardView.topLabel.snp_updateConstraints(closure: { (make) -> Void in
-					make.height.equalTo((self.cardViewHeight - cardView.paddingTop - cardView.gapY - cardView.paddingBottom)/2.0)
-				})
-				contentHeight += (self.cardViewHeight + self.cardViewGapY)
-			}
-			cardView.addMDShadow(withDepth: 1)
+	// This method update the constraint for a cardView, and returns it's height when done.
+	private func updateConstraintsForCardView(cardView:CardView, indexInCardViewsArray index:Int? = nil) {
+		let ind = index == nil ? self.cardViews.indexOf(cardView)! : index!
+		var heightChange:CGFloat = 0
+		cardView.snp_remakeConstraints(closure: { (make) -> Void in
+			make.left.equalTo(self.scrollView.snp_left).offset(self.cardViewLeadingMargin)
+			make.width.equalTo(self.scrollView).offset(-(self.cardViewLeadingMargin + self.cardViewTrailingMargin))
+		})
+		if ind == self.cardViews.count - 1 {
+			cardView.snp_updateConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.scrollView).offset(self.cardViewTopMargin)
+			})
+		} else {
+			cardView.snp_updateConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self.cardViews[ind + 1].snp_bottom).offset(self.cardViewGapY)
+			})
 		}
 
-		contentHeight += self.cardViewBottomMargin
+		let originalCardViewHeight = cardView.bounds.height
+		var resultHeight:CGFloat = 0
+		// Update view height depends on if it's expanded.
+		if cardView.expanded {
+			cardView.topLabel.lineBreakMode = .ByWordWrapping
+			cardView.topLabel.numberOfLines = 0
+			cardView.bottomLabel.lineBreakMode = .ByWordWrapping
+			cardView.bottomLabel.numberOfLines = 0
+
+			// Calculate the new height for top and bottom label.
+			// FIX ME: using "+ (self.cardViewHeight - cardView.paddingTop - cardView.gapY - cardView.paddingBottom)/2.0" because of a bug in this calculation.
+			let labelWidth = cardView.topLabel.frame.width
+			let topLabelHeight = cardView.topLabel.attributedText!.boundingRectWithSize(CGSizeMake(labelWidth, CGFloat.max), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
+				+ (self.cardViewHeight - cardView.paddingTop - cardView.gapY - cardView.paddingBottom)/2.0
+			let bottomLabelHeight = cardView.bottomLabel.attributedText!.boundingRectWithSize(CGSizeMake(labelWidth, CGFloat.max), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
+			resultHeight = cardView.paddingTop + topLabelHeight + cardView.gapY + bottomLabelHeight + cardView.paddingBottom
+
+			cardView.topLabel.snp_updateConstraints(closure: { (make) -> Void in
+				make.height.equalTo(topLabelHeight)
+			})
+
+			cardView.snp_updateConstraints { (make) -> Void in
+				make.height.equalTo(resultHeight)
+			}
+		} else { // FIX ME: Constraints BUG
+			cardView.topLabel.snp_remakeConstraints { (make) -> Void in
+				make.top.equalTo(cardView).offset(cardView.paddingTop)
+				make.trailing.equalTo(cardView).offset(-cardView.paddingTrailing)
+				make.leading.equalTo(cardView).offset(cardView.paddingLeading)
+				make.height.equalTo((cardView.bounds.height - cardView.paddingTop - cardView.paddingBottom - cardView.gapY)/2.0)
+			}
+			cardView.snp_updateConstraints(closure: { (make) -> Void in
+				make.height.equalTo(self.cardViewHeight)
+			})
+
+			resultHeight = self.cardViewHeight
+		}
+		heightChange = resultHeight - originalCardViewHeight
+		cardView.addMDShadow(withDepth: 1)
+		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: self.scrollView.contentSize.height + heightChange)
+	}
+
+	private func initializeCardViewsConstraints() {
+		for i in 0..<self.cardViews.count {
+			self.updateConstraintsForCardView(self.cardViews[i], indexInCardViewsArray: i)
+		}
+
+		var contentHeight:CGFloat = 0
 		if !self.cardViews.isEmpty {
-			contentHeight -= self.cardViewGapY
-		} else {
-			contentHeight = 0
+			let count = self.cardViews.count
+			contentHeight = self.cardViewTopMargin + self.cardViewBottomMargin + CGFloat(count) * self.cardViewHeight + CGFloat(count - 1) * self.cardViewGapY
 		}
 		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
 	}
@@ -512,8 +555,8 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 					lastCardView = cardView
 					self.cardViews.append(cardView)
 				}
-				self.updateCardViewsConstraints()
-				self.view.layoutIfNeeded()
+				self.initializeCardViewsConstraints()
+				self.scrollView.layoutIfNeeded()
 				self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
 			} catch let error as NSError {
 				print("Could not fetch \(error), \(error.userInfo)")
@@ -527,7 +570,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		self.currentExpandedView = nil
 		if cardView != nil {
 			cardView!.expanded = false
-			self.updateCardViewsConstraints()
+			self.updateConstraintsForCardView(cardView!)
 			UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
 				delay: 0,
 				options: .CurveEaseOut,
