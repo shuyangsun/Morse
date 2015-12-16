@@ -229,12 +229,20 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	// MARK: Card View Delegate
 	// *****************************
 
-	func cardViewTapped(cardView: CardView) {
+	func cardViewTapped(cardView:CardView) {
+		let tappingCurrentExpandedView = self.currentExpandedView === cardView
+		self.collapseCurrentExpandedView()
+		if !tappingCurrentExpandedView {
+			// If the user is not trying to collapse the current expanded view, show actions available.
+			// TODO
+		}
+	}
+
+	func cardViewHeld(cardView: CardView) {
 		// Expand card view.
-		if self.currentExpandedView == cardView {
-			// If the current expanded view is the tapped card view, collapse it and done.
-			self.collapseCurrentExpandedView()
-		} else {
+		let heldCurrentExpandedView = self.currentExpandedView === cardView
+		self.collapseCurrentExpandedView()
+		if !heldCurrentExpandedView {
 			// If the current expanded view is not the tapped card view, collapse the expanded view and expand card view.
 			self.collapseCurrentExpandedView()
 			// Calculate if we need to expand the card.

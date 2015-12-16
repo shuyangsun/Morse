@@ -18,15 +18,20 @@ class CardView: UIView {
 
 	var expanded = false
 
+	var canBeExpanded:Bool {
+		// Calculate if we need to expand the card.
+		let labelWidth = self.topLabel.bounds.width
+		// FIX ME: Calculation not right, should use the other way, but it has a BUG.
+		return ceil(self.topLabel.attributedText!.size().width/labelWidth) > 1 || ceil(self.bottomLabel.attributedText!.size().width/labelWidth) > 1
+	}
+
 	// UI related variables
-	private var _swipeBeganPosition:CGPoint!
+	private var _swipping = false
+	private var _touchBeganPosition:CGPoint!
 	private var _distanceToDeleteCard:CGFloat {
 		// How far the user needs to swipe to delete the card
 		return min(360, self.bounds.width/2.0)
 	}
-	private var _swipeDirection:Direction = .Right
-	private var _cardManipulation:CardManipulationType?
-	private var _originalOrigin:CGPoint?
 
 	// User setting related variables
 
@@ -48,6 +53,9 @@ class CardView: UIView {
 		self.opaque = false
 		self.backgroundColor = appDelegate.theme.cardViewBackgroudColor
 		self.addMDShadow(withDepth: self._defaultMDShadowLevel)
+		let holdGR = UILongPressGestureRecognizer(target: self, action: "held:")
+		self.addGestureRecognizer(holdGR)
+
 		let tapGR = UITapGestureRecognizer(target: self, action: "tapped:")
 		self.addGestureRecognizer(tapGR)
 	}
@@ -111,6 +119,21 @@ class CardView: UIView {
 	// MARK: User Interaction Handlers
 	// *****************************
 
+	func held(gestureRecognizer:UILongPressGestureRecognizer) {
+		if gestureRecognizer.state == .Began {
+			let location = gestureRecognizer.locationInView(self)
+			if self.bounds.contains(location) {
+				if let myDelegate = self.delegate {
+					if myDelegate.cardViewHeld != nil {
+						self.animateUserInteractionFeedbackAtLocation(location) {
+							myDelegate.cardViewHeld!(self)
+						}
+					}
+				}
+			}
+		}
+	}
+
 	func tapped(gestureRecognizer:UITapGestureRecognizer) {
 		let location = gestureRecognizer.locationInView(self)
 		if self.bounds.contains(location) {
@@ -124,12 +147,13 @@ class CardView: UIView {
 
 	private func animateUserInteractionFeedbackAtLocation(location:CGPoint, completion:((Void) -> Void)? = nil) {
 		let originalTransform = self.transform
-		self.triggerTapFeedBack(atLocation: location, withColor: appDelegate.theme.cardViewTapfeedbackColor, duration: TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar, showSurfaceReaction: true, completion: completion)
+		let animationDuration:NSTimeInterval = TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar
+		self.triggerTapFeedBack(atLocation: location, withColor: appDelegate.theme.cardViewTapfeedbackColor, duration: animationDuration, showSurfaceReaction: true, completion: completion)
 		UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
 			delay: 0.0,
 			options: .CurveEaseIn,
 			animations: {
-				self.transform = CGAffineTransformScale(self.transform, 1.02, 1.02)
+				self.transform = CGAffineTransformScale(self.transform, 1.04, 1.04)
 			}) { succeed in
 				if succeed {
 					UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
@@ -146,43 +170,29 @@ class CardView: UIView {
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		self.delegate?.cardViewTouchesBegan(self, touches:touches, withEvent: event)
 		if let touch = touches.first {
-			self.updateSwipeDirection()
-			self._swipeBeganPosition = touch.locationInView(self.superview!)
-			self._originalOrigin = self.frame.origin
+			self._touchBeganPosition = touch.locationInView(self.superview!)
 		}
 	}
 
 	// Do some animation when the user is swipping the card.
 	override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		let touchDirectionDecidingDistance:CGFloat = 10
+		let swipeDecidingDistance:CGFloat = 10
 		let touch = touches.first!
-		let dtX = touch.locationInView(self.superview!).x - self._swipeBeganPosition.x
-		let dtY = touch.locationInView(self.superview!).y - self._swipeBeganPosition.y
+		let dtX = touch.locationInView(self.superview!).x - self._touchBeganPosition.x
+		let dtY = touch.locationInView(self.superview!).y - self._touchBeganPosition.y
 		// If the user is swipping left or right
 		let scrollView = self.nextResponder() as? UIScrollView
-		if self._cardManipulation != nil && abs(dtX)/abs(dtY) >= 2.0 {
+		if self._swipping && abs(dtX)/abs(dtY) >= 2.0 {
 			scrollView?.scrollEnabled = false
 		} else {
 			scrollView?.scrollEnabled = true
 		}
-		if !touches.isEmpty && self._swipeBeganPosition != nil {
+		if !touches.isEmpty && self._touchBeganPosition != nil {
 			// User is trying to delete the card.
-			if abs(dtX) > touchDirectionDecidingDistance &&
-				(self._swipeDirection == .Right && dtX > 0 ||
-				self._swipeDirection == .Left && dtX < 0) {
-					if self._cardManipulation == nil {
-						self._cardManipulation = .Delete
-					}
-			} else if abs(dtX) > touchDirectionDecidingDistance &&
-				(self._swipeDirection == .Left && dtX > 0 ||
-				self._swipeDirection == .Right && dtX < 0 ){
-				if self._cardManipulation == nil {
-					self._cardManipulation = .ShowActions
-				}
+			if abs(dtX) > swipeDecidingDistance {
+				self._swipping = true
 			}
-			if self._cardManipulation == .Delete && self.deletable &&
-				(self._swipeDirection == .Right && dtX > 0 ||
-				 self._swipeDirection == .Left && dtX < 0){
+			if self.deletable && self._swipping {
 				let distanceToStartRotation:CGFloat = 15
 				// Translate
 				self.transform = CGAffineTransformMakeTranslation(dtX, 0)
@@ -191,22 +201,20 @@ class CardView: UIView {
 				// Rotate
 				if abs(dtX) > distanceToStartRotation {
 					var angle = CGFloat(Double((abs(dtX) - distanceToStartRotation)/(self._distanceToDeleteCard - distanceToStartRotation)) * M_PI_4)/2.0
-					if self._swipeDirection == .Left {
+					if dtX < 0 {
 						angle = -angle
 					}
 					self.transform = CGAffineTransformRotate(self.transform, angle)
 				}
-			} else if self._cardManipulation == .ShowActions {
-				// TODO
 			}
 		}
 	}
 
 	// When user finish swipping the card, do something depends on the direction and distance of swipe.
 	override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		if self._cardManipulation == .Delete && self.deletable {
+		if self._swipping && self.deletable {
 			let touch = touches.first!
-			let dtX = touch.locationInView(self.superview!).x - self._swipeBeganPosition.x
+			let dtX = touch.locationInView(self.superview!).x - self._touchBeganPosition.x
 			if abs(dtX) >= self._distanceToDeleteCard {
 				// If swipped too far, delete card.
 				UIView.animateWithDuration(TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar,
@@ -230,18 +238,16 @@ class CardView: UIView {
 						}
 				}
 			}
-		} else if self._cardManipulation == .ShowActions {
-			// TODO
-			self.delegate?.cardViewTouchesEnded(self, touches:touches, withEvent: event, deleteCard: false)
 		}
-		self._cardManipulation = nil
+
+		self._swipping = false
 		let scrollView = self.nextResponder() as? UIScrollView
 		scrollView?.scrollEnabled = true
 	}
 
 	// If the touch is canceled, always restore cardView and don't anything about the model.
 	override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
-		if self._cardManipulation == .Delete && self.deletable {
+		if self._swipping && self.deletable {
 			UIView.animateWithDuration(TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar,
 				delay: 0,
 				options: .CurveEaseOut,
@@ -253,28 +259,10 @@ class CardView: UIView {
 						self.delegate?.cardViewTouchesCancelled(self, touches:touches, withEvent: event)
 					}
 			}
-		} else if self._cardManipulation == .ShowActions {
-			// TODO
-			self.delegate?.cardViewTouchesCancelled(self, touches:touches, withEvent: event)
 		}
-		self._cardManipulation = nil
+		self._swipping = false
 		let scrollView = self.nextResponder() as? UIScrollView
 		scrollView?.scrollEnabled = true
-	}
-
-	private func updateSwipeDirection() {
-		// Find which direction we need to swipe first.
-		var result = Direction.Right
-		if layoutDirection == .LeftToRight {
-			result = .Right
-		} else {
-			result = .Left
-		}
-		// Switch swipe direction if the user want to swap button layout directions.
-		if appDelegate.swapButtonLayout {
-			result = Direction(rawValue: (result.rawValue + 2) % 4)!
-		}
-		self._swipeDirection = result
 	}
 }
 

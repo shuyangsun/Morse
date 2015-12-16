@@ -157,8 +157,8 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 		self.scrollView.addSubview(cardView)
 	}
 
-	func cardViewTapped(cardView: CardView) {
-
+	func cardViewTapped(cardView:CardView) {
+		// TODO
 	}
 
 	func cardViewTouchesBegan(cardView: CardView, touches: Set<UITouch>, withEvent event: UIEvent?) {

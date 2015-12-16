@@ -8,7 +8,7 @@
 
 import UIKit
 
-let TAP_FEED_BACK_DURATION:NSTimeInterval = 0.5
+let TAP_FEED_BACK_DURATION:NSTimeInterval = 0.4
 
 let tableViewCellHeight:CGFloat = 50
 let topBarHeight:CGFloat = 56
