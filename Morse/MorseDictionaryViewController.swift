@@ -186,6 +186,17 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 		}
 	}
 
+	func cardViewShareButtonTapped(cardView:CardView) {
+		if let morse = cardView.morse {
+			// TODO: How to use only Morse code when copying.
+			let activityVC = UIActivityViewController(activityItems: [LocalizedStrings.General.sharePromote + " " + appStoreURLString + "\n" + morse], applicationActivities: nil)
+			activityVC.popoverPresentationController?.sourceView = cardView.textOnTop ? cardView.bottomLabel : cardView.topLabel
+			self.presentViewController(activityVC, animated: true) {
+				self.restoreCurrentFlippedCard()
+			}
+		}
+	}
+
 	// This function does not take care of updating card constraints! It only put cardViews on the scrollView and array.
 	private func addCards() {
 		if self.cardViews.isEmpty {

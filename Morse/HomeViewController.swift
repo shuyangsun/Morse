@@ -281,6 +281,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		if let morse = cardView.morse {
 			// TODO: How to use only Morse code when copying.
 			let activityVC = UIActivityViewController(activityItems: [LocalizedStrings.General.sharePromote + " " + appStoreURLString + "\n" + morse], applicationActivities: nil)
+			activityVC.popoverPresentationController?.sourceView = cardView.textOnTop ? cardView.bottomLabel : cardView.topLabel
 			self.presentViewController(activityVC, animated: true) {
 				self.restoreCurrentFlippedCard()
 			}
