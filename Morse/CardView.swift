@@ -113,45 +113,6 @@ class CardView: UIView {
 			make.leading.equalTo(self).offset(self.paddingLeading)
 			make.bottom.equalTo(self).offset(-self.paddingBottom)
 		}
-
-		self.backView = UIView(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height))
-		self.backView.backgroundColor = appDelegate.theme.cardBackViewBackgroundColor
-		self.backView.layer.cornerRadius = self.layer.cornerRadius
-		self.addSubview(self.backView)
-		self.backView.snp_remakeConstraints { (make) -> Void in
-			make.edges.equalTo(self)
-		}
-		self.backView.hidden = true
-
-		self.outputButton = UIButton(frame: CGRect(x: 0, y: 0, width: self.bounds.width/2.0, height: self.bounds.height))
-		self.outputButton.backgroundColor = UIColor.clearColor()
-		self.outputButton.tintColor = appDelegate.theme.cardBackViewButtonTextColor
-		self.outputButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
-		self.outputButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
-		self.outputButton.setTitle(LocalizedStrings.Button.output, forState: .Normal)
-		self.outputButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)
-		self.backView.addSubview(self.outputButton)
-		self.outputButton.snp_remakeConstraints { (make) -> Void in
-			make.left.equalTo(self)
-			make.top.equalTo(self)
-			make.bottom.equalTo(self)
-			make.right.equalTo(self.snp_centerX)
-		}
-
-		self.shareButton = UIButton(frame: CGRect(x: self.bounds.width/2.0, y: 0, width: self.bounds.width/2.0, height: self.bounds.height))
-		self.shareButton.backgroundColor = UIColor.clearColor()
-		self.shareButton.tintColor = appDelegate.theme.cardBackViewButtonTextColor
-		self.shareButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
-		self.shareButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
-		self.shareButton.setTitle(LocalizedStrings.Button.share, forState: .Normal)
-		self.shareButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)
-		self.backView.addSubview(self.shareButton)
-		self.shareButton.snp_remakeConstraints { (make) -> Void in
-			make.left.equalTo(self.snp_centerX)
-			make.top.equalTo(self)
-			make.bottom.equalTo(self)
-			make.right.equalTo(self)
-		}
 	}
 
 	required init?(coder aCoder: NSCoder) {
@@ -180,6 +141,55 @@ class CardView: UIView {
 	}
 
 	func tapped(gestureRecognizer:UITapGestureRecognizer) {
+		// Add back views first
+		if !self.expanded {
+			if self.backView == nil {
+				self.backView = UIView(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height))
+				self.backView.backgroundColor = appDelegate.theme.cardBackViewBackgroundColor
+				self.backView.layer.cornerRadius = self.layer.cornerRadius
+				self.addSubview(self.backView)
+				self.backView.snp_remakeConstraints { (make) -> Void in
+					make.edges.equalTo(self)
+				}
+				self.backView.hidden = true
+			}
+
+			if self.outputButton == nil {
+				self.outputButton = UIButton(frame: CGRect(x: 0, y: 0, width: self.bounds.width/2.0, height: self.bounds.height))
+				self.outputButton.backgroundColor = UIColor.clearColor()
+				self.outputButton.tintColor = appDelegate.theme.cardBackViewButtonTextColor
+				self.outputButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
+				self.outputButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
+				self.outputButton.setTitle(LocalizedStrings.Button.output, forState: .Normal)
+				self.outputButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)
+				self.backView.addSubview(self.outputButton)
+				self.outputButton.snp_remakeConstraints { (make) -> Void in
+					make.left.equalTo(self.backView)
+					make.top.equalTo(self.backView)
+					make.bottom.equalTo(self.backView)
+					make.right.equalTo(self.backView.snp_centerX)
+				}
+			}
+
+			if self.shareButton == nil {
+				self.shareButton = UIButton(frame: CGRect(x: self.bounds.width/2.0, y: 0, width: self.bounds.width/2.0, height: self.bounds.height))
+				self.shareButton.backgroundColor = UIColor.clearColor()
+				self.shareButton.tintColor = appDelegate.theme.cardBackViewButtonTextColor
+				self.shareButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
+				self.shareButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
+				self.shareButton.setTitle(LocalizedStrings.Button.share, forState: .Normal)
+				self.shareButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)
+				self.backView.addSubview(self.shareButton)
+				self.shareButton.snp_remakeConstraints { (make) -> Void in
+					make.left.equalTo(self.backView.snp_centerX)
+					make.top.equalTo(self.backView)
+					make.bottom.equalTo(self.backView)
+					make.right.equalTo(self.backView)
+				}
+			}
+		}
+
+		// Do other things
 		let location = gestureRecognizer.locationInView(self)
 		if self.bounds.contains(location) {
 			self.animateUserInteractionFeedbackAtLocation(location) {
