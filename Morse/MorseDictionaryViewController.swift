@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MorseDictionaryViewController: UIViewController, CardViewDelegate {
+class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrollViewDelegate {
 
 	// *****************************
 	// MARK: Views
@@ -19,6 +19,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 	var topBarView: UIView!
 	var topBarLabel: UILabel!
 	var scrollView:UIScrollView!
+	private var currentFlippedCard:CardView?
 
 	private var cardViews:[CardView] = []
 	private var transmitter = MorseTransmitter()
@@ -118,6 +119,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 			self.scrollView.bounces = true
 			self.scrollView.showsHorizontalScrollIndicator = false
 			self.scrollView.showsVerticalScrollIndicator = true
+			self.scrollView.delegate = self
 			self.view.insertSubview(self.scrollView, atIndex: 0)
 
 			self.scrollView.snp_remakeConstraints { (make) -> Void in
@@ -139,10 +141,27 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 		self.updateMDShadows()
 	}
 
+	override func viewDidDisappear(animated: Bool) {
+		super.viewDidDisappear(animated)
+		self.restoreCurrentFlippedCard()
+	}
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
+	// *****************************
+	// MARK: Scroll View Delegate
+	// *****************************
+
+	func scrollViewDidScroll(scrollView: UIScrollView) {
+		self.restoreCurrentFlippedCard()
+	}
+
+	// *****************************
+	// MARK: Card Stuff
+	// *****************************
 
 	private func addCardViewWithText(text:String, morse:String) {
 		let cardView = CardView(frame: CGRect(x: self.cardViewHorizontalMargin, y: self.cardViewGroupVerticalMargin, width: self.scrollView.bounds.width - self.cardViewHorizontalMargin - self.cardViewHorizontalMargin, height: self.cardViewHeight), text: text, morse: morse, textOnTop: true)
@@ -158,19 +177,13 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 	}
 
 	func cardViewTapped(cardView:CardView) {
-		// TODO
-	}
-
-	func cardViewTouchesBegan(cardView: CardView, touches: Set<UITouch>, withEvent event: UIEvent?) {
-
-	}
-
-	func cardViewTouchesEnded(cardView: CardView, touches: Set<UITouch>, withEvent event: UIEvent?, deleteCard:Bool) {
-		self.scrollView.scrollEnabled = true
-	}
-
-	func cardViewTouchesCancelled(cardView: CardView, touches: Set<UITouch>?, withEvent event: UIEvent?) {
-		self.scrollView.scrollEnabled = true
+		if cardView !== self.currentFlippedCard {
+			cardView.flip()
+		}
+		self.restoreCurrentFlippedCard()
+		if cardView.flipped {
+			self.currentFlippedCard = cardView
+		}
 	}
 
 	// This function does not take care of updating card constraints! It only put cardViews on the scrollView and array.
@@ -223,6 +236,21 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
 	}
 
+	private func updateMDShadows() {
+		self.topBarView.addMDShadow(withDepth: 2)
+		for card in self.cardViews {
+			card.addMDShadow(withDepth: 1)
+		}
+	}
+
+	func restoreCurrentFlippedCard() {
+		// Flip back flipped card
+		if self.currentFlippedCard != nil && self.currentFlippedCard!.flipped {
+			self.currentFlippedCard?.flip()
+		}
+		self.currentFlippedCard = nil
+	}
+
 	func rotationDidChange() {
 		dispatch_sync(dispatch_queue_create("Update Card View Constraints On Dictonary VC Queue", nil)) {
 			self.initializeCardViewsConstraints()
@@ -236,13 +264,6 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate {
 				if succeed {
 					self.updateMDShadows()
 				}
-		}
-	}
-
-	private func updateMDShadows() {
-		self.topBarView.addMDShadow(withDepth: 2)
-		for card in self.cardViews {
-			card.addMDShadow(withDepth: 1)
 		}
 	}
 

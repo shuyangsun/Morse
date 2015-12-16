@@ -24,7 +24,8 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	var scrollViewOverlay: UIButton!
 
 	private var cardViews:[CardView] = []
-	private var currentExpandedView:CardView?
+	private var currentExpandedCard:CardView?
+	private var currentFlippedCard:CardView?
 
 	// *****************************
 	// MARK: Private variables
@@ -168,6 +169,11 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		self.updateMDShadows()
 	}
 
+	override func viewDidDisappear(animated: Bool) {
+		super.viewDidDisappear(animated)
+		self.restoreCurrentFlippedCard()
+	}
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -223,6 +229,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 					self.topSectionViewController.outputTextView.alpha = 0
 			}, completion: nil)
 		}
+		self.restoreCurrentFlippedCard()
 	}
 
 	// *****************************
@@ -230,28 +237,32 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	// *****************************
 
 	func cardViewTapped(cardView:CardView) {
-		let tappingCurrentExpandedView = self.currentExpandedView === cardView
-		self.collapseCurrentExpandedView()
+		let tappingCurrentExpandedView = self.currentExpandedCard === cardView
+		self.collapseCurrentExpandedCard()
 		if !tappingCurrentExpandedView {
-			// If the user is not trying to collapse the current expanded view, show actions available.
-			// TODO
+			if cardView !== self.currentFlippedCard {
+				cardView.flip()
+			}
+			self.restoreCurrentFlippedCard()
+			if cardView.flipped {
+				self.currentFlippedCard = cardView
+			}
 		}
 	}
 
 	func cardViewHeld(cardView: CardView) {
 		// Expand card view.
-		let heldCurrentExpandedView = self.currentExpandedView === cardView
-		self.collapseCurrentExpandedView()
+		let heldCurrentExpandedView = self.currentExpandedCard === cardView
+		self.collapseCurrentExpandedCard()
+		self.restoreCurrentFlippedCard()
 		if !heldCurrentExpandedView {
-			// If the current expanded view is not the tapped card view, collapse the expanded view and expand card view.
-			self.collapseCurrentExpandedView()
 			// Calculate if we need to expand the card.
 			let labelWidth = cardView.topLabel.bounds.width
 			// FIX ME: Calculation not right, should use the other way, but it has a BUG.
 			if ceil(cardView.topLabel.attributedText!.size().width/labelWidth) > 1 ||
 				ceil(cardView.bottomLabel.attributedText!.size().width/labelWidth) > 1 {
 					cardView.expanded = true
-					self.currentExpandedView = cardView
+					self.currentExpandedCard = cardView
 					self.updateConstraintsForCardView(cardView)
 					// Change cardView background color animation.
 					UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
@@ -262,6 +273,16 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 							cardView.backgroundColor = appDelegate.theme.cardViewExpandedBackgroudColor
 							cardView.addMDShadow(withDepth: 1)
 					}, completion: nil)
+			}
+		}
+	}
+
+	func cardViewShareButtonTapped(cardView:CardView) {
+		if let morse = cardView.morse {
+			// TODO: How to use only Morse code when copying.
+			let activityVC = UIActivityViewController(activityItems: [LocalizedStrings.General.sharePromote + " " + appStoreURLString + "\n" + morse], applicationActivities: nil)
+			self.presentViewController(activityVC, animated: true) {
+				self.restoreCurrentFlippedCard()
 			}
 		}
 	}
@@ -288,8 +309,8 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				// If there is one card above the deleting card, update it's constraint. Using "ind" instead of "ind - 1" because this card is already removed, from array.
 				self.updateConstraintsForCardView(self.cardViews[ind])
 			}
-			if self.currentExpandedView === cardView {
-				self.currentExpandedView = nil
+			if self.currentExpandedCard === cardView {
+				self.currentExpandedCard = nil
 			}
 
 			// Animations
@@ -532,9 +553,10 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	}
 
 	// This function is called by top section VC too, so keep it public.
-	func collapseCurrentExpandedView() {
-		let cardView = self.currentExpandedView
-		self.currentExpandedView = nil
+	func collapseCurrentExpandedCard() {
+		// Collapse expanded card
+		let cardView = self.currentExpandedCard
+		self.currentExpandedCard = nil
 		if cardView != nil {
 			cardView!.expanded = false
 			self.updateConstraintsForCardView(cardView!)
@@ -551,6 +573,14 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 					}
 			}
 		}
+	}
+
+	func restoreCurrentFlippedCard() {
+		// Flip back flipped card
+		if self.currentFlippedCard != nil && self.currentFlippedCard!.flipped {
+			self.currentFlippedCard?.flip()
+		}
+		self.currentFlippedCard = nil
 	}
 
 	// On the first launch of the game, there are tutorial cards on the home screen, this function adds them.
@@ -581,8 +611,8 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	}
 
 	func rotationDidChange() {
-		if self.currentExpandedView != nil {
-			self.updateConstraintsForCardView(self.currentExpandedView!)
+		if self.currentExpandedCard != nil {
+			self.updateConstraintsForCardView(self.currentExpandedCard!)
 		}
 		for i in 0..<self.cardViews.count {
 			self.cardViews[i].snp_updateConstraints(closure: { (make) -> Void in
@@ -604,8 +634,8 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		if count == 0 {
 			contentHeight = 0
 		} else {
-			if self.currentExpandedView != nil {
-				contentHeight += self.currentExpandedView!.bounds.height
+			if self.currentExpandedCard != nil {
+				contentHeight += self.currentExpandedCard!.bounds.height
 			} else {
 				contentHeight += self.cardViewHeight
 			}

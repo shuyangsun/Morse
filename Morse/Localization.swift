@@ -20,6 +20,10 @@ var layoutDirection:UIUserInterfaceLayoutDirection {
 }
 
 struct LocalizedStrings {
+	struct General {
+		static let sharePromote = NSLocalizedString("Hey check this out! I converted text to this Morse code using Morse Transmitter! Download at here:", comment: "When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.")
+	}
+
 	struct Label {
 		static let topBarTextLabel = NSLocalizedString("Text", comment: "On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.")
 		static let topBarMorseLabel = NSLocalizedString("Morse", comment: "On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.")
@@ -57,6 +61,11 @@ struct LocalizedStrings {
 		static let chineseSimplified = NSLocalizedString("Chinese (Simplified)", comment: "Users can change language in settings app, this is one of the language name that will show in user's prefered language.")
 		static let chineseTraditional = NSLocalizedString("Chinese (Traditional)", comment: "Users can change language in settings app, this is one of the language name that will show in user's prefered language.")
 		static let arabic = NSLocalizedString("Arabic", comment: "Users can change language in settings app, this is one of the language name that will show in user's prefered language.")
+	}
+
+	struct Button {
+		static let output = NSLocalizedString("Output", comment: "One of the buttons on the back of card view, it alows user to output Morse code with flash or speaker.")
+		static let share = NSLocalizedString("Share", comment: "One of the buttons on the back of card view, it alows user to share Morse code.")
 	}
 }
 

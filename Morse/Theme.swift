@@ -55,7 +55,7 @@ enum Theme: String {
 
 	var textViewTapFeedbackColor:UIColor {
 		switch self {
-		default: return self.defaultTapFeedbackColorDark
+		case .Default: return MDColorPalette.Blue.P200
 		}
 	}
 
@@ -109,7 +109,7 @@ enum Theme: String {
 
 	var cardViewTapfeedbackColor:UIColor {
 		switch self {
-		default: return self.defaultTapFeedbackColorDark
+		case .Default: return MDColorPalette.Blue.P200
 		}
 	}
 
@@ -122,6 +122,24 @@ enum Theme: String {
 	var cardViewMorseColor:UIColor {
 		switch self {
 		case .Default: return UIColor(hex:0x000, alpha: MDDarkTextHintAlpha)
+		}
+	}
+
+	var cardBackViewBackgroundColor:UIColor {
+		switch self {
+		case .Default: return MDColorPalette.Red.A200!
+		}
+	}
+
+	var cardBackViewButtonTextColor:UIColor {
+		switch self {
+		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		}
+	}
+
+	var cardBackViewButtonSelectedTextColor:UIColor {
+		switch self {
+		default: return UIColor(hex: 0xFFFFFF, alpha: MDDarkTextHintAlpha)
 		}
 	}
 
@@ -187,7 +205,7 @@ enum Theme: String {
 
 	var cellTapFeedBackColor:UIColor {
 		switch self {
-		default: return self.defaultTapFeedbackColorDark
+		case .Default: return MDColorPalette.Blue.P200
 		}
 	}
 }

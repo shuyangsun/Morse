@@ -9,9 +9,12 @@
 import UIKit
 
 let TAP_FEED_BACK_DURATION:NSTimeInterval = 0.4
+let defaultAnimationDuration:NSTimeInterval = 0.5
 
 let tableViewCellHeight:CGFloat = 50
 let topBarHeight:CGFloat = 56
+
+let appStoreURLString = "http://www.test.com"
 
 private var cardViewHeight:CGFloat {
 	//		return 74 // This is Google Translate card view's height

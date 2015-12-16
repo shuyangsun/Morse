@@ -604,7 +604,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 				self.topBarView.layoutIfNeeded()
 			}, completion: nil)
 		// Collapse expanded card view if there is one
-		self.homeViewController.collapseCurrentExpandedView()
+		self.homeViewController.collapseCurrentExpandedCard()
+		self.homeViewController.restoreCurrentFlippedCard()
 	}
 
 	private func animateAndLayoutUIForInputEnd() {

@@ -17,6 +17,7 @@ class CardView: UIView {
 	let labelVerticalGap:CGFloat = 10
 
 	var expanded = false
+	var flipped = false
 
 	var canBeExpanded:Bool {
 		// Calculate if we need to expand the card.
@@ -46,6 +47,9 @@ class CardView: UIView {
 	// Subviews
 	var topLabel:UILabel!
 	var bottomLabel:UILabel!
+	var backView:UIView!
+	var outputButton:UIButton!
+	var shareButton:UIButton!
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -109,6 +113,45 @@ class CardView: UIView {
 			make.leading.equalTo(self).offset(self.paddingLeading)
 			make.bottom.equalTo(self).offset(-self.paddingBottom)
 		}
+
+		self.backView = UIView(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height))
+		self.backView.backgroundColor = appDelegate.theme.cardBackViewBackgroundColor
+		self.backView.layer.cornerRadius = self.layer.cornerRadius
+		self.addSubview(self.backView)
+		self.backView.snp_remakeConstraints { (make) -> Void in
+			make.edges.equalTo(self)
+		}
+		self.backView.hidden = true
+
+		self.outputButton = UIButton(frame: CGRect(x: 0, y: 0, width: self.bounds.width/2.0, height: self.bounds.height))
+		self.outputButton.backgroundColor = UIColor.clearColor()
+		self.outputButton.tintColor = appDelegate.theme.cardBackViewButtonTextColor
+		self.outputButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
+		self.outputButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
+		self.outputButton.setTitle(LocalizedStrings.Button.output, forState: .Normal)
+		self.outputButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)
+		self.backView.addSubview(self.outputButton)
+		self.outputButton.snp_remakeConstraints { (make) -> Void in
+			make.left.equalTo(self)
+			make.top.equalTo(self)
+			make.bottom.equalTo(self)
+			make.right.equalTo(self.snp_centerX)
+		}
+
+		self.shareButton = UIButton(frame: CGRect(x: self.bounds.width/2.0, y: 0, width: self.bounds.width/2.0, height: self.bounds.height))
+		self.shareButton.backgroundColor = UIColor.clearColor()
+		self.shareButton.tintColor = appDelegate.theme.cardBackViewButtonTextColor
+		self.shareButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
+		self.shareButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
+		self.shareButton.setTitle(LocalizedStrings.Button.share, forState: .Normal)
+		self.shareButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)
+		self.backView.addSubview(self.shareButton)
+		self.shareButton.snp_remakeConstraints { (make) -> Void in
+			make.left.equalTo(self.snp_centerX)
+			make.top.equalTo(self)
+			make.bottom.equalTo(self)
+			make.right.equalTo(self)
+		}
 	}
 
 	required init?(coder aCoder: NSCoder) {
@@ -116,17 +159,19 @@ class CardView: UIView {
 	}
 
 	// *****************************
-	// MARK: User Interaction Handlers
+	// MARK: Callbacks
 	// *****************************
 
 	func held(gestureRecognizer:UILongPressGestureRecognizer) {
-		if gestureRecognizer.state == .Began {
-			let location = gestureRecognizer.locationInView(self)
-			if self.bounds.contains(location) {
-				if let myDelegate = self.delegate {
-					if myDelegate.cardViewHeld != nil {
-						self.animateUserInteractionFeedbackAtLocation(location) {
-							myDelegate.cardViewHeld!(self)
+		if !self.flipped {
+			if gestureRecognizer.state == .Began {
+				let location = gestureRecognizer.locationInView(self)
+				if self.bounds.contains(location) {
+					if let myDelegate = self.delegate {
+						if myDelegate.cardViewHeld != nil {
+							self.animateUserInteractionFeedbackAtLocation(location) {
+								myDelegate.cardViewHeld!(self)
+							}
 						}
 					}
 				}
@@ -139,36 +184,27 @@ class CardView: UIView {
 		if self.bounds.contains(location) {
 			self.animateUserInteractionFeedbackAtLocation(location) {
 				if let myDelegate = self.delegate {
-					myDelegate.cardViewTapped(self)
+					myDelegate.cardViewTapped?(self)
 				}
 			}
 		}
 	}
 
-	private func animateUserInteractionFeedbackAtLocation(location:CGPoint, completion:((Void) -> Void)? = nil) {
-		let originalTransform = self.transform
-		let animationDuration:NSTimeInterval = TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar
-		self.triggerTapFeedBack(atLocation: location, withColor: appDelegate.theme.cardViewTapfeedbackColor, duration: animationDuration, showSurfaceReaction: true, completion: completion)
-		UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
-			delay: 0.0,
-			options: .CurveEaseIn,
-			animations: {
-				self.transform = CGAffineTransformScale(self.transform, 1.04, 1.04)
-			}) { succeed in
-				if succeed {
-					UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
-						delay: 0.0,
-						options: .CurveEaseOut,
-						animations: {
-							self.transform = originalTransform
-					}, completion: nil)
-				}
+	func backViewButtonTapped(button:UIButton) {
+		if button === self.outputButton {
+			self.delegate?.cardViewOutputButtonTapped?(self)
+		} else if button === self.shareButton {
+			self.delegate?.cardViewShareButtonTapped?(self)
 		}
 	}
 
+	// *****************************
+	// MARK: User Interaction Handlers
+	// *****************************
+
 	// Do some initial setup when the user start touching this view.
 	override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		self.delegate?.cardViewTouchesBegan(self, touches:touches, withEvent: event)
+		self.delegate?.cardViewTouchesBegan?(self, touches:touches, withEvent: event)
 		if let touch = touches.first {
 			self._touchBeganPosition = touch.locationInView(self.superview!)
 		}
@@ -223,7 +259,7 @@ class CardView: UIView {
 					animations: {
 						self.alpha = 0
 				}, completion: nil)
-				self.delegate?.cardViewTouchesEnded(self, touches:touches, withEvent: event, deleteCard: true)
+				self.delegate?.cardViewTouchesEnded?(self, touches:touches, withEvent: event, deleteCard: true)
 			} else {
 				// If not far enough, restore cardView transform to identity
 				UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
@@ -234,7 +270,7 @@ class CardView: UIView {
 						self.alpha = 1
 					}) { succeed in
 						if succeed {
-							self.delegate?.cardViewTouchesEnded(self, touches:touches, withEvent: event, deleteCard: false)
+							self.delegate?.cardViewTouchesEnded?(self, touches:touches, withEvent: event, deleteCard: false)
 						}
 				}
 			}
@@ -256,13 +292,65 @@ class CardView: UIView {
 					self.alpha = 1
 				}) { succeed in
 					if succeed {
-						self.delegate?.cardViewTouchesCancelled(self, touches:touches, withEvent: event)
+						self.delegate?.cardViewTouchesCancelled?(self, touches:touches, withEvent: event)
 					}
 			}
 		}
 		self._swipping = false
 		let scrollView = self.nextResponder() as? UIScrollView
 		scrollView?.scrollEnabled = true
+	}
+
+	// *****************************
+	// MARK: Animation Functions
+	// *****************************
+
+	// Fliping card
+	func flip() {
+		if self.flipped {
+			// Flip to front
+			self.flipped = false // Do NOT move this line to completion block! Will cause bugs.
+			UIView.transitionWithView(self,
+				duration: defaultAnimationDuration/2.0 * appDelegate.animationDurationScalar,
+				options: .TransitionFlipFromBottom,
+				animations: {
+					self.topLabel.hidden = false
+					self.bottomLabel.hidden = false
+					self.backView.hidden = true
+				}, completion: nil)
+		} else {
+			// Flip to back
+			self.flipped = true // Do NOT move this line to completion block! Will cause bugs.
+			UIView.transitionWithView(self,
+				duration: defaultAnimationDuration/2.0 * appDelegate.animationDurationScalar,
+				options: .TransitionFlipFromTop,
+				animations: {
+					self.topLabel.hidden = true
+					self.bottomLabel.hidden = true
+					self.backView.hidden = false
+				}, completion: nil)
+		}
+	}
+
+	private func animateUserInteractionFeedbackAtLocation(location:CGPoint, completion:((Void) -> Void)? = nil) {
+		let originalTransform = self.transform
+		let animationDuration:NSTimeInterval = TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar
+		self.triggerTapFeedBack(atLocation: location, withColor: appDelegate.theme.cardViewTapfeedbackColor, duration: animationDuration, showSurfaceReaction: true, completion: completion)
+		UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
+			delay: 0.0,
+			options: .CurveEaseIn,
+			animations: {
+				self.transform = CGAffineTransformScale(self.transform, 1.04, 1.04)
+			}) { succeed in
+				if succeed {
+					UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
+						delay: 0.0,
+						options: .CurveEaseOut,
+						animations: {
+							self.transform = originalTransform
+						}, completion: nil)
+				}
+		}
 	}
 }
 
