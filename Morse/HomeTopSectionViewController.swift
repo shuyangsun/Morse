@@ -565,44 +565,45 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 		// Show cancel button
 		self.cancelButton.appearWithDuration(animationDuration)
 		// Hide round button
-		self.roundButtonView.disappearWithAnimationType([.Scale, .Fade], duration: animationDuration)
-		// Move text and morse label
-		let labelWidth = self.topBarLabelText.bounds.width
-		if self.isDirectionEncode {
-			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.topBarView)
-				make.bottom.equalTo(self.topBarView)
-				make.width.equalTo(labelWidth)
-				make.centerX.equalTo(self.topBarView)
-			})
-			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.topBarView)
-				make.bottom.equalTo(self.topBarView)
-				make.width.equalTo(labelWidth)
-				make.leading.equalTo(self.topBarView.snp_trailing)
-			})
-		} else {
-			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.topBarView)
-				make.bottom.equalTo(self.topBarView)
-				make.width.equalTo(labelWidth)
-				make.leading.equalTo(self.topBarView.snp_trailing)
-			})
-			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.topBarView)
-				make.bottom.equalTo(self.topBarView)
-				make.width.equalTo(labelWidth)
-				make.centerX.equalTo(self.topBarView)
-			})
+		self.roundButtonView.disappearWithAnimationType([.Scale, .Fade], duration: animationDuration) {
+			// Move text and morse label
+			let labelWidth = self.topBarLabelText.bounds.width
+			if self.isDirectionEncode {
+				self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(self.topBarView)
+					make.bottom.equalTo(self.topBarView)
+					make.width.equalTo(labelWidth)
+					make.centerX.equalTo(self.topBarView)
+				})
+				self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(self.topBarView)
+					make.bottom.equalTo(self.topBarView)
+					make.width.equalTo(labelWidth)
+					make.leading.equalTo(self.topBarView.snp_trailing)
+				})
+			} else {
+				self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(self.topBarView)
+					make.bottom.equalTo(self.topBarView)
+					make.width.equalTo(labelWidth)
+					make.leading.equalTo(self.topBarView.snp_trailing)
+				})
+				self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(self.topBarView)
+					make.bottom.equalTo(self.topBarView)
+					make.width.equalTo(labelWidth)
+					make.centerX.equalTo(self.topBarView)
+				})
+			}
+			UIView.animateWithDuration(animationDuration * appDelegate.animationDurationScalar,
+				delay: animationDuration,
+				//			usingSpringWithDamping: 0.5,
+				//			initialSpringVelocity: 0.8,
+				options: .CurveEaseOut,
+				animations: {
+					self.topBarView.layoutIfNeeded()
+				}, completion: nil)
 		}
-		UIView.animateWithDuration(animationDuration,
-			delay: animationDuration,
-//			usingSpringWithDamping: 0.5,
-//			initialSpringVelocity: 0.8,
-			options: .CurveEaseOut,
-			animations: {
-				self.topBarView.layoutIfNeeded()
-			}, completion: nil)
 		// Collapse expanded card view if there is one
 		self.homeViewController.collapseCurrentExpandedCard()
 		self.homeViewController.restoreCurrentFlippedCard()
@@ -642,7 +643,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 				make.trailing.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
 			})
 		}
-		UIView.animateWithDuration(animationDuration,
+		UIView.animateWithDuration(animationDuration * appDelegate.animationDurationScalar,
 			delay: 0,
 //			usingSpringWithDamping: 0.5,
 //			initialSpringVelocity: 0.8,

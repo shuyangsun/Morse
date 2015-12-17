@@ -100,7 +100,7 @@ class SettingsMasterTableViewController: UITableViewController {
 				}
 			case 1:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Layout Cell", forIndexPath: indexPath) as! TableViewCell
-				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.switchLayoutDirection, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.extraTextWhenShare, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			default: break
 			}
 		}

@@ -45,7 +45,7 @@ class RoundButtonView: UIView {
 	    super.init(coder: aDecoder)
 	}
 
-	func disappearWithAnimationType(animationTypes:Set<AnimationType>, duration:NSTimeInterval) {
+	func disappearWithAnimationType(animationTypes:Set<AnimationType>, duration:NSTimeInterval, completion:((Void)->Void)? = nil) {
 		// Define animation here according to animation types, call it later
 		let animationClosure = {
 			if animationTypes.contains(.Scale) {
@@ -63,6 +63,7 @@ class RoundButtonView: UIView {
 				if succeed {
 					self.hidden = true
 					self.userInteractionEnabled = false
+					completion?()
 				}
 		}
 	}

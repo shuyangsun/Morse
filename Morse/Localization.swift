@@ -21,7 +21,7 @@ var layoutDirection:UIUserInterfaceLayoutDirection {
 
 struct LocalizedStrings {
 	struct General {
-		static let sharePromote = NSLocalizedString("Hey check this out! I converted text to this Morse code using Morse Transmitter! Download at here:", comment: "When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.")
+		static let sharePromote = NSLocalizedString("Check this out! I converted text to this Morse code using Morse Transmitter! Download here:", comment: "When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.")
 	}
 
 	struct Label {
@@ -36,9 +36,9 @@ struct LocalizedStrings {
 
 	struct LaunchCard {
 		static let text1 = NSLocalizedString("Welcome to Morse Transmitter!", comment: "When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.")
-		static let text2 = NSLocalizedString("Tap me to expand.", comment: "When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.")
-		static let text3 = layoutDirection == .LeftToRight ? NSLocalizedString("Swipe to right to delete me.", comment: "When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.") : NSLocalizedString("Swipe to left to delete me.", comment: "When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.")
-		static let text4 = layoutDirection == .LeftToRight ? NSLocalizedString("Swipe to left to output and share this Morse code.", comment: "When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.") : NSLocalizedString("Swipe to right to output and share this Morse code.", comment: "When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.")
+		static let text2 = NSLocalizedString("Tap me to output or share.", comment: "When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.")
+		static let text3 = NSLocalizedString("Hold me to expand.", comment: "When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.")
+		static let text4 = NSLocalizedString("Swipe to delete me.", comment: "When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.")
 	}
 
 	struct Settings {
@@ -47,9 +47,9 @@ struct LocalizedStrings {
 		static let ui = NSLocalizedString("User Interface", comment: "There are categories on the settings page, this is one of the category.")
 		static let about = NSLocalizedString("About", comment: "There are categories on the settings page, this is one of the category.")
 		static let developerOptions = NSLocalizedString("Developer Options", comment: "There are categories on the settings page, this is one of the category.")
-		static let languages = NSLocalizedString("Display Language", comment: "There are many sections on the settings page, this section let the user change the App's language.")
-		static let switchLayoutDirection = NSLocalizedString("Switch Layout Direction", comment: "There are many sections on the settings page, this switch let the user change some of the UI's layout direction.")
-		static let theme = NSLocalizedString("Color Theme", comment: "There are many sections on the settings page, this switch let the user change the color theme of this App.")
+		static let languages = NSLocalizedString("Language", comment: "There are many sections on the settings page, this section let the user change the App's language.")
+		static let extraTextWhenShare = NSLocalizedString("Greeting Text When Share", comment: "There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.")
+		static let theme = NSLocalizedString("Theme", comment: "There are many sections on the settings page, this switch let the user change the color theme of this App.")
 	}
 
 	struct Languages {
@@ -89,6 +89,7 @@ extension AppDelegate {
 				locale.insert(languageCode, atIndex: 0)
 			}
 			self.userDefaults.setObject(locale, forKey: userDefaultsKeyAppleLanguages)
+			self.userDefaults.synchronize()
 		}
 	}
 

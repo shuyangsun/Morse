@@ -17,11 +17,6 @@ class CancelButton: UIButton {
 		return delegate.theme
 	}
 
-	private var animationDurationScalar:Double {
-		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-		return delegate.animationDurationScalar
-	}
-
 	convenience init(origin:CGPoint, width:CGFloat) {
 		let frame = CGRect(origin: origin, size: CGSize(width: width, height: width))
 		self.init(frame:frame)
@@ -46,7 +41,7 @@ class CancelButton: UIButton {
 
 	func disappearWithDuration(duration:NSTimeInterval) {
 		self.originalTransform = self.transform
-		UIView.animateWithDuration(duration * self.animationDurationScalar,
+		UIView.animateWithDuration(duration * appDelegate.animationDurationScalar,
 			delay: 0,
 			options: .CurveEaseInOut,
 			animations: {
@@ -63,7 +58,7 @@ class CancelButton: UIButton {
 
 	func appearWithDuration(duration:NSTimeInterval) {
 		self.hidden = false
-		UIView.animateWithDuration(duration * self.animationDurationScalar,
+		UIView.animateWithDuration(duration * appDelegate.animationDurationScalar,
 			delay: 0.0,
 			options: .CurveEaseInOut,
 			animations: {

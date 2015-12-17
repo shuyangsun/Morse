@@ -8,11 +8,15 @@
 
 import UIKit
 
+var theme:Theme {
+	return appDelegate.theme
+}
+
 enum Theme: String {
 	case Default = "Default"
 
 	// *****************************
-	// MARK: Colors For UI
+	// MARK: Colors
 	// *****************************
 
 	private var defaultTapFeedbackColorDark:UIColor {
@@ -127,7 +131,7 @@ enum Theme: String {
 
 	var cardBackViewBackgroundColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Red.A200!
+		case .Default: return MDColorPalette.Blue.P500
 		}
 	}
 
@@ -206,6 +210,40 @@ enum Theme: String {
 	var cellTapFeedBackColor:UIColor {
 		switch self {
 		case .Default: return MDColorPalette.Blue.P200
+		}
+	}
+
+	// *****************************
+	// MARK: Length
+	// *****************************
+
+	var cardViewHorizontalMargin:CGFloat {
+		switch self {
+		default: return isPhone ? 16 : 32
+		}
+	}
+
+	var cardViewGroupVerticalMargin:CGFloat {
+		switch self {
+		default: return cardViewHorizontalMargin
+		}
+	}
+
+	var cardViewGap:CGFloat {
+		switch self {
+		default: return isPhone ? 16 : 8
+		}
+	}
+
+	var cardViewHeight:CGFloat {
+		switch self {
+		default: return 86
+		}
+	}
+
+	var cardViewMDShadowLevelDefault:Int {
+		switch self {
+		default: return 1
 		}
 	}
 }

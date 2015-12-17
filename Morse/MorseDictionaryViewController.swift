@@ -36,33 +36,6 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 		}
 	}
 
-	private var cardViewHorizontalMargin:CGFloat {
-		if self.traitCollection.horizontalSizeClass == .Compact {
-			return 16
-		} else if self.traitCollection.horizontalSizeClass == .Regular {
-			return 32
-		}
-		return 16
-	}
-
-	private var cardViewGroupVerticalMargin:CGFloat {
-		return cardViewHorizontalMargin
-	}
-
-	private var cardViewGap:CGFloat {
-		if self.traitCollection.verticalSizeClass == .Regular &&
-			self.traitCollection.horizontalSizeClass == .Regular {
-				return 16
-		} else {
-			return 8
-		}
-	}
-
-	private var cardViewHeight:CGFloat {
-		//		return 74 // This is Google Translate card view's height
-		return 86
-	}
-
 	private let cardViewMinWidth:CGFloat = 150
 
 	// *****************************
@@ -164,7 +137,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 	// *****************************
 
 	private func addCardViewWithText(text:String, morse:String) {
-		let cardView = CardView(frame: CGRect(x: self.cardViewHorizontalMargin, y: self.cardViewGroupVerticalMargin, width: self.scrollView.bounds.width - self.cardViewHorizontalMargin - self.cardViewHorizontalMargin, height: self.cardViewHeight), text: text, morse: morse, textOnTop: true)
+		let cardView = CardView(frame: CGRect(x: appDelegate.theme.cardViewHorizontalMargin, y: appDelegate.theme.cardViewGroupVerticalMargin, width: self.scrollView.bounds.width - appDelegate.theme.cardViewHorizontalMargin - appDelegate.theme.cardViewHorizontalMargin, height: appDelegate.theme.cardViewHeight), text: text, morse: morse, textOnTop: true)
 		cardView.delegate = self
 
 		if self.cardViews.isEmpty {
@@ -190,7 +163,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 		if let morse = cardView.morse {
 			// TODO: How to use only Morse code when copying.
 			let activityVC = UIActivityViewController(activityItems: [LocalizedStrings.General.sharePromote + " " + appStoreURLString + "\n" + morse], applicationActivities: nil)
-			activityVC.popoverPresentationController?.sourceView = cardView.textOnTop ? cardView.bottomLabel : cardView.topLabel
+			activityVC.popoverPresentationController?.sourceView = cardView.shareButton
 			self.presentViewController(activityVC, animated: true) {
 				self.restoreCurrentFlippedCard()
 			}
@@ -200,15 +173,17 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 	// This function does not take care of updating card constraints! It only put cardViews on the scrollView and array.
 	private func addCards() {
 		if self.cardViews.isEmpty {
+			let textFontSize:CGFloat = 22
+			let morseFontSize:CGFloat = 9
 			let keys = MorseTransmitter.keys
 			for var i = keys.count - 1; i >= 0; i-- {
 				// Adding cards may take a while, so do it in another thread. Has to be synced because it's about UI
 				dispatch_sync(dispatch_queue_create("Create Card Views On Dictonary VC Queue", nil)) {
 					let text = keys[i]
 					let morse = MorseTransmitter.encodeTextToMorseStringDictionary[text]!
-					let colNum = Int(max(1, floor((self.view.bounds.width - self.cardViewHorizontalMargin * 2 + self.cardViewGap) / (self.cardViewMinWidth + self.cardViewGap))))
-					let width = (self.scrollView.bounds.width - self.cardViewHorizontalMargin * 2 - CGFloat(colNum - 1) * self.cardViewGap)/CGFloat(colNum)
-					let cardView = CardView(frame: CGRect(x: self.cardViewHorizontalMargin, y: self.cardViewGroupVerticalMargin, width: width, height: self.cardViewHeight), text: text.uppercaseString, morse: morse, textOnTop: true, deletable: false, textFontSize: 22, morseFontSize: 18)
+					let colNum = Int(max(1, floor((self.view.bounds.width - theme.cardViewHorizontalMargin * 2 + theme.cardViewGap) / (self.cardViewMinWidth + theme.cardViewGap))))
+					let width = (self.scrollView.bounds.width - theme.cardViewHorizontalMargin * 2 - CGFloat(colNum - 1) * theme.cardViewGap)/CGFloat(colNum)
+					let cardView = CardView(frame: CGRect(x: theme.cardViewHorizontalMargin, y: theme.cardViewGroupVerticalMargin, width: width, height: theme.cardViewHeight), text: text.uppercaseString, morse: morse, textOnTop: true, deletable: false, textFontSize: textFontSize, morseFontSize: morseFontSize)
 					cardView.delegate = self
 					self.cardViews.append(cardView)
 				}
@@ -221,17 +196,17 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 	}
 
 	private func initializeCardViewsConstraints() {
-		let colNum = Int(max(1, floor((self.view.bounds.width - self.cardViewHorizontalMargin * 2 + self.cardViewGap) / (self.cardViewMinWidth + self.cardViewGap))))
-		let width = (self.scrollView.bounds.width - self.cardViewHorizontalMargin * 2 - CGFloat(colNum - 1) * self.cardViewGap)/CGFloat(colNum)
-		let height = self.cardViewHeight
+		let colNum = Int(max(1, floor((self.view.bounds.width - theme.cardViewHorizontalMargin * 2 + theme.cardViewGap) / (self.cardViewMinWidth + theme.cardViewGap))))
+		let width = (self.scrollView.bounds.width - theme.cardViewHorizontalMargin * 2 - CGFloat(colNum - 1) * theme.cardViewGap)/CGFloat(colNum)
+		let height = theme.cardViewHeight
 		for i in 0..<self.cardViews.count {
 			let card = self.cardViews[(self.cardViews.count - 1 - i)]
-			var leftOffset = self.cardViewHorizontalMargin + CGFloat(i%colNum) * (width + self.cardViewGap)
+			var leftOffset = theme.cardViewHorizontalMargin + CGFloat(i%colNum) * (width + theme.cardViewGap)
 			if layoutDirection == .RightToLeft {
-				leftOffset = self.cardViewHorizontalMargin + CGFloat((colNum - 1) - (i%colNum)) * (width + self.cardViewGap)
+				leftOffset = theme.cardViewHorizontalMargin + CGFloat((colNum - 1) - (i%colNum)) * (width + theme.cardViewGap)
 			}
 			card.snp_remakeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.scrollView).offset(self.cardViewGroupVerticalMargin + CGFloat(i/colNum) * (height + self.cardViewGap))
+				make.top.equalTo(self.scrollView).offset(theme.cardViewGroupVerticalMargin + CGFloat(i/colNum) * (height + theme.cardViewGap))
 				make.width.equalTo(width)
 				make.height.equalTo(height)
 				make.left.equalTo(self.scrollView).offset(leftOffset)
@@ -242,7 +217,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 		if !self.cardViews.isEmpty {
 			let count = self.cardViews.count
 			let rowNum = count/colNum + (count % colNum == 0 ? 0 : 1)
-			contentHeight = self.cardViewGroupVerticalMargin * 2 + CGFloat(rowNum) * self.cardViewHeight + CGFloat(rowNum - 1) * self.cardViewGap
+			contentHeight = theme.cardViewGroupVerticalMargin * 2 + CGFloat(rowNum) * theme.cardViewHeight + CGFloat(rowNum - 1) * theme.cardViewGap
 		}
 		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
 	}

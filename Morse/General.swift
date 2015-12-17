@@ -12,6 +12,14 @@ var appDelegate:AppDelegate {
 	return UIApplication.sharedApplication().delegate as! AppDelegate
 }
 
+var isPad:Bool {
+	return UI_USER_INTERFACE_IDIOM() == .Pad
+}
+
+var isPhone:Bool {
+	return UI_USER_INTERFACE_IDIOM() == .Phone
+}
+
 // NSUserDefaultKeys
 let userDefaultsKeyTheme = "Theme"
 let userDefaultsKeySwapButtonLayout = "Swap Button Layout"

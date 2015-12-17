@@ -42,7 +42,6 @@ class CardView: UIView {
 	var cardUniqueID:Int?
 	var delegate:CardViewDelegate?
 	var deletable:Bool = true
-	private let _defaultMDShadowLevel:Int = 1
 
 	// Subviews
 	var topLabel:UILabel!
@@ -56,7 +55,7 @@ class CardView: UIView {
 		self.layer.cornerRadius = 2.0
 		self.opaque = false
 		self.backgroundColor = appDelegate.theme.cardViewBackgroudColor
-		self.addMDShadow(withDepth: self._defaultMDShadowLevel)
+		self.addMDShadow(withDepth: appDelegate.theme.cardViewMDShadowLevelDefault)
 		let holdGR = UILongPressGestureRecognizer(target: self, action: "held:")
 		self.addGestureRecognizer(holdGR)
 
@@ -164,10 +163,10 @@ class CardView: UIView {
 				self.outputButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)
 				self.backView.addSubview(self.outputButton)
 				self.outputButton.snp_remakeConstraints { (make) -> Void in
-					make.left.equalTo(self.backView)
+					make.leading.equalTo(self.backView)
 					make.top.equalTo(self.backView)
 					make.bottom.equalTo(self.backView)
-					make.right.equalTo(self.backView.snp_centerX)
+					make.trailing.equalTo(self.backView.snp_centerX)
 				}
 			}
 
@@ -181,10 +180,10 @@ class CardView: UIView {
 				self.shareButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)
 				self.backView.addSubview(self.shareButton)
 				self.shareButton.snp_remakeConstraints { (make) -> Void in
-					make.left.equalTo(self.backView.snp_centerX)
+					make.leading.equalTo(self.backView.snp_centerX)
 					make.top.equalTo(self.backView)
 					make.bottom.equalTo(self.backView)
-					make.right.equalTo(self.backView)
+					make.trailing.equalTo(self.backView)
 				}
 			}
 		}
