@@ -207,6 +207,28 @@ class MorseTransmitter {
 
 	}
 
+	func morseRangeFromTextRange(range:NSRange) -> NSRange {
+		if self.text != nil && self.morse != nil &&
+			range.location > 0 && range.location + range.length <= self.text!.lengthOfBytesUsingEncoding(NSISOLatin1StringEncoding) {
+			let textStr = self.text!
+
+			let preText = textStr.substringWithRange(textStr.startIndex..<textStr.startIndex.advancedBy(range.location)) // ******TextSelected****** // This is the first "******" part.
+			let postText = textStr.substringWithRange(textStr.startIndex..<textStr.startIndex.advancedBy(range.location + range.length)) // ******TextSelected****** // This is the "******TextSelected" part.
+			let preMorse = encodeTextToMorse(preText)
+			let endMorse = encodeTextToMorse(postText)
+			let location = preMorse?.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+			let end = endMorse?.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+			if location != nil && end != nil {
+				return NSRange(location: location!, length: end! - location!)
+			}
+		}
+
+		let morseLen = self.morse?.lengthOfBytesUsingEncoding(NSISOLatin1StringEncoding)
+		let defaultLocation = morseLen == nil ? 0 : morseLen!
+		let defaultRange = NSRange(location: defaultLocation, length: 0)
+		return defaultRange
+	}
+
 	// Assume morse is valid
 	func getTimeStamp(withScalar scalar:Float = 1.0) -> [NSTimeInterval]? {
 		if self.morse == nil || self.morse!.isEmpty { return nil }
