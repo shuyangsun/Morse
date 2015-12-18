@@ -472,8 +472,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 
 	func textViewDidBeginEditing(textView: UITextView) {
 
-		self.inputTextView.attributedText = getAttributedStringFrom(" ", withFontSize: 16, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
-		self.outputTextView.attributedText = getAttributedStringFrom(" ", withFontSize: 16, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
+		self.inputTextView.attributedText = getAttributedStringFrom("", withFontSize: 16, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
+		self.outputTextView.attributedText = getAttributedStringFrom("", withFontSize: 16, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
 		self.textBoxTapFeedBackView.hidden = true
 		self.textBoxTapFeedBackView.userInteractionEnabled = false
 
@@ -539,6 +539,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 	}
 
 	func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+		print(range)
 		if text == "\n" {
 			let text = self.isDirectionEncode ? self.inputTextView.text : self.outputTextView.text
 			let morse = self.isDirectionEncode ? self.outputTextView.text : self.inputTextView.text
@@ -546,6 +547,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 				self.homeViewController.addCardViewWithText(text, morse: morse, textOnTop: self.isDirectionEncode, animateWithDuration: 0.3)
 			}
 			textView.resignFirstResponder()
+			return false
 		}
 		return true
 	}

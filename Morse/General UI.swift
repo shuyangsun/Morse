@@ -15,7 +15,7 @@ let tableViewCellHeight:CGFloat = 50
 let topBarHeight:CGFloat = 56
 
 let cardViewTextFontSizeDictionary:CGFloat = 22
-let cardViewMorseFontSizeDictionary:CGFloat = 12
+let cardViewMorseFontSizeDictionary:CGFloat = 16
 
 let cardViewLabelPaddingVerticle:CGFloat = 16
 let cardViewLabelPaddingHorizontal:CGFloat = 15
