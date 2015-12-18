@@ -225,7 +225,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 	private func updateMDShadows() {
 		self.topBarView.addMDShadow(withDepth: 2)
 		for card in self.cardViews {
-			card.addMDShadow(withDepth: 1)
+			card.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
 		}
 	}
 

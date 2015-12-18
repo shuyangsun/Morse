@@ -147,6 +147,12 @@ enum Theme: String {
 		}
 	}
 
+	var cardViewBorderColor:UIColor {
+		switch self {
+		default: return UIColor.clearColor()
+		}
+	}
+
 	var tabBarBackgroundColor:UIColor {
 		switch self {
 		case .Default: return UIColor(hex: 0xEEEEEE)
@@ -240,6 +246,22 @@ enum Theme: String {
 		default: return 86
 		}
 	}
+
+	var cardViewBorderWidth:CGFloat {
+		switch self {
+		default: return 0
+		}
+	}
+
+	var cardViewCornerRadius:CGFloat {
+		switch self {
+		default: return 2
+		}
+	}
+
+	// *****************************
+	// MARK: Shadows
+	// *****************************
 
 	var cardViewMDShadowLevelDefault:Int {
 		switch self {

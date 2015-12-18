@@ -244,7 +244,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 						animations: {
 							self.scrollView.layoutIfNeeded()
 							cardView.backgroundColor = appDelegate.theme.cardViewExpandedBackgroudColor
-							cardView.addMDShadow(withDepth: 1)
+							cardView.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
 					}, completion: nil)
 			}
 		}
@@ -450,7 +450,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			resultHeight = theme.cardViewHeight
 		}
 		heightChange = resultHeight - originalCardViewHeight
-		cardView.addMDShadow(withDepth: 1)
+		cardView.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
 		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: self.scrollView.contentSize.height + heightChange)
 	}
 
@@ -539,11 +539,11 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				options: .CurveEaseOut,
 				animations: {
 					cardView!.backgroundColor = appDelegate.theme.cardViewBackgroudColor
-					cardView!.addMDShadow(withDepth: 1)
+					cardView!.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
 					self.scrollView.layoutIfNeeded()
 				}) { succeed in
 					if succeed {
-						cardView!.addMDShadow(withDepth: 1)
+						cardView!.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
 					}
 			}
 		}
@@ -595,7 +595,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		}
 		self.scrollView.setNeedsUpdateConstraints()
 		for card in self.cardViews {
-			card.addMDShadow(withDepth: 1)
+			card.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
 		}
 
 		self.updateScrollViewContentSize()
@@ -625,7 +625,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		}
 
 		for card in self.cardViews {
-			card.addMDShadow(withDepth: 1)
+			card.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
 		}
 	}
 }
