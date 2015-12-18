@@ -255,9 +255,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			// TODO: How to use only Morse code when copying.
 			let activityVC = UIActivityViewController(activityItems: [morse + "\n" + LocalizedStrings.General.sharePromote + " " + appStoreURLString], applicationActivities: nil)
 			activityVC.popoverPresentationController?.sourceView = cardView.shareButton
-			self.presentViewController(activityVC, animated: true) {
-				self.restoreCurrentFlippedCard()
-			}
+			self.presentViewController(activityVC, animated: true, completion: nil)
 		}
 	}
 
@@ -425,9 +423,9 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			// FIX ME: using "+ (theme.cardViewHeight - cardView.paddingTop - cardView.labelVerticalGap - cardView.paddingBottom)/2.0" because of a bug in this calculation.
 			let labelWidth = cardView.topLabel.frame.width
 			let topLabelHeight = cardView.topLabel.attributedText!.boundingRectWithSize(CGSizeMake(labelWidth, CGFloat.max), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
-				+ (theme.cardViewHeight - cardView.paddingTop - cardView.labelVerticalGap - cardView.paddingBottom)/2.0
+				+ (theme.cardViewHeight - cardViewLabelPaddingVerticle * 2 - cardViewLabelVerticalGap)/2.0
 			let bottomLabelHeight = cardView.bottomLabel.attributedText!.boundingRectWithSize(CGSizeMake(labelWidth, CGFloat.max), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
-			resultHeight = cardView.paddingTop + topLabelHeight + cardView.labelVerticalGap + bottomLabelHeight + cardView.paddingBottom
+			resultHeight = cardViewLabelPaddingVerticle * 2 + topLabelHeight + cardViewLabelVerticalGap + bottomLabelHeight
 
 			cardView.topLabel.snp_updateConstraints(closure: { (make) -> Void in
 				make.height.equalTo(topLabelHeight)
@@ -438,10 +436,10 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			}
 		} else { // FIX ME: Constraints BUG
 			cardView.topLabel.snp_remakeConstraints { (make) -> Void in
-				make.top.equalTo(cardView).offset(cardView.paddingTop)
-				make.trailing.equalTo(cardView).offset(-cardView.paddingTrailing)
-				make.leading.equalTo(cardView).offset(cardView.paddingLeading)
-				make.height.equalTo((theme.cardViewHeight - cardView.paddingTop - cardView.paddingBottom - cardView.labelVerticalGap)/2.0)
+				make.top.equalTo(cardView).offset(cardViewLabelPaddingVerticle)
+				make.trailing.equalTo(cardView).offset(-cardViewLabelPaddingHorizontal)
+				make.leading.equalTo(cardView).offset(cardViewLabelPaddingHorizontal)
+				make.height.equalTo((theme.cardViewHeight - cardViewLabelPaddingVerticle * 2 - cardViewLabelVerticalGap)/2.0)
 			}
 			cardView.snp_updateConstraints(closure: { (make) -> Void in
 				make.height.equalTo(theme.cardViewHeight)

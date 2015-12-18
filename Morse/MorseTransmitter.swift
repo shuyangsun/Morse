@@ -317,8 +317,8 @@ private func decodeMorseToText(morse:String!) -> String? {
 private let WORD_GAP_STRING = "       "
 private let LETTER_GAP_STRING = "   "
 private let UNIT_GAP_STRING = " "
-private let UNIT_DOT_STRING = "."
-private let UNIT_DASH_STRING = "___"
+private let UNIT_DOT_STRING = "•"
+private let UNIT_DASH_STRING = "———"
 private let DOT_LENGTH:Float = 1.0
 private let UNIT_GAP_LENGTH:Float = 1.0
 private let DASH_LENGTH:Float = 3.0

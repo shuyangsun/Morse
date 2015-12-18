@@ -48,7 +48,7 @@ struct LocalizedStrings {
 		static let about = NSLocalizedString("About", comment: "There are categories on the settings page, this is one of the category.")
 		static let developerOptions = NSLocalizedString("Developer Options", comment: "There are categories on the settings page, this is one of the category.")
 		static let languages = NSLocalizedString("Language", comment: "There are many sections on the settings page, this section let the user change the App's language.")
-		static let extraTextWhenShare = NSLocalizedString("Greeting Text When Share", comment: "There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.")
+		static let extraTextWhenShare = NSLocalizedString("Greeting Text", comment: "There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.")
 		static let theme = NSLocalizedString("Theme", comment: "There are many sections on the settings page, this switch let the user change the color theme of this App.")
 	}
 

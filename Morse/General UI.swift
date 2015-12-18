@@ -14,6 +14,13 @@ let defaultAnimationDuration:NSTimeInterval = 0.5
 let tableViewCellHeight:CGFloat = 50
 let topBarHeight:CGFloat = 56
 
+let cardViewTextFontSizeDictionary:CGFloat = 22
+let cardViewMorseFontSizeDictionary:CGFloat = 9
+
+let cardViewLabelPaddingVerticle:CGFloat = 16
+let cardViewLabelPaddingHorizontal:CGFloat = 15
+let cardViewLabelVerticalGap:CGFloat = 10
+
 let appStoreURLString = "http://www.test.com"
 
 private var cardViewHeight:CGFloat {

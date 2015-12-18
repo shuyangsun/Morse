@@ -36,7 +36,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 		}
 	}
 
-	private let cardViewMinWidth:CGFloat = 150
+	var cardViewMinWidth:CGFloat = 0.0
 
 	// *****************************
 	// MARK: MVC LifeCycle
@@ -44,6 +44,11 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+		// Calculate the min width for a card to show the longest String.
+		let str = NSAttributedString(string: MorseTransmitter.encodeTextToMorseStringDictionary["0"]!, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(cardViewMorseFontSizeDictionary)])
+		let size = str.size()
+		self.cardViewMinWidth = size.width + cardViewLabelPaddingHorizontal * 2
 
 		if self.statusBarView == nil {
 			self.statusBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: statusBarHeight))
@@ -164,17 +169,13 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 			// TODO: How to use only Morse code when copying.
 			let activityVC = UIActivityViewController(activityItems: [LocalizedStrings.General.sharePromote + " " + appStoreURLString + "\n" + morse], applicationActivities: nil)
 			activityVC.popoverPresentationController?.sourceView = cardView.shareButton
-			self.presentViewController(activityVC, animated: true) {
-				self.restoreCurrentFlippedCard()
-			}
+			self.presentViewController(activityVC, animated: true, completion: nil)
 		}
 	}
 
 	// This function does not take care of updating card constraints! It only put cardViews on the scrollView and array.
 	private func addCards() {
 		if self.cardViews.isEmpty {
-			let textFontSize:CGFloat = 22
-			let morseFontSize:CGFloat = 9
 			let keys = MorseTransmitter.keys
 			for var i = keys.count - 1; i >= 0; i-- {
 				// Adding cards may take a while, so do it in another thread. Has to be synced because it's about UI
@@ -183,7 +184,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 					let morse = MorseTransmitter.encodeTextToMorseStringDictionary[text]!
 					let colNum = Int(max(1, floor((self.view.bounds.width - theme.cardViewHorizontalMargin * 2 + theme.cardViewGap) / (self.cardViewMinWidth + theme.cardViewGap))))
 					let width = (self.scrollView.bounds.width - theme.cardViewHorizontalMargin * 2 - CGFloat(colNum - 1) * theme.cardViewGap)/CGFloat(colNum)
-					let cardView = CardView(frame: CGRect(x: theme.cardViewHorizontalMargin, y: theme.cardViewGroupVerticalMargin, width: width, height: theme.cardViewHeight), text: text.uppercaseString, morse: morse, textOnTop: true, deletable: false, textFontSize: textFontSize, morseFontSize: morseFontSize)
+					let cardView = CardView(frame: CGRect(x: theme.cardViewHorizontalMargin, y: theme.cardViewGroupVerticalMargin, width: width, height: theme.cardViewHeight), text: text.uppercaseString, morse: morse, textOnTop: true, deletable: false, textFontSize: cardViewTextFontSizeDictionary, morseFontSize: cardViewMorseFontSizeDictionary)
 					cardView.delegate = self
 					self.cardViews.append(cardView)
 				}
