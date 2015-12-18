@@ -36,7 +36,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 		}
 	}
 
-	var cardViewMinWidth:CGFloat = 0.0
+	let cardViewMinWidth:CGFloat = 150
 
 	// *****************************
 	// MARK: MVC LifeCycle
@@ -46,9 +46,9 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
         super.viewDidLoad()
 
 		// Calculate the min width for a card to show the longest String.
-		let str = NSAttributedString(string: MorseTransmitter.encodeTextToMorseStringDictionary["0"]!, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(cardViewMorseFontSizeDictionary)])
-		let size = str.size()
-		self.cardViewMinWidth = size.width + cardViewLabelPaddingHorizontal * 2
+//		let str = NSAttributedString(string: MorseTransmitter.encodeTextToMorseStringDictionary["ś"]!, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(cardViewMorseFontSizeDictionary)])
+//		let size = str.size()
+//		self.cardViewMinWidth = size.width + cardViewLabelPaddingHorizontal * 2
 
 		if self.statusBarView == nil {
 			self.statusBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: statusBarHeight))
