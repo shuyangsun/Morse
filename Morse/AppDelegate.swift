@@ -49,6 +49,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return self.userDefaults.stringForKey(userDefaultsKeyFirstLaunchLanguageCode)!
 	}
 
+	var soundOutputEnabled:Bool {
+		return self.userDefaults.boolForKey(userDefaultsKeySoundOutputEnabled)
+	}
+
+	var flashOutputEnabled:Bool {
+		return self.userDefaults.boolForKey(userDefaultsKeyFlashOutputEnabled)
+	}
+
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		UIApplication.sharedApplication().statusBarStyle = .LightContent

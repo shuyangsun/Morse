@@ -250,6 +250,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		}
 	}
 
+	// What happens when the user taps share button
 	func cardViewShareButtonTapped(cardView:CardView) {
 		if let morse = cardView.morse {
 			// TODO: How to use only Morse code when copying.
@@ -257,6 +258,15 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			activityVC.popoverPresentationController?.sourceView = cardView.shareButton
 			self.presentViewController(activityVC, animated: true, completion: nil)
 		}
+	}
+
+	// What happens when the user taps output button
+	func cardViewOutputButtonTapped(cardView:CardView) {
+		let outputVC = OutputViewController()
+		if let morse = cardView.morse {
+			outputVC.morse = morse
+		}
+		self.presentViewController(outputVC, animated: true, completion: nil)
 	}
 
 	func cardViewTouchesBegan(cardView: CardView, touches: Set<UITouch>, withEvent event: UIEvent?) {

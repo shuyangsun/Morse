@@ -16,6 +16,7 @@ let topBarHeight:CGFloat = 56
 
 let cardViewTextFontSizeDictionary:CGFloat = 22
 let cardViewMorseFontSizeDictionary:CGFloat = 16
+let morseFontSizeProgressBar:CGFloat = 14
 
 let cardViewLabelPaddingVerticle:CGFloat = 16
 let cardViewLabelPaddingHorizontal:CGFloat = 15

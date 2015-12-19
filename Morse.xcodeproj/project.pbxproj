@@ -16,6 +16,9 @@
 		10286CCB1C0D1BCF00BD2B43 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* CardView.swift */; };
 		10286CCC1C0D1BCF00BD2B43 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* CardView.swift */; };
 		10286CCD1C0D1BCF00BD2B43 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10286CCA1C0D1BCF00BD2B43 /* CardView.swift */; };
+		10295BC31C24CF1F0060DBE1 /* OutputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10295BC21C24CF1F0060DBE1 /* OutputViewController.swift */; };
+		10295BC41C24CF1F0060DBE1 /* OutputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10295BC21C24CF1F0060DBE1 /* OutputViewController.swift */; };
+		10295BC51C24CF1F0060DBE1 /* OutputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10295BC21C24CF1F0060DBE1 /* OutputViewController.swift */; };
 		1030BA0F1C1890C20099F2E4 /* CardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */; };
 		1030BA101C1890C20099F2E4 /* CardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */; };
 		1030BA111C1890C20099F2E4 /* CardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */; };
@@ -153,6 +156,7 @@
 		101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTopSectionViewController.swift; sourceTree = "<group>"; };
 		101A0AB21C1BBA820030A51A /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		10286CCA1C0D1BCF00BD2B43 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		10295BC21C24CF1F0060DBE1 /* OutputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputViewController.swift; sourceTree = "<group>"; };
 		1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewDelegate.swift; sourceTree = "<group>"; };
 		103BCF8B1C1FBA48003A26CA /* MorseDictionaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseDictionaryViewController.swift; sourceTree = "<group>"; };
 		103FB0751C1E8323004B591F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -248,6 +252,14 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		10295BC61C24CF2F0060DBE1 /* Output VC */ = {
+			isa = PBXGroup;
+			children = (
+				10295BC21C24CF1F0060DBE1 /* OutputViewController.swift */,
+			);
+			name = "Output VC";
+			sourceTree = "<group>";
+		};
 		103BCF921C1FBA52003A26CA /* Dictionary VC */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,6 +348,7 @@
 				1052A7731C0BAED50085B0C9 /* TabBarController.swift */,
 				10BFD3971C1F1BBA00FA4C26 /* Home VC */,
 				103BCF921C1FBA52003A26CA /* Dictionary VC */,
+				10295BC61C24CF2F0060DBE1 /* Output VC */,
 				10BFD3961C1F1BAD00FA4C26 /* Settings VC */,
 			);
 			name = "View Controllers";
@@ -582,6 +595,7 @@
 				1030BA0F1C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
 				1073948F1C11F75800EF8C16 /* CancelButton.swift in Sources */,
 				10BFD39E1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */,
+				10295BC31C24CF1F0060DBE1 /* OutputViewController.swift in Sources */,
 				10BFD3A31C1F486700FA4C26 /* LanguageTableViewCell.swift in Sources */,
 				1052A74B1C0BACE90085B0C9 /* Morse.xcdatamodeld in Sources */,
 				1052A7431C0BACE90085B0C9 /* AppDelegate.swift in Sources */,
@@ -610,6 +624,7 @@
 				1030BA101C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
 				107394901C11F75800EF8C16 /* CancelButton.swift in Sources */,
 				10BFD39F1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */,
+				10295BC41C24CF1F0060DBE1 /* OutputViewController.swift in Sources */,
 				10BFD3A41C1F486700FA4C26 /* LanguageTableViewCell.swift in Sources */,
 				107869491C0E5EC00025AD45 /* AppDelegate.swift in Sources */,
 				10826A191C0D5C4C00902BCC /* General.swift in Sources */,
@@ -638,6 +653,7 @@
 				1030BA111C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
 				107394911C11F75800EF8C16 /* CancelButton.swift in Sources */,
 				10BFD3A01C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */,
+				10295BC51C24CF1F0060DBE1 /* OutputViewController.swift in Sources */,
 				10BFD3A51C1F486700FA4C26 /* LanguageTableViewCell.swift in Sources */,
 				1078694D1C0E5EC00025AD45 /* AppDelegate.swift in Sources */,
 				10826A1A1C0D5C4C00902BCC /* General.swift in Sources */,

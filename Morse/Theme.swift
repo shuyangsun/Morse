@@ -153,6 +153,27 @@ enum Theme: String {
 		}
 	}
 
+	// Output VC
+	var progressBarColor:UIColor {
+		switch self {
+		case .Default: return MDColorPalette.Red.A200!
+		}
+	}
+
+	var controlsViewBackgroundColor:UIColor {
+		switch self {
+		case .Default: return MDColorPalette.Red.A400!
+		}
+	}
+
+	var morseTextProgressBarColor:UIColor {
+		switch self {
+		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		}
+	}
+
+	// Tab bar VC
+
 	var tabBarBackgroundColor:UIColor {
 		switch self {
 		case .Default: return UIColor(hex: 0xEEEEEE)
