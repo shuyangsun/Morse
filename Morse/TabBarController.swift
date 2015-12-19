@@ -42,7 +42,7 @@ class TabBarController: UITabBarController {
 
 	// Only support landscape when it's on an iPad
 	override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-		if self.traitCollection.horizontalSizeClass == .Regular && self.traitCollection.verticalSizeClass == .Regular {
+		if isPad {
 			return [UIInterfaceOrientationMask.Portrait, UIInterfaceOrientationMask.Landscape]
 		} else {
 			return UIInterfaceOrientationMask.Portrait

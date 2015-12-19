@@ -19,6 +19,12 @@
 		10295BC31C24CF1F0060DBE1 /* OutputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10295BC21C24CF1F0060DBE1 /* OutputViewController.swift */; };
 		10295BC41C24CF1F0060DBE1 /* OutputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10295BC21C24CF1F0060DBE1 /* OutputViewController.swift */; };
 		10295BC51C24CF1F0060DBE1 /* OutputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10295BC21C24CF1F0060DBE1 /* OutputViewController.swift */; };
+		10295BC81C24EE6B0060DBE1 /* MorseOutputPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10295BC71C24EE6B0060DBE1 /* MorseOutputPlayer.swift */; };
+		10295BC91C24EE6B0060DBE1 /* MorseOutputPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10295BC71C24EE6B0060DBE1 /* MorseOutputPlayer.swift */; };
+		10295BCA1C24EE6B0060DBE1 /* MorseOutputPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10295BC71C24EE6B0060DBE1 /* MorseOutputPlayer.swift */; };
+		10295BCC1C24FE050060DBE1 /* MorseOutputPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10295BCB1C24FE050060DBE1 /* MorseOutputPlayerDelegate.swift */; };
+		10295BCD1C24FE050060DBE1 /* MorseOutputPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10295BCB1C24FE050060DBE1 /* MorseOutputPlayerDelegate.swift */; };
+		10295BCE1C24FE050060DBE1 /* MorseOutputPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10295BCB1C24FE050060DBE1 /* MorseOutputPlayerDelegate.swift */; };
 		1030BA0F1C1890C20099F2E4 /* CardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */; };
 		1030BA101C1890C20099F2E4 /* CardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */; };
 		1030BA111C1890C20099F2E4 /* CardViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */; };
@@ -157,6 +163,8 @@
 		101A0AB21C1BBA820030A51A /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		10286CCA1C0D1BCF00BD2B43 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		10295BC21C24CF1F0060DBE1 /* OutputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputViewController.swift; sourceTree = "<group>"; };
+		10295BC71C24EE6B0060DBE1 /* MorseOutputPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseOutputPlayer.swift; sourceTree = "<group>"; };
+		10295BCB1C24FE050060DBE1 /* MorseOutputPlayerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseOutputPlayerDelegate.swift; sourceTree = "<group>"; };
 		1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewDelegate.swift; sourceTree = "<group>"; };
 		103BCF8B1C1FBA48003A26CA /* MorseDictionaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseDictionaryViewController.swift; sourceTree = "<group>"; };
 		103FB0751C1E8323004B591F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -370,6 +378,7 @@
 			children = (
 				101A0AB21C1BBA820030A51A /* Localization.swift */,
 				107FF6C31C0C223D003EB294 /* MorseTransmitter.swift */,
+				10295BC71C24EE6B0060DBE1 /* MorseOutputPlayer.swift */,
 				10826A171C0D5C4C00902BCC /* General.swift */,
 			);
 			name = Model;
@@ -398,6 +407,7 @@
 			isa = PBXGroup;
 			children = (
 				1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */,
+				10295BCB1C24FE050060DBE1 /* MorseOutputPlayerDelegate.swift */,
 			);
 			name = Delegates;
 			sourceTree = "<group>";
@@ -587,6 +597,7 @@
 				101A0AB31C1BBA820030A51A /* Localization.swift in Sources */,
 				101A0A981C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */,
 				1052A7741C0BAED50085B0C9 /* TabBarController.swift in Sources */,
+				10295BCC1C24FE050060DBE1 /* MorseOutputPlayerDelegate.swift in Sources */,
 				10BFD38E1C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */,
 				1052A77C1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */,
 				107FF6AB1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
@@ -597,6 +608,7 @@
 				10BFD39E1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */,
 				10295BC31C24CF1F0060DBE1 /* OutputViewController.swift in Sources */,
 				10BFD3A31C1F486700FA4C26 /* LanguageTableViewCell.swift in Sources */,
+				10295BC81C24EE6B0060DBE1 /* MorseOutputPlayer.swift in Sources */,
 				1052A74B1C0BACE90085B0C9 /* Morse.xcdatamodeld in Sources */,
 				1052A7431C0BACE90085B0C9 /* AppDelegate.swift in Sources */,
 				10BFD39A1C1F1C1300FA4C26 /* General UI.swift in Sources */,
@@ -616,6 +628,7 @@
 				101A0AB41C1BBA820030A51A /* Localization.swift in Sources */,
 				101A0A991C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */,
 				1052A7751C0BAED50085B0C9 /* TabBarController.swift in Sources */,
+				10295BCD1C24FE050060DBE1 /* MorseOutputPlayerDelegate.swift in Sources */,
 				10BFD38F1C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */,
 				109ACDC11C0E0D12006AC535 /* RoundButtonView.swift in Sources */,
 				1052A75B1C0BACEA0085B0C9 /* MorseTests.swift in Sources */,
@@ -626,6 +639,7 @@
 				10BFD39F1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */,
 				10295BC41C24CF1F0060DBE1 /* OutputViewController.swift in Sources */,
 				10BFD3A41C1F486700FA4C26 /* LanguageTableViewCell.swift in Sources */,
+				10295BC91C24EE6B0060DBE1 /* MorseOutputPlayer.swift in Sources */,
 				107869491C0E5EC00025AD45 /* AppDelegate.swift in Sources */,
 				10826A191C0D5C4C00902BCC /* General.swift in Sources */,
 				10BFD39B1C1F1C1300FA4C26 /* General UI.swift in Sources */,
@@ -645,6 +659,7 @@
 				101A0AB51C1BBA820030A51A /* Localization.swift in Sources */,
 				101A0A9A1C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */,
 				1052A7761C0BAED50085B0C9 /* TabBarController.swift in Sources */,
+				10295BCE1C24FE050060DBE1 /* MorseOutputPlayerDelegate.swift in Sources */,
 				10BFD3901C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */,
 				109ACDC21C0E0D12006AC535 /* RoundButtonView.swift in Sources */,
 				1052A7661C0BACEA0085B0C9 /* MorseUITests.swift in Sources */,
@@ -655,6 +670,7 @@
 				10BFD3A01C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */,
 				10295BC51C24CF1F0060DBE1 /* OutputViewController.swift in Sources */,
 				10BFD3A51C1F486700FA4C26 /* LanguageTableViewCell.swift in Sources */,
+				10295BCA1C24EE6B0060DBE1 /* MorseOutputPlayer.swift in Sources */,
 				1078694D1C0E5EC00025AD45 /* AppDelegate.swift in Sources */,
 				10826A1A1C0D5C4C00902BCC /* General.swift in Sources */,
 				10BFD39C1C1F1C1300FA4C26 /* General UI.swift in Sources */,

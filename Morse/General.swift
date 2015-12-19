@@ -30,6 +30,9 @@ let userDefaultsKeyAppleLanguages = "AppleLanguages"
 let userDefaultsKeyFirstLaunchLanguageCode = "First Launch Language Code"
 let userDefaultsKeySoundOutputEnabled = "Sound Output Enableds"
 let userDefaultsKeyFlashOutputEnabled = "Flash Output Enableds"
+let userDefaultsKeyInputWPM = "Input WPM"
+let userDefaultsKeyOutputWPM = "Output WPM"
+let userDefaultsKeyBrightenScreenWhenOutput = "Brighten Screen When Output"
 
 func getAttributedStringFrom(text:String?, withFontSize fontSize:CGFloat = UIFont.systemFontSize(), color:UIColor = UIColor.blackColor(), bold:Bool = false) -> NSMutableAttributedString? {
 	return text == nil ? nil : NSMutableAttributedString(string: text!, attributes:

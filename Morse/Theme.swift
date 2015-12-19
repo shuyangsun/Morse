@@ -156,13 +156,13 @@ enum Theme: String {
 	// Output VC
 	var progressBarColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Red.A200!
+		case .Default: return MDColorPalette.Blue.P300
 		}
 	}
 
-	var controlsViewBackgroundColor:UIColor {
+	var percentageTextColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Red.A400!
+		default: return self.topBarLabelTextColor
 		}
 	}
 

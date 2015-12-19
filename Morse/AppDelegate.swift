@@ -46,7 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	var firstLaunchSystemLanguageCode:String {
-		return self.userDefaults.stringForKey(userDefaultsKeyFirstLaunchLanguageCode)!
+		let res = self.userDefaults.stringForKey(userDefaultsKeyFirstLaunchLanguageCode)
+		return res == nil ? "en" : res!
 	}
 
 	var soundOutputEnabled:Bool {
@@ -55,6 +56,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var flashOutputEnabled:Bool {
 		return self.userDefaults.boolForKey(userDefaultsKeyFlashOutputEnabled)
+	}
+
+	var outputWPM:Int {
+		let res = self.userDefaults.integerForKey(userDefaultsKeyOutputWPM)
+		return res <= 0 ? 15 : res
+	}
+
+	var inputWPM:Int {
+		let res = self.userDefaults.integerForKey(userDefaultsKeyInputWPM)
+		return res <= 0 ? 15 : res
+	}
+
+	var brightenScreenWhenOutput:Bool {
+		return self.userDefaults.boolForKey(userDefaultsKeyBrightenScreenWhenOutput)
 	}
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {

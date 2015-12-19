@@ -33,6 +33,10 @@ var statusBarHeight:CGFloat {
 	return UIApplication.sharedApplication().statusBarFrame.size.height
 }
 
+var animationDurationScalar:NSTimeInterval {
+	return appDelegate.animationDurationScalar
+}
+
 enum Direction:Int {
 	case Top = 1
 	case Right = 2
