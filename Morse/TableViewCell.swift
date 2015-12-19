@@ -9,6 +9,7 @@
 import UIKit
 
 class TableViewCell: UITableViewCell {
+	var tapFeebackEnabled = true
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,7 +21,9 @@ class TableViewCell: UITableViewCell {
     }
 
 	func tapped(tapGR:UITapGestureRecognizer) {
-		let location = tapGR.locationInView(self)
-		self.triggerTapFeedBack(atLocation:location, withColor: appDelegate.theme.cellTapFeedBackColor, duration: TAP_FEED_BACK_DURATION, atBottom: false)
+		if self.tapFeebackEnabled {
+			let location = tapGR.locationInView(self)
+			self.triggerTapFeedBack(atLocation:location, withColor: appDelegate.theme.cellTapFeedBackColor, duration: TAP_FEED_BACK_DURATION, atBottom: false)
+		}
 	}
 }

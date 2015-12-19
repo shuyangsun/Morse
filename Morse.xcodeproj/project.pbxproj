@@ -62,6 +62,10 @@
 		10826A181C0D5C4C00902BCC /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10826A171C0D5C4C00902BCC /* General.swift */; };
 		10826A191C0D5C4C00902BCC /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10826A171C0D5C4C00902BCC /* General.swift */; };
 		10826A1A1C0D5C4C00902BCC /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10826A171C0D5C4C00902BCC /* General.swift */; };
+		1088ACAB1C25A85C00D17028 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1088ACAA1C25A85C00D17028 /* AVFoundation.framework */; };
+		1088ACB61C25D97C00D17028 /* Morse Sound Standard.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1088ACB51C25D97C00D17028 /* Morse Sound Standard.aiff */; };
+		1088ACB71C25D97C00D17028 /* Morse Sound Standard.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1088ACB51C25D97C00D17028 /* Morse Sound Standard.aiff */; };
+		1088ACB81C25D97C00D17028 /* Morse Sound Standard.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1088ACB51C25D97C00D17028 /* Morse Sound Standard.aiff */; };
 		109266841C2071EA00AD198E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109266831C2071EA00AD198E /* TableViewCell.swift */; };
 		109266851C2071EA00AD198E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109266831C2071EA00AD198E /* TableViewCell.swift */; };
 		109266861C2071EA00AD198E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109266831C2071EA00AD198E /* TableViewCell.swift */; };
@@ -194,6 +198,8 @@
 		107FF6B01C0BDEC0003EB294 /* SnapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SnapKit.xcodeproj; path = SnapKit/SnapKit.xcodeproj; sourceTree = "<group>"; };
 		107FF6C31C0C223D003EB294 /* MorseTransmitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseTransmitter.swift; sourceTree = "<group>"; };
 		10826A171C0D5C4C00902BCC /* General.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = General.swift; sourceTree = "<group>"; };
+		1088ACAA1C25A85C00D17028 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		1088ACB51C25D97C00D17028 /* Morse Sound Standard.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Morse Sound Standard.aiff"; sourceTree = "<group>"; };
 		109266831C2071EA00AD198E /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButtonView.swift; sourceTree = "<group>"; };
 		10B9C8141C0FB5A4001C5847 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -227,6 +233,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1088ACAB1C25A85C00D17028 /* AVFoundation.framework in Frameworks */,
 				10B9C8151C0FB5A4001C5847 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,11 +287,10 @@
 			isa = PBXGroup;
 			children = (
 				1052A7411C0BACE90085B0C9 /* Morse */,
+				1088ACAC1C25A87800D17028 /* Frameworks */,
 				1052A7591C0BACEA0085B0C9 /* MorseTests */,
 				1052A7641C0BACEA0085B0C9 /* MorseUITests */,
 				1052A7401C0BACE90085B0C9 /* Products */,
-				10B9C8141C0FB5A4001C5847 /* CoreData.framework */,
-				107FF6B01C0BDEC0003EB294 /* SnapKit.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -303,15 +309,15 @@
 			children = (
 				10CAF81B1C1DDD4A00164258 /* Localizable.strings */,
 				10CAF8161C1DDD4A00164258 /* InfoPlist.strings */,
+				1052A7461C0BACE90085B0C9 /* Main.storyboard */,
+				1052A74E1C0BACE90085B0C9 /* LaunchScreen.storyboard */,
 				1052A7421C0BACE90085B0C9 /* AppDelegate.swift */,
 				107FF6AF1C0BDD1F003EB294 /* View Controllers */,
 				10286CD11C0D1BD800BD2B43 /* Views */,
 				10BFD3981C1F1BF400FA4C26 /* Delegates */,
 				107FF6C71C0C2246003EB294 /* Model */,
 				107FF6AE1C0BC20B003EB294 /* UI */,
-				1052A7461C0BACE90085B0C9 /* Main.storyboard */,
-				1052A74C1C0BACE90085B0C9 /* Assets.xcassets */,
-				1052A74E1C0BACE90085B0C9 /* LaunchScreen.storyboard */,
+				1088ACA91C25A79F00D17028 /* Resources */,
 				1052A7511C0BACE90085B0C9 /* Info.plist */,
 				1052A7491C0BACE90085B0C9 /* Morse.xcdatamodeld */,
 			);
@@ -376,12 +382,31 @@
 		107FF6C71C0C2246003EB294 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				10826A171C0D5C4C00902BCC /* General.swift */,
 				101A0AB21C1BBA820030A51A /* Localization.swift */,
 				107FF6C31C0C223D003EB294 /* MorseTransmitter.swift */,
 				10295BC71C24EE6B0060DBE1 /* MorseOutputPlayer.swift */,
-				10826A171C0D5C4C00902BCC /* General.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		1088ACA91C25A79F00D17028 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1052A74C1C0BACE90085B0C9 /* Assets.xcassets */,
+				1088ACB51C25D97C00D17028 /* Morse Sound Standard.aiff */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		1088ACAC1C25A87800D17028 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1088ACAA1C25A85C00D17028 /* AVFoundation.framework */,
+				10B9C8141C0FB5A4001C5847 /* CoreData.framework */,
+				107FF6B01C0BDEC0003EB294 /* SnapKit.xcodeproj */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		10BFD3961C1F1BAD00FA4C26 /* Settings VC */ = {
@@ -560,6 +585,7 @@
 				10CAF8141C1DDD4A00164258 /* InfoPlist.strings in Resources */,
 				1052A74D1C0BACE90085B0C9 /* Assets.xcassets in Resources */,
 				1052A7481C0BACE90085B0C9 /* Main.storyboard in Resources */,
+				1088ACB61C25D97C00D17028 /* Morse Sound Standard.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,6 +595,7 @@
 			files = (
 				10CAF8231C1DDD4A00164258 /* InfoPlist.strings in Resources */,
 				10CAF82D1C1DDE3100164258 /* Localizable.strings in Resources */,
+				1088ACB71C25D97C00D17028 /* Morse Sound Standard.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,6 +605,7 @@
 			files = (
 				10CAF81E1C1DDD4A00164258 /* InfoPlist.strings in Resources */,
 				10CAF8381C1DDFE700164258 /* Localizable.strings in Resources */,
+				1088ACB81C25D97C00D17028 /* Morse Sound Standard.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

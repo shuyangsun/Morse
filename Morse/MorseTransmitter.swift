@@ -232,13 +232,13 @@ class MorseTransmitter {
 	}
 
 	// Assume morse is valid
-	func getTimeStamp(withScalar scalar:Float = 1.0) -> [NSTimeInterval]? {
+	func getTimeStamp(withScalar scalar:Float = 1.0, delay:NSTimeInterval = 0.0) -> [NSTimeInterval]? {
 		if self.morse == nil || self.morse!.isEmpty { return nil }
 		if scalar <= 0 { return nil }
 		if scalar <= 1.0/60 {
 			NSLog("Input/output scalar(\(scalar)) is less than 1/60, may cause serious encoding or decoding problem.")
 		}
-		var res:[NSTimeInterval] = [0.0]
+		var res:[NSTimeInterval] = [delay]
 		dispatch_sync(dispatch_queue_create("Get Time Stamp Queue", nil)) {
 			// Seperate words
 			let words = self.morse!.componentsSeparatedByString(WORD_GAP_STRING)

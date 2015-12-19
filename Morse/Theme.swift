@@ -240,6 +240,24 @@ enum Theme: String {
 		}
 	}
 
+	var sliderMinTrackTintColor:UIColor {
+		switch self {
+		case .Default: return MDColorPalette.Red.A100!
+		}
+	}
+
+	var sliderMaxTrackTintColor:UIColor {
+		switch self {
+		default: return UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)
+		}
+	}
+
+	var sliderThumbTintColor:UIColor {
+		switch self {
+		default: return self.sliderMinTrackTintColor
+		}
+	}
+
 	// *****************************
 	// MARK: Length
 	// *****************************

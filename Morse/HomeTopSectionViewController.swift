@@ -146,7 +146,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 			self.topBarView = UIView(frame: CGRect(x: 0, y: statusBarHeight, width: self.view.bounds.width, height: topBarHeight))
 			self.topBarView.backgroundColor = appDelegate.theme.topBarBackgroundColor
 			self.view.addSubview(topBarView)
-
+			
 			// Text label
 			self.topBarLabelText = UILabel(frame: CGRect(x: 0, y: 0, width: self.topBarView.bounds.width/2.0 - self.roundButtonRadius - self.roundButtonMargin, height: topBarHeight))
 			self.topBarLabelText.textAlignment = .Center

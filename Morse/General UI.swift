@@ -22,6 +22,14 @@ let cardViewLabelPaddingVerticle:CGFloat = 16
 let cardViewLabelPaddingHorizontal:CGFloat = 15
 let cardViewLabelVerticalGap:CGFloat = 10
 
+let tableViewCellTrailingPadding:CGFloat = 20
+var sliderWidth:CGFloat {
+	return 200
+}
+
+let tableViewCellTextLabelFontSize:CGFloat = 16
+let tableViewCellDetailTextLabelFontSize:CGFloat = 12
+
 let appStoreURLString = "http://www.test.com"
 
 private var cardViewHeight:CGFloat {

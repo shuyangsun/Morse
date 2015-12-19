@@ -10,6 +10,15 @@ import UIKit
 
 class SettingsMasterTableViewController: UITableViewController {
 
+	var outputWPMCell:TableViewCell!
+	var outputWPMSlider:UISlider!
+	var outputWPM:Int = appDelegate.outputWPM {
+		willSet {
+			appDelegate.userDefaults.setInteger(newValue, forKey: userDefaultsKeyOutputWPM)
+			appDelegate.userDefaults.synchronize()
+		}
+	}
+
 	private let _cellIdentifier = "Settings Default Cell Identifier"
 	private var _isIPad:Bool {
 		if self.traitCollection.verticalSizeClass == .Regular &&
@@ -44,6 +53,13 @@ class SettingsMasterTableViewController: UITableViewController {
 		self.tableView.reloadData()
 	}
 
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		// If we don't make it 100 first, the number may be clipped because the size does not fit.
+		self.outputWPMCell.detailTextLabel?.attributedText = getAttributedStringFrom("100", withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
+		self.outputWPMCell.detailTextLabel?.attributedText = getAttributedStringFrom("\(self.outputWPM)", withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
+	}
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -52,7 +68,7 @@ class SettingsMasterTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-		var result = 3
+		var result = 4
 		#if DEBUG
 			result++
 		#endif
@@ -74,7 +90,7 @@ class SettingsMasterTableViewController: UITableViewController {
 			switch indexPath.row {
 			case 0:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Languages Cell", forIndexPath: indexPath) as! TableViewCell
-				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.languages, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.languages, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				let currentLanguageName = supportedLanguages[appDelegate.currentLocaleLanguageCode]
 				var languageNameOriginal = ""
 				if currentLanguageName == nil {
@@ -83,7 +99,7 @@ class SettingsMasterTableViewController: UITableViewController {
 					languageNameOriginal = currentLanguageName!.original
 				}
 				// Detailed text displays the current language. 
-				cell.detailTextLabel?.attributedText = getAttributedStringFrom(languageNameOriginal, withFontSize: 16, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
+				cell.detailTextLabel?.attributedText = getAttributedStringFrom(languageNameOriginal, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
 				if !self._isIPad {
 					cell.accessoryType = .DisclosureIndicator
 				}
@@ -100,7 +116,38 @@ class SettingsMasterTableViewController: UITableViewController {
 				}
 			case 1:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Layout Cell", forIndexPath: indexPath) as! TableViewCell
-				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.extraTextWhenShare, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.extraTextWhenShare, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+			default: break
+			}
+		} else if indexPath.section == 2 {
+			switch indexPath.row {
+			case 0:
+				self.outputWPMCell = tableView.dequeueReusableCellWithIdentifier("Settings Frequency Cell", forIndexPath: indexPath) as! TableViewCell
+				cell = self.outputWPMCell
+				cell.tapFeebackEnabled = false
+				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.outputFrequency, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				cell.detailTextLabel?.attributedText = getAttributedStringFrom("100", withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
+				if self.outputWPMSlider == nil {
+					self.outputWPMSlider = UISlider(frame: CGRect(x: cell.contentView.bounds.width - sliderWidth - tableViewCellTrailingPadding, y: 0, width: sliderWidth, height: cell.bounds.height))
+					self.outputWPMSlider.minimumValue = Float(outputMinWPM)
+					self.outputWPMSlider.maximumValue = Float(outputMaxWPM)
+					self.outputWPMSlider.value = Float(self.outputWPM)
+					self.outputWPMSlider.minimumTrackTintColor = theme.sliderMinTrackTintColor
+					self.outputWPMSlider.maximumTrackTintColor = theme.sliderMaxTrackTintColor
+//					self.outputWPMSlider.thumbTintColor = theme.sliderThumbTintColor
+					self.outputWPMSlider.tag = 0
+					self.outputWPMSlider.addTarget(self, action: "sliderValueChanged:", forControlEvents: .ValueChanged)
+					cell.contentView.addSubview(self.outputWPMSlider)
+					self.outputWPMSlider.snp_remakeConstraints(closure: { (make) -> Void in
+						make.trailing.equalTo(cell.contentView).offset(-tableViewCellTrailingPadding)
+						make.top.equalTo(cell.contentView)
+						make.bottom.equalTo(cell.contentView)
+						make.width.equalTo(sliderWidth)
+					})
+				}
+			case 1:
+				cell = tableView.dequeueReusableCellWithIdentifier("Settings Frequency Cell", forIndexPath: indexPath) as! TableViewCell
+				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.outputFrequency, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			default: break
 			}
 		}
@@ -115,14 +162,23 @@ class SettingsMasterTableViewController: UITableViewController {
 		switch section {
 		case 0: return LocalizedStrings.Settings.general
 		case 1: return LocalizedStrings.Settings.ui
-		case 2: return	LocalizedStrings.Settings.about
-		case 3: return LocalizedStrings.Settings.developerOptions
+		case 2: return "WPM (\(LocalizedStrings.Settings.frequency))"
+		case 3: return	LocalizedStrings.Settings.about
+		case 4: return LocalizedStrings.Settings.developerOptions
 		default: return nil
 		}
 	}
 
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return tableViewCellHeight
+	}
+
+	func sliderValueChanged(slider:UISlider) {
+		if slider === self.outputWPMSlider {
+			self.outputWPM = Int(slider.value)
+			self.outputWPMSlider.value = Float(self.outputWPM)
+			self.outputWPMCell.detailTextLabel?.attributedText = getAttributedStringFrom("\(self.outputWPM)", withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
+		}
 	}
 
     /*

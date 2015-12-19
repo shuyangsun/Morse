@@ -20,6 +20,10 @@ var isPhone:Bool {
 	return UI_USER_INTERFACE_IDIOM() == .Phone
 }
 
+// WPM
+let outputMinWPM = 5
+let outputMaxWPM = 70
+
 // NSUserDefaultKeys
 let userDefaultsKeyTheme = "Theme"
 let userDefaultsKeySwapButtonLayout = "Swap Button Layout"
@@ -33,6 +37,8 @@ let userDefaultsKeyFlashOutputEnabled = "Flash Output Enableds"
 let userDefaultsKeyInputWPM = "Input WPM"
 let userDefaultsKeyOutputWPM = "Output WPM"
 let userDefaultsKeyBrightenScreenWhenOutput = "Brighten Screen When Output"
+
+let morseSoundStandardURL = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Morse Sound Standard", ofType: "aiff")!)
 
 func getAttributedStringFrom(text:String?, withFontSize fontSize:CGFloat = UIFont.systemFontSize(), color:UIColor = UIColor.blackColor(), bold:Bool = false) -> NSMutableAttributedString? {
 	return text == nil ? nil : NSMutableAttributedString(string: text!, attributes:

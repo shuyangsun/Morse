@@ -6,7 +6,7 @@
 //  Copyright © 2015 Shuyang Sun. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class MorseOutputPlayer: NSObject {
 	// *****************************
@@ -65,6 +65,7 @@ class MorseOutputPlayer: NSObject {
 	func stop() {
 		self.stopSignal()
 		let _ = self._timers.map { $0.invalidate() }
+//		NSObject.cancelPreviousPerformRequestsWithTarget(self)
 		self._timers = []
 	}
 

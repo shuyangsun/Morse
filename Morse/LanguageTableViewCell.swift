@@ -10,16 +10,13 @@ import UIKit
 
 class LanguageTableViewCell: TableViewCell {
 
-	private let _textLabelFontSize:CGFloat = 16
-	private let _detailTextLabelFontSize:CGFloat = 12
-
 	var languageCode = "" {
 		willSet {
 			if newValue == "" {
-				self.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Languages.systemDefault, withFontSize: self._textLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				self.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Languages.systemDefault, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			} else {
-				self.textLabel?.attributedText = getAttributedStringFrom(supportedLanguages[newValue]!.original, withFontSize: self._textLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
-				self.detailTextLabel?.attributedText = getAttributedStringFrom(supportedLanguages[newValue]!.localized, withFontSize: self._detailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
+				self.textLabel?.attributedText = getAttributedStringFrom(supportedLanguages[newValue]!.original, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				self.detailTextLabel?.attributedText = getAttributedStringFrom(supportedLanguages[newValue]!.localized, withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
 			}
 		}
 	}
@@ -40,18 +37,18 @@ class LanguageTableViewCell: TableViewCell {
 		if self.accessoryType == .None {
 			self.backgroundColor = appDelegate.theme.cellBackgroundColor
 			if self.languageCode == "" {
-				self.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Languages.systemDefault, withFontSize: self._textLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				self.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Languages.systemDefault, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			} else {
-				self.textLabel?.attributedText = getAttributedStringFrom(supportedLanguages[self.languageCode]!.original, withFontSize: self._textLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
-				self.detailTextLabel?.attributedText = getAttributedStringFrom(supportedLanguages[self.languageCode]!.localized, withFontSize: self._detailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
+				self.textLabel?.attributedText = getAttributedStringFrom(supportedLanguages[self.languageCode]!.original, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				self.detailTextLabel?.attributedText = getAttributedStringFrom(supportedLanguages[self.languageCode]!.localized, withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
 			}
 		} else {
 			self.backgroundColor = appDelegate.theme.cellSelectedBackgroundColor
 			if self.languageCode == "" {
-				self.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Languages.systemDefault, withFontSize: self._textLabelFontSize, color: appDelegate.theme.cellTitleTextSelectedColor, bold: false)
+				self.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Languages.systemDefault, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextSelectedColor, bold: false)
 			} else {
-				self.textLabel?.attributedText = getAttributedStringFrom(supportedLanguages[self.languageCode]!.original, withFontSize: self._textLabelFontSize, color: appDelegate.theme.cellTitleTextSelectedColor, bold: false)
-				self.detailTextLabel?.attributedText = getAttributedStringFrom(supportedLanguages[self.languageCode]!.localized, withFontSize: self._detailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextSelectedColor, bold: false)
+				self.textLabel?.attributedText = getAttributedStringFrom(supportedLanguages[self.languageCode]!.original, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextSelectedColor, bold: false)
+				self.detailTextLabel?.attributedText = getAttributedStringFrom(supportedLanguages[self.languageCode]!.localized, withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextSelectedColor, bold: false)
 			}
 		}
 	}
