@@ -19,7 +19,6 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 	var topBarView: UIView!
 	var topBarLabel: UILabel!
 	var scrollView:UIScrollView!
-	private var currentFlippedCard:CardView?
 
 	private var cardViews:[CardView] = []
 	private var transmitter = MorseTransmitter()
@@ -119,23 +118,15 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 		self.updateMDShadows()
 	}
 
-	override func viewDidDisappear(animated: Bool) {
-		super.viewDidDisappear(animated)
-		self.restoreCurrentFlippedCard()
+	override func viewWillDisappear(animated: Bool) {
+		super.viewWillDisappear(animated)
+		// TODO: stop playing
 	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-	// *****************************
-	// MARK: Scroll View Delegate
-	// *****************************
-
-	func scrollViewDidScroll(scrollView: UIScrollView) {
-		self.restoreCurrentFlippedCard()
-	}
 
 	// *****************************
 	// MARK: Card Stuff
@@ -155,22 +146,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 	}
 
 	func cardViewTapped(cardView:CardView) {
-		if cardView !== self.currentFlippedCard {
-			cardView.flip()
-		}
-		self.restoreCurrentFlippedCard()
-		if cardView.flipped {
-			self.currentFlippedCard = cardView
-		}
-	}
-
-	func cardViewShareButtonTapped(cardView:CardView) {
-		if let morse = cardView.morse {
-			// TODO: How to use only Morse code when copying.
-			let activityVC = UIActivityViewController(activityItems: [LocalizedStrings.General.sharePromote + " " + appStoreURLString + "\n" + morse], applicationActivities: nil)
-			activityVC.popoverPresentationController?.sourceView = cardView.shareButton
-			self.presentViewController(activityVC, animated: true, completion: nil)
-		}
+		// TODO: play sound and flash card
 	}
 
 	// This function does not take care of updating card constraints! It only put cardViews on the scrollView and array.
@@ -184,7 +160,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 					let morse = MorseTransmitter.encodeTextToMorseStringDictionary[text]!
 					let colNum = Int(max(1, floor((self.view.bounds.width - theme.cardViewHorizontalMargin * 2 + theme.cardViewGap) / (self.cardViewMinWidth + theme.cardViewGap))))
 					let width = (self.scrollView.bounds.width - theme.cardViewHorizontalMargin * 2 - CGFloat(colNum - 1) * theme.cardViewGap)/CGFloat(colNum)
-					let cardView = CardView(frame: CGRect(x: theme.cardViewHorizontalMargin, y: theme.cardViewGroupVerticalMargin, width: width, height: theme.cardViewHeight), text: text.uppercaseString, morse: morse, textOnTop: true, deletable: false, textFontSize: cardViewTextFontSizeDictionary, morseFontSize: cardViewMorseFontSizeDictionary)
+					let cardView = CardView(frame: CGRect(x: theme.cardViewHorizontalMargin, y: theme.cardViewGroupVerticalMargin, width: width, height: theme.cardViewHeight), text: text.uppercaseString, morse: morse, textOnTop: true, deletable: false, canBeFlipped: false, textFontSize: cardViewTextFontSizeDictionary, morseFontSize: cardViewMorseFontSizeDictionary)
 					cardView.delegate = self
 					self.cardViews.append(cardView)
 				}
@@ -228,14 +204,6 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 		for card in self.cardViews {
 			card.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
 		}
-	}
-
-	func restoreCurrentFlippedCard() {
-		// Flip back flipped card
-		if self.currentFlippedCard != nil && self.currentFlippedCard!.flipped {
-			self.currentFlippedCard?.flip()
-		}
-		self.currentFlippedCard = nil
 	}
 
 	func rotationDidChange() {

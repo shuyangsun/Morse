@@ -36,7 +36,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 			appDelegate.userDefaults.synchronize()
 			if !newValue {
 				// Stop playing if the user wants to disable sound
-				self._audioPlayer?.stop()
+				self._audioPlayer?.volume = 0
 			}
 		}
 	}
@@ -78,7 +78,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 		return self.morseTextLabel.attributedText!.size().width + 10
 	}
 	private let _doneButtonWidth:CGFloat = 100
-	private var _controlButtonWidth:CGFloat = 50
+	var controlButtonWidth:CGFloat = 50
 	private var _originalBrightness:CGFloat = UIScreen.mainScreen().brightness
 
 	// *****************************
@@ -145,7 +145,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 			}
 
 			if self.soundToggleButton == nil {
-				self.soundToggleButton = UIButton(frame: CGRect(x: 0, y: self.view.bounds.width - self._controlButtonWidth, width: self._controlButtonWidth, height: topBarHeight))
+				self.soundToggleButton = UIButton(frame: CGRect(x: 0, y: self.view.bounds.width - self.controlButtonWidth, width: self.controlButtonWidth, height: topBarHeight))
 				self.soundToggleButton.backgroundColor = UIColor.clearColor()
 				self.soundToggleButton.tintColor = theme.topBarLabelTextColor
 				self.soundToggleButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
@@ -157,12 +157,12 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 					make.top .equalTo(self.topBarView)
 					make.bottom.equalTo(self.topBarView)
 					make.trailing.equalTo(self.topBarView)
-					make.width.equalTo(self._controlButtonWidth)
+					make.width.equalTo(self.controlButtonWidth)
 				}
 			}
 
 			if self.flashToggleButton == nil && self._rearCamera != nil && self._rearCamera.hasTorch && self._rearCamera.hasFlash && self._rearCamera.isTorchModeSupported(.On) {
-				self.flashToggleButton = UIButton(frame: CGRect(x: 0, y: self.view.bounds.width - self._controlButtonWidth * 2, width: self._controlButtonWidth, height: topBarHeight))
+				self.flashToggleButton = UIButton(frame: CGRect(x: 0, y: self.view.bounds.width - self.controlButtonWidth * 2, width: self.controlButtonWidth, height: topBarHeight))
 				self.flashToggleButton!.backgroundColor = UIColor.clearColor()
 				self.flashToggleButton!.tintColor = theme.topBarLabelTextColor
 				self.flashToggleButton!.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
@@ -174,7 +174,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 					make.top .equalTo(self.topBarView)
 					make.bottom.equalTo(self.topBarView)
 					make.trailing.equalTo(self.soundToggleButton.snp_leading)
-					make.width.equalTo(self._controlButtonWidth)
+					make.width.equalTo(self.controlButtonWidth)
 				}
 			}
 
@@ -219,7 +219,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 			self.screenFlashView.backgroundColor = UIColor.blackColor()
 			let tapGR = UITapGestureRecognizer(target: self, action: "screenFlashViewTapped")
 			self.screenFlashView.addGestureRecognizer(tapGR)
-			let pinchGR = UIPinchGestureRecognizer(target: self, action: "screenFlashViewPinched")
+			let pinchGR = UIPinchGestureRecognizer(target: self, action: "screenFlashViewPinched:")
 			self.screenFlashView.addGestureRecognizer(pinchGR)
 			self.view.addSubview(self.screenFlashView)
 			self.screenFlashView.snp_remakeConstraints(closure: { (make) -> Void in
@@ -229,22 +229,23 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 				make.bottom.equalTo(self.view)
 			})
 		}
-    }
 
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-		self._outputPlayer.morse = self.morse
-		self._outputPlayer.delegate = self
+		// Setup audioPlayer
 		do {
 			self._audioPlayer = try AVAudioPlayer(contentsOfURL: morseSoundStandardURL)
 			self._audioPlayer?.numberOfLoops = -1
 			// Play the audio once without volume so the audio player is prepared, otherwise there will be a lag when the audio file is being played at first time.
 			self._audioPlayer?.volume = 0
 			self._audioPlayer?.play()
-			self._audioPlayer?.stop()
 		} catch let error as NSError {
 			print("Could not create AVAudioPlayer \(error), \(error.userInfo)")
 		}
+    }
+
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		self._outputPlayer.morse = self.morse
+		self._outputPlayer.delegate = self
 	}
 
 	override func viewWillDisappear(animated: Bool) {
@@ -274,7 +275,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 
-	func screenFlashViewPinched() {
+	func screenFlashViewPinched(pinchGR:UIPinchGestureRecognizer) {
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 
@@ -344,7 +345,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 	// MARK: Callbacks
 	// *****************************
 
-	func progressChanged() {
+	func updateProgress() {
 		let duration = self._outputPlayer.duration
 		let completionRatio = duration == 0 ? 1 : min(1, NSDate().timeIntervalSinceDate(self._startDate)/duration)
 		self.percentageLabel.text = "\(Int(ceil(completionRatio * 100)))%"
@@ -361,7 +362,6 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 
 	private func startPlaying() {
 		// User wants to start playing
-		self._audioPlayer?.play()
 		UIView.animateWithDuration(defaultAnimationDuration * animationDurationScalar,
 			delay: 0,
 			options: .CurveEaseInOut,
@@ -377,7 +377,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 						self._originalBrightness = UIScreen.mainScreen().brightness
 						UIScreen.mainScreen().brightness = 1
 					}
-					self._progressTimer = NSTimer.scheduledTimerWithTimeInterval(1.0/60.0, target: self, selector: "progressChanged", userInfo: nil, repeats: true)
+					self._progressTimer = NSTimer.scheduledTimerWithTimeInterval(1.0/60.0, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
 				}
 		}
 		self._playing = true
@@ -386,7 +386,6 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 	private func stopPlaying() {
 		// User wants to stop playing
 		self._outputPlayer.stop()
-		self._audioPlayer?.stop()
 		self._progressTimer.invalidate()
 		if self._brightenScreenWhenOutput {
 			UIScreen.mainScreen().brightness = self._originalBrightness

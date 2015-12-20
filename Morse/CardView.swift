@@ -9,8 +9,6 @@
 import UIKit
 
 class CardView: UIView {
-	private let buttonPadding:CGFloat = 5.0
-
 	var expanded = false
 	var flipped = false
 
@@ -37,6 +35,7 @@ class CardView: UIView {
 	var cardUniqueID:Int?
 	var delegate:CardViewDelegate?
 	var deletable:Bool = true
+	var canBeFlipped:Bool = true
 
 	// Subviews
 	var topLabel:UILabel!
@@ -60,12 +59,13 @@ class CardView: UIView {
 		self.addGestureRecognizer(tapGR)
 	}
 
-	convenience init(frame:CGRect, text:String?, morse:String?, textOnTop:Bool = true, deletable:Bool = true, textFontSize:CGFloat = 16, morseFontSize:CGFloat = 14) {
+	convenience init(frame:CGRect, text:String?, morse:String?, textOnTop:Bool = true, deletable:Bool = true, canBeFlipped:Bool = true, textFontSize:CGFloat = 16, morseFontSize:CGFloat = 14) {
 		self.init(frame:frame)
 		self.text = text
 		self.morse = morse
 		self.textOnTop = textOnTop
 		self.deletable = deletable
+		self.canBeFlipped = canBeFlipped
 
 		self.topLabel = UILabel(frame: CGRect(x: cardViewLabelPaddingHorizontal, y: cardViewLabelPaddingVerticle, width: self.bounds.width - cardViewLabelPaddingHorizontal * 2, height: (self.bounds.width - cardViewLabelPaddingVerticle * 2 - cardViewLabelVerticalGap)/2.0))
 		self.topLabel.opaque = false
@@ -137,8 +137,18 @@ class CardView: UIView {
 	}
 
 	func tapped(gestureRecognizer:UITapGestureRecognizer) {
+		// Animate feedback
+		let location = gestureRecognizer.locationInView(self)
+		if self.bounds.contains(location) {
+			self.animateUserInteractionFeedbackAtLocation(location) {
+				if let myDelegate = self.delegate {
+					myDelegate.cardViewTapped?(self)
+				}
+			}
+		}
+
 		// Add back views first
-		if !self.expanded {
+		if !self.expanded && self.canBeFlipped {
 			if self.backView == nil {
 				self.backView = UIView(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height))
 				self.backView.backgroundColor = appDelegate.theme.cardBackViewBackgroundColor
@@ -162,7 +172,7 @@ class CardView: UIView {
 				var strSize = self.outputButton.bounds.size
 				if let size = self.outputButton.titleLabel?.attributedText?.size() {
 					// Make the button a little bit larger
-					strSize = CGSize(width: size.width + self.buttonPadding * 2, height: size.height + self.buttonPadding * 2)
+					strSize = CGSize(width: size.width + cardBackViewButtonPadding * 2, height: size.height + cardBackViewButtonPadding * 2)
 				}
 				self.outputButton.bounds.size = strSize
 				self.backView.addSubview(self.outputButton)
@@ -186,7 +196,7 @@ class CardView: UIView {
 				var strSize = self.shareButton.bounds.size
 				if let size = self.shareButton.titleLabel?.attributedText?.size() {
 					// Make the button a little bit larger
-					strSize = CGSize(width: size.width + self.buttonPadding * 2, height: size.height + self.buttonPadding * 2)
+					strSize = CGSize(width: size.width + cardBackViewButtonPadding * 2, height: size.height + cardBackViewButtonPadding * 2)
 				}
 				self.shareButton.bounds.size = strSize
 				self.backView.addSubview(self.shareButton)
@@ -195,16 +205,6 @@ class CardView: UIView {
 					make.height.equalTo(strSize.height)
 					make.centerX.equalTo(self).offset(self.bounds.width/4.0)
 					make.centerY.equalTo(self)
-				}
-			}
-		}
-
-		// Do other things
-		let location = gestureRecognizer.locationInView(self)
-		if self.bounds.contains(location) {
-			self.animateUserInteractionFeedbackAtLocation(location) {
-				if let myDelegate = self.delegate {
-					myDelegate.cardViewTapped?(self)
 				}
 			}
 		}

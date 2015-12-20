@@ -9,7 +9,7 @@
 import UIKit
 
 let TAP_FEED_BACK_DURATION:NSTimeInterval = 0.4
-let defaultAnimationDuration:NSTimeInterval = 0.5
+let defaultAnimationDuration:NSTimeInterval = 0.35
 
 let tableViewCellHeight:CGFloat = 50
 let topBarHeight:CGFloat = 56
@@ -21,6 +21,7 @@ let morseFontSizeProgressBar:CGFloat = 14
 let cardViewLabelPaddingVerticle:CGFloat = 16
 let cardViewLabelPaddingHorizontal:CGFloat = 15
 let cardViewLabelVerticalGap:CGFloat = 10
+let cardBackViewButtonPadding:CGFloat = 5.0
 
 let tableViewCellTrailingPadding:CGFloat = 20
 var sliderWidth:CGFloat {

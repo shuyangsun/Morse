@@ -8,10 +8,11 @@
 
 import UIKit
 
-class TabBarController: UITabBarController {
+class TabBarController: UITabBarController, UIViewControllerTransitioningDelegate {
 	var homeVC:HomeViewController! = nil
 	var morseDictionaryVC:MorseDictionaryViewController! = nil
 	var settingsVC:SettingsSplitViewController! = nil
+	private let _cardViewOutputAnimator = CardViewOutputAnimator()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,9 @@ class TabBarController: UITabBarController {
 				}
 			}
 		}
+
+		self.transitioningDelegate = self
+		self.modalPresentationStyle = .Custom
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,6 +67,23 @@ class TabBarController: UITabBarController {
 				}
 			}
 		}
+	}
+
+	func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+		if source is HomeViewController && presented is OutputViewController ||
+			source is OutputViewController && presented is HomeViewController {
+			self._cardViewOutputAnimator.reverse = false
+			return self._cardViewOutputAnimator
+		}
+		return nil
+	}
+
+	func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+		if dismissed is OutputViewController {
+			self._cardViewOutputAnimator.reverse = true
+			return self._cardViewOutputAnimator
+		}
+		return nil
 	}
 
 	/*

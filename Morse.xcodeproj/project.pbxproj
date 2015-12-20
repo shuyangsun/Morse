@@ -66,6 +66,9 @@
 		1088ACB61C25D97C00D17028 /* Morse Sound Standard.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1088ACB51C25D97C00D17028 /* Morse Sound Standard.aiff */; };
 		1088ACB71C25D97C00D17028 /* Morse Sound Standard.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1088ACB51C25D97C00D17028 /* Morse Sound Standard.aiff */; };
 		1088ACB81C25D97C00D17028 /* Morse Sound Standard.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1088ACB51C25D97C00D17028 /* Morse Sound Standard.aiff */; };
+		1088ACC21C26003400D17028 /* CardViewOutputAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1088ACC11C26003400D17028 /* CardViewOutputAnimator.swift */; };
+		1088ACC31C26003400D17028 /* CardViewOutputAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1088ACC11C26003400D17028 /* CardViewOutputAnimator.swift */; };
+		1088ACC41C26003400D17028 /* CardViewOutputAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1088ACC11C26003400D17028 /* CardViewOutputAnimator.swift */; };
 		109266841C2071EA00AD198E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109266831C2071EA00AD198E /* TableViewCell.swift */; };
 		109266851C2071EA00AD198E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109266831C2071EA00AD198E /* TableViewCell.swift */; };
 		109266861C2071EA00AD198E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109266831C2071EA00AD198E /* TableViewCell.swift */; };
@@ -200,6 +203,7 @@
 		10826A171C0D5C4C00902BCC /* General.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = General.swift; sourceTree = "<group>"; };
 		1088ACAA1C25A85C00D17028 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1088ACB51C25D97C00D17028 /* Morse Sound Standard.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Morse Sound Standard.aiff"; sourceTree = "<group>"; };
+		1088ACC11C26003400D17028 /* CardViewOutputAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewOutputAnimator.swift; sourceTree = "<group>"; };
 		109266831C2071EA00AD198E /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButtonView.swift; sourceTree = "<group>"; };
 		10B9C8141C0FB5A4001C5847 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -433,6 +437,7 @@
 			children = (
 				1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */,
 				10295BCB1C24FE050060DBE1 /* MorseOutputPlayerDelegate.swift */,
+				1088ACC11C26003400D17028 /* CardViewOutputAnimator.swift */,
 			);
 			name = Delegates;
 			sourceTree = "<group>";
@@ -629,6 +634,7 @@
 				10BFD38E1C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */,
 				1052A77C1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */,
 				107FF6AB1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
+				1088ACC21C26003400D17028 /* CardViewOutputAnimator.swift in Sources */,
 				109266841C2071EA00AD198E /* TableViewCell.swift in Sources */,
 				107FF6A71C0BC128003EB294 /* Theme.swift in Sources */,
 				1030BA0F1C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
@@ -660,6 +666,7 @@
 				10BFD38F1C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */,
 				109ACDC11C0E0D12006AC535 /* RoundButtonView.swift in Sources */,
 				1052A75B1C0BACEA0085B0C9 /* MorseTests.swift in Sources */,
+				1088ACC31C26003400D17028 /* CardViewOutputAnimator.swift in Sources */,
 				109266851C2071EA00AD198E /* TableViewCell.swift in Sources */,
 				107FF6AC1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
 				1030BA101C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
@@ -691,6 +698,7 @@
 				10BFD3901C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */,
 				109ACDC21C0E0D12006AC535 /* RoundButtonView.swift in Sources */,
 				1052A7661C0BACEA0085B0C9 /* MorseUITests.swift in Sources */,
+				1088ACC41C26003400D17028 /* CardViewOutputAnimator.swift in Sources */,
 				109266861C2071EA00AD198E /* TableViewCell.swift in Sources */,
 				107FF6AD1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
 				1030BA111C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,

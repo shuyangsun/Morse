@@ -25,7 +25,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 	private var cardViews:[CardView] = []
 	private var currentExpandedCard:CardView?
-	private var currentFlippedCard:CardView?
+	var currentFlippedCard:CardView? // Make it internal so the animator can access it
 
 	// *****************************
 	// MARK: Private variables
@@ -266,6 +266,8 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		if let morse = cardView.morse {
 			outputVC.morse = morse
 		}
+		outputVC.transitioningDelegate = self.parentViewController as! TabBarController
+		outputVC.modalPresentationStyle = .Custom
 		self.presentViewController(outputVC, animated: true, completion: nil)
 	}
 
