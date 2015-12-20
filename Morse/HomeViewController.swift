@@ -268,6 +268,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		}
 		outputVC.transitioningDelegate = self.parentViewController as! TabBarController
 		outputVC.modalPresentationStyle = .Custom
+		(self.tabBarController as! TabBarController).cardViewOutputTransitionInteractionController.outputVC = outputVC
 		self.presentViewController(outputVC, animated: true, completion: nil)
 	}
 

@@ -8,10 +8,14 @@
 
 import UIKit
 
-class TabBarController: UITabBarController, UIViewControllerTransitioningDelegate {
+class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewControllerTransitioningDelegate {
 	var homeVC:HomeViewController! = nil
+	var outputVC:OutputViewController? {
+		return self.presentedViewController as? OutputViewController
+	}
 	var morseDictionaryVC:MorseDictionaryViewController! = nil
 	var settingsVC:SettingsSplitViewController! = nil
+	let cardViewOutputTransitionInteractionController = CardViewOutputTransitionInteractionController()
 	private let _cardViewOutputAnimator = CardViewOutputAnimator()
 
     override func viewDidLoad() {
@@ -55,6 +59,10 @@ class TabBarController: UITabBarController, UIViewControllerTransitioningDelegat
 
 	override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
 		super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+		if let outputVC = self.outputVC {
+			// Doing this because of a layout bug
+			outputVC.view.userInteractionEnabled = false
+		}
 		coordinator.animateAlongsideTransition(nil) { context in
 			if let fromVC = context.viewControllerForKey(UITransitionContextFromViewControllerKey) as? TabBarController {
 				if fromVC === self {
@@ -63,6 +71,9 @@ class TabBarController: UITabBarController, UIViewControllerTransitioningDelegat
 					}
 					if self.morseDictionaryVC != nil {
 						self.morseDictionaryVC.rotationDidChange()
+					}
+					if let outputVC = self.outputVC {
+						outputVC.view.userInteractionEnabled = true
 					}
 				}
 			}
@@ -82,6 +93,13 @@ class TabBarController: UITabBarController, UIViewControllerTransitioningDelegat
 		if dismissed is OutputViewController {
 			self._cardViewOutputAnimator.reverse = true
 			return self._cardViewOutputAnimator
+		}
+		return nil
+	}
+
+	func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+		if animator === self._cardViewOutputAnimator {
+			return self.cardViewOutputTransitionInteractionController
 		}
 		return nil
 	}

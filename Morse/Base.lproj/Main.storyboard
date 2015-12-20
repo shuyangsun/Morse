@@ -76,7 +76,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Settings Frequency Cell" textLabel="dTK-eE-JY8" detailTextLabel="GUg-c0-G8w" style="IBUITableViewCellStyleSubtitle" id="0af-er-Gge" customClass="TableViewCell" customModule="Morse" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Settings Slider Cell" textLabel="dTK-eE-JY8" detailTextLabel="GUg-c0-G8w" style="IBUITableViewCellStyleSubtitle" id="0af-er-Gge" customClass="TableViewCell" customModule="Morse" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="246" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0af-er-Gge" id="6GB-i9-pX5">

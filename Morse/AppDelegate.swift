@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	var animationDurationScalar:NSTimeInterval {
-		let result = self.userDefaults.floatForKey(userDefaultsKeyAnimationDurationScalar)
+		let result = self.userDefaults.doubleForKey(userDefaultsKeyAnimationDurationScalar)
 		return result == 0 ? 1 : NSTimeInterval(result)
 	}
 
@@ -75,12 +75,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		UIApplication.sharedApplication().statusBarStyle = .LightContent
-
-		// TODO: Pull theme out of user default
-		#if DEBUG
-			self.userDefaults.setValue(1.0, forKey: userDefaultsKeyAnimationDurationScalar)
-			self.userDefaults.synchronize()
-		#endif
 		return true
 	}
 

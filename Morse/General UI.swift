@@ -23,6 +23,9 @@ let cardViewLabelPaddingHorizontal:CGFloat = 15
 let cardViewLabelVerticalGap:CGFloat = 10
 let cardBackViewButtonPadding:CGFloat = 5.0
 
+let slideAndPinchStartDistance:CGFloat = 15
+let slideAndPinchRatioToDismiss:CGFloat = 0
+
 let tableViewCellTrailingPadding:CGFloat = 20
 var sliderWidth:CGFloat {
 	return 200

@@ -16,13 +16,15 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 	// *****************************
 	var topBarView:UIView!
 	var progressBarView:UIView!
-	var doneButton:UIButton!
 	var percentageLabel:UILabel!
 	var soundToggleButton:UIButton!
-	var flashToggleButton:UIButton?
+	var flashToggleButton:UIButton!
 	var morseTextBackgroundView:UIView!
 	var morseTextLabel:UILabel!
 	var screenFlashView:UIView!
+
+	var panGR:UIPanGestureRecognizer?
+	var pinchGR:UIPinchGestureRecognizer?
 
 	// *****************************
 	// MARK: Data Variables
@@ -78,7 +80,6 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 		return self.morseTextLabel.attributedText!.size().width + 10
 	}
 	private let _doneButtonWidth:CGFloat = 100
-	var controlButtonWidth:CGFloat = 50
 	private var _originalBrightness:CGFloat = UIScreen.mainScreen().brightness
 
 	// *****************************
@@ -110,23 +111,6 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 				self.topBarView.setNeedsUpdateConstraints()
 			}
 
-			if self.doneButton == nil {
-				self.doneButton = UIButton(frame: CGRect(x: 0, y: 0, width: self._doneButtonWidth, height: topBarHeight))
-				self.doneButton.backgroundColor = UIColor.clearColor()
-				self.doneButton.tintColor = theme.topBarLabelTextColor
-				self.doneButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
-				self.doneButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
-				self.doneButton.setTitle(LocalizedStrings.Button.done, forState: .Normal)
-				self.doneButton.addTarget(self, action: "doneButtonTapped", forControlEvents: .TouchUpInside)
-				self.topBarView.addSubview(self.doneButton)
-				self.doneButton.snp_remakeConstraints { (make) -> Void in
-					make.top .equalTo(self.topBarView)
-					make.bottom.equalTo(self.topBarView)
-					make.leading.equalTo(self.topBarView)
-					make.width.equalTo(self._doneButtonWidth)
-				}
-			}
-
 			if self.percentageLabel == nil {
 				self.percentageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: topBarHeight, height: topBarHeight))
 				self.percentageLabel.backgroundColor = UIColor.clearColor()
@@ -144,8 +128,30 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 				})
 			}
 
+			if self.flashToggleButton == nil {
+				self.flashToggleButton = UIButton(frame: CGRect(x: 0, y: 0, width: topBarHeight, height: topBarHeight))
+				self.flashToggleButton.backgroundColor = UIColor.clearColor()
+				self.flashToggleButton.tintColor = theme.topBarLabelTextColor
+				self.flashToggleButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
+				self.flashToggleButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
+				self.flashToggleButton.setTitle("FLASH", forState: .Normal) // TODO: Use custom image for this button
+				self.flashToggleButton.addTarget(self, action: "flashToggleButtonTapped", forControlEvents: .TouchUpInside)
+				// If there's no flash available, hide it.
+				if !(self._rearCamera != nil && self._rearCamera.hasTorch && self._rearCamera.hasFlash && self._rearCamera.isTorchModeSupported(.On)) {
+					self.flashToggleButton.userInteractionEnabled = false
+					self.flashToggleButton.hidden = true
+				}
+				self.topBarView.addSubview(self.flashToggleButton)
+				self.flashToggleButton.snp_remakeConstraints { (make) -> Void in
+					make.top .equalTo(self.topBarView)
+					make.bottom.equalTo(self.topBarView)
+					make.leading.equalTo(self.topBarView)
+					make.width.equalTo(self.flashToggleButton.snp_height)
+				}
+			}
+
 			if self.soundToggleButton == nil {
-				self.soundToggleButton = UIButton(frame: CGRect(x: 0, y: self.view.bounds.width - self.controlButtonWidth, width: self.controlButtonWidth, height: topBarHeight))
+				self.soundToggleButton = UIButton(frame: CGRect(x: 0, y: 0, width: topBarHeight, height: topBarHeight))
 				self.soundToggleButton.backgroundColor = UIColor.clearColor()
 				self.soundToggleButton.tintColor = theme.topBarLabelTextColor
 				self.soundToggleButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
@@ -157,24 +163,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 					make.top .equalTo(self.topBarView)
 					make.bottom.equalTo(self.topBarView)
 					make.trailing.equalTo(self.topBarView)
-					make.width.equalTo(self.controlButtonWidth)
-				}
-			}
-
-			if self.flashToggleButton == nil && self._rearCamera != nil && self._rearCamera.hasTorch && self._rearCamera.hasFlash && self._rearCamera.isTorchModeSupported(.On) {
-				self.flashToggleButton = UIButton(frame: CGRect(x: 0, y: self.view.bounds.width - self.controlButtonWidth * 2, width: self.controlButtonWidth, height: topBarHeight))
-				self.flashToggleButton!.backgroundColor = UIColor.clearColor()
-				self.flashToggleButton!.tintColor = theme.topBarLabelTextColor
-				self.flashToggleButton!.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
-				self.flashToggleButton!.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
-				self.flashToggleButton!.setTitle("FLASH", forState: .Normal) // TODO: Use custom image for this button
-				self.flashToggleButton!.addTarget(self, action: "flashToggleButtonTapped", forControlEvents: .TouchUpInside)
-				self.topBarView.addSubview(self.flashToggleButton!)
-				self.flashToggleButton!.snp_remakeConstraints { (make) -> Void in
-					make.top .equalTo(self.topBarView)
-					make.bottom.equalTo(self.topBarView)
-					make.trailing.equalTo(self.soundToggleButton.snp_leading)
-					make.width.equalTo(self.controlButtonWidth)
+					make.width.equalTo(self.soundToggleButton.snp_height)
 				}
 			}
 
@@ -219,8 +208,6 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 			self.screenFlashView.backgroundColor = UIColor.blackColor()
 			let tapGR = UITapGestureRecognizer(target: self, action: "screenFlashViewTapped")
 			self.screenFlashView.addGestureRecognizer(tapGR)
-			let pinchGR = UIPinchGestureRecognizer(target: self, action: "screenFlashViewPinched:")
-			self.screenFlashView.addGestureRecognizer(pinchGR)
 			self.view.addSubview(self.screenFlashView)
 			self.screenFlashView.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.topBarView.snp_bottom)
@@ -228,6 +215,13 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 				make.trailing.equalTo(self.view)
 				make.bottom.equalTo(self.view)
 			})
+
+			if self.panGR != nil {
+				self.screenFlashView.addGestureRecognizer(self.panGR!)
+			}
+			if self.pinchGR != nil {
+				self.screenFlashView.addGestureRecognizer(self.pinchGR!)
+			}
 		}
 
 		// Setup audioPlayer
@@ -270,14 +264,6 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 	// *****************************
 	// MARK: User Interaction
 	// *****************************
-
-	func doneButtonTapped() {
-		self.dismissViewControllerAnimated(true, completion: nil)
-	}
-
-	func screenFlashViewPinched(pinchGR:UIPinchGestureRecognizer) {
-		self.dismissViewControllerAnimated(true, completion: nil)
-	}
 
 	func soundToggleButtonTapped() {
 		// TODO: Button color and image change

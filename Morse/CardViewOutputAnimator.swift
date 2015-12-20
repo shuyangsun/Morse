@@ -106,10 +106,11 @@ class CardViewOutputAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 				let backgroundView = UIView(frame: containerView.frame)
 				backgroundView.backgroundColor = theme.cardBackViewBackgroundColor
 				backgroundView.layer.cornerRadius = theme.cardViewCornerRadius
+				backgroundView.clipsToBounds = true
 				containerView.addSubview(backgroundView)
 
 				// Add fake output and share buttons
-				let outputButton = UIButton(frame: CGRect(x: layoutDirection == .LeftToRight ? outputVC.doneButton.frame.origin.x : outputVC.soundToggleButton.frame.origin.x, y: outputVC.doneButton.frame.origin.y, width: cardView.outputButton.bounds.width, height: cardView.outputButton.bounds.height))
+				let outputButton = UIButton(frame: CGRect(x: outputVC.flashToggleButton.frame.origin.x, y: outputVC.flashToggleButton.frame.origin.y, width: topBarHeight, height: topBarHeight))
 				outputButton.backgroundColor = cardView.outputButton.backgroundColor
 				outputButton.tintColor = cardView.outputButton.tintColor
 				outputButton.setTitleColor(cardView.outputButton.titleColorForState(.Normal)!, forState: .Normal)
@@ -120,7 +121,7 @@ class CardViewOutputAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 				outputButton.alpha = 0
 				backgroundView.addSubview(outputButton)
 
-				let shareButton = UIButton(frame: CGRect(x: layoutDirection == .LeftToRight ? outputVC.soundToggleButton.frame.origin.x : outputVC.doneButton.frame.origin.x, y: outputVC.doneButton.frame.origin.y, width: cardView.shareButton.bounds.width, height: cardView.shareButton.bounds.height))
+				let shareButton = UIButton(frame: CGRect(x: outputVC.soundToggleButton.frame.origin.x, y: outputVC.soundToggleButton.frame.origin.y, width: topBarHeight, height: topBarHeight))
 				shareButton.backgroundColor = cardView.shareButton.backgroundColor
 				shareButton.tintColor = cardView.shareButton.tintColor
 				shareButton.setTitleColor(cardView.shareButton.titleColorForState(.Normal)!, forState: .Normal)
@@ -148,12 +149,14 @@ class CardViewOutputAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 						shareButton.frame = cardView.shareButton.frame
 						backgroundView.frame = cardFrame
 						snapshotOutput.alpha = 0
+						snapshotOutput.frame = CGRect(x: 0, y: 0, width: cardFrame.width, height: snapshotOutput.bounds.height)
 						tabBarVC.view.alpha = 1
 					}) { succeed in
 						if succeed {
 							snapshotTabBar.removeFromSuperview()
-							snapshotOutput.removeFromSuperview()
 							backgroundView.removeFromSuperview()
+							snapshotOutput.removeFromSuperview()
+							containerView.removeFromSuperview()
 							transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
 						}
 				}
