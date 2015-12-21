@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		100F7CD81C27513700DDD8EC /* MorseAudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100F7CD71C27513700DDD8EC /* MorseAudioRecorder.swift */; };
+		100F7CD91C27513700DDD8EC /* MorseAudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100F7CD71C27513700DDD8EC /* MorseAudioRecorder.swift */; };
+		100F7CDA1C27513700DDD8EC /* MorseAudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100F7CD71C27513700DDD8EC /* MorseAudioRecorder.swift */; };
+		100F7CDF1C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100F7CDE1C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift */; };
+		100F7CE01C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100F7CDE1C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift */; };
+		100F7CE11C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100F7CDE1C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift */; };
 		101A0A981C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */; };
 		101A0A991C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */; };
 		101A0A9A1C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */; };
@@ -169,6 +175,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		100F7CD71C27513700DDD8EC /* MorseAudioRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseAudioRecorder.swift; sourceTree = "<group>"; };
+		100F7CDE1C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseAudioRecorderDelegate.swift; sourceTree = "<group>"; };
 		101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTopSectionViewController.swift; sourceTree = "<group>"; };
 		101A0AB21C1BBA820030A51A /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		10274F721C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewOutputTransitionInteractionController.swift; sourceTree = "<group>"; };
@@ -404,6 +412,7 @@
 				101A0AB21C1BBA820030A51A /* Localization.swift */,
 				107FF6C31C0C223D003EB294 /* MorseTransmitter.swift */,
 				10295BC71C24EE6B0060DBE1 /* MorseOutputPlayer.swift */,
+				100F7CD71C27513700DDD8EC /* MorseAudioRecorder.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -451,6 +460,7 @@
 			children = (
 				1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */,
 				10295BCB1C24FE050060DBE1 /* MorseOutputPlayerDelegate.swift */,
+				100F7CDE1C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift */,
 			);
 			name = Delegates;
 			sourceTree = "<group>";
@@ -638,6 +648,7 @@
 				103BCF8C1C1FBA48003A26CA /* MorseDictionaryViewController.swift in Sources */,
 				10286CCB1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				10826A181C0D5C4C00902BCC /* General.swift in Sources */,
+				100F7CDF1C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift in Sources */,
 				10BFD3921C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift in Sources */,
 				107FF6C41C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
 				101A0AB31C1BBA820030A51A /* Localization.swift in Sources */,
@@ -651,6 +662,7 @@
 				1088ACC21C26003400D17028 /* CardViewOutputAnimator.swift in Sources */,
 				109266841C2071EA00AD198E /* TableViewCell.swift in Sources */,
 				107FF6A71C0BC128003EB294 /* Theme.swift in Sources */,
+				100F7CD81C27513700DDD8EC /* MorseAudioRecorder.swift in Sources */,
 				1030BA0F1C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
 				1073948F1C11F75800EF8C16 /* CancelButton.swift in Sources */,
 				10BFD39E1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */,
@@ -671,6 +683,7 @@
 				103BCF8D1C1FBA48003A26CA /* MorseDictionaryViewController.swift in Sources */,
 				10286CCC1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				107FF6C51C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
+				100F7CE01C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift in Sources */,
 				10BFD3931C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift in Sources */,
 				107FF6A81C0BC128003EB294 /* Theme.swift in Sources */,
 				101A0AB41C1BBA820030A51A /* Localization.swift in Sources */,
@@ -684,6 +697,7 @@
 				1088ACC31C26003400D17028 /* CardViewOutputAnimator.swift in Sources */,
 				109266851C2071EA00AD198E /* TableViewCell.swift in Sources */,
 				107FF6AC1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
+				100F7CD91C27513700DDD8EC /* MorseAudioRecorder.swift in Sources */,
 				1030BA101C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
 				107394901C11F75800EF8C16 /* CancelButton.swift in Sources */,
 				10BFD39F1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */,
@@ -704,6 +718,7 @@
 				103BCF8E1C1FBA48003A26CA /* MorseDictionaryViewController.swift in Sources */,
 				10286CCD1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				107FF6C61C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
+				100F7CE11C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift in Sources */,
 				10BFD3941C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift in Sources */,
 				107FF6A91C0BC128003EB294 /* Theme.swift in Sources */,
 				101A0AB51C1BBA820030A51A /* Localization.swift in Sources */,
@@ -717,6 +732,7 @@
 				1088ACC41C26003400D17028 /* CardViewOutputAnimator.swift in Sources */,
 				109266861C2071EA00AD198E /* TableViewCell.swift in Sources */,
 				107FF6AD1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
+				100F7CDA1C27513700DDD8EC /* MorseAudioRecorder.swift in Sources */,
 				1030BA111C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
 				107394911C11F75800EF8C16 /* CancelButton.swift in Sources */,
 				10BFD3A01C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */,

@@ -10,6 +10,9 @@ import UIKit
 
 class SettingsMasterTableViewController: UITableViewController {
 
+	var extraTextWhenShareSwitch:UISwitch!
+	var brightenUpScreenSwitch:UISwitch!
+
 	var outputWPMCell:TableViewCell!
 	var outputWPMSlider:UISlider!
 	var outputWPM:Int = appDelegate.outputWPM {
@@ -64,6 +67,9 @@ class SettingsMasterTableViewController: UITableViewController {
 
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
+
+		self.extraTextWhenShareSwitch.on = !appDelegate.donnotAddExtraTextWhenShare
+		self.brightenUpScreenSwitch.on = !appDelegate.donnotBrightenScreenWhenOutput
 		// If we don't make it 100 first, the number may be clipped because the size does not fit.
 		self.outputWPMCell.detailTextLabel?.attributedText = getAttributedStringFrom("1000", withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
 		self.outputWPMCell.detailTextLabel?.attributedText = getAttributedStringFrom("\(self.outputWPM)", withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
@@ -88,7 +94,7 @@ class SettingsMasterTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		switch section {
-		case 0: return 1 // General
+		case 0: return 2 // General
 		case 1: return 2 // UI
 		case 2: return 1 // WPM
 		case 3: return 0 // About
@@ -116,6 +122,22 @@ class SettingsMasterTableViewController: UITableViewController {
 				if !self._isIPad {
 					cell.accessoryType = .DisclosureIndicator
 				}
+			case 1:
+				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewCell
+				cell.tapFeebackEnabled = false
+				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.extraTextWhenShare, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				if self.extraTextWhenShareSwitch == nil {
+					self.extraTextWhenShareSwitch = UISwitch()
+					self.extraTextWhenShareSwitch.onTintColor = theme.switchOnTintColor
+					self.extraTextWhenShareSwitch.addTarget(self, action: "switchToggled:", forControlEvents: .ValueChanged)
+					cell.contentView.addSubview(self.extraTextWhenShareSwitch)
+					self.extraTextWhenShareSwitch.snp_makeConstraints(closure: { (make) -> Void in
+						make.centerY.equalTo(cell.contentView)
+						make.height.equalTo(switchButtonHeight)
+						make.width.equalTo(switchButtonWidth)
+						make.trailing.equalTo(cell.contentView).offset(-tableViewCellTrailingPadding)
+					})
+				}
 			default: break
 			}
 		} else if indexPath.section == 1 { // UI
@@ -128,8 +150,21 @@ class SettingsMasterTableViewController: UITableViewController {
 					cell.accessoryType = .DisclosureIndicator
 				}
 			case 1:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Layout Cell", forIndexPath: indexPath) as! TableViewCell
-				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.extraTextWhenShare, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewCell
+				cell.tapFeebackEnabled = false
+				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.brightenUpDisplayWhenOutput, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				if self.brightenUpScreenSwitch == nil {
+					self.brightenUpScreenSwitch = UISwitch()
+					self.brightenUpScreenSwitch.onTintColor = theme.switchOnTintColor
+					self.brightenUpScreenSwitch.addTarget(self, action: "switchToggled:", forControlEvents: .ValueChanged)
+					cell.contentView.addSubview(self.brightenUpScreenSwitch)
+					self.brightenUpScreenSwitch.snp_makeConstraints(closure: { (make) -> Void in
+						make.centerY.equalTo(cell.contentView)
+						make.height.equalTo(switchButtonHeight)
+						make.width.equalTo(switchButtonWidth)
+						make.trailing.equalTo(cell.contentView).offset(-tableViewCellTrailingPadding)
+					})
+				}
 			default: break
 			}
 		} else if indexPath.section == 2 { // WPM
@@ -227,6 +262,16 @@ class SettingsMasterTableViewController: UITableViewController {
 			self.animationDurationScalar = NSTimeInterval(slider.value)
 			self.animationDurationSlider.value = Float(round(self.animationDurationScalar * 10)/10.0)
 			self.animationDurationCell.detailTextLabel?.attributedText = getAttributedStringFrom("\(round(self.animationDurationScalar * 10)/10.0)", withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
+		}
+	}
+
+	func switchToggled(switchButton:UISwitch) {
+		if switchButton === self.extraTextWhenShareSwitch {
+			appDelegate.userDefaults.setBool(!switchButton.on, forKey: userDefaultsKeyExtraTextWhenShare)
+			appDelegate.userDefaults.synchronize()
+		} else if switchButton === self.brightenUpScreenSwitch {
+			appDelegate.userDefaults.setBool(!switchButton.on, forKey: userDefaultsKeyBrightenScreenWhenOutput)
+			appDelegate.userDefaults.synchronize()
 		}
 	}
 	

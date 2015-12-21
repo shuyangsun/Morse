@@ -22,11 +22,14 @@ var isPhone:Bool {
 
 // WPM
 let outputMinWPM = 5
-let outputMaxWPM = 70
+let outputMaxWPM = 50
+
+// Audio
+let audioSampleFrequencyTimeInterval:NSTimeInterval = 0
 
 // NSUserDefaultKeys
 let userDefaultsKeyTheme = "Theme"
-let userDefaultsKeySwapButtonLayout = "Swap Button Layout"
+let userDefaultsKeyExtraTextWhenShare = "Extra Text When Share"
 let userDefaultsKeyNotFirstLaunch = "Not First Launch"
 let userDefaultsKeyInteractionSoundDisabled = "Interaction Sound Disabled"
 let userDefaultsKeyAnimationDurationScalar = "Animation Duration Scalar"

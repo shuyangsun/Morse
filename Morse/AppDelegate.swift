@@ -27,9 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 	}
 
-	// 
-	var swapButtonLayout:Bool {
-		return self.userDefaults.boolForKey(userDefaultsKeyTheme)
+	// UI theme
+	var donnotAddExtraTextWhenShare:Bool {
+		return self.userDefaults.boolForKey(userDefaultsKeyExtraTextWhenShare)
 	}
 
 	var notFirstLaunch:Bool {
@@ -68,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return res <= 0 ? 15 : res
 	}
 
-	var brightenScreenWhenOutput:Bool {
+	var donnotBrightenScreenWhenOutput:Bool {
 		return self.userDefaults.boolForKey(userDefaultsKeyBrightenScreenWhenOutput)
 	}
 

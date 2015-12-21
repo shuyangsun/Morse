@@ -258,6 +258,12 @@ enum Theme: String {
 		}
 	}
 
+	var switchOnTintColor:UIColor {
+		switch self {
+		default: return self.sliderMinTrackTintColor
+		}
+	}
+
 	// *****************************
 	// MARK: Length
 	// *****************************

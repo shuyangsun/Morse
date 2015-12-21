@@ -61,9 +61,9 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 	private var _startDate = NSDate()
 	private var _progressTimer = NSTimer()
 	private var _brightenScreenWhenOutput:Bool {
-//		return appDelegate.brightenScreenWhenOutput
-		return true
+		return !appDelegate.donnotBrightenScreenWhenOutput
 	}
+	
 
 	// Camera
 	private let _rearCamera:AVCaptureDevice! = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)

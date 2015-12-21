@@ -11,7 +11,7 @@ import SnapKit
 import AVFoundation
 import CoreData
 
-class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDelegate, CardViewDelegate {
+class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDelegate, CardViewDelegate, MorseAudioRecorderDelegate {
 
 	// *****************************
 	// MARK: Views
@@ -133,6 +133,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
+
 		// If there's no card view on the screen, fetch from core data or add some if first launch
 		if self.cardViews.isEmpty {
 			self.fetchCardsAndUpdateCardViews()
@@ -253,8 +254,11 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	// What happens when the user taps share button
 	func cardViewShareButtonTapped(cardView:CardView) {
 		if let morse = cardView.morse {
-			// TODO: How to use only Morse code when copying.
-			let activityVC = UIActivityViewController(activityItems: [morse + "\n" + LocalizedStrings.General.sharePromote + " " + appStoreURLString], applicationActivities: nil)
+			var shareStr = morse
+			if !appDelegate.donnotAddExtraTextWhenShare {
+				shareStr += "\n" + LocalizedStrings.General.sharePromote + " " + appStoreURLString
+			}
+			let activityVC = UIActivityViewController(activityItems: [shareStr], applicationActivities: nil)
 			activityVC.popoverPresentationController?.sourceView = cardView.shareButton
 			self.presentViewController(activityVC, animated: true, completion: nil)
 		}

@@ -26,7 +26,10 @@ let cardBackViewButtonPadding:CGFloat = 5.0
 let slideAndPinchStartDistance:CGFloat = 15
 let slideAndPinchRatioToDismiss:CGFloat = 0
 
-let tableViewCellTrailingPadding:CGFloat = 20
+let switchButtonWidth = 51
+let switchButtonHeight = 31
+
+let tableViewCellTrailingPadding:CGFloat = 6
 var sliderWidth:CGFloat {
 	return 200
 }

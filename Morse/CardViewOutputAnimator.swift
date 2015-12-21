@@ -158,6 +158,9 @@ class CardViewOutputAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 							snapshotOutput.removeFromSuperview()
 							containerView.removeFromSuperview()
 							transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+							if !transitionContext.transitionWasCancelled() {
+								homeVC.restoreCurrentFlippedCard()
+							}
 						}
 				}
 			}
