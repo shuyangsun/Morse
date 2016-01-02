@@ -11,7 +11,7 @@ import SnapKit
 import AVFoundation
 import CoreData
 
-class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDelegate, CardViewDelegate, MorseAudioRecorderDelegate {
+class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDelegate, CardViewDelegate {
 
 	// *****************************
 	// MARK: Views

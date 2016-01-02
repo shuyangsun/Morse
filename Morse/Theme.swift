@@ -264,6 +264,18 @@ enum Theme: String {
 		}
 	}
 
+	var audioPlotBackgroundColor:UIColor {
+		switch self {
+		default: return UIColor.clearColor()
+		}
+	}
+
+	var audioPlotColor:UIColor {
+		switch self {
+		case .Default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		}
+	}
+
 	// *****************************
 	// MARK: Length
 	// *****************************
