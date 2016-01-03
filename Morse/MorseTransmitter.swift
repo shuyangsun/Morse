@@ -211,6 +211,7 @@ class MorseTransmitter {
 
 	}
 
+	// TODO: Not used, because it doesn't work
 	func morseRangeFromTextRange(range:NSRange) -> NSRange {
 		if self.text != nil && self.morse != nil &&
 			range.location > 0 && range.location + range.length <= self.text!.lengthOfBytesUsingEncoding(NSISOLatin1StringEncoding) {
@@ -233,7 +234,7 @@ class MorseTransmitter {
 		return defaultRange
 	}
 
-	// Assume morse is valid
+	// Assumes morse is valid
 	func getTimeStamp(withScalar scalar:Float = 1.0, delay:NSTimeInterval = 0.0) -> [NSTimeInterval]? {
 		if self.morse == nil || self.morse!.isEmpty { return nil }
 		if scalar <= 0 { return nil }
@@ -283,7 +284,9 @@ class MorseTransmitter {
 		return res.count == 1 ? nil : res
 	}
 
-	// Below are for audio input
+	// *****************************
+	// MARK: Audio Input Processing
+	// *****************************
 	var delegate:MorseTransmitterDelegate?
 
 	private let _audioAnalysisQueue = dispatch_queue_create("Audio Analysis Queue", nil)
@@ -317,6 +320,9 @@ class MorseTransmitter {
 	private var _levelsRecord:[Float] = []
 	private var _minLvl = Int.max
 
+	// ******************************************************************************
+	// WARNNING: MUST call this before using this tramsmitter to process input audio.
+	// ******************************************************************************
 	func resetForAudioInput() {
 		self._morse = ""
 		self._text = ""
@@ -325,6 +331,7 @@ class MorseTransmitter {
 		self._sampleRate = -1
 	}
 
+	// This method is called when an audio sample has been recieved in the microphone.
 	func microphone(microphone: EZMicrophone!,
 		hasAudioReceived buffer: UnsafeMutablePointer<UnsafeMutablePointer<Float>>,
 		withBufferSize bufferSize: UInt32,
@@ -343,7 +350,7 @@ class MorseTransmitter {
 
 			// Calculate the root mean square (which was just appended to the plot buffer)
 			let rms = EZAudioUtilities.RMS(buffer.memory, length: Int32(bufferSize))
-			let level = pow(rms * 100, 1.5)
+			let level = pow(rms * 100, 1.5) // TODO: Better algorithm to magnify level?
 
 			// If debugging, print the wave form in the console.
 			#if DEBUG
@@ -395,6 +402,10 @@ class MorseTransmitter {
 		}
 	}
 
+	// ********************************************************************************************************************
+	// This method is called when a piece of audio is processed and a unit is sure will be appended to the Morse code.
+	// Only 4 type of units can be appended: DIT, DAH, LETTERGAP, WORDGAP. UNITGAP will be appended automatically.
+	// ********************************************************************************************************************
 	private func appendUnit(unit:MorseUnit) {
 		if unit == .LetterGap || unit == .WordGap {
 			// If we're appending a gap, reset currentLetterMorse
@@ -427,6 +438,10 @@ class MorseTransmitter {
 	}
 }
 
+// *****************************
+// MARK: Types and Constants
+// *****************************
+
 enum MorseUnit:String {
 	case Dit = "•"
 	case Dah = "—"
@@ -434,8 +449,27 @@ enum MorseUnit:String {
 	case WordGap = "       "
 }
 
+// Strings
+private let UNIT_DIT_STRING = MorseUnit.Dit.rawValue
+private let UNIT_DAH_STRING = MorseUnit.Dah.rawValue
+private let UNIT_GAP_STRING = " "
+private let WORD_GAP_STRING = MorseUnit.WordGap.rawValue
+private let LETTER_GAP_STRING = MorseUnit.LetterGap.rawValue
+
+// Lengths
+private let DIT_LENGTH:Float = 1.0
+private let UNIT_GAP_LENGTH:Float = 1.0
+private let DAH_LENGTH:Float = 3.0
+private let LETTER_GAP_LENGTH:Float = 3.0
+private let WORD_GAP_LENGTH:Float = 7.0
+
+// Dispatch Queues
 private let _encodeQueue = dispatch_queue_create("Encode Queue", nil)
 private let _decodeQueue = dispatch_queue_create("Decode Queue", nil)
+
+// *****************************
+// MARK: Private Helper Methods
+// *****************************
 
 // Ignores invalid character
 private func encodeTextToMorse(text:String!) -> String? {
@@ -494,15 +528,4 @@ private func decodeMorseToText(morse:String!) -> String? {
 	}
 	return res.isEmpty ? nil : res
 }
-
-private let WORD_GAP_STRING = MorseUnit.WordGap.rawValue
-private let LETTER_GAP_STRING = MorseUnit.LetterGap.rawValue
-private let UNIT_GAP_STRING = " "
-private let UNIT_DIT_STRING = MorseUnit.Dit.rawValue
-private let UNIT_DAH_STRING = MorseUnit.Dah.rawValue
-private let DIT_LENGTH:Float = 1.0
-private let UNIT_GAP_LENGTH:Float = 1.0
-private let DAH_LENGTH:Float = 3.0
-private let LETTER_GAP_LENGTH:Float = 3.0
-private let WORD_GAP_LENGTH:Float = 7.0
 
