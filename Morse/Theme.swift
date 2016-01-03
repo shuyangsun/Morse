@@ -12,6 +12,8 @@ var theme:Theme {
 	return appDelegate.theme
 }
 
+private let scrollViewOverlayAlpha:CGFloat = 0.45
+
 enum Theme: String {
 	case Default = "Default"
 
@@ -75,13 +77,13 @@ enum Theme: String {
 		}
 	}
 
-	var keyboardButtonViewBackgroundColor:UIColor {
+	var keyboardButtonBackgroundColor:UIColor {
 		switch self {
-		default: return self.textViewBackgroundColor
+		default: return UIColor.clearColor()
 		}
 	}
 
-	var keyboardButtonViewTapFeedbackColor:UIColor {
+	var keyboardButtonTapFeedbackColor:UIColor {
 		switch self {
 		default: return self.textViewTapFeedbackColor
 		}
@@ -95,7 +97,7 @@ enum Theme: String {
 
 	var scrollViewOverlayColor:UIColor {
 		switch self {
-		default: return UIColor(hex: 0x000, alpha: 0.35)
+		default: return UIColor(hex: 0x000, alpha: scrollViewOverlayAlpha)
 		}
 	}
 
@@ -272,7 +274,7 @@ enum Theme: String {
 
 	var audioPlotColor:UIColor {
 		switch self {
-		case .Default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		case .Default: return UIColor(hex: 0xFFFFFF, alpha: scrollViewOverlayAlpha)
 		}
 	}
 

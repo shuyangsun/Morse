@@ -30,8 +30,8 @@
 //------------------------------------------------------------------------------
 
 UInt32 const kEZAudioPlotMaxHistoryBufferLength = 8192;
-UInt32 const kEZAudioPlotDefaultHistoryBufferLength = 50;
-UInt32 const EZAudioPlotDefaultHistoryBufferLength = 50;
+UInt32 const kEZAudioPlotDefaultHistoryBufferLength = 512;
+UInt32 const EZAudioPlotDefaultHistoryBufferLength = 512;
 UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
 
 //------------------------------------------------------------------------------

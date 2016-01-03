@@ -96,7 +96,7 @@ extension UIView {
 		}
 	}
 
-	func triggerTapFeedBack(atLocation location:CGPoint, withColor color:UIColor = UIColor.whiteColor(), duration:NSTimeInterval = 0.2, showSurfaceReaction:Bool = true, atBottom:Bool = true, completion: ((Void) -> Void)? = nil) {
+	func triggerTapFeedBack(atLocation location:CGPoint, withColor color:UIColor = UIColor.whiteColor(), duration:NSTimeInterval = TAP_FEED_BACK_DURATION, showSurfaceReaction:Bool = true, atBottom:Bool = true, completion: ((Void) -> Void)? = nil) {
 		let overlayView = UIView(frame: self.bounds)
 		overlayView.clipsToBounds = true
 		overlayView.layer.cornerRadius = self.layer.cornerRadius

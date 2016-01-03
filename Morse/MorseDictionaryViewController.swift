@@ -37,6 +37,9 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 
 	var cardViewMinWidth:CGFloat = 0.0
 
+	private let _updateCardConstraintsQueue = dispatch_queue_create("Update Card View Constraints On Dictonary VC Queue", nil)
+	private let _createCardViewsQueue = dispatch_queue_create("Create Card Views On Dictonary VC Queue", nil)
+
 	// *****************************
 	// MARK: MVC LifeCycle
 	// *****************************
@@ -111,7 +114,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		self.addCards()
-		dispatch_sync(dispatch_queue_create("Update Card View Constraints On Dictonary VC Queue", nil)) {
+		dispatch_sync(self._updateCardConstraintsQueue) {
 			self.initializeCardViewsConstraints()
 		}
 		self.view.setNeedsUpdateConstraints()
@@ -155,7 +158,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 			let keys = MorseTransmitter.keys
 			for var i = keys.count - 1; i >= 0; i-- {
 				// Adding cards may take a while, so do it in another thread. Has to be synced because it's about UI
-				dispatch_sync(dispatch_queue_create("Create Card Views On Dictonary VC Queue", nil)) {
+				dispatch_sync(self._createCardViewsQueue) {
 					let text = keys[i]
 					let morse = MorseTransmitter.encodeTextToMorseStringDictionary[text]!
 					let colNum = Int(max(1, floor((self.view.bounds.width - theme.cardViewHorizontalMargin * 2 + theme.cardViewGap) / (self.cardViewMinWidth + theme.cardViewGap))))
@@ -207,7 +210,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 	}
 
 	func rotationDidChange() {
-		dispatch_sync(dispatch_queue_create("Update Card View Constraints On Dictonary VC Queue", nil)) {
+		dispatch_sync(self._updateCardConstraintsQueue) {
 			self.initializeCardViewsConstraints()
 		}
 		UIView.animateWithDuration(TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar,

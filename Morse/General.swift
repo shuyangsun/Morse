@@ -42,6 +42,7 @@ let userDefaultsKeyOutputWPM = "Output WPM"
 let userDefaultsKeyBrightenScreenWhenOutput = "Brighten Screen When Output"
 
 let morseSoundStandardURL = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Morse Sound Standard", ofType: "aiff")!)
+let notRecognizedLetterStr = "🙁"
 
 func getAttributedStringFrom(text:String?, withFontSize fontSize:CGFloat = UIFont.systemFontSize(), color:UIColor = UIColor.blackColor(), bold:Bool = false) -> NSMutableAttributedString? {
 	return text == nil ? nil : NSMutableAttributedString(string: text!, attributes:

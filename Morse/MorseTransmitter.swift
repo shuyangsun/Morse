@@ -14,6 +14,8 @@ class MorseTransmitter {
 
 	static let standardWordLength:Int = 50
 
+	private let _getTimeStampQueue = dispatch_queue_create("Get Time Stamp Queue", nil)
+
 	static let keys:[String] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "à", "å", "ä", "ą", "æ", "ć", "ĉ", "ç", "đ", "ð", "é", "ę", "è", "ĝ", "ĥ", "ĵ", "ł", "ń", "ñ", "ó", "ö", "ø", "ś", "ŝ", "š", "þ", "ü", "ŭ", "ź", "ż", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".", ",", "'", "\"", "_", ":", ";", "?", "!", "-", "+", "/", "(", ")", "&", "=", "@", "$"]
 
 	static let encodeTextToMorseStringDictionary:Dictionary<String, String> = [
@@ -280,13 +282,164 @@ class MorseTransmitter {
 		}
 		return res.count == 1 ? nil : res
 	}
+
+	// Below are for audio input
+	var delegate:MorseTransmitterDelegate?
+
+	private let _audioAnalysisQueue = dispatch_queue_create("Audio Analysis Queue", nil)
+	private var _currentLetterMorse = ""
+	private var _inputWPM = 15
+	private var _sampleRate:Double = -1
+	private var _singalStarted = false
+	private var _counter = 0
+	// This variable means how many callbacks should one unit be with the given WPM and the default sample rate (44100).
+	private var _unitLength:Float {
+		let unitsPerSecond = Double(self._inputWPM) * 50.0 / 60.0
+		return Float(self._sampleRate/1000.0/unitsPerSecond)
+	}
+
+	private var _oneUnitLengthRange:Range<Int> {
+//		return	Int(floor(self._unitLength))...Int(floor(self._unitLength * 2))
+		return 3...5
+	}
+
+	private var _threeUnitLengthRange:Range<Int> {
+//		return	self._oneUnitLengthRange.endIndex...self._oneUnitLengthRange.startIndex * 3
+		return 7...14
+	}
+
+	private var _sevenUnitLengthRange:Range<Int> {
+//		return	self._threeUnitLengthRange.endIndex...self._oneUnitLengthRange.startIndex * 99
+		return 15...23
+	}
+
+	private var _maxLvl:Float = 5
+	private var _isDuringSignal = false
+	private var _levelsRecord:[Float] = []
+
+	func resetForAudioInput() {
+		self._morse = ""
+		self._text = ""
+		self._currentLetterMorse = ""
+		self._inputWPM = 15
+		self._sampleRate = -1
+	}
+
+	func microphone(microphone: EZMicrophone!,
+		hasAudioReceived buffer: UnsafeMutablePointer<UnsafeMutablePointer<Float>>,
+		withBufferSize bufferSize: UInt32,
+		withNumberOfChannels numberOfChannels: UInt32) {
+		dispatch_sync(self._audioAnalysisQueue) {
+			// Setup sample rate
+			if self._sampleRate < 0 {
+				self._sampleRate = microphone.audioStreamBasicDescription().mSampleRate
+				print(self._unitLength)
+				print(self._oneUnitLengthRange)
+				print(self._threeUnitLengthRange)
+				print(self._sevenUnitLengthRange)
+			}
+			// Setup WPM
+			self._inputWPM = 15 // TODO: Better algorithm for this
+			let level = pow(abs(buffer[0][0] * 100), 1.5)
+			print(Int(level))
+
+			// TODO: Is during signal
+//			if level <= self._maxLvl/2.0 {
+//				self._isDuringSignal = false
+//			} else {
+//				self._isDuringSignal = true
+//			}
+//			if level > self._maxLvl {
+//				self._maxLvl = level
+//			}
+
+			self._levelsRecord.append(level)
+			while self._levelsRecord.count > 10 {
+				self._levelsRecord.removeFirst()
+			}
+			let avgLvl = (self._levelsRecord.reduce(0) { return $0 + $1 }) / Float(self._levelsRecord.count)
+			self._isDuringSignal = level > max(avgLvl/3.0, 5)
+//			self._isDuringSignal = level >= 10
+
+			if self._isDuringSignal {
+				if self._singalStarted {
+					self._counter++
+				} else {
+					// If this is where the singal rises
+					if !self._text!.isEmpty {
+						if self._threeUnitLengthRange.contains(self._counter) {
+							self.appendUnit(.LetterGap)
+						} else if self._sevenUnitLengthRange.contains(self._counter) {
+							self.appendUnit(.WordGap)
+						}
+					}
+					self._counter = 0
+				}
+				self._singalStarted = true
+			} else {
+				if self._singalStarted {
+					// If this is where the singal falls
+					if self._oneUnitLengthRange.contains(self._counter) {
+						self.appendUnit(.Dit)
+					} else if self._threeUnitLengthRange.contains(self._counter) || self._sevenUnitLengthRange.contains(self._counter) {
+						self.appendUnit(.Dah)
+					}
+					self._counter = 0
+				} else {
+					self._counter++
+				}
+				self._singalStarted = false
+			}
+		}
+	}
+
+	private func appendUnit(unit:MorseUnit) {
+		if unit == .LetterGap || unit == .WordGap {
+			// If we're appending a gap, reset currentLetterMorse
+			self._currentLetterMorse = ""
+			self._morse?.appendContentsOf(unit.rawValue)
+			if unit == .WordGap {
+				self._text?.appendContentsOf(" ")
+			}
+		} else {
+			let startOfALetter = self._currentLetterMorse.isEmpty
+			// We're sure unit is either DIT or DAH at this point
+			if !self._currentLetterMorse.isEmpty && !self._currentLetterMorse.hasPrefix(" ") {
+				self._currentLetterMorse.appendContentsOf(" ")
+				self._morse?.appendContentsOf(" ")
+			}
+			self._currentLetterMorse.appendContentsOf(unit.rawValue)
+			self._morse?.appendContentsOf(unit.rawValue)
+
+			// Change text
+			var letter = MorseTransmitter.decodeMorseStringToTextDictionary[self._currentLetterMorse]
+			if letter == nil {
+				letter = notRecognizedLetterStr
+			}
+			if !startOfALetter {
+				self._text?.removeAtIndex(self._text!.endIndex.advancedBy(-1))
+			}
+			self._text?.appendContentsOf(letter!)
+		}
+		self.delegate?.transmitterContentDidChange?(self._text!, morse: self._morse!)
+	}
 }
+
+enum MorseUnit:String {
+	case Dit = "•"
+	case Dah = "—"
+	case LetterGap = "   "
+	case WordGap = "       "
+}
+
+private let _encodeQueue = dispatch_queue_create("Encode Queue", nil)
+private let _decodeQueue = dispatch_queue_create("Decode Queue", nil)
 
 // Ignores invalid character
 private func encodeTextToMorse(text:String!) -> String? {
 	if text == nil || text.isEmpty { return nil }
 	var res = ""
-	dispatch_sync(dispatch_queue_create("Encode Queue", nil)) {
+	dispatch_sync(_encodeQueue) {
 		let words = text.lowercaseString.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: " \t\n\r"))
 		for word in words {
 			let chArr = word.characters
@@ -315,7 +468,7 @@ private func encodeTextToMorse(text:String!) -> String? {
 private func decodeMorseToText(morse:String!) -> String? {
 	if morse == nil || morse.isEmpty { return nil }
 	var res = ""
-	dispatch_sync(dispatch_queue_create("Decode Queue", nil)) {
+	dispatch_sync(_decodeQueue) {
 		let words = morse.componentsSeparatedByString(WORD_GAP_STRING)
 		for word in words {
 			let chArr = word.componentsSeparatedByString(LETTER_GAP_STRING)
@@ -323,6 +476,8 @@ private func decodeMorseToText(morse:String!) -> String? {
 			for ch in chArr {
 				if let chText = MorseTransmitter.decodeMorseStringToTextDictionary[String(ch)] {
 					wordStr += chText
+				} else {
+					wordStr += notRecognizedLetterStr
 				}
 			}
 
@@ -338,11 +493,11 @@ private func decodeMorseToText(morse:String!) -> String? {
 	return res.isEmpty ? nil : res
 }
 
-private let WORD_GAP_STRING = "       "
-private let LETTER_GAP_STRING = "   "
+private let WORD_GAP_STRING = MorseUnit.WordGap.rawValue
+private let LETTER_GAP_STRING = MorseUnit.LetterGap.rawValue
 private let UNIT_GAP_STRING = " "
-private let UNIT_DIT_STRING = "•"
-private let UNIT_DAH_STRING = "—"
+private let UNIT_DIT_STRING = MorseUnit.Dit.rawValue
+private let UNIT_DAH_STRING = MorseUnit.Dah.rawValue
 private let DIT_LENGTH:Float = 1.0
 private let UNIT_GAP_LENGTH:Float = 1.0
 private let DAH_LENGTH:Float = 3.0

@@ -11,6 +11,11 @@ import UIKit
 class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 	var audioPlot:EZAudioPlot!
 	var microphone:EZMicrophone!
+	var transmitter:MorseTransmitter! {
+		willSet {
+			newValue.resetForAudioInput()
+		}
+	}
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +35,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 		self.audioPlot.plotType = .Rolling
 		self.audioPlot.shouldMirror = true
 		self.audioPlot.shouldFill = true
+		self.audioPlot.setRollingHistoryLength(audioPlotRollingHistoryLength)
 		self.view.addSubview(self.audioPlot)
 		self.audioPlot.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.view)
@@ -39,6 +45,9 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 		self.microphone = EZMicrophone(microphoneDelegate: self)
 		self.microphone.device = EZAudioDevice.currentInputDevice()
 		self.microphone.startFetchingAudio()
+
+		// Setup transmitter
+		self.transmitter.resetForAudioInput()
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,11 +65,12 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 		hasAudioReceived buffer: UnsafeMutablePointer<UnsafeMutablePointer<Float>>,
 		withBufferSize bufferSize: UInt32,
 		withNumberOfChannels numberOfChannels: UInt32) {
-		dispatch_sync(dispatch_queue_create("Audio Real Time Analysis Queue", nil)) {
+		dispatch_async(dispatch_get_main_queue()) {
 			self.audioPlot.updateBuffer(buffer[0], withBufferSize: bufferSize)
-			// TODO
-			let level = abs(buffer[0][0] * 100)
-			print("\(Int(level))")
+			self.transmitter.microphone(microphone,
+				hasAudioReceived: buffer,
+				withBufferSize: bufferSize,
+				withNumberOfChannels: numberOfChannels)
 		}
 	}
 

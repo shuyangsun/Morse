@@ -27,15 +27,14 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	private var currentExpandedCard:CardView?
 	var currentFlippedCard:CardView? // Make it internal so the animator can access it
 
-	// *****************************
-	// MARK: Private variables
-	// *****************************
-
-	private var topSectionHidden = false
+	var micInputSectionViewController:AudioWaveFormViewController?
+	var micInputSectionContainerView:UIView?
 
 	// *****************************
 	// MARK: UI Related Variables
 	// *****************************
+
+	private var topSectionHidden = false
 
 	private var tabBarHeight:CGFloat {
 		if let tabBarController = self.tabBarController {
@@ -47,6 +46,10 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 	private var topSectionContainerViewHeight:CGFloat {
 		return statusBarHeight + topBarHeight + self.topSectionViewController.textBackgroundViewHeight
+	}
+
+	var isDuringInput:Bool {
+		return self.topSectionViewController.inputTextView.isFirstResponder() || self.micInputSectionContainerView != nil
 	}
 
 	// Animation related variables
@@ -113,12 +116,13 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 		if self.scrollViewOverlay == nil {
 			self.scrollViewOverlay = UIButton(frame: CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: self.scrollView.bounds.height))
-			self.scrollViewOverlay.addTarget(self.topSectionViewController, action: "dismissInputTextKeyboard", forControlEvents: .TouchUpInside)
+			self.scrollViewOverlay.addTarget(self.topSectionViewController, action: "inputCancelled", forControlEvents: .TouchUpInside)
 			self.scrollViewOverlay.backgroundColor = appDelegate.theme.scrollViewOverlayColor
 			self.scrollViewOverlay.opaque = false
 			self.scrollViewOverlay.layer.borderColor = UIColor.clearColor().CGColor
 			self.scrollViewOverlay.layer.borderWidth = 0
-			self.scrollViewOverlay.hidden = true
+			self.scrollViewOverlay.opaque = false
+			self.scrollViewOverlay.alpha = 0
 			self.scrollViewOverlay.titleLabel?.text = nil
 			self.view.insertSubview(self.scrollViewOverlay, aboveSubview: self.scrollView)
 
@@ -159,12 +163,31 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 	func scrollViewDidScroll(scrollView: UIScrollView) {
 		let hiddingSectionHeight = self.topSectionContainerViewHeight - self.topSectionViewController.keyboardButtonViewHeight - statusBarHeight
-		let animationDuration = 0.25 * appDelegate.animationDurationScalar
+		let animationDuration = 0.25 * animationDurationScalar
 		if scrollView.contentOffset.y <= 20 && self.topSectionHidden {
 			// Show input area
 			self.topSectionHidden = false
 			self.topSectionContainerView.snp_updateConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.view)
+			})
+
+			// Update constraints for buttons on text view
+			self.topSectionViewController.keyboardButton.snp_remakeConstraints(closure: { (make) -> Void in
+				make.height.equalTo(self.topSectionViewController.keyboardButtonViewHeight)
+				make.bottom.equalTo(self.topSectionViewController.textBackgroundView)
+				if self.topSectionViewController.isDirectionEncode {
+					make.leading.equalTo(self.topSectionViewController.textBackgroundView)
+				} else {
+					make.leading.equalTo(self.topSectionViewController.textBackgroundView.snp_centerX)
+				}
+				make.trailing.equalTo(self.topSectionViewController.textBackgroundView)
+			})
+
+			self.topSectionViewController.microphoneButton.snp_remakeConstraints(closure: { (make) -> Void in
+				make.height.equalTo(self.topSectionViewController.keyboardButtonViewHeight)
+				make.bottom.equalTo(self.topSectionViewController.textBackgroundView)
+				make.leading.equalTo(self.topSectionViewController.textBackgroundView)
+				make.trailing.equalTo(self.topSectionViewController.textBackgroundView)
 			})
 
 			UIView.animateWithDuration(animationDuration
@@ -174,9 +197,15 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 					self.view.layoutIfNeeded()
 					self.topSectionViewController.inputTextView.alpha = 1
 					self.topSectionViewController.outputTextView.alpha = 1
+					self.topSectionViewController.keyboardButton.alpha = 0
+					if self.topSectionViewController.isDirectionEncode {
+						self.topSectionViewController.microphoneButton.alpha = 0
+					} else if !self.isDuringInput {
+						self.topSectionViewController.microphoneButton.alpha = 1
+					}
 				}) { succeed in
 					if succeed {
-						if !self.topSectionViewController.inputTextView.isFirstResponder() {
+						if !self.isDuringInput {
 							self.topSectionViewController.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: animationDuration)
 						}
 					}
@@ -191,8 +220,25 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				make.top.equalTo(self.view).offset(-hiddingSectionHeight)
 			})
 
-			if !self.topSectionViewController.inputTextView.isFirstResponder() {
+			if !self.isDuringInput {
 				self.topSectionViewController.roundButtonView.disappearWithAnimationType([.Scale, .Fade], duration: animationDuration)
+			}
+
+			// Update constraints for buttons on text view
+			if !self.topSectionViewController.isDirectionEncode {
+				self.topSectionViewController.keyboardButton.snp_remakeConstraints(closure: { (make) -> Void in
+					make.height.equalTo(self.topSectionViewController.keyboardButtonViewHeight)
+					make.bottom.equalTo(self.topSectionViewController.textBackgroundView)
+					make.leading.equalTo(self.topSectionViewController.textBackgroundView.snp_centerX)
+					make.trailing.equalTo(self.topSectionViewController.textBackgroundView)
+				})
+
+				self.topSectionViewController.microphoneButton.snp_remakeConstraints(closure: { (make) -> Void in
+					make.height.equalTo(self.topSectionViewController.keyboardButtonViewHeight)
+					make.bottom.equalTo(self.topSectionViewController.textBackgroundView)
+					make.leading.equalTo(self.topSectionViewController.textBackgroundView)
+					make.trailing.equalTo(self.topSectionViewController.textBackgroundView.snp_centerX)
+				})
 			}
 			UIView.animateWithDuration(animationDuration
 				, delay: 0,
@@ -201,9 +247,55 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 					self.view.layoutIfNeeded()
 					self.topSectionViewController.inputTextView.alpha = 0
 					self.topSectionViewController.outputTextView.alpha = 0
-			}, completion: nil)
+					self.topSectionViewController.keyboardButton.alpha = 1
+					if self.topSectionViewController.isDirectionEncode {
+						self.topSectionViewController.microphoneButton.alpha = 0
+					} else {
+						self.topSectionViewController.microphoneButton.alpha = 1
+					}
+				}) { succeed in
+					if succeed {
+						UIView.animateWithDuration(animationDuration
+							, delay: 0,
+							options: .CurveEaseOut,
+							animations: {
+								self.topSectionViewController.keyboardButton.alpha = 1
+								if self.topSectionViewController.isDirectionEncode {
+									self.topSectionViewController.microphoneButton.alpha = 0
+								} else {
+									self.topSectionViewController.microphoneButton.alpha = 1
+								}
+						}, completion: nil)
+					}
+			}
 		}
 		self.restoreCurrentFlippedCard()
+	}
+
+	// *****************************
+	// MARK: Microphone Related
+	// *****************************
+
+	func microphoneButtonTapped() {
+		if self.micInputSectionContainerView == nil {
+			self.micInputSectionViewController = AudioWaveFormViewController()
+			self.addChildViewController(self.micInputSectionViewController!)
+			self.micInputSectionViewController!.transmitter = self.topSectionViewController.transmitter
+			self.micInputSectionViewController!.transmitter.delegate = self.topSectionViewController
+			self.micInputSectionViewController!.didMoveToParentViewController(self)
+			self.micInputSectionViewController!.view.frame = CGRect(origin: CGPointZero, size: self.scrollViewOverlay.bounds.size)
+			self.micInputSectionContainerView = self.micInputSectionViewController!.view
+			self.micInputSectionContainerView!.opaque = false
+			self.micInputSectionContainerView!.alpha = 0
+			let tapGR = UITapGestureRecognizer(target: self.topSectionViewController, action: "audioPlotTapped:")
+			self.micInputSectionViewController!.view.addGestureRecognizer(tapGR)
+			self.view.insertSubview(self.micInputSectionContainerView!, aboveSubview: self.scrollViewOverlay)
+
+			self.micInputSectionContainerView!.snp_remakeConstraints(closure: { (make) -> Void in
+				make.edges.equalTo(self.scrollViewOverlay)
+			})
+		}
+		self.topSectionViewController.microphoneButtonTapped()
 	}
 
 	// *****************************
@@ -212,14 +304,21 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 	func cardViewTapped(cardView:CardView) {
 		let tappingCurrentExpandedView = self.currentExpandedCard === cardView
-		self.collapseCurrentExpandedCard()
 		if !tappingCurrentExpandedView {
+			self.collapseCurrentExpandedCard()
 			if cardView !== self.currentFlippedCard {
 				cardView.flip()
 			}
 			self.restoreCurrentFlippedCard()
 			if cardView.flipped {
 				self.currentFlippedCard = cardView
+			}
+		} else {
+			self.collapseCurrentExpandedCard() {
+				cardView.flip()
+				if cardView.flipped {
+					self.currentFlippedCard = cardView
+				}
 			}
 		}
 	}
@@ -356,12 +455,6 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			self.scrollView.insertSubview(cardView, aboveSubview: cardAbove)
 		}
 	}
-
-	// *****************************
-	// MARK: User Interaction Handler
-	// *****************************
-
-	// Gesture call backs.
 
 	// *****************************
 	// MARK: Card View Manipulation
@@ -542,23 +635,24 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	}
 
 	// This function is called by top section VC too, so keep it public.
-	func collapseCurrentExpandedCard() {
+	func collapseCurrentExpandedCard(completion: ((Void)->Void)? = nil) {
 		// Collapse expanded card
-		let cardView = self.currentExpandedCard
+		let card = self.currentExpandedCard
 		self.currentExpandedCard = nil
-		if cardView != nil {
-			cardView!.expanded = false
-			self.updateConstraintsForCardView(cardView!)
+		if card != nil {
+			card!.expanded = false
+			self.updateConstraintsForCardView(card!)
 			UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
 				delay: 0,
 				options: .CurveEaseOut,
 				animations: {
-					cardView!.backgroundColor = appDelegate.theme.cardViewBackgroudColor
-					cardView!.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
+					card!.backgroundColor = appDelegate.theme.cardViewBackgroudColor
+					card!.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
 					self.scrollView.layoutIfNeeded()
 				}) { succeed in
 					if succeed {
-						cardView!.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
+						card!.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
+						completion?()
 					}
 			}
 		}
@@ -633,7 +727,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	}
 
 	private func updateMDShadows() {
-		if self.topSectionViewController.inputTextView.isFirstResponder() {
+		if self.isDuringInput {
 			self.topSectionContainerView.addMDShadow(withDepth: 3)
 		} else {
 			self.topSectionContainerView.addMDShadow(withDepth: 2)

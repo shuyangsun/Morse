@@ -30,6 +30,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 	// MARK: Data Variables
 	// *****************************
 	var morse:String = ""
+	private let _flashQueue = dispatch_queue_create("Flash Queue", DISPATCH_QUEUE_SERIAL)
 	private let _outputPlayer = MorseOutputPlayer()
 	private var _playing = false
 	private var _soundEnabled = appDelegate.soundOutputEnabled {
@@ -49,7 +50,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 			if !newValue {
 				// Turn off flash if not enabling flash.
 				if self._rearCamera != nil && self._rearCamera.hasTorch && self._rearCamera.hasFlash && self._rearCamera.isTorchModeSupported(.On) {
-					dispatch_async(dispatch_queue_create("FLASH QUEUE", DISPATCH_QUEUE_SERIAL)) {
+					dispatch_async(self._flashQueue) {
 						if let _ = try? self._rearCamera.lockForConfiguration() {}
 						self._rearCamera.torchMode = .Off
 						self._rearCamera.unlockForConfiguration()
@@ -298,7 +299,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 
 		// Real Flash
 		if self._flashEnabled && self._rearCamera != nil && self._rearCamera.hasTorch && self._rearCamera.hasFlash && self._rearCamera.isTorchModeSupported(.On) {
-			dispatch_async(dispatch_queue_create("FLASH QUEUE", DISPATCH_QUEUE_SERIAL)) {
+			dispatch_async(self._flashQueue) {
 				if let _ = try? self._rearCamera.lockForConfiguration() {}
 				self._rearCamera.torchMode = .On
 				self._rearCamera.unlockForConfiguration()
@@ -315,7 +316,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 
 		// Real Flash
 		if self._rearCamera != nil && self._rearCamera.hasTorch && self._rearCamera.hasFlash && self._rearCamera.isTorchModeSupported(.On) {
-			dispatch_async(dispatch_queue_create("FLASH QUEUE", DISPATCH_QUEUE_SERIAL)) {
+			dispatch_async(self._flashQueue) {
 				if let _ = try? self._rearCamera.lockForConfiguration() {}
 				self._rearCamera.torchMode = .Off
 				self._rearCamera.unlockForConfiguration()

@@ -14,6 +14,9 @@ let defaultAnimationDuration:NSTimeInterval = 0.35
 let tableViewCellHeight:CGFloat = 50
 let topBarHeight:CGFloat = 56
 
+let textViewInputFontSize:CGFloat = 16
+let textViewOutputFontSize:CGFloat = 16
+
 let cardViewTextFontSizeDictionary:CGFloat = 22
 let cardViewMorseFontSizeDictionary:CGFloat = 16
 let morseFontSizeProgressBar:CGFloat = 14
@@ -22,6 +25,8 @@ let cardViewLabelPaddingVerticle:CGFloat = 16
 let cardViewLabelPaddingHorizontal:CGFloat = 15
 let cardViewLabelVerticalGap:CGFloat = 10
 let cardBackViewButtonPadding:CGFloat = 5.0
+
+let audioPlotRollingHistoryLength:Int32 = 100
 
 let slideAndPinchStartDistance:CGFloat = 15
 let slideAndPinchRatioToDismiss:CGFloat = 0

@@ -149,64 +149,7 @@ class CardView: UIView {
 
 		// Add back views first
 		if !self.expanded && self.canBeFlipped {
-			if self.backView == nil {
-				self.backView = UIView(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height))
-				self.backView.backgroundColor = appDelegate.theme.cardBackViewBackgroundColor
-				self.backView.layer.cornerRadius = self.layer.cornerRadius
-				self.addSubview(self.backView)
-				self.backView.snp_remakeConstraints { (make) -> Void in
-					make.edges.equalTo(self)
-				}
-				self.backView.hidden = true
-			}
-
-			if self.outputButton == nil {
-				self.outputButton = UIButton(frame: CGRect(x: 0, y: 0, width: self.bounds.width/2.0, height: self.bounds.height))
-				self.outputButton.backgroundColor = UIColor.clearColor()
-				self.outputButton.tintColor = appDelegate.theme.cardBackViewButtonTextColor
-				self.outputButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
-				self.outputButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
-				self.outputButton.setTitle(LocalizedStrings.Button.output, forState: .Normal)
-				self.outputButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)
-				// Change the size of button to only fit title label
-				var strSize = self.outputButton.bounds.size
-				if let size = self.outputButton.titleLabel?.attributedText?.size() {
-					// Make the button a little bit larger
-					strSize = CGSize(width: size.width + cardBackViewButtonPadding * 2, height: size.height + cardBackViewButtonPadding * 2)
-				}
-				self.outputButton.bounds.size = strSize
-				self.backView.addSubview(self.outputButton)
-				self.outputButton.snp_remakeConstraints { (make) -> Void in
-					make.width .equalTo(strSize.width)
-					make.height.equalTo(strSize.height)
-					make.centerX.equalTo(self).offset(-self.bounds.width/4.0)
-					make.centerY.equalTo(self)
-				}
-			}
-
-			if self.shareButton == nil {
-				self.shareButton = UIButton(frame: CGRect(x: self.bounds.width/2.0, y: 0, width: self.bounds.width/2.0, height: self.bounds.height))
-				self.shareButton.backgroundColor = UIColor.clearColor()
-				self.shareButton.tintColor = appDelegate.theme.cardBackViewButtonTextColor
-				self.shareButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
-				self.shareButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
-				self.shareButton.setTitle(LocalizedStrings.Button.share, forState: .Normal)
-				self.shareButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)
-				// Change the size of button to only fit title label
-				var strSize = self.shareButton.bounds.size
-				if let size = self.shareButton.titleLabel?.attributedText?.size() {
-					// Make the button a little bit larger
-					strSize = CGSize(width: size.width + cardBackViewButtonPadding * 2, height: size.height + cardBackViewButtonPadding * 2)
-				}
-				self.shareButton.bounds.size = strSize
-				self.backView.addSubview(self.shareButton)
-				self.shareButton.snp_remakeConstraints { (make) -> Void in
-					make.width .equalTo(strSize.width)
-					make.height.equalTo(strSize.height)
-					make.centerX.equalTo(self).offset(self.bounds.width/4.0)
-					make.centerY.equalTo(self)
-				}
-			}
+			self.addBackView()
 		}
 	}
 
@@ -340,6 +283,10 @@ class CardView: UIView {
 				}, completion: nil)
 		} else {
 			// Flip to back
+			// Add back views first
+			if !self.expanded && self.canBeFlipped {
+				self.addBackView()
+			}
 			self.flipped = true // Do NOT move this line to completion block! Will cause bugs.
 			UIView.transitionWithView(self,
 				duration: defaultAnimationDuration/2.0 * appDelegate.animationDurationScalar,
@@ -370,6 +317,67 @@ class CardView: UIView {
 							self.transform = originalTransform
 						}, completion: nil)
 				}
+		}
+	}
+
+	private func addBackView() {
+		if self.backView == nil {
+			self.backView = UIView(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height))
+			self.backView.backgroundColor = appDelegate.theme.cardBackViewBackgroundColor
+			self.backView.layer.cornerRadius = self.layer.cornerRadius
+			self.addSubview(self.backView)
+			self.backView.snp_remakeConstraints { (make) -> Void in
+				make.edges.equalTo(self)
+			}
+			self.backView.hidden = true
+		}
+
+		if self.outputButton == nil {
+			self.outputButton = UIButton(frame: CGRect(x: 0, y: 0, width: self.bounds.width/2.0, height: self.bounds.height))
+			self.outputButton.backgroundColor = UIColor.clearColor()
+			self.outputButton.tintColor = appDelegate.theme.cardBackViewButtonTextColor
+			self.outputButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
+			self.outputButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
+			self.outputButton.setTitle(LocalizedStrings.Button.output, forState: .Normal)
+			self.outputButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)
+			// Change the size of button to only fit title label
+			var strSize = self.outputButton.bounds.size
+			if let size = self.outputButton.titleLabel?.attributedText?.size() {
+				// Make the button a little bit larger
+				strSize = CGSize(width: size.width + cardBackViewButtonPadding * 2, height: size.height + cardBackViewButtonPadding * 2)
+			}
+			self.outputButton.bounds.size = strSize
+			self.backView.addSubview(self.outputButton)
+			self.outputButton.snp_remakeConstraints { (make) -> Void in
+				make.width .equalTo(strSize.width)
+				make.height.equalTo(strSize.height)
+				make.centerX.equalTo(self).offset(-self.bounds.width/4.0)
+				make.centerY.equalTo(self)
+			}
+		}
+
+		if self.shareButton == nil {
+			self.shareButton = UIButton(frame: CGRect(x: self.bounds.width/2.0, y: 0, width: self.bounds.width/2.0, height: self.bounds.height))
+			self.shareButton.backgroundColor = UIColor.clearColor()
+			self.shareButton.tintColor = appDelegate.theme.cardBackViewButtonTextColor
+			self.shareButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
+			self.shareButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
+			self.shareButton.setTitle(LocalizedStrings.Button.share, forState: .Normal)
+			self.shareButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)
+			// Change the size of button to only fit title label
+			var strSize = self.shareButton.bounds.size
+			if let size = self.shareButton.titleLabel?.attributedText?.size() {
+				// Make the button a little bit larger
+				strSize = CGSize(width: size.width + cardBackViewButtonPadding * 2, height: size.height + cardBackViewButtonPadding * 2)
+			}
+			self.shareButton.bounds.size = strSize
+			self.backView.addSubview(self.shareButton)
+			self.shareButton.snp_remakeConstraints { (make) -> Void in
+				make.width .equalTo(strSize.width)
+				make.height.equalTo(strSize.height)
+				make.centerX.equalTo(self).offset(self.bounds.width/4.0)
+				make.centerY.equalTo(self)
+			}
 		}
 	}
 }

@@ -160,6 +160,9 @@
 		10CAF8231C1DDD4A00164258 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 10CAF8251C1DDD4A00164258 /* InfoPlist.strings */; };
 		10CAF82D1C1DDE3100164258 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 10CAF82F1C1DDE3100164258 /* Localizable.strings */; };
 		10CAF8381C1DDFE700164258 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 10CAF83A1C1DDFE700164258 /* Localizable.strings */; };
+		10CC4EAA1C38854100B1F0F2 /* MorseTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CC4EA91C38854100B1F0F2 /* MorseTransmitterDelegate.swift */; };
+		10CC4EAB1C38854100B1F0F2 /* MorseTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CC4EA91C38854100B1F0F2 /* MorseTransmitterDelegate.swift */; };
+		10CC4EAC1C38854100B1F0F2 /* MorseTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CC4EA91C38854100B1F0F2 /* MorseTransmitterDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -334,6 +337,7 @@
 		10CAF83C1C1DDFE700164258 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		10CAF83D1C1DDFE700164258 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		10CAF83E1C1DDFE700164258 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		10CC4EA91C38854100B1F0F2 /* MorseTransmitterDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseTransmitterDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -606,6 +610,7 @@
 				1030BA0E1C1890C20099F2E4 /* CardViewDelegate.swift */,
 				10295BCB1C24FE050060DBE1 /* MorseOutputPlayerDelegate.swift */,
 				100F7CDE1C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift */,
+				10CC4EA91C38854100B1F0F2 /* MorseTransmitterDelegate.swift */,
 			);
 			name = Delegates;
 			sourceTree = "<group>";
@@ -819,6 +824,7 @@
 				1088ACC21C26003400D17028 /* CardViewOutputAnimator.swift in Sources */,
 				109266841C2071EA00AD198E /* TableViewCell.swift in Sources */,
 				107FF6A71C0BC128003EB294 /* Theme.swift in Sources */,
+				10CC4EAA1C38854100B1F0F2 /* MorseTransmitterDelegate.swift in Sources */,
 				100F7CD81C27513700DDD8EC /* MorseAudioRecorder.swift in Sources */,
 				103477161C3750DC0036DB44 /* EZRecorder.m in Sources */,
 				1030BA0F1C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
@@ -871,6 +877,7 @@
 				1034771D1C3750DC0036DB44 /* TPCircularBuffer.c in Sources */,
 				1052A75B1C0BACEA0085B0C9 /* MorseTests.swift in Sources */,
 				1088ACC31C26003400D17028 /* CardViewOutputAnimator.swift in Sources */,
+				10CC4EAB1C38854100B1F0F2 /* MorseTransmitterDelegate.swift in Sources */,
 				109266851C2071EA00AD198E /* TableViewCell.swift in Sources */,
 				107FF6AC1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
 				100F7CD91C27513700DDD8EC /* MorseAudioRecorder.swift in Sources */,
@@ -923,6 +930,7 @@
 				1088ACC41C26003400D17028 /* CardViewOutputAnimator.swift in Sources */,
 				109266861C2071EA00AD198E /* TableViewCell.swift in Sources */,
 				107FF6AD1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
+				10CC4EAC1C38854100B1F0F2 /* MorseTransmitterDelegate.swift in Sources */,
 				100F7CDA1C27513700DDD8EC /* MorseAudioRecorder.swift in Sources */,
 				103477181C3750DC0036DB44 /* EZRecorder.m in Sources */,
 				1030BA111C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,

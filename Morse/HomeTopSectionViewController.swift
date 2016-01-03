@@ -13,7 +13,7 @@ import AVFoundation
 // MARK: Localized Strings
 // *****************************
 
-class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
+class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseTransmitterDelegate {
 
 	// *****************************
 	// MARK: Views
@@ -36,7 +36,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 	// Button
 	var roundButtonView: RoundButtonView!
 	var cancelButton: CancelButton!
-	var keyboardButtonView: UIView!
+	var keyboardButton: UIButton!
+	var microphoneButton:UIButton!
 
 	// *****************************
 	// MARK: UI Related Variables
@@ -60,11 +61,15 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 		return topBarHeight
 	}
 
+	private var isDuringInput:Bool {
+		return self.homeViewController.isDuringInput
+	}
+
 	// *****************************
 	// MARK: Data Related Variables
 	// *****************************
 
-	private let transmitter = MorseTransmitter()
+	let transmitter = MorseTransmitter()
 
 	var isDirectionEncode:Bool = true {
 		didSet {
@@ -94,13 +99,13 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 
 	private var attributedHintTextInput:NSMutableAttributedString {
 		return NSMutableAttributedString(string: self.hintTextInput, attributes:
-			[NSFontAttributeName: UIFont.systemFontOfSize(16),
+			[NSFontAttributeName: UIFont.systemFontOfSize(textViewInputFontSize),
 				NSForegroundColorAttributeName: UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)])
 	}
 
 	private var attributedHintTextOutput:NSMutableAttributedString {
 		return NSMutableAttributedString(string: self.hintTextOutput, attributes:
-			[NSFontAttributeName: UIFont.systemFontOfSize(16),
+			[NSFontAttributeName: UIFont.systemFontOfSize(textViewOutputFontSize),
 				NSForegroundColorAttributeName: UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)])
 	}
 
@@ -173,7 +178,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 
 			// Add cancel button
 			self.cancelButton = CancelButton(origin: CGPoint(x: 0, y: 0), width: self.cancelButtonWidth)
-			self.cancelButton.addTarget(self, action: "dismissInputTextKeyboard", forControlEvents: .TouchUpInside)
+			self.cancelButton.addTarget(self, action: "inputCancelled", forControlEvents: .TouchUpInside)
 			self.topBarView.addSubview(self.cancelButton)
 
 			self.cancelButton.snp_makeConstraints(closure: { (make) -> Void in
@@ -326,19 +331,47 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 		// Configure Keyboard Button View
 		// *********************************
 
-		if self.keyboardButtonView == nil {
-			self.keyboardButtonView = UIView(frame: CGRect(x: 0, y: self.textBackgroundView.bounds.height - self.keyboardButtonViewHeight, width: self.textBackgroundView.bounds.width, height: self.keyboardButtonViewHeight))
-			self.keyboardButtonView.backgroundColor = appDelegate.theme.keyboardButtonViewBackgroundColor
-			self.keyboardButtonView.opaque = false
-			self.keyboardButtonView.alpha = 0
-			self.keyboardButtonView.hidden = true
-			self.view.addSubview(self.keyboardButtonView)
+		if self.keyboardButton == nil {
+			self.keyboardButton = UIButton(frame: CGRect(x: 0, y: self.textBackgroundView.bounds.height - self.keyboardButtonViewHeight, width: self.textBackgroundView.bounds.width, height: self.keyboardButtonViewHeight))
+			self.keyboardButton.backgroundColor = appDelegate.theme.keyboardButtonBackgroundColor
+			self.keyboardButton.opaque = false
+			self.keyboardButton.alpha = 0
+			self.keyboardButton.setTitleColor(UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha), forState: .Normal)
+			self.keyboardButton.setTitle("KB", forState: .Normal) // TODO: Replace with icon
+			self.keyboardButton.addTarget(self, action: "keyboardButtonTapped", forControlEvents: .TouchUpInside)
+			let tapGR = UITapGestureRecognizer(target: self, action: "micOrKeyboardButtonTapped:")
+			tapGR.cancelsTouchesInView = false
+			self.keyboardButton.addGestureRecognizer(tapGR)
+			self.view.addSubview(self.keyboardButton)
 
-			self.keyboardButtonView.snp_makeConstraints(closure: { (make) -> Void in
+			self.keyboardButton.snp_makeConstraints(closure: { (make) -> Void in
 				make.height.equalTo(self.keyboardButtonViewHeight)
+				make.bottom.equalTo(self.textBackgroundView)
 				make.leading.equalTo(self.textBackgroundView)
 				make.trailing.equalTo(self.textBackgroundView)
+			})
+		}
+
+		// *********************************
+		// Configure Morse Microphone Button View
+		// *********************************
+		if self.microphoneButton == nil {
+			self.microphoneButton = UIButton(frame: CGRect(x: 0, y: self.textBackgroundView.bounds.height - self.keyboardButtonViewHeight, width: self.textBackgroundView.bounds.width, height: self.keyboardButtonViewHeight))
+			self.microphoneButton.backgroundColor = appDelegate.theme.keyboardButtonBackgroundColor
+			self.microphoneButton.opaque = false
+			self.microphoneButton.alpha = 0
+			self.microphoneButton.setTitleColor(UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha), forState: .Normal)
+			self.microphoneButton.setTitle("MIC", forState: .Normal) // TODO: Replace with icon
+			self.microphoneButton.addTarget(self.homeViewController, action: "microphoneButtonTapped", forControlEvents: .TouchUpInside)
+			let tapGR = UITapGestureRecognizer(target: self, action: "micOrKeyboardButtonTapped:")
+			tapGR.cancelsTouchesInView = false
+			self.microphoneButton.addGestureRecognizer(tapGR)
+			self.view.addSubview(self.microphoneButton)
+			self.microphoneButton.snp_makeConstraints(closure: { (make) -> Void in
+				make.height.equalTo(self.keyboardButtonViewHeight)
 				make.bottom.equalTo(self.textBackgroundView)
+				make.leading.equalTo(self.textBackgroundView)
+				make.trailing.equalTo(self.textBackgroundView)
 			})
 		}
     }
@@ -381,11 +414,11 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 		}
 
 		self.textBoxTapFeedBackView.hidden = true
-		if !self.inputTextView.isFirstResponder() {
+		if !self.isDuringInput {
 			self.inputTextView.becomeFirstResponder()
 			self.animateAndLayoutUIForInputStart()
+			self.textBackgroundView.triggerTapFeedBack(atLocation: gestureRecognizer.locationInView(self.textBackgroundView), withColor: appDelegate.theme.textViewTapFeedbackColor, duration: TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar)
 		}
-		self.textBackgroundView.triggerTapFeedBack(atLocation: gestureRecognizer.locationInView(self.textBackgroundView), withColor: appDelegate.theme.textViewTapFeedbackColor, duration: TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar)
 		self.homeViewController.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.homeViewController.scrollView.bounds.width, height: 1), animated: true)
 	}
 
@@ -439,6 +472,28 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 				make.bottom.equalTo(self.topBarView)
 				make.leading.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
 			})
+
+			self.keyboardButton.snp_remakeConstraints(closure: { (make) -> Void in
+				make.height.equalTo(self.keyboardButtonViewHeight)
+				make.bottom.equalTo(self.textBackgroundView)
+				make.leading.equalTo(self.textBackgroundView)
+				make.trailing.equalTo(self.textBackgroundView)
+			})
+
+			self.microphoneButton.snp_remakeConstraints(closure: { (make) -> Void in
+				make.height.equalTo(self.keyboardButtonViewHeight)
+				make.bottom.equalTo(self.textBackgroundView)
+				make.leading.equalTo(self.textBackgroundView)
+				make.trailing.equalTo(self.textBackgroundView)
+			})
+
+//			self.keyboardButton.snp_updateConstraints(closure: { (make) -> Void in
+//				make.leading.equalTo(self.textBackgroundView)
+//			})
+//
+//			self.morseMicrophoneButton.snp_updateConstraints(closure: { (make) -> Void in
+//				make.trailing.equalTo(self.textBackgroundView)
+//			})
 		} else {
 			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.topBarView)
@@ -453,6 +508,20 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 				make.bottom.equalTo(self.topBarView)
 				make.trailing.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
 			})
+
+			self.keyboardButton.snp_remakeConstraints(closure: { (make) -> Void in
+				make.height.equalTo(self.keyboardButtonViewHeight)
+				make.bottom.equalTo(self.textBackgroundView)
+				make.leading.equalTo(self.textBackgroundView.snp_centerX)
+				make.trailing.equalTo(self.textBackgroundView)
+			})
+
+			self.microphoneButton.snp_remakeConstraints(closure: { (make) -> Void in
+				make.height.equalTo(self.keyboardButtonViewHeight)
+				make.bottom.equalTo(self.textBackgroundView)
+				make.leading.equalTo(self.textBackgroundView)
+				make.trailing.equalTo(self.textBackgroundView)
+			})
 		}
 
 		UIView.animateWithDuration(TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar,
@@ -462,38 +531,49 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 			options: .CurveEaseInOut,
 			animations: {
 				self.topBarView.layoutIfNeeded()
+				self.keyboardButton.alpha = 0
+				if self.isDirectionEncode {
+					self.microphoneButton.alpha = 0
+				} else {
+					self.microphoneButton.alpha = 1
+				}
 			}, completion: nil)
 		}
+	}
+
+	// Microphone button or keyboard button feedback
+	func micOrKeyboardButtonTapped(gestureRecognizer:UITapGestureRecognizer) {
+		let view = gestureRecognizer.view
+		if view != nil {
+			let location = gestureRecognizer.locationInView(view!)
+			view!.triggerTapFeedBack(atLocation: location, withColor: theme.textViewTapFeedbackColor)
+		}
+	}
+
+	func keyboardButtonTapped() {
+		self.inputTextView.becomeFirstResponder()
+		self.animateAndLayoutUIForInputStart()
+		self.homeViewController.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.homeViewController.scrollView.bounds.width, height: 1), animated: true)
+	}
+
+	func microphoneButtonTapped() {
+		self.animateAndLayoutUIForInputStart()
+		self.inputTextView.userInteractionEnabled = false
+		self.homeViewController.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.homeViewController.scrollView.bounds.width, height: 1), animated: true)
+	}
+
+	func audioPlotTapped(gestureRecognizer:UITapGestureRecognizer) {
+		let text = self.outputTextView.text
+		let morse = self.inputTextView.text
+		if self.inputTextView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) != "" && self.outputTextView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) != "" {
+			self.homeViewController.addCardViewWithText(text, morse: morse, textOnTop: self.isDirectionEncode, animateWithDuration: 0.3)
+		}
+		self.animateAndLayoutUIForInputEnd()
 	}
 
 	// *****************************
 	// MARK: Text View Delegate
 	// *****************************
-
-	func textViewDidBeginEditing(textView: UITextView) {
-
-		self.inputTextView.attributedText = getAttributedStringFrom(" ", withFontSize: 16, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
-		self.outputTextView.attributedText = getAttributedStringFrom(" ", withFontSize: 16, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
-		self.textBoxTapFeedBackView.hidden = true
-		self.textBoxTapFeedBackView.userInteractionEnabled = false
-
-		self.lineBreakView.hidden = false
-		self.lineBreakView.snp_remakeConstraints(closure: { (make) -> Void in
-			make.leading.equalTo(self.textBackgroundView)
-			make.trailing.equalTo(self.textBackgroundView)
-			make.bottom.equalTo(self.inputTextView)
-			make.height.equalTo(1.0)
-		})
-
-		UIView.animateWithDuration(0.15 * appDelegate.animationDurationScalar,
-			delay: 0.0,
-			options: .CurveLinear,
-			animations: { () -> Void in
-				self.view.layoutIfNeeded()
-				self.homeViewController.scrollViewOverlay.hidden = false
-				self.homeViewController.topSectionContainerView.addMDShadow(withDepth: 3)
-			}, completion: nil)
-	}
 
 	func textViewDidChange(textView: UITextView) {
 		var outputText:String?
@@ -504,38 +584,10 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 			self.transmitter.morse = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
 			outputText = self.transmitter.text
 		}
-		self.outputTextView.attributedText = getAttributedStringFrom(outputText, withFontSize: 16, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
+		self.outputTextView.attributedText = getAttributedStringFrom(outputText, withFontSize: textViewOutputFontSize, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
 		if outputText != nil {
 			self.outputTextView.scrollRangeToVisible(NSMakeRange(outputText!.startIndex.distanceTo(outputText!.endIndex), 0))
 		}
-	}
-
-	func textViewDidEndEditing(textView: UITextView) {
-		self.textBoxTapFeedBackView.hidden = false
-		self.textBoxTapFeedBackView.userInteractionEnabled = true
-		self.outputTextView.text = nil
-		textView.attributedText = self.attributedHintTextInput
-		self.outputTextView.attributedText = self.attributedHintTextOutput
-		self.lineBreakView.snp_remakeConstraints(closure: { (make) -> Void in
-			make.leading.equalTo(self.textBackgroundView)
-			make.trailing.equalTo(self.textBackgroundView)
-			make.bottom.equalTo(self.textBackgroundView)
-			make.height.equalTo(1.0)
-		})
-		UIView.animateWithDuration(0.15 * appDelegate.animationDurationScalar,
-			delay: 0.0,
-			options: .CurveLinear,
-			animations: { () -> Void in
-				self.view.layoutIfNeeded()
-				self.homeViewController.scrollViewOverlay.hidden = true
-				self.homeViewController.topSectionContainerView.addMDShadow(withDepth: 2)
-			}) { (succeed) -> Void in
-				if succeed {
-					self.lineBreakView.hidden = true
-				}
-		}
-
-		self.animateAndLayoutUIForInputEnd()
 	}
 
 	func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
@@ -546,26 +598,53 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 				self.homeViewController.addCardViewWithText(text, morse: morse, textOnTop: self.isDirectionEncode, animateWithDuration: 0.3)
 			}
 			textView.resignFirstResponder()
+			self.animateAndLayoutUIForInputEnd()
 			return false
 		}
 		return true
 	}
 
 	// *****************************
+	// MARK: Transmitter Delegate
+	// *****************************
+
+	func transmitterContentDidChange(text: String, morse: String) {
+		self.inputTextView.attributedText = getAttributedStringFrom(morse, withFontSize: textViewInputFontSize, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
+		self.outputTextView.attributedText = getAttributedStringFrom(text.uppercaseString, withFontSize: textViewOutputFontSize, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
+		self.inputTextView.scrollRangeToVisible(NSMakeRange(morse.startIndex.distanceTo(morse.endIndex), 0))
+		self.outputTextView.scrollRangeToVisible(NSMakeRange(text.startIndex.distanceTo(text.endIndex), 0))
+	}
+
+	// *****************************
 	// MARK: Other Methods
 	// *****************************
 
-	func dismissInputTextKeyboard() {
+	func inputCancelled() {
 		if self.inputTextView.isFirstResponder() {
 			self.inputTextView.resignFirstResponder()
 		}
+		self.animateAndLayoutUIForInputEnd()
 	}
 
 	private func animateAndLayoutUIForInputStart() {
-		let animationDuration = TAP_FEED_BACK_DURATION/3.0
+		let animationDuration = defaultAnimationDuration/3.0
 		// Show cancel button
 		self.cancelButton.appearWithDuration(animationDuration)
+
+		// Text view stuff
+		self.inputTextView.attributedText = getAttributedStringFrom(" ", withFontSize: textViewInputFontSize, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
+		self.outputTextView.attributedText = getAttributedStringFrom(" ", withFontSize: textViewOutputFontSize, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
+		self.textBoxTapFeedBackView.hidden = true
+		self.textBoxTapFeedBackView.userInteractionEnabled = false
+
 		// Hide round button
+		UIView.animateWithDuration(animationDuration * appDelegate.animationDurationScalar,
+			delay: 0,
+			options: .CurveEaseOut,
+			animations: {
+				self.microphoneButton.alpha = 0
+				self.keyboardButton.alpha = 0
+			}, completion: nil)
 		self.roundButtonView.disappearWithAnimationType([.Scale, .Fade], duration: animationDuration) {
 			// Move text and morse label
 			let labelWidth = self.topBarLabelText.bounds.width
@@ -596,13 +675,25 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 					make.centerX.equalTo(self.topBarView)
 				})
 			}
+
+			self.lineBreakView.hidden = false
+			self.lineBreakView.snp_remakeConstraints(closure: { (make) -> Void in
+				make.leading.equalTo(self.textBackgroundView)
+				make.trailing.equalTo(self.textBackgroundView)
+				make.bottom.equalTo(self.inputTextView)
+				make.height.equalTo(1.0)
+			})
+
 			UIView.animateWithDuration(animationDuration * appDelegate.animationDurationScalar,
 				delay: animationDuration,
 				//			usingSpringWithDamping: 0.5,
 				//			initialSpringVelocity: 0.8,
 				options: .CurveEaseOut,
 				animations: {
-					self.topBarView.layoutIfNeeded()
+					self.view.layoutIfNeeded()
+					self.homeViewController.scrollViewOverlay.alpha = 1
+					self.homeViewController.micInputSectionContainerView?.alpha = 1
+					self.homeViewController.topSectionContainerView.addMDShadow(withDepth: 3)
 				}, completion: nil)
 		}
 		// Collapse expanded card view if there is one
@@ -644,17 +735,49 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate {
 				make.trailing.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
 			})
 		}
+
+		// Text view stuff
+		self.textBoxTapFeedBackView.hidden = false
+		self.textBoxTapFeedBackView.userInteractionEnabled = true
+		self.inputTextView.userInteractionEnabled = true
+		self.outputTextView.text = nil
+		self.inputTextView.attributedText = self.attributedHintTextInput
+		self.outputTextView.attributedText = self.attributedHintTextOutput
+		self.lineBreakView.snp_remakeConstraints(closure: { (make) -> Void in
+			make.leading.equalTo(self.textBackgroundView)
+			make.trailing.equalTo(self.textBackgroundView)
+			make.bottom.equalTo(self.textBackgroundView)
+			make.height.equalTo(1.0)
+		})
+
 		UIView.animateWithDuration(animationDuration * appDelegate.animationDurationScalar,
 			delay: 0,
 //			usingSpringWithDamping: 0.5,
 //			initialSpringVelocity: 0.8,
 			options: .CurveEaseOut,
 			animations: {
-				self.topBarView.layoutIfNeeded()
+				self.view.layoutIfNeeded()
+				self.homeViewController.scrollViewOverlay.alpha = 0
+				self.homeViewController.micInputSectionContainerView?.alpha = 0
+				self.homeViewController.topSectionContainerView.addMDShadow(withDepth: 2)
 			}) { succeed in
 				if succeed {
+					self.lineBreakView.hidden = true
+					self.homeViewController.micInputSectionViewController?.microphone.stopFetchingAudio()
+					self.homeViewController.micInputSectionContainerView?.removeFromSuperview()
+					self.homeViewController.micInputSectionContainerView = nil
+					self.homeViewController.micInputSectionViewController = nil
 					// Show round button
 					self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: animationDuration)
+					UIView.animateWithDuration(animationDuration * appDelegate.animationDurationScalar,
+						delay: animationDuration,
+						options: .CurveEaseOut,
+						animations: {
+							if !self.isDirectionEncode {
+								self.microphoneButton.alpha = 1
+								self.keyboardButton.alpha = 0
+							}
+						}, completion: nil)
 				}
 		}
 	}
