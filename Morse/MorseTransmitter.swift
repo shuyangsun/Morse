@@ -313,9 +313,9 @@ class MorseTransmitter {
 		return 15...23
 	}
 
-	private var _maxLvl:Float = 5
 	private var _isDuringSignal = false
 	private var _levelsRecord:[Float] = []
+	private var _minLvl = Int.max
 
 	func resetForAudioInput() {
 		self._morse = ""
@@ -340,26 +340,28 @@ class MorseTransmitter {
 			}
 			// Setup WPM
 			self._inputWPM = 15 // TODO: Better algorithm for this
-			let level = pow(abs(buffer[0][0] * 100), 1.5)
-			print(Int(level))
+
+			// Calculate the root mean square (which was just appended to the plot buffer)
+			let rms = EZAudioUtilities.RMS(buffer.memory, length: Int32(bufferSize))
+			let level = pow(rms * 100, 1.5)
+
+			// If debugging, print the wave form in the console.
+			#if DEBUG
+			for _ in 0...Int(level) {
+				print("=", separator: "", terminator: "")
+			}
+			print("\(Int(level))", separator: "", terminator: "")
+			print("")
+			#endif
 
 			// TODO: Is during signal
-//			if level <= self._maxLvl/2.0 {
-//				self._isDuringSignal = false
-//			} else {
-//				self._isDuringSignal = true
-//			}
-//			if level > self._maxLvl {
-//				self._maxLvl = level
-//			}
-
 			self._levelsRecord.append(level)
-			while self._levelsRecord.count > 10 {
+			let recordLength = (self._oneUnitLengthRange.startIndex + self._oneUnitLengthRange.endIndex - 1)/2
+			while self._levelsRecord.count > recordLength {
 				self._levelsRecord.removeFirst()
 			}
-			let avgLvl = (self._levelsRecord.reduce(0) { return $0 + $1 }) / Float(self._levelsRecord.count)
-			self._isDuringSignal = level > max(avgLvl/3.0, 5)
-//			self._isDuringSignal = level >= 10
+			let avgLvl = (self._levelsRecord.reduce(0) { return $0 + $1 }) / Float(recordLength)
+			self._isDuringSignal = level > max(avgLvl/3.0, 1)
 
 			if self._isDuringSignal {
 				if self._singalStarted {
