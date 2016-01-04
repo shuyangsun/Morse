@@ -26,6 +26,9 @@ let outputMaxWPM = 50
 
 // Audio
 let audioSampleFrequencyTimeInterval:NSTimeInterval = 0
+var inputFrequencyRange:Range<Int> {
+	return 715...735 // TODO
+}
 
 // NSUserDefaultKeys
 let userDefaultsKeyTheme = "Theme"

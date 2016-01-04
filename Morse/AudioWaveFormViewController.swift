@@ -17,6 +17,8 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 		}
 	}
 
+	private var _fft:EZAudioFFTRolling!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -65,12 +67,30 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 		hasAudioReceived buffer: UnsafeMutablePointer<UnsafeMutablePointer<Float>>,
 		withBufferSize bufferSize: UInt32,
 		withNumberOfChannels numberOfChannels: UInt32) {
+		if self._fft == nil {
+			self._fft = EZAudioFFTRolling.fftWithWindowSize(9000,
+				sampleRate: Float(self.microphone.audioStreamBasicDescription().mSampleRate))
+		}
+		self._fft.computeFFTWithBuffer(buffer[0], withBufferSize: bufferSize)
 		dispatch_async(dispatch_get_main_queue()) {
-			self.audioPlot.updateBuffer(buffer[0], withBufferSize: bufferSize)
-			self.transmitter.microphone(microphone,
-				hasAudioReceived: buffer,
-				withBufferSize: bufferSize,
-				withNumberOfChannels: numberOfChannels)
+			let maxFrequency = self._fft.maxFrequency
+			// If the frequency should be detected
+			if inputFrequencyRange.contains(Int(maxFrequency)) {
+				self.audioPlot.updateBuffer(buffer[0], withBufferSize: bufferSize)
+				self.transmitter.microphone(microphone,
+					hasAudioReceived: buffer,
+					withBufferSize: bufferSize,
+					withNumberOfChannels: numberOfChannels,
+					maxFrequencyMagnitude: self._fft.maxFrequencyMagnitude)
+			} else {
+				buffer[0].memory = 0
+				self.audioPlot.updateBuffer(buffer[0], withBufferSize: 1)
+				self.transmitter.microphone(microphone,
+					hasAudioReceived: buffer,
+					withBufferSize: 1,
+					withNumberOfChannels: numberOfChannels,
+					maxFrequencyMagnitude: 0)
+			}
 		}
 	}
 

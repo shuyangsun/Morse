@@ -303,7 +303,7 @@ class MorseTransmitter {
 
 	private var _oneUnitLengthRange:Range<Int> {
 //		return	Int(floor(self._unitLength))...Int(floor(self._unitLength * 2))
-		return 3...5
+		return 2...5
 	}
 
 	private var _threeUnitLengthRange:Range<Int> {
@@ -313,7 +313,7 @@ class MorseTransmitter {
 
 	private var _sevenUnitLengthRange:Range<Int> {
 //		return	self._threeUnitLengthRange.endIndex...self._oneUnitLengthRange.startIndex * 99
-		return 15...23
+		return 15...999
 	}
 
 	private var _isDuringSignal = false
@@ -335,31 +335,25 @@ class MorseTransmitter {
 	func microphone(microphone: EZMicrophone!,
 		hasAudioReceived buffer: UnsafeMutablePointer<UnsafeMutablePointer<Float>>,
 		withBufferSize bufferSize: UInt32,
-		withNumberOfChannels numberOfChannels: UInt32) {
+		withNumberOfChannels numberOfChannels: UInt32,
+		maxFrequencyMagnitude: Float) {
 		dispatch_sync(self._audioAnalysisQueue) {
 			// Setup sample rate
 			if self._sampleRate < 0 {
 				self._sampleRate = microphone.audioStreamBasicDescription().mSampleRate
+				#if DEBUG
 				print(self._unitLength)
 				print(self._oneUnitLengthRange)
 				print(self._threeUnitLengthRange)
 				print(self._sevenUnitLengthRange)
+				#endif
 			}
 			// Setup WPM
 			self._inputWPM = 15 // TODO: Better algorithm for this
 
 			// Calculate the root mean square (which was just appended to the plot buffer)
 			let rms = EZAudioUtilities.RMS(buffer.memory, length: Int32(bufferSize))
-			let level = pow(rms * 100, 1.5) // TODO: Better algorithm to magnify level?
-
-			// If debugging, print the wave form in the console.
-			#if DEBUG
-			for _ in 0...Int(level) {
-				print("=", separator: "", terminator: "")
-			}
-			print("\(Int(level))", separator: "", terminator: "")
-			print("")
-			#endif
+			let level = pow(rms/2 * 100, 1.3) // TODO: Better algorithm to magnify level?
 
 			// TODO: Is during signal
 			self._levelsRecord.append(level)
@@ -368,7 +362,15 @@ class MorseTransmitter {
 				self._levelsRecord.removeFirst()
 			}
 			let avgLvl = (self._levelsRecord.reduce(0) { return $0 + $1 }) / Float(recordLength)
-			self._isDuringSignal = level > max(avgLvl/3.0, 1)
+			self._isDuringSignal = level >= max(avgLvl/3.0, 1)
+			#if DEBUG
+			// If debugging, print the wave form in the console.
+				for _ in 0...Int(level) {
+					print(self._isDuringSignal ? "*" : "=", separator: "", terminator: "")
+				}
+				print("\(Int(level))", separator: "", terminator: "")
+				print(" \(Int(avgLvl/3.0))")
+			#endif
 
 			if self._isDuringSignal {
 				if self._singalStarted {
@@ -382,9 +384,9 @@ class MorseTransmitter {
 							self.appendUnit(.WordGap)
 						}
 					}
-					self._counter = 0
+					self._counter = 1
+					self._singalStarted = true
 				}
-				self._singalStarted = true
 			} else {
 				if self._singalStarted {
 					// If this is where the singal falls
@@ -393,11 +395,11 @@ class MorseTransmitter {
 					} else if self._threeUnitLengthRange.contains(self._counter) || self._sevenUnitLengthRange.contains(self._counter) {
 						self.appendUnit(.Dah)
 					}
-					self._counter = 0
+					self._counter = 1
+					self._singalStarted = false
 				} else {
 					self._counter++
 				}
-				self._singalStarted = false
 			}
 		}
 	}
