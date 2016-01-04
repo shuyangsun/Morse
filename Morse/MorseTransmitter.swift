@@ -353,7 +353,7 @@ class MorseTransmitter {
 
 			// Calculate the root mean square (which was just appended to the plot buffer)
 			let rms = EZAudioUtilities.RMS(buffer.memory, length: Int32(bufferSize))
-			let level = pow(rms/2 * 100, 1.3) // TODO: Better algorithm to magnify level?
+			let level = pow(rms * 100, 1.3) // TODO: Better algorithm to magnify level?
 
 			// TODO: Is during signal
 			self._levelsRecord.append(level)

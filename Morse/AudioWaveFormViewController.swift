@@ -9,6 +9,7 @@
 import UIKit
 
 class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
+	var audioPlotPitchFiltered:EZAudioPlot!
 	var audioPlot:EZAudioPlot!
 	var microphone:EZMicrophone!
 	var transmitter:MorseTransmitter! {
@@ -43,6 +44,18 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 			make.edges.equalTo(self.view)
 		}
 
+		self.audioPlotPitchFiltered = EZAudioPlot(frame: self.view.frame)
+		self.audioPlotPitchFiltered.backgroundColor = theme.audioPlotBackgroundColor
+		self.audioPlotPitchFiltered.color = theme.audioPlotPitchFilteredColor
+		self.audioPlotPitchFiltered.plotType = .Rolling
+		self.audioPlotPitchFiltered.shouldMirror = true
+		self.audioPlotPitchFiltered.shouldFill = true
+		self.audioPlotPitchFiltered.setRollingHistoryLength(audioPlotRollingHistoryLength)
+		self.view.addSubview(self.audioPlotPitchFiltered)
+		self.audioPlotPitchFiltered.snp_makeConstraints { (make) -> Void in
+			make.edges.equalTo(self.view)
+		}
+
 		// Setup mircrophone
 		self.microphone = EZMicrophone(microphoneDelegate: self)
 		self.microphone.device = EZAudioDevice.currentInputDevice()
@@ -58,9 +71,9 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
     }
 
 	func drawRollingPlot() {
-		self.audioPlot.plotType = .Rolling
-		self.audioPlot.shouldFill = true
-		self.audioPlot.shouldMirror = true
+		self.audioPlotPitchFiltered.plotType = .Rolling
+		self.audioPlotPitchFiltered.shouldFill = true
+		self.audioPlotPitchFiltered.shouldMirror = true
 	}
     
 	func microphone(microphone: EZMicrophone!,
@@ -73,10 +86,12 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 		}
 		self._fft.computeFFTWithBuffer(buffer[0], withBufferSize: bufferSize)
 		dispatch_async(dispatch_get_main_queue()) {
+			// Update plot for general audio
+			self.audioPlot.updateBuffer(buffer[0], withBufferSize: bufferSize)
 			let maxFrequency = self._fft.maxFrequency
-			// If the frequency should be detected
-			if inputFrequencyRange.contains(Int(maxFrequency)) {
-				self.audioPlot.updateBuffer(buffer[0], withBufferSize: bufferSize)
+			// If the frequency should be detected, update the filtered audio plot and call analysis method on transmitter
+			if inputPitchFrequencyRange.contains(Int(maxFrequency)) {
+				self.audioPlotPitchFiltered.updateBuffer(buffer[0], withBufferSize: bufferSize)
 				self.transmitter.microphone(microphone,
 					hasAudioReceived: buffer,
 					withBufferSize: bufferSize,
@@ -84,7 +99,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 					maxFrequencyMagnitude: self._fft.maxFrequencyMagnitude)
 			} else {
 				buffer[0].memory = 0
-				self.audioPlot.updateBuffer(buffer[0], withBufferSize: 1)
+				self.audioPlotPitchFiltered.updateBuffer(buffer[0], withBufferSize: 1)
 				self.transmitter.microphone(microphone,
 					hasAudioReceived: buffer,
 					withBufferSize: 1,

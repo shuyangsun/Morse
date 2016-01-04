@@ -278,6 +278,12 @@ enum Theme: String {
 		}
 	}
 
+	var audioPlotPitchFilteredColor:UIColor {
+		switch self {
+		case .Default: return UIColor(hex: MDColorPalette.Blue.P500.hex, alpha: scrollViewOverlayAlpha)
+		}
+	}
+
 	// *****************************
 	// MARK: Length
 	// *****************************

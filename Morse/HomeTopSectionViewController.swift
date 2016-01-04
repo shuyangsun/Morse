@@ -767,6 +767,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 					self.homeViewController.micInputSectionContainerView?.removeFromSuperview()
 					self.homeViewController.micInputSectionContainerView = nil
 					self.homeViewController.micInputSectionViewController = nil
+					self.inputTextView.attributedText = self.attributedHintTextInput
+					self.outputTextView.attributedText = self.attributedHintTextOutput
 					// Show round button
 					self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: animationDuration)
 					UIView.animateWithDuration(animationDuration * appDelegate.animationDurationScalar,
