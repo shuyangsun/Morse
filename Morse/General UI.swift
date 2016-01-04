@@ -34,11 +34,12 @@ let slideAndPinchRatioToDismiss:CGFloat = 0
 let switchButtonWidth = 51
 let switchButtonHeight = 31
 
-let tableViewCellTrailingPadding:CGFloat = 6
 var sliderWidth:CGFloat {
 	return 200
 }
 
+let cellTextLabelWidth:CGFloat = 100
+let tableViewCellTrailingPadding:CGFloat = 18
 let tableViewCellTextLabelFontSize:CGFloat = 16
 let tableViewCellDetailTextLabelFontSize:CGFloat = 12
 

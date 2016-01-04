@@ -283,7 +283,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			self.micInputSectionViewController!.transmitter = self.topSectionViewController.transmitter
 			self.micInputSectionViewController!.transmitter.delegate = self.topSectionViewController
 			self.micInputSectionViewController!.didMoveToParentViewController(self)
-			self.micInputSectionViewController!.view.frame = CGRect(origin: CGPointZero, size: self.scrollViewOverlay.bounds.size)
+			self.micInputSectionViewController!.view.frame = CGRect(origin: CGPointZero, size: self.scrollView.bounds.size)
 			self.micInputSectionContainerView = self.micInputSectionViewController!.view
 			self.micInputSectionContainerView!.opaque = false
 			self.micInputSectionContainerView!.alpha = 0
@@ -354,7 +354,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	func cardViewShareButtonTapped(cardView:CardView) {
 		if let morse = cardView.morse {
 			var shareStr = morse
-			if !appDelegate.donnotAddExtraTextWhenShare {
+			if appDelegate.addExtraTextWhenShare {
 				shareStr += "\n" + LocalizedStrings.General.sharePromote + " " + appStoreURLString
 			}
 			let activityVC = UIActivityViewController(activityItems: [shareStr], applicationActivities: nil)

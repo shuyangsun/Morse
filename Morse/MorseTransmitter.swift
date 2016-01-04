@@ -364,12 +364,14 @@ class MorseTransmitter {
 			let avgLvl = (self._levelsRecord.reduce(0) { return $0 + $1 }) / Float(recordLength)
 			self._isDuringSignal = level >= max(avgLvl/3.0, 1)
 			#if DEBUG
-			// If debugging, print the wave form in the console.
-				for _ in 0...Int(level) {
-					print(self._isDuringSignal ? "*" : "=", separator: "", terminator: "")
+				// If debugging, print the wave form in the console.
+				if printAudiWaveFormWhenDebug {
+					for _ in 0...Int(level) {
+						print(self._isDuringSignal ? "*" : "=", separator: "", terminator: "")
+					}
+					print("\(Int(level))", separator: "", terminator: "")
+					print(" \(Int(avgLvl/3.0))")
 				}
-				print("\(Int(level))", separator: "", terminator: "")
-				print(" \(Int(avgLvl/3.0))")
 			#endif
 
 			if self._isDuringSignal {

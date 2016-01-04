@@ -24,11 +24,24 @@ var isPhone:Bool {
 let outputMinWPM = 5
 let outputMaxWPM = 50
 
+let inputPitchMin:Float = 1
+let inputPitchMax:Float = 2000
+
 // Audio
+let fttWindowSize:vDSP_Length = 4096
 let audioSampleFrequencyTimeInterval:NSTimeInterval = 0
+let defaultInputPitchFrequency:Float = 550
+let automaticPitchFrequencyMin:Float = 150
+let defaultInputPitchRange:Float = 5
 var inputPitchFrequencyRange:Range<Int> {
-	return 715...735 // TODO
+	if appDelegate.inputPitchAutomatic {
+		return 0...Int.max - 1
+	} else {
+		let settingsPitch = appDelegate.inputPitchFrequency
+		return max(Int(inputPitchMin), Int(ceil(settingsPitch - defaultInputPitchRange)))...max(Int(inputPitchMin), Int(defaultInputPitchRange * 2), Int(ceil(settingsPitch + defaultInputPitchRange)))
+	}
 }
+let printAudiWaveFormWhenDebug = false
 
 // NSUserDefaultKeys
 let userDefaultsKeyTheme = "Theme"
@@ -43,6 +56,8 @@ let userDefaultsKeyFlashOutputEnabled = "Flash Output Enableds"
 let userDefaultsKeyInputWPM = "Input WPM"
 let userDefaultsKeyOutputWPM = "Output WPM"
 let userDefaultsKeyBrightenScreenWhenOutput = "Brighten Screen When Output"
+let userDefaultsKeyInputPitchFrequency = "Input Pitch Frequency"
+let userDefaultsKeyInputPitchAutomatic = "Input Pitch Not Automatic"
 
 let morseSoundStandardURL = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Morse Sound Standard", ofType: "aiff")!)
 let notRecognizedLetterStr = "🙁"

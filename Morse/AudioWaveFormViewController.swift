@@ -12,6 +12,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 	var audioPlotPitchFiltered:EZAudioPlot!
 	var audioPlot:EZAudioPlot!
 	var microphone:EZMicrophone!
+//	var microphoneStartDate:NSDate!
 	var transmitter:MorseTransmitter! {
 		willSet {
 			newValue.resetForAudioInput()
@@ -56,6 +57,11 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 			make.edges.equalTo(self.view)
 		}
 
+		// WARNNING: This chunk of code has to be executed before calling "self.microphone.startFetchingAudio()"!
+		if appDelegate.inputPitchAutomatic {
+			appDelegate.userDefaults.setFloat(automaticPitchFrequencyMin, forKey: userDefaultsKeyInputPitchFrequency)
+			appDelegate.userDefaults.synchronize()
+		}
 		// Setup mircrophone
 		self.microphone = EZMicrophone(microphoneDelegate: self)
 		self.microphone.device = EZAudioDevice.currentInputDevice()
@@ -81,7 +87,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 		withBufferSize bufferSize: UInt32,
 		withNumberOfChannels numberOfChannels: UInt32) {
 		if self._fft == nil {
-			self._fft = EZAudioFFTRolling.fftWithWindowSize(9000,
+			self._fft = EZAudioFFTRolling.fftWithWindowSize(fttWindowSize,
 				sampleRate: Float(self.microphone.audioStreamBasicDescription().mSampleRate))
 		}
 		self._fft.computeFFTWithBuffer(buffer[0], withBufferSize: bufferSize)
@@ -89,6 +95,18 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 			// Update plot for general audio
 			self.audioPlot.updateBuffer(buffer[0], withBufferSize: bufferSize)
 			let maxFrequency = self._fft.maxFrequency
+			// If the frequency is set to automatic, update frequency
+//			print("\(Int(appDelegate.inputPitchFrequency)) \(Int(maxFrequency))")
+//			if self.microphoneStartDate == nil {
+//				self.microphoneStartDate = NSDate()
+//			}
+//			if appDelegate.inputPitchAutomatic &&
+//				maxFrequency > appDelegate.inputPitchFrequency &&
+//				NSDate().timeIntervalSinceDate(self.microphoneStartDate) > 0.5 {
+//				appDelegate.userDefaults.setFloat(maxFrequency, forKey: userDefaultsKeyInputPitchFrequency)
+//				appDelegate.userDefaults.synchronize()
+//				print("CHANGED")
+//			}
 			// If the frequency should be detected, update the filtered audio plot and call analysis method on transmitter
 			if inputPitchFrequencyRange.contains(Int(maxFrequency)) {
 				self.audioPlotPitchFiltered.updateBuffer(buffer[0], withBufferSize: bufferSize)

@@ -242,25 +242,26 @@ enum Theme: String {
 		}
 	}
 
-	var sliderMinTrackTintColor:UIColor {
+	var sliderMinTrackTintColor:UIColor? {
 		switch self {
-		case .Default: return MDColorPalette.Red.A100!
+//		case .Default: return MDColorPalette.Red.A100!
+		default: return nil
 		}
 	}
 
-	var sliderMaxTrackTintColor:UIColor {
+	var sliderMaxTrackTintColor:UIColor? {
 		switch self {
-		default: return UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)
+		default: return nil
 		}
 	}
 
-	var sliderThumbTintColor:UIColor {
+	var sliderThumbTintColor:UIColor? {
 		switch self {
 		default: return self.sliderMinTrackTintColor
 		}
 	}
 
-	var switchOnTintColor:UIColor {
+	var switchOnTintColor:UIColor? {
 		switch self {
 		default: return self.sliderMinTrackTintColor
 		}

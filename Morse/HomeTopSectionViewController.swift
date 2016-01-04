@@ -763,6 +763,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			}) { succeed in
 				if succeed {
 					self.lineBreakView.hidden = true
+					// If the input frequency is set to be detected automatically, restore the min frequency.
 					self.homeViewController.micInputSectionViewController?.microphone.stopFetchingAudio()
 					self.homeViewController.micInputSectionContainerView?.removeFromSuperview()
 					self.homeViewController.micInputSectionContainerView = nil

@@ -61,10 +61,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 	}
 	private var _startDate = NSDate()
 	private var _progressTimer = NSTimer()
-	private var _brightenScreenWhenOutput:Bool {
-		return !appDelegate.donnotBrightenScreenWhenOutput
-	}
-	
+
 
 	// Camera
 	private let _rearCamera:AVCaptureDevice! = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
@@ -360,7 +357,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 				if succeed {
 					self._startDate = NSDate()
 					self._outputPlayer.start()
-					if self._brightenScreenWhenOutput {
+					if appDelegate.brightenScreenWhenOutput {
 						self._originalBrightness = UIScreen.mainScreen().brightness
 						UIScreen.mainScreen().brightness = 1
 					}
@@ -374,7 +371,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 		// User wants to stop playing
 		self._outputPlayer.stop()
 		self._progressTimer.invalidate()
-		if self._brightenScreenWhenOutput {
+		if appDelegate.brightenScreenWhenOutput {
 			UIScreen.mainScreen().brightness = self._originalBrightness
 		}
 		UIView.animateWithDuration(defaultAnimationDuration * animationDurationScalar,

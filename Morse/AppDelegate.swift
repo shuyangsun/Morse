@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	// UI theme
-	var donnotAddExtraTextWhenShare:Bool {
+	var addExtraTextWhenShare:Bool {
 		return self.userDefaults.boolForKey(userDefaultsKeyExtraTextWhenShare)
 	}
 
@@ -68,13 +68,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return res <= 0 ? 15 : res
 	}
 
-	var donnotBrightenScreenWhenOutput:Bool {
+	var inputPitchFrequency:Float {
+		let res = self.userDefaults.floatForKey(userDefaultsKeyInputPitchFrequency)
+		return res <= 0 ? defaultInputPitchFrequency : res
+	}
+
+	var inputPitchAutomatic:Bool {
+		return self.userDefaults.boolForKey(userDefaultsKeyInputPitchAutomatic)
+	}
+
+	var brightenScreenWhenOutput:Bool {
 		return self.userDefaults.boolForKey(userDefaultsKeyBrightenScreenWhenOutput)
 	}
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		UIApplication.sharedApplication().statusBarStyle = .LightContent
+
+		if !self.notFirstLaunch {
+			self.userDefaults.setBool(true, forKey: userDefaultsKeyExtraTextWhenShare)
+			self.userDefaults.setBool(true, forKey: userDefaultsKeyBrightenScreenWhenOutput)
+			self.userDefaults.setBool(true, forKey: userDefaultsKeyInputPitchAutomatic)
+			self.userDefaults.setFloat(defaultInputPitchFrequency, forKey: userDefaultsKeyInputPitchFrequency)
+			self.userDefaults.synchronize()
+			
+		}
+
 		return true
 	}
 
