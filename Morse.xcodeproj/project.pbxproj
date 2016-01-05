@@ -107,6 +107,9 @@
 		1052A77C1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A77B1C0BB09B0085B0C9 /* HomeViewController.swift */; };
 		1052A77D1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A77B1C0BB09B0085B0C9 /* HomeViewController.swift */; };
 		1052A77E1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A77B1C0BB09B0085B0C9 /* HomeViewController.swift */; };
+		105708FE1C3C39D200AEA1F6 /* ToneGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105708FD1C3C39D200AEA1F6 /* ToneGenerator.swift */; };
+		105708FF1C3C39D200AEA1F6 /* ToneGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105708FD1C3C39D200AEA1F6 /* ToneGenerator.swift */; };
+		105709001C3C39D200AEA1F6 /* ToneGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105708FD1C3C39D200AEA1F6 /* ToneGenerator.swift */; };
 		1073948F1C11F75800EF8C16 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073948E1C11F75800EF8C16 /* CancelButton.swift */; };
 		107394901C11F75800EF8C16 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073948E1C11F75800EF8C16 /* CancelButton.swift */; };
 		107394911C11F75800EF8C16 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073948E1C11F75800EF8C16 /* CancelButton.swift */; };
@@ -126,9 +129,6 @@
 		10826A191C0D5C4C00902BCC /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10826A171C0D5C4C00902BCC /* General.swift */; };
 		10826A1A1C0D5C4C00902BCC /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10826A171C0D5C4C00902BCC /* General.swift */; };
 		1088ACAB1C25A85C00D17028 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1088ACAA1C25A85C00D17028 /* AVFoundation.framework */; };
-		1088ACB61C25D97C00D17028 /* Morse Sound Standard.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1088ACB51C25D97C00D17028 /* Morse Sound Standard.aiff */; };
-		1088ACB71C25D97C00D17028 /* Morse Sound Standard.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1088ACB51C25D97C00D17028 /* Morse Sound Standard.aiff */; };
-		1088ACB81C25D97C00D17028 /* Morse Sound Standard.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 1088ACB51C25D97C00D17028 /* Morse Sound Standard.aiff */; };
 		1088ACC21C26003400D17028 /* CardViewOutputAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1088ACC11C26003400D17028 /* CardViewOutputAnimator.swift */; };
 		1088ACC31C26003400D17028 /* CardViewOutputAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1088ACC11C26003400D17028 /* CardViewOutputAnimator.swift */; };
 		1088ACC41C26003400D17028 /* CardViewOutputAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1088ACC11C26003400D17028 /* CardViewOutputAnimator.swift */; };
@@ -302,6 +302,7 @@
 		1052A7671C0BACEA0085B0C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1052A7731C0BAED50085B0C9 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		1052A77B1C0BB09B0085B0C9 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		105708FD1C3C39D200AEA1F6 /* ToneGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToneGenerator.swift; sourceTree = "<group>"; };
 		1073948E1C11F75800EF8C16 /* CancelButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelButton.swift; sourceTree = "<group>"; };
 		107FF6A61C0BC128003EB294 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		107FF6AA1C0BC1FC003EB294 /* MaterialDesign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDesign.swift; sourceTree = "<group>"; };
@@ -309,7 +310,6 @@
 		107FF6C31C0C223D003EB294 /* MorseTransmitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseTransmitter.swift; sourceTree = "<group>"; };
 		10826A171C0D5C4C00902BCC /* General.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = General.swift; sourceTree = "<group>"; };
 		1088ACAA1C25A85C00D17028 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		1088ACB51C25D97C00D17028 /* Morse Sound Standard.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "Morse Sound Standard.aiff"; sourceTree = "<group>"; };
 		1088ACC11C26003400D17028 /* CardViewOutputAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewOutputAnimator.swift; sourceTree = "<group>"; };
 		109266831C2071EA00AD198E /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButtonView.swift; sourceTree = "<group>"; };
@@ -487,8 +487,8 @@
 				107FF6AF1C0BDD1F003EB294 /* View Controllers */,
 				10286CD11C0D1BD800BD2B43 /* Views */,
 				10274F6E1C2660E8007E6489 /* Animation */,
-				10BFD3981C1F1BF400FA4C26 /* Delegates */,
 				107FF6C71C0C2246003EB294 /* Model */,
+				10BFD3981C1F1BF400FA4C26 /* Delegates */,
 				107FF6AE1C0BC20B003EB294 /* UI */,
 				1034771F1C3750F60036DB44 /* Wave Form */,
 				103476AE1C37472E0036DB44 /* EZAudio */,
@@ -562,6 +562,7 @@
 				107FF6C31C0C223D003EB294 /* MorseTransmitter.swift */,
 				10295BC71C24EE6B0060DBE1 /* MorseOutputPlayer.swift */,
 				100F7CD71C27513700DDD8EC /* MorseAudioRecorder.swift */,
+				105708FD1C3C39D200AEA1F6 /* ToneGenerator.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -570,7 +571,6 @@
 			isa = PBXGroup;
 			children = (
 				1052A74C1C0BACE90085B0C9 /* Assets.xcassets */,
-				1088ACB51C25D97C00D17028 /* Morse Sound Standard.aiff */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -763,7 +763,6 @@
 				10CAF8141C1DDD4A00164258 /* InfoPlist.strings in Resources */,
 				1052A74D1C0BACE90085B0C9 /* Assets.xcassets in Resources */,
 				1052A7481C0BACE90085B0C9 /* Main.storyboard in Resources */,
-				1088ACB61C25D97C00D17028 /* Morse Sound Standard.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -774,7 +773,6 @@
 				10CAF8231C1DDD4A00164258 /* InfoPlist.strings in Resources */,
 				10CAF82D1C1DDE3100164258 /* Localizable.strings in Resources */,
 				1034771A1C3750DC0036DB44 /* Info.plist in Resources */,
-				1088ACB71C25D97C00D17028 /* Morse Sound Standard.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -786,7 +784,6 @@
 				10CAF81E1C1DDD4A00164258 /* InfoPlist.strings in Resources */,
 				10CAF8381C1DDFE700164258 /* Localizable.strings in Resources */,
 				1034771B1C3750DC0036DB44 /* Info.plist in Resources */,
-				1088ACB81C25D97C00D17028 /* Morse Sound Standard.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -839,6 +836,7 @@
 				10BFD3A31C1F486700FA4C26 /* LanguageTableViewCell.swift in Sources */,
 				10295BC81C24EE6B0060DBE1 /* MorseOutputPlayer.swift in Sources */,
 				103477101C3750DC0036DB44 /* EZOutput.m in Sources */,
+				105708FE1C3C39D200AEA1F6 /* ToneGenerator.swift in Sources */,
 				1052A74B1C0BACE90085B0C9 /* Morse.xcdatamodeld in Sources */,
 				1052A7431C0BACE90085B0C9 /* AppDelegate.swift in Sources */,
 				10BFD39A1C1F1C1300FA4C26 /* General UI.swift in Sources */,
@@ -892,6 +890,7 @@
 				103476C41C374C560036DB44 /* AudioWaveFormViewController.swift in Sources */,
 				107869491C0E5EC00025AD45 /* AppDelegate.swift in Sources */,
 				103476F61C3750DC0036DB44 /* EZAudioFFT.m in Sources */,
+				105708FF1C3C39D200AEA1F6 /* ToneGenerator.swift in Sources */,
 				1034770B1C3750DC0036DB44 /* EZAudioUtilities.m in Sources */,
 				10826A191C0D5C4C00902BCC /* General.swift in Sources */,
 				10BFD39B1C1F1C1300FA4C26 /* General UI.swift in Sources */,
@@ -945,6 +944,7 @@
 				10295BCA1C24EE6B0060DBE1 /* MorseOutputPlayer.swift in Sources */,
 				103476C51C374C560036DB44 /* AudioWaveFormViewController.swift in Sources */,
 				103477121C3750DC0036DB44 /* EZOutput.m in Sources */,
+				105709001C3C39D200AEA1F6 /* ToneGenerator.swift in Sources */,
 				1078694D1C0E5EC00025AD45 /* AppDelegate.swift in Sources */,
 				10826A1A1C0D5C4C00902BCC /* General.swift in Sources */,
 				10BFD39C1C1F1C1300FA4C26 /* General UI.swift in Sources */,

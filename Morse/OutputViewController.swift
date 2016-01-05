@@ -39,7 +39,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 			appDelegate.userDefaults.synchronize()
 			if !newValue {
 				// Stop playing if the user wants to disable sound
-				self._audioPlayer?.volume = 0
+				self._toneGenerator.mute()
 			}
 		}
 	}
@@ -65,7 +65,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 
 	// Camera
 	private let _rearCamera:AVCaptureDevice! = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-	private lazy var _audioPlayer:AVAudioPlayer? = nil
+	private let _toneGenerator:ToneGenerator = ToneGenerator()
 
 	// *****************************
 	// MARK: UI Variables
@@ -222,16 +222,8 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 			}
 		}
 
-		// Setup audioPlayer
-		do {
-			self._audioPlayer = try AVAudioPlayer(contentsOfURL: morseSoundStandardURL)
-			self._audioPlayer?.numberOfLoops = -1
-			// Play the audio once without volume so the audio player is prepared, otherwise there will be a lag when the audio file is being played at first time.
-			self._audioPlayer?.volume = 0
-			self._audioPlayer?.play()
-		} catch let error as NSError {
-			print("Could not create AVAudioPlayer \(error), \(error.userInfo)")
-		}
+		self._toneGenerator.mute()
+		self._toneGenerator.play()
     }
 
 	override func viewDidAppear(animated: Bool) {
@@ -291,7 +283,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 
 		// Sound
 		if self._soundEnabled {
-			self._audioPlayer?.volume = 1
+			self._toneGenerator.unmute()
 		}
 
 		// Real Flash
@@ -309,7 +301,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 		self.screenFlashView.backgroundColor = UIColor.blackColor()
 
 		// Sound
-		self._audioPlayer?.volume = 0
+		self._toneGenerator.mute()
 
 		// Real Flash
 		if self._rearCamera != nil && self._rearCamera.hasTorch && self._rearCamera.hasFlash && self._rearCamera.isTorchModeSupported(.On) {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrollViewDelegate {
+class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrollViewDelegate, MorseOutputPlayerDelegate {
 
 	// *****************************
 	// MARK: Views
@@ -22,6 +22,8 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 
 	private var cardViews:[CardView] = []
 	private var transmitter = MorseTransmitter()
+	private let _toneGenerator = ToneGenerator()
+	private let _outputPlayer = MorseOutputPlayer()
 
 	// *****************************
 	// MARK: View Related Variables
@@ -109,6 +111,8 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 				make.bottom.equalTo(self.view).offset(-self.tabBarHeight)
 			}
 		}
+
+		self._outputPlayer.delegate = self
     }
 
 	override func viewDidAppear(animated: Bool) {
@@ -131,6 +135,10 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
         // Dispose of any resources that can be recreated.
     }
 
+	func scrollViewDidScroll(scrollView: UIScrollView) {
+		self._outputPlayer.stop()
+	}
+
 	// *****************************
 	// MARK: Card Stuff
 	// *****************************
@@ -149,7 +157,12 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 	}
 
 	func cardViewTapped(cardView:CardView) {
-		// TODO: play sound and flash card
+		if let morse = cardView.morse {
+			self._toneGenerator.mute()
+			self._toneGenerator.play()
+			self._outputPlayer.morse = morse
+			self._outputPlayer.start()
+		}
 	}
 
 	// This function does not take care of updating card constraints! It only put cardViews on the scrollView and array.
@@ -223,6 +236,22 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 					self.updateMDShadows()
 				}
 		}
+	}
+
+	// *****************************
+	// MARK: Output Player Delegate
+	// *****************************
+
+	func startSignal() {
+		self._toneGenerator.unmute()
+	}
+
+	func stopSignal() {
+		self._toneGenerator.mute()
+	}
+
+	func playEnded() {
+		self._toneGenerator.mute()
 	}
 
     /*

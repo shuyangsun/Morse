@@ -8,6 +8,13 @@
 
 import UIKit
 
+//--------------------------------------------------------------------------------------------------------
+// This class is responsible for playing a Morse code. How it "plays" it depends on the callback function.
+// TimeInterval scalar is automatically fetched and calculated from userDefaults.outputWPM
+// The only things need to be set is Morse code (during initialization), and delegate.
+// Delegate is a MorseOutputPlayerDelegate, which implements 3 functions: startSignal(), stopSignal(), playEnded()
+//--------------------------------------------------------------------------------------------------------
+
 class MorseOutputPlayer: NSObject {
 	// *****************************
 	// MARK: Public Variables
@@ -47,11 +54,6 @@ class MorseOutputPlayer: NSObject {
 		self.morse = ""
 	}
 
-	convenience init(morse:String) {
-		self.init(morse: "")
-		self.morse = morse
-	}
-
 	// *****************************
 	// MARK: Public Functions
 	// *****************************
@@ -65,26 +67,20 @@ class MorseOutputPlayer: NSObject {
 	func stop() {
 		self.stopSignal()
 		let _ = self._timers.map { $0.invalidate() }
-//		NSObject.cancelPreviousPerformRequestsWithTarget(self)
+//		NSObject.cancelPreviousPerformRequestsWithTarget(self) // FIXME: BUG, not working. Invalidate timers one by one can result in performance issue.
 		self._timers = []
 	}
 
 	func startSignal() {
-		if self.delegate != nil {
-			self.delegate!.startSignal()
-		}
+		self.delegate?.startSignal()
 	}
 
 	func stopSignal() {
-		if self.delegate != nil {
-			self.delegate!.stopSignal()
-		}
+		self.delegate?.stopSignal()
 	}
 
 	func playEnded() {
-		if self.delegate != nil {
-			self.delegate!.playEnded()
-		}
+		self.delegate?.playEnded()
 	}
 
 	// *****************************

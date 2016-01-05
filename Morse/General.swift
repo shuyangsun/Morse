@@ -20,6 +20,10 @@ var isPhone:Bool {
 	return UI_USER_INTERFACE_IDIOM() == .Phone
 }
 
+var forceTouchAvailable:Bool {
+	return UIView().traitCollection.forceTouchCapability == .Available
+}
+
 // WPM
 let outputMinWPM = 5
 let outputMaxWPM = 50
@@ -28,11 +32,13 @@ let inputPitchMin:Float = 1
 let inputPitchMax:Float = 2000
 
 // Audio
+let defaultSampleRate:Float = 44100.0
 let fttWindowSize:vDSP_Length = 4096
 let audioSampleFrequencyTimeInterval:NSTimeInterval = 0
 let defaultInputPitchFrequency:Float = 550
+let defaultOutputPitchFrequency:Float = 750
 let automaticPitchFrequencyMin:Float = 300
-let defaultInputPitchRange:Float = 5
+let defaultInputPitchRange:Float = 10
 var inputPitchFrequencyRange:Range<Int> {
 	let settingsPitch = appDelegate.inputPitchFrequency
 	return max(Int(inputPitchMin), Int(ceil(settingsPitch - defaultInputPitchRange)))...max(Int(inputPitchMin), Int(defaultInputPitchRange * 2), Int(ceil(settingsPitch + defaultInputPitchRange)))
@@ -58,7 +64,6 @@ let userDefaultsKeyInputPitchAutomatic = "Input Pitch Not Automatic"
 // Notification Names
 let inputPitchFrequencyDidChangeNotificationName = "Input Frequency Did Change Notification"
 
-let morseSoundStandardURL = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Morse Sound Standard", ofType: "aiff")!)
 let notRecognizedLetterStr = "🙁"
 
 func getAttributedStringFrom(text:String?, withFontSize fontSize:CGFloat = UIFont.systemFontSize(), color:UIColor = UIColor.blackColor(), bold:Bool = false) -> NSMutableAttributedString? {
