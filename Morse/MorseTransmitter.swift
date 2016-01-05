@@ -332,11 +332,7 @@ class MorseTransmitter {
 	}
 
 	// This method is called when an audio sample has been recieved in the microphone.
-	func microphone(microphone: EZMicrophone!,
-		hasAudioReceived buffer: UnsafeMutablePointer<UnsafeMutablePointer<Float>>,
-		withBufferSize bufferSize: UInt32,
-		withNumberOfChannels numberOfChannels: UInt32,
-		maxFrequencyMagnitude: Float) {
+	func microphone(microphone: EZMicrophone!, maxFrequencyMagnitude: Float) {
 		dispatch_sync(self._audioAnalysisQueue) {
 			// Setup sample rate
 			if self._sampleRate < 0 {
@@ -351,11 +347,9 @@ class MorseTransmitter {
 			// Setup WPM
 			self._inputWPM = 15 // TODO: Better algorithm for this
 
-			// Calculate the root mean square (which was just appended to the plot buffer)
-			let rms = EZAudioUtilities.RMS(buffer.memory, length: Int32(bufferSize))
-			let level = pow(rms * 100, 1.3) // TODO: Better algorithm to magnify level?
+			let level = pow(maxFrequencyMagnitude * 100, 1.5)
 
-			// TODO: Is during signal
+			// Calculate when should the isDuringSignal bar be set.
 			self._levelsRecord.append(level)
 			let recordLength = (self._oneUnitLengthRange.startIndex + self._oneUnitLengthRange.endIndex - 1)/2
 			while self._levelsRecord.count > recordLength {

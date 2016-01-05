@@ -68,6 +68,9 @@ class SettingsMasterTableViewController: UITableViewController {
 			textAttributes = [NSForegroundColorAttributeName: appDelegate.theme.navigationBarTitleTextColor]
 		}
 		self.navigationController?.navigationBar.titleTextAttributes = textAttributes
+
+		// If input frequency is changed, change slider value and text value.
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "inputFrequencyChanged", name: inputPitchFrequencyDidChangeNotificationName, object: nil)
     }
 
 	override func viewWillAppear(animated: Bool) {
@@ -226,6 +229,8 @@ class SettingsMasterTableViewController: UITableViewController {
 				cell.tapFeebackEnabled = false
 				cell.textLabel?.attributedText = getAttributedStringFrom("\(round(self.inputPitch * 10)/10.0) Hz", withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				cell.textLabelCouldChange = true
+				let tapGR = UITapGestureRecognizer(target: self, action: "inputPitchNumberTapped")
+				cell.textLabel?.addGestureRecognizer(tapGR)
 				if self.inputPitchSlider == nil {
 					self.inputPitchSlider = UISlider(frame: CGRect(x: cell.contentView.bounds.width - sliderWidth - tableViewCellTrailingPadding, y: 0, width: sliderWidth, height: cell.bounds.height))
 					self.inputPitchSlider.minimumValue = Float(inputPitchMin)
@@ -349,11 +354,13 @@ class SettingsMasterTableViewController: UITableViewController {
 		} else if switchButton === self.inputPitchAutomaticSwitch {
 			appDelegate.userDefaults.setBool(switchButton.on, forKey: userDefaultsKeyInputPitchAutomatic)
 			appDelegate.userDefaults.synchronize()
-//			if switchButton.on {
-//				self.inputPitchSlider.value = automaticPitchFrequencyMin
-//				self.inputPitch = automaticPitchFrequencyMin
-//				self.inputPitchCell.textLabel?.attributedText = getAttributedStringFrom("\(round(self.inputPitch * 10)/10.0) Hz", withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
-//			}
+
+			if switchButton.on {
+				self.inputPitchSlider.value = automaticPitchFrequencyMin
+				self.inputPitch = automaticPitchFrequencyMin
+				self.inputPitchCell.textLabel?.attributedText = getAttributedStringFrom("\(round(self.inputPitch * 10)/10.0) Hz", withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+			}
+
 		}
 	}
 	
@@ -361,6 +368,15 @@ class SettingsMasterTableViewController: UITableViewController {
 		self.animationDurationSlider.value = 1
 		self.animationDurationScalar = 1
 		self.animationDurationCell.detailTextLabel?.attributedText = getAttributedStringFrom("1.0", withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
+	}
+
+	func inputPitchNumberTapped() {
+		// TODO
+	}
+
+	func inputFrequencyChanged() {
+		self.inputPitchSlider?.value = Float(round(self.inputPitch * 10)/10.0)
+		self.inputPitchCell?.textLabel?.attributedText = getAttributedStringFrom("\(round(self.inputPitch * 10)/10.0) Hz", withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 	}
 
     /*

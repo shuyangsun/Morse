@@ -12,7 +12,8 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 	var audioPlotPitchFiltered:EZAudioPlot!
 	var audioPlot:EZAudioPlot!
 	var microphone:EZMicrophone!
-//	var microphoneStartDate:NSDate!
+	private var _pitchCountDictionary:Dictionary<Int, Int> = Dictionary()
+
 	var transmitter:MorseTransmitter! {
 		willSet {
 			newValue.resetForAudioInput()
@@ -62,6 +63,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 			appDelegate.userDefaults.setFloat(automaticPitchFrequencyMin, forKey: userDefaultsKeyInputPitchFrequency)
 			appDelegate.userDefaults.synchronize()
 		}
+
 		// Setup mircrophone
 		self.microphone = EZMicrophone(microphoneDelegate: self)
 		self.microphone.device = EZAudioDevice.currentInputDevice()
@@ -95,34 +97,57 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 			// Update plot for general audio
 			self.audioPlot.updateBuffer(buffer[0], withBufferSize: bufferSize)
 			let maxFrequency = self._fft.maxFrequency
+
 			// If the frequency is set to automatic, update frequency
-//			print("\(Int(appDelegate.inputPitchFrequency)) \(Int(maxFrequency))")
-//			if self.microphoneStartDate == nil {
-//				self.microphoneStartDate = NSDate()
-//			}
-//			if appDelegate.inputPitchAutomatic &&
-//				maxFrequency > appDelegate.inputPitchFrequency &&
-//				NSDate().timeIntervalSinceDate(self.microphoneStartDate) > 0.5 {
-//				appDelegate.userDefaults.setFloat(maxFrequency, forKey: userDefaultsKeyInputPitchFrequency)
-//				appDelegate.userDefaults.synchronize()
-//				print("CHANGED")
-//			}
+			if appDelegate.inputPitchAutomatic {
+				// Should change frequency will be set later by an algorithm determining if the frequency should be changed while on automatic input frequency setting.
+				// The algorithm count number of frequency's occurence above a certain threshol (automaticPitchFrequencyMin), and pick the frequency that occured most of the time.
+				var shouldChangeFrequency = false
+				// Convert the maxFrequency to an Int, since the record dictionary is an integer.
+				let maxFreqInt = Int(ceil(maxFrequency))
+				// If this new frequency is above the threashold for automatic detection, add it to the dictionary
+				if maxFrequency >= automaticPitchFrequencyMin {
+					if let occurCount = self._pitchCountDictionary[maxFreqInt] {
+						// If the new frequency is already in the record, increase it by one.
+						self._pitchCountDictionary[maxFreqInt] = occurCount + 1
+					} else {
+						// If the new frequency is not already in the record, set it to one.
+						self._pitchCountDictionary[maxFreqInt] = 1
+					}
+				}
+				// Check if this new frequency has a occuring number in the dictionary, if yes, proceed; if no, it must be below the threshold.
+				if let numOccurence = self._pitchCountDictionary[maxFreqInt] {
+					// Now this new frequency is above threshold, and has a occurency record.
+					// Check if the old frequency has a record or is above the threashold.
+					if let currentInputPitchFreqOccurence = self._pitchCountDictionary[Int(ceil(appDelegate.inputPitchFrequency))] {
+						// Now both the new and old frequency have an occurence record, now choose the one that occured more times.
+						if numOccurence >= currentInputPitchFreqOccurence {
+							shouldChangeFrequency = true
+						}
+					} else {
+						// Now this new frequency is above threshold, but the old one is not. So should change frequency to the new one.
+						shouldChangeFrequency = true
+					}
+				}
+
+				if shouldChangeFrequency {
+					appDelegate.userDefaults.setFloat(maxFrequency, forKey: userDefaultsKeyInputPitchFrequency)
+					appDelegate.userDefaults.synchronize()
+					// Send out a notification so that values on the settings page can be updated.
+					NSNotificationCenter.defaultCenter().postNotificationName(inputPitchFrequencyDidChangeNotificationName, object: nil)
+				}
+			}
+
 			// If the frequency should be detected, update the filtered audio plot and call analysis method on transmitter
 			if inputPitchFrequencyRange.contains(Int(maxFrequency)) {
+				// Update the filtred audio plot with the real data.
 				self.audioPlotPitchFiltered.updateBuffer(buffer[0], withBufferSize: bufferSize)
-				self.transmitter.microphone(microphone,
-					hasAudioReceived: buffer,
-					withBufferSize: bufferSize,
-					withNumberOfChannels: numberOfChannels,
-					maxFrequencyMagnitude: self._fft.maxFrequencyMagnitude)
+				self.transmitter.microphone(microphone, maxFrequencyMagnitude: self._fft.maxFrequencyMagnitude)
 			} else {
+				// Update the filtered audio plot with 0.
 				buffer[0].memory = 0
 				self.audioPlotPitchFiltered.updateBuffer(buffer[0], withBufferSize: 1)
-				self.transmitter.microphone(microphone,
-					hasAudioReceived: buffer,
-					withBufferSize: 1,
-					withNumberOfChannels: numberOfChannels,
-					maxFrequencyMagnitude: 0)
+				self.transmitter.microphone(microphone, maxFrequencyMagnitude: 0)
 			}
 		}
 	}

@@ -91,7 +91,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyInputPitchAutomatic)
 			self.userDefaults.setFloat(defaultInputPitchFrequency, forKey: userDefaultsKeyInputPitchFrequency)
 			self.userDefaults.synchronize()
-			
 		}
 
 		return true

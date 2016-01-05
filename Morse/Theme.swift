@@ -12,7 +12,7 @@ var theme:Theme {
 	return appDelegate.theme
 }
 
-private let scrollViewOverlayAlpha:CGFloat = 0.45
+private let scrollViewOverlayAlpha:CGFloat = 0.5
 
 enum Theme: String {
 	case Default = "Default"

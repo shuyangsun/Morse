@@ -31,15 +31,11 @@ let inputPitchMax:Float = 2000
 let fttWindowSize:vDSP_Length = 4096
 let audioSampleFrequencyTimeInterval:NSTimeInterval = 0
 let defaultInputPitchFrequency:Float = 550
-let automaticPitchFrequencyMin:Float = 150
+let automaticPitchFrequencyMin:Float = 300
 let defaultInputPitchRange:Float = 5
 var inputPitchFrequencyRange:Range<Int> {
-	if appDelegate.inputPitchAutomatic {
-		return 0...Int.max - 1
-	} else {
-		let settingsPitch = appDelegate.inputPitchFrequency
-		return max(Int(inputPitchMin), Int(ceil(settingsPitch - defaultInputPitchRange)))...max(Int(inputPitchMin), Int(defaultInputPitchRange * 2), Int(ceil(settingsPitch + defaultInputPitchRange)))
-	}
+	let settingsPitch = appDelegate.inputPitchFrequency
+	return max(Int(inputPitchMin), Int(ceil(settingsPitch - defaultInputPitchRange)))...max(Int(inputPitchMin), Int(defaultInputPitchRange * 2), Int(ceil(settingsPitch + defaultInputPitchRange)))
 }
 let printAudiWaveFormWhenDebug = false
 
@@ -58,6 +54,9 @@ let userDefaultsKeyOutputWPM = "Output WPM"
 let userDefaultsKeyBrightenScreenWhenOutput = "Brighten Screen When Output"
 let userDefaultsKeyInputPitchFrequency = "Input Pitch Frequency"
 let userDefaultsKeyInputPitchAutomatic = "Input Pitch Not Automatic"
+
+// Notification Names
+let inputPitchFrequencyDidChangeNotificationName = "Input Frequency Did Change Notification"
 
 let morseSoundStandardURL = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("Morse Sound Standard", ofType: "aiff")!)
 let notRecognizedLetterStr = "🙁"
