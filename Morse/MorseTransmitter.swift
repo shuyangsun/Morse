@@ -295,6 +295,7 @@ class MorseTransmitter {
 	private var _sampleRate:Double = -1
 	private var _singalStarted = false
 	private var _counter = 0
+	private let _spellChecker = UITextChecker()
 	// This variable means how many callbacks should one unit be with the given WPM and the default sample rate (44100).
 	private var _unitLength:Float {
 		let unitsPerSecond = Double(self._inputWPM) * 50.0 / 60.0
@@ -356,7 +357,7 @@ class MorseTransmitter {
 				self._levelsRecord.removeFirst()
 			}
 			let avgLvl = (self._levelsRecord.reduce(0) { return $0 + $1 }) / Float(recordLength)
-			self._isDuringSignal = level >= max(avgLvl/3.0, 1)
+			self._isDuringSignal = level >= max(avgLvl/3.0, 1) // FIXME: better algorithm. This one does not work properly on high or low input volumes.
 			#if DEBUG
 				// If debugging, print the wave form in the console.
 				if printAudiWaveFormWhenDebug {
@@ -411,6 +412,50 @@ class MorseTransmitter {
 			self._morse?.appendContentsOf(unit.rawValue)
 			if unit == .WordGap {
 				self._text?.appendContentsOf(" ")
+
+				var correctedText = self._text!
+				// If the user wants to auto correct mis-spelled words when using audio input to translate morse, this chunk of code does it.
+				// This is only done after appending a white space
+				if appDelegate.autoCorrectMissSpelledWordsForAudioInput {
+					// Check if the current language code can be spell-checked and romanized, this language list is done manually.
+					// If it cannot be spell-checked, use English by default.
+					var checkedLanguage = appDelegate.currentLocaleLanguageCode
+					var canBeChecked = false
+					for lan in canBeSpellCheckedLanguageCodes {
+						if checkedLanguage.hasPrefix(lan) {
+							canBeChecked = true
+							break
+						}
+					}
+					if !canBeChecked {
+						checkedLanguage = "en"
+					}
+					// Find the first mis-spelled range.
+					var misSpelledRange = self._spellChecker.rangeOfMisspelledWordInString(correctedText, range: NSMakeRange(0, correctedText.lengthOfBytesUsingEncoding(NSASCIIStringEncoding)), startingAt: 0, wrap: false, language: checkedLanguage)
+					// Keep fixing mis-spelled words while there is one.
+					while misSpelledRange.location != NSNotFound {
+						// See if there is any guess for the word.
+						if let guessedWords = self._spellChecker.guessesForWordRange(misSpelledRange, inString: correctedText, language: checkedLanguage) as? [String] {
+							if !guessedWords.isEmpty {
+								let guessedWordsUpperCase = guessedWords.map { $0.uppercaseString }
+								let misSpelledIndexRange = correctedText.startIndex.advancedBy(misSpelledRange.location)..<correctedText.startIndex.advancedBy(misSpelledRange.location + misSpelledRange.length)
+								let misSpelledWord = correctedText.substringWithRange(misSpelledIndexRange)
+								// Check if guessed words already contains the mis-spelled word without case sensitive, sometime spell checker is case sensitive.
+								if !guessedWordsUpperCase.contains(misSpelledWord.uppercaseString) {
+									// If there is at least one guessed word, replace the mis-spelled word with the first guessed word.
+									let firstGuessedWord = guessedWords[0]
+									#if DEBUG
+										print("Mis-Spelled Word: \(misSpelledWord) | Guessed Words: \(guessedWords)")
+									#endif
+									correctedText.replaceRange(misSpelledIndexRange, with: firstGuessedWord)
+								}
+								// Keep looking for mis-spelled words
+								misSpelledRange = self._spellChecker.rangeOfMisspelledWordInString(correctedText, range: NSMakeRange(0, correctedText.lengthOfBytesUsingEncoding(NSASCIIStringEncoding)), startingAt: misSpelledRange.location + misSpelledRange.length - 1, wrap: false, language: checkedLanguage)
+							}
+						}
+					}
+					self._text = correctedText
+				}
 			}
 		} else {
 			let startOfALetter = self._currentLetterMorse.isEmpty

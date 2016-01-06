@@ -15,6 +15,8 @@ let supportedLanguages:[String: (original:String, localized:String)] = [
 	"ar": ("العربية", LocalizedStrings.Languages.arabic)
 ]
 
+let canBeSpellCheckedLanguageCodes:Set<String> = ["en"]
+
 var layoutDirection:UIUserInterfaceLayoutDirection {
 	return UIView.userInterfaceLayoutDirectionForSemanticContentAttribute(.Unspecified)
 }

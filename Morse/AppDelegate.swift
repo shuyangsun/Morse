@@ -68,17 +68,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return res <= 0 ? 15 : res
 	}
 
-	var inputPitchFrequency:Float {
-		let res = self.userDefaults.floatForKey(userDefaultsKeyInputPitchFrequency)
-		return res <= 0 ? defaultInputPitchFrequency : res
+	var inputPitch:Float {
+		let res = self.userDefaults.floatForKey(userDefaultsKeyInputPitch)
+		return res <= 0 ? defaultInputPitch : res
 	}
 
 	var inputPitchAutomatic:Bool {
 		return self.userDefaults.boolForKey(userDefaultsKeyInputPitchAutomatic)
 	}
 
+	var ouputPitch:Float {
+		let res = self.userDefaults.floatForKey(userDefaultsKeyOutputPitch)
+		return res <= 0 ? defaultOutputPitch : res
+	}
+
 	var brightenScreenWhenOutput:Bool {
 		return self.userDefaults.boolForKey(userDefaultsKeyBrightenScreenWhenOutput)
+	}
+
+	var autoCorrectMissSpelledWordsForAudioInput:Bool {
+		return self.userDefaults.boolForKey(userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
 	}
 
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -89,7 +98,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyExtraTextWhenShare)
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyBrightenScreenWhenOutput)
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyInputPitchAutomatic)
-			self.userDefaults.setFloat(defaultInputPitchFrequency, forKey: userDefaultsKeyInputPitchFrequency)
+			self.userDefaults.setBool(true, forKey: userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
+			self.userDefaults.setFloat(defaultInputPitch, forKey: userDefaultsKeyInputPitch)
+			self.userDefaults.setFloat(defaultOutputPitch, forKey: userDefaultsKeyOutputPitch)
 			self.userDefaults.synchronize()
 		}
 

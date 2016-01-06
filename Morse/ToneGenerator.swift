@@ -9,19 +9,16 @@
 import UIKit
 
 class ToneGenerator: NSObject, EZOutputDataSource, EZOutputDelegate {
-	var frequency:Float = defaultOutputPitchFrequency
+	var pitch:Float {
+		return appDelegate.ouputPitch
+	}
 	var sampleRate:Float = defaultSampleRate
 	var amplitude:Float = 1
 	var theta:Float = 0
 	var _output:EZOutput = EZOutput()
 
-	convenience override init() {
-		self.init(frequency: defaultOutputPitchFrequency)
-	}
-
-	init(frequency:Float) {
+	override init() {
 		super.init()
-		self.frequency = frequency
 		let inputFormat = EZAudioUtilities.monoFloatFormatWithSampleRate(self.sampleRate)
 		self._output = EZOutput(dataSource: self, inputFormat: inputFormat)
 		self._output.delegate = self
@@ -52,7 +49,7 @@ class ToneGenerator: NSObject, EZOutputDataSource, EZOutputDelegate {
 			//			let bufferByteSize = audioBufferList.memory.mBuffers.mDataByteSize
 			let twoPI = 2.0 * Float(M_PI)
 			var theta = self.theta
-			let thetaIncrement = twoPI * self.frequency / self.sampleRate;
+			let thetaIncrement = twoPI * self.pitch / self.sampleRate;
 			// Generate sine wave
 			for frame in 0..<Int(frames) {
 				buffer[frame] = self.amplitude * sin(theta)

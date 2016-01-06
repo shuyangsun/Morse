@@ -157,6 +157,9 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 	}
 
 	func cardViewTapped(cardView:CardView) {
+		self._toneGenerator.mute()
+		self._toneGenerator.stop()
+		self._outputPlayer.stop()
 		if let morse = cardView.morse {
 			self._toneGenerator.mute()
 			self._toneGenerator.play()

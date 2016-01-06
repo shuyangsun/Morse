@@ -609,6 +609,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	// *****************************
 
 	func transmitterContentDidChange(text: String, morse: String) {
+		// Set text.
 		self.inputTextView.attributedText = getAttributedStringFrom(morse, withFontSize: textViewInputFontSize, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
 		self.outputTextView.attributedText = getAttributedStringFrom(text.uppercaseString, withFontSize: textViewOutputFontSize, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
 		self.inputTextView.scrollRangeToVisible(NSMakeRange(morse.startIndex.distanceTo(morse.endIndex), 0))

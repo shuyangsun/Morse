@@ -25,9 +25,9 @@ class SettingsMasterTableViewController: UITableViewController {
 
 	var inputPitchCell:TableViewCell!
 	var inputPitchSlider:UISlider!
-	var inputPitch:Float = appDelegate.inputPitchFrequency {
+	var inputPitch:Float = appDelegate.inputPitch {
 		willSet {
-			appDelegate.userDefaults.setFloat(newValue, forKey: userDefaultsKeyInputPitchFrequency)
+			appDelegate.userDefaults.setFloat(newValue, forKey: userDefaultsKeyInputPitch)
 			appDelegate.userDefaults.synchronize()
 		}
 	}
@@ -70,7 +70,7 @@ class SettingsMasterTableViewController: UITableViewController {
 		self.navigationController?.navigationBar.titleTextAttributes = textAttributes
 
 		// If input frequency is changed, change slider value and text value.
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "inputFrequencyChanged", name: inputPitchFrequencyDidChangeNotificationName, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "inputFrequencyChanged", name: inputPitchDidChangeNotificationName, object: nil)
     }
 
 	override func viewWillAppear(animated: Bool) {
@@ -356,8 +356,8 @@ class SettingsMasterTableViewController: UITableViewController {
 			appDelegate.userDefaults.synchronize()
 
 			if switchButton.on {
-				self.inputPitchSlider.value = automaticPitchFrequencyMin
-				self.inputPitch = automaticPitchFrequencyMin
+				self.inputPitchSlider.value = automaticPitchMin
+				self.inputPitch = automaticPitchMin
 				self.inputPitchCell.textLabel?.attributedText = getAttributedStringFrom("\(round(self.inputPitch * 10)/10.0) Hz", withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			}
 

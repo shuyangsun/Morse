@@ -60,7 +60,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 
 		// WARNNING: This chunk of code has to be executed before calling "self.microphone.startFetchingAudio()"!
 		if appDelegate.inputPitchAutomatic {
-			appDelegate.userDefaults.setFloat(automaticPitchFrequencyMin, forKey: userDefaultsKeyInputPitchFrequency)
+			appDelegate.userDefaults.setFloat(automaticPitchMin, forKey: userDefaultsKeyInputPitch)
 			appDelegate.userDefaults.synchronize()
 		}
 
@@ -101,12 +101,12 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 			// If the frequency is set to automatic, update frequency
 			if appDelegate.inputPitchAutomatic {
 				// Should change frequency will be set later by an algorithm determining if the frequency should be changed while on automatic input frequency setting.
-				// The algorithm count number of frequency's occurence above a certain threshol (automaticPitchFrequencyMin), and pick the frequency that occured most of the time.
+				// The algorithm count number of frequency's occurence above a certain threshol (automaticPitchMin), and pick the frequency that occured most of the time.
 				var shouldChangeFrequency = false
 				// Convert the maxFrequency to an Int, since the record dictionary is an integer.
 				let maxFreqInt = Int(ceil(maxFrequency))
 				// If this new frequency is above the threashold for automatic detection, add it to the dictionary
-				if maxFrequency >= automaticPitchFrequencyMin {
+				if maxFrequency >= automaticPitchMin {
 					if let occurCount = self._pitchCountDictionary[maxFreqInt] {
 						// If the new frequency is already in the record, increase it by one.
 						self._pitchCountDictionary[maxFreqInt] = occurCount + 1
@@ -119,7 +119,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 				if let numOccurence = self._pitchCountDictionary[maxFreqInt] {
 					// Now this new frequency is above threshold, and has a occurency record.
 					// Check if the old frequency has a record or is above the threashold.
-					if let currentInputPitchFreqOccurence = self._pitchCountDictionary[Int(ceil(appDelegate.inputPitchFrequency))] {
+					if let currentInputPitchFreqOccurence = self._pitchCountDictionary[Int(ceil(appDelegate.inputPitch))] {
 						// Now both the new and old frequency have an occurence record, now choose the one that occured more times.
 						if numOccurence >= currentInputPitchFreqOccurence {
 							shouldChangeFrequency = true
@@ -131,15 +131,15 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 				}
 
 				if shouldChangeFrequency {
-					appDelegate.userDefaults.setFloat(maxFrequency, forKey: userDefaultsKeyInputPitchFrequency)
+					appDelegate.userDefaults.setFloat(maxFrequency, forKey: userDefaultsKeyInputPitch)
 					appDelegate.userDefaults.synchronize()
 					// Send out a notification so that values on the settings page can be updated.
-					NSNotificationCenter.defaultCenter().postNotificationName(inputPitchFrequencyDidChangeNotificationName, object: nil)
+					NSNotificationCenter.defaultCenter().postNotificationName(inputPitchDidChangeNotificationName, object: nil)
 				}
 			}
 
 			// If the frequency should be detected, update the filtered audio plot and call analysis method on transmitter
-			if inputPitchFrequencyRange.contains(Int(maxFrequency)) {
+			if inputPitchRange.contains(Int(maxFrequency)) {
 				// Update the filtred audio plot with the real data.
 				self.audioPlotPitchFiltered.updateBuffer(buffer[0], withBufferSize: bufferSize)
 				self.transmitter.microphone(microphone, maxFrequencyMagnitude: self._fft.maxFrequencyMagnitude)

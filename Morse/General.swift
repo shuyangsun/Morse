@@ -35,13 +35,15 @@ let inputPitchMax:Float = 2000
 let defaultSampleRate:Float = 44100.0
 let fttWindowSize:vDSP_Length = 4096
 let audioSampleFrequencyTimeInterval:NSTimeInterval = 0
-let defaultInputPitchFrequency:Float = 550
-let defaultOutputPitchFrequency:Float = 750
-let automaticPitchFrequencyMin:Float = 300
-let defaultInputPitchRange:Float = 10
-var inputPitchFrequencyRange:Range<Int> {
-	let settingsPitch = appDelegate.inputPitchFrequency
-	return max(Int(inputPitchMin), Int(ceil(settingsPitch - defaultInputPitchRange)))...max(Int(inputPitchMin), Int(defaultInputPitchRange * 2), Int(ceil(settingsPitch + defaultInputPitchRange)))
+let defaultInputPitch:Float = 550
+let defaultOutputPitch:Float = 800
+let automaticPitchMin:Float = 300
+let defaultInputPitchErrorRangeManual:Float = 5
+let defaultInputPitchErrorRangeAutomatic:Float = 10
+var inputPitchRange:Range<Int> {
+	let settingsPitch = appDelegate.inputPitch
+	let frequencyErrorRange = appDelegate.inputPitchAutomatic ? defaultInputPitchErrorRangeAutomatic : defaultInputPitchErrorRangeManual
+	return max(Int(inputPitchMin), Int(ceil(settingsPitch - frequencyErrorRange)))...max(Int(inputPitchMin), Int(frequencyErrorRange * 2), Int(ceil(settingsPitch + frequencyErrorRange)))
 }
 let printAudiWaveFormWhenDebug = false
 
@@ -58,11 +60,13 @@ let userDefaultsKeyFlashOutputEnabled = "Flash Output Enableds"
 let userDefaultsKeyInputWPM = "Input WPM"
 let userDefaultsKeyOutputWPM = "Output WPM"
 let userDefaultsKeyBrightenScreenWhenOutput = "Brighten Screen When Output"
-let userDefaultsKeyInputPitchFrequency = "Input Pitch Frequency"
+let userDefaultsKeyInputPitch = "Input Pitch"
 let userDefaultsKeyInputPitchAutomatic = "Input Pitch Not Automatic"
+let userDefaultsKeyOutputPitch = "Output Pitch"
+let userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput = "Auto Correct Mis-Spelled Words For Audio Input"
 
 // Notification Names
-let inputPitchFrequencyDidChangeNotificationName = "Input Frequency Did Change Notification"
+let inputPitchDidChangeNotificationName = "Input Frequency Did Change Notification"
 
 let notRecognizedLetterStr = "🙁"
 
