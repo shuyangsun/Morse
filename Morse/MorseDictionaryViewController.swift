@@ -50,9 +50,9 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
         super.viewDidLoad()
 
 		// Calculate the min width for a card to show the longest String.
-		let str = NSAttributedString(string: MorseTransmitter.encodeTextToMorseStringDictionary["ś"]!, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(cardViewMorseFontSizeDictionary)])
+		let str = NSAttributedString(string: "• • • — — — • • •", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(cardViewMorseFontSizeDictionary)])
 		let size = str.size()
-		self.cardViewMinWidth = max(150, size.width + cardViewLabelPaddingHorizontal * 2)
+		self.cardViewMinWidth = max(dictionaryVCCardViewMinWidth, size.width + cardViewLabelPaddingHorizontal * 2)
 
 		if self.statusBarView == nil {
 			self.statusBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: statusBarHeight))
@@ -179,22 +179,26 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 					var text = ""
 					var morse = ""
 					var textFontSize:CGFloat = 0
+					var backgroundColor = UIColor.clearColor()
 					if i >= keys.count {
 						// Add prosign cards
 						text = prosignTitlesAndMorse[i - keys.count].0
 						morse = prosignTitlesAndMorse[i - keys.count].1
 						textFontSize = cardViewTextProsignFontSizeDictionary
+						backgroundColor = theme.cardViewProsignBackgroudColor
 					} else {
 						// Add regular cards
 						text = keys[i]
 						morse = MorseTransmitter.encodeTextToMorseStringDictionary[text]!
 						text = text.uppercaseString
 						textFontSize = cardViewTextFontSizeDictionary
+						backgroundColor = theme.cardViewBackgroudColor
 					}
 					let colNum = Int(max(1, floor((self.view.bounds.width - theme.cardViewHorizontalMargin * 2 + theme.cardViewGap) / (self.cardViewMinWidth + theme.cardViewGap))))
 					let width = (self.scrollView.bounds.width - theme.cardViewHorizontalMargin * 2 - CGFloat(colNum - 1) * theme.cardViewGap)/CGFloat(colNum)
 					let cardView = CardView(frame: CGRect(x: theme.cardViewHorizontalMargin, y: theme.cardViewGroupVerticalMargin, width: width, height: theme.cardViewHeight), text: text, morse: morse, textOnTop: true, deletable: false, canBeFlipped: false, textFontSize: textFontSize, morseFontSize: cardViewMorseFontSizeDictionary)
 					cardView.delegate = self
+					cardView.backgroundColor = backgroundColor
 					self.cardViews.append(cardView)
 				}
 			}

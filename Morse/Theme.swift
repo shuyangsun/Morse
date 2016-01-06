@@ -114,6 +114,12 @@ enum Theme: String {
 		}
 	}
 
+	var cardViewProsignBackgroudColor:UIColor {
+		switch self {
+		default: return self.cardViewBackgroudColor
+		}
+	}
+
 	var cardViewExpandedBackgroudColor:UIColor {
 		switch self {
 		default: return self.cardViewBackgroudColor
@@ -135,6 +141,18 @@ enum Theme: String {
 	var cardViewMorseColor:UIColor {
 		switch self {
 		case .Default: return UIColor(hex:0x000, alpha: MDDarkTextSecondaryAlpha)
+		}
+	}
+
+	var cardViewProsignTextColor:UIColor {
+		switch self {
+		default: return self.cardViewTextColor
+		}
+	}
+
+	var cardViewProsignMorseColor:UIColor {
+		switch self {
+		default: return self.cardViewMorseColor
 		}
 	}
 
