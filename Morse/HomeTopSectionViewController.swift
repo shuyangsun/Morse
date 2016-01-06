@@ -253,6 +253,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.inputTextView.delegate = self
 			self.inputTextView.layer.borderColor = UIColor.clearColor().CGColor
 			self.inputTextView.layer.borderWidth = 0
+			self.inputTextView.autocorrectionType = .Default
 			self.textBackgroundView.addSubview(self.inputTextView)
 
 			self.inputTextView.snp_remakeConstraints { (make) -> Void in
@@ -611,7 +612,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	func transmitterContentDidChange(text: String, morse: String) {
 		// Set text.
 		self.inputTextView.attributedText = getAttributedStringFrom(morse, withFontSize: textViewInputFontSize, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
-		self.outputTextView.attributedText = getAttributedStringFrom(text.uppercaseString, withFontSize: textViewOutputFontSize, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
+		self.outputTextView.attributedText = getAttributedStringFrom(text, withFontSize: textViewOutputFontSize, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
 		self.inputTextView.scrollRangeToVisible(NSMakeRange(morse.startIndex.distanceTo(morse.endIndex), 0))
 		self.outputTextView.scrollRangeToVisible(NSMakeRange(text.startIndex.distanceTo(text.endIndex), 0))
 	}
@@ -684,6 +685,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 				make.bottom.equalTo(self.inputTextView)
 				make.height.equalTo(1.0)
 			})
+			// Set scrollViewOverlay's background color based on the type of input.
+			self.homeViewController.scrollViewOverlay.backgroundColor = self.homeViewController.micInputSectionContainerView == nil ? theme.scrollViewOverlayColor : theme.scrollViewOverlayAudioInputColor
 
 			UIView.animateWithDuration(animationDuration * appDelegate.animationDurationScalar,
 				delay: animationDuration,

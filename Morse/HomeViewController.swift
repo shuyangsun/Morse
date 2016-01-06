@@ -460,7 +460,9 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	// MARK: Card View Manipulation
 	// *****************************
 
-	func addCardViewWithText(text:String, morse:String, textOnTop:Bool = true, deletable:Bool = true, animateWithDuration duration:NSTimeInterval = 0.0) {
+	func addCardViewWithText(var text:String, var morse:String, textOnTop:Bool = true, deletable:Bool = true, animateWithDuration duration:NSTimeInterval = 0.0) {
+		text = text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+		morse = morse.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 		let cardView = CardView(frame: CGRect(x: theme.cardViewHorizontalMargin, y: theme.cardViewGroupVerticalMargin, width: self.scrollView.bounds.width - theme.cardViewHorizontalMargin - theme.cardViewHorizontalMargin, height: theme.cardViewHeight), text: text, morse: morse, textOnTop: textOnTop)
 		cardView.delegate = self
 		cardView.cardUniqueID = "\(UIDevice.currentDevice().identifierForVendor)\(NSDate())\(text)\(morse)".hashValue
@@ -580,7 +582,9 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	// *****************************
 
 	// This method is called after creating a new card on the scrollView, to save it's data into CoreData.
-	private func saveCard(text: String, morse:String, index:Int, textOnTop:Bool = true, favorite:Bool = false, deletable:Bool = true, cardUniqueID:Int) {
+	private func saveCard(var text: String, var morse:String, index:Int, textOnTop:Bool = true, favorite:Bool = false, deletable:Bool = true, cardUniqueID:Int) {
+		text = text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+		morse = morse.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 		let managedContext = appDelegate.managedObjectContext
 		let entity = NSEntityDescription.entityForName("Card", inManagedObjectContext:managedContext)
 		let card = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)

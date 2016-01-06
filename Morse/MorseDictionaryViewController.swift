@@ -172,14 +172,28 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 	private func addCards() {
 		if self.cardViews.isEmpty {
 			let keys = MorseTransmitter.keys
-			for var i = keys.count - 1; i >= 0; i-- {
+			let prosignTitlesAndMorse = LocalizedStrings.Prosign.titlesAndMorse
+			for var i = keys.count + prosignTitlesAndMorse.count - 1; i >= 0; i-- {
 				// Adding cards may take a while, so do it in another thread. Has to be synced because it's about UI
 				dispatch_sync(self._createCardViewsQueue) {
-					let text = keys[i]
-					let morse = MorseTransmitter.encodeTextToMorseStringDictionary[text]!
+					var text = ""
+					var morse = ""
+					var textFontSize:CGFloat = 0
+					if i >= keys.count {
+						// Add prosign cards
+						text = prosignTitlesAndMorse[i - keys.count].0
+						morse = prosignTitlesAndMorse[i - keys.count].1
+						textFontSize = cardViewTextProsignFontSizeDictionary
+					} else {
+						// Add regular cards
+						text = keys[i]
+						morse = MorseTransmitter.encodeTextToMorseStringDictionary[text]!
+						text = text.uppercaseString
+						textFontSize = cardViewTextFontSizeDictionary
+					}
 					let colNum = Int(max(1, floor((self.view.bounds.width - theme.cardViewHorizontalMargin * 2 + theme.cardViewGap) / (self.cardViewMinWidth + theme.cardViewGap))))
 					let width = (self.scrollView.bounds.width - theme.cardViewHorizontalMargin * 2 - CGFloat(colNum - 1) * theme.cardViewGap)/CGFloat(colNum)
-					let cardView = CardView(frame: CGRect(x: theme.cardViewHorizontalMargin, y: theme.cardViewGroupVerticalMargin, width: width, height: theme.cardViewHeight), text: text.uppercaseString, morse: morse, textOnTop: true, deletable: false, canBeFlipped: false, textFontSize: cardViewTextFontSizeDictionary, morseFontSize: cardViewMorseFontSizeDictionary)
+					let cardView = CardView(frame: CGRect(x: theme.cardViewHorizontalMargin, y: theme.cardViewGroupVerticalMargin, width: width, height: theme.cardViewHeight), text: text, morse: morse, textOnTop: true, deletable: false, canBeFlipped: false, textFontSize: textFontSize, morseFontSize: cardViewMorseFontSizeDictionary)
 					cardView.delegate = self
 					self.cardViews.append(cardView)
 				}

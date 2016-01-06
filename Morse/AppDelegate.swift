@@ -32,6 +32,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return self.userDefaults.boolForKey(userDefaultsKeyExtraTextWhenShare)
 	}
 
+	var prosignTranslationTypeRaw:Int {
+		return self.userDefaults.integerForKey(userDefaultsKeyProsignTranslationTypeRaw)
+	}
+
 	var notFirstLaunch:Bool {
 		return self.userDefaults.boolForKey(userDefaultsKeyNotFirstLaunch)
 	}

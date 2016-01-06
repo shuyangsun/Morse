@@ -8,7 +8,49 @@
 
 import Foundation
 
+// *****************************
+// MARK: Types and Constants
+// *****************************
+
+enum MorseUnit:String {
+	case Dit = "•"
+	case Dah = "—"
+	case LetterGap = "   "
+	case WordGap = "       "
+}
+
+// This enum means how the prosigns are translated. Value 0 is the default translation type.
+enum ProsignTranslationType:Int {
+	case Always = 0
+	case OnlyWhenSingulated = 1
+	case None = 2
+}
+
+// Strings
+private let UNIT_DIT_STRING = MorseUnit.Dit.rawValue
+private let UNIT_DAH_STRING = MorseUnit.Dah.rawValue
+private let UNIT_GAP_STRING = " "
+private let WORD_GAP_STRING = MorseUnit.WordGap.rawValue
+private let LETTER_GAP_STRING = MorseUnit.LetterGap.rawValue
+
+// Lengths
+private let DIT_LENGTH:Float = 1.0
+private let UNIT_GAP_LENGTH:Float = 1.0
+private let DAH_LENGTH:Float = 3.0
+private let LETTER_GAP_LENGTH:Float = 3.0
+private let WORD_GAP_LENGTH:Float = 7.0
+
+// Dispatch Queues
+private let encodeQueue = dispatch_queue_create("Encode Queue", nil)
+private let decodeQueue = dispatch_queue_create("Decode Queue", nil)
+
+private let numberOfNewLineForNewPageProsign = 5
+private var newPageProsignText:String {
+	return String(count: numberOfNewLineForNewPageProsign, repeatedValue: Character("\n"))
+}
+
 class MorseTransmitter {
+	var prosignTranslationType = ProsignTranslationType(rawValue: appDelegate.prosignTranslationTypeRaw)!
 	private var _text:String?
 	private var _morse:String?
 
@@ -17,6 +59,23 @@ class MorseTransmitter {
 	private let _getTimeStampQueue = dispatch_queue_create("Get Time Stamp Queue", nil)
 
 	static let keys:[String] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "à", "å", "ä", "ą", "æ", "ć", "ĉ", "ç", "đ", "ð", "é", "ę", "è", "ĝ", "ĥ", "ĵ", "ł", "ń", "ñ", "ó", "ö", "ø", "ś", "ŝ", "š", "þ", "ü", "ŭ", "ź", "ż", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".", ",", "'", "\"", "_", ":", ";", "?", "!", "-", "+", "/", "(", ")", "&", "=", "@", "$"]
+
+	static let prosignMorseToTextStringDictionary:Dictionary<String, String> = [
+		"• — • —": "\n",
+		"• — • — •": newPageProsignText,
+		"• — • • •": prosignContainerLeft + LocalizedStrings.Prosign.wait + prosignContainerRight,
+		"— • • • — • —": prosignContainerLeft + LocalizedStrings.Prosign.backToYou + prosignContainerRight,
+		"— • • • —": "\n\n",
+		"— • — • • — • •": prosignContainerLeft + LocalizedStrings.Prosign.closing + prosignContainerRight,
+		"— • — • —": prosignContainerLeft + LocalizedStrings.Prosign.attention + prosignContainerRight,
+		"• • • • • • •": prosignContainerLeft + LocalizedStrings.Prosign.error + prosignContainerRight,
+		"— • —": prosignContainerLeft + LocalizedStrings.Prosign.inviteToTransmitAnyStation + prosignContainerRight,
+		"— • — — •": prosignContainerLeft + LocalizedStrings.Prosign.inviteToTransmitNamedStation + prosignContainerRight,
+		"— • • — — —": prosignContainerLeft + LocalizedStrings.Prosign.shiftToWabunCode + prosignContainerRight,
+		"• • • — • —": prosignContainerLeft + LocalizedStrings.Prosign.endOfContact + prosignContainerRight,
+		"• • • — •": prosignContainerLeft + LocalizedStrings.Prosign.understood + prosignContainerRight,
+		"• • • — — — • • •": prosignContainerLeft + LocalizedStrings.Prosign.emergency + prosignContainerRight
+	]
 
 	static let encodeTextToMorseStringDictionary:Dictionary<String, String> = [
 		// English Alphabets
@@ -193,7 +252,8 @@ class MorseTransmitter {
 			self._morse = nil
 		}
 		get {
-			return self._text == nil ? decodeMorseToText(self._morse) : self._text
+			let res = self._text == nil ? self.decodeMorseToText(self._morse) : self._text
+			return res?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 		}
 	}
 
@@ -203,12 +263,13 @@ class MorseTransmitter {
 			self._text = nil
 		}
 		get {
-			return self._morse == nil ? encodeTextToMorse(self._text) : self._morse
+			let res = self._morse == nil ? self.encodeTextToMorse(self._text) : self._morse
+			return res?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 		}
 	}
 
-	init() {
-
+	init(prosignTranslationType:ProsignTranslationType = ProsignTranslationType(rawValue: appDelegate.prosignTranslationTypeRaw)!) {
+		self.prosignTranslationType = prosignTranslationType
 	}
 
 	// TODO: Not used, because it doesn't work
@@ -216,11 +277,10 @@ class MorseTransmitter {
 		if self.text != nil && self.morse != nil &&
 			range.location > 0 && range.location + range.length <= self.text!.lengthOfBytesUsingEncoding(NSISOLatin1StringEncoding) {
 			let textStr = self.text!
-
 			let preText = textStr.substringWithRange(textStr.startIndex..<textStr.startIndex.advancedBy(range.location)) // ******TextSelected****** // This is the first "******" part.
 			let postText = textStr.substringWithRange(textStr.startIndex..<textStr.startIndex.advancedBy(range.location + range.length)) // ******TextSelected****** // This is the "******TextSelected" part.
-			let preMorse = encodeTextToMorse(preText)
-			let endMorse = encodeTextToMorse(postText)
+			let preMorse = self.encodeTextToMorse(preText)
+			let endMorse = self.encodeTextToMorse(postText)
 			let location = preMorse?.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
 			let end = endMorse?.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
 			if location != nil && end != nil {
@@ -409,16 +469,23 @@ class MorseTransmitter {
 		if unit == .LetterGap || unit == .WordGap {
 			// If we're appending a gap, reset currentLetterMorse
 			self._currentLetterMorse = ""
-			self._morse?.appendContentsOf(unit.rawValue)
+			if unit == .LetterGap {
+				self._morse?.appendContentsOf(unit.rawValue)
+			}
 			if unit == .WordGap {
+				if self.prosignTranslationType == .Always {
+					// If we translate prosign, decode the whole sentence again.
+					self._text = self.decodeMorseToText(self._morse)
+					self._morse?.appendContentsOf(unit.rawValue)
+				}
+				// Append a space on the text if there's a word gap
 				self._text?.appendContentsOf(" ")
 
-				var correctedText = self._text!
 				// If the user wants to auto correct mis-spelled words when using audio input to translate morse, this chunk of code does it.
 				// This is only done after appending a white space
+				var correctedText = self._text!
 				if appDelegate.autoCorrectMissSpelledWordsForAudioInput {
 					// Check if the current language code can be spell-checked and romanized, this language list is done manually.
-					// If it cannot be spell-checked, use English by default.
 					var checkedLanguage = appDelegate.currentLocaleLanguageCode
 					var canBeChecked = false
 					for lan in canBeSpellCheckedLanguageCodes {
@@ -427,8 +494,9 @@ class MorseTransmitter {
 							break
 						}
 					}
+					// If the language cannot be spell-checked, use English by default.
 					if !canBeChecked {
-						checkedLanguage = "en"
+						checkedLanguage = defaultSpellCheckLanguageCode
 					}
 					// Find the first mis-spelled range.
 					var misSpelledRange = self._spellChecker.rangeOfMisspelledWordInString(correctedText, range: NSMakeRange(0, correctedText.lengthOfBytesUsingEncoding(NSASCIIStringEncoding)), startingAt: 0, wrap: false, language: checkedLanguage)
@@ -437,6 +505,7 @@ class MorseTransmitter {
 						// See if there is any guess for the word.
 						if let guessedWords = self._spellChecker.guessesForWordRange(misSpelledRange, inString: correctedText, language: checkedLanguage) as? [String] {
 							if !guessedWords.isEmpty {
+								// Convert the word to upper case to avoid case sensitivity
 								let guessedWordsUpperCase = guessedWords.map { $0.uppercaseString }
 								let misSpelledIndexRange = correctedText.startIndex.advancedBy(misSpelledRange.location)..<correctedText.startIndex.advancedBy(misSpelledRange.location + misSpelledRange.length)
 								let misSpelledWord = correctedText.substringWithRange(misSpelledIndexRange)
@@ -445,7 +514,7 @@ class MorseTransmitter {
 									// If there is at least one guessed word, replace the mis-spelled word with the first guessed word.
 									let firstGuessedWord = guessedWords[0]
 									#if DEBUG
-										print("Mis-Spelled Word: \(misSpelledWord) | Guessed Words: \(guessedWords)")
+										print("Mis-spelled Word: \(misSpelledWord) | Guessed Words: \(guessedWords)")
 									#endif
 									correctedText.replaceRange(misSpelledIndexRange, with: firstGuessedWord)
 								}
@@ -460,115 +529,200 @@ class MorseTransmitter {
 		} else {
 			let startOfALetter = self._currentLetterMorse.isEmpty
 			// We're sure unit is either DIT or DAH at this point
+			// If morse for current character is not empty (means there is a DIT or DAH at the end), append a one unit gap for morse.
 			if !self._currentLetterMorse.isEmpty && !self._currentLetterMorse.hasPrefix(" ") {
 				self._currentLetterMorse.appendContentsOf(" ")
 				self._morse?.appendContentsOf(" ")
 			}
+			// Append this new unit (DIT or DAH) to morse for current character
 			self._currentLetterMorse.appendContentsOf(unit.rawValue)
 			self._morse?.appendContentsOf(unit.rawValue)
 
-			// Change text
+			// After appending this new unit, change the text.
 			var letter = MorseTransmitter.decodeMorseStringToTextDictionary[self._currentLetterMorse]
+			// If this Morse code cannot be found in the dictionary, change letter to the error character.
 			if letter == nil {
 				letter = notRecognizedLetterStr
 			}
+			// If in the middle of decoding a letter, remove the last appended letter and append the new one.
 			if !startOfALetter {
 				self._text?.removeAtIndex(self._text!.endIndex.advancedBy(-1))
 			}
+			// If not in the middle of decoding a letter, simply append the new letter.
 			self._text?.appendContentsOf(letter!)
 		}
+
+		// Call the delegate method notifying at least one of text and Morse content is changed.
 		self.delegate?.transmitterContentDidChange?(self._text!, morse: self._morse!)
 	}
-}
 
-// *****************************
-// MARK: Types and Constants
-// *****************************
+	// *****************************
+	// MARK: Private Helper Methods
+	// *****************************
 
-enum MorseUnit:String {
-	case Dit = "•"
-	case Dah = "—"
-	case LetterGap = "   "
-	case WordGap = "       "
-}
+	// Ignores invalid character
+	private func encodeTextToMorse(text:String!) -> String? {
+		// If there's no text, return nil.
+		if text == nil || text.isEmpty { return nil }
 
-// Strings
-private let UNIT_DIT_STRING = MorseUnit.Dit.rawValue
-private let UNIT_DAH_STRING = MorseUnit.Dah.rawValue
-private let UNIT_GAP_STRING = " "
-private let WORD_GAP_STRING = MorseUnit.WordGap.rawValue
-private let LETTER_GAP_STRING = MorseUnit.LetterGap.rawValue
+		// Create an empty string as result to append content later.
+		var res = ""
+		// Encode on another queue.
+		dispatch_sync(encodeQueue) {
+			// Decide if we need to keep portaintial prosign characters.
+			var seperatorCharacters = " \t"
+			if self.prosignTranslationType != .Always {
+				seperatorCharacters += "\n\r"
+			}
+			// Seperate the text into words.
+			// WARNING: If translating prosign, this word may contain newline character if translating prosign
+			var words = text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).lowercaseString.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: seperatorCharacters))
+			// Do some additional processing if translating prosign
+			if self.prosignTranslationType == .Always {
+				for var i in 0..<words.count {
+					if i + 1 < words.count {
+						// Find adjacent words can connect with newline characters, combine them into one word.
+						if (words[i].hasSuffix("\n") || words[i].hasSuffix("\r")) &&
+							(words[i + 1].hasPrefix("\n") || words[i + 1].hasPrefix("\r")) {
+							words[i] += words[i + 1]
+							words.removeAtIndex(i + 1)
+							i--
+						}
+					}
+				}
+			}
+			for wordInd in 0..<words.count {
+				let word = words[wordInd]
+				// Get all the characters in the word.
+				let chArr = word.characters.map { String($0) }
+				// Create an empty string to append content later.
+				var wordStr:String = ""
+				var newLineChCounter = 0
+				// Get all the characters in this word.
+				for chInd in 0..<chArr.count {
+					let ch = chArr[chInd]
+					// If this charater is found in the dictionary, append it with a letter gap.
+					if let chMorseString = MorseTransmitter.encodeTextToMorseStringDictionary[ch] {
+						var prefixSpaceForLetter = MorseUnit.LetterGap.rawValue
+						// If there was a series of newline characters
+						if self.prosignTranslationType == .Always && newLineChCounter > 0 {
+							// Decide the prefix-space based on the position of this newline character
+							// NOTE: this part only considers two situations: the beginning and the middle of word. The third situation (the end of the word) is handdled later.
+							var prefixSpace = MorseUnit.WordGap.rawValue
+							if chInd - 1 == 0 {
+								// At the beginning of the word
+								prefixSpace = ""
+							}
+							// Count number of newline characters to determin which prosign to append.
+							if newLineChCounter == 1 {
+								wordStr += prefixSpace + "• — • —" // New line prosign
+							} else if newLineChCounter == 2 {
+								wordStr += prefixSpace + "— • • • —" // New paragraph prosign
+							} else {
+								wordStr += prefixSpace + "• — • — •" // New page prosign
+							}
+							wordStr += MorseUnit.WordGap.rawValue
+							prefixSpaceForLetter = ""
+							newLineChCounter = 0
+						}
+						// After appending portaintial prosign for newline characers, append the current word.
+						if chInd != 0 {
+							wordStr += prefixSpaceForLetter
+						}
+						wordStr += chMorseString
+					} else { // If the character cannot be found, it's possible it a new line character
+						// If this character is a newline character, do something
+						if self.prosignTranslationType == .Always {
+							if ch == "\n" || ch == "\r" {
+								newLineChCounter++
+							}
+							// If this is the end of word and there are still pending newline characters, deal with them.
+							if newLineChCounter > 0 && chInd == chArr.count - 1 {
+								wordStr += MorseUnit.WordGap.rawValue
+								if newLineChCounter == 1 {
+									wordStr += "• — • —" // New line prosign
+								} else if newLineChCounter == 2 {
+									wordStr += "— • • • —" // New paragraph prosign
+								} else {
+									wordStr += "• — • — •" // New page prosign
+								}
+							}
+						}
+					}
+				}
 
-// Lengths
-private let DIT_LENGTH:Float = 1.0
-private let UNIT_GAP_LENGTH:Float = 1.0
-private let DAH_LENGTH:Float = 3.0
-private let LETTER_GAP_LENGTH:Float = 3.0
-private let WORD_GAP_LENGTH:Float = 7.0
+				// If this word can be translated, append a word gap and the word.
+				if !wordStr.isEmpty {
+					// If this is not the first word in the text, append a wordGap
+					if wordInd > 0 {
+						res += MorseUnit.WordGap.rawValue
+					}
+					// Append the new word
+					res += wordStr
+				}
+			}
+		}
+		return res.isEmpty ? nil : res
+	}
 
-// Dispatch Queues
-private let _encodeQueue = dispatch_queue_create("Encode Queue", nil)
-private let _decodeQueue = dispatch_queue_create("Decode Queue", nil)
+	// Assume morse is valid
+	private func decodeMorseToText(morse:String!) -> String? {
+		// If the morse code is nil or empty, return nil
+		if morse == nil || morse.isEmpty { return nil }
+		// If the morse code only contains code prosign, translate it to prosign and done.
+		if self.prosignTranslationType == .OnlyWhenSingulated {
+			// If there exists a prosign for it, return it.
+			if let translatedProsign = MorseTransmitter.prosignMorseToTextStringDictionary[morse!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())] {
+				return translatedProsign
+			}
+		}
 
-// *****************************
-// MARK: Private Helper Methods
-// *****************************
+		// Create an empty string as result to append content later.
+		var res = ""
+		// Decode on another queue.
+		dispatch_sync(decodeQueue) {
+			// Seperate Morse code into words.
+			let words = morse.componentsSeparatedByString(WORD_GAP_STRING)
+			for word in words {
+				// Get an array of characters in this word.
+				let chArr = word.componentsSeparatedByString(LETTER_GAP_STRING)
+				// Initliaze an empty string for later word construction.
+				var wordStr:String = ""
+				// Seperate this word into characters
+				for ch in chArr {
+					// If the user always want to translate prosign and this maybe one prosign (only one character in this word), do it.
+					if self.prosignTranslationType == .Always && chArr.count == 1 {
+						// Check if this is a prosign
+						if let prosignText = MorseTransmitter.prosignMorseToTextStringDictionary[String(ch)] {
+							wordStr = prosignText
+							// Break out of the loop so if the letter is "&" or "k" which overlaps with prosign, it does not keep decoding this message.
+							continue
+						}
+					}
+					// If this is not a prosign, use normal dictionary to translate it.
+					if let chText = MorseTransmitter.decodeMorseStringToTextDictionary[String(ch)] {
+						wordStr += chText
+					} else {
+						// If the dictionary does not recognize this letter, append the error character.
+						wordStr += notRecognizedLetterStr
+					}
+				}
 
-// Ignores invalid character
-private func encodeTextToMorse(text:String!) -> String? {
-	if text == nil || text.isEmpty { return nil }
-	var res = ""
-	dispatch_sync(_encodeQueue) {
-		let words = text.lowercaseString.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: " \t\n\r"))
-		for word in words {
-			let chArr = word.characters
-			var wordStr:String = ""
-			for ch in chArr {
-				if let chMorseString = MorseTransmitter.encodeTextToMorseStringDictionary[String(ch)] {
-					wordStr += chMorseString
-					wordStr += LETTER_GAP_STRING
+				// If a word is found, append it to the final result.
+				if !wordStr.isEmpty {
+					res += wordStr
+					if !wordStr.hasSuffix("\n") && !wordStr.hasSuffix("\r") {
+						res += " "
+					}
 				}
 			}
 
-			if !wordStr.isEmpty {
-				res += wordStr
-				// 4 spaces, on top of the last 3, make it 7
-				res += "    "
+			// Remove the trailing white space.
+			if !res.isEmpty {
+				res.removeAtIndex(res.endIndex.advancedBy(-1))
 			}
 		}
-		if !res.isEmpty {
-			res.removeRange(res.endIndex.advancedBy(-7)..<res.endIndex)
-		}
+		return res.isEmpty ? nil : res
 	}
-	return res.isEmpty ? nil : res
-}
-
-// Assume morse is valid
-private func decodeMorseToText(morse:String!) -> String? {
-	if morse == nil || morse.isEmpty { return nil }
-	var res = ""
-	dispatch_sync(_decodeQueue) {
-		let words = morse.componentsSeparatedByString(WORD_GAP_STRING)
-		for word in words {
-			let chArr = word.componentsSeparatedByString(LETTER_GAP_STRING)
-			var wordStr:String = ""
-			for ch in chArr {
-				if let chText = MorseTransmitter.decodeMorseStringToTextDictionary[String(ch)] {
-					wordStr += chText
-				} else {
-					wordStr += notRecognizedLetterStr
-				}
-			}
-
-			if !wordStr.isEmpty {
-				res += wordStr
-				res += " "
-			}
-		}
-		if !res.isEmpty {
-			res.removeAtIndex(res.endIndex.advancedBy(-1))
-		}
-	}
-	return res.isEmpty ? nil : res
 }
 

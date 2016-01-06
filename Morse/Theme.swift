@@ -12,7 +12,8 @@ var theme:Theme {
 	return appDelegate.theme
 }
 
-private let scrollViewOverlayAlpha:CGFloat = 0.5
+private let scrollViewOverlayAlpha:CGFloat = 0.35
+private let scrollViewOverlayAlphaAudioInput:CGFloat = 0.75
 
 enum Theme: String {
 	case Default = "Default"
@@ -98,6 +99,12 @@ enum Theme: String {
 	var scrollViewOverlayColor:UIColor {
 		switch self {
 		default: return UIColor(hex: 0x000, alpha: scrollViewOverlayAlpha)
+		}
+	}
+
+	var scrollViewOverlayAudioInputColor:UIColor {
+		switch self {
+		default: return UIColor(hex: 0x000, alpha: scrollViewOverlayAlphaAudioInput)
 		}
 	}
 
@@ -281,7 +288,7 @@ enum Theme: String {
 
 	var audioPlotPitchFilteredColor:UIColor {
 		switch self {
-		case .Default: return UIColor(hex: MDColorPalette.Blue.P500.hex, alpha: scrollViewOverlayAlpha)
+		case .Default: return UIColor(hex: MDColorPalette.Blue.P500.hex, alpha: scrollViewOverlayAlphaAudioInput)
 		}
 	}
 

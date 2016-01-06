@@ -24,6 +24,9 @@ var forceTouchAvailable:Bool {
 	return UIView().traitCollection.forceTouchCapability == .Available
 }
 
+let prosignContainerLeft = "["
+let prosignContainerRight = "]"
+
 // WPM
 let outputMinWPM = 5
 let outputMaxWPM = 50
@@ -37,7 +40,7 @@ let fttWindowSize:vDSP_Length = 4096
 let audioSampleFrequencyTimeInterval:NSTimeInterval = 0
 let defaultInputPitch:Float = 550
 let defaultOutputPitch:Float = 800
-let automaticPitchMin:Float = 300
+let automaticPitchMin:Float = 500
 let defaultInputPitchErrorRangeManual:Float = 5
 let defaultInputPitchErrorRangeAutomatic:Float = 10
 var inputPitchRange:Range<Int> {
@@ -50,6 +53,7 @@ let printAudiWaveFormWhenDebug = false
 // NSUserDefaultKeys
 let userDefaultsKeyTheme = "Theme"
 let userDefaultsKeyExtraTextWhenShare = "Extra Text When Share"
+let userDefaultsKeyProsignTranslationTypeRaw = "Prosign Translation Type Raw"
 let userDefaultsKeyNotFirstLaunch = "Not First Launch"
 let userDefaultsKeyInteractionSoundDisabled = "Interaction Sound Disabled"
 let userDefaultsKeyAnimationDurationScalar = "Animation Duration Scalar"

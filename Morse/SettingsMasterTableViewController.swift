@@ -81,24 +81,18 @@ class SettingsMasterTableViewController: UITableViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 
-		self.extraTextWhenShareSwitch.on = appDelegate.addExtraTextWhenShare
-		self.brightenUpScreenSwitch.on = appDelegate.brightenScreenWhenOutput
-		self.inputPitchAutomaticSwitch.on = appDelegate.inputPitchAutomatic
+		self.extraTextWhenShareSwitch?.on = appDelegate.addExtraTextWhenShare
+		self.brightenUpScreenSwitch?.on = appDelegate.brightenScreenWhenOutput
+		self.inputPitchAutomaticSwitch?.on = appDelegate.inputPitchAutomatic
 
-		if self.outputWPMSlider != nil {
-			self.outputWPMSlider.value = Float(self.outputWPM)
-			self.outputWPMCell.textLabel?.attributedText = getAttributedStringFrom("\(self.outputWPM)", withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
-		}
+		self.outputWPMSlider?.value = Float(self.outputWPM)
+		self.outputWPMCell?.textLabel?.attributedText = getAttributedStringFrom("\(self.outputWPM)", withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 
-		if self.inputPitchSlider != nil {
-			self.inputPitchSlider.value = Float(round(self.inputPitch * 10)/10.0)
-			self.inputPitchCell.textLabel?.attributedText = getAttributedStringFrom("\(round(self.inputPitch * 10)/10.0) Hz", withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
-		}
+		self.inputPitchSlider?.value = Float(round(self.inputPitch * 10)/10.0)
+		self.inputPitchCell?.textLabel?.attributedText = getAttributedStringFrom("\(round(self.inputPitch * 10)/10.0) Hz", withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 
-		if self.animationDurationSlider != nil {
-			self.animationDurationSlider.value = Float(round(self.animationDurationScalar * 10)/10.0)
-			self.animationDurationCell.detailTextLabel?.attributedText = getAttributedStringFrom("\(round(self.animationDurationScalar * 10)/10.0)", withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
-		}
+		self.animationDurationSlider?.value = Float(round(self.animationDurationScalar * 10)/10.0)
+		self.animationDurationCell?.detailTextLabel?.attributedText = getAttributedStringFrom("\(round(self.animationDurationScalar * 10)/10.0)", withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
 	}
 
     override func didReceiveMemoryWarning() {

@@ -15,7 +15,9 @@ let supportedLanguages:[String: (original:String, localized:String)] = [
 	"ar": ("العربية", LocalizedStrings.Languages.arabic)
 ]
 
+// This is for auto correction when using Auido as Morse code input. Languages in this list will be auto-corrected with localized UITextChecker, languages are not in this list will be considered as English by default.
 let canBeSpellCheckedLanguageCodes:Set<String> = ["en"]
+let defaultSpellCheckLanguageCode = "en"
 
 var layoutDirection:UIUserInterfaceLayoutDirection {
 	return UIView.userInterfaceLayoutDirectionForSemanticContentAttribute(.Unspecified)
@@ -24,6 +26,51 @@ var layoutDirection:UIUserInterfaceLayoutDirection {
 struct LocalizedStrings {
 	struct General {
 		static let sharePromote = NSLocalizedString("Check this out! I converted text to this Morse code using Morse Transmitter! Download here:", comment: "When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.")
+	}
+
+	struct Prosign {
+		static let wait = NSLocalizedString("WAIT", comment: "One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: wait.")
+		static let backToYou = NSLocalizedString("BACK-TO-YOU", comment: "One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: I'm done, now back to you.")
+		static let closing = NSLocalizedString("CLOSING", comment: "One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this station is closing.")
+		static let attention = NSLocalizedString("!ATTENTION!", comment: "One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: attention!")
+		static let error = NSLocalizedString("ERROR", comment: "One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: there was an error.")
+		static let inviteToTransmitAnyStation = NSLocalizedString("INVITE-ANY-STATION-TO-TRANSMIT", comment: "One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: any station can start to transmit now.")
+		static let inviteToTransmitNamedStation = NSLocalizedString("INVITE-NAMED-STATION-TO-TRANSMIT", comment: "One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: the named station can start to transmit now.")
+		static let shiftToWabunCode = NSLocalizedString("SHIFT-TO-WABUN-CODE", comment: "One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: shift from Morse code to Wabun code. (Wabun code is used by Japanese)")
+		static let endOfContact = NSLocalizedString("END-OF-CONTACT", comment: "One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this is the end of contact.")
+		static let understood = NSLocalizedString("UNDERSTOOD", comment: "One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: understood.")
+		static let emergency = NSLocalizedString("!!!EMERGENCY!!!", comment: "One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: emergency! (the SOS signal)")
+
+		static let titleNewLine = NSLocalizedString("New Line", comment: "There are many prosign code in Morse, this is the name of one of them.")
+		static let titleNewPage = NSLocalizedString("New Page", comment: "There are many prosign code in Morse, this is the name of one of them.")
+		static let titleWait = NSLocalizedString("Wait", comment: "There are many prosign code in Morse, this is the name of one of them.")
+		static let titleBreak = NSLocalizedString("Break", comment: "There are many prosign code in Morse, this is the name of one of them.")
+		static let titleNewParagraph = NSLocalizedString("New Paragraph", comment: "There are many prosign code in Morse, this is the name of one of them.")
+		static let titleClosing = NSLocalizedString("Closing", comment: "There are many prosign code in Morse, this is the name of one of them.")
+		static let titleAttention = NSLocalizedString("Attention", comment: "There are many prosign code in Morse, this is the name of one of them.")
+		static let titleError = NSLocalizedString("Error", comment: "There are many prosign code in Morse, this is the name of one of them.")
+		static let titleInviteToTransmitAnyStation = NSLocalizedString("Invite (Any)", comment: "There are many prosign code in Morse, this is the name of one of them.")
+		static let titleInviteToTransmitNamedStation = NSLocalizedString("Invite (Named)", comment: "There are many prosign code in Morse, this is the name of one of them.")
+		static let titleShiftToWabun = NSLocalizedString("Shift to Wabun", comment: "There are many prosign code in Morse, this is the name of one of them.")
+		static let titleEndOfContact = NSLocalizedString("End of Contact", comment: "There are many prosign code in Morse, this is the name of one of them.")
+		static let titleUnderstood = NSLocalizedString("Understood", comment: "There are many prosign code in Morse, this is the name of one of them.")
+		static let titleEmergency = NSLocalizedString("Emergency", comment: "There are many prosign code in Morse, this is the name of one of them.")
+		static let titlesAndMorse = [
+			(titleNewLine, "• — • —"),
+			(titleNewPage, "• — • — •"),
+			(titleWait, "• — • • •"),
+			(titleBreak, "— • • • — • —"),
+			(titleNewParagraph, "— • • • —"),
+			(titleClosing, "— • — • • — • •"),
+			(titleAttention, "— • — • —"),
+			(titleError, "• • • • • • •"),
+			(titleInviteToTransmitAnyStation, "— • —"),
+			(titleInviteToTransmitNamedStation, "— • — — •"),
+			(titleShiftToWabun, "— • • — — —"),
+			(titleEndOfContact, "• • • — • —"),
+			(titleUnderstood, "• • • — •"),
+			(titleEmergency, "• • • — — — • • •")
+		]
 	}
 
 	struct Label {
