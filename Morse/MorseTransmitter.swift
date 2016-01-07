@@ -351,10 +351,9 @@ class MorseTransmitter {
 
 	private let _audioAnalysisQueue = dispatch_queue_create("Audio Analysis Queue", nil)
 	private var _currentLetterMorse = ""
+	private var _currentWordMorse = ""
 	private var _inputWPM = 15
 	private var _sampleRate:Double = -1
-	private var _singalStarted = false
-	private var _counter = 0
 	private let _spellChecker = UITextChecker()
 	// This variable means how many callbacks should one unit be with the given WPM and the default sample rate (44100).
 	private var _unitLength:Float {
@@ -378,6 +377,9 @@ class MorseTransmitter {
 	}
 
 	private var _isDuringSignal = false
+	private var _singalStarted = false
+	private var _wordGapAppended = true
+	private var _counter = 0
 	private var _levelsRecord:[Float] = []
 	private var _minLvl = Int.max
 
@@ -431,22 +433,27 @@ class MorseTransmitter {
 
 			if self._isDuringSignal {
 				if self._singalStarted {
+					// Signal already rose, during signal
 					self._counter++
 				} else {
-					// If this is where the singal rises
+					// Signal rises
 					if !self._text!.isEmpty {
 						if self._threeUnitLengthRange.contains(self._counter) {
 							self.appendUnit(.LetterGap)
 						} else if self._sevenUnitLengthRange.contains(self._counter) {
-							self.appendUnit(.WordGap)
+							if !self._wordGapAppended {
+								self.appendUnit(.WordGap)
+								self._wordGapAppended = true
+							}
 						}
 					}
 					self._counter = 1
 					self._singalStarted = true
 				}
+				self._wordGapAppended = false
 			} else {
 				if self._singalStarted {
-					// If this is where the singal falls
+					// Singal falls
 					if self._oneUnitLengthRange.contains(self._counter) {
 						self.appendUnit(.Dit)
 					} else if self._threeUnitLengthRange.contains(self._counter) || self._sevenUnitLengthRange.contains(self._counter) {
@@ -455,7 +462,15 @@ class MorseTransmitter {
 					self._counter = 1
 					self._singalStarted = false
 				} else {
+					// Singal already fell, not during signal
 					self._counter++
+
+					if self._sevenUnitLengthRange.contains(self._counter) {
+						if !self._wordGapAppended {
+							self.appendUnit(.WordGap)
+						}
+						self._wordGapAppended = true
+					}
 				}
 			}
 		}
@@ -471,13 +486,21 @@ class MorseTransmitter {
 			self._currentLetterMorse = ""
 			if unit == .LetterGap {
 				self._morse?.appendContentsOf(unit.rawValue)
+				if self.prosignTranslationType == .Always {
+					self._currentWordMorse.appendContentsOf(unit.rawValue)
+				}
 			}
 			if unit == .WordGap {
 				if self.prosignTranslationType == .Always {
+					print(self._currentWordMorse)
 					// If we translate prosign, decode the whole sentence again.
-					self._text = self.decodeMorseToText(self._morse)
-					self._morse?.appendContentsOf(unit.rawValue)
+					if let prosignText = MorseTransmitter.prosignMorseToTextStringDictionary[self._currentWordMorse] {
+						self._text?.removeAtIndex(self._text!.endIndex.advancedBy(-1))
+						self._text?.appendContentsOf(prosignText)
+					}
+					self._currentWordMorse = ""
 				}
+				self._morse?.appendContentsOf(unit.rawValue)
 				// Append a space on the text if there's a word gap
 				self._text?.appendContentsOf(" ")
 
@@ -533,10 +556,16 @@ class MorseTransmitter {
 			if !self._currentLetterMorse.isEmpty && !self._currentLetterMorse.hasPrefix(" ") {
 				self._currentLetterMorse.appendContentsOf(" ")
 				self._morse?.appendContentsOf(" ")
+				if self.prosignTranslationType == .Always {
+					self._currentWordMorse.appendContentsOf(" ")
+				}
 			}
 			// Append this new unit (DIT or DAH) to morse for current character
 			self._currentLetterMorse.appendContentsOf(unit.rawValue)
 			self._morse?.appendContentsOf(unit.rawValue)
+			if self.prosignTranslationType == .Always {
+				self._currentWordMorse.appendContentsOf(unit.rawValue)
+			}
 
 			// After appending this new unit, change the text.
 			var letter = MorseTransmitter.decodeMorseStringToTextDictionary[self._currentLetterMorse]

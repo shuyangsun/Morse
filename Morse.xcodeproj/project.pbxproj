@@ -94,9 +94,6 @@
 		103BCF8C1C1FBA48003A26CA /* MorseDictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103BCF8B1C1FBA48003A26CA /* MorseDictionaryViewController.swift */; };
 		103BCF8D1C1FBA48003A26CA /* MorseDictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103BCF8B1C1FBA48003A26CA /* MorseDictionaryViewController.swift */; };
 		103BCF8E1C1FBA48003A26CA /* MorseDictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103BCF8B1C1FBA48003A26CA /* MorseDictionaryViewController.swift */; };
-		103C08BF1C3E045500A8F6A6 /* SwiftGenericDataStructure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 103C08BD1C3E045500A8F6A6 /* SwiftGenericDataStructure.framework */; };
-		103C08C01C3E045500A8F6A6 /* SwiftGenericDataStructure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 103C08BD1C3E045500A8F6A6 /* SwiftGenericDataStructure.framework */; };
-		103C08C21C3E045A00A8F6A6 /* SwiftGenericDataStructure.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 103C08BD1C3E045500A8F6A6 /* SwiftGenericDataStructure.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1052A7431C0BACE90085B0C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7421C0BACE90085B0C9 /* AppDelegate.swift */; };
 		1052A7481C0BACE90085B0C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1052A7461C0BACE90085B0C9 /* Main.storyboard */; };
 		1052A74B1C0BACE90085B0C9 /* Morse.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7491C0BACE90085B0C9 /* Morse.xcdatamodeld */; };
@@ -227,7 +224,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				103C08C21C3E045A00A8F6A6 /* SwiftGenericDataStructure.framework in Copy Frameworks */,
 				107FF6C21C0BE11C003EB294 /* SnapKit.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
@@ -285,7 +281,6 @@
 		103476EA1C3750DC0036DB44 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
 		103476EB1C3750DC0036DB44 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
 		103BCF8B1C1FBA48003A26CA /* MorseDictionaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseDictionaryViewController.swift; sourceTree = "<group>"; };
-		103C08BD1C3E045500A8F6A6 /* SwiftGenericDataStructure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftGenericDataStructure.framework; sourceTree = "<group>"; };
 		103FB0751C1E8323004B591F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		103FB0761C1E8323004B591F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		103FB0771C1E8323004B591F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -359,7 +354,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				103C08BF1C3E045500A8F6A6 /* SwiftGenericDataStructure.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,7 +361,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				103C08C01C3E045500A8F6A6 /* SwiftGenericDataStructure.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,7 +578,6 @@
 		1088ACAC1C25A87800D17028 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				103C08BD1C3E045500A8F6A6 /* SwiftGenericDataStructure.framework */,
 				1088ACAA1C25A85C00D17028 /* AVFoundation.framework */,
 				10B9C8141C0FB5A4001C5847 /* CoreData.framework */,
 				107FF6B01C0BDEC0003EB294 /* SnapKit.xcodeproj */,
@@ -1102,7 +1094,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1141,7 +1133,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

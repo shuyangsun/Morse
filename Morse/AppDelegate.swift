@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import SwiftGenericDataStructure
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
