@@ -59,13 +59,18 @@ class CardView: UIView {
 		self.addGestureRecognizer(tapGR)
 	}
 
-	convenience init(frame:CGRect, text:String?, morse:String?, textOnTop:Bool = true, deletable:Bool = true, canBeFlipped:Bool = true, textFontSize:CGFloat = 16, morseFontSize:CGFloat = 14) {
+	convenience init(frame:CGRect, text:String?, morse:String?, textOnTop:Bool = true, deletable:Bool = true, canBeFlipped:Bool = true, textFontSize:CGFloat = 16, morseFontSize:CGFloat = 14, isProSignCard:Bool = false, isProsignEmergencyCard:Bool = false) {
 		self.init(frame:frame)
 		self.text = text
 		self.morse = morse
 		self.textOnTop = textOnTop
 		self.deletable = deletable
 		self.canBeFlipped = canBeFlipped
+		if isProsignEmergencyCard {
+			self.backgroundColor = theme.cardViewProsignEmergencyBackgroundColor
+		} else if isProSignCard {
+			self.backgroundColor = theme.cardViewProsignBackgroudColor
+		}
 
 		self.topLabel = UILabel(frame: CGRect(x: cardViewLabelPaddingHorizontal, y: cardViewLabelPaddingVerticle, width: self.bounds.width - cardViewLabelPaddingHorizontal * 2, height: (self.bounds.width - cardViewLabelPaddingVerticle * 2 - cardViewLabelVerticalGap)/2.0))
 		self.topLabel.opaque = false
@@ -73,10 +78,19 @@ class CardView: UIView {
 		self.topLabel.layer.borderWidth = 0
 		self.topLabel.layer.borderColor = UIColor.clearColor().CGColor
 		self.topLabel.userInteractionEnabled = false
+		var textColor = theme.cardViewTextColor
+		var morseColor = theme.cardViewMorseColor
+		if isProsignEmergencyCard {
+			textColor = theme.cardViewProsignEmergencyTextColor
+			morseColor = theme.cardViewProsignEmergencyMorseColor
+		} else if isProSignCard {
+			textColor = theme.cardViewProsignTextColor
+			morseColor = theme.cardViewProsignMorseColor
+		}
 		if self.textOnTop {
-			self.topLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: textFontSize, color: appDelegate.theme.cardViewTextColor, bold: true)
+			self.topLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: textFontSize, color: textColor, bold: true)
 		} else {
-			self.topLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: morseFontSize, color: appDelegate.theme.cardViewMorseColor)
+			self.topLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: morseFontSize, color: morseColor)
 			self.topLabel.lineBreakMode = .ByWordWrapping
 		}
 		self.addSubview(self.topLabel)
@@ -95,11 +109,11 @@ class CardView: UIView {
 		self.bottomLabel.layer.borderColor = UIColor.clearColor().CGColor
 		self.bottomLabel.userInteractionEnabled = false
 		if self.textOnTop {
-			self.bottomLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: morseFontSize, color: appDelegate.theme.cardViewMorseColor)
+			self.bottomLabel.attributedText = getAttributedStringFrom(self.morse, withFontSize: morseFontSize, color: morseColor)
 			self.bottomLabel.lineBreakMode = .ByWordWrapping
 		} else {
 			// TODO: Capitalize each word at the beginning of the sentence?
-			self.bottomLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: textFontSize, color: appDelegate.theme.cardViewTextColor, bold: true)
+			self.bottomLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: textFontSize, color: textColor, bold: true)
 		}
 		self.addSubview(bottomLabel)
 

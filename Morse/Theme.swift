@@ -120,6 +120,12 @@ enum Theme: String {
 		}
 	}
 
+	var cardViewProsignEmergencyBackgroundColor:UIColor {
+		switch self {
+		default: return MDColorPalette.Red.P500
+		}
+	}
+
 	var cardViewExpandedBackgroudColor:UIColor {
 		switch self {
 		default: return self.cardViewBackgroudColor
@@ -153,6 +159,18 @@ enum Theme: String {
 	var cardViewProsignMorseColor:UIColor {
 		switch self {
 		default: return self.cardViewMorseColor
+		}
+	}
+
+	var cardViewProsignEmergencyTextColor:UIColor {
+		switch self {
+		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		}
+	}
+
+	var cardViewProsignEmergencyMorseColor:UIColor {
+		switch self {
+		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextSecondaryAlpha)
 		}
 	}
 
