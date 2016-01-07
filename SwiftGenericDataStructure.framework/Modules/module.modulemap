@@ -1,0 +1,10 @@
+framework module SwiftGenericDataStructure {
+  umbrella header "SwiftGenericDataStructure.h"
+
+  export *
+  module * { export * }
+}
+
+module SwiftGenericDataStructure.Swift {
+    header "SwiftGenericDataStructure-Swift.h"
+}

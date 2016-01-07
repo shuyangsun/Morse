@@ -204,10 +204,8 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 						self.topSectionViewController.microphoneButton.alpha = 1
 					}
 				}) { succeed in
-					if succeed {
-						if !self.isDuringInput {
-							self.topSectionViewController.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: animationDuration)
-						}
+					if !self.isDuringInput {
+						self.topSectionViewController.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: animationDuration)
 					}
 			}
 
