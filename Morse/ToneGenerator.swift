@@ -7,15 +7,32 @@
 //
 
 import UIKit
+import AVFoundation
+//import JavaScriptCore
 
 class ToneGenerator: NSObject, EZOutputDataSource, EZOutputDelegate {
 	var pitch:Float {
-		return appDelegate.ouputPitch
+		return appDelegate.outputPitch
 	}
 	var sampleRate:Float = defaultSampleRate
 	var amplitude:Float = 1
 	var theta:Float = 0
 	private var _output = EZOutput()
+
+/*
+	private var _webAudioScript:String? {
+		if let jsFilePath = NSBundle.mainBundle().pathForResource("webAudioToneGenerator", ofType: "js") {
+			do {
+				let content = try String(contentsOfFile: jsFilePath, encoding: NSUTF8StringEncoding)
+				return content
+			} catch  {
+				NSLog("Unable to read from \"webAudioToneGenerator.js\" file.")
+				return nil
+			}
+		}
+		return nil
+	}
+*/
 
 	override init() {
 		super.init()
@@ -23,6 +40,16 @@ class ToneGenerator: NSObject, EZOutputDataSource, EZOutputDelegate {
 		self._output = EZOutput(dataSource: self, inputFormat: inputFormat)
 		self._output.delegate = self
 		self._output.volume = 1
+/*
+		// Test
+		print(self._webAudioScript)
+		if let script = self._webAudioScript {
+			let context = JSContext()
+			context.evaluateScript(script)
+			let startSignalFuncJSValue = context.objectForKeyedSubscript("myFunc")
+			startSignalFuncJSValue.callWithArguments([])
+		}
+*/
 	}
 
 	func play() {
@@ -46,7 +73,6 @@ class ToneGenerator: NSObject, EZOutputDataSource, EZOutputDelegate {
 		withNumberOfFrames frames: UInt32,
 		timestamp: UnsafePointer<AudioTimeStamp>) -> OSStatus {
 			let buffer = UnsafeMutablePointer<Float32>(audioBufferList.memory.mBuffers.mData)
-			//			let bufferByteSize = audioBufferList.memory.mBuffers.mDataByteSize
 			let twoPI = 2.0 * Float(M_PI)
 			var theta = self.theta
 			let thetaIncrement = twoPI * self.pitch / self.sampleRate;

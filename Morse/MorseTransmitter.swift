@@ -424,13 +424,13 @@ class MorseTransmitter {
 			while self._levelsHistoryRecent.count > recordLength {
 				self._levelsHistoryRecent.removeFirst()
 			}
-			var avgLvl:Float = 0
+			var thresholdLvl:Float = 0
 			if self._signalLvlCounter >= 10 {
-				avgLvl = self._signalLvlSum / self._signalLvlCounter
+				thresholdLvl = (self._signalLvlSum / self._signalLvlCounter)/5.0
 			} else {
-				avgLvl = (self._levelsHistoryRecent.reduce(0) { return $0 + $1 }) / Float(recordLength)
+				thresholdLvl = ((self._levelsHistoryRecent.reduce(0) { return $0 + $1 }) / Float(recordLength))/5.0
 			}
-			self._isDuringSignal = level >= max(avgLvl/3.0, 1)
+			self._isDuringSignal = level >= max(thresholdLvl, 1)
 			if self._isDuringSignal {
 				self._signalLvlSum += level
 				self._signalLvlCounter++
@@ -442,7 +442,7 @@ class MorseTransmitter {
 						print(self._isDuringSignal ? "*" : "=", separator: "", terminator: "")
 					}
 					print("\(Int(level))", separator: "", terminator: "")
-					print(" \(Int(avgLvl/3.0))")
+					print(" \(Int(thresholdLvl))")
 				}
 			#endif
 
@@ -548,28 +548,33 @@ class MorseTransmitter {
 					var misSpelledWord = ""
 					// Keep fixing mis-spelled words while there is one.
 					while misSpelledRange.location != NSNotFound {
+						let misSpelledIndexRange = correctedText.startIndex.advancedBy(misSpelledRange.location)..<correctedText.startIndex.advancedBy(misSpelledRange.location + misSpelledRange.length)
+						misSpelledWord = correctedText.substringWithRange(misSpelledIndexRange)
 						// See if there is any guess for the word.
 						if let guessedWords = self._spellChecker.guessesForWordRange(misSpelledRange, inString: correctedText, language: checkedLanguage) as? [String] {
 							if !guessedWords.isEmpty {
 								// Convert the word to upper case to avoid case sensitivity
 								let guessedWordsUpperCase = guessedWords.map { $0.uppercaseString }
-								let misSpelledIndexRange = correctedText.startIndex.advancedBy(misSpelledRange.location)..<correctedText.startIndex.advancedBy(misSpelledRange.location + misSpelledRange.length)
-								misSpelledWord = correctedText.substringWithRange(misSpelledIndexRange)
 								// Check if guessed words already contains the mis-spelled word without case sensitive, sometime spell checker is case sensitive.
 								if !guessedWordsUpperCase.contains(misSpelledWord.uppercaseString) {
 									// If there is at least one guessed word, replace the mis-spelled word with the first guessed word.
 									let firstGuessedWord = guessedWords[0]
-									#if DEBUG
-										print("Mis-spelled Word: \(misSpelledWord) | Guessed Words: \(guessedWords)")
-									#endif
 									correctedText.replaceRange(misSpelledIndexRange, with: firstGuessedWord)
 								}
-								// Keep looking for mis-spelled words
-								misSpelledRange = self._spellChecker.rangeOfMisspelledWordInString(correctedText, range: NSMakeRange(0, correctedText.lengthOfBytesUsingEncoding(NSASCIIStringEncoding)), startingAt: misSpelledRange.location + misSpelledRange.length - 1, wrap: false, language: checkedLanguage)
 							} else if guessedWords.isEmpty {
 								self._spellChecker.ignoreWord(misSpelledWord)
 							}
+							#if DEBUG
+								print("Mis-spelled Word: \(misSpelledWord) | Guessed Words: \(guessedWords)")
+							#endif
+						} else {
+							self._spellChecker.ignoreWord(misSpelledWord)
+							#if DEBUG
+								print("Mis-spelled Word: \(misSpelledWord) | Guessed Words: NONE")
+							#endif
 						}
+						// Keep looking for mis-spelled words
+						misSpelledRange = self._spellChecker.rangeOfMisspelledWordInString(correctedText, range: NSMakeRange(0, correctedText.lengthOfBytesUsingEncoding(NSASCIIStringEncoding)), startingAt: misSpelledRange.location + misSpelledRange.length - 1, wrap: false, language: checkedLanguage)
 					}
 					self._text = correctedText
 				}

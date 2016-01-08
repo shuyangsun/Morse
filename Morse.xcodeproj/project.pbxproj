@@ -163,6 +163,10 @@
 		10CC4EAA1C38854100B1F0F2 /* MorseTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CC4EA91C38854100B1F0F2 /* MorseTransmitterDelegate.swift */; };
 		10CC4EAB1C38854100B1F0F2 /* MorseTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CC4EA91C38854100B1F0F2 /* MorseTransmitterDelegate.swift */; };
 		10CC4EAC1C38854100B1F0F2 /* MorseTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CC4EA91C38854100B1F0F2 /* MorseTransmitterDelegate.swift */; };
+		10F1B5CD1C3F6C94000AA9C4 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10F1B5CC1C3F6C94000AA9C4 /* JavaScriptCore.framework */; };
+		10F1B5CF1C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */ = {isa = PBXBuildFile; fileRef = 10F1B5CE1C3F750C000AA9C4 /* webAudioToneGenerator.js */; };
+		10F1B5D01C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */ = {isa = PBXBuildFile; fileRef = 10F1B5CE1C3F750C000AA9C4 /* webAudioToneGenerator.js */; };
+		10F1B5D11C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */ = {isa = PBXBuildFile; fileRef = 10F1B5CE1C3F750C000AA9C4 /* webAudioToneGenerator.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -338,6 +342,8 @@
 		10CAF83D1C1DDFE700164258 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		10CAF83E1C1DDFE700164258 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		10CC4EA91C38854100B1F0F2 /* MorseTransmitterDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseTransmitterDelegate.swift; sourceTree = "<group>"; };
+		10F1B5CC1C3F6C94000AA9C4 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		10F1B5CE1C3F750C000AA9C4 /* webAudioToneGenerator.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = webAudioToneGenerator.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -345,6 +351,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10F1B5CD1C3F6C94000AA9C4 /* JavaScriptCore.framework in Frameworks */,
 				1088ACAB1C25A85C00D17028 /* AVFoundation.framework in Frameworks */,
 				10B9C8151C0FB5A4001C5847 /* CoreData.framework in Frameworks */,
 			);
@@ -563,6 +570,7 @@
 				10295BC71C24EE6B0060DBE1 /* MorseOutputPlayer.swift */,
 				100F7CD71C27513700DDD8EC /* MorseAudioRecorder.swift */,
 				105708FD1C3C39D200AEA1F6 /* ToneGenerator.swift */,
+				10F1B5CE1C3F750C000AA9C4 /* webAudioToneGenerator.js */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -578,6 +586,7 @@
 		1088ACAC1C25A87800D17028 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				10F1B5CC1C3F6C94000AA9C4 /* JavaScriptCore.framework */,
 				1088ACAA1C25A85C00D17028 /* AVFoundation.framework */,
 				10B9C8141C0FB5A4001C5847 /* CoreData.framework */,
 				107FF6B01C0BDEC0003EB294 /* SnapKit.xcodeproj */,
@@ -762,6 +771,7 @@
 				1052A7501C0BACE90085B0C9 /* LaunchScreen.storyboard in Resources */,
 				10CAF8141C1DDD4A00164258 /* InfoPlist.strings in Resources */,
 				1052A74D1C0BACE90085B0C9 /* Assets.xcassets in Resources */,
+				10F1B5CF1C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */,
 				1052A7481C0BACE90085B0C9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -770,6 +780,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10F1B5D01C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */,
 				10CAF8231C1DDD4A00164258 /* InfoPlist.strings in Resources */,
 				10CAF82D1C1DDE3100164258 /* Localizable.strings in Resources */,
 				1034771A1C3750DC0036DB44 /* Info.plist in Resources */,
@@ -783,6 +794,7 @@
 				103476C11C37481F0036DB44 /* EZAudio in Resources */,
 				10CAF81E1C1DDD4A00164258 /* InfoPlist.strings in Resources */,
 				10CAF8381C1DDFE700164258 /* Localizable.strings in Resources */,
+				10F1B5D11C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */,
 				1034771B1C3750DC0036DB44 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

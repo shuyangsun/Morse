@@ -23,6 +23,13 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 	var morseTextLabel:UILabel!
 	var screenFlashView:UIView!
 
+	var wpmLabel:UILabel!
+	var pitchLabel:UILabel!
+	var tutorial1Label:UILabel!
+	var tapToStartLabel:UILabel!
+	var swipeToDismissLabel:UILabel!
+	var labels:[UILabel] = []
+
 	var panGR:UIPanGestureRecognizer?
 	var pinchGR:UIPinchGestureRecognizer?
 
@@ -222,6 +229,76 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 			}
 		}
 
+		if self.wpmLabel == nil {
+			self.wpmLabel = UILabel()
+			self.wpmLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.wpm)\(appDelegate.outputWPM)", withFontSize: outputVCLabelFontSize, color: theme.outputVCLabelTextColorEmphasized, bold: false)
+			self.wpmLabel.opaque = false
+			self.wpmLabel.alpha = 0
+			self.labels.append(self.wpmLabel)
+			self.view.addSubview(self.wpmLabel)
+
+			self.wpmLabel.snp_makeConstraints(closure: { (make) -> Void in
+				make.centerX.equalTo(self.view)
+				make.top.equalTo(self.topBarView.snp_bottom).offset(outputVCLabelMarginVertical * 2)
+			})
+		}
+
+		if self.pitchLabel == nil {
+			self.pitchLabel = UILabel()
+			self.pitchLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.pitch)\(Int(appDelegate.outputPitch)) Hz", withFontSize: outputVCLabelFontSize, color: theme.outputVCLabelTextColorEmphasized, bold: false)
+			self.pitchLabel.opaque = false
+			self.pitchLabel.alpha = 0
+			self.labels.append(self.pitchLabel)
+			self.view.addSubview(self.pitchLabel)
+
+			self.pitchLabel.snp_makeConstraints(closure: { (make) -> Void in
+				make.centerX.equalTo(self.view)
+				make.top.equalTo(self.wpmLabel.snp_bottom).offset(outputVCLabelMarginVertical)
+			})
+		}
+
+		if self.tutorial1Label == nil {
+			self.tutorial1Label = UILabel()
+			self.tutorial1Label.attributedText = getAttributedStringFrom(LocalizedStrings.Label.tutorial1, withFontSize: outputVCLabelFontSize, color: theme.outputVCLabelTextColorNormal, bold: false)
+			self.tutorial1Label.opaque = false
+			self.tutorial1Label.alpha = 0
+			self.labels.append(self.tutorial1Label)
+			self.view.addSubview(self.tutorial1Label)
+
+			self.tutorial1Label.snp_makeConstraints(closure: { (make) -> Void in
+				make.centerX.equalTo(self.view)
+				make.top.equalTo(self.pitchLabel.snp_bottom).offset(outputVCLabelMarginVertical)
+			})
+		}
+
+		if self.swipeToDismissLabel == nil {
+			self.swipeToDismissLabel = UILabel()
+			self.swipeToDismissLabel.attributedText = getAttributedStringFrom(LocalizedStrings.Label.swipeToDismiss, withFontSize: outputVCLabelFontSize, color: theme.outputVCLabelTextColorNormal, bold: false)
+			self.swipeToDismissLabel.opaque = false
+			self.swipeToDismissLabel.alpha = 0
+			self.labels.append(self.swipeToDismissLabel)
+			self.view.addSubview(self.swipeToDismissLabel)
+
+			self.swipeToDismissLabel.snp_makeConstraints(closure: { (make) -> Void in
+				make.centerX.equalTo(self.view)
+				make.bottom.equalTo(self.view).offset(-outputVCLabelMarginVertical * 2)
+			})
+		}
+
+		if self.tapToStartLabel == nil {
+			self.tapToStartLabel = UILabel()
+			self.tapToStartLabel.attributedText = getAttributedStringFrom(LocalizedStrings.Label.tapToStart, withFontSize: outputVCLabelFontSize, color: theme.outputVCLabelTextColorNormal, bold: false)
+			self.tapToStartLabel.opaque = false
+			self.tapToStartLabel.alpha = 0
+			self.labels.append(self.tapToStartLabel)
+			self.view.addSubview(self.tapToStartLabel)
+
+			self.tapToStartLabel.snp_makeConstraints(closure: { (make) -> Void in
+				make.centerX.equalTo(self.view)
+				make.bottom.equalTo(self.swipeToDismissLabel.snp_top).offset(-outputVCLabelMarginVertical)
+			})
+		}
+
 		self._toneGenerator.mute()
 		self._toneGenerator.play()
     }
@@ -230,6 +307,12 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 		super.viewDidAppear(animated)
 		self._outputPlayer.morse = self.morse
 		self._outputPlayer.delegate = self
+		UIView.animateWithDuration(defaultAnimationDuration * animationDurationScalar,
+			delay: 0,
+			options: .CurveEaseInOut,
+			animations: {
+				let _ = self.labels.map { $0.alpha = 1 }
+		}, completion: nil)
 	}
 
 	override func viewWillDisappear(animated: Bool) {
@@ -342,6 +425,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 			delay: 0,
 			options: .CurveEaseInOut,
 			animations: {
+				let _ = self.labels.map { $0.alpha = 0 }
 				self.view.layoutIfNeeded()
 				self.morseTextBackgroundView.alpha = 1.0
 				self.percentageLabel.alpha = 1.0
@@ -349,6 +433,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 				if succeed {
 					self._startDate = NSDate()
 					self._outputPlayer.start()
+					self._toneGenerator.play()
 					if appDelegate.brightenScreenWhenOutput {
 						self._originalBrightness = UIScreen.mainScreen().brightness
 						UIScreen.mainScreen().brightness = 1
@@ -362,6 +447,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 	private func stopPlaying() {
 		// User wants to stop playing
 		self._outputPlayer.stop()
+		self._toneGenerator.stop()
 		self._progressTimer.invalidate()
 		if appDelegate.brightenScreenWhenOutput {
 			UIScreen.mainScreen().brightness = self._originalBrightness
@@ -370,6 +456,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 			delay: 0,
 			options: .CurveEaseInOut,
 			animations: {
+				let _ = self.labels.map { $0.alpha = 1 }
 				self.morseTextBackgroundView.alpha = 0.0
 				self.percentageLabel.alpha = 0.0
 				let x = layoutDirection == .LeftToRight ? 0 : self.topBarView.bounds.width

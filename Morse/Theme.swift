@@ -217,6 +217,18 @@ enum Theme: String {
 		}
 	}
 
+	var outputVCLabelTextColorEmphasized:UIColor {
+		switch self {
+		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextSecondaryAlpha)
+		}
+	}
+
+	var outputVCLabelTextColorNormal:UIColor {
+		switch self {
+		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextHintAlpha)
+		}
+	}
+
 	// Tab bar VC
 
 	var tabBarBackgroundColor:UIColor {

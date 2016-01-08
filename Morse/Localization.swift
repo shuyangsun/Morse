@@ -77,6 +77,11 @@ struct LocalizedStrings {
 		static let topBarTextLabel = NSLocalizedString("Text", comment: "On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.")
 		static let topBarMorseLabel = NSLocalizedString("Morse", comment: "On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.")
 		static let topBarMorseDictionary = NSLocalizedString("Dictionary", comment: "This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations.")
+		static let wpm = NSLocalizedString("WPM: ", comment: "This is a label on the output page, followed by the numer of WPM (word per minute).")
+		static let pitch = NSLocalizedString("Pitch: ", comment: "This is a label on the output page, followed by the numer of audio frequency (pitch).")
+		static let tutorial1 = NSLocalizedString("Adjust in Settings", comment: "This is a label on the output page, tells the user how to change some of the values.")
+		static let tapToStart = NSLocalizedString("Tap anywhere to play or pause", comment: "This is a label on the output page, tells user how to play or pause the output.")
+		static let swipeToDismiss = NSLocalizedString("Swipe or pinch to go back", comment: "This is a label on the output page, tells user how to go back to home page.")
 	}
 
 	struct Hint {

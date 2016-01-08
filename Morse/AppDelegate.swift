@@ -81,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return self.userDefaults.boolForKey(userDefaultsKeyInputPitchAutomatic)
 	}
 
-	var ouputPitch:Float {
+	var outputPitch:Float {
 		let res = self.userDefaults.floatForKey(userDefaultsKeyOutputPitch)
 		return res <= 0 ? defaultOutputPitch : res
 	}
@@ -102,7 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyExtraTextWhenShare)
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyBrightenScreenWhenOutput)
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyInputPitchAutomatic)
-			self.userDefaults.setBool(false, forKey: userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
+			self.userDefaults.setBool(true, forKey: userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
 			self.userDefaults.setFloat(defaultInputPitch, forKey: userDefaultsKeyInputPitch)
 			self.userDefaults.setFloat(defaultOutputPitch, forKey: userDefaultsKeyOutputPitch)
 			self.userDefaults.synchronize()
