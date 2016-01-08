@@ -352,7 +352,7 @@ class MorseTransmitter {
 	private let _audioAnalysisQueue = dispatch_queue_create("Audio Analysis Queue", nil)
 	private var _currentLetterMorse = ""
 	private var _currentWordMorse = ""
-	private var _inputWPM = 15
+	private var _inputWPM = defaultInputWPM
 	private var _sampleRate:Double = -1
 	private let _spellChecker = UITextChecker()
 	// This variable means how many callbacks should one unit be with the given WPM and the default sample rate (44100).
@@ -361,26 +361,30 @@ class MorseTransmitter {
 		return Float(self._sampleRate/1000.0/unitsPerSecond)
 	}
 
-	private var _oneUnitLengthRange:Range<Int> {
-//		return	Int(floor(self._unitLength))...Int(floor(self._unitLength * 2))
-		return 2...5
-	}
-
-	private var _threeUnitLengthRange:Range<Int> {
-//		return	self._oneUnitLengthRange.endIndex...self._oneUnitLengthRange.startIndex * 3
-		return 7...14
-	}
-
-	private var _sevenUnitLengthRange:Range<Int> {
-//		return	self._threeUnitLengthRange.endIndex...self._oneUnitLengthRange.startIndex * 99
-		return 15...999
+	private var _lengthRanges:(oneUnit:Range<Int>, threeUnit:Range<Int>, sevenUnit:Range<Int>) {
+		if (14...18).contains(self._inputWPM) {
+			return (2...5, 6...14, 15...999)
+		} else if (19...23).contains(self._inputWPM) {
+			return (2...4, 5...11, 12...999)
+		} else if self._inputWPM == 24 {
+			return (2...4, 5...7, 8...999)
+		} else if self._inputWPM == 25 {
+			return (2...3, 4...6, 7...999)
+		}
+		return (2...5, 7...14, 15...999)
 	}
 
 	private var _isDuringSignal = false
 	private var _singalStarted = false
 	private var _wordGapAppended = true
+	private var _newLineAppended = true
 	private var _counter = 0
-	private var _levelsRecord:[Float] = []
+
+	// The following 3 variables are to help calculating the threshold of signal rise/fall
+	private var _signalLvlSum:Float = 0
+	private var _signalLvlCounter:Float = 0
+	private var _levelsHistoryRecent:[Float] = []
+
 	private var _minLvl = Int.max
 
 	// ******************************************************************************
@@ -390,8 +394,11 @@ class MorseTransmitter {
 		self._morse = ""
 		self._text = ""
 		self._currentLetterMorse = ""
-		self._inputWPM = 15
+		self._inputWPM = defaultInputWPM
 		self._sampleRate = -1
+		self._levelsHistoryRecent = []
+		self._signalLvlSum = 0
+		self._signalLvlCounter = 0
 	}
 
 	// This method is called when an audio sample has been recieved in the microphone.
@@ -402,24 +409,32 @@ class MorseTransmitter {
 				self._sampleRate = microphone.audioStreamBasicDescription().mSampleRate
 				#if DEBUG
 				print(self._unitLength)
-				print(self._oneUnitLengthRange)
-				print(self._threeUnitLengthRange)
-				print(self._sevenUnitLengthRange)
+				print(self._lengthRanges.oneUnit)
+				print(self._lengthRanges.threeUnit)
+				print(self._lengthRanges.sevenUnit)
 				#endif
 			}
-			// Setup WPM
-			self._inputWPM = 15 // TODO: Better algorithm for this
 
+			// TODO Auto WPM
 			let level = pow(maxFrequencyMagnitude * 100, 1.5)
 
 			// Calculate when should the isDuringSignal bar be set.
-			self._levelsRecord.append(level)
-			let recordLength = (self._oneUnitLengthRange.startIndex + self._oneUnitLengthRange.endIndex - 1)/2
-			while self._levelsRecord.count > recordLength {
-				self._levelsRecord.removeFirst()
+			self._levelsHistoryRecent.append(level)
+			let recordLength = (self._lengthRanges.oneUnit.startIndex + self._lengthRanges.oneUnit.endIndex - 1)/2
+			while self._levelsHistoryRecent.count > recordLength {
+				self._levelsHistoryRecent.removeFirst()
 			}
-			let avgLvl = (self._levelsRecord.reduce(0) { return $0 + $1 }) / Float(recordLength)
-			self._isDuringSignal = level >= max(avgLvl/3.0, 1) // FIXME: better algorithm. This one does not work properly on high or low input volumes.
+			var avgLvl:Float = 0
+			if self._signalLvlCounter >= 10 {
+				avgLvl = self._signalLvlSum / self._signalLvlCounter
+			} else {
+				avgLvl = (self._levelsHistoryRecent.reduce(0) { return $0 + $1 }) / Float(recordLength)
+			}
+			self._isDuringSignal = level >= max(avgLvl/3.0, 1)
+			if self._isDuringSignal {
+				self._signalLvlSum += level
+				self._signalLvlCounter++
+			}
 			#if DEBUG
 				// If debugging, print the wave form in the console.
 				if printAudiWaveFormWhenDebug {
@@ -438,12 +453,9 @@ class MorseTransmitter {
 				} else {
 					// Signal rises
 					if !self._text!.isEmpty {
-						if self._threeUnitLengthRange.contains(self._counter) {
-							self.appendUnit(.LetterGap)
-						} else if self._sevenUnitLengthRange.contains(self._counter) {
-							if !self._wordGapAppended {
-								self.appendUnit(.WordGap)
-								self._wordGapAppended = true
+						if self._lengthRanges.threeUnit.contains(self._counter) {
+							if !self._wordGapAppended && !self._newLineAppended {
+								self.appendUnit(.LetterGap)
 							}
 						}
 					}
@@ -454,9 +466,9 @@ class MorseTransmitter {
 			} else {
 				if self._singalStarted {
 					// Singal falls
-					if self._oneUnitLengthRange.contains(self._counter) {
+					if self._lengthRanges.oneUnit.contains(self._counter) {
 						self.appendUnit(.Dit)
-					} else if self._threeUnitLengthRange.contains(self._counter) || self._sevenUnitLengthRange.contains(self._counter) {
+					} else if self._lengthRanges.threeUnit.contains(self._counter) || self._lengthRanges.sevenUnit.contains(self._counter) {
 						self.appendUnit(.Dah)
 					}
 					self._counter = 1
@@ -465,8 +477,8 @@ class MorseTransmitter {
 					// Singal already fell, not during signal
 					self._counter++
 
-					if self._sevenUnitLengthRange.contains(self._counter) {
-						if !self._wordGapAppended {
+					if self._lengthRanges.sevenUnit.contains(self._counter) {
+						if !self._wordGapAppended && !self._newLineAppended {
 							self.appendUnit(.WordGap)
 						}
 						self._wordGapAppended = true
@@ -481,6 +493,7 @@ class MorseTransmitter {
 	// Only 4 type of units can be appended: DIT, DAH, LETTERGAP, WORDGAP. UNITGAP will be appended automatically.
 	// ********************************************************************************************************************
 	private func appendUnit(unit:MorseUnit) {
+		self._newLineAppended = false
 		if unit == .LetterGap || unit == .WordGap {
 			// If we're appending a gap, reset currentLetterMorse
 			self._currentLetterMorse = ""
@@ -492,17 +505,26 @@ class MorseTransmitter {
 			}
 			if unit == .WordGap {
 				if self.prosignTranslationType == .Always {
-					print(self._currentWordMorse)
 					// If we translate prosign, decode the whole sentence again.
 					if let prosignText = MorseTransmitter.prosignMorseToTextStringDictionary[self._currentWordMorse] {
+						if prosignText.characters.last! == "\n" { // Cannot use hasSuffix method, does not work on newline characters.
+							self._newLineAppended = true
+						}
+						// Remove the wrong character appended last time.
 						self._text?.removeAtIndex(self._text!.endIndex.advancedBy(-1))
+						// If a newline was appended, removed the redundant space appended to text last time.
+						if self._newLineAppended {
+							self._text?.removeAtIndex(self._text!.endIndex.advancedBy(-1))
+						}
 						self._text?.appendContentsOf(prosignText)
 					}
 					self._currentWordMorse = ""
 				}
 				self._morse?.appendContentsOf(unit.rawValue)
-				// Append a space on the text if there's a word gap
-				self._text?.appendContentsOf(" ")
+				// Append a space on the text if there's a word gap, don't append if there is a newline before
+				if !self._newLineAppended {
+					self._text?.appendContentsOf(" ")
+				}
 
 				// If the user wants to auto correct mis-spelled words when using audio input to translate morse, this chunk of code does it.
 				// This is only done after appending a white space
@@ -523,6 +545,7 @@ class MorseTransmitter {
 					}
 					// Find the first mis-spelled range.
 					var misSpelledRange = self._spellChecker.rangeOfMisspelledWordInString(correctedText, range: NSMakeRange(0, correctedText.lengthOfBytesUsingEncoding(NSASCIIStringEncoding)), startingAt: 0, wrap: false, language: checkedLanguage)
+					var misSpelledWord = ""
 					// Keep fixing mis-spelled words while there is one.
 					while misSpelledRange.location != NSNotFound {
 						// See if there is any guess for the word.
@@ -531,7 +554,7 @@ class MorseTransmitter {
 								// Convert the word to upper case to avoid case sensitivity
 								let guessedWordsUpperCase = guessedWords.map { $0.uppercaseString }
 								let misSpelledIndexRange = correctedText.startIndex.advancedBy(misSpelledRange.location)..<correctedText.startIndex.advancedBy(misSpelledRange.location + misSpelledRange.length)
-								let misSpelledWord = correctedText.substringWithRange(misSpelledIndexRange)
+								misSpelledWord = correctedText.substringWithRange(misSpelledIndexRange)
 								// Check if guessed words already contains the mis-spelled word without case sensitive, sometime spell checker is case sensitive.
 								if !guessedWordsUpperCase.contains(misSpelledWord.uppercaseString) {
 									// If there is at least one guessed word, replace the mis-spelled word with the first guessed word.
@@ -543,6 +566,8 @@ class MorseTransmitter {
 								}
 								// Keep looking for mis-spelled words
 								misSpelledRange = self._spellChecker.rangeOfMisspelledWordInString(correctedText, range: NSMakeRange(0, correctedText.lengthOfBytesUsingEncoding(NSASCIIStringEncoding)), startingAt: misSpelledRange.location + misSpelledRange.length - 1, wrap: false, language: checkedLanguage)
+							} else if guessedWords.isEmpty {
+								self._spellChecker.ignoreWord(misSpelledWord)
 							}
 						}
 					}

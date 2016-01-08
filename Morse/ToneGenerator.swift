@@ -15,7 +15,7 @@ class ToneGenerator: NSObject, EZOutputDataSource, EZOutputDelegate {
 	var sampleRate:Float = defaultSampleRate
 	var amplitude:Float = 1
 	var theta:Float = 0
-	var _output:EZOutput = EZOutput()
+	private var _output = EZOutput()
 
 	override init() {
 		super.init()

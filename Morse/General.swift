@@ -30,6 +30,8 @@ let prosignContainerRight = "]"
 // WPM
 let outputMinWPM = 5
 let outputMaxWPM = 50
+let defaultOutputWPM = 20
+let defaultInputWPM = 20
 
 let inputPitchMin:Float = 1
 let inputPitchMax:Float = 2000
@@ -41,12 +43,10 @@ let audioSampleFrequencyTimeInterval:NSTimeInterval = 0
 let defaultInputPitch:Float = 550
 let defaultOutputPitch:Float = 800
 let automaticPitchMin:Float = 500
-let defaultInputPitchErrorRangeManual:Float = 5
-let defaultInputPitchErrorRangeAutomatic:Float = 10
+var defaultInputPitchErrorRange:Float = 7
 var inputPitchRange:Range<Int> {
 	let settingsPitch = appDelegate.inputPitch
-	let frequencyErrorRange = appDelegate.inputPitchAutomatic ? defaultInputPitchErrorRangeAutomatic : defaultInputPitchErrorRangeManual
-	return max(Int(inputPitchMin), Int(ceil(settingsPitch - frequencyErrorRange)))...max(Int(inputPitchMin), Int(frequencyErrorRange * 2), Int(ceil(settingsPitch + frequencyErrorRange)))
+	return max(Int(inputPitchMin), Int(ceil(settingsPitch - defaultInputPitchErrorRange)))...max(Int(inputPitchMin), Int(defaultInputPitchErrorRange * 2), Int(ceil(settingsPitch + defaultInputPitchErrorRange)))
 }
 let printAudiWaveFormWhenDebug = false
 

@@ -64,12 +64,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var outputWPM:Int {
 		let res = self.userDefaults.integerForKey(userDefaultsKeyOutputWPM)
-		return res <= 0 ? 15 : res
+		return res <= 0 ? defaultOutputWPM : res
 	}
 
 	var inputWPM:Int {
 		let res = self.userDefaults.integerForKey(userDefaultsKeyInputWPM)
-		return res <= 0 ? 15 : res
+		return res <= 0 ? defaultInputWPM : res
 	}
 
 	var inputPitch:Float {
@@ -102,7 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyExtraTextWhenShare)
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyBrightenScreenWhenOutput)
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyInputPitchAutomatic)
-			self.userDefaults.setBool(true, forKey: userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
+			self.userDefaults.setBool(false, forKey: userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
 			self.userDefaults.setFloat(defaultInputPitch, forKey: userDefaultsKeyInputPitch)
 			self.userDefaults.setFloat(defaultOutputPitch, forKey: userDefaultsKeyOutputPitch)
 			self.userDefaults.synchronize()
