@@ -150,6 +150,7 @@ class CardViewOutputAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 							snapshotOutput.frame = CGRect(x: 0, y: 0, width: cardFrame.width, height: snapshotOutput.bounds.height)
 							tabBarVC.view.alpha = 1
 						}) { succeed in
+							// FIXME: Not called if interaction time is less than animation time.
 							containerView.removeFromSuperview()
 							transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
 							if !transitionContext.transitionWasCancelled() {

@@ -49,7 +49,7 @@ class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveT
 			if let startDate = self.transitionStartDate {
 				delayFinishTransitionTime -= NSDate().timeIntervalSinceDate(startDate)
 			}
-			delayFinishTransitionTime += 0.1
+			delayFinishTransitionTime += 0.05
 			delayFinishTransitionTime = max(0, delayFinishTransitionTime)
 			if state == .Began {
 				self.transitionStartDate = NSDate()
@@ -61,6 +61,7 @@ class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveT
 					if self.percentComplete != ratio {
 						if ratio >= 1 {
 							self.transitionInProgress = false
+							self.updateInteractiveTransition(1)
 							NSTimer.scheduledTimerWithTimeInterval(delayFinishTransitionTime, target: self, selector: "finishInteractiveTransition", userInfo: nil, repeats: false)
 						} else {
 							self.updateInteractiveTransition(ratio)
@@ -78,6 +79,7 @@ class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveT
 					// FIX ME: cancel is not working, there is a bug. The work around using now is to set dismissRatio to 0.
 					cancelInteractiveTransition()
 				} else {
+					self.updateInteractiveTransition(1)
 					NSTimer.scheduledTimerWithTimeInterval(delayFinishTransitionTime, target: self, selector: "finishInteractiveTransition", userInfo: nil, repeats: false)
 				}
 				self.transitionInProgress = false
