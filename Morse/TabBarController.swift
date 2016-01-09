@@ -18,6 +18,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 	let cardViewOutputTransitionInteractionController = CardViewOutputTransitionInteractionController()
 	private let _cardViewOutputAnimator = CardViewOutputAnimator()
 
+	override func preferredStatusBarStyle() -> UIStatusBarStyle {
+		return .Default
+	}
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.

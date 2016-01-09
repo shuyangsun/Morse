@@ -199,9 +199,15 @@ enum Theme: String {
 	}
 
 	// Output VC
+	var outputVCTopBarColor:UIColor {
+		switch self {
+		default: return UIColor.blackColor()
+		}
+	}
+
 	var progressBarColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Blue.P300
+		case .Default: return MDColorPalette.Blue.P500
 		}
 	}
 

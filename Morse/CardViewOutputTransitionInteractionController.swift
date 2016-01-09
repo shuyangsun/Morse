@@ -10,10 +10,12 @@ import UIKit
 
 class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveTransition {
 	var transitionInProgress = false
+	var transitionStartDate:NSDate? = nil
 	var outputVC:OutputViewController! = nil {
 		willSet {
 			let pinchGR = UIPinchGestureRecognizer(target: self, action: "handleInteractionGR:")
 			let panGR = UIPanGestureRecognizer(target: self, action: "handleInteractionGR:")
+			
 			if newValue.pinchGR == nil {
 				newValue.pinchGR = pinchGR
 			}
@@ -43,8 +45,15 @@ class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveT
 				ratio = max(0, 1 - pinchGR.scale)
 			}
 			let state = gr.state
+			var delayFinishTransitionTime = defaultAnimationDuration/2.0 * animationDurationScalar
+			if let startDate = self.transitionStartDate {
+				delayFinishTransitionTime -= NSDate().timeIntervalSinceDate(startDate)
+			}
+			delayFinishTransitionTime += 0.1
+			delayFinishTransitionTime = max(0, delayFinishTransitionTime)
 			if state == .Began {
-				self.tabBarVC.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
+				self.transitionStartDate = NSDate()
+				self.tabBarVC.dismissViewControllerAnimated(true, completion: nil)
 				self.transitionInProgress = true
 			} else if state == .Changed && self.transitionInProgress {
 				if (gr is UIPanGestureRecognizer) && touchTranslation.y >= slideAndPinchStartDistance || gr is UIPinchGestureRecognizer {
@@ -52,9 +61,9 @@ class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveT
 					if self.percentComplete != ratio {
 						if ratio >= 1 {
 							self.transitionInProgress = false
-							finishInteractiveTransition()
+							NSTimer.scheduledTimerWithTimeInterval(delayFinishTransitionTime, target: self, selector: "finishInteractiveTransition", userInfo: nil, repeats: false)
 						} else {
-							updateInteractiveTransition(ratio)
+							self.updateInteractiveTransition(ratio)
 						}
 					}
 				} else {
@@ -69,7 +78,7 @@ class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveT
 					// FIX ME: cancel is not working, there is a bug. The work around using now is to set dismissRatio to 0.
 					cancelInteractiveTransition()
 				} else {
-					finishInteractiveTransition()
+					NSTimer.scheduledTimerWithTimeInterval(delayFinishTransitionTime, target: self, selector: "finishInteractiveTransition", userInfo: nil, repeats: false)
 				}
 				self.transitionInProgress = false
 			}

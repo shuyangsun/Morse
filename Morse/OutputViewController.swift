@@ -87,6 +87,10 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 	private let _doneButtonWidth:CGFloat = 100
 	private var _originalBrightness:CGFloat = UIScreen.mainScreen().brightness
 
+	override func preferredStatusBarStyle() -> UIStatusBarStyle {
+		return .LightContent
+	}
+
 	// *****************************
 	// MARK: MVC Lifecycle
 	// *****************************
@@ -95,7 +99,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 
 		if self.topBarView == nil {
 			self.topBarView = UIView(frame: CGRect(x: 0, y: statusBarHeight, width: self.view.bounds.width, height: topBarHeight + statusBarHeight))
-			self.topBarView.backgroundColor = theme.topBarBackgroundColor
+			self.topBarView.backgroundColor = theme.outputVCTopBarColor
 			self.view.addSubview(self.topBarView)
 			self.topBarView.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.view)
@@ -229,20 +233,6 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 			}
 		}
 
-		if self.wpmLabel == nil {
-			self.wpmLabel = UILabel()
-			self.wpmLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.wpm)\(appDelegate.outputWPM)", withFontSize: outputVCLabelFontSize, color: theme.outputVCLabelTextColorEmphasized, bold: false)
-			self.wpmLabel.opaque = false
-			self.wpmLabel.alpha = 0
-			self.labels.append(self.wpmLabel)
-			self.view.addSubview(self.wpmLabel)
-
-			self.wpmLabel.snp_makeConstraints(closure: { (make) -> Void in
-				make.centerX.equalTo(self.view)
-				make.top.equalTo(self.topBarView.snp_bottom).offset(outputVCLabelMarginVertical * 2)
-			})
-		}
-
 		if self.pitchLabel == nil {
 			self.pitchLabel = UILabel()
 			self.pitchLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.pitch)\(Int(appDelegate.outputPitch)) Hz", withFontSize: outputVCLabelFontSize, color: theme.outputVCLabelTextColorEmphasized, bold: false)
@@ -253,7 +243,21 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 
 			self.pitchLabel.snp_makeConstraints(closure: { (make) -> Void in
 				make.centerX.equalTo(self.view)
-				make.top.equalTo(self.wpmLabel.snp_bottom).offset(outputVCLabelMarginVertical)
+				make.centerY.equalTo(self.view)
+			})
+		}
+
+		if self.wpmLabel == nil {
+			self.wpmLabel = UILabel()
+			self.wpmLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.wpm)\(appDelegate.outputWPM)", withFontSize: outputVCLabelFontSize, color: theme.outputVCLabelTextColorEmphasized, bold: false)
+			self.wpmLabel.opaque = false
+			self.wpmLabel.alpha = 0
+			self.labels.append(self.wpmLabel)
+			self.view.addSubview(self.wpmLabel)
+
+			self.wpmLabel.snp_makeConstraints(closure: { (make) -> Void in
+				make.centerX.equalTo(self.view)
+				make.bottom.equalTo(self.pitchLabel.snp_top).offset(-outputVCLabelMarginVertical)
 			})
 		}
 

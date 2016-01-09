@@ -20,7 +20,7 @@ let canBeSpellCheckedLanguageCodes:Set<String> = ["en"]
 let defaultSpellCheckLanguageCode = "en"
 
 var layoutDirection:UIUserInterfaceLayoutDirection {
-	return UIView.userInterfaceLayoutDirectionForSemanticContentAttribute(.Unspecified)
+	return UIView.userInterfaceLayoutDirectionForSemanticContentAttribute(.Unspecified) == .LeftToRight ? .LeftToRight : .RightToLeft
 }
 
 struct LocalizedStrings {

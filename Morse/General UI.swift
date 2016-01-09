@@ -64,9 +64,9 @@ var animationDurationScalar:NSTimeInterval {
 }
 
 enum Direction:Int {
-	case Top = 1
-	case Right = 2
-	case Bottom = 3
-	case Left = 4
+	case BottomToTop = 1
+	case LeftToRight = 2
+	case TopToBottom = 3
+	case RightToLeft = 4
 }
 
