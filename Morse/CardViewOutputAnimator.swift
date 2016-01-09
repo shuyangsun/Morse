@@ -12,7 +12,7 @@ class CardViewOutputAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 	var reverse = false
 
 	@objc func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-		return defaultAnimationDuration/2.0 * animationDurationScalar
+		return defaultAnimationDuration * animationDurationScalar
 	}
 
 	@objc func animateTransition(transitionContext: UIViewControllerContextTransitioning) {

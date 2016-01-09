@@ -63,18 +63,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	var outputWPM:Int {
-		let res = self.userDefaults.integerForKey(userDefaultsKeyOutputWPM)
-		return res <= 0 ? defaultOutputWPM : res
+		return self.userDefaults.integerForKey(userDefaultsKeyOutputWPM)
 	}
 
 	var inputWPM:Int {
-		let res = self.userDefaults.integerForKey(userDefaultsKeyInputWPM)
-		return res <= 0 ? defaultInputWPM : res
+		return self.userDefaults.integerForKey(userDefaultsKeyInputWPM)
+	}
+
+	var inputWPMAutomatic:Bool {
+		return self.userDefaults.boolForKey(userDefaultsKeyInputWPMAutomatic)
 	}
 
 	var inputPitch:Float {
-		let res = self.userDefaults.floatForKey(userDefaultsKeyInputPitch)
-		return res <= 0 ? defaultInputPitch : res
+		return self.userDefaults.floatForKey(userDefaultsKeyInputPitch)
 	}
 
 	var inputPitchAutomatic:Bool {
@@ -82,8 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	var outputPitch:Float {
-		let res = self.userDefaults.floatForKey(userDefaultsKeyOutputPitch)
-		return res <= 0 ? defaultOutputPitch : res
+		return self.userDefaults.floatForKey(userDefaultsKeyOutputPitch)
 	}
 
 	var brightenScreenWhenOutput:Bool {
@@ -101,9 +101,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		if !self.notFirstLaunch {
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyExtraTextWhenShare)
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyBrightenScreenWhenOutput)
+			self.userDefaults.setBool(true, forKey: userDefaultsKeyInputWPMAutomatic)
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyInputPitchAutomatic)
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
+			self.userDefaults.setInteger(defaultInputWPM, forKey: userDefaultsKeyInputWPM)
 			self.userDefaults.setFloat(defaultInputPitch, forKey: userDefaultsKeyInputPitch)
+			self.userDefaults.setInteger(defaultOutputWPM, forKey: userDefaultsKeyOutputWPM)
 			self.userDefaults.setFloat(defaultOutputPitch, forKey: userDefaultsKeyOutputPitch)
 			self.userDefaults.synchronize()
 		}

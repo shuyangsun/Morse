@@ -13,7 +13,7 @@ var theme:Theme {
 }
 
 private let scrollViewOverlayAlpha:CGFloat = 0.35
-private let scrollViewOverlayAlphaAudioInput:CGFloat = 0.75
+private let scrollViewOverlayAlphaAudioInput:CGFloat = 0
 
 enum Theme: String {
 	case Default = "Default"
@@ -235,6 +235,18 @@ enum Theme: String {
 		}
 	}
 
+	var waveformVCLabelTextColorEmphasized:UIColor {
+		switch self {
+		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextSecondaryAlpha)
+		}
+	}
+
+	var waveformVCLabelTextColorNormal:UIColor {
+		switch self {
+		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextHintAlpha)
+		}
+	}
+
 	// Tab bar VC
 
 	var tabBarBackgroundColor:UIColor {
@@ -328,21 +340,29 @@ enum Theme: String {
 		}
 	}
 
+	// Audio VC
+
 	var audioPlotBackgroundColor:UIColor {
 		switch self {
-		default: return UIColor.clearColor()
+		default: return UIColor(hex: 0x000, alpha: 0.8)
 		}
 	}
 
 	var audioPlotColor:UIColor {
 		switch self {
-		case .Default: return UIColor(hex: 0xFFFFFF, alpha: scrollViewOverlayAlpha)
+		case .Default: return UIColor(hex: 0xFFFFFF, alpha: 0.5)
 		}
 	}
 
 	var audioPlotPitchFilteredColor:UIColor {
 		switch self {
-		case .Default: return UIColor(hex: MDColorPalette.Blue.P500.hex, alpha: scrollViewOverlayAlphaAudioInput)
+		case .Default: return UIColor(hex: MDColorPalette.Blue.P500.hex, alpha: 0.8)
+		}
+	}
+
+	var scrollViewBlurTintColor:UIColor {
+		switch self {
+		default: return UIColor(hex: 0x000, alpha: 0.2)
 		}
 	}
 
@@ -383,6 +403,12 @@ enum Theme: String {
 	var cardViewCornerRadius:CGFloat {
 		switch self {
 		default: return 2
+		}
+	}
+
+	var scrollViewBlurRadius:CGFloat {
+		switch self {
+		default: return 15
 		}
 	}
 

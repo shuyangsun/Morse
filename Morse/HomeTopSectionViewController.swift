@@ -554,13 +554,11 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	func keyboardButtonTapped() {
 		self.inputTextView.becomeFirstResponder()
 		self.animateAndLayoutUIForInputStart()
-		self.homeViewController.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.homeViewController.scrollView.bounds.width, height: 1), animated: true)
 	}
 
 	func microphoneButtonTapped() {
 		self.animateAndLayoutUIForInputStart()
 		self.inputTextView.userInteractionEnabled = false
-		self.homeViewController.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.homeViewController.scrollView.bounds.width, height: 1), animated: true)
 	}
 
 	func audioPlotTapped(gestureRecognizer:UITapGestureRecognizer) {
@@ -629,6 +627,12 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	}
 
 	private func animateAndLayoutUIForInputStart() {
+//		var delayTime:NSTimeInterval = 0
+//		if self.homeViewController.scrollView.contentOffset > 0 {
+//
+//		}
+		self.homeViewController.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.homeViewController.scrollView.bounds.width, height: 1), animated: true)
+
 		let animationDuration = defaultAnimationDuration/3.0
 		// Show cancel button
 		self.cancelButton.appearWithDuration(animationDuration)
@@ -697,8 +701,13 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 					self.view.layoutIfNeeded()
 					self.homeViewController.scrollViewOverlay.alpha = 1
 					self.homeViewController.micInputSectionContainerView?.alpha = 1
+					self.homeViewController.scrollViewSnapshotImageView?.alpha = 1
 					self.homeViewController.topSectionContainerView.addMDShadow(withDepth: 3)
-				}, completion: nil)
+				}) { succeed in
+					// If the top section is hidden, and the microphone button is tapped, blured screenshot will  not beupdated correctly.
+					// The following code updates blured image if that happens.
+					self.homeViewController.updateScrollViewBlurImage()
+			}
 		}
 		// Collapse expanded card view if there is one
 		self.homeViewController.collapseCurrentExpandedCard()
@@ -763,6 +772,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 				self.view.layoutIfNeeded()
 				self.homeViewController.scrollViewOverlay.alpha = 0
 				self.homeViewController.micInputSectionContainerView?.alpha = 0
+				self.homeViewController.scrollViewSnapshotImageView?.alpha = 0
 				self.homeViewController.topSectionContainerView.addMDShadow(withDepth: 2)
 			}) { succeed in
 				if succeed {
@@ -770,8 +780,10 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 					// If the input frequency is set to be detected automatically, restore the min frequency.
 					self.homeViewController.micInputSectionViewController?.microphone.stopFetchingAudio()
 					self.homeViewController.micInputSectionContainerView?.removeFromSuperview()
+					self.homeViewController.scrollViewSnapshotImageView?.removeFromSuperview()
 					self.homeViewController.micInputSectionContainerView = nil
 					self.homeViewController.micInputSectionViewController = nil
+					self.homeViewController.scrollViewSnapshotImageView = nil
 					self.inputTextView.attributedText = self.attributedHintTextInput
 					self.outputTextView.attributedText = self.attributedHintTextOutput
 					// Show round button

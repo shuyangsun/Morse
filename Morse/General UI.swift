@@ -21,8 +21,8 @@ let cardViewTextFontSizeDictionary:CGFloat = 22
 let cardViewTextProsignFontSizeDictionary:CGFloat = 16
 let cardViewMorseFontSizeDictionary:CGFloat = 16
 let morseFontSizeProgressBar:CGFloat = 14
-let outputVCLabelFontSize:CGFloat = 18
-let outputVCLabelMarginVertical:CGFloat = 15
+let hintLabelFontSize:CGFloat = 18
+let hintLabelMarginVertical:CGFloat = 15
 
 let cardViewLabelPaddingVerticle:CGFloat = 16
 let cardViewLabelPaddingHorizontal:CGFloat = 15
@@ -31,7 +31,7 @@ let cardBackViewButtonPadding:CGFloat = 5.0
 
 let dictionaryVCCardViewMinWidth:CGFloat = 155
 
-let audioPlotRollingHistoryLength:Int32 = 200
+let audioPlotRollingHistoryLength:Int32 = 150
 
 let slideAndPinchStartDistance:CGFloat = 15
 let slideAndPinchRatioToDismiss:CGFloat = 0

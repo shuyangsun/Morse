@@ -247,7 +247,7 @@ class SettingsMasterTableViewController: UITableViewController {
 			case 1:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewCell
 				cell.tapFeebackEnabled = false
-				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.automatic, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.General.automatic, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				if self.inputPitchAutomaticSwitch == nil {
 					self.inputPitchAutomaticSwitch = UISwitch()
 					self.inputPitchAutomaticSwitch.onTintColor = theme.switchOnTintColor

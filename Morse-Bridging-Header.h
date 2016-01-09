@@ -10,5 +10,6 @@
 #define Morse_Bridging_Header_h
 
 #import "EZAudio.h"
+#import "UIImageEffects.h"
 
 #endif /* BridgeHeader_h */

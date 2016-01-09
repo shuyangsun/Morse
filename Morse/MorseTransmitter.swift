@@ -381,8 +381,7 @@ class MorseTransmitter {
 	private var _counter = 0
 
 	// The following 3 variables are to help calculating the threshold of signal rise/fall
-	private var _signalLvlSum:Float = 0
-	private var _signalLvlCounter:Float = 0
+	private var _maxLevelsHistoryRecent:[Float] = []
 	private var _levelsHistoryRecent:[Float] = []
 
 	private var _minLvl = Int.max
@@ -397,8 +396,7 @@ class MorseTransmitter {
 		self._inputWPM = defaultInputWPM
 		self._sampleRate = -1
 		self._levelsHistoryRecent = []
-		self._signalLvlSum = 0
-		self._signalLvlCounter = 0
+		self._maxLevelsHistoryRecent = []
 	}
 
 	// This method is called when an audio sample has been recieved in the microphone.
@@ -420,20 +418,23 @@ class MorseTransmitter {
 
 			// Calculate when should the isDuringSignal bar be set.
 			self._levelsHistoryRecent.append(level)
-			let recordLength = (self._lengthRanges.oneUnit.startIndex + self._lengthRanges.oneUnit.endIndex - 1)/2
-			while self._levelsHistoryRecent.count > recordLength {
+			let recordLengthAll = (self._lengthRanges.oneUnit.startIndex + self._lengthRanges.oneUnit.endIndex - 1)/2
+			let recordLengthMax = recordLengthAll * 2
+			while self._levelsHistoryRecent.count > recordLengthAll {
 				self._levelsHistoryRecent.removeFirst()
 			}
+			while self._maxLevelsHistoryRecent.count > recordLengthMax {
+				self._maxLevelsHistoryRecent.removeFirst()
+			}
 			var thresholdLvl:Float = 0
-			if self._signalLvlCounter >= 10 {
-				thresholdLvl = (self._signalLvlSum / self._signalLvlCounter)/5.0
+			if self._maxLevelsHistoryRecent.count >= recordLengthMax {
+				thresholdLvl = ((self._maxLevelsHistoryRecent.reduce(0) { return $0 + $1 }) / Float(self._maxLevelsHistoryRecent.count))/5.0
 			} else {
-				thresholdLvl = ((self._levelsHistoryRecent.reduce(0) { return $0 + $1 }) / Float(recordLength))/5.0
+				thresholdLvl = ((self._levelsHistoryRecent.reduce(0) { return $0 + $1 }) / Float(self._levelsHistoryRecent.count))/5.0
 			}
 			self._isDuringSignal = level >= max(thresholdLvl, 1)
 			if self._isDuringSignal {
-				self._signalLvlSum += level
-				self._signalLvlCounter++
+				self._maxLevelsHistoryRecent.append(level)
 			}
 			#if DEBUG
 				// If debugging, print the wave form in the console.

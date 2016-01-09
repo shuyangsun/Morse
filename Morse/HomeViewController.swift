@@ -27,6 +27,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	private var currentExpandedCard:CardView?
 	var currentFlippedCard:CardView? // Make it internal so the animator can access it
 
+	var scrollViewSnapshotImageView:UIImageView?
 	var micInputSectionViewController:AudioWaveFormViewController?
 	var micInputSectionContainerView:UIView?
 
@@ -275,6 +276,19 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 	// *****************************
 
 	func microphoneButtonTapped() {
+		if self.scrollViewSnapshotImageView == nil {
+			self.scrollViewSnapshotImageView = UIImageView(frame: self.scrollView.frame)
+			self.scrollViewSnapshotImageView?.contentMode = .ScaleAspectFill
+			self.scrollViewSnapshotImageView?.opaque = false
+			self.scrollViewSnapshotImageView?.alpha = 0
+			self.view.insertSubview(self.scrollViewSnapshotImageView!, belowSubview: self.scrollViewOverlay)
+			self.scrollViewSnapshotImageView?.snp_makeConstraints(closure: { (make) -> Void in
+				make.edges.equalTo(self.scrollView)
+			})
+
+			self.updateScrollViewBlurImage()
+		}
+
 		if self.micInputSectionContainerView == nil {
 			self.micInputSectionViewController = AudioWaveFormViewController()
 			self.addChildViewController(self.micInputSectionViewController!)
@@ -293,6 +307,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				make.edges.equalTo(self.scrollViewOverlay)
 			})
 		}
+		
 		self.topSectionViewController.microphoneButtonTapped()
 	}
 
@@ -711,6 +726,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 		self.updateScrollViewContentSize()
 		self.updateMDShadows()
+		self.updateScrollViewBlurImage()
 	}
 
 	func updateScrollViewContentSize() {
@@ -738,5 +754,20 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		for card in self.cardViews {
 			card.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
 		}
+	}
+
+	func updateScrollViewBlurImage(afterScreenUpdates:Bool = false) {
+		let image = self.snapshot(self.scrollView, afterScreenUpdates: afterScreenUpdates)
+		let bluredImage = UIImageEffects.imageByApplyingBlurToImage(image, withRadius: theme.scrollViewBlurRadius, tintColor: theme.scrollViewBlurTintColor, saturationDeltaFactor: 0, maskImage: nil)
+		self.scrollViewSnapshotImageView?.image = bluredImage
+	}
+
+	private func snapshot(view:UIView, afterScreenUpdates:Bool = false) -> UIImage {
+		UIGraphicsBeginImageContext(view.bounds.size)
+		view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: afterScreenUpdates)
+		let image = UIGraphicsGetImageFromCurrentImageContext()
+		UIGraphicsEndImageContext()
+
+		return image
 	}
 }

@@ -11,6 +11,12 @@ import UIKit
 class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 	var audioPlotPitchFiltered:EZAudioPlot!
 	var audioPlot:EZAudioPlot!
+
+	var wpmLabel:UILabel!
+	var pitchLabel:UILabel!
+	var tutorial1Label:UILabel!
+	var tapToFinishLabel:UILabel!
+
 	var microphone:EZMicrophone!
 	private var _pitchCountDictionary:Dictionary<Int, Int> = Dictionary()
 
@@ -33,9 +39,11 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 			NSLog("Error setting up audio session category.")
 		}
 
+		self.view.backgroundColor = theme.audioPlotBackgroundColor
+
 		// Setup audio plot
 		self.audioPlot = EZAudioPlot(frame: self.view.frame)
-		self.audioPlot.backgroundColor = theme.audioPlotBackgroundColor
+		self.audioPlot.backgroundColor = UIColor.clearColor()
 		self.audioPlot.color = theme.audioPlotColor
 		self.audioPlot.plotType = .Rolling
 		self.audioPlot.shouldMirror = true
@@ -47,7 +55,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 		}
 
 		self.audioPlotPitchFiltered = EZAudioPlot(frame: self.view.frame)
-		self.audioPlotPitchFiltered.backgroundColor = theme.audioPlotBackgroundColor
+		self.audioPlotPitchFiltered.backgroundColor = UIColor.clearColor()
 		self.audioPlotPitchFiltered.color = theme.audioPlotPitchFilteredColor
 		self.audioPlotPitchFiltered.plotType = .Rolling
 		self.audioPlotPitchFiltered.shouldMirror = true
@@ -56,6 +64,58 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 		self.view.addSubview(self.audioPlotPitchFiltered)
 		self.audioPlotPitchFiltered.snp_makeConstraints { (make) -> Void in
 			make.edges.equalTo(self.view)
+		}
+
+		if self.wpmLabel == nil {
+			self.wpmLabel = UILabel()
+			var wpmNumberText = String(appDelegate.outputWPM)
+			if appDelegate.inputWPMAutomatic {
+				wpmNumberText = LocalizedStrings.General.automatic
+			}
+			self.wpmLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.wpm)\(wpmNumberText)", withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorEmphasized, bold: false)
+			self.view.addSubview(self.wpmLabel)
+
+			self.wpmLabel.snp_makeConstraints(closure: { (make) -> Void in
+				make.centerX.equalTo(self.view)
+				make.top.equalTo(self.view).offset(hintLabelMarginVertical * 2)
+			})
+		}
+
+		if self.pitchLabel == nil {
+			self.pitchLabel = UILabel()
+			var pitchNumberText = "\(Int(appDelegate.inputPitch)) Hz"
+			if appDelegate.inputPitchAutomatic {
+				pitchNumberText = LocalizedStrings.General.automatic
+			}
+			self.pitchLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.pitch)\(pitchNumberText)", withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorEmphasized, bold: false)
+			self.view.addSubview(self.pitchLabel)
+
+			self.pitchLabel.snp_makeConstraints(closure: { (make) -> Void in
+				make.centerX.equalTo(self.view)
+				make.top.equalTo(self.wpmLabel.snp_bottom).offset(hintLabelMarginVertical)
+			})
+		}
+
+		if self.tutorial1Label == nil {
+			self.tutorial1Label = UILabel()
+			self.tutorial1Label.attributedText = getAttributedStringFrom(LocalizedStrings.Label.tutorialWaveformVC1, withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorNormal, bold: false)
+			self.view.addSubview(self.tutorial1Label)
+
+			self.tutorial1Label.snp_makeConstraints(closure: { (make) -> Void in
+				make.centerX.equalTo(self.view)
+				make.top.equalTo(self.pitchLabel.snp_bottom).offset(hintLabelMarginVertical)
+			})
+		}
+
+		if self.tapToFinishLabel == nil {
+			self.tapToFinishLabel = UILabel()
+			self.tapToFinishLabel.attributedText = getAttributedStringFrom(LocalizedStrings.Label.tapToFinish, withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorNormal, bold: false)
+			self.view.addSubview(self.tapToFinishLabel)
+
+			self.tapToFinishLabel.snp_makeConstraints(closure: { (make) -> Void in
+				make.centerX.equalTo(self.view)
+				make.bottom.equalTo(self.view).offset(-hintLabelMarginVertical * 2)
+			})
 		}
 
 		// WARNNING: This chunk of code has to be executed before calling "self.microphone.startFetchingAudio()"!
@@ -71,6 +131,9 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 
 		// Setup transmitter
 		self.transmitter.resetForAudioInput()
+
+		// Register for notification
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "inputPitchDidChang", name: inputPitchDidChangeNotificationName, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -154,6 +217,10 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 
 	func microphone(microphone: EZMicrophone!, hasAudioStreamBasicDescription audioStreamBasicDescription: AudioStreamBasicDescription) {
 		EZAudioUtilities.printASBD(audioStreamBasicDescription)
+	}
+
+	func inputPitchDidChang() {
+		self.pitchLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.pitch)\(Int(appDelegate.inputPitch)) Hz", withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorEmphasized, bold: false)
 	}
 
     /*

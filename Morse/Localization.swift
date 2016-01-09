@@ -26,6 +26,7 @@ var layoutDirection:UIUserInterfaceLayoutDirection {
 struct LocalizedStrings {
 	struct General {
 		static let sharePromote = NSLocalizedString("Check this out! I converted text to this Morse code using Morse Transmitter! Download here:", comment: "When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.")
+		static let automatic = NSLocalizedString("Automatic", comment: "A setting that indicates something is done automatically.")
 	}
 
 	struct Prosign {
@@ -79,9 +80,11 @@ struct LocalizedStrings {
 		static let topBarMorseDictionary = NSLocalizedString("Dictionary", comment: "This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations.")
 		static let wpm = NSLocalizedString("WPM: ", comment: "This is a label on the output page, followed by the numer of WPM (word per minute).")
 		static let pitch = NSLocalizedString("Pitch: ", comment: "This is a label on the output page, followed by the numer of audio frequency (pitch).")
-		static let tutorial1 = NSLocalizedString("Adjust in Settings", comment: "This is a label on the output page, tells the user how to change some of the values.")
+		static let tutorialOutputVC1 = NSLocalizedString("Adjust in Settings", comment: "This is a label on the output page, tells the user how to change some of the values.")
+		static let tutorialWaveformVC1 = NSLocalizedString("Supported WPM: 13-23", comment: "This is a label on the output page, tells the user the range of supported WPM.")
 		static let tapToStart = NSLocalizedString("Tap anywhere to play or pause", comment: "This is a label on the output page, tells user how to play or pause the output.")
-		static let swipeToDismiss = NSLocalizedString("Swipe or pinch to go back", comment: "This is a label on the output page, tells user how to go back to home page.")
+		static let tapToFinish = NSLocalizedString("Tap anywhere to finish", comment: "This is a label on the output page, tells user how to finish using audio input.")
+		static let swipeToDismiss = NSLocalizedString("Swipe down or pinch to go back", comment: "This is a label on the output page, tells user how to go back to home page.")
 	}
 
 	struct Hint {
@@ -105,7 +108,6 @@ struct LocalizedStrings {
 		static let extraTextWhenShare = NSLocalizedString("Greeting Text", comment: "There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.")
 		static let brightenUpDisplayWhenOutput = NSLocalizedString("Output Brighten Screen", comment: "There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputing Morse code.")
 		static let theme = NSLocalizedString("Theme", comment: "There are many sections on the settings page, this switch let the user change the color theme of this App.")
-		static let automatic = NSLocalizedString("Automatic", comment: "A setting that indicates something is done automatically.")
 		static let outputWPM = NSLocalizedString("Output WPM (Word Per Minute)", comment: "There are many sections on the settings page, this one changes the output WPM.")
 		static let inputPitch = NSLocalizedString("Input Pitch (Audio Frequency)", comment: "There are many sections on the settings page, this one changes the frequency should be detected for input audio.")
 	}

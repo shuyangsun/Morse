@@ -235,7 +235,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 
 		if self.pitchLabel == nil {
 			self.pitchLabel = UILabel()
-			self.pitchLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.pitch)\(Int(appDelegate.outputPitch)) Hz", withFontSize: outputVCLabelFontSize, color: theme.outputVCLabelTextColorEmphasized, bold: false)
+			self.pitchLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.pitch)\(Int(appDelegate.outputPitch)) Hz", withFontSize: hintLabelFontSize, color: theme.outputVCLabelTextColorEmphasized, bold: false)
 			self.pitchLabel.opaque = false
 			self.pitchLabel.alpha = 0
 			self.labels.append(self.pitchLabel)
@@ -249,7 +249,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 
 		if self.wpmLabel == nil {
 			self.wpmLabel = UILabel()
-			self.wpmLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.wpm)\(appDelegate.outputWPM)", withFontSize: outputVCLabelFontSize, color: theme.outputVCLabelTextColorEmphasized, bold: false)
+			self.wpmLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.wpm)\(appDelegate.outputWPM)", withFontSize: hintLabelFontSize, color: theme.outputVCLabelTextColorEmphasized, bold: false)
 			self.wpmLabel.opaque = false
 			self.wpmLabel.alpha = 0
 			self.labels.append(self.wpmLabel)
@@ -257,13 +257,13 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 
 			self.wpmLabel.snp_makeConstraints(closure: { (make) -> Void in
 				make.centerX.equalTo(self.view)
-				make.bottom.equalTo(self.pitchLabel.snp_top).offset(-outputVCLabelMarginVertical)
+				make.bottom.equalTo(self.pitchLabel.snp_top).offset(-hintLabelMarginVertical)
 			})
 		}
 
 		if self.tutorial1Label == nil {
 			self.tutorial1Label = UILabel()
-			self.tutorial1Label.attributedText = getAttributedStringFrom(LocalizedStrings.Label.tutorial1, withFontSize: outputVCLabelFontSize, color: theme.outputVCLabelTextColorNormal, bold: false)
+			self.tutorial1Label.attributedText = getAttributedStringFrom(LocalizedStrings.Label.tutorialOutputVC1, withFontSize: hintLabelFontSize, color: theme.outputVCLabelTextColorNormal, bold: false)
 			self.tutorial1Label.opaque = false
 			self.tutorial1Label.alpha = 0
 			self.labels.append(self.tutorial1Label)
@@ -271,13 +271,13 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 
 			self.tutorial1Label.snp_makeConstraints(closure: { (make) -> Void in
 				make.centerX.equalTo(self.view)
-				make.top.equalTo(self.pitchLabel.snp_bottom).offset(outputVCLabelMarginVertical)
+				make.top.equalTo(self.pitchLabel.snp_bottom).offset(hintLabelMarginVertical)
 			})
 		}
 
 		if self.swipeToDismissLabel == nil {
 			self.swipeToDismissLabel = UILabel()
-			self.swipeToDismissLabel.attributedText = getAttributedStringFrom(LocalizedStrings.Label.swipeToDismiss, withFontSize: outputVCLabelFontSize, color: theme.outputVCLabelTextColorNormal, bold: false)
+			self.swipeToDismissLabel.attributedText = getAttributedStringFrom(LocalizedStrings.Label.swipeToDismiss, withFontSize: hintLabelFontSize, color: theme.outputVCLabelTextColorNormal, bold: false)
 			self.swipeToDismissLabel.opaque = false
 			self.swipeToDismissLabel.alpha = 0
 			self.labels.append(self.swipeToDismissLabel)
@@ -285,13 +285,13 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 
 			self.swipeToDismissLabel.snp_makeConstraints(closure: { (make) -> Void in
 				make.centerX.equalTo(self.view)
-				make.bottom.equalTo(self.view).offset(-outputVCLabelMarginVertical * 2)
+				make.bottom.equalTo(self.view).offset(-hintLabelMarginVertical * 2)
 			})
 		}
 
 		if self.tapToStartLabel == nil {
 			self.tapToStartLabel = UILabel()
-			self.tapToStartLabel.attributedText = getAttributedStringFrom(LocalizedStrings.Label.tapToStart, withFontSize: outputVCLabelFontSize, color: theme.outputVCLabelTextColorNormal, bold: false)
+			self.tapToStartLabel.attributedText = getAttributedStringFrom(LocalizedStrings.Label.tapToStart, withFontSize: hintLabelFontSize, color: theme.outputVCLabelTextColorNormal, bold: false)
 			self.tapToStartLabel.opaque = false
 			self.tapToStartLabel.alpha = 0
 			self.labels.append(self.tapToStartLabel)
@@ -299,7 +299,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 
 			self.tapToStartLabel.snp_makeConstraints(closure: { (make) -> Void in
 				make.centerX.equalTo(self.view)
-				make.bottom.equalTo(self.swipeToDismissLabel.snp_top).offset(-outputVCLabelMarginVertical)
+				make.bottom.equalTo(self.swipeToDismissLabel.snp_top).offset(-hintLabelMarginVertical)
 			})
 		}
 
