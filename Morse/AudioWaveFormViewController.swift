@@ -185,7 +185,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 					// Check if the old frequency has a record or is above the threashold.
 					if let currentInputPitchFreqOccurence = self._pitchCountDictionary[Int(ceil(appDelegate.inputPitch))] {
 						// Now both the new and old frequency have an occurence record, now choose the one that occured more times.
-						if numOccurence >= currentInputPitchFreqOccurence {
+						if numOccurence > 1 && numOccurence >= currentInputPitchFreqOccurence {
 							shouldChangeFrequency = true
 						}
 					} else {

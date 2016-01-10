@@ -31,7 +31,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	var outputTextView: UITextView!
 	var textBoxTapFeedBackView: UIView!
 
-	var lineBreakView:UIView!
+	var breakLineView:UIView!
 
 	// Button
 	var roundButtonView: RoundButtonView!
@@ -100,13 +100,13 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	private var attributedHintTextInput:NSMutableAttributedString {
 		return NSMutableAttributedString(string: self.hintTextInput, attributes:
 			[NSFontAttributeName: UIFont.systemFontOfSize(textViewInputFontSize),
-				NSForegroundColorAttributeName: UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)])
+				NSForegroundColorAttributeName: theme.textViewHintTextColor])
 	}
 
 	private var attributedHintTextOutput:NSMutableAttributedString {
 		return NSMutableAttributedString(string: self.hintTextOutput, attributes:
 			[NSFontAttributeName: UIFont.systemFontOfSize(textViewOutputFontSize),
-				NSForegroundColorAttributeName: UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)])
+				NSForegroundColorAttributeName: theme.textViewHintTextColor])
 	}
 
 	// *****************************
@@ -254,6 +254,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.inputTextView.layer.borderColor = UIColor.clearColor().CGColor
 			self.inputTextView.layer.borderWidth = 0
 			self.inputTextView.autocorrectionType = .Default
+			self.inputTextView.keyboardAppearance = theme.style == .Dark ? .Dark : .Default
 			self.textBackgroundView.addSubview(self.inputTextView)
 
 			self.inputTextView.snp_remakeConstraints { (make) -> Void in
@@ -294,13 +295,13 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		// Configure Line Break View
 		// *****************************
 
-		if self.lineBreakView == nil {
-			self.lineBreakView = UIView(frame: CGRect(x: 0, y: self.textBackgroundView.bounds.height, width: self.textBackgroundView.bounds.width, height: 1.0))
-			self.lineBreakView.backgroundColor = UIColor(hex: 0x000, alpha: 0.1)
-			self.lineBreakView.hidden = true
-			self.textBackgroundView.addSubview(self.lineBreakView)
+		if self.breakLineView == nil {
+			self.breakLineView = UIView(frame: CGRect(x: 0, y: self.textBackgroundView.bounds.height, width: self.textBackgroundView.bounds.width, height: 1.0))
+			self.breakLineView.backgroundColor = theme.textViewBreakLineColor
+			self.breakLineView.hidden = true
+			self.textBackgroundView.addSubview(self.breakLineView)
 
-			self.lineBreakView.snp_remakeConstraints(closure: { (make) -> Void in
+			self.breakLineView.snp_remakeConstraints(closure: { (make) -> Void in
 				make.leading.equalTo(self.textBackgroundView)
 				make.trailing.equalTo(self.textBackgroundView)
 				make.bottom.equalTo(self.textBackgroundView)
@@ -375,6 +376,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 				make.trailing.equalTo(self.textBackgroundView)
 			})
 		}
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateColorWithAnimation", name: themeDidChangeNotificationName, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -443,7 +446,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 					options: .CurveEaseIn,
 					animations: {
 						self.roundButtonView.transform = CGAffineTransformScale(self.roundButtonView.transform, 1.15, 1.15)
-						self.roundButtonView.addMDShadow(withDepth: 4)
+						self.roundButtonView.addMDShadow(withDepth: theme.roundButtonMDShadowLevelTapped)
 					}) { succeed in
 						if succeed {
 							UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * appDelegate.animationDurationScalar,
@@ -451,7 +454,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 								options: .CurveEaseOut,
 								animations: {
 									self.roundButtonView.transform = originalTransform
-									self.roundButtonView.addMDShadow(withDepth: 3)
+									self.roundButtonView.addMDShadow(withDepth: theme.roundButtonMDShadowLevelDefault)
 								}, completion: nil)
 						}
 				}
@@ -583,7 +586,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.transmitter.morse = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
 			outputText = self.transmitter.text
 		}
-		self.outputTextView.attributedText = getAttributedStringFrom(outputText, withFontSize: textViewOutputFontSize, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
+		self.outputTextView.attributedText = getAttributedStringFrom(outputText, withFontSize: textViewOutputFontSize, color: theme.textViewOutputTextColor)
 		if outputText != nil {
 			self.outputTextView.scrollRangeToVisible(NSMakeRange(outputText!.startIndex.distanceTo(outputText!.endIndex), 0))
 		}
@@ -609,8 +612,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 
 	func transmitterContentDidChange(text: String, morse: String) {
 		// Set text.
-		self.inputTextView.attributedText = getAttributedStringFrom(morse.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()), withFontSize: textViewInputFontSize, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
-		self.outputTextView.attributedText = getAttributedStringFrom(text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()), withFontSize: textViewOutputFontSize, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
+		self.inputTextView.attributedText = getAttributedStringFrom(morse.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()), withFontSize: textViewInputFontSize, color: theme.textViewInputTextColor)
+		self.outputTextView.attributedText = getAttributedStringFrom(text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()), withFontSize: textViewOutputFontSize, color: theme.textViewOutputTextColor)
 		self.inputTextView.scrollRangeToVisible(NSMakeRange(morse.startIndex.distanceTo(morse.endIndex), 0))
 		self.outputTextView.scrollRangeToVisible(NSMakeRange(text.startIndex.distanceTo(text.endIndex), 0))
 	}
@@ -638,8 +641,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		self.cancelButton.appearWithDuration(animationDuration)
 
 		// Text view stuff
-		self.inputTextView.attributedText = getAttributedStringFrom(" ", withFontSize: textViewInputFontSize, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
-		self.outputTextView.attributedText = getAttributedStringFrom(" ", withFontSize: textViewOutputFontSize, color: UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha))
+		self.inputTextView.attributedText = getAttributedStringFrom(" ", withFontSize: textViewInputFontSize, color: theme.textViewInputTextColor)
+		self.outputTextView.attributedText = getAttributedStringFrom(" ", withFontSize: textViewOutputFontSize, color: theme.textViewOutputTextColor)
 		self.textBoxTapFeedBackView.hidden = true
 		self.textBoxTapFeedBackView.userInteractionEnabled = false
 
@@ -682,15 +685,15 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 				})
 			}
 
-			self.lineBreakView.hidden = false
-			self.lineBreakView.snp_remakeConstraints(closure: { (make) -> Void in
+			self.breakLineView.hidden = false
+			self.breakLineView.snp_remakeConstraints(closure: { (make) -> Void in
 				make.leading.equalTo(self.textBackgroundView)
 				make.trailing.equalTo(self.textBackgroundView)
 				make.bottom.equalTo(self.inputTextView)
 				make.height.equalTo(1.0)
 			})
 			// Set scrollViewOverlay's background color based on the type of input.
-			self.homeViewController.scrollViewOverlay.backgroundColor = self.homeViewController.micInputSectionContainerView == nil ? theme.scrollViewOverlayColor : theme.scrollViewOverlayAudioInputColor
+			self.homeViewController.scrollViewOverlay.backgroundColor = self.homeViewController.micInputSectionContainerView == nil ? theme.scrollViewOverlayColor : UIColor.clearColor()
 
 			UIView.animateWithDuration(animationDuration * appDelegate.animationDurationScalar,
 				delay: animationDuration,
@@ -756,7 +759,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		self.outputTextView.text = nil
 		self.inputTextView.attributedText = self.attributedHintTextInput
 		self.outputTextView.attributedText = self.attributedHintTextOutput
-		self.lineBreakView.snp_remakeConstraints(closure: { (make) -> Void in
+		self.breakLineView.snp_remakeConstraints(closure: { (make) -> Void in
 			make.leading.equalTo(self.textBackgroundView)
 			make.trailing.equalTo(self.textBackgroundView)
 			make.bottom.equalTo(self.textBackgroundView)
@@ -775,7 +778,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 				self.homeViewController.scrollViewSnapshotImageView?.alpha = 0
 				self.homeViewController.topSectionContainerView.addMDShadow(withDepth: 2)
 			}) { succeed in
-				self.lineBreakView.hidden = true
+				self.breakLineView.hidden = true
 				// If the input frequency is set to be detected automatically, restore the min frequency.
 				self.homeViewController.micInputSectionViewController?.microphone.stopFetchingAudio()
 				self.homeViewController.micInputSectionContainerView?.removeFromSuperview()
@@ -797,5 +800,41 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 						}
 					}, completion: nil)
 		}
+	}
+
+	func updateColor(animated animated:Bool = true) {
+		self.inputTextView.keyboardAppearance = theme.style == .Dark ? .Dark : .Default
+		self.roundButtonView.addMDShadow(withDepth: theme.roundButtonMDShadowLevelDefault)
+		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
+		UIView.animateWithDuration(duration,
+			delay: 0,
+			options: .CurveEaseInOut,
+			animations: {
+				self.statusBarView.backgroundColor = theme.statusBarBackgroundColor
+				self.topBarView.backgroundColor = theme.topBarBackgroundColor
+				self.roundButtonView.backgroundColor = theme.roundButtonBackgroundColor
+				self.topBarLabelText.textColor = theme.topBarLabelTextColor
+				self.topBarLabelMorse.textColor = theme.topBarLabelTextColor
+				self.textBackgroundView.backgroundColor = theme.textViewBackgroundColor
+				self.breakLineView.backgroundColor = theme.textViewBreakLineColor
+				self.keyboardButton.backgroundColor = theme.keyboardButtonBackgroundColor
+				self.microphoneButton.backgroundColor = theme.keyboardButtonBackgroundColor
+				if self.isDuringInput {
+					self.inputTextView.textColor = theme.textViewInputTextColor
+					self.outputTextView.textColor = theme.textViewOutputTextColor
+				} else {
+					self.inputTextView.textColor = theme.textViewHintTextColor
+				}
+			}, completion: nil)
+	}
+
+	// This method is for using selector
+	func updateColorWithAnimation() {
+		self.updateColor(animated: true)
+	}
+
+	// This method is for using selector
+	func updateColorWithoutAnimation() {
+		self.updateColor()
 	}
 }

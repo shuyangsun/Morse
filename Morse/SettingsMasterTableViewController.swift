@@ -8,14 +8,14 @@
 
 import UIKit
 
-class SettingsMasterTableViewController: UITableViewController {
-
-	var extraTextWhenShareSwitch:UISwitch!
-	var brightenUpScreenSwitch:UISwitch!
-	var inputPitchAutomaticSwitch:UISwitch!
+class SettingsMasterTableViewController: TableViewController, UINavigationControllerDelegate, TableViewSwitchCellDelegate {
 
 	var outputWPMCell:TableViewCell!
-	var outputWPMSlider:UISlider!
+	var outputWPMSlider:UISlider! {
+		willSet {
+			self.sliders.append(newValue)
+		}
+	}
 	var outputWPM:Int = appDelegate.outputWPM {
 		willSet {
 			appDelegate.userDefaults.setInteger(newValue, forKey: userDefaultsKeyOutputWPM)
@@ -24,7 +24,11 @@ class SettingsMasterTableViewController: UITableViewController {
 	}
 
 	var inputPitchCell:TableViewCell!
-	var inputPitchSlider:UISlider!
+	var inputPitchSlider:UISlider! {
+		willSet {
+			self.sliders.append(newValue)
+		}
+	}
 	var inputPitch:Float = appDelegate.inputPitch {
 		willSet {
 			appDelegate.userDefaults.setFloat(newValue, forKey: userDefaultsKeyInputPitch)
@@ -33,13 +37,19 @@ class SettingsMasterTableViewController: UITableViewController {
 	}
 
 	var animationDurationCell:TableViewCell!
-	var animationDurationSlider:UISlider!
+	var animationDurationSlider:UISlider! {
+		willSet {
+			self.sliders.append(newValue)
+		}
+	}
 	var animationDurationScalar:NSTimeInterval = appDelegate.animationDurationScalar {
 		willSet {
 			appDelegate.userDefaults.setDouble(newValue, forKey: userDefaultsKeyAnimationDurationScalar)
 			appDelegate.userDefaults.synchronize()
 		}
 	}
+
+	var sliders:[UISlider] = []
 
 	private let _cellIdentifier = "Settings Default Cell Identifier"
 	private var _isIPad:Bool {
@@ -51,16 +61,24 @@ class SettingsMasterTableViewController: UITableViewController {
 		}
 	}
 
+	// Tags for switches
+	private let _switchButtonTagShareSignature = 0
+	private let _switchButtonTagAutoNightMode = 1
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
+		self.view.backgroundColor = theme.tableViewBackgroundColor
+		self.tableView.separatorColor = theme.tableViewSeparatorColor
+
 		// Navigation bar configuration
 		self.navigationItem.title = LocalizedStrings.Settings.settings
 		self.navigationController?.navigationBar.barTintColor = appDelegate.theme.navigationBarBackgroundColor
 		self.navigationController?.navigationBar.tintColor = appDelegate.theme.navigationBarTitleTextColor
+		self.navigationController?.delegate = self
 		var textAttributes = self.navigationController?.navigationBar.titleTextAttributes
 		if textAttributes != nil {
 			textAttributes![NSForegroundColorAttributeName] = appDelegate.theme.navigationBarTitleTextColor
@@ -68,9 +86,6 @@ class SettingsMasterTableViewController: UITableViewController {
 			textAttributes = [NSForegroundColorAttributeName: appDelegate.theme.navigationBarTitleTextColor]
 		}
 		self.navigationController?.navigationBar.titleTextAttributes = textAttributes
-
-		// If input frequency is changed, change slider value and text value.
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "inputFrequencyChanged", name: inputPitchDidChangeNotificationName, object: nil)
     }
 
 	override func viewWillAppear(animated: Bool) {
@@ -80,10 +95,6 @@ class SettingsMasterTableViewController: UITableViewController {
 
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
-
-		self.extraTextWhenShareSwitch?.on = appDelegate.addExtraTextWhenShare
-		self.brightenUpScreenSwitch?.on = appDelegate.brightenScreenWhenOutput
-		self.inputPitchAutomaticSwitch?.on = appDelegate.inputPitchAutomatic
 
 		self.outputWPMSlider?.value = Float(self.outputWPM)
 		self.outputWPMCell?.textLabel?.attributedText = getAttributedStringFrom("\(self.outputWPM)", withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
@@ -142,24 +153,15 @@ class SettingsMasterTableViewController: UITableViewController {
 					cell.accessoryType = .DisclosureIndicator
 				}
 			case 1:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewCell
+				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewSwitchCell
 				cell.tapFeebackEnabled = false
 				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.extraTextWhenShare, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
-				if self.extraTextWhenShareSwitch == nil {
-					self.extraTextWhenShareSwitch = UISwitch()
-					self.extraTextWhenShareSwitch.onTintColor = theme.switchOnTintColor
-					self.extraTextWhenShareSwitch.addTarget(self, action: "switchToggled:", forControlEvents: .ValueChanged)
-					cell.contentView.addSubview(self.extraTextWhenShareSwitch)
-					self.extraTextWhenShareSwitch.snp_makeConstraints(closure: { (make) -> Void in
-						make.centerY.equalTo(cell.contentView)
-						make.height.equalTo(switchButtonHeight)
-						make.width.equalTo(switchButtonWidth)
-						make.trailing.equalTo(cell.contentView).offset(-tableViewCellTrailingPadding)
-					})
-				}
+				(cell as! TableViewSwitchCell).delegate = self
+				(cell as! TableViewSwitchCell).switchButton.tag = self._switchButtonTagShareSignature
+				(cell as! TableViewSwitchCell).switchButton.on = appDelegate.addExtraTextWhenShare
 			default: break
 			}
-		} else if indexPath.section == 1 { // UI
+		} else if indexPath.section == 1 { // Appearance
 			switch indexPath.row {
 			case 0:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Theme Cell", forIndexPath: indexPath) as! TableViewCell
@@ -169,21 +171,12 @@ class SettingsMasterTableViewController: UITableViewController {
 					cell.accessoryType = .DisclosureIndicator
 				}
 			case 1:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewCell
+				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewSwitchCell
 				cell.tapFeebackEnabled = false
-				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.brightenUpDisplayWhenOutput, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
-				if self.brightenUpScreenSwitch == nil {
-					self.brightenUpScreenSwitch = UISwitch()
-					self.brightenUpScreenSwitch.onTintColor = theme.switchOnTintColor
-					self.brightenUpScreenSwitch.addTarget(self, action: "switchToggled:", forControlEvents: .ValueChanged)
-					cell.contentView.addSubview(self.brightenUpScreenSwitch)
-					self.brightenUpScreenSwitch.snp_makeConstraints(closure: { (make) -> Void in
-						make.centerY.equalTo(cell.contentView)
-						make.height.equalTo(switchButtonHeight)
-						make.width.equalTo(switchButtonWidth)
-						make.trailing.equalTo(cell.contentView).offset(-tableViewCellTrailingPadding)
-					})
-				}
+				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.autoNightMode, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				(cell as! TableViewSwitchCell).delegate = self
+				(cell as! TableViewSwitchCell).switchButton.tag = self._switchButtonTagAutoNightMode
+				(cell as! TableViewSwitchCell).switchButton.on = appDelegate.automaticNightMode
 			default: break
 			}
 		} else if indexPath.section == 2 { // Output WPM
@@ -194,6 +187,7 @@ class SettingsMasterTableViewController: UITableViewController {
 				cell.tapFeebackEnabled = false
 				cell.textLabel?.attributedText = getAttributedStringFrom("\(self.outputWPM)", withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				cell.textLabelCouldChange = true
+				cell.detailTextLabel?.text = nil
 				if self.outputWPMSlider == nil {
 					self.outputWPMSlider = UISlider(frame: CGRect(x: cell.contentView.bounds.width - sliderWidth - tableViewCellTrailingPadding, y: 0, width: sliderWidth, height: cell.bounds.height))
 					self.outputWPMSlider.minimumValue = Float(outputMinWPM)
@@ -222,6 +216,7 @@ class SettingsMasterTableViewController: UITableViewController {
 				cell = self.inputPitchCell
 				cell.tapFeebackEnabled = false
 				cell.textLabel?.attributedText = getAttributedStringFrom("\(round(self.inputPitch * 10)/10.0) Hz", withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				cell.detailTextLabel?.text = nil
 				cell.textLabelCouldChange = true
 				let tapGR = UITapGestureRecognizer(target: self, action: "inputPitchNumberTapped")
 				cell.textLabel?.addGestureRecognizer(tapGR)
@@ -245,21 +240,10 @@ class SettingsMasterTableViewController: UITableViewController {
 				}
 				cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
 			case 1:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewCell
+				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewSwitchCell
 				cell.tapFeebackEnabled = false
 				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.General.automatic, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
-				if self.inputPitchAutomaticSwitch == nil {
-					self.inputPitchAutomaticSwitch = UISwitch()
-					self.inputPitchAutomaticSwitch.onTintColor = theme.switchOnTintColor
-					self.inputPitchAutomaticSwitch.addTarget(self, action: "switchToggled:", forControlEvents: .ValueChanged)
-					cell.contentView.addSubview(self.inputPitchAutomaticSwitch)
-					self.inputPitchAutomaticSwitch.snp_makeConstraints(closure: { (make) -> Void in
-						make.centerY.equalTo(cell.contentView)
-						make.height.equalTo(switchButtonHeight)
-						make.width.equalTo(switchButtonWidth)
-						make.trailing.equalTo(cell.contentView).offset(-tableViewCellTrailingPadding)
-					})
-				}
+				(cell as! TableViewSwitchCell).delegate = self
 			default: break
 			}
 		} else if indexPath.section == 4 { // About
@@ -315,6 +299,13 @@ class SettingsMasterTableViewController: UITableViewController {
 		}
 	}
 
+	override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+		switch section {
+		case 1: return LocalizedStrings.Settings.nightModeDescription
+		default: return nil
+		}
+	}
+
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return tableViewCellHeight
 	}
@@ -339,22 +330,17 @@ class SettingsMasterTableViewController: UITableViewController {
 	}
 
 	func switchToggled(switchButton:UISwitch) {
-		if switchButton === self.extraTextWhenShareSwitch {
+		switch switchButton.tag {
+		case self._switchButtonTagShareSignature:
 			appDelegate.userDefaults.setBool(switchButton.on, forKey: userDefaultsKeyExtraTextWhenShare)
 			appDelegate.userDefaults.synchronize()
-		} else if switchButton === self.brightenUpScreenSwitch {
-			appDelegate.userDefaults.setBool(switchButton.on, forKey: userDefaultsKeyBrightenScreenWhenOutput)
+		case self._switchButtonTagAutoNightMode:
+			appDelegate.userDefaults.setBool(switchButton.on, forKey: userDefaultsKeyAutoNightMode)
 			appDelegate.userDefaults.synchronize()
-		} else if switchButton === self.inputPitchAutomaticSwitch {
-			appDelegate.userDefaults.setBool(switchButton.on, forKey: userDefaultsKeyInputPitchAutomatic)
-			appDelegate.userDefaults.synchronize()
-
-			if switchButton.on {
-				self.inputPitchSlider.value = automaticPitchMin
-				self.inputPitch = automaticPitchMin
-				self.inputPitchCell.textLabel?.attributedText = getAttributedStringFrom("\(round(self.inputPitch * 10)/10.0) Hz", withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+			if appDelegate.theme != appDelegate.userSelectedTheme {
+				appDelegate.theme = appDelegate.userSelectedTheme
 			}
-
+		default: break
 		}
 	}
 	
@@ -364,13 +350,42 @@ class SettingsMasterTableViewController: UITableViewController {
 		self.animationDurationCell.detailTextLabel?.attributedText = getAttributedStringFrom("1.0", withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
 	}
 
-	func inputPitchNumberTapped() {
-		// TODO
-	}
-
 	func inputFrequencyChanged() {
 		self.inputPitchSlider?.value = Float(round(self.inputPitch * 10)/10.0)
 		self.inputPitchCell?.textLabel?.attributedText = getAttributedStringFrom("\(round(self.inputPitch * 10)/10.0) Hz", withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+	}
+
+	// *****************************
+	// MARK: Update Color
+	// *****************************
+
+	override func updateColor(animated animated:Bool = false) {
+		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
+		UIView.animateWithDuration(duration,
+			delay: 0,
+			options: .CurveEaseInOut,
+			animations: {
+				self.view.backgroundColor = theme.tableViewBackgroundColor
+				self.tableView.separatorColor = theme.tableViewSeparatorColor
+				self.navigationController?.navigationBar.barTintColor = theme.navigationBarBackgroundColor
+				self.navigationController?.navigationBar.tintColor = theme.navigationBarTitleTextColor
+				self.tabBarController?.tabBar.barTintColor = theme.tabBarBackgroundColor
+				// Update header and foooter color
+				for sec in 0..<self.numberOfSectionsInTableView(self.tableView) {
+					if let headerView = self.tableView(self.tableView, viewForFooterInSection: sec) {
+						print(headerView)
+					}
+				}
+		}, completion: nil)
+		self.tableView.reloadData()
+		// Update cell colors:
+		for sec in 0..<self.numberOfSectionsInTableView(self.tableView) {
+			for row in 0..<self.tableView(self.tableView, numberOfRowsInSection: sec) {
+				if let cell = self.tableView(self.tableView, cellForRowAtIndexPath: NSIndexPath(forRow: row, inSection: sec)) as? TableViewCell {
+					cell.updateColor()
+				}
+			}
+		}
 	}
 
     /*

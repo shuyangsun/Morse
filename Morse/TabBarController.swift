@@ -19,7 +19,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 	private let _cardViewOutputAnimator = CardViewOutputAnimator()
 
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return .Default
+		return theme.style == .Dark ? .LightContent : .Default
 	}
 
     override func viewDidLoad() {
@@ -45,6 +45,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 
 		self.transitioningDelegate = self
 		self.modalPresentationStyle = .Custom
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateColorWithAnimation", name: themeDidChangeNotificationName, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -106,6 +108,26 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 			return self.cardViewOutputTransitionInteractionController
 		}
 		return nil
+	}
+
+	func updateColor(animated animated:Bool = true) {
+		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
+		UIView.animateWithDuration(duration,
+			delay: 0,
+			options: .CurveEaseInOut,
+			animations: {
+				self.tabBarController?.tabBar.barTintColor = theme.tabBarBackgroundColor
+		}, completion: nil)
+	}
+
+	// This method is for using selector
+	func updateColorWithAnimation() {
+		self.updateColor(animated: true)
+	}
+
+	// This method is for using selector
+	func updateColorWithoutAnimation() {
+		self.updateColor()
 	}
 
 	/*

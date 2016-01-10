@@ -24,6 +24,9 @@ var forceTouchAvailable:Bool {
 	return UIView().traitCollection.forceTouchCapability == .Available
 }
 
+let defaultAutoNightModeThreshold:Float = 0.2
+let defaultAutoNightModeUpdateTimeInterval:NSTimeInterval = 3
+
 let prosignContainerLeft = "["
 let prosignContainerRight = "]"
 
@@ -52,6 +55,7 @@ let printAudiWaveFormWhenDebug = false
 
 // NSUserDefaultKeys
 let userDefaultsKeyTheme = "Theme"
+let userDefaultsKeyUserSelectedTheme = "Theme User Selected"
 let userDefaultsKeyExtraTextWhenShare = "Extra Text When Share"
 let userDefaultsKeyProsignTranslationTypeRaw = "Prosign Translation Type Raw"
 let userDefaultsKeyNotFirstLaunch = "Not First Launch"
@@ -69,10 +73,13 @@ let userDefaultsKeyInputPitch = "Input Pitch"
 let userDefaultsKeyInputPitchAutomatic = "Input Pitch Not Automatic"
 let userDefaultsKeyOutputPitch = "Output Pitch"
 let userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput = "Auto Correct Mis-Spelled Words For Audio Input"
+let userDefaultsKeyAutoNightMode = "Auto Night Mode"
+let userDefaultsKeyAutoNightModeThreshold = "Auto Night Mode Threshold"
 
 // Notification Names
 let inputPitchDidChangeNotificationName = "Input Frequency Did Change Notification"
 let inputWPMDidChangeNotificationName = "Input WPM Did Change Notification"
+let themeDidChangeNotificationName = "Theme Did Change Notification"
 
 let notRecognizedLetterStr = "🙁"
 

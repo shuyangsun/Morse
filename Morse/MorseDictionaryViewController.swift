@@ -42,6 +42,10 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 	private let _updateCardConstraintsQueue = dispatch_queue_create("Update Card View Constraints On Dictonary VC Queue", nil)
 	private let _createCardViewsQueue = dispatch_queue_create("Create Card Views On Dictonary VC Queue", nil)
 
+	override func preferredStatusBarStyle() -> UIStatusBarStyle {
+		return theme.style == .Dark ? .LightContent : .Default
+	}
+
 	// *****************************
 	// MARK: MVC LifeCycle
 	// *****************************
@@ -113,13 +117,15 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 		}
 
 		self._outputPlayer.delegate = self
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateColorWithAnimation", name: themeDidChangeNotificationName, object: nil)
     }
 
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		self.addCards()
 		dispatch_sync(self._updateCardConstraintsQueue) {
-			self.initializeCardViewsConstraints()
+			self.updateCardViewsConstraints()
 		}
 		self.view.setNeedsUpdateConstraints()
 		self.updateMDShadows()
@@ -197,7 +203,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 					}
 					let colNum = Int(max(1, floor((self.view.bounds.width - theme.cardViewHorizontalMargin * 2 + theme.cardViewGap) / (self.cardViewMinWidth + theme.cardViewGap))))
 					let width = (self.scrollView.bounds.width - theme.cardViewHorizontalMargin * 2 - CGFloat(colNum - 1) * theme.cardViewGap)/CGFloat(colNum)
-					let cardView = CardView(frame: CGRect(x: theme.cardViewHorizontalMargin, y: theme.cardViewGroupVerticalMargin, width: width, height: theme.cardViewHeight), text: text, morse: morse, textOnTop: true, deletable: false, canBeFlipped: false, textFontSize: textFontSize, morseFontSize: cardViewMorseFontSizeDictionary, isProSignCard: isProsignCard, isProsignEmergencyCard: isProsignEmergencyCard)
+					let cardView = CardView(frame: CGRect(x: theme.cardViewHorizontalMargin, y: theme.cardViewGroupVerticalMargin, width: width, height: theme.cardViewHeight), text: text, morse: morse, textOnTop: true, deletable: false, canBeFlipped: false, textFontSize: textFontSize, morseFontSize: cardViewMorseFontSizeDictionary, isProsignCard: isProsignCard, isProsignEmergencyCard: isProsignEmergencyCard)
 					cardView.delegate = self
 					self.cardViews.append(cardView)
 				}
@@ -209,7 +215,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 		}
 	}
 
-	private func initializeCardViewsConstraints() {
+	private func updateCardViewsConstraints() {
 		let colNum = Int(max(1, floor((self.view.bounds.width - theme.cardViewHorizontalMargin * 2 + theme.cardViewGap) / (self.cardViewMinWidth + theme.cardViewGap))))
 		let width = (self.scrollView.bounds.width - theme.cardViewHorizontalMargin * 2 - CGFloat(colNum - 1) * theme.cardViewGap)/CGFloat(colNum)
 		let height = theme.cardViewHeight
@@ -245,7 +251,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 
 	func rotationDidChange() {
 		dispatch_sync(self._updateCardConstraintsQueue) {
-			self.initializeCardViewsConstraints()
+			self.updateCardViewsConstraints()
 		}
 		UIView.animateWithDuration(TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar,
 			delay: 0,
@@ -273,6 +279,80 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 
 	func playEnded() {
 		self._toneGenerator.mute()
+	}
+
+	// *****************************
+	// MARK: Update Color
+	// *****************************
+
+	func updateColor(animated animated:Bool = true) {
+		dispatch_sync(self._updateCardConstraintsQueue) {
+			self.updateCardViewsConstraints()
+		}
+		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
+		UIView.animateWithDuration(duration,
+			delay: 0,
+			options: .CurveEaseInOut,
+			animations: {
+				self.scrollView.backgroundColor = theme.scrollViewBackgroundColor
+				self.statusBarView.backgroundColor = theme.statusBarBackgroundColor
+				self.topBarView.backgroundColor = theme.topBarBackgroundColor
+				self.topBarLabel.textColor = theme.topBarLabelTextColor
+				for cardView in self.cardViews {
+					cardView.layer.cornerRadius = theme.cardViewCornerRadius
+					cardView.layer.borderWidth = theme.cardViewBorderWidth
+					cardView.layer.borderColor = theme.cardViewBorderColor.CGColor
+					if cardView.flipped {
+						cardView.backView.backgroundColor = theme.cardBackViewBackgroundColor
+					}
+					if cardView.isProsignEmergencyCard {
+						cardView.backgroundColor = theme.cardViewProsignEmergencyBackgroundColor
+					} else if cardView.isProsignCard {
+						cardView.backgroundColor = theme.cardViewProsignBackgroudColor
+					} else {
+						if cardView.expanded {
+							cardView.backgroundColor = appDelegate.theme.cardViewExpandedBackgroudColor
+						} else {
+							cardView.backgroundColor = appDelegate.theme.cardViewBackgroudColor
+						}
+					}
+					cardView.addMDShadow(withDepth: appDelegate.theme.cardViewMDShadowLevelDefault)
+					if cardView.textOnTop {
+						if cardView.isProsignEmergencyCard {
+							cardView.topLabel.textColor = theme.cardViewProsignEmergencyTextColor
+							cardView.bottomLabel.textColor = theme.cardViewProsignEmergencyMorseColor
+						} else if cardView.isProsignCard {
+							cardView.topLabel.textColor = theme.cardViewProsignTextColor
+							cardView.bottomLabel.textColor = theme.cardViewProsignMorseColor
+						} else {
+							cardView.topLabel.textColor = theme.cardViewTextColor
+							cardView.bottomLabel.textColor = theme.cardViewMorseColor
+						}
+					} else {
+						if cardView.isProsignEmergencyCard {
+							cardView.topLabel.textColor = theme.cardViewProsignEmergencyMorseColor
+							cardView.bottomLabel.textColor = theme.cardViewProsignEmergencyTextColor
+						} else if cardView.isProsignCard {
+							cardView.topLabel.textColor = theme.cardViewProsignMorseColor
+							cardView.bottomLabel.textColor = theme.cardViewProsignTextColor
+						} else {
+							cardView.topLabel.textColor = theme.cardViewMorseColor
+							cardView.bottomLabel.textColor = theme.cardViewTextColor
+						}
+					}
+				}
+				self.view.layoutIfNeeded()
+			}, completion: nil)
+	}
+
+	// This method is for using selector
+	func updateColorWithAnimation() {
+		self.updateColor(animated: true)
+	}
+
+	// This method is for using selector
+	func updateColorWithoutAnimation() {
+		self.updateColor()
 	}
 
     /*

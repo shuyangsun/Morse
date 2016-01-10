@@ -1,16 +1,16 @@
 //
-//  SettingsLanguagesTableViewController.swift
+//  SettingsThemeTableViewController.swift
 //  Morse
 //
-//  Created by Shuyang Sun on 12/14/15.
-//  Copyright © 2015 Shuyang Sun. All rights reserved.
+//  Created by Shuyang Sun on 1/9/16.
+//  Copyright © 2016 Shuyang Sun. All rights reserved.
 //
 
 import UIKit
 
-class SettingsLanguagesTableViewController: TableViewController {
+class SettingsThemeTableViewController: TableViewController {
 
-	var currentCheckedCell:TableViewLanguageCell?
+	var currentCheckedCell:TableViewCell?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,11 +18,14 @@ class SettingsLanguagesTableViewController: TableViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+
 		self.view.backgroundColor = theme.tableViewBackgroundColor
 		self.tableView.separatorColor = theme.tableViewSeparatorColor
 
 		// Navigation bar configuration
-		self.navigationItem.title = LocalizedStrings.Settings.languages
+		self.navigationItem.title = LocalizedStrings.Settings.theme
 		self.navigationController?.navigationBar.barTintColor = appDelegate.theme.navigationBarBackgroundColor
 		self.navigationController?.navigationBar.tintColor = appDelegate.theme.navigationBarTitleTextColor
 		var textAttributes = self.navigationController?.navigationBar.titleTextAttributes
@@ -47,90 +50,50 @@ class SettingsLanguagesTableViewController: TableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 3
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
 		switch section {
-		case 0: return 1 // Default
-		case 1: return 3 // Asia
-		case 2: return 1 // North America
+		case 0: return 1
+		case 1: return Theme.numberOfThemes - 1
 		default: return 0
 		}
     }
 
-	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		var cell:TableViewLanguageCell = TableViewLanguageCell()
-		let currentLanguageCode = appDelegate.currentLocaleLanguageCode
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		var cell:TableViewCell = TableViewCell()
 		if indexPath.section == 0 {
 			switch indexPath.row {
 			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Language Default Cell", forIndexPath: indexPath) as! TableViewLanguageCell
-				cell.languageCode = ""
-				if currentCheckedCell == nil && currentLanguageCode == appDelegate.firstLaunchSystemLanguageCode {
-					cell.accessoryType = .Checkmark
-					self.currentCheckedCell = cell
-				}
+				cell = tableView.dequeueReusableCellWithIdentifier("Settings Theme Name Cell", forIndexPath: indexPath) as! TableViewCell
 			default: break
 			}
 		} else if indexPath.section == 1 {
 			switch indexPath.row {
 			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Language Detailed Cell", forIndexPath: indexPath) as! TableViewLanguageCell
-				cell.languageCode = "ar"
-			case 1:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Language Detailed Cell", forIndexPath: indexPath) as! TableViewLanguageCell
-				cell.languageCode = "zh-Hans"
-			case 2:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Language Detailed Cell", forIndexPath: indexPath) as! TableViewLanguageCell
-				cell.languageCode = "zh-Hant"
-			default: break
-			}
-		} else if indexPath.section == 2 {
-			switch indexPath.row {
-			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Language Detailed Cell", forIndexPath: indexPath) as! TableViewLanguageCell
-				cell.languageCode = "en"
+				cell = tableView.dequeueReusableCellWithIdentifier("Settings Theme Name Cell", forIndexPath: indexPath) as! TableViewCell
 			default: break
 			}
 		}
 
-		if indexPath.section != 0 {
-			if currentCheckedCell == nil && currentLanguageCode == cell.languageCode {
-				cell.accessoryType = .Checkmark
-				self.currentCheckedCell = cell
-			}
+		cell.textLabel?.text = Theme(rawValue: indexPath.section + indexPath.row)?.name
+		if currentCheckedCell == nil && appDelegate.userSelectedTheme.rawValue == indexPath.section + indexPath.row {
+			cell.accessoryType = .Checkmark
+			self.currentCheckedCell = cell
 		}
 
 		cell.updateColor()
 
 		return cell
-	}
-
-	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		switch section {
-		case 0: return LocalizedStrings.Languages.defaultGroup
-		case 1: return LocalizedStrings.Languages.asia
-		case 2: return LocalizedStrings.Languages.northAmerica
-		default: return nil
-		}
-	}
-
-	override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-		switch section {
-		case 0: return LocalizedStrings.Languages.restartReminderFooter
-		default: return nil
-		}
-	}
+    }
 
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return tableViewCellHeight
 	}
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let cell = tableView.cellForRowAtIndexPath(indexPath) as! TableViewLanguageCell
+		let cell = tableView.cellForRowAtIndexPath(indexPath) as! TableViewCell
 		if cell !== self.currentCheckedCell {
 			self.currentCheckedCell?.accessoryType = .None
 			if self.currentCheckedCell != cell {
@@ -138,22 +101,18 @@ class SettingsLanguagesTableViewController: TableViewController {
 			}
 			cell.accessoryType = .Checkmark
 			self.currentCheckedCell = cell
-			cell.updateColor()
-			let languageCode = cell.languageCode
-			if languageCode.isEmpty {
-				appDelegate.resetLocaleToSystemDefault()
-			} else {
-				appDelegate.updateLocalWithIdentifier(languageCode)
-			}
-			// TODO: warn user to restart
+
+			appDelegate.userDefaults.setInteger(indexPath.section + indexPath.row, forKey: userDefaultsKeyUserSelectedTheme)
+			appDelegate.userDefaults.synchronize()
+			theme = Theme(rawValue: indexPath.section + indexPath.row)!
 		}
 	}
 
 	// *****************************
 	// MARK: Update Color
-	// *****************************s
+	// *****************************
 
-	override func updateColor(animated animated:Bool = false) {
+	override func updateColor(animated animated:Bool = true) {
 		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
 		UIView.animateWithDuration(duration,
 			delay: 0,
@@ -163,7 +122,6 @@ class SettingsLanguagesTableViewController: TableViewController {
 				self.tableView.separatorColor = theme.tableViewSeparatorColor
 				self.navigationController?.navigationBar.barTintColor = theme.navigationBarBackgroundColor
 				self.navigationController?.navigationBar.tintColor = theme.navigationBarTitleTextColor
-				self.tabBarController?.tabBar.barTintColor = theme.tabBarBackgroundColor
 			}) { succeed in
 				// Update cell colors:
 				self.tableView.reloadData()
@@ -214,4 +172,5 @@ class SettingsLanguagesTableViewController: TableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+
 }

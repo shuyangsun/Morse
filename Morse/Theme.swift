@@ -9,14 +9,37 @@
 import UIKit
 
 var theme:Theme {
-	return appDelegate.theme
+	get {
+		return appDelegate.theme
+	}
+	set {
+		appDelegate.theme = newValue
+	}
 }
 
-private let scrollViewOverlayAlpha:CGFloat = 0.35
-private let scrollViewOverlayAlphaAudioInput:CGFloat = 0
+enum ThemeStyle {
+	case Light
+	case Dark
+}
 
-enum Theme: String {
-	case Default = "Default"
+enum Theme: Int {
+	static let numberOfThemes = 2
+
+	case Default = 0, Night
+
+	var name:String {
+		switch self {
+		case .Default: return LocalizedStrings.General.defaultName
+		case .Night: return LocalizedStrings.ThemeName.night
+		}
+	}
+
+	var style:ThemeStyle {
+		switch self {
+		case .Night: return .Dark
+		default: return .Light
+		}
+	}
 
 	// *****************************
 	// MARK: Colors
@@ -33,42 +56,75 @@ enum Theme: String {
 	var statusBarBackgroundColor:UIColor {
 		switch self {
 		case .Default: return MDColorPalette.Blue.P700
+		case .Night: return MDColorPalette.Grey.P900
 		}
 	}
 
 	var topBarBackgroundColor:UIColor {
 		switch self {
 		case .Default: return MDColorPalette.Blue.P500
+		case .Night: return MDColorPalette.Grey.P800
 		}
 	}
 
 	var topBarLabelTextColor:UIColor {
 		switch self {
-		case .Default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
 		}
 	}
 
 	var cancelButtonColor:UIColor {
 		switch self {
-		case .Default: return UIColor.whiteColor()
+		default: return UIColor.whiteColor()
 		}
 	}
 
 	var textViewBackgroundColor:UIColor {
 		switch self {
+		case .Night: return MDColorPalette.Grey.P700
 		default: return UIColor.whiteColor()
+		}
+	}
+
+	var textViewBreakLineColor:UIColor {
+		switch self {
+		case .Night: return UIColor(hex: 0xFFFFFF, alpha: 0.1)
+		default: return UIColor(hex: 0x000, alpha: 0.1)
 		}
 	}
 
 	var textViewTapFeedbackColor:UIColor {
 		switch self {
 		case .Default: return MDColorPalette.Blue.P200
+		case .Night: return MDColorPalette.Grey.P500
 		}
 	}
 
-	var roundButtonBackgroundColor:UIColor {
+	var textViewHintTextColor:UIColor {
+		switch self {
+		case .Default: return UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)
+		case .Night: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextHintAlpha)
+		}
+	}
+
+	var textViewInputTextColor:UIColor {
+		switch self {
+		case .Night: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		default: return UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha)
+		}
+	}
+
+	var textViewOutputTextColor:UIColor {
+		switch self {
+		default: return self.textViewInputTextColor
+		}
+	}
+
+	var roundButtonBackgroundColor:UIColor? {
 		switch self {
 		case .Default: return MDColorPalette.Red.A200!
+//		case .Night: return MDColorPalette.Blue.A200!
+		case .Night: return nil
 		}
 	}
 
@@ -92,25 +148,22 @@ enum Theme: String {
 
 	var scrollViewBackgroundColor:UIColor {
 		switch self {
-		default: return UIColor(hex: 0xEEEEEE)
+		case .Default: return UIColor(hex: 0xEEEEEE)
+		case .Night: return MDColorPalette.Grey.P900
 		}
 	}
 
 	var scrollViewOverlayColor:UIColor {
 		switch self {
-		default: return UIColor(hex: 0x000, alpha: scrollViewOverlayAlpha)
-		}
-	}
-
-	var scrollViewOverlayAudioInputColor:UIColor {
-		switch self {
-		default: return UIColor(hex: 0x000, alpha: scrollViewOverlayAlphaAudioInput)
+		case .Night: return UIColor(hex: 0x000, alpha: 0.8)
+		default: return UIColor(hex: 0x000, alpha: 0.35)
 		}
 	}
 
 	var cardViewBackgroudColor:UIColor {
 		switch self {
 		case .Default: return UIColor.whiteColor()
+		case .Night: return MDColorPalette.Grey.P800
 		}
 	}
 
@@ -134,19 +187,21 @@ enum Theme: String {
 
 	var cardViewTapfeedbackColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Blue.P200
+		default: return self.textViewTapFeedbackColor
 		}
 	}
 
 	var cardViewTextColor:UIColor {
 		switch self {
-		default: return UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha)
+		case .Default: return UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha)
+		case .Night: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
 		}
 	}
 
 	var cardViewMorseColor:UIColor {
 		switch self {
 		case .Default: return UIColor(hex:0x000, alpha: MDDarkTextSecondaryAlpha)
+		case .Night: return UIColor(hex:0xFFFFFF, alpha: MDDarkTextSecondaryAlpha)
 		}
 	}
 
@@ -177,6 +232,7 @@ enum Theme: String {
 	var cardBackViewBackgroundColor:UIColor {
 		switch self {
 		case .Default: return MDColorPalette.Blue.P500
+		case .Night: return MDColorPalette.Grey.P700
 		}
 	}
 
@@ -208,18 +264,20 @@ enum Theme: String {
 	var progressBarColor:UIColor {
 		switch self {
 		case .Default: return MDColorPalette.Blue.P500
+		case .Night: return MDColorPalette.Grey.P800
 		}
 	}
 
 	var percentageTextColor:UIColor {
 		switch self {
-		default: return self.topBarLabelTextColor
+		case .Default: return self.topBarLabelTextColor
+		case .Night: return MDColorPalette.Grey.P400
 		}
 	}
 
 	var morseTextProgressBarColor:UIColor {
 		switch self {
-		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		default: return self.percentageTextColor
 		}
 	}
 
@@ -248,10 +306,9 @@ enum Theme: String {
 	}
 
 	// Tab bar VC
-
 	var tabBarBackgroundColor:UIColor {
 		switch self {
-		case .Default: return UIColor(hex: 0xEEEEEE)
+		default: return self.scrollViewBackgroundColor
 		}
 	}
 
@@ -267,20 +324,35 @@ enum Theme: String {
 		}
 	}
 
-	var cellBackgroundColor:UIColor {
+	var tableViewCellBackgroundColor:UIColor {
 		switch self {
-		default: return UIColor.whiteColor()
+		case .Default: return UIColor.whiteColor()
+		case .Night: return MDColorPalette.Grey.P800
 		}
 	}
 
-	var cellSelectedBackgroundColor:UIColor {
+	var tableViewCellSelectedBackgroundColor:UIColor {
 		switch self {
-		case .Default: return self.cellBackgroundColor
+		default: return self.tableViewCellBackgroundColor
+		}
+	}
+
+	var tableViewBackgroundColor:UIColor {
+		switch self {
+		default: return self.scrollViewBackgroundColor
+		}
+	}
+
+	var tableViewSeparatorColor:UIColor? {
+		switch self {
+		case .Night: return MDColorPalette.Grey.P600
+		default: return nil
 		}
 	}
 
 	var cellTitleTextColor:UIColor {
 		switch self {
+		case .Night: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
 		default: return UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha)
 		}
 	}
@@ -293,6 +365,7 @@ enum Theme: String {
 
 	var cellDetailTitleTextColor:UIColor {
 		switch self {
+		case .Night: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextSecondaryAlpha)
 		default: return UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)
 		}
 	}
@@ -303,22 +376,37 @@ enum Theme: String {
 		}
 	}
 
-	var cellCheckmarkColor:UIColor {
+	var tableViewCellCheckmarkColor:UIColor {
 		switch self {
 		case .Default: return MDColorPalette.Red.A200!
+		case .Night: return MDColorPalette.Blue.A200!
 		}
 	}
 
 	var cellTapFeedBackColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Blue.P200
+		default: return self.textViewTapFeedbackColor
+		}
+	}
+
+	var tableViewHeaderTextColor:UIColor {
+		switch self {
+		case .Night: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextSecondaryAlpha)
+		default: return UIColor(hex: 0x000, alpha: MDDarkTextSecondaryAlpha)
+		}
+	}
+
+	var tableViewFooterTextColor:UIColor {
+		switch self {
+		case .Night: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextHintAlpha)
+		default: return UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)
 		}
 	}
 
 	var sliderMinTrackTintColor:UIColor? {
 		switch self {
-//		case .Default: return MDColorPalette.Red.A100!
-		default: return nil
+		case .Default: return MDColorPalette.Red.A100!
+		case .Night: return MDColorPalette.Blue.A200!
 		}
 	}
 
@@ -350,18 +438,20 @@ enum Theme: String {
 
 	var audioPlotColor:UIColor {
 		switch self {
-		case .Default: return UIColor(hex: 0xFFFFFF, alpha: 0.5)
+		default: return UIColor(hex: 0xFFFFFF, alpha: 0.5)
 		}
 	}
 
 	var audioPlotPitchFilteredColor:UIColor {
 		switch self {
 		case .Default: return UIColor(hex: MDColorPalette.Blue.P500.hex, alpha: 0.8)
+		case .Night: return UIColor(hex: MDColorPalette.Blue.A400!.hex, alpha: 0.8)
 		}
 	}
 
 	var scrollViewBlurTintColor:UIColor {
 		switch self {
+		case .Night: return UIColor(hex: 0xFFFFFF, alpha: 0.2)
 		default: return UIColor(hex: 0x000, alpha: 0.2)
 		}
 	}
@@ -419,6 +509,20 @@ enum Theme: String {
 	var cardViewMDShadowLevelDefault:Int {
 		switch self {
 		default: return 1
+		}
+	}
+
+	var roundButtonMDShadowLevelDefault:Int {
+		switch self {
+		case .Night: return 0
+		default: return 3
+		}
+	}
+
+	var roundButtonMDShadowLevelTapped:Int {
+		switch self {
+		case .Night: return 0
+		default: return 4
 		}
 	}
 }

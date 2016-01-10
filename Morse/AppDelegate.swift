@@ -18,13 +18,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return NSUserDefaults.standardUserDefaults()
 	}
 
-	// UI theme
 	var theme:Theme {
-		if let result = self.userDefaults.stringForKey(userDefaultsKeyTheme) {
-			return Theme(rawValue: result)!
-		} else {
-			return Theme(rawValue: "Default")!
+		get {
+			return Theme(rawValue: self.userDefaults.integerForKey(userDefaultsKeyTheme))!
 		}
+		set {
+			self.userDefaults.setInteger(newValue.rawValue, forKey: userDefaultsKeyTheme)
+			self.userDefaults.synchronize()
+			NSNotificationCenter.defaultCenter().postNotificationName(themeDidChangeNotificationName, object: nil)
+		}
+	}
+
+	var userSelectedTheme:Theme {
+		return Theme(rawValue: self.userDefaults.integerForKey(userDefaultsKeyUserSelectedTheme))!
 	}
 
 	// UI theme
@@ -94,9 +100,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return self.userDefaults.boolForKey(userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
 	}
 
+	var automaticNightMode:Bool {
+		return self.userDefaults.boolForKey(userDefaultsKeyAutoNightMode)
+	}
+
+	var automaticNightModeThreshold:Float {
+		return self.userDefaults.floatForKey(userDefaultsKeyAutoNightModeThreshold)
+	}
+
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		UIApplication.sharedApplication().statusBarStyle = .LightContent
+		NSTimer.scheduledTimerWithTimeInterval(defaultAutoNightModeUpdateTimeInterval, target: self, selector: "updateThemeIfAutoNight", userInfo: nil, repeats: true)
 
 		if !self.notFirstLaunch {
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyExtraTextWhenShare)
@@ -104,10 +119,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyInputWPMAutomatic)
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyInputPitchAutomatic)
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
+			self.userDefaults.setBool(true, forKey: userDefaultsKeyAutoNightMode)
 			self.userDefaults.setInteger(defaultInputWPM, forKey: userDefaultsKeyInputWPM)
 			self.userDefaults.setFloat(defaultInputPitch, forKey: userDefaultsKeyInputPitch)
 			self.userDefaults.setInteger(defaultOutputWPM, forKey: userDefaultsKeyOutputWPM)
 			self.userDefaults.setFloat(defaultOutputPitch, forKey: userDefaultsKeyOutputPitch)
+			self.userDefaults.setFloat(defaultAutoNightModeThreshold, forKey: userDefaultsKeyAutoNightModeThreshold)
 			self.userDefaults.synchronize()
 		}
 
@@ -203,6 +220,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	            abort()
 	        }
 	    }
+	}
+
+	func updateThemeIfAutoNight() {
+		if self.automaticNightMode {
+			let brightness = UIScreen.mainScreen().brightness
+			var shouldBeTheme = Theme(rawValue: self.userDefaults.integerForKey(userDefaultsKeyUserSelectedTheme))!
+			if brightness <= CGFloat(self.automaticNightModeThreshold) {
+				shouldBeTheme = .Night
+			}
+			if self.theme != shouldBeTheme {
+				self.theme = shouldBeTheme
+			}
+		}
 	}
 }
 

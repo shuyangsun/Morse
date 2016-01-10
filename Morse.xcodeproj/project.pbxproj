@@ -141,20 +141,14 @@
 		109DEA371C4179B400DDC04D /* UIImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 109DEA361C4179B400DDC04D /* UIImageEffects.m */; };
 		10B9C8151C0FB5A4001C5847 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10B9C8141C0FB5A4001C5847 /* CoreData.framework */; };
 		10BFD38E1C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD38D1C1E964C00FA4C26 /* SettingsSplitViewController.swift */; };
-		10BFD38F1C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD38D1C1E964C00FA4C26 /* SettingsSplitViewController.swift */; };
-		10BFD3901C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD38D1C1E964C00FA4C26 /* SettingsSplitViewController.swift */; };
 		10BFD3921C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3911C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift */; };
-		10BFD3931C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3911C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift */; };
-		10BFD3941C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3911C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift */; };
 		10BFD39A1C1F1C1300FA4C26 /* General UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3991C1F1C1300FA4C26 /* General UI.swift */; };
 		10BFD39B1C1F1C1300FA4C26 /* General UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3991C1F1C1300FA4C26 /* General UI.swift */; };
 		10BFD39C1C1F1C1300FA4C26 /* General UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3991C1F1C1300FA4C26 /* General UI.swift */; };
 		10BFD39E1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD39D1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift */; };
-		10BFD39F1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD39D1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift */; };
-		10BFD3A01C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD39D1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift */; };
-		10BFD3A31C1F486700FA4C26 /* LanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3A21C1F486700FA4C26 /* LanguageTableViewCell.swift */; };
-		10BFD3A41C1F486700FA4C26 /* LanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3A21C1F486700FA4C26 /* LanguageTableViewCell.swift */; };
-		10BFD3A51C1F486700FA4C26 /* LanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3A21C1F486700FA4C26 /* LanguageTableViewCell.swift */; };
+		10BFD3A31C1F486700FA4C26 /* TableViewLanguageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3A21C1F486700FA4C26 /* TableViewLanguageCell.swift */; };
+		10BFD3A41C1F486700FA4C26 /* TableViewLanguageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3A21C1F486700FA4C26 /* TableViewLanguageCell.swift */; };
+		10BFD3A51C1F486700FA4C26 /* TableViewLanguageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3A21C1F486700FA4C26 /* TableViewLanguageCell.swift */; };
 		10CAF8141C1DDD4A00164258 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 10CAF8161C1DDD4A00164258 /* InfoPlist.strings */; };
 		10CAF8191C1DDD4A00164258 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 10CAF81B1C1DDD4A00164258 /* Localizable.strings */; };
 		10CAF81E1C1DDD4A00164258 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 10CAF8201C1DDD4A00164258 /* InfoPlist.strings */; };
@@ -164,6 +158,10 @@
 		10CC4EAA1C38854100B1F0F2 /* MorseTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CC4EA91C38854100B1F0F2 /* MorseTransmitterDelegate.swift */; };
 		10CC4EAB1C38854100B1F0F2 /* MorseTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CC4EA91C38854100B1F0F2 /* MorseTransmitterDelegate.swift */; };
 		10CC4EAC1C38854100B1F0F2 /* MorseTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CC4EA91C38854100B1F0F2 /* MorseTransmitterDelegate.swift */; };
+		10D54A0C1C41FF3D00775318 /* SettingsThemeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D54A0B1C41FF3D00775318 /* SettingsThemeTableViewController.swift */; };
+		10D54A131C42BDE600775318 /* TableViewSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D54A121C42BDE600775318 /* TableViewSwitchCell.swift */; };
+		10D54A151C42C16D00775318 /* TableViewSwitchCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D54A141C42C16D00775318 /* TableViewSwitchCellDelegate.swift */; };
+		10D54A171C42D19600775318 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D54A161C42D19600775318 /* TableViewController.swift */; };
 		10F1B5CD1C3F6C94000AA9C4 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10F1B5CC1C3F6C94000AA9C4 /* JavaScriptCore.framework */; };
 		10F1B5CF1C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */ = {isa = PBXBuildFile; fileRef = 10F1B5CE1C3F750C000AA9C4 /* webAudioToneGenerator.js */; };
 		10F1B5D01C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */ = {isa = PBXBuildFile; fileRef = 10F1B5CE1C3F750C000AA9C4 /* webAudioToneGenerator.js */; };
@@ -326,7 +324,7 @@
 		10BFD3911C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsMasterTableViewController.swift; sourceTree = "<group>"; };
 		10BFD3991C1F1C1300FA4C26 /* General UI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "General UI.swift"; sourceTree = "<group>"; };
 		10BFD39D1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsLanguagesTableViewController.swift; sourceTree = "<group>"; };
-		10BFD3A21C1F486700FA4C26 /* LanguageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageTableViewCell.swift; sourceTree = "<group>"; };
+		10BFD3A21C1F486700FA4C26 /* TableViewLanguageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewLanguageCell.swift; sourceTree = "<group>"; };
 		10CAF8261C1DDD5A00164258 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		10CAF8271C1DDD5A00164258 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		10CAF8281C1DDDBB00164258 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -345,6 +343,10 @@
 		10CAF83D1C1DDFE700164258 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		10CAF83E1C1DDFE700164258 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		10CC4EA91C38854100B1F0F2 /* MorseTransmitterDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseTransmitterDelegate.swift; sourceTree = "<group>"; };
+		10D54A0B1C41FF3D00775318 /* SettingsThemeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsThemeTableViewController.swift; sourceTree = "<group>"; };
+		10D54A121C42BDE600775318 /* TableViewSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewSwitchCell.swift; sourceTree = "<group>"; };
+		10D54A141C42C16D00775318 /* TableViewSwitchCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewSwitchCellDelegate.swift; sourceTree = "<group>"; };
+		10D54A161C42D19600775318 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		10F1B5CC1C3F6C94000AA9C4 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		10F1B5CE1C3F750C000AA9C4 /* webAudioToneGenerator.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = webAudioToneGenerator.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -393,7 +395,8 @@
 				109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */,
 				1073948E1C11F75800EF8C16 /* CancelButton.swift */,
 				109266831C2071EA00AD198E /* TableViewCell.swift */,
-				10BFD3A21C1F486700FA4C26 /* LanguageTableViewCell.swift */,
+				10BFD3A21C1F486700FA4C26 /* TableViewLanguageCell.swift */,
+				10D54A121C42BDE600775318 /* TableViewSwitchCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -612,8 +615,10 @@
 			isa = PBXGroup;
 			children = (
 				10BFD38D1C1E964C00FA4C26 /* SettingsSplitViewController.swift */,
+				10D54A161C42D19600775318 /* TableViewController.swift */,
 				10BFD3911C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift */,
 				10BFD39D1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift */,
+				10D54A0B1C41FF3D00775318 /* SettingsThemeTableViewController.swift */,
 			);
 			name = "Settings VC";
 			sourceTree = "<group>";
@@ -634,6 +639,7 @@
 				10295BCB1C24FE050060DBE1 /* MorseOutputPlayerDelegate.swift */,
 				100F7CDE1C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift */,
 				10CC4EA91C38854100B1F0F2 /* MorseTransmitterDelegate.swift */,
+				10D54A141C42C16D00775318 /* TableViewSwitchCellDelegate.swift */,
 			);
 			name = Delegates;
 			sourceTree = "<group>";
@@ -827,6 +833,7 @@
 				10286CCB1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				103476EF1C3750DC0036DB44 /* EZAudioDevice.m in Sources */,
 				103476F21C3750DC0036DB44 /* EZAudioDisplayLink.m in Sources */,
+				10D54A131C42BDE600775318 /* TableViewSwitchCell.swift in Sources */,
 				10826A181C0D5C4C00902BCC /* General.swift in Sources */,
 				100F7CDF1C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift in Sources */,
 				10BFD3921C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift in Sources */,
@@ -834,6 +841,7 @@
 				1034770D1C3750DC0036DB44 /* EZMicrophone.m in Sources */,
 				103477041C3750DC0036DB44 /* EZAudioPlot.m in Sources */,
 				103476F51C3750DC0036DB44 /* EZAudioFFT.m in Sources */,
+				10D54A171C42D19600775318 /* TableViewController.swift in Sources */,
 				103477011C3750DC0036DB44 /* EZAudioPlayer.m in Sources */,
 				101A0AB31C1BBA820030A51A /* Localization.swift in Sources */,
 				101A0A981C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */,
@@ -846,6 +854,7 @@
 				107FF6AB1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
 				1088ACC21C26003400D17028 /* CardViewOutputAnimator.swift in Sources */,
 				109266841C2071EA00AD198E /* TableViewCell.swift in Sources */,
+				10D54A0C1C41FF3D00775318 /* SettingsThemeTableViewController.swift in Sources */,
 				107FF6A71C0BC128003EB294 /* Theme.swift in Sources */,
 				10CC4EAA1C38854100B1F0F2 /* MorseTransmitterDelegate.swift in Sources */,
 				100F7CD81C27513700DDD8EC /* MorseAudioRecorder.swift in Sources */,
@@ -858,8 +867,9 @@
 				103477071C3750DC0036DB44 /* EZAudioPlotGL.m in Sources */,
 				10BFD39E1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */,
 				103476F81C3750DC0036DB44 /* EZAudioFile.m in Sources */,
+				10D54A151C42C16D00775318 /* TableViewSwitchCellDelegate.swift in Sources */,
 				10295BC31C24CF1F0060DBE1 /* OutputViewController.swift in Sources */,
-				10BFD3A31C1F486700FA4C26 /* LanguageTableViewCell.swift in Sources */,
+				10BFD3A31C1F486700FA4C26 /* TableViewLanguageCell.swift in Sources */,
 				10295BC81C24EE6B0060DBE1 /* MorseOutputPlayer.swift in Sources */,
 				103477101C3750DC0036DB44 /* EZOutput.m in Sources */,
 				105708FE1C3C39D200AEA1F6 /* ToneGenerator.swift in Sources */,
@@ -885,7 +895,6 @@
 				107FF6C51C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
 				103476F31C3750DC0036DB44 /* EZAudioDisplayLink.m in Sources */,
 				100F7CE01C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift in Sources */,
-				10BFD3931C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift in Sources */,
 				103477111C3750DC0036DB44 /* EZOutput.m in Sources */,
 				107FF6A81C0BC128003EB294 /* Theme.swift in Sources */,
 				101A0AB41C1BBA820030A51A /* Localization.swift in Sources */,
@@ -896,7 +905,6 @@
 				103477051C3750DC0036DB44 /* EZAudioPlot.m in Sources */,
 				103476FC1C3750DC0036DB44 /* EZAudioFloatConverter.m in Sources */,
 				103476F01C3750DC0036DB44 /* EZAudioDevice.m in Sources */,
-				10BFD38F1C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */,
 				10274F741C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift in Sources */,
 				109ACDC11C0E0D12006AC535 /* RoundButtonView.swift in Sources */,
 				1034771D1C3750DC0036DB44 /* TPCircularBuffer.c in Sources */,
@@ -908,10 +916,9 @@
 				100F7CD91C27513700DDD8EC /* MorseAudioRecorder.swift in Sources */,
 				1030BA101C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
 				107394901C11F75800EF8C16 /* CancelButton.swift in Sources */,
-				10BFD39F1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */,
 				10295BC41C24CF1F0060DBE1 /* OutputViewController.swift in Sources */,
 				1034770E1C3750DC0036DB44 /* EZMicrophone.m in Sources */,
-				10BFD3A41C1F486700FA4C26 /* LanguageTableViewCell.swift in Sources */,
+				10BFD3A41C1F486700FA4C26 /* TableViewLanguageCell.swift in Sources */,
 				103477171C3750DC0036DB44 /* EZRecorder.m in Sources */,
 				10295BC91C24EE6B0060DBE1 /* MorseOutputPlayer.swift in Sources */,
 				103476C41C374C560036DB44 /* AudioWaveFormViewController.swift in Sources */,
@@ -938,7 +945,6 @@
 				103476F41C3750DC0036DB44 /* EZAudioDisplayLink.m in Sources */,
 				107FF6C61C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
 				100F7CE11C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift in Sources */,
-				10BFD3941C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift in Sources */,
 				107FF6A91C0BC128003EB294 /* Theme.swift in Sources */,
 				1034770F1C3750DC0036DB44 /* EZMicrophone.m in Sources */,
 				103477061C3750DC0036DB44 /* EZAudioPlot.m in Sources */,
@@ -949,7 +955,6 @@
 				103476EE1C3750DC0036DB44 /* EZAudio.m in Sources */,
 				1052A7761C0BAED50085B0C9 /* TabBarController.swift in Sources */,
 				10295BCE1C24FE050060DBE1 /* MorseOutputPlayerDelegate.swift in Sources */,
-				10BFD3901C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */,
 				10274F751C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift in Sources */,
 				109ACDC21C0E0D12006AC535 /* RoundButtonView.swift in Sources */,
 				1052A7661C0BACEA0085B0C9 /* MorseUITests.swift in Sources */,
@@ -962,12 +967,11 @@
 				1030BA111C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
 				107394911C11F75800EF8C16 /* CancelButton.swift in Sources */,
 				103477151C3750DC0036DB44 /* EZPlot.m in Sources */,
-				10BFD3A01C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */,
 				1034771E1C3750DC0036DB44 /* TPCircularBuffer.c in Sources */,
 				103477091C3750DC0036DB44 /* EZAudioPlotGL.m in Sources */,
 				10295BC51C24CF1F0060DBE1 /* OutputViewController.swift in Sources */,
 				103476FA1C3750DC0036DB44 /* EZAudioFile.m in Sources */,
-				10BFD3A51C1F486700FA4C26 /* LanguageTableViewCell.swift in Sources */,
+				10BFD3A51C1F486700FA4C26 /* TableViewLanguageCell.swift in Sources */,
 				10295BCA1C24EE6B0060DBE1 /* MorseOutputPlayer.swift in Sources */,
 				103476C51C374C560036DB44 /* AudioWaveFormViewController.swift in Sources */,
 				103477121C3750DC0036DB44 /* EZOutput.m in Sources */,

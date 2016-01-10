@@ -11,7 +11,6 @@ import UIKit
 let TAP_FEED_BACK_DURATION:NSTimeInterval = 0.4
 let defaultAnimationDuration:NSTimeInterval = 0.35
 
-let tableViewCellHeight:CGFloat = 50
 let topBarHeight:CGFloat = 56
 
 let textViewInputFontSize:CGFloat = 16
@@ -43,7 +42,8 @@ var sliderWidth:CGFloat {
 	return 200
 }
 
-let cellTextLabelWidth:CGFloat = 100
+let tableViewCellTextLabelWidth:CGFloat = 100
+let tableViewCellHeight:CGFloat = 50
 let tableViewCellTrailingPadding:CGFloat = 18
 let tableViewCellTextLabelFontSize:CGFloat = 16
 let tableViewCellDetailTextLabelFontSize:CGFloat = 12

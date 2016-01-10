@@ -27,6 +27,7 @@ struct LocalizedStrings {
 	struct General {
 		static let sharePromote = NSLocalizedString("Check this out! I converted text to this Morse code using Morse Transmitter! Download here:", comment: "When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.")
 		static let automatic = NSLocalizedString("Automatic", comment: "A setting that indicates something is done automatically.")
+		static let defaultName = NSLocalizedString("Default", comment: "Means something's default.")
 	}
 
 	struct Prosign {
@@ -101,18 +102,25 @@ struct LocalizedStrings {
 	struct Settings {
 		static let settings = NSLocalizedString("Settings", comment: "The title for settings page.")
 		static let general = NSLocalizedString("General", comment: "There are categories on the settings page, this is one of the category.")
-		static let ui = NSLocalizedString("User Interface", comment: "There are categories on the settings page, this is one of the category.")
+		static let ui = NSLocalizedString("Appearance", comment: "There are categories on the settings page, this is one of the category.")
 		static let about = NSLocalizedString("About", comment: "There are categories on the settings page, this is one of the category.")
 		static let developerOptions = NSLocalizedString("Developer Options", comment: "There are categories on the settings page, this is one of the category.")
 		static let languages = NSLocalizedString("Language", comment: "There are many sections on the settings page, this section let the user change the App's language.")
-		static let extraTextWhenShare = NSLocalizedString("Greeting Text", comment: "There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.")
+		static let extraTextWhenShare = NSLocalizedString("Share Signature", comment: "There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.")
 		static let brightenUpDisplayWhenOutput = NSLocalizedString("Output Brighten Screen", comment: "There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputing Morse code.")
 		static let theme = NSLocalizedString("Theme", comment: "There are many sections on the settings page, this switch let the user change the color theme of this App.")
+		static let autoNightMode = NSLocalizedString("Switch Automatically", comment: "There are many sections on the settings page, this switch let the user toggle if the app should change to Night theme when the ambient censor detects the surrounding light is low.")
 		static let outputWPM = NSLocalizedString("Output WPM (Word Per Minute)", comment: "There are many sections on the settings page, this one changes the output WPM.")
 		static let inputPitch = NSLocalizedString("Input Pitch (Audio Frequency)", comment: "There are many sections on the settings page, this one changes the frequency should be detected for input audio.")
+		static let nightModeDescription = NSLocalizedString("When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme.", comment: "There are many sections on the settings page, this one explains what does Auto Switch button in Appearance section do.")
+	}
+
+	struct ThemeName {
+		static let night = NSLocalizedString("Night", comment: "One of the names for color theme.")
 	}
 
 	struct Languages {
+		static let restartReminderFooter = NSLocalizedString("Please restart this App after changing language.", comment: "This is a footer on the first section in language change settings, to reminder user restart the App after changing language.")
 		static let defaultGroup = NSLocalizedString("Default", comment: "Users can change language in settings app, this is one of the language groups.")
 		static let asia = NSLocalizedString("Asia", comment: "Users can change language in settings app, this is one of the language groups.")
 		static let northAmerica = NSLocalizedString("North America", comment: "Users can change language in settings app, this is one of the language groups.")

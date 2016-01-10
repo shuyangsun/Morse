@@ -1,5 +1,5 @@
 //
-//  LanguageTableViewCell.swift
+//  TableViewLanguageCell.swift
 //  Morse
 //
 //  Created by Shuyang Sun on 12/14/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LanguageTableViewCell: TableViewCell {
+class TableViewLanguageCell: TableViewCell {
 
 	var languageCode = "" {
 		willSet {
@@ -24,7 +24,6 @@ class LanguageTableViewCell: TableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-		self.tintColor = appDelegate.theme.cellCheckmarkColor
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -33,9 +32,9 @@ class LanguageTableViewCell: TableViewCell {
         // Configure the view for the selected state
     }
 
-	func updateColor() {
+	override func updateColor() {
 		if self.accessoryType == .None {
-			self.backgroundColor = appDelegate.theme.cellBackgroundColor
+			self.backgroundColor = appDelegate.theme.tableViewCellBackgroundColor
 			if self.languageCode == "" {
 				self.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Languages.systemDefault, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			} else {
@@ -43,7 +42,7 @@ class LanguageTableViewCell: TableViewCell {
 				self.detailTextLabel?.attributedText = getAttributedStringFrom(supportedLanguages[self.languageCode]!.localized, withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
 			}
 		} else {
-			self.backgroundColor = appDelegate.theme.cellSelectedBackgroundColor
+			self.backgroundColor = appDelegate.theme.tableViewCellSelectedBackgroundColor
 			if self.languageCode == "" {
 				self.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Languages.systemDefault, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextSelectedColor, bold: false)
 			} else {
@@ -52,5 +51,4 @@ class LanguageTableViewCell: TableViewCell {
 			}
 		}
 	}
-
 }

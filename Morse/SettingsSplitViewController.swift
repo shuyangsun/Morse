@@ -12,6 +12,10 @@ class SettingsSplitViewController: UISplitViewController, UISplitViewControllerD
 
 	var statusBarView:UIView!
 
+	override func preferredStatusBarStyle() -> UIStatusBarStyle {
+		return theme.style == .Dark ? .LightContent : .Default
+	}
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

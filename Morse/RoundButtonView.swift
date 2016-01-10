@@ -16,10 +16,6 @@ class RoundButtonView: UIView {
 	var buttonAction:ButtonActionType = .Switch
 	var backgroundImageView:UIImageView!
 
-	private var shadowLevel:Int {
-		return 2
-	}
-
 	private var animationDurationScalar:Double {
 		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
 		return delegate.animationDurationScalar
@@ -38,7 +34,7 @@ class RoundButtonView: UIView {
 		self.opaque = false
 		self.backgroundColor = appDelegate.theme.roundButtonBackgroundColor
 		self.layer.cornerRadius = radius
-		self.addMDShadow(withDepth: self.shadowLevel)
+		self.addMDShadow(withDepth: theme.roundButtonMDShadowLevelDefault)
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -80,7 +76,7 @@ class RoundButtonView: UIView {
 				self.alpha = 1
 				self.userInteractionEnabled = true
 			}
-			self.addMDShadow(withDepth: self.shadowLevel)
+			self.addMDShadow(withDepth: theme.roundButtonMDShadowLevelDefault)
 		}
 		UIView.animateWithDuration(duration * self.animationDurationScalar,
 			delay: 0.0,

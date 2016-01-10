@@ -380,7 +380,7 @@ class MorseTransmitter {
 	private var _singalStarted = false
 	private var _wordGapAppended = true
 	private var _newLineAppended = true
-	private var _counter = 0
+	private var _counter = 1
 
 	// The following variables are to help calculating input WPM
 	private var _ditSignalLengthRecordRecent:[Int] = []
@@ -401,6 +401,7 @@ class MorseTransmitter {
 		self._text = ""
 		self._currentLetterMorse = ""
 		self._sampleRate = -1
+		self._counter = 1
 		self._ditSignalLengthRecordRecent = []
 		self._dahSignalLengthRecordRecent = []
 		self._levelsHistoryRecent = []
@@ -482,7 +483,7 @@ class MorseTransmitter {
 						self.appendUnit(.Dah)
 						self._dahSignalLengthRecordRecent.append(self._counter)
 					}
-					self._counter = 0
+					self._counter = 1
 					self._singalStarted = false
 					// Calculate input WPM
 					while self._ditSignalLengthRecordRecent.count > self._unitLengthRecordLength {
@@ -505,9 +506,9 @@ class MorseTransmitter {
 							print("DIT: \(ditLenAvg) DAH: \(dahLenAvg)")
 						#endif
 						var wpm = 20
-						if (3...5).contains(ditLenAvg) && (10...12).contains(dahLenAvg) {
+						if (3...5).contains(ditLenAvg) && (10...13).contains(dahLenAvg) {
 							wpm = 15
-						} else if (2...4).contains(ditLenAvg) && (7...9).contains(dahLenAvg) {
+						} else if (2...4).contains(ditLenAvg) && (7...10).contains(dahLenAvg) {
 							wpm = 20
 						}
 						appDelegate.userDefaults.setInteger(wpm, forKey: userDefaultsKeyInputWPM)

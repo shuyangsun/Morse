@@ -11,6 +11,8 @@ import UIKit
 class CardView: UIView {
 	var expanded = false
 	var flipped = false
+	var isProsignCard = false
+	var isProsignEmergencyCard = false
 
 	var canBeExpanded:Bool {
 		// Calculate if we need to expand the card.
@@ -59,16 +61,18 @@ class CardView: UIView {
 		self.addGestureRecognizer(tapGR)
 	}
 
-	convenience init(frame:CGRect, text:String?, morse:String?, textOnTop:Bool = true, deletable:Bool = true, canBeFlipped:Bool = true, textFontSize:CGFloat = 16, morseFontSize:CGFloat = 14, isProSignCard:Bool = false, isProsignEmergencyCard:Bool = false) {
+	convenience init(frame:CGRect, text:String?, morse:String?, textOnTop:Bool = true, deletable:Bool = true, canBeFlipped:Bool = true, textFontSize:CGFloat = 16, morseFontSize:CGFloat = 14, isProsignCard:Bool = false, isProsignEmergencyCard:Bool = false) {
 		self.init(frame:frame)
 		self.text = text
 		self.morse = morse
 		self.textOnTop = textOnTop
 		self.deletable = deletable
 		self.canBeFlipped = canBeFlipped
+		self.isProsignCard = isProsignCard
+		self.isProsignEmergencyCard = isProsignEmergencyCard
 		if isProsignEmergencyCard {
 			self.backgroundColor = theme.cardViewProsignEmergencyBackgroundColor
-		} else if isProSignCard {
+		} else if isProsignCard {
 			self.backgroundColor = theme.cardViewProsignBackgroudColor
 		}
 
@@ -83,7 +87,7 @@ class CardView: UIView {
 		if isProsignEmergencyCard {
 			textColor = theme.cardViewProsignEmergencyTextColor
 			morseColor = theme.cardViewProsignEmergencyMorseColor
-		} else if isProSignCard {
+		} else if isProsignCard {
 			textColor = theme.cardViewProsignTextColor
 			morseColor = theme.cardViewProsignMorseColor
 		}
@@ -345,6 +349,7 @@ class CardView: UIView {
 			}
 			self.backView.hidden = true
 		}
+		self.backView.backgroundColor = theme.cardBackViewBackgroundColor
 
 		if self.outputButton == nil {
 			self.outputButton = UIButton(frame: CGRect(x: 0, y: 0, width: self.bounds.width/2.0, height: self.bounds.height))

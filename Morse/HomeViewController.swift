@@ -60,6 +60,12 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 //		return UIDynamicAnimator(referenceView: self.scrollView)
 //	}()
 
+	override func preferredStatusBarStyle() -> UIStatusBarStyle {
+		return theme.style == .Dark ? .LightContent : .Default
+	}
+
+	private let _updateCardConstraintsQueue = dispatch_queue_create("Update Card View Constraints On Dictonary VC Queue", nil)
+
 	// *****************************
 	// MARK: MVC Life Cycle
 	// *****************************
@@ -131,6 +137,8 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				make.edges.equalTo(self.scrollView)
 			})
 		}
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateColorWithAnimation", name: themeDidChangeNotificationName, object: nil)
 
 		// Configure scrollView animator
 //		self.animator.addBehavior(self.gravityBehavior)
@@ -577,7 +585,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: self.scrollView.contentSize.height + heightChange)
 	}
 
-	private func initializeCardViewsConstraints() {
+	private func updateCardViewsConstraints() {
 		for i in 0..<self.cardViews.count {
 			self.updateConstraintsForCardView(self.cardViews[i], indexInCardViewsArray: i)
 		}
@@ -645,7 +653,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				self.cardViews.append(cardView)
 				self.scrollView.insertSubview(cardView, atIndex: 0)
 			}
-			self.initializeCardViewsConstraints()
+			self.updateCardViewsConstraints()
 			self.scrollView.setNeedsUpdateConstraints()
 			self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
 		}
@@ -769,5 +777,82 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		UIGraphicsEndImageContext()
 
 		return image
+	}
+
+	func updateColor(animated animated:Bool = true) {
+		dispatch_sync(self._updateCardConstraintsQueue) {
+			self.updateCardViewsConstraints()
+		}
+		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
+		UIView.animateWithDuration(duration,
+			delay: 0,
+			options: .CurveEaseInOut,
+			animations: {
+				self.scrollView.backgroundColor = theme.scrollViewBackgroundColor
+				if self.micInputSectionContainerView != nil {
+					self.micInputSectionViewController?.view.backgroundColor = theme.audioPlotBackgroundColor
+					self.micInputSectionViewController?.audioPlot.color = theme.audioPlotColor
+					self.micInputSectionViewController?.audioPlotPitchFiltered.color = theme.audioPlotPitchFilteredColor
+					self.micInputSectionViewController?.wpmLabel.textColor = theme.waveformVCLabelTextColorEmphasized
+					self.micInputSectionViewController?.pitchLabel.textColor = theme.waveformVCLabelTextColorEmphasized
+					self.micInputSectionViewController?.tutorial1Label.textColor = theme.waveformVCLabelTextColorNormal
+					self.micInputSectionViewController?.tapToFinishLabel.textColor = theme.waveformVCLabelTextColorNormal
+				}
+				for cardView in self.cardViews {
+					cardView.layer.cornerRadius = theme.cardViewCornerRadius
+					cardView.layer.borderWidth = theme.cardViewBorderWidth
+					cardView.layer.borderColor = theme.cardViewBorderColor.CGColor
+					cardView.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
+					if cardView.flipped {
+						cardView.backView.backgroundColor = theme.cardBackViewBackgroundColor
+					}
+					if cardView.isProsignEmergencyCard {
+						cardView.backgroundColor = theme.cardViewProsignEmergencyBackgroundColor
+					} else if cardView.isProsignCard {
+						cardView.backgroundColor = theme.cardViewProsignBackgroudColor
+					} else {
+						if cardView.expanded {
+							cardView.backgroundColor = appDelegate.theme.cardViewExpandedBackgroudColor
+						} else {
+							cardView.backgroundColor = appDelegate.theme.cardViewBackgroudColor
+						}
+					}
+					cardView.addMDShadow(withDepth: appDelegate.theme.cardViewMDShadowLevelDefault)
+					if cardView.textOnTop {
+						if cardView.isProsignEmergencyCard {
+							cardView.topLabel.textColor = theme.cardViewProsignEmergencyTextColor
+							cardView.bottomLabel.textColor = theme.cardViewProsignEmergencyMorseColor
+						} else if cardView.isProsignCard {
+							cardView.topLabel.textColor = theme.cardViewProsignTextColor
+							cardView.bottomLabel.textColor = theme.cardViewProsignMorseColor
+						} else {
+							cardView.topLabel.textColor = theme.cardViewTextColor
+							cardView.bottomLabel.textColor = theme.cardViewMorseColor
+						}
+					} else {
+						if cardView.isProsignEmergencyCard {
+							cardView.topLabel.textColor = theme.cardViewProsignEmergencyMorseColor
+							cardView.bottomLabel.textColor = theme.cardViewProsignEmergencyTextColor
+						} else if cardView.isProsignCard {
+							cardView.topLabel.textColor = theme.cardViewProsignMorseColor
+							cardView.bottomLabel.textColor = theme.cardViewProsignTextColor
+						} else {
+							cardView.topLabel.textColor = theme.cardViewMorseColor
+							cardView.bottomLabel.textColor = theme.cardViewTextColor
+						}
+					}
+				}
+				self.view.layoutIfNeeded()
+			}, completion: nil)
+	}
+
+	// This method is for using selector
+	func updateColorWithAnimation() {
+		self.updateColor(animated: true)
+	}
+
+	// This method is for using selector
+	func updateColorWithoutAnimation() {
+		self.updateColor()
 	}
 }
