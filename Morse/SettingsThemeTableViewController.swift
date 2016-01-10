@@ -118,6 +118,7 @@ class SettingsThemeTableViewController: TableViewController {
 			delay: 0,
 			options: .CurveEaseInOut,
 			animations: {
+				self.tableView.indicatorStyle = theme.scrollViewIndicatorStyle
 				self.view.backgroundColor = theme.tableViewBackgroundColor
 				self.tableView.separatorColor = theme.tableViewSeparatorColor
 				self.navigationController?.navigationBar.barTintColor = theme.navigationBarBackgroundColor

@@ -107,6 +107,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			self.scrollView.showsHorizontalScrollIndicator = false
 			self.scrollView.showsVerticalScrollIndicator = true
 			self.scrollView.delegate = self
+			self.scrollView.indicatorStyle = theme.scrollViewIndicatorStyle
 			self.view.insertSubview(self.scrollView, atIndex: 0)
 
 			self.scrollView.snp_remakeConstraints { (make) -> Void in
@@ -788,6 +789,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			delay: 0,
 			options: .CurveEaseInOut,
 			animations: {
+				self.scrollView.indicatorStyle = theme.scrollViewIndicatorStyle
 				self.scrollView.backgroundColor = theme.scrollViewBackgroundColor
 				if self.micInputSectionContainerView != nil {
 					self.micInputSectionViewController?.view.backgroundColor = theme.audioPlotBackgroundColor

@@ -255,6 +255,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.inputTextView.layer.borderWidth = 0
 			self.inputTextView.autocorrectionType = .Default
 			self.inputTextView.keyboardAppearance = theme.style == .Dark ? .Dark : .Default
+			self.inputTextView.indicatorStyle = theme.scrollViewIndicatorStyle
 			self.textBackgroundView.addSubview(self.inputTextView)
 
 			self.inputTextView.snp_remakeConstraints { (make) -> Void in
@@ -281,6 +282,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			let disableDoubleTapGR = UITapGestureRecognizer(target: nil, action: "")
 			disableDoubleTapGR.numberOfTapsRequired = 2
 			self.outputTextView.addGestureRecognizer(disableDoubleTapGR)
+			self.outputTextView.indicatorStyle = theme.scrollViewIndicatorStyle
 			self.textBackgroundView.addSubview(self.outputTextView)
 
 			self.outputTextView.snp_makeConstraints { (make) -> Void in
@@ -810,6 +812,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			delay: 0,
 			options: .CurveEaseInOut,
 			animations: {
+				self.inputTextView.indicatorStyle = theme.scrollViewIndicatorStyle
+				self.outputTextView.indicatorStyle = theme.scrollViewIndicatorStyle
 				self.statusBarView.backgroundColor = theme.statusBarBackgroundColor
 				self.topBarView.backgroundColor = theme.topBarBackgroundColor
 				self.roundButtonView.backgroundColor = theme.roundButtonBackgroundColor

@@ -9,14 +9,19 @@
 import UIKit
 
 let supportedLanguages:[String: (original:String, localized:String)] = [
-	"en": ("English", LocalizedStrings.Languages.english),
+	// Asia
+	"ar": ("العربية", LocalizedStrings.Languages.arabic),
 	"zh-Hans": ("简体中文", LocalizedStrings.Languages.chineseSimplified),
 	"zh-Hant": ("正體中文", LocalizedStrings.Languages.chineseTraditional),
-	"ar": ("العربية", LocalizedStrings.Languages.arabic)
+	// Europe
+	"en-GB": ("English (U.K.)", LocalizedStrings.Languages.englishUK),
+	// NA
+	"en-US": ("English (U.S.)", LocalizedStrings.Languages.englishUS),
+	"es": ("Spanish", LocalizedStrings.Languages.spanish)
 ]
 
 // This is for auto correction when using Auido as Morse code input. Languages in this list will be auto-corrected with localized UITextChecker, languages are not in this list will be considered as English by default.
-let canBeSpellCheckedLanguageCodes:Set<String> = ["en"]
+let canBeSpellCheckedLanguageCodes:Set<String> = ["en", "es"]
 let defaultSpellCheckLanguageCode = "en"
 
 var layoutDirection:UIUserInterfaceLayoutDirection {
@@ -103,6 +108,8 @@ struct LocalizedStrings {
 		static let settings = NSLocalizedString("Settings", comment: "The title for settings page.")
 		static let general = NSLocalizedString("General", comment: "There are categories on the settings page, this is one of the category.")
 		static let ui = NSLocalizedString("Appearance", comment: "There are categories on the settings page, this is one of the category.")
+		static let transmitterConfiguration = NSLocalizedString("Transmitter Configuration", comment: "There are categories on the settings page, this is one of the category.")
+		static let upgrades = NSLocalizedString("Upgrades", comment: "There are categories on the settings page, this is one of the category.")
 		static let about = NSLocalizedString("About", comment: "There are categories on the settings page, this is one of the category.")
 		static let developerOptions = NSLocalizedString("Developer Options", comment: "There are categories on the settings page, this is one of the category.")
 		static let languages = NSLocalizedString("Language", comment: "There are many sections on the settings page, this section let the user change the App's language.")
@@ -110,9 +117,17 @@ struct LocalizedStrings {
 		static let brightenUpDisplayWhenOutput = NSLocalizedString("Output Brighten Screen", comment: "There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputing Morse code.")
 		static let theme = NSLocalizedString("Theme", comment: "There are many sections on the settings page, this switch let the user change the color theme of this App.")
 		static let autoNightMode = NSLocalizedString("Switch Automatically", comment: "There are many sections on the settings page, this switch let the user toggle if the app should change to Night theme when the ambient censor detects the surrounding light is low.")
-		static let outputWPM = NSLocalizedString("Output WPM (Word Per Minute)", comment: "There are many sections on the settings page, this one changes the output WPM.")
+		static let input = NSLocalizedString("Input & Audio Decoder", comment: "This button on the settings page brings up input configuration page.")
+		static let output = NSLocalizedString("Output", comment: "This button on the settings page brings up output configuration page.")
+		static let WPM = NSLocalizedString("WPM", comment: "Shorthand of Word Per Minute.")
 		static let inputPitch = NSLocalizedString("Input Pitch (Audio Frequency)", comment: "There are many sections on the settings page, this one changes the frequency should be detected for input audio.")
 		static let nightModeDescription = NSLocalizedString("When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme.", comment: "There are many sections on the settings page, this one explains what does Auto Switch button in Appearance section do.")
+		static let upgradesDescription = NSLocalizedString("Any purchase will remove all ads.", comment: "There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.")
+		static let unlockAllThemes = NSLocalizedString("Unlock All Themes", comment: "A button on the settings page for user make in-app purchase to unlock all the thems.")
+		static let audioDecoder = NSLocalizedString("Enable Audio Decoder", comment: "A button on the settings page for user make in-app purchase to enable Morse audio decoder.")
+		static let restorePurchase = NSLocalizedString("Restore Previous Purchase", comment: "A button on the settings page for user to restore their previous purchases.")
+		static let rateOnAppStore =  NSLocalizedString("Rate on App Store", comment: "A button on the settings page for user to rate on App Store.")
+		static let contactDeveloper = NSLocalizedString("Contact Developer", comment: "A button on the settings page to contact developer. (send developer an email)")
 	}
 
 	struct ThemeName {
@@ -123,9 +138,12 @@ struct LocalizedStrings {
 		static let restartReminderFooter = NSLocalizedString("Please restart this App after changing language.", comment: "This is a footer on the first section in language change settings, to reminder user restart the App after changing language.")
 		static let defaultGroup = NSLocalizedString("Default", comment: "Users can change language in settings app, this is one of the language groups.")
 		static let asia = NSLocalizedString("Asia", comment: "Users can change language in settings app, this is one of the language groups.")
+		static let europe = NSLocalizedString("Europe", comment: "Users can change language in settings app, this is one of the language groups.")
 		static let northAmerica = NSLocalizedString("North America", comment: "Users can change language in settings app, this is one of the language groups.")
 		static let systemDefault = NSLocalizedString("System Default", comment: "Users can change language in settings app, this is one means the language is system default.")
-		static let english = NSLocalizedString("English", comment: "Users can change language in settings app, this is one of the language name that will show in user's prefered language.")
+		static let englishUS = NSLocalizedString("English (United States)", comment: "Users can change language in settings app, this is one of the language name that will show in user's prefered language.")
+		static let englishUK = NSLocalizedString("English (United Kingdom)", comment: "Users can change language in settings app, this is one of the language name that will show in user's prefered language.")
+		static let spanish = NSLocalizedString("Spanish", comment: "Users can change language in settings app, this is one of the language name that will show in user's prefered language.")
 		static let chineseSimplified = NSLocalizedString("Chinese (Simplified)", comment: "Users can change language in settings app, this is one of the language name that will show in user's prefered language.")
 		static let chineseTraditional = NSLocalizedString("Chinese (Traditional)", comment: "Users can change language in settings app, this is one of the language name that will show in user's prefered language.")
 		static let arabic = NSLocalizedString("Arabic", comment: "Users can change language in settings app, this is one of the language name that will show in user's prefered language.")
@@ -160,6 +178,8 @@ extension AppDelegate {
 			self.userDefaults.setObject(locale, forKey: userDefaultsKeyAppleLanguages)
 			self.userDefaults.synchronize()
 		}
+
+		NSNotificationCenter.defaultCenter().postNotificationName(languageDidChangeNotificationName, object: nil)
 	}
 
 	func resetLocaleToSystemDefault() {

@@ -47,16 +47,15 @@ class SettingsLanguagesTableViewController: TableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 3
+        return 4
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
 		switch section {
 		case 0: return 1 // Default
 		case 1: return 3 // Asia
-		case 2: return 1 // North America
+		case 2 : return 1 // Europe
+		case 3: return 2 // North America
 		default: return 0
 		}
     }
@@ -92,7 +91,17 @@ class SettingsLanguagesTableViewController: TableViewController {
 			switch indexPath.row {
 			case 0:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Language Detailed Cell", forIndexPath: indexPath) as! TableViewLanguageCell
-				cell.languageCode = "en"
+				cell.languageCode = "en-GB"
+			default: break
+			}
+		} else if indexPath.section == 3 {
+			switch indexPath.row {
+			case 0:
+				cell = tableView.dequeueReusableCellWithIdentifier("Settings Language Detailed Cell", forIndexPath: indexPath) as! TableViewLanguageCell
+				cell.languageCode = "en-US"
+			case 1:
+				cell = tableView.dequeueReusableCellWithIdentifier("Settings Language Detailed Cell", forIndexPath: indexPath) as! TableViewLanguageCell
+				cell.languageCode = "es"
 			default: break
 			}
 		}
@@ -113,7 +122,8 @@ class SettingsLanguagesTableViewController: TableViewController {
 		switch section {
 		case 0: return LocalizedStrings.Languages.defaultGroup
 		case 1: return LocalizedStrings.Languages.asia
-		case 2: return LocalizedStrings.Languages.northAmerica
+		case 2: return LocalizedStrings.Languages.europe
+		case 3: return LocalizedStrings.Languages.northAmerica
 		default: return nil
 		}
 	}
@@ -159,6 +169,7 @@ class SettingsLanguagesTableViewController: TableViewController {
 			delay: 0,
 			options: .CurveEaseInOut,
 			animations: {
+				self.tableView.indicatorStyle = theme.scrollViewIndicatorStyle
 				self.view.backgroundColor = theme.tableViewBackgroundColor
 				self.tableView.separatorColor = theme.tableViewSeparatorColor
 				self.navigationController?.navigationBar.barTintColor = theme.navigationBarBackgroundColor

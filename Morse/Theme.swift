@@ -41,6 +41,13 @@ enum Theme: Int {
 		}
 	}
 
+	var scrollViewIndicatorStyle: UIScrollViewIndicatorStyle {
+		switch self.style {
+		case .Light: return .Default
+		case .Dark: return .White
+		}
+	}
+
 	// *****************************
 	// MARK: Colors
 	// *****************************

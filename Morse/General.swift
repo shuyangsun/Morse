@@ -24,8 +24,10 @@ var forceTouchAvailable:Bool {
 	return UIView().traitCollection.forceTouchCapability == .Available
 }
 
+// At what level should the App switch to "Night" theme if "Auto Night Mode" is on.
 let defaultAutoNightModeThreshold:Float = 0.2
-let defaultAutoNightModeUpdateTimeInterval:NSTimeInterval = 3
+// How often should the App check screen's brightness level to decide if should switch to "Night" theme.
+let defaultAutoNightModeUpdateTimeInterval:NSTimeInterval = 5
 
 let prosignContainerLeft = "["
 let prosignContainerRight = "]"
@@ -80,6 +82,7 @@ let userDefaultsKeyAutoNightModeThreshold = "Auto Night Mode Threshold"
 let inputPitchDidChangeNotificationName = "Input Frequency Did Change Notification"
 let inputWPMDidChangeNotificationName = "Input WPM Did Change Notification"
 let themeDidChangeNotificationName = "Theme Did Change Notification"
+let languageDidChangeNotificationName = "Language Did Change Notification"
 
 let notRecognizedLetterStr = "🙁"
 

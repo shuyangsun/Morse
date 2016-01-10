@@ -576,7 +576,7 @@ class MorseTransmitter {
 					var checkedLanguage = appDelegate.currentLocaleLanguageCode
 					var canBeChecked = false
 					for lan in canBeSpellCheckedLanguageCodes {
-						if checkedLanguage.hasPrefix(lan) {
+						if checkedLanguage.hasPrefix(lan) || lan.hasPrefix(checkedLanguage) {
 							canBeChecked = true
 							break
 						}
