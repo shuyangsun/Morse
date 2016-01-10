@@ -352,7 +352,9 @@ class MorseTransmitter {
 	private let _audioAnalysisQueue = dispatch_queue_create("Audio Analysis Queue", nil)
 	private var _currentLetterMorse = ""
 	private var _currentWordMorse = ""
-	private var _inputWPM = defaultInputWPM
+	private var _inputWPM:Int {
+		return appDelegate.userDefaults.integerForKey(userDefaultsKeyInputWPM)
+	}
 	private var _sampleRate:Double = -1
 	private let _spellChecker = UITextChecker()
 	// This variable means how many callbacks should one unit be with the given WPM and the default sample rate (44100).
@@ -380,7 +382,12 @@ class MorseTransmitter {
 	private var _newLineAppended = true
 	private var _counter = 0
 
-	// The following 3 variables are to help calculating the threshold of signal rise/fall
+	// The following variables are to help calculating input WPM
+	private var _ditSignalLengthRecordRecent:[Int] = []
+	private var _dahSignalLengthRecordRecent:[Int] = []
+	private let _unitLengthRecordLength = 3
+
+	// The following variables are to help calculating the threshold of signal rise/fall
 	private var _maxLevelsHistoryRecent:[Float] = []
 	private var _levelsHistoryRecent:[Float] = []
 
@@ -393,8 +400,9 @@ class MorseTransmitter {
 		self._morse = ""
 		self._text = ""
 		self._currentLetterMorse = ""
-		self._inputWPM = defaultInputWPM
 		self._sampleRate = -1
+		self._ditSignalLengthRecordRecent = []
+		self._dahSignalLengthRecordRecent = []
 		self._levelsHistoryRecent = []
 		self._maxLevelsHistoryRecent = []
 	}
@@ -469,11 +477,43 @@ class MorseTransmitter {
 					// Singal falls
 					if self._lengthRanges.oneUnit.contains(self._counter) {
 						self.appendUnit(.Dit)
+						self._ditSignalLengthRecordRecent.append(self._counter)
 					} else if self._lengthRanges.threeUnit.contains(self._counter) || self._lengthRanges.sevenUnit.contains(self._counter) {
 						self.appendUnit(.Dah)
+						self._dahSignalLengthRecordRecent.append(self._counter)
 					}
-					self._counter = 1
+					self._counter = 0
 					self._singalStarted = false
+					// Calculate input WPM
+					while self._ditSignalLengthRecordRecent.count > self._unitLengthRecordLength {
+						self._ditSignalLengthRecordRecent.removeFirst()
+					}
+					while self._dahSignalLengthRecordRecent.count > self._unitLengthRecordLength {
+						self._dahSignalLengthRecordRecent.removeFirst()
+					}
+					// If we have enough history record for calculating input WPM, do it like a boss.
+					if !self._ditSignalLengthRecordRecent.isEmpty || !self._dahSignalLengthRecordRecent.isEmpty {
+						var ditLenAvg:Float = 0
+						var dahLenAvg:Float = 0
+						if self._ditSignalLengthRecordRecent.count > 0 {
+							ditLenAvg = Float(self._ditSignalLengthRecordRecent.reduce(0) { $0 + $1 }) / Float(self._ditSignalLengthRecordRecent.count)
+						}
+						if self._dahSignalLengthRecordRecent.count > 0 {
+							dahLenAvg = Float(self._dahSignalLengthRecordRecent.reduce(0) { $0 + $1 }) / Float(self._dahSignalLengthRecordRecent.count)
+						}
+						#if DEBUG
+							print("DIT: \(ditLenAvg) DAH: \(dahLenAvg)")
+						#endif
+						var wpm = 20
+						if (3...5).contains(ditLenAvg) && (10...12).contains(dahLenAvg) {
+							wpm = 15
+						} else if (2...4).contains(ditLenAvg) && (7...9).contains(dahLenAvg) {
+							wpm = 20
+						}
+						appDelegate.userDefaults.setInteger(wpm, forKey: userDefaultsKeyInputWPM)
+						appDelegate.userDefaults.synchronize()
+						NSNotificationCenter.defaultCenter().postNotificationName(inputWPMDidChangeNotificationName, object: nil)
+					}
 				} else {
 					// Singal already fell, not during signal
 					self._counter++

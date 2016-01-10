@@ -775,29 +775,27 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 				self.homeViewController.scrollViewSnapshotImageView?.alpha = 0
 				self.homeViewController.topSectionContainerView.addMDShadow(withDepth: 2)
 			}) { succeed in
-				if succeed {
-					self.lineBreakView.hidden = true
-					// If the input frequency is set to be detected automatically, restore the min frequency.
-					self.homeViewController.micInputSectionViewController?.microphone.stopFetchingAudio()
-					self.homeViewController.micInputSectionContainerView?.removeFromSuperview()
-					self.homeViewController.scrollViewSnapshotImageView?.removeFromSuperview()
-					self.homeViewController.micInputSectionContainerView = nil
-					self.homeViewController.micInputSectionViewController = nil
-					self.homeViewController.scrollViewSnapshotImageView = nil
-					self.inputTextView.attributedText = self.attributedHintTextInput
-					self.outputTextView.attributedText = self.attributedHintTextOutput
-					// Show round button
-					self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: animationDuration)
-					UIView.animateWithDuration(animationDuration * appDelegate.animationDurationScalar,
-						delay: animationDuration,
-						options: .CurveEaseOut,
-						animations: {
-							if !self.isDirectionEncode {
-								self.microphoneButton.alpha = 1
-								self.keyboardButton.alpha = 0
-							}
-						}, completion: nil)
-				}
+				self.lineBreakView.hidden = true
+				// If the input frequency is set to be detected automatically, restore the min frequency.
+				self.homeViewController.micInputSectionViewController?.microphone.stopFetchingAudio()
+				self.homeViewController.micInputSectionContainerView?.removeFromSuperview()
+				self.homeViewController.scrollViewSnapshotImageView?.removeFromSuperview()
+				self.homeViewController.micInputSectionContainerView = nil
+				self.homeViewController.micInputSectionViewController = nil
+				self.homeViewController.scrollViewSnapshotImageView = nil
+				self.inputTextView.attributedText = self.attributedHintTextInput
+				self.outputTextView.attributedText = self.attributedHintTextOutput
+				// Show round button
+				self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: animationDuration)
+				UIView.animateWithDuration(animationDuration * appDelegate.animationDurationScalar,
+					delay: animationDuration,
+					options: .CurveEaseOut,
+					animations: {
+						if !self.isDirectionEncode {
+							self.microphoneButton.alpha = 1
+							self.keyboardButton.alpha = 0
+						}
+					}, completion: nil)
 		}
 	}
 }

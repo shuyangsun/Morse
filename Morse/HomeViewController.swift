@@ -758,8 +758,8 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 	func updateScrollViewBlurImage(afterScreenUpdates:Bool = false) {
 		let image = self.snapshot(self.scrollView, afterScreenUpdates: afterScreenUpdates)
-		let bluredImage = UIImageEffects.imageByApplyingBlurToImage(image, withRadius: theme.scrollViewBlurRadius, tintColor: theme.scrollViewBlurTintColor, saturationDeltaFactor: 0, maskImage: nil)
-		self.scrollViewSnapshotImageView?.image = bluredImage
+		let blurredImage = UIImageEffects.imageByApplyingBlurToImage(image, withRadius: theme.scrollViewBlurRadius, tintColor: theme.scrollViewBlurTintColor, saturationDeltaFactor: 0, maskImage: nil)
+		self.scrollViewSnapshotImageView?.image = blurredImage
 	}
 
 	private func snapshot(view:UIView, afterScreenUpdates:Bool = false) -> UIImage {

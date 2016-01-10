@@ -81,7 +81,7 @@ struct LocalizedStrings {
 		static let wpm = NSLocalizedString("WPM: ", comment: "This is a label on the output page, followed by the numer of WPM (word per minute).")
 		static let pitch = NSLocalizedString("Pitch: ", comment: "This is a label on the output page, followed by the numer of audio frequency (pitch).")
 		static let tutorialOutputVC1 = NSLocalizedString("Adjust in Settings", comment: "This is a label on the output page, tells the user how to change some of the values.")
-		static let tutorialWaveformVC1 = NSLocalizedString("Supported WPM: 13-23", comment: "This is a label on the output page, tells the user the range of supported WPM.")
+		static let tutorialWaveformVC1 = NSLocalizedString("Supported WPM: 14-22", comment: "This is a label on the output page, tells the user the range of supported WPM.")
 		static let tapToStart = NSLocalizedString("Tap anywhere to play or pause", comment: "This is a label on the output page, tells user how to play or pause the output.")
 		static let tapToFinish = NSLocalizedString("Tap anywhere to finish", comment: "This is a label on the output page, tells user how to finish using audio input.")
 		static let swipeToDismiss = NSLocalizedString("Swipe down or pinch to go back", comment: "This is a label on the output page, tells user how to go back to home page.")

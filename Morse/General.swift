@@ -72,6 +72,7 @@ let userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput = "Auto Correct Mis-S
 
 // Notification Names
 let inputPitchDidChangeNotificationName = "Input Frequency Did Change Notification"
+let inputWPMDidChangeNotificationName = "Input WPM Did Change Notification"
 
 let notRecognizedLetterStr = "🙁"
 

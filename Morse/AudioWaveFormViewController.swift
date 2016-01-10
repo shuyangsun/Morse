@@ -68,7 +68,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 
 		if self.wpmLabel == nil {
 			self.wpmLabel = UILabel()
-			var wpmNumberText = String(appDelegate.outputWPM)
+			var wpmNumberText = String(appDelegate.inputWPM)
 			if appDelegate.inputWPMAutomatic {
 				wpmNumberText = LocalizedStrings.General.automatic
 			}
@@ -133,7 +133,8 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 		self.transmitter.resetForAudioInput()
 
 		// Register for notification
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "inputPitchDidChang", name: inputPitchDidChangeNotificationName, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "inputWPMDidChange", name: inputWPMDidChangeNotificationName, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "inputPitchDidChange", name: inputPitchDidChangeNotificationName, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -219,8 +220,12 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 		EZAudioUtilities.printASBD(audioStreamBasicDescription)
 	}
 
-	func inputPitchDidChang() {
+	func inputPitchDidChange() {
 		self.pitchLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.pitch)\(Int(appDelegate.inputPitch)) Hz", withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorEmphasized, bold: false)
+	}
+
+	func inputWPMDidChange() {
+		self.wpmLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.wpm)\(appDelegate.inputWPM)", withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorEmphasized, bold: false)
 	}
 
     /*
