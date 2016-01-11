@@ -143,8 +143,8 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		} else if indexPath.section == 2 { // Transmitter Config
 			switch indexPath.row {
 			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Input Cell", forIndexPath: indexPath) as! TableViewCell
-				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.input
+				cell = tableView.dequeueReusableCellWithIdentifier("Settings Audio Decoder Cell", forIndexPath: indexPath) as! TableViewCell
+				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.audioDecoder
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			case 1:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Output Cell", forIndexPath: indexPath) as! TableViewCell
@@ -157,15 +157,15 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 			switch indexPath.row {
 			case 0:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
-				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.unlockAllThemes
+				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseUnlockAllThemes
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			case 1:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
-				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.audioDecoder
+				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseEnableAudioDecoder
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			case 2:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
-				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.restorePurchase
+				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseRestorePreviousPurchase
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			default: break
 			}

@@ -41,6 +41,13 @@ enum Theme: Int {
 		}
 	}
 
+	var keyboardAppearance:UIKeyboardAppearance {
+		switch self.style {
+		case .Light: return .Default
+		case .Dark: return .Dark
+		}
+	}
+
 	var scrollViewIndicatorStyle: UIScrollViewIndicatorStyle {
 		switch self.style {
 		case .Light: return .Default
@@ -463,8 +470,15 @@ enum Theme: Int {
 		}
 	}
 
+	var transValConfigViewPlusMinusButtonTintColor:UIColor {
+		switch self {
+		case .Default: return self.roundButtonBackgroundColor!
+		case .Night: return self.switchOnTintColor!
+		}
+	}
+
 	// *****************************
-	// MARK: Length
+	// MARK: Numbers
 	// *****************************
 
 	var cardViewHorizontalMargin:CGFloat {
@@ -530,6 +544,66 @@ enum Theme: Int {
 		switch self {
 		case .Night: return 0
 		default: return 4
+		}
+	}
+
+	// *****************************
+	// MARK: Things Don't Really Change
+	// *****************************
+
+	var transValConfigViewBackgroundColor:UIColor {
+		switch self {
+		default: return self.cardViewBackgroudColor
+		}
+	}
+
+	var transValConfigViewBorderColor:UIColor {
+		switch self {
+		default:
+			if let color = self.tableViewSeparatorColor {
+				return color
+			} else {
+				switch self.style {
+				case .Light: return UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)
+				case .Dark: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextHintAlpha)
+				}
+			}
+		}
+	}
+
+	var transValConfigViewLabelTextColor:UIColor {
+		switch self {
+		default: return self.cellTitleTextColor
+		}
+	}
+
+	var transValConfigViewNumberColor:UIColor {
+		switch self {
+		default: return self.transValConfigViewLabelTextColor
+		}
+	}
+
+	var transValConfigViewSliderLabelColor:UIColor {
+		switch self {
+		default: return self.cellDetailTitleTextColor
+		}
+	}
+
+	var transValConfigViewResetButtonBackgroundColor:UIColor {
+		switch self {
+		default: return UIColor.clearColor()
+		}
+	}
+
+	var transValConfigViewResetButtonTextColorNormal:UIColor {
+		switch self {
+		default: return MDColorPalette.Red.P500
+		}
+	}
+
+	var transValConfigViewResetButtonTextColorHighlighted:UIColor {
+		switch self {
+		default: return MDColorPalette.Red.P300
 		}
 	}
 }

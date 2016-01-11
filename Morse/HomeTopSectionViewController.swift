@@ -254,7 +254,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.inputTextView.layer.borderColor = UIColor.clearColor().CGColor
 			self.inputTextView.layer.borderWidth = 0
 			self.inputTextView.autocorrectionType = .Default
-			self.inputTextView.keyboardAppearance = theme.style == .Dark ? .Dark : .Default
+			self.inputTextView.keyboardAppearance = theme.keyboardAppearance
 			self.inputTextView.indicatorStyle = theme.scrollViewIndicatorStyle
 			self.textBackgroundView.addSubview(self.inputTextView)
 
@@ -805,7 +805,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	}
 
 	func updateColor(animated animated:Bool = true) {
-		self.inputTextView.keyboardAppearance = theme.style == .Dark ? .Dark : .Default
+		self.inputTextView.keyboardAppearance = theme.keyboardAppearance
 		self.roundButtonView.addMDShadow(withDepth: theme.roundButtonMDShadowLevelDefault)
 		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
 		UIView.animateWithDuration(duration,

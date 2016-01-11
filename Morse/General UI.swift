@@ -48,6 +48,8 @@ let tableViewCellTrailingPadding:CGFloat = 18
 let tableViewCellTextLabelFontSize:CGFloat = 16
 let tableViewCellDetailTextLabelFontSize:CGFloat = 12
 
+let defaultTransmitterValueConfigurationViewHeight:CGFloat = 100
+
 let appStoreURLString = "http://www.test.com"
 
 private var cardViewHeight:CGFloat {
