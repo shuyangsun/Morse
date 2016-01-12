@@ -12,6 +12,23 @@ class TableViewSwitchCell: TableViewCell {
 
 	var delegate:TableViewSwitchCellDelegate? = nil
 	var switchButton:UISwitch!
+	var displaySwitchNextToLabel = false {
+		willSet {
+//			if newValue {
+//				self.textLabelCouldChange = true
+//			}
+//			self.switchButton.snp_remakeConstraints(closure: { (make) -> Void in
+//				make.centerY.equalTo(self.contentView)
+//				make.height.equalTo(switchButtonHeight)
+//				make.width.equalTo(switchButtonWidth)
+//				if newValue && self.textLabel != nil {
+//					make.leading.equalTo(self.textLabel!.snp_trailing).offset(tableViewCellHorizontalPadding)
+//				} else {
+//					make.trailing.equalTo(self.contentView).offset(-tableViewCellHorizontalPadding)
+//				}
+//			})
+		}
+	}
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,11 +39,11 @@ class TableViewSwitchCell: TableViewCell {
 		self.switchButton.onTintColor = theme.switchOnTintColor
 		self.contentView.addSubview(self.switchButton)
 		self.switchButton.addTarget(self, action: "switchToggled", forControlEvents: .ValueChanged)
-		self.switchButton.snp_makeConstraints(closure: { (make) -> Void in
+		self.switchButton.snp_remakeConstraints(closure: { (make) -> Void in
 			make.centerY.equalTo(self.contentView)
 			make.height.equalTo(switchButtonHeight)
 			make.width.equalTo(switchButtonWidth)
-			make.trailing.equalTo(self.contentView).offset(-tableViewCellTrailingPadding)
+			make.trailing.equalTo(self.contentView).offset(-tableViewCellHorizontalPadding)
 		})
     }
 

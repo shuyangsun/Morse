@@ -28,6 +28,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 		self.tabBar.barTintColor = appDelegate.theme.tabBarBackgroundColor
 		let controllers = self.viewControllers
 		// Customize tab bar items
+		UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: -60), forBarMetrics: .Default)
 		if controllers != nil {
 			for controller in controllers! {
 				if let homeViewController = controller as? HomeViewController {
@@ -36,9 +37,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 				} else if let dictionaryViewController = controller as? MorseDictionaryViewController {
 					self.morseDictionaryVC = dictionaryViewController
 					self.morseDictionaryVC.tabBarItem = UITabBarItem(tabBarSystemItem: .Bookmarks, tag: 1)
+					self.morseDictionaryVC.tabBarItem.title = nil
 				} else if let settingsViewController = controller as? SettingsSplitViewController {
 					self.settingsVC = settingsViewController
-					self.settingsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .More, tag: 1)
+					self.settingsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .More, tag: 2)
+					self.settingsVC.tabBarItem.title = nil
 				}
 			}
 		}

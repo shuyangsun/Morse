@@ -9,9 +9,14 @@
 import UIKit
 
 class TableViewCell: UITableViewCell {
+
 	var tapFeebackEnabled = true
 	var textLabelCouldChange = false
 	var detailedTextLabelCouldChange = false
+
+	var tapFeedbackColor:UIColor {
+		return theme.cellTapFeedBackColor
+	}
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,22 +36,7 @@ class TableViewCell: UITableViewCell {
 	func tapped(tapGR:UITapGestureRecognizer) {
 		if self.tapFeebackEnabled {
 			let location = tapGR.locationInView(self)
-			self.triggerTapFeedBack(atLocation:location, withColor: theme.cellTapFeedBackColor, duration: TAP_FEED_BACK_DURATION, atBottom: false)
-		}
-	}
-
-	override func layoutSubviews() {
-		super.layoutSubviews()
-		if let textLabelFrame = self.textLabel?.frame {
-			if self.textLabelCouldChange {
-				self.textLabel?.frame = CGRect(origin: textLabelFrame.origin, size: CGSize(width: tableViewCellTextLabelWidth, height: textLabelFrame.height))
-			}
-		}
-
-		if let detailedTextLabelFrame = self.detailTextLabel?.frame {
-			if self.detailedTextLabelCouldChange {
-				self.detailTextLabel?.frame = CGRect(origin: detailedTextLabelFrame.origin, size: CGSize(width: tableViewCellTextLabelWidth, height: detailedTextLabelFrame.height))
-			}
+			self.triggerTapFeedBack(atLocation:location, withColor: self.tapFeedbackColor, duration: TAP_FEED_BACK_DURATION, atBottom: false)
 		}
 	}
 

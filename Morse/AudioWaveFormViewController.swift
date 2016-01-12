@@ -68,11 +68,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 
 		if self.wpmLabel == nil {
 			self.wpmLabel = UILabel()
-			var wpmNumberText = String(appDelegate.inputWPM)
-			if appDelegate.inputWPMAutomatic {
-				wpmNumberText = LocalizedStrings.General.automatic
-			}
-			self.wpmLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.wpm)\(wpmNumberText)", withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorEmphasized, bold: false)
+			self.updateWPMLabel(true)
 			self.view.addSubview(self.wpmLabel)
 
 			self.wpmLabel.snp_makeConstraints(closure: { (make) -> Void in
@@ -83,11 +79,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 
 		if self.pitchLabel == nil {
 			self.pitchLabel = UILabel()
-			var pitchNumberText = "\(Int(appDelegate.inputPitch)) Hz"
-			if appDelegate.inputPitchAutomatic {
-				pitchNumberText = LocalizedStrings.General.automatic
-			}
-			self.pitchLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.pitch)\(pitchNumberText)", withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorEmphasized, bold: false)
+			self.updatePitchLabel(true)
 			self.view.addSubview(self.pitchLabel)
 
 			self.pitchLabel.snp_makeConstraints(closure: { (make) -> Void in
@@ -98,7 +90,11 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 
 		if self.tutorial1Label == nil {
 			self.tutorial1Label = UILabel()
-			self.tutorial1Label.attributedText = getAttributedStringFrom(LocalizedStrings.Label.tutorialWaveformVC1, withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorNormal, bold: false)
+			var text = "\(LocalizedStrings.Label.tutorialWaveformVC1)\(supportedAudioDecoderWPMRange.startIndex)-\(supportedAudioDecoderWPMRange.endIndex - 1)"
+			if layoutDirection == .RightToLeft {
+				text = "\(supportedAudioDecoderWPMRange.endIndex - 1)-\(supportedAudioDecoderWPMRange.startIndex)\(LocalizedStrings.Label.tutorialWaveformVC1)"
+			}
+			self.tutorial1Label.attributedText = getAttributedStringFrom(text, withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorNormal, bold: false)
 			self.view.addSubview(self.tutorial1Label)
 
 			self.tutorial1Label.snp_makeConstraints(closure: { (make) -> Void in
@@ -133,8 +129,8 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 		self.transmitter.resetForAudioInput()
 
 		// Register for notification
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "inputWPMDidChange", name: inputWPMDidChangeNotificationName, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "inputPitchDidChange", name: inputPitchDidChangeNotificationName, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateWPMLabelWithoutAutomaticStatus", name: inputWPMDidChangeNotificationName, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updatePitchLabelWithoutAutomaticStatus", name: inputPitchDidChangeNotificationName, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -195,10 +191,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 				}
 
 				if shouldChangeFrequency {
-					appDelegate.userDefaults.setFloat(maxFrequency, forKey: userDefaultsKeyInputPitch)
-					appDelegate.userDefaults.synchronize()
-					// Send out a notification so that values on the settings page can be updated.
-					NSNotificationCenter.defaultCenter().postNotificationName(inputPitchDidChangeNotificationName, object: nil)
+					appDelegate.inputPitch = maxFrequency
 				}
 			}
 
@@ -220,12 +213,39 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 		EZAudioUtilities.printASBD(audioStreamBasicDescription)
 	}
 
-	func inputPitchDidChange() {
-		self.pitchLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.pitch)\(Int(appDelegate.inputPitch)) Hz", withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorEmphasized, bold: false)
+	func updatePitchLabel(showAutomaticStatus:Bool = false) {
+		var pitchNumberText = "\(Int(appDelegate.inputPitch)) Hz"
+		if layoutDirection == .RightToLeft {
+			pitchNumberText = "Hz \(Int(appDelegate.inputPitch))"
+		}
+		if showAutomaticStatus && appDelegate.inputPitchAutomatic {
+			pitchNumberText = LocalizedStrings.General.automatic
+		}
+		var text = "\(LocalizedStrings.Label.pitchWithColon)\(pitchNumberText)"
+		if layoutDirection == .RightToLeft {
+			text = "\(pitchNumberText)\(LocalizedStrings.Label.pitchWithColon)"
+		}
+		self.pitchLabel.attributedText = getAttributedStringFrom(text, withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorEmphasized, bold: false)
 	}
 
-	func inputWPMDidChange() {
-		self.wpmLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.wpm)\(appDelegate.inputWPM)", withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorEmphasized, bold: false)
+	func updateWPMLabel(showAutomaticStatus:Bool = false) {
+		var wpmNumberText = String(appDelegate.inputWPM)
+		if showAutomaticStatus && appDelegate.inputWPMAutomatic {
+			wpmNumberText = LocalizedStrings.General.automatic
+		}
+		var text = "\(LocalizedStrings.Label.wpmWithColon)\(wpmNumberText)"
+		if layoutDirection == .RightToLeft {
+			text = "\(wpmNumberText)\(LocalizedStrings.Label.wpmWithColon)"
+		}
+		self.wpmLabel.attributedText = getAttributedStringFrom(text, withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorEmphasized, bold: false)
+	}
+
+	func updateWPMLabelWithoutAutomaticStatus() {
+		self.updateWPMLabel(false)
+	}
+
+	func updatePitchLabelWithoutAutomaticStatus() {
+		self.updatePitchLabel(false)
 	}
 
     /*

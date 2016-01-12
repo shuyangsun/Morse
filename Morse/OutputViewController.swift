@@ -235,7 +235,11 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 
 		if self.pitchLabel == nil {
 			self.pitchLabel = UILabel()
-			self.pitchLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.pitch)\(Int(appDelegate.outputPitch)) Hz", withFontSize: hintLabelFontSize, color: theme.outputVCLabelTextColorEmphasized, bold: false)
+			var text = "\(LocalizedStrings.Label.pitchWithColon)\(Int(appDelegate.outputPitch)) Hz"
+			if layoutDirection == .RightToLeft {
+				text = "Hz \(Int(appDelegate.outputPitch))\(LocalizedStrings.Label.pitchWithColon)"
+			}
+			self.pitchLabel.attributedText = getAttributedStringFrom(text, withFontSize: hintLabelFontSize, color: theme.outputVCLabelTextColorEmphasized, bold: false)
 			self.pitchLabel.opaque = false
 			self.pitchLabel.alpha = 0
 			self.labels.append(self.pitchLabel)
@@ -249,7 +253,11 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 
 		if self.wpmLabel == nil {
 			self.wpmLabel = UILabel()
-			self.wpmLabel.attributedText = getAttributedStringFrom("\(LocalizedStrings.Label.wpm)\(appDelegate.outputWPM)", withFontSize: hintLabelFontSize, color: theme.outputVCLabelTextColorEmphasized, bold: false)
+			var text = "\(LocalizedStrings.Label.wpmWithColon)\(appDelegate.outputWPM)"
+			if layoutDirection == .RightToLeft {
+				text = "\(appDelegate.outputWPM)\(LocalizedStrings.Label.wpmWithColon)"
+			}
+			self.wpmLabel.attributedText = getAttributedStringFrom(text, withFontSize: hintLabelFontSize, color: theme.outputVCLabelTextColorEmphasized, bold: false)
 			self.wpmLabel.opaque = false
 			self.wpmLabel.alpha = 0
 			self.labels.append(self.wpmLabel)

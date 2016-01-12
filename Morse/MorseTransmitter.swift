@@ -511,9 +511,7 @@ class MorseTransmitter {
 						} else if (2...4).contains(ditLenAvg) && (7...10).contains(dahLenAvg) {
 							wpm = 20
 						}
-						appDelegate.userDefaults.setInteger(wpm, forKey: userDefaultsKeyInputWPM)
-						appDelegate.userDefaults.synchronize()
-						NSNotificationCenter.defaultCenter().postNotificationName(inputWPMDidChangeNotificationName, object: nil)
+						appDelegate.inputWPM = wpm
 					}
 				} else {
 					// Singal already fell, not during signal

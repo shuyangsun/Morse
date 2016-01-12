@@ -42,13 +42,22 @@ var sliderWidth:CGFloat {
 	return 200
 }
 
-let tableViewCellTextLabelWidth:CGFloat = 100
 let tableViewCellHeight:CGFloat = 50
-let tableViewCellTrailingPadding:CGFloat = 18
+let tableViewCellHorizontalPadding:CGFloat = 18
 let tableViewCellTextLabelFontSize:CGFloat = 16
-let tableViewCellDetailTextLabelFontSize:CGFloat = 12
+let tableViewCellDetailTextLabelFontSize:CGFloat = tableViewCellTextLabelFontSize
 
-let defaultTransmitterValueConfigurationViewHeight:CGFloat = 100
+let transConfigCellHeight:CGFloat = 150
+let transConfigVerticalMargin:CGFloat = 15
+let transConfigSliderLabelVerticalMargin:CGFloat = transConfigVerticalMargin/2.0
+let transConfigHorizontalMargin:CGFloat = tableViewCellHorizontalPadding
+let transConfigSectionHeaderFontSize:CGFloat = 18
+let transConfigSectionHeaderHeight:CGFloat = 50
+let transConfigValueLabelFontSize:CGFloat = tableViewCellTextLabelFontSize
+let transConfigMinusPlusFontSize:CGFloat = 32
+let transConfigDisabledButtonAlpha:CGFloat = 0.3
+let minusButtonText = "−"
+let plusButtonText = "+"
 
 let appStoreURLString = "http://www.test.com"
 

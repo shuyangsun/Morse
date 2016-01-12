@@ -38,6 +38,9 @@ let outputMaxWPM = 50
 let defaultOutputWPM = 20
 let defaultInputWPM = 20
 
+let supportedAudioDecoderWPMRange = 14...22
+let supportedAudioDecoderPitchRange = 150...20000
+
 let inputPitchMin:Float = 1
 let inputPitchMax:Float = 2000
 

@@ -17,7 +17,7 @@ let supportedLanguages:[String: (original:String, localized:String)] = [
 	"en-GB": ("English (U.K.)", LocalizedStrings.Languages.englishUK),
 	// NA
 	"en-US": ("English (U.S.)", LocalizedStrings.Languages.englishUS),
-	"es": ("Spanish", LocalizedStrings.Languages.spanish)
+	"es": ("Español", LocalizedStrings.Languages.spanish)
 ]
 
 // This is for auto correction when using Auido as Morse code input. Languages in this list will be auto-corrected with localized UITextChecker, languages are not in this list will be considered as English by default.
@@ -84,10 +84,10 @@ struct LocalizedStrings {
 		static let topBarTextLabel = NSLocalizedString("Text", comment: "On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.")
 		static let topBarMorseLabel = NSLocalizedString("Morse", comment: "On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.")
 		static let topBarMorseDictionary = NSLocalizedString("Dictionary", comment: "This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations.")
-		static let wpm = NSLocalizedString("WPM: ", comment: "This is a label on the output page, followed by the numer of WPM (word per minute).")
-		static let pitch = NSLocalizedString("Pitch: ", comment: "This is a label on the output page, followed by the numer of audio frequency (pitch).")
+		static let wpmWithColon = NSLocalizedString("WPM: ", comment: "This is a label on the output page, followed by the numer of WPM (word per minute).")
+		static let pitchWithColon = NSLocalizedString("Pitch: ", comment: "This is a label on the output page, followed by the numer of audio frequency (pitch).")
 		static let tutorialOutputVC1 = NSLocalizedString("Adjust in Settings", comment: "This is a label on the output page, tells the user how to change some of the values.")
-		static let tutorialWaveformVC1 = NSLocalizedString("Supported WPM: 14-22", comment: "This is a label on the output page, tells the user the range of supported WPM.")
+		static let tutorialWaveformVC1 = NSLocalizedString("Supported WPM: ", comment: "This is a label on the output page, tells the user the range of supported WPM.")
 		static let tapToStart = NSLocalizedString("Tap anywhere to play or pause", comment: "This is a label on the output page, tells user how to play or pause the output.")
 		static let tapToFinish = NSLocalizedString("Tap anywhere to finish", comment: "This is a label on the output page, tells user how to finish using audio input.")
 		static let swipeToDismiss = NSLocalizedString("Swipe down or pinch to go back", comment: "This is a label on the output page, tells user how to go back to home page.")
@@ -119,15 +119,16 @@ struct LocalizedStrings {
 		static let autoNightMode = NSLocalizedString("Switch Automatically", comment: "There are many sections on the settings page, this switch let the user toggle if the app should change to Night theme when the ambient censor detects the surrounding light is low.")
 		static let audioDecoder = NSLocalizedString("Audio Decoder", comment: "This button on the settings page brings up input configuration page.")
 		static let output = NSLocalizedString("Output", comment: "This button on the settings page brings up output configuration page.")
-		static let WPM = NSLocalizedString("WPM", comment: "Shorthand of Word Per Minute.")
-		static let inputPitch = NSLocalizedString("Input Pitch (Audio Frequency)", comment: "There are many sections on the settings page, this one changes the frequency should be detected for input audio.")
 		static let nightModeDescription = NSLocalizedString("When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme.", comment: "There are many sections on the settings page, this one explains what does Auto Switch button in Appearance section do.")
 		static let upgradesDescription = NSLocalizedString("Any purchase will remove all ads.", comment: "There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.")
 		static let purchaseUnlockAllThemes = NSLocalizedString("Unlock All Themes", comment: "A button on the settings page for user make in-app purchase to unlock all the thems.")
 		static let purchaseEnableAudioDecoder = NSLocalizedString("Enable Audio Decoder", comment: "A button on the settings page for user make in-app purchase to enable Morse audio decoder.")
-		static let purchaseRestorePreviousPurchase = NSLocalizedString("Restore Previous Purchase", comment: "A button on the settings page for user to restore their previous purchases.")
+		static let purchaseRestorePurchases = NSLocalizedString("Restore Purchases", comment: "A button on the settings page for user to restore their previous purchases.")
 		static let rateOnAppStore =  NSLocalizedString("Rate on App Store", comment: "A button on the settings page for user to rate on App Store.")
 		static let contactDeveloper = NSLocalizedString("Contact Developer", comment: "A button on the settings page to contact developer. (send developer an email)")
+		static let reset = NSLocalizedString("Reset", comment: "A button on the settings page to reset some content.")
+		static let wpm = NSLocalizedString("WPM (Word Per Minute)", comment: "Settings category: word per minute.")
+		static let pitch = NSLocalizedString("Pitch", comment: "Settings category: audio frequency.")
 	}
 
 	struct ThemeName {

@@ -69,31 +69,75 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	var outputWPM:Int {
-		return self.userDefaults.integerForKey(userDefaultsKeyOutputWPM)
-	}
-
-	var inputWPM:Int {
-		return self.userDefaults.integerForKey(userDefaultsKeyInputWPM)
-	}
-
-	var inputWPMAutomatic:Bool {
-		return self.userDefaults.boolForKey(userDefaultsKeyInputWPMAutomatic)
-	}
-
-	var inputPitch:Float {
-		return self.userDefaults.floatForKey(userDefaultsKeyInputPitch)
-	}
-
-	var inputPitchAutomatic:Bool {
-		return self.userDefaults.boolForKey(userDefaultsKeyInputPitchAutomatic)
+		get {
+			return self.userDefaults.integerForKey(userDefaultsKeyOutputWPM)
+		}
+		set {
+			appDelegate.userDefaults.setInteger(newValue, forKey: userDefaultsKeyOutputWPM)
+			appDelegate.userDefaults.synchronize()
+		}
 	}
 
 	var outputPitch:Float {
-		return self.userDefaults.floatForKey(userDefaultsKeyOutputPitch)
+		get {
+			return self.userDefaults.floatForKey(userDefaultsKeyOutputPitch)
+		}
+		set {
+			appDelegate.userDefaults.setFloat(newValue, forKey: userDefaultsKeyOutputPitch)
+			appDelegate.userDefaults.synchronize()
+		}
+	}
+
+	var inputWPM:Int {
+		get {
+			return self.userDefaults.integerForKey(userDefaultsKeyInputWPM)
+		}
+		set {
+			appDelegate.userDefaults.setInteger(newValue, forKey: userDefaultsKeyInputWPM)
+			appDelegate.userDefaults.synchronize()
+			NSNotificationCenter.defaultCenter().postNotificationName(inputWPMDidChangeNotificationName, object: nil)
+		}
+	}
+
+	var inputWPMAutomatic:Bool {
+		get {
+			return self.userDefaults.boolForKey(userDefaultsKeyInputWPMAutomatic)
+		}
+		set {
+			self.userDefaults.setBool(newValue, forKey: userDefaultsKeyInputWPMAutomatic)
+			self.userDefaults.synchronize()
+		}
+	}
+
+	var inputPitch:Float {
+		get {
+			return self.userDefaults.floatForKey(userDefaultsKeyInputPitch)
+		}
+		set {
+			appDelegate.userDefaults.setFloat(newValue, forKey: userDefaultsKeyInputPitch)
+			appDelegate.userDefaults.synchronize()
+			NSNotificationCenter.defaultCenter().postNotificationName(inputPitchDidChangeNotificationName, object: nil)
+		}
+	}
+
+	var inputPitchAutomatic:Bool {
+		get {
+			return self.userDefaults.boolForKey(userDefaultsKeyInputPitchAutomatic)
+		}
+		set {
+			self.userDefaults.setBool(newValue, forKey: userDefaultsKeyInputPitchAutomatic)
+			self.userDefaults.synchronize()
+		}
 	}
 
 	var brightenScreenWhenOutput:Bool {
-		return self.userDefaults.boolForKey(userDefaultsKeyBrightenScreenWhenOutput)
+		get {
+			return self.userDefaults.boolForKey(userDefaultsKeyBrightenScreenWhenOutput)
+		}
+		set {
+			self.userDefaults.setBool(newValue, forKey: userDefaultsKeyBrightenScreenWhenOutput)
+			self.userDefaults.synchronize()
+		}
 	}
 
 	var autoCorrectMissSpelledWordsForAudioInput:Bool {

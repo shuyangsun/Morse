@@ -12,14 +12,12 @@ class SettingsThemeTableViewController: TableViewController {
 
 	var currentCheckedCell:TableViewCell?
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	private func setup() {
+		// Uncomment the following line to preserve selection between presentations
+		// self.clearsSelectionOnViewWillAppear = false
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+		// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+		// self.navigationItem.rightBarButtonItem = self.editButtonItem()
 
 		self.view.backgroundColor = theme.tableViewBackgroundColor
 		self.tableView.separatorColor = theme.tableViewSeparatorColor
@@ -35,6 +33,11 @@ class SettingsThemeTableViewController: TableViewController {
 			textAttributes = [NSForegroundColorAttributeName: appDelegate.theme.navigationBarTitleTextColor]
 		}
 		self.navigationController?.navigationBar.titleTextAttributes = textAttributes
+	}
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setup()
     }
 
 	override func viewWillAppear(animated: Bool) {
@@ -62,7 +65,7 @@ class SettingsThemeTableViewController: TableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		var cell:TableViewCell = TableViewCell()
+		var cell = TableViewCell()
 		if indexPath.section == 0 {
 			switch indexPath.row {
 			case 0:

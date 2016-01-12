@@ -112,7 +112,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 					languageNameOriginal = currentLanguageName!.localized
 				}
 				// Detailed text displays the current language. 
-				cell.detailTextLabel?.attributedText = getAttributedStringFrom(languageNameOriginal, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
+				cell.detailTextLabel?.attributedText = getAttributedStringFrom(languageNameOriginal, withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
 				cell.accessoryType = .DisclosureIndicator
 			case 1:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewSwitchCell
@@ -128,9 +128,9 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 			case 0:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Theme Cell", forIndexPath: indexPath) as! TableViewCell
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.theme
-					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
+					, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				cell.detailTextLabel?.attributedText = getAttributedStringFrom(appDelegate.userSelectedTheme.name, withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
 				cell.accessoryType = .DisclosureIndicator
-				cell.detailTextLabel?.attributedText = getAttributedStringFrom(appDelegate.userSelectedTheme.name, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
 			case 1:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewSwitchCell
 				cell.tapFeebackEnabled = false
@@ -165,10 +165,14 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			case 2:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
-				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseRestorePreviousPurchase
+				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseRestorePurchases
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			default: break
 			}
+			cell.separatorInset = UIEdgeInsetsZero
+			cell.preservesSuperviewLayoutMargins = false
+			cell.layoutMargins = UIEdgeInsetsZero
+			cell.textLabel?.textAlignment = .Center
 		} else if indexPath.section == 4 { // About
 			switch indexPath.row {
 			case 0:
@@ -181,6 +185,10 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			default: break
 			}
+			cell.separatorInset = UIEdgeInsetsZero
+			cell.preservesSuperviewLayoutMargins = false
+			cell.layoutMargins = UIEdgeInsetsZero
+			cell.textLabel?.textAlignment = .Center
 		} else if indexPath.section == 5 { // Dev options
 			switch indexPath.row {
 			case 0:
@@ -193,7 +201,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				let tapGR = UITapGestureRecognizer(target: self, action: "resetAnimationDurationScalar")
 				cell.textLabel?.addGestureRecognizer(tapGR)
 				if self.animationDurationSlider == nil {
-					self.animationDurationSlider = UISlider(frame: CGRect(x: cell.contentView.bounds.width - sliderWidth - tableViewCellTrailingPadding, y: 0, width: sliderWidth, height: cell.bounds.height))
+					self.animationDurationSlider = UISlider(frame: CGRect(x: cell.contentView.bounds.width - sliderWidth - tableViewCellHorizontalPadding, y: 0, width: sliderWidth, height: cell.bounds.height))
 					self.animationDurationSlider.minimumValue = Float(0.1)
 					self.animationDurationSlider.maximumValue = Float(20)
 					self.animationDurationSlider.value = Float(self.animationDurationScalar)
@@ -204,7 +212,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 					self.animationDurationSlider.addTarget(self, action: "sliderValueChanged:", forControlEvents: .ValueChanged)
 					cell.contentView.addSubview(self.animationDurationSlider)
 					self.animationDurationSlider.snp_remakeConstraints(closure: { (make) -> Void in
-						make.trailing.equalTo(cell.contentView).offset(-tableViewCellTrailingPadding)
+						make.trailing.equalTo(cell.contentView).offset(-tableViewCellHorizontalPadding)
 						make.top.equalTo(cell.contentView)
 						make.bottom.equalTo(cell.contentView)
 						make.width.equalTo(sliderWidth)
@@ -213,9 +221,8 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 			default: break
 			}
 		}
-		
-        // Configure the cell...
-		cell.selectionStyle = .None
+
+		cell.updateColor()
 
         return cell
     }
@@ -292,22 +299,8 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				self.navigationController?.navigationBar.barTintColor = theme.navigationBarBackgroundColor
 				self.navigationController?.navigationBar.tintColor = theme.navigationBarTitleTextColor
 				self.tabBarController?.tabBar.barTintColor = theme.tabBarBackgroundColor
-				// Update header and foooter color
-				for sec in 0..<self.numberOfSectionsInTableView(self.tableView) {
-					if let headerView = self.tableView(self.tableView, viewForFooterInSection: sec) {
-						print(headerView)
-					}
-				}
 		}, completion: nil)
-		self.tableView.reloadData()
-		// Update cell colors:
-		for sec in 0..<self.numberOfSectionsInTableView(self.tableView) {
-			for row in 0..<self.tableView(self.tableView, numberOfRowsInSection: sec) {
-				if let cell = self.tableView(self.tableView, cellForRowAtIndexPath: NSIndexPath(forRow: row, inSection: sec)) as? TableViewCell {
-					cell.updateColor()
-				}
-			}
-		}
+			self.tableView.reloadData()
 	}
 
 	func languageDidChange() {
