@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10099BB51C46C98C00ED8B3E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 10099BB71C46C98C00ED8B3E /* Localizable.strings */; };
 		100F7CD81C27513700DDD8EC /* MorseAudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100F7CD71C27513700DDD8EC /* MorseAudioRecorder.swift */; };
 		100F7CD91C27513700DDD8EC /* MorseAudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100F7CD71C27513700DDD8EC /* MorseAudioRecorder.swift */; };
 		100F7CDA1C27513700DDD8EC /* MorseAudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100F7CD71C27513700DDD8EC /* MorseAudioRecorder.swift */; };
@@ -239,6 +240,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		10099BB61C46C98C00ED8B3E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		10099BB81C46C98C00ED8B3E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		100F7CD71C27513700DDD8EC /* MorseAudioRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseAudioRecorder.swift; sourceTree = "<group>"; };
 		100F7CDE1C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseAudioRecorderDelegate.swift; sourceTree = "<group>"; };
 		101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTopSectionViewController.swift; sourceTree = "<group>"; };
@@ -554,6 +557,7 @@
 		1052A7641C0BACEA0085B0C9 /* MorseUITests */ = {
 			isa = PBXGroup;
 			children = (
+				10099BB71C46C98C00ED8B3E /* Localizable.strings */,
 				106460051C46206200E1B501 /* InfoPlist.strings */,
 				1052A7651C0BACEA0085B0C9 /* MorseUITests.swift */,
 				1052A7671C0BACEA0085B0C9 /* Info.plist */,
@@ -848,6 +852,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10099BB51C46C98C00ED8B3E /* Localizable.strings in Resources */,
 				103476C11C37481F0036DB44 /* EZAudio in Resources */,
 				106460031C46206200E1B501 /* InfoPlist.strings in Resources */,
 				10F1B5D11C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */,
@@ -1045,6 +1050,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		10099BB71C46C98C00ED8B3E /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				10099BB61C46C98C00ED8B3E /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		1052A7461C0BACE90085B0C9 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1133,6 +1146,7 @@
 				1064601F1C46225400E1B501 /* zh-Hant */,
 				106460261C46226700E1B501 /* ar */,
 				1064602D1C46226C00E1B501 /* es */,
+				10099BB81C46C98C00ED8B3E /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
