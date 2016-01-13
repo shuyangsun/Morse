@@ -65,7 +65,6 @@ class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveT
 									self.updateInteractiveTransition(1)
 									NSTimer.scheduledTimerWithTimeInterval(delayFinishTransitionTime, target: self, selector: "finishInteractiveTransition", userInfo: nil, repeats: false)
 								} else {
-									self.updateInteractiveTransition(1)
 									self.finishInteractiveTransition()
 								}
 							}
@@ -79,18 +78,24 @@ class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveT
 					self._shouldFinishTransition = true
 				}
 			} else if state == .Ended || state == .Cancelled && self.transitionInProgress {
-				if !self._shouldFinishTransition
-//					|| state == .Cancelled // Commenting out this line because of a bug. cancelInteractiveTransition() not working
-				{
-					// FIX ME: cancel is not working, there is a bug. The work around using now is to set dismissRatio to 0.
-					cancelInteractiveTransition()
+//				if !self._shouldFinishTransition
+////					|| state == .Cancelled // Commenting out this line because of a bug. cancelInteractiveTransition() not working
+//				{
+//					// FIX ME: cancel is not working, there is a bug. The work around using now is to set dismissRatio to 0.
+//					cancelInteractiveTransition()
+//				} else {
+//					if delayFinishTransitionTime > 0 {
+//						self.updateInteractiveTransition(1)
+//						NSTimer.scheduledTimerWithTimeInterval(delayFinishTransitionTime, target: self, selector: "finishInteractiveTransition", userInfo: nil, repeats: false)
+//					} else {
+//						self.finishInteractiveTransition()
+//					}
+//				}
+				if delayFinishTransitionTime > 0 {
+					self.updateInteractiveTransition(1)
+					NSTimer.scheduledTimerWithTimeInterval(delayFinishTransitionTime, target: self, selector: "finishInteractiveTransition", userInfo: nil, repeats: false)
 				} else {
-					if delayFinishTransitionTime > 0 {
-						self.updateInteractiveTransition(1)
-						NSTimer.scheduledTimerWithTimeInterval(delayFinishTransitionTime, target: self, selector: "finishInteractiveTransition", userInfo: nil, repeats: false)
-					} else {
-						self.finishInteractiveTransition()
-					}
+					self.finishInteractiveTransition()
 				}
 				self.transitionInProgress = false
 			}
