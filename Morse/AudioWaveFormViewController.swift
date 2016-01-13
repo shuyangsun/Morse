@@ -219,7 +219,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 			pitchNumberText = "Hz \(Int(appDelegate.inputPitch))"
 		}
 		if showAutomaticStatus && appDelegate.inputPitchAutomatic {
-			pitchNumberText = LocalizedStrings.General.automatic
+			pitchNumberText = LocalizedStrings.Settings.automaticAudioDecoderValue
 		}
 		var text = "\(LocalizedStrings.Label.pitchWithColon)\(pitchNumberText)"
 		if layoutDirection == .RightToLeft {
@@ -231,7 +231,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 	func updateWPMLabel(showAutomaticStatus:Bool = false) {
 		var wpmNumberText = String(appDelegate.inputWPM)
 		if showAutomaticStatus && appDelegate.inputWPMAutomatic {
-			wpmNumberText = LocalizedStrings.General.automatic
+			wpmNumberText = LocalizedStrings.Settings.automaticAudioDecoderValue
 		}
 		var text = "\(LocalizedStrings.Label.wpmWithColon)\(wpmNumberText)"
 		if layoutDirection == .RightToLeft {

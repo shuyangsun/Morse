@@ -20,5 +20,60 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeSearch</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>ENCODE_TEXT_SHORTCUT_TITLE</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).encodeText</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict>
+				<key>key0</key>
+				<string>value0</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypePlay</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>DECODE_MORSE_SHORTCUT_TITLE</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).decodeMorse</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict>
+				<key>key1</key>
+				<string>value1</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeShare</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>AUDIO_DECODER_SHORTCUT_TITLE</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).audioDecoder</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict>
+				<key>key2</key>
+				<string>value2</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeSearch</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>DICTIONARY_SHORTCUT_TITLE</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).dictionary</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict>
+				<key>key3</key>
+				<string>value3</string>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>

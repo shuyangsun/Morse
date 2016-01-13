@@ -169,6 +169,7 @@ class SettingsOutputTableViewController: TableViewController, TableViewSwitchCel
 
 	func textFieldDidBeginEditing(textField: UITextField) {
 		self.tableView.scrollEnabled = false
+		self.tableView.allowsSelection = false
 		self._textFieldOriginalText = textField.text
 	}
 
@@ -178,8 +179,8 @@ class SettingsOutputTableViewController: TableViewController, TableViewSwitchCel
 			let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! TableViewTransmitterConfigurationCell
 			if textField.text != nil && Int(textField.text!) != nil {
 				number = Int(textField.text!)!
-				number = max(supportedAudioDecoderWPMRange.startIndex, number)
-				number = min(supportedAudioDecoderWPMRange.endIndex - 1, number)
+				number = max(supportedOutputWPMRange.startIndex, number)
+				number = min(supportedOutputWPMRange.endIndex - 1, number)
 				appDelegate.outputWPM = number
 				cell.slider.value = Float(number)
 			}
@@ -190,8 +191,8 @@ class SettingsOutputTableViewController: TableViewController, TableViewSwitchCel
 			let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as! TableViewTransmitterConfigurationCell
 			if textField.text != nil && Float(textField.text!) != nil {
 				number = Float(textField.text!)!
-				number = max(Float(supportedAudioDecoderPitchRange.startIndex), number)
-				number = min(Float(supportedAudioDecoderPitchRange.endIndex - 1), number)
+				number = max(Float(supportedOutputPitchRange.startIndex), number)
+				number = min(Float(supportedOutputPitchRange.endIndex - 1), number)
 				appDelegate.outputPitch = number
 				cell.slider.value = number
 			}
@@ -202,6 +203,7 @@ class SettingsOutputTableViewController: TableViewController, TableViewSwitchCel
 			cell.changeValueText(text)
 		}
 		self.tableView.scrollEnabled = true
+		self.tableView.allowsSelection = true
 	}
 
 	func switchToggled(switchButton:UISwitch) {
@@ -214,12 +216,12 @@ class SettingsOutputTableViewController: TableViewController, TableViewSwitchCel
 
 	func transConfigCell(cell: TableViewTransmitterConfigurationCell, minusButtonTapped button: UIButton) {
 		if cell.tag == self._configCellTagWPM {
-			let newValue = max(cell.slider.value - 1, Float(supportedAudioDecoderWPMRange.startIndex))
+			let newValue = max(cell.slider.value - 1, Float(supportedOutputWPMRange.startIndex))
 			appDelegate.outputWPM = Int(newValue)
 			cell.slider.value = newValue
 			cell.changeValueText("\(Int(newValue))")
 		} else if cell.tag == self._configCellTagPitch {
-			let newValue = max(cell.slider.value - 1, Float(supportedAudioDecoderPitchRange.startIndex))
+			let newValue = max(cell.slider.value - 1, Float(supportedOutputPitchRange.startIndex))
 			appDelegate.outputPitch = newValue
 			cell.slider.value = newValue
 			var text = "\(Int(newValue)) Hz"
@@ -232,12 +234,12 @@ class SettingsOutputTableViewController: TableViewController, TableViewSwitchCel
 
 	func transConfigCell(cell: TableViewTransmitterConfigurationCell, plusButtonTapped button: UIButton) {
 		if cell.tag == self._configCellTagWPM {
-			let newValue = min(cell.slider.value + 1, Float(supportedAudioDecoderWPMRange.endIndex - 1))
+			let newValue = min(cell.slider.value + 1, Float(supportedOutputWPMRange.endIndex - 1))
 			appDelegate.outputWPM = Int(newValue)
 			cell.slider.value = newValue
 			cell.changeValueText("\(Int(newValue))")
 		} else if cell.tag == self._configCellTagPitch {
-			let newValue = min(cell.slider.value + 1, Float(supportedAudioDecoderPitchRange.endIndex - 1))
+			let newValue = min(cell.slider.value + 1, Float(supportedOutputPitchRange.endIndex - 1))
 			appDelegate.outputPitch = newValue
 			cell.slider.value = newValue
 			var text = "\(Int(newValue)) Hz"

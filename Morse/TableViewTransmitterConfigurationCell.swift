@@ -72,8 +72,8 @@ class TableViewTransmitterConfigurationCell: TableViewCell {
 			let doneButton = UIButton(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: transConfigNumPadDoneButtonHeight))
 			doneButton.addTarget(self.valueTextField, action: "resignFirstResponder", forControlEvents: .TouchUpInside)
 			doneButton.backgroundColor = theme.transValConfigViewNumPadDoneButtonBackgroundColor
-			doneButton.setAttributedTitle(getAttributedStringFrom(LocalizedStrings.General.done, withFontSize: transConfigNumPadDoneButtonFontSize, color: theme.transValConfigViewNumPadDoneButtonTextColorNormal, bold: true), forState: .Normal)
-			doneButton.setAttributedTitle(getAttributedStringFrom(LocalizedStrings.General.done, withFontSize: transConfigNumPadDoneButtonFontSize, color: theme.transValConfigViewNumPadDoneButtonTextColorHighlighted, bold: true), forState: .Highlighted)
+			doneButton.setAttributedTitle(getAttributedStringFrom(LocalizedStrings.Settings.done, withFontSize: transConfigNumPadDoneButtonFontSize, color: theme.transValConfigViewNumPadDoneButtonTextColorNormal, bold: true), forState: .Normal)
+			doneButton.setAttributedTitle(getAttributedStringFrom(LocalizedStrings.Settings.done, withFontSize: transConfigNumPadDoneButtonFontSize, color: theme.transValConfigViewNumPadDoneButtonTextColorHighlighted, bold: true), forState: .Highlighted)
 			self.valueTextField.inputAccessoryView = doneButton
 			self.addSubview(self.valueTextField)
 			self.valueTextField.snp_makeConstraints(closure: { (make) -> Void in

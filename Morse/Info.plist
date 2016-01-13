@@ -43,5 +43,60 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeSearch</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Encode Text</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).encodeText</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict>
+				<key>key0</key>
+				<string>value0</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypePlay</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Decode Morse</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).decodeMorse</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict>
+				<key>key1</key>
+				<string>value1</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeShare</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Audio Decoder</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).audioDecoder</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict>
+				<key>key2</key>
+				<string>value2</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeSearch</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Dictionary</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).dictionary</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict>
+				<key>key3</key>
+				<string>value3</string>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>

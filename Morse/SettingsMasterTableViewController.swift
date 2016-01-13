@@ -257,9 +257,10 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 			switch indexPath.row {
 			case 1:
 				let mailController = MFMailComposeViewController()
-				mailController.delegate = self
-				mailController.setToRecipients([feedbackEmailAddress])
-				mailController.setSubject(feedbackEmailSubject)
+				mailController.mailComposeDelegate = self
+				mailController.setToRecipients([feedbackEmailToRecipient])
+				mailController.setSubject(LocalizedStrings.FeedbackEmail.subject)
+				mailController.setMessageBody(feedbackEmailMessageBody, isHTML: false)
 				self.presentViewController(mailController, animated: true, completion: nil)
 			default: break
 			}
@@ -267,6 +268,20 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 	}
 
 	func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+		switch result {
+		case MFMailComposeResultCancelled:
+			print("Mail cancelled")
+		case MFMailComposeResultSaved:
+			print("Mail saved")
+		case MFMailComposeResultSent:
+			print("Mail sent")
+		case MFMailComposeResultFailed:
+			if let err = error {
+				print("Mail sent failure: %@", [err.localizedDescription])
+			}
+		default:
+			break
+		}
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 

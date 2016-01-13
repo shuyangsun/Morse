@@ -285,5 +285,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			}
 		}
 	}
+
+	func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+		let itemType = shortcutItem.type
+		if let tabbarVC = UIApplication.sharedApplication().keyWindow?.rootViewController as? TabBarController {
+			if itemType.hasSuffix("encodeText") {
+
+			} else if itemType.hasSuffix("decodeMorse") {
+
+			} else if itemType.hasSuffix("audioDecoder") {
+
+			} else if itemType.hasSuffix("dictionary") {
+				tabbarVC.selectedIndex = 1
+				if let dicVC = tabbarVC.viewControllers?[1] as? MorseDictionaryViewController {
+					dicVC.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: dicVC.scrollView.bounds.width, height: 1), animated: true)
+				}
+			}
+		}
+	}
 }
 

@@ -31,9 +31,10 @@ var layoutDirection:UIUserInterfaceLayoutDirection {
 struct LocalizedStrings {
 	struct General {
 		static let sharePromote = NSLocalizedString("Check this out! I converted text to this Morse code using Morse Transmitter! Download here:", comment: "When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.")
-		static let automatic = NSLocalizedString("Automatic", comment: "A setting that indicates something is done automatically.")
-		static let defaultName = NSLocalizedString("Default", comment: "Means something's default.")
-		static let done = NSLocalizedString("Done", comment: "A Done button.")
+	}
+
+	struct FeedbackEmail {
+		static let subject = NSLocalizedString("Morse Transmitter Feedback", comment: "The subject title for feedback email.")
 	}
 
 	struct Prosign {
@@ -119,7 +120,7 @@ struct LocalizedStrings {
 		static let theme = NSLocalizedString("Theme", comment: "There are many sections on the settings page, this switch let the user change the color theme of this App.")
 		static let autoNightMode = NSLocalizedString("Switch Automatically", comment: "There are many sections on the settings page, this switch let the user toggle if the app should change to Night theme when the ambient censor detects the surrounding light is low.")
 		static let audioDecoder = NSLocalizedString("Audio Decoder", comment: "This button on the settings page brings up input configuration page.")
-		static let output = NSLocalizedString("Output", comment: "This button on the settings page brings up output configuration page.")
+		static let output = NSLocalizedString("Signal Output", comment: "This button on the settings page brings up output configuration page.")
 		static let nightModeDescription = NSLocalizedString("When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme.", comment: "There are many sections on the settings page, this one explains what does Auto Switch button in Appearance section do.")
 		static let upgradesDescription = NSLocalizedString("Any purchase will remove all ads.", comment: "There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.")
 		static let outputBrightenScreenDescription = NSLocalizedString("When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.", comment: "Explains what Output Brighten Screen does.")
@@ -133,9 +134,12 @@ struct LocalizedStrings {
 		static let wpm = NSLocalizedString("WPM (Words Per Minute)", comment: "Settings category: word per minute.")
 		static let pitch = NSLocalizedString("Pitch", comment: "Settings category: audio frequency.")
 		static let audioDecoderAutoCorrect = NSLocalizedString("Auto Correct Words", comment: "A settings that allows user to choose if they want to use auto correction on audio decoder.")
+		static let done = NSLocalizedString("Done", comment: "A Done button.")
+		static let automaticAudioDecoderValue = NSLocalizedString("Automatic", comment: "Name of a switch button (audio decoder automatically get wpm and pitch information).")
 	}
 
 	struct ThemeName {
+		static let defaultName = NSLocalizedString("Default", comment: "Means something's default.")
 		static let night = NSLocalizedString("Night", comment: "One of the names for color theme.")
 	}
 

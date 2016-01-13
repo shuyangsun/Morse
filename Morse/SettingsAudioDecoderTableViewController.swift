@@ -65,7 +65,7 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 			case 0:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewSwitchCell
 				cell.tapFeebackEnabled = false
-				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.General.automatic, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.automaticAudioDecoderValue, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				let switchCell = cell as! TableViewSwitchCell
 				switchCell.delegate = self
 				switchCell.tag = indexPath.section == 1 ? self._switchButtonTagAutoWPM : self._switchButtonTagAutoPitch
@@ -175,6 +175,7 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 
 	func textFieldDidBeginEditing(textField: UITextField) {
 		self.tableView.scrollEnabled = false
+		self.tableView.allowsSelection = false
 		self._textFieldOriginalText = textField.text
 	}
 
@@ -207,6 +208,7 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 			}
 			cell.changeValueText(text)
 		}
+		self.tableView.allowsSelection = true
 		self.tableView.scrollEnabled = true
 	}
 

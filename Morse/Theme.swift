@@ -29,7 +29,7 @@ enum Theme: Int {
 
 	var name:String {
 		switch self {
-		case .Default: return LocalizedStrings.General.defaultName
+		case .Default: return LocalizedStrings.ThemeName.defaultName
 		case .Night: return LocalizedStrings.ThemeName.night
 		}
 	}
