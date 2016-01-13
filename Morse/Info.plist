@@ -47,41 +47,41 @@
 	<array>
 		<dict>
 			<key>UIApplicationShortcutItemIconType</key>
-			<string>UIApplicationShortcutIconTypeSearch</string>
+			<string>UIApplicationShortcutIconTypeCompose</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Encode Text</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).encodeText</string>
 			<key>UIApplicationShortcutItemUserInfo</key>
 			<dict>
-				<key>key0</key>
-				<string>value0</string>
+				<key>action</key>
+				<string>ENCODE_TEXT</string>
 			</dict>
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemIconType</key>
-			<string>UIApplicationShortcutIconTypePlay</string>
+			<string>UIApplicationShortcutIconTypeCompose</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Decode Morse</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).decodeMorse</string>
 			<key>UIApplicationShortcutItemUserInfo</key>
 			<dict>
-				<key>key1</key>
-				<string>value1</string>
+				<key>action</key>
+				<string>DECODE_MORSE</string>
 			</dict>
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemIconType</key>
-			<string>UIApplicationShortcutIconTypeShare</string>
+			<string>UIApplicationShortcutIconTypeAudio</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Audio Decoder</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).audioDecoder</string>
 			<key>UIApplicationShortcutItemUserInfo</key>
 			<dict>
-				<key>key2</key>
-				<string>value2</string>
+				<key>action</key>
+				<string>AUDIO_DECODER</string>
 			</dict>
 		</dict>
 		<dict>
@@ -93,8 +93,8 @@
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).dictionary</string>
 			<key>UIApplicationShortcutItemUserInfo</key>
 			<dict>
-				<key>key3</key>
-				<string>value3</string>
+				<key>action</key>
+				<string>DICTIONARY</string>
 			</dict>
 		</dict>
 	</array>

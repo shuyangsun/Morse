@@ -60,12 +60,14 @@ class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveT
 					self._shouldFinishTransition = ratio >= slideAndPinchRatioToDismiss
 					if self.percentComplete != ratio {
 						if ratio >= 1 {
-							self.transitionInProgress = false
-							if delayFinishTransitionTime > 0 {
-								self.updateInteractiveTransition(1)
-								NSTimer.scheduledTimerWithTimeInterval(delayFinishTransitionTime, target: self, selector: "finishInteractiveTransition", userInfo: nil, repeats: false)
-							} else {
-								self.finishInteractiveTransition()
+							if self._shouldFinishTransition {
+								if delayFinishTransitionTime > 0 {
+									self.updateInteractiveTransition(1)
+									NSTimer.scheduledTimerWithTimeInterval(delayFinishTransitionTime, target: self, selector: "finishInteractiveTransition", userInfo: nil, repeats: false)
+								} else {
+									self.updateInteractiveTransition(1)
+									self.finishInteractiveTransition()
+								}
 							}
 						} else {
 							self.updateInteractiveTransition(ratio)

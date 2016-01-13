@@ -287,18 +287,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
-		let itemType = shortcutItem.type
-		if let tabbarVC = UIApplication.sharedApplication().keyWindow?.rootViewController as? TabBarController {
-			if itemType.hasSuffix("encodeText") {
-
-			} else if itemType.hasSuffix("decodeMorse") {
-
-			} else if itemType.hasSuffix("audioDecoder") {
-
-			} else if itemType.hasSuffix("dictionary") {
-				tabbarVC.selectedIndex = 1
-				if let dicVC = tabbarVC.viewControllers?[1] as? MorseDictionaryViewController {
-					dicVC.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: dicVC.scrollView.bounds.width, height: 1), animated: true)
+		if let action = shortcutItem.userInfo?["action"] as? String {
+			if let tabbarVC = UIApplication.sharedApplication().keyWindow?.rootViewController as? TabBarController {
+				if action == "ENCODE_TEXT" {
+					tabbarVC.selectedIndex = 0
+					if let homeVC = tabbarVC.viewControllers?[0] as? HomeViewController {
+						homeVC.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: homeVC.scrollView.bounds.width, height: 1), animated: false)
+						if !homeVC.topSectionViewController.isDirectionEncode {
+							homeVC.topSectionViewController.roundButtonTapped(nil)
+						}
+						homeVC.topSectionViewController.keyboardButtonTapped()
+					}
+				} else if action == "DECODE_MORSE" {
+					tabbarVC.selectedIndex = 0
+					if let homeVC = tabbarVC.viewControllers?[0] as? HomeViewController {
+						homeVC.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: homeVC.scrollView.bounds.width, height: 1), animated: false)
+						if homeVC.topSectionViewController.isDirectionEncode {
+							homeVC.topSectionViewController.roundButtonTapped(nil)
+						}
+						homeVC.topSectionViewController.keyboardButtonTapped()
+					}
+				} else if action == "AUDIO_DECODER" {
+					tabbarVC.selectedIndex = 0
+					if let homeVC = tabbarVC.viewControllers?[0] as? HomeViewController {
+						homeVC.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: homeVC.scrollView.bounds.width, height: 1), animated: false)
+						if homeVC.topSectionViewController.isDirectionEncode {
+							homeVC.topSectionViewController.roundButtonTapped(nil)
+						}
+						homeVC.microphoneButtonTapped()
+						homeVC.topSectionViewController.microphoneButtonTapped()
+					}
+				} else if action == "DICTIONARY" {
+					tabbarVC.selectedIndex = 1
+					if let dicVC = tabbarVC.viewControllers?[1] as? MorseDictionaryViewController {
+						dicVC.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: dicVC.scrollView.bounds.width, height: 1), animated: true)
+					}
 				}
 			}
 		}

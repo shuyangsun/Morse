@@ -435,6 +435,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.isDirectionEncode = !self.isDirectionEncode
 		}
 
+		// If there is a gesture recognizer, animate round button
 		if gestureRecognizer != nil {
 			let tapLocation = gestureRecognizer!.locationInView(self.roundButtonView)
 			if self.roundButtonView.bounds.contains(tapLocation) {
