@@ -53,9 +53,11 @@ let transConfigSliderLabelVerticalMargin:CGFloat = transConfigVerticalMargin/2.0
 let transConfigHorizontalMargin:CGFloat = tableViewCellHorizontalPadding
 let transConfigSectionHeaderFontSize:CGFloat = 18
 let transConfigSectionHeaderHeight:CGFloat = 50
-let transConfigValueLabelFontSize:CGFloat = tableViewCellTextLabelFontSize
+let transConfigValueLabelFontSize:CGFloat = 22
 let transConfigMinusPlusFontSize:CGFloat = 32
 let transConfigDisabledButtonAlpha:CGFloat = 0.3
+let transConfigNumPadDoneButtonHeight:CGFloat = tableViewCellHeight
+let transConfigNumPadDoneButtonFontSize:CGFloat = tableViewCellTextLabelFontSize
 let minusButtonText = "−"
 let plusButtonText = "+"
 

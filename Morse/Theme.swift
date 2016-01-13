@@ -347,6 +347,8 @@ enum Theme: Int {
 
 	var tableViewCellSelectedBackgroundColor:UIColor {
 		switch self {
+//		case .Default: return MDColorPalette.Blue.P300
+//		case .Night: return MDColorPalette.Blue.A200!
 		default: return self.tableViewCellBackgroundColor
 		}
 	}
@@ -474,6 +476,24 @@ enum Theme: Int {
 		switch self {
 		case .Default: return self.roundButtonBackgroundColor!
 		case .Night: return self.switchOnTintColor!
+		}
+	}
+
+	var transValConfigViewNumPadDoneButtonBackgroundColor:UIColor {
+		switch self {
+		default: return MDColorPalette.Blue.A200!
+		}
+	}
+
+	var transValConfigViewNumPadDoneButtonTextColorNormal:UIColor {
+		switch self {
+		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		}
+	}
+
+	var transValConfigViewNumPadDoneButtonTextColorHighlighted:UIColor {
+		switch self {
+		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextHintAlpha)
 		}
 	}
 

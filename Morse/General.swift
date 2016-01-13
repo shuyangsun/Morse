@@ -40,6 +40,8 @@ let defaultInputWPM = 20
 
 let supportedAudioDecoderWPMRange = 14...22
 let supportedAudioDecoderPitchRange = 150...20000
+let supportedOutputWPMRange = 5...50
+let supportedOutputPitchRange = 150...20000
 
 let inputPitchMin:Float = 1
 let inputPitchMax:Float = 2000
@@ -48,7 +50,7 @@ let inputPitchMax:Float = 2000
 let defaultSampleRate:Float = 44100.0
 let fttWindowSize:vDSP_Length = 4096
 let audioSampleFrequencyTimeInterval:NSTimeInterval = 0
-let defaultInputPitch:Float = 550
+let defaultInputPitch:Float = 800
 let defaultOutputPitch:Float = 800
 let automaticPitchMin:Float = 500
 var defaultInputPitchErrorRange:Float = 7
@@ -88,6 +90,10 @@ let themeDidChangeNotificationName = "Theme Did Change Notification"
 let languageDidChangeNotificationName = "Language Did Change Notification"
 
 let notRecognizedLetterStr = "🙁"
+
+// Feedback Email
+let feedbackEmailSubject = "Morse Transmitter Feedback"
+let feedbackEmailAddress = "sunbuffett@gmail.com"
 
 func getAttributedStringFrom(text:String?, withFontSize fontSize:CGFloat = UIFont.systemFontSize(), color:UIColor = UIColor.blackColor(), bold:Bool = false) -> NSMutableAttributedString? {
 	return text == nil ? nil : NSMutableAttributedString(string: text!, attributes:

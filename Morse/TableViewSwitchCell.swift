@@ -10,6 +10,12 @@ import UIKit
 
 class TableViewSwitchCell: TableViewCell {
 
+	override var tag:Int {
+		willSet {
+			self.switchButton.tag = newValue
+		}
+	}
+
 	var delegate:TableViewSwitchCellDelegate? = nil
 	var switchButton:UISwitch!
 	var displaySwitchNextToLabel = false {

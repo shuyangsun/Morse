@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class SettingsMasterTableViewController: TableViewController, UINavigationControllerDelegate, TableViewSwitchCellDelegate {
+class SettingsMasterTableViewController: TableViewController, UINavigationControllerDelegate, TableViewSwitchCellDelegate, MFMailComposeViewControllerDelegate {
 
 	var animationDurationCell:TableViewCell!
 	var animationDurationSlider:UISlider!
@@ -91,7 +92,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		case 1: return 2 // Appearance
 		case 2: return 2 // Transmitter Config
 		case 3: return 3 // Upgrades
-		case 4: return 2 // About
+		case 4: return MFMailComposeViewController.canSendMail() ? 2 : 1 // About
 		case 5: return 1 // Dev Options
 		default: return 0
 		}
@@ -143,12 +144,12 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		} else if indexPath.section == 2 { // Transmitter Config
 			switch indexPath.row {
 			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Audio Decoder Cell", forIndexPath: indexPath) as! TableViewCell
-				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.audioDecoder
-					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
-			case 1:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Output Cell", forIndexPath: indexPath) as! TableViewCell
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.output
+					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
+			case 1:
+				cell = tableView.dequeueReusableCellWithIdentifier("Settings Audio Decoder Cell", forIndexPath: indexPath) as! TableViewCell
+				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.audioDecoder
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			default: break
 			}
@@ -251,6 +252,24 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		return tableViewCellHeight
 	}
 
+	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		if indexPath.section == 4 { // About
+			switch indexPath.row {
+			case 1:
+				let mailController = MFMailComposeViewController()
+				mailController.delegate = self
+				mailController.setToRecipients([feedbackEmailAddress])
+				mailController.setSubject(feedbackEmailSubject)
+				self.presentViewController(mailController, animated: true, completion: nil)
+			default: break
+			}
+		}
+	}
+
+	func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+		self.dismissViewControllerAnimated(true, completion: nil)
+	}
+
 	// *****************************
 	// MARK: Callbakcs
 	// *****************************
@@ -306,49 +325,4 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 	func languageDidChange() {
 		self.tableView.reloadData()
 	}
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }

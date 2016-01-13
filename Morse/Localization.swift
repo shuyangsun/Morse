@@ -33,6 +33,7 @@ struct LocalizedStrings {
 		static let sharePromote = NSLocalizedString("Check this out! I converted text to this Morse code using Morse Transmitter! Download here:", comment: "When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.")
 		static let automatic = NSLocalizedString("Automatic", comment: "A setting that indicates something is done automatically.")
 		static let defaultName = NSLocalizedString("Default", comment: "Means something's default.")
+		static let done = NSLocalizedString("Done", comment: "A Done button.")
 	}
 
 	struct Prosign {
@@ -121,14 +122,17 @@ struct LocalizedStrings {
 		static let output = NSLocalizedString("Output", comment: "This button on the settings page brings up output configuration page.")
 		static let nightModeDescription = NSLocalizedString("When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme.", comment: "There are many sections on the settings page, this one explains what does Auto Switch button in Appearance section do.")
 		static let upgradesDescription = NSLocalizedString("Any purchase will remove all ads.", comment: "There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.")
+		static let outputBrightenScreenDescription = NSLocalizedString("When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.", comment: "Explains what Output Brighten Screen does.")
+		static let autoCorrectWordDescription = NSLocalizedString("When you have it on, the App will try to auto-correct mis-spelled words when decoding Morse code. The dictionary changes when you change your language setting.", comment: "Explains what Auto Correct Mis Spelled Words does.")
 		static let purchaseUnlockAllThemes = NSLocalizedString("Unlock All Themes", comment: "A button on the settings page for user make in-app purchase to unlock all the thems.")
 		static let purchaseEnableAudioDecoder = NSLocalizedString("Enable Audio Decoder", comment: "A button on the settings page for user make in-app purchase to enable Morse audio decoder.")
 		static let purchaseRestorePurchases = NSLocalizedString("Restore Purchases", comment: "A button on the settings page for user to restore their previous purchases.")
 		static let rateOnAppStore =  NSLocalizedString("Rate on App Store", comment: "A button on the settings page for user to rate on App Store.")
 		static let contactDeveloper = NSLocalizedString("Contact Developer", comment: "A button on the settings page to contact developer. (send developer an email)")
 		static let reset = NSLocalizedString("Reset", comment: "A button on the settings page to reset some content.")
-		static let wpm = NSLocalizedString("WPM (Word Per Minute)", comment: "Settings category: word per minute.")
+		static let wpm = NSLocalizedString("WPM (Words Per Minute)", comment: "Settings category: word per minute.")
 		static let pitch = NSLocalizedString("Pitch", comment: "Settings category: audio frequency.")
+		static let audioDecoderAutoCorrect = NSLocalizedString("Auto Correct Words", comment: "A settings that allows user to choose if they want to use auto correction on audio decoder.")
 	}
 
 	struct ThemeName {

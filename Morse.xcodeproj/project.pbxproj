@@ -19,6 +19,8 @@
 		101A0AB31C1BBA820030A51A /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0AB21C1BBA820030A51A /* Localization.swift */; };
 		101A0AB41C1BBA820030A51A /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0AB21C1BBA820030A51A /* Localization.swift */; };
 		101A0AB51C1BBA820030A51A /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0AB21C1BBA820030A51A /* Localization.swift */; };
+		101EA6F41C45918000F8E767 /* SettingsOutputTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101EA6F31C45918000F8E767 /* SettingsOutputTableViewController.swift */; };
+		101EA6F91C45C53600F8E767 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 101EA6F81C45C53600F8E767 /* MessageUI.framework */; };
 		10274F731C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10274F721C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift */; };
 		10274F741C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10274F721C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift */; };
 		10274F751C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10274F721C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift */; };
@@ -166,7 +168,6 @@
 		10D54A131C42BDE600775318 /* TableViewSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D54A121C42BDE600775318 /* TableViewSwitchCell.swift */; };
 		10D54A151C42C16D00775318 /* TableViewSwitchCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D54A141C42C16D00775318 /* TableViewSwitchCellDelegate.swift */; };
 		10D54A171C42D19600775318 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D54A161C42D19600775318 /* TableViewController.swift */; };
-		10F1B5CD1C3F6C94000AA9C4 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10F1B5CC1C3F6C94000AA9C4 /* JavaScriptCore.framework */; };
 		10F1B5CF1C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */ = {isa = PBXBuildFile; fileRef = 10F1B5CE1C3F750C000AA9C4 /* webAudioToneGenerator.js */; };
 		10F1B5D01C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */ = {isa = PBXBuildFile; fileRef = 10F1B5CE1C3F750C000AA9C4 /* webAudioToneGenerator.js */; };
 		10F1B5D11C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */ = {isa = PBXBuildFile; fileRef = 10F1B5CE1C3F750C000AA9C4 /* webAudioToneGenerator.js */; };
@@ -243,6 +244,14 @@
 		100F7CDE1C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseAudioRecorderDelegate.swift; sourceTree = "<group>"; };
 		101A0A971C1B28F40030A51A /* HomeTopSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTopSectionViewController.swift; sourceTree = "<group>"; };
 		101A0AB21C1BBA820030A51A /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
+		101EA6F31C45918000F8E767 /* SettingsOutputTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsOutputTableViewController.swift; sourceTree = "<group>"; };
+		101EA6F81C45C53600F8E767 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		101EA6FA1C45CAA700F8E767 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/Main.strings"; sourceTree = "<group>"; };
+		101EA6FB1C45CAA700F8E767 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		101EA6FC1C45CABB00F8E767 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Main.strings"; sourceTree = "<group>"; };
+		101EA6FD1C45CABB00F8E767 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		101EA6FE1C45CADA00F8E767 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
+		101EA6FF1C45CADA00F8E767 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		10274F721C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewOutputTransitionInteractionController.swift; sourceTree = "<group>"; };
 		10286CCA1C0D1BCF00BD2B43 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		10295BC21C24CF1F0060DBE1 /* OutputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputViewController.swift; sourceTree = "<group>"; };
@@ -364,7 +373,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10F1B5CD1C3F6C94000AA9C4 /* JavaScriptCore.framework in Frameworks */,
+				101EA6F91C45C53600F8E767 /* MessageUI.framework in Frameworks */,
 				1088ACAB1C25A85C00D17028 /* AVFoundation.framework in Frameworks */,
 				10B9C8151C0FB5A4001C5847 /* CoreData.framework in Frameworks */,
 			);
@@ -607,6 +616,7 @@
 				10F1B5CC1C3F6C94000AA9C4 /* JavaScriptCore.framework */,
 				1088ACAA1C25A85C00D17028 /* AVFoundation.framework */,
 				10B9C8141C0FB5A4001C5847 /* CoreData.framework */,
+				101EA6F81C45C53600F8E767 /* MessageUI.framework */,
 				107FF6B01C0BDEC0003EB294 /* SnapKit.xcodeproj */,
 			);
 			name = Frameworks;
@@ -630,6 +640,7 @@
 				10BFD3911C1F1B4D00FA4C26 /* SettingsMasterTableViewController.swift */,
 				10BFD39D1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift */,
 				10D54A0B1C41FF3D00775318 /* SettingsThemeTableViewController.swift */,
+				101EA6F31C45918000F8E767 /* SettingsOutputTableViewController.swift */,
 				107C922B1C44609900C97EFF /* SettingsAudioDecoderTableViewController.swift */,
 			);
 			name = "Settings VC";
@@ -858,6 +869,7 @@
 				10D54A171C42D19600775318 /* TableViewController.swift in Sources */,
 				103477011C3750DC0036DB44 /* EZAudioPlayer.m in Sources */,
 				101A0AB31C1BBA820030A51A /* Localization.swift in Sources */,
+				101EA6F41C45918000F8E767 /* SettingsOutputTableViewController.swift in Sources */,
 				101A0A981C1B28F40030A51A /* HomeTopSectionViewController.swift in Sources */,
 				103476EC1C3750DC0036DB44 /* EZAudio.m in Sources */,
 				1052A7741C0BAED50085B0C9 /* TabBarController.swift in Sources */,
@@ -1028,6 +1040,9 @@
 				10CAF8261C1DDD5A00164258 /* zh-Hans */,
 				10CAF8281C1DDDBB00164258 /* zh-Hant */,
 				10CAF8331C1DDEF200164258 /* ar */,
+				101EA6FA1C45CAA700F8E767 /* en-US */,
+				101EA6FC1C45CABB00F8E767 /* en-GB */,
+				101EA6FE1C45CADA00F8E767 /* es */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1039,6 +1054,9 @@
 				10CAF8271C1DDD5A00164258 /* zh-Hans */,
 				10CAF8291C1DDDBB00164258 /* zh-Hant */,
 				10CAF8341C1DDEF200164258 /* ar */,
+				101EA6FB1C45CAA700F8E767 /* en-US */,
+				101EA6FD1C45CABB00F8E767 /* en-GB */,
+				101EA6FF1C45CADA00F8E767 /* es */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

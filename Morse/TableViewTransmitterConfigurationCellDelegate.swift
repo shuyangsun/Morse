@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc protocol TableViewTransmitterConfigurationCellDelegate {
+@objc protocol TableViewTransmitterConfigurationCellDelegate: UITextFieldDelegate {
 	optional func transConfigCell(cell:TableViewTransmitterConfigurationCell, minusButtonTapped button:UIButton)
 	optional func transConfigCell(cell:TableViewTransmitterConfigurationCell, plusButtonTapped button:UIButton)
 	optional func transConfigCell(cell:TableViewTransmitterConfigurationCell, sliderValueChanged slider:UISlider)

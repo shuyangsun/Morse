@@ -171,6 +171,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="r98-NX-cSS" kind="showDetail" id="m0e-S2-zpv"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
@@ -352,11 +355,64 @@
             </objects>
             <point key="canvasLocation" x="2774" y="1158"/>
         </scene>
-        <!--Item-->
+        <!--Settings Output Table View Controller-->
+        <scene sceneID="tuZ-fy-m4E">
+            <objects>
+                <tableViewController id="r98-NX-cSS" customClass="SettingsOutputTableViewController" customModule="Morse" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="bbt-J5-Q3d">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Settings Audio Decoder Transmitter Configuration Cell" id="edM-JK-Je1" customClass="TableViewTransmitterConfigurationCell" customModule="Morse" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="50" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="edM-JK-Je1" id="F5W-CH-qyT">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Settings Switch Cell" id="bQs-pc-bdS" customClass="TableViewSwitchCell" customModule="Morse" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="94" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bQs-pc-bdS" id="kWq-PH-Pz5">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Settings Reset Cell" textLabel="nmR-wH-MP8" style="IBUITableViewCellStyleDefault" id="jY2-KK-gml" customClass="TableViewResetCell" customModule="Morse" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="138" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jY2-KK-gml" id="PyP-zT-SW8">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nmR-wH-MP8">
+                                            <rect key="frame" x="15" y="0.0" width="570" height="43"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="r98-NX-cSS" id="Z2Z-bz-Brx"/>
+                            <outlet property="delegate" destination="r98-NX-cSS" id="VXv-3S-mF3"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5yh-kg-5gU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3536" y="1158"/>
+        </scene>
+        <!--Settings Split View Controller-->
         <scene sceneID="iZf-RZ-2eC">
             <objects>
                 <splitViewController id="fcl-Dm-WWf" customClass="SettingsSplitViewController" customModule="Morse" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="DXo-68-oi3"/>
+                    <tabBarItem key="tabBarItem" title="" id="DXo-68-oi3"/>
                     <connections>
                         <segue destination="U3s-LD-deK" kind="relationship" relationship="masterViewController" id="BQm-lL-cLh"/>
                         <segue destination="JCf-yb-19k" kind="relationship" relationship="detailViewController" id="OEB-l6-wkJ"/>
@@ -407,6 +463,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Pv1-Ud-ldr"/>
+        <segue reference="OEB-l6-wkJ"/>
     </inferredMetricsTieBreakers>
 </document>

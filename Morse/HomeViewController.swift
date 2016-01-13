@@ -694,7 +694,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 	// On the first launch of the game, there are tutorial cards on the home screen, this function adds them.
 	private func addCardsIfFirstLaunch() {
-		if !appDelegate.notFirstLaunch {
+		if !appDelegate.notFirstLaunch && self.cardViews.isEmpty {
 			let localizedTextArrays = [
 				(localized:LocalizedStrings.LaunchCard.text1, english: "Welcome to Morse Transmitter!"),
 				(localized:LocalizedStrings.LaunchCard.text2, english: "Tap me to expand."),
@@ -714,7 +714,6 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				morse = transmitter.morse
 				self.addCardViewWithText(text, morse: morse!)
 			}
-			appDelegate.userDefaults.setObject(NSLocale.preferredLanguages().first!, forKey: userDefaultsKeyFirstLaunchLanguageCode)
 			appDelegate.userDefaults.setValue(true, forKey: userDefaultsKeyNotFirstLaunch)
 		}
 	}

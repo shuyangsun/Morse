@@ -1,21 +1,21 @@
 //
-//  SettingsAudioDecoderTableViewController.swift
+//  SettingsOutputTableViewController.swift
 //  Morse
 //
-//  Created by Shuyang Sun on 1/11/16.
+//  Created by Shuyang Sun on 1/12/16.
 //  Copyright © 2016 Shuyang Sun. All rights reserved.
 //
 
 import UIKit
 
-class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwitchCellDelegate, TableViewTransmitterConfigurationCellDelegate {
+import UIKit
+
+class SettingsOutputTableViewController: TableViewController, TableViewSwitchCellDelegate, TableViewTransmitterConfigurationCellDelegate {
 
 	// Tags for switches
 	private let _configCellTagWPM = 0
 	private let _configCellTagPitch = 1
-	private let _switchButtonTagAutoWPM = 2
-	private let _switchButtonTagAutoPitch = 3
-	private let _switchButtonTagAutoCorrect = 4
+	private let _switchButtonTagBrightenScreen = 2
 
 	private var _textFieldOriginalText:String?
 
@@ -23,10 +23,10 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 
 		self.view.backgroundColor = theme.tableViewBackgroundColor
 		self.tableView.separatorColor = theme.tableViewSeparatorColor
-//		self.tableView.separatorStyle = .None
+		//		self.tableView.separatorStyle = .None
 
 		// Navigation bar configuration
-		self.navigationItem.title = LocalizedStrings.Settings.audioDecoder
+		self.navigationItem.title = LocalizedStrings.Settings.output
 		self.navigationController?.navigationBar.barTintColor = appDelegate.theme.navigationBarBackgroundColor
 		self.navigationController?.navigationBar.tintColor = appDelegate.theme.navigationBarTitleTextColor
 		var textAttributes = self.navigationController?.navigationBar.titleTextAttributes
@@ -38,60 +38,50 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 		self.navigationController?.navigationBar.titleTextAttributes = textAttributes
 	}
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		self.setup()
-    }
+	}
 
-    // MARK: - Table view data source
+	// MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
-    }
+	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+		return 3
+	}
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		switch section {
 		case 0: return 1
-		case 1: return 3
-		case 2: return 3
+		case 1: return 2
+		case 2: return 2
 		default: return 0
 		}
-    }
+	}
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		var cell = TableViewCell()
 		if indexPath.section == 1 ||  indexPath.section == 2 {
 			switch indexPath.row {
 			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewSwitchCell
-				cell.tapFeebackEnabled = false
-				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.General.automatic, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
-				let switchCell = cell as! TableViewSwitchCell
-				switchCell.delegate = self
-				switchCell.tag = indexPath.section == 1 ? self._switchButtonTagAutoWPM : self._switchButtonTagAutoPitch
-				switchCell.switchButton.on = indexPath.section == 1 ? appDelegate.inputWPMAutomatic : appDelegate.inputPitchAutomatic
-			case 1:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Audio Decoder Transmitter Configuration Cell", forIndexPath: indexPath) as! TableViewTransmitterConfigurationCell
 				let configCell = cell as! TableViewTransmitterConfigurationCell
 				if indexPath.section == 1 { // WPM
 					configCell.tag = self._configCellTagWPM
-					configCell.setMinAndMaxValue(Float(supportedAudioDecoderWPMRange.startIndex), sliderMaxValue: Float(supportedAudioDecoderWPMRange.endIndex - 1))
-					configCell.slider.value = Float(appDelegate.inputWPM)
-					configCell.changeValueText(String(appDelegate.inputWPM))
-					configCell.isInteractionEnabled = !appDelegate.inputWPMAutomatic
+					configCell.setMinAndMaxValue(Float(supportedOutputWPMRange.startIndex), sliderMaxValue: Float(supportedOutputWPMRange.endIndex - 1))
+					configCell.slider.value = Float(appDelegate.outputWPM)
+					configCell.changeValueText(String(appDelegate.outputWPM))
 				} else if indexPath.section == 2 { // Pitch
 					configCell.tag = self._configCellTagPitch
-					configCell.setMinAndMaxValue(Float(supportedAudioDecoderPitchRange.startIndex), sliderMaxValue: Float(supportedAudioDecoderPitchRange.endIndex - 1))
-					configCell.slider.value = Float(appDelegate.inputPitch)
-					var text = "\(Int(appDelegate.inputPitch)) Hz"
+					configCell.setMinAndMaxValue(Float(supportedOutputPitchRange.startIndex), sliderMaxValue: Float(supportedOutputPitchRange.endIndex - 1))
+					configCell.slider.value = Float(appDelegate.outputPitch)
+					var text = "\(Int(appDelegate.outputPitch)) Hz"
 					if layoutDirection == .RightToLeft {
-						text = "Hz \(Int(appDelegate.inputPitch))"
+						text = "Hz \(Int(appDelegate.outputPitch))"
 					}
 					configCell.changeValueText(text)
-					configCell.isInteractionEnabled = !appDelegate.inputPitchAutomatic
 				}
 				configCell.delegate = self
-			case 2:
+			case 1:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Reset Cell", forIndexPath: indexPath) as! TableViewResetCell
 			default: break
 			}
@@ -100,11 +90,11 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 			case 0:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewSwitchCell
 				cell.tapFeebackEnabled = false
-				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.audioDecoderAutoCorrect, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.brightenUpDisplayWhenOutput, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				let switchCell = cell as! TableViewSwitchCell
 				switchCell.delegate = self
-				switchCell.tag = self._switchButtonTagAutoCorrect
-				switchCell.switchButton.on = appDelegate.autoCorrectMissSpelledWordsForAudioInput
+				switchCell.tag = self._switchButtonTagBrightenScreen
+				switchCell.switchButton.on = appDelegate.brightenScreenWhenOutput
 			default: break
 			}
 		}
@@ -113,13 +103,17 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 		cell.preservesSuperviewLayoutMargins = false
 		cell.layoutMargins = UIEdgeInsetsZero
 		return cell
-    }
+	}
 
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		switch indexPath.row {
-		case 1: return transConfigCellHeight
+		case 0:
+			if indexPath.section == 1 || indexPath.section == 2 {
+				return transConfigCellHeight
+			}
 		default: return tableViewCellHeight
 		}
+		return tableViewCellHeight
 	}
 
 	override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -146,26 +140,26 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 
 	override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
 		switch section {
-		case 0: return LocalizedStrings.Settings.autoCorrectWordDescription
+		case 0: return LocalizedStrings.Settings.outputBrightenScreenDescription
 		default: return nil
 		}
 	}
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		if indexPath.row == 2 {
+		if indexPath.row == 1 {
 			switch indexPath.section {
 			case 1:
-				let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as! TableViewTransmitterConfigurationCell
-				appDelegate.inputWPM = defaultInputWPM
-				cell.slider.value = Float(defaultInputWPM)
-				cell.changeValueText("\(defaultInputWPM)")
+				let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! TableViewTransmitterConfigurationCell
+				appDelegate.outputWPM = defaultOutputWPM
+				cell.slider.value = Float(defaultOutputWPM)
+				cell.changeValueText("\(defaultOutputWPM)")
 			case 2:
-				let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 2)) as! TableViewTransmitterConfigurationCell
-				appDelegate.inputPitch = defaultInputPitch
-				cell.slider.value = defaultInputPitch
-				var text = "\(Int(defaultInputPitch)) Hz"
+				let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as! TableViewTransmitterConfigurationCell
+				appDelegate.outputPitch = defaultOutputPitch
+				cell.slider.value = defaultOutputPitch
+				var text = "\(Int(defaultOutputPitch)) Hz"
 				if layoutDirection == .RightToLeft {
-					text = "Hz \(Int(defaultInputPitch))"
+					text = "Hz \(Int(defaultOutputPitch))"
 				}
 				cell.changeValueText(text)
 			default: break
@@ -180,25 +174,25 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 
 	func textFieldDidEndEditing(textField: UITextField) {
 		if textField.tag == self._configCellTagWPM {
-			var number = appDelegate.inputWPM
-			let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as! TableViewTransmitterConfigurationCell
+			var number = appDelegate.outputWPM
+			let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! TableViewTransmitterConfigurationCell
 			if textField.text != nil && Int(textField.text!) != nil {
 				number = Int(textField.text!)!
 				number = max(supportedAudioDecoderWPMRange.startIndex, number)
 				number = min(supportedAudioDecoderWPMRange.endIndex - 1, number)
-				appDelegate.inputWPM = number
+				appDelegate.outputWPM = number
 				cell.slider.value = Float(number)
 			}
 			let text = "\(number)"
 			cell.changeValueText(text)
 		} else if textField.tag == self._configCellTagPitch {
-			var number = appDelegate.inputPitch
-			let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 2)) as! TableViewTransmitterConfigurationCell
+			var number = appDelegate.outputPitch
+			let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as! TableViewTransmitterConfigurationCell
 			if textField.text != nil && Float(textField.text!) != nil {
 				number = Float(textField.text!)!
 				number = max(Float(supportedAudioDecoderPitchRange.startIndex), number)
 				number = min(Float(supportedAudioDecoderPitchRange.endIndex - 1), number)
-				appDelegate.inputPitch = number
+				appDelegate.outputPitch = number
 				cell.slider.value = number
 			}
 			var text = "\(Int(number)) Hz"
@@ -212,14 +206,8 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 
 	func switchToggled(switchButton:UISwitch) {
 		switch switchButton.tag {
-		case self._switchButtonTagAutoWPM:
-			appDelegate.inputWPMAutomatic = switchButton.on
-			NSTimer.scheduledTimerWithTimeInterval(0.25, target: self.tableView, selector: "reloadData", userInfo: nil, repeats: false)
-		case self._switchButtonTagAutoPitch:
-			appDelegate.inputPitchAutomatic = switchButton.on
-			NSTimer.scheduledTimerWithTimeInterval(0.25, target: self.tableView, selector: "reloadData", userInfo: nil, repeats: false)
-		case self._switchButtonTagAutoCorrect:
-			appDelegate.autoCorrectMissSpelledWordsForAudioInput = switchButton.on
+		case self._switchButtonTagBrightenScreen:
+			appDelegate.brightenScreenWhenOutput = switchButton.on
 		default: break
 		}
 	}
@@ -227,12 +215,12 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 	func transConfigCell(cell: TableViewTransmitterConfigurationCell, minusButtonTapped button: UIButton) {
 		if cell.tag == self._configCellTagWPM {
 			let newValue = max(cell.slider.value - 1, Float(supportedAudioDecoderWPMRange.startIndex))
-			appDelegate.inputWPM = Int(newValue)
+			appDelegate.outputWPM = Int(newValue)
 			cell.slider.value = newValue
 			cell.changeValueText("\(Int(newValue))")
 		} else if cell.tag == self._configCellTagPitch {
 			let newValue = max(cell.slider.value - 1, Float(supportedAudioDecoderPitchRange.startIndex))
-			appDelegate.inputPitch = newValue
+			appDelegate.outputPitch = newValue
 			cell.slider.value = newValue
 			var text = "\(Int(newValue)) Hz"
 			if layoutDirection == .RightToLeft {
@@ -245,12 +233,12 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 	func transConfigCell(cell: TableViewTransmitterConfigurationCell, plusButtonTapped button: UIButton) {
 		if cell.tag == self._configCellTagWPM {
 			let newValue = min(cell.slider.value + 1, Float(supportedAudioDecoderWPMRange.endIndex - 1))
-			appDelegate.inputWPM = Int(newValue)
+			appDelegate.outputWPM = Int(newValue)
 			cell.slider.value = newValue
 			cell.changeValueText("\(Int(newValue))")
 		} else if cell.tag == self._configCellTagPitch {
 			let newValue = min(cell.slider.value + 1, Float(supportedAudioDecoderPitchRange.endIndex - 1))
-			appDelegate.inputPitch = newValue
+			appDelegate.outputPitch = newValue
 			cell.slider.value = newValue
 			var text = "\(Int(newValue)) Hz"
 			if layoutDirection == .RightToLeft {
@@ -262,10 +250,10 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 
 	func transConfigCell(cell: TableViewTransmitterConfigurationCell, sliderValueChanged slider: UISlider) {
 		if cell.tag == self._configCellTagWPM {
-			appDelegate.inputWPM = Int(slider.value)
+			appDelegate.outputWPM = Int(slider.value)
 			cell.changeValueText("\(Int(slider.value))")
 		} else if cell.tag == self._configCellTagPitch {
-			appDelegate.inputPitch = slider.value
+			appDelegate.outputPitch = slider.value
 			var text = "\(Int(slider.value)) Hz"
 			if layoutDirection == .RightToLeft {
 				text = "Hz \(Int(slider.value))"

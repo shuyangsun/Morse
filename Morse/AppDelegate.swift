@@ -141,7 +141,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	var autoCorrectMissSpelledWordsForAudioInput:Bool {
-		return self.userDefaults.boolForKey(userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
+		get {
+			return self.userDefaults.boolForKey(userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
+		}
+		set {
+			self.userDefaults.setBool(newValue, forKey: userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
+			self.userDefaults.synchronize()
+		}
 	}
 
 	var automaticNightMode:Bool {
@@ -170,6 +176,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			self.userDefaults.setFloat(defaultOutputPitch, forKey: userDefaultsKeyOutputPitch)
 			self.userDefaults.setFloat(defaultAutoNightModeThreshold, forKey: userDefaultsKeyAutoNightModeThreshold)
 			self.userDefaults.synchronize()
+			self.userDefaults.setObject(NSLocale.preferredLanguages().first!, forKey: userDefaultsKeyFirstLaunchLanguageCode)
 		}
 
 		return true
