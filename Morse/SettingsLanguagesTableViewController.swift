@@ -37,6 +37,8 @@ class SettingsLanguagesTableViewController: TableViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		self.tableView.reloadData()
+
+		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.set(kGAIScreenName, value: settingsLanguageVCName)
 
 		let builder = GAIDictionaryBuilder.createScreenView()
@@ -160,6 +162,7 @@ class SettingsLanguagesTableViewController: TableViewController {
 				appDelegate.updateLocalWithIdentifier(languageCode)
 			}
 			// TODO: warn user to restart
+			let tracker = GAI.sharedInstance().defaultTracker
 			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 				action: "button_press",
 				label: "Language Changed",

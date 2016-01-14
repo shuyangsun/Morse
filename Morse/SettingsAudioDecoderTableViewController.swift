@@ -45,6 +45,7 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
+		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.set(kGAIScreenName, value: settingsAudioDecoderConfigVCName)
 
 		let builder = GAIDictionaryBuilder.createScreenView()
@@ -160,6 +161,7 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 	}
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		let tracker = GAI.sharedInstance().defaultTracker
 		if indexPath.row == 2 {
 			switch indexPath.section {
 			case 1:
@@ -196,6 +198,7 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 	}
 
 	func textFieldDidEndEditing(textField: UITextField) {
+		let tracker = GAI.sharedInstance().defaultTracker
 		if textField.tag == self._configCellTagWPM {
 			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 				action: "button_press",
@@ -237,6 +240,7 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 	}
 
 	func switchToggled(switchButton:UISwitch) {
+		let tracker = GAI.sharedInstance().defaultTracker
 		switch switchButton.tag {
 		case self._switchButtonTagAutoWPM:
 			appDelegate.inputWPMAutomatic = switchButton.on
@@ -284,6 +288,7 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 	}
 
 	func transConfigCell(cell: TableViewTransmitterConfigurationCell, minusButtonTapped button: UIButton) {
+		let tracker = GAI.sharedInstance().defaultTracker
 		if cell.tag == self._configCellTagWPM {
 			let newValue = max(cell.slider.value - 1, Float(supportedAudioDecoderWPMRange.startIndex))
 			appDelegate.inputWPM = Int(newValue)
@@ -310,6 +315,7 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 	}
 
 	func transConfigCell(cell: TableViewTransmitterConfigurationCell, plusButtonTapped button: UIButton) {
+		let tracker = GAI.sharedInstance().defaultTracker
 		if cell.tag == self._configCellTagWPM {
 			let newValue = min(cell.slider.value + 1, Float(supportedAudioDecoderWPMRange.endIndex - 1))
 			appDelegate.inputWPM = Int(newValue)

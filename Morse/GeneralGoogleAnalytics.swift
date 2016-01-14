@@ -18,5 +18,3 @@ let settingsLanguageVCName = "Settings - Language"
 let settingsThemeVCName = "Settings - Theme"
 let settingsOutputConfigVCName = "Settings - Output Configuration"
 let settingsAudioDecoderConfigVCName = "Settings - Audio Decoder Configuration"
-
-let tracker = GAI.sharedInstance().defaultTracker

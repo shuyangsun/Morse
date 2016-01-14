@@ -48,6 +48,18 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				// Stop playing if the user wants to disable sound
 				self._toneGenerator.mute()
 			}
+			let tracker = GAI.sharedInstance().defaultTracker
+			if newValue {
+				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+					action: "button_press",
+					label: "Output Sound Enabled",
+					value: nil).build() as [NSObject : AnyObject])
+			} else {
+				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+					action: "button_press",
+					label: "Output Sound Disabled",
+					value: nil).build() as [NSObject : AnyObject])
+			}
 		}
 	}
 	private var _flashEnabled = appDelegate.flashOutputEnabled {
@@ -63,6 +75,18 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 						self._rearCamera.unlockForConfiguration()
 					}
 				}
+			}
+			let tracker = GAI.sharedInstance().defaultTracker
+			if newValue {
+				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+					action: "button_press",
+					label: "Flash Enabled",
+					value: nil).build() as [NSObject : AnyObject])
+			} else {
+				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+					action: "button_press",
+					label: "Flash Disabled",
+					value: nil).build() as [NSObject : AnyObject])
 			}
 		}
 	}
@@ -362,10 +386,19 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 	}
 
 	func screenFlashViewTapped() {
+		let tracker = GAI.sharedInstance().defaultTracker
 		if self._playing {
 			self.stopPlaying()
+			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+				action: "button_press",
+				label: "Output Played",
+				value: nil).build() as [NSObject : AnyObject])
 		} else {
 			self.startPlaying()
+			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+				action: "button_press",
+				label: "Output Stopped",
+				value: nil).build() as [NSObject : AnyObject])
 		}
 	}
 

@@ -344,9 +344,10 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 				}
 			}
 		}
+		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 			action: "button_press",
-			label: "Card Tapped",
+			label: "Card View Tapped",
 			value: nil).build() as [NSObject : AnyObject])
 	}
 
@@ -376,6 +377,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			}
 		}
 
+		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 			action: "hold_gesture_used",
 			label: "Card Held",
@@ -394,6 +396,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			self.presentViewController(activityVC, animated: true, completion: nil)
 		}
 
+		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 			action: "button_press",
 			label: "Shared Button Tapped",
@@ -410,6 +413,8 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		outputVC.modalPresentationStyle = .Custom
 		(self.tabBarController as! TabBarController).cardViewOutputTransitionInteractionController.outputVC = outputVC
 		self.presentViewController(outputVC, animated: true, completion: nil)
+
+		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 			action: "button_press",
 			label: "Singal Output Tapped",
@@ -427,6 +432,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		self.scrollView.scrollEnabled = true
 		let ind = self.cardViews.indexOf(cardView)!
 		if deleteCard {
+			let tracker = GAI.sharedInstance().defaultTracker
 			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 				action: "swipe_gesture_used",
 				label: "Card Deleted",

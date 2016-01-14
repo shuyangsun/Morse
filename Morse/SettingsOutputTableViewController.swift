@@ -45,6 +45,7 @@ class SettingsOutputTableViewController: TableViewController, TableViewSwitchCel
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
+		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.set(kGAIScreenName, value: settingsOutputConfigVCName)
 
 		let builder = GAIDictionaryBuilder.createScreenView()
@@ -154,6 +155,7 @@ class SettingsOutputTableViewController: TableViewController, TableViewSwitchCel
 	}
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		let tracker = GAI.sharedInstance().defaultTracker
 		if indexPath.row == 1 {
 			switch indexPath.section {
 			case 1:
@@ -190,6 +192,7 @@ class SettingsOutputTableViewController: TableViewController, TableViewSwitchCel
 	}
 
 	func textFieldDidEndEditing(textField: UITextField) {
+		let tracker = GAI.sharedInstance().defaultTracker
 		if textField.tag == self._configCellTagWPM {
 			var number = appDelegate.outputWPM
 			let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! TableViewTransmitterConfigurationCell
@@ -236,6 +239,7 @@ class SettingsOutputTableViewController: TableViewController, TableViewSwitchCel
 			appDelegate.brightenScreenWhenOutput = switchButton.on
 		default: break
 		}
+		let tracker = GAI.sharedInstance().defaultTracker
 		if switchButton.on {
 			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 				action: "switch_toggle",
@@ -250,6 +254,7 @@ class SettingsOutputTableViewController: TableViewController, TableViewSwitchCel
 	}
 
 	func transConfigCell(cell: TableViewTransmitterConfigurationCell, minusButtonTapped button: UIButton) {
+		let tracker = GAI.sharedInstance().defaultTracker
 		if cell.tag == self._configCellTagWPM {
 			let newValue = max(cell.slider.value - 1, Float(supportedOutputWPMRange.startIndex))
 			appDelegate.outputWPM = Int(newValue)
@@ -276,6 +281,7 @@ class SettingsOutputTableViewController: TableViewController, TableViewSwitchCel
 	}
 
 	func transConfigCell(cell: TableViewTransmitterConfigurationCell, plusButtonTapped button: UIButton) {
+		let tracker = GAI.sharedInstance().defaultTracker
 		if cell.tag == self._configCellTagWPM {
 			let newValue = min(cell.slider.value + 1, Float(supportedOutputWPMRange.endIndex - 1))
 			appDelegate.outputWPM = Int(newValue)

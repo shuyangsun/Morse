@@ -61,6 +61,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
+		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.set(kGAIScreenName, value: settingsVCName)
 
 		let builder = GAIDictionaryBuilder.createScreenView()
@@ -301,6 +302,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 	}
 
 	func switchToggled(switchButton:UISwitch) {
+		let tracker = GAI.sharedInstance().defaultTracker
 		switch switchButton.tag {
 		case self._switchButtonTagShareSignature:
 			appDelegate.userDefaults.setBool(switchButton.on, forKey: userDefaultsKeyExtraTextWhenShare)

@@ -165,6 +165,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 	}
 
 	func cardViewTapped(cardView:CardView) {
+		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 			action: "button_press",
 			label: "DicVC Card View Tapped",

@@ -403,6 +403,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	// *****************************
 
 	func textViewTapped(gestureRecognizer:UITapGestureRecognizer) {
+		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 			action: "button_press",
 			label: "Text View Tapped",
@@ -452,6 +453,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 
 		// If there is a gesture recognizer, animate round button
 		if gestureRecognizer != nil {
+			let tracker = GAI.sharedInstance().defaultTracker
 			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 				action: "button_press",
 				label: "Round Button Tapped",
@@ -577,6 +579,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	}
 
 	func keyboardButtonTapped() {
+		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 			action: "button_press",
 			label: "Keyboard Button Tapped",
@@ -586,6 +589,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	}
 
 	func microphoneButtonTapped() {
+		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 			action: "button_press",
 			label: "Microphone Button Tapped",
@@ -595,6 +599,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	}
 
 	func audioPlotTapped(gestureRecognizer:UITapGestureRecognizer) {
+		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 			action: "button_press",
 			label: "Text View Tapped",
@@ -603,6 +608,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		let morse = self.inputTextView.text
 		if self.inputTextView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) != "" && self.outputTextView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) != "" {
 			self.homeViewController.addCardViewWithText(text, morse: morse, textOnTop: self.isDirectionEncode, animateWithDuration: 0.3)
+			let tracker = GAI.sharedInstance().defaultTracker
 			tracker.send(GAIDictionaryBuilder.createEventWithCategory("transmitter_action",
 				action: "card_added",
 				label: "Card Added",
@@ -661,6 +667,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	// *****************************
 
 	func inputCancelled(sender:AnyObject) {
+		let tracker = GAI.sharedInstance().defaultTracker
 		if sender === self.cancelButton {
 			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 				action: "button_press",
