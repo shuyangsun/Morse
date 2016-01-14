@@ -497,6 +497,53 @@ enum Theme: Int {
 		}
 	}
 
+	var mdAlertControllerBackgroundColor:UIColor {
+		switch self.style {
+		default: return UIColor(hex: 0xFFFFFF, alpha: MDDarkTextHintAlpha)
+		}
+	}
+
+	var mdAlertControllerAlertBackgroundColor:UIColor {
+		switch self.style {
+		case .Light: return UIColor.whiteColor()
+		case .Dark: return UIColor(hex: 0xAAAAAA)
+		}
+	}
+
+	var mdAlertControllerTitleTextColor:UIColor {
+		switch self.style {
+		case .Light: return UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha)
+		case .Dark: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		}
+	}
+
+	var mdAlertControllerMessageTextColor:UIColor {
+		switch self.style {
+		case .Light: return UIColor(hex: 0x000, alpha: MDDarkTextSecondaryAlpha)
+		case .Dark: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextSecondaryAlpha)
+		}
+	}
+
+	var mdAlertControllerButtonTextColorNormal:UIColor {
+		switch self {
+		case .Default: return MDColorPalette.Blue.A200!
+		case .Night: return MDColorPalette.Blue.A200!
+		}
+	}
+
+	var mdAlertControllerButtonTextColorHighlighted:UIColor {
+		switch self {
+		case .Default: return MDColorPalette.Blue.A100!
+		case .Night: return MDColorPalette.Blue.A100!
+		}
+	}
+
+	var mdAlertControllerButtonTapFeedbackColor:UIColor {
+		switch self {
+		default: return UIColor(hex: self.mdAlertControllerButtonTextColorNormal.hex, alpha: 0.3)
+		}
+	}
+
 	// *****************************
 	// MARK: Numbers
 	// *****************************
@@ -540,6 +587,12 @@ enum Theme: Int {
 	var scrollViewBlurRadius:CGFloat {
 		switch self {
 		default: return 15
+		}
+	}
+
+	var mdAlertControllerAlertCornerRadius:CGFloat {
+		switch self {
+		default: return self.cardViewCornerRadius
 		}
 	}
 

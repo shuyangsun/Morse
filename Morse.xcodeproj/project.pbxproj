@@ -100,6 +100,10 @@
 		1034771C1C3750DC0036DB44 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 103476EA1C3750DC0036DB44 /* TPCircularBuffer.c */; };
 		1034771D1C3750DC0036DB44 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 103476EA1C3750DC0036DB44 /* TPCircularBuffer.c */; };
 		1034771E1C3750DC0036DB44 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 103476EA1C3750DC0036DB44 /* TPCircularBuffer.c */; };
+		103850351C48028C00E201E6 /* MDAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103850341C48028C00E201E6 /* MDAlertController.swift */; };
+		103850361C48028C00E201E6 /* MDAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103850341C48028C00E201E6 /* MDAlertController.swift */; };
+		103850371C48028C00E201E6 /* MDAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103850341C48028C00E201E6 /* MDAlertController.swift */; };
+		103850401C480E9100E201E6 /* MDAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1038503F1C480E9100E201E6 /* MDAlertAction.swift */; };
 		103BCF8C1C1FBA48003A26CA /* MorseDictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103BCF8B1C1FBA48003A26CA /* MorseDictionaryViewController.swift */; };
 		103BCF8D1C1FBA48003A26CA /* MorseDictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103BCF8B1C1FBA48003A26CA /* MorseDictionaryViewController.swift */; };
 		103BCF8E1C1FBA48003A26CA /* MorseDictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103BCF8B1C1FBA48003A26CA /* MorseDictionaryViewController.swift */; };
@@ -302,6 +306,8 @@
 		103476E91C3750DC0036DB44 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		103476EA1C3750DC0036DB44 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
 		103476EB1C3750DC0036DB44 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
+		103850341C48028C00E201E6 /* MDAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDAlertController.swift; sourceTree = "<group>"; };
+		1038503F1C480E9100E201E6 /* MDAlertAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDAlertAction.swift; sourceTree = "<group>"; };
 		103BCF8B1C1FBA48003A26CA /* MorseDictionaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseDictionaryViewController.swift; sourceTree = "<group>"; };
 		1052A73F1C0BACE90085B0C9 /* Morse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Morse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1052A7421C0BACE90085B0C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -609,6 +615,8 @@
 			isa = PBXGroup;
 			children = (
 				1052A7731C0BAED50085B0C9 /* TabBarController.swift */,
+				103850341C48028C00E201E6 /* MDAlertController.swift */,
+				1038503F1C480E9100E201E6 /* MDAlertAction.swift */,
 				10BFD3971C1F1BBA00FA4C26 /* Home VC */,
 				103BCF921C1FBA52003A26CA /* Dictionary VC */,
 				10295BC61C24CF2F0060DBE1 /* Output VC */,
@@ -979,6 +987,7 @@
 				107FF6C41C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
 				1034770D1C3750DC0036DB44 /* EZMicrophone.m in Sources */,
 				103477041C3750DC0036DB44 /* EZAudioPlot.m in Sources */,
+				103850351C48028C00E201E6 /* MDAlertController.swift in Sources */,
 				103476F51C3750DC0036DB44 /* EZAudioFFT.m in Sources */,
 				10D54A171C42D19600775318 /* TableViewController.swift in Sources */,
 				103477011C3750DC0036DB44 /* EZAudioPlayer.m in Sources */,
@@ -988,6 +997,7 @@
 				103476EC1C3750DC0036DB44 /* EZAudio.m in Sources */,
 				1052A7741C0BAED50085B0C9 /* TabBarController.swift in Sources */,
 				10295BCC1C24FE050060DBE1 /* MorseOutputPlayerDelegate.swift in Sources */,
+				103850401C480E9100E201E6 /* MDAlertAction.swift in Sources */,
 				10BFD38E1C1E964C00FA4C26 /* SettingsSplitViewController.swift in Sources */,
 				10274F731C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift in Sources */,
 				107C92321C44B89600C97EFF /* TableViewTransmitterConfigurationCellDelegate.swift in Sources */,
@@ -1037,6 +1047,7 @@
 				102646241C471270001A104C /* GeneralGoogleAnalytics.swift in Sources */,
 				10286CCC1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				103477081C3750DC0036DB44 /* EZAudioPlotGL.m in Sources */,
+				103850361C48028C00E201E6 /* MDAlertController.swift in Sources */,
 				107FF6C51C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
 				103476F31C3750DC0036DB44 /* EZAudioDisplayLink.m in Sources */,
 				100F7CE01C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift in Sources */,
@@ -1089,6 +1100,7 @@
 				102646251C471270001A104C /* GeneralGoogleAnalytics.swift in Sources */,
 				103476F11C3750DC0036DB44 /* EZAudioDevice.m in Sources */,
 				103476F41C3750DC0036DB44 /* EZAudioDisplayLink.m in Sources */,
+				103850371C48028C00E201E6 /* MDAlertController.swift in Sources */,
 				107FF6C61C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
 				100F7CE11C27BD0A00DDD8EC /* MorseAudioRecorderDelegate.swift in Sources */,
 				107FF6A91C0BC128003EB294 /* Theme.swift in Sources */,

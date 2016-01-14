@@ -159,9 +159,15 @@ struct LocalizedStrings {
 	}
 
 	struct Button {
-		static let output = NSLocalizedString("Output", comment: "One of the buttons on the back of card view, it alows user to output Morse code with flash or speaker.")
+		static let output = NSLocalizedString("Output", comment: "One of the buttons on the back of card view, it allows user to output Morse code with flash or speaker.")
 		static let share = NSLocalizedString("Share", comment: "One of the buttons on the back of card view, it alows user to share Morse code.")
 		static let done = NSLocalizedString("Done", comment: "Button to tap when the user is done with an action.")
+	}
+
+	struct Alert {
+		static let buttonOK = NSLocalizedString("OK", comment: "One of the buttons on the Alert view.")
+		static let buttonCancel = NSLocalizedString("Cancel", comment: "One of the buttons on the Alert view.")
+		static let buttonDonnotShowAgain = NSLocalizedString("Don't Show Again", comment: "One of the buttons on the Alert view.")
 	}
 }
 

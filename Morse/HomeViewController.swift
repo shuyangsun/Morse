@@ -326,6 +326,14 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	// *****************************
 
 	func cardViewTapped(cardView:CardView) {
+		// Test
+		let alertController = MDAlertController(title: "Purchase Audio Decoder?", message: "Audio decoder allows you to use your microphone as input, docode Morse sound signal in real-time.")
+		let action1 = MDAlertAction(title: "Purchase")
+		let action2 = MDAlertAction(title: "Cancel")
+		alertController.addAction(action1)
+		alertController.addAction(action2)
+		self.presentViewController(alertController, animated: true, completion: nil)
+
 		let tappingCurrentExpandedView = self.currentExpandedCard === cardView
 		if !tappingCurrentExpandedView {
 			self.collapseCurrentExpandedCard()

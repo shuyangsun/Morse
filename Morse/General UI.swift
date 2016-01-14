@@ -61,6 +61,15 @@ let transConfigNumPadDoneButtonFontSize:CGFloat = tableViewCellTextLabelFontSize
 let minusButtonText = "−"
 let plusButtonText = "+"
 
+let mdAlertWidth:CGFloat = 270
+let mdAlertTitleFontSize:CGFloat = 16
+let mdAlertMessageFontSize:CGFloat = 14
+let mdAlertButtonFontSize:CGFloat = 14
+let mdAlertButtonHeight:CGFloat = tableViewCellHeight
+let mdAlertMarginVertical:CGFloat = 15
+let mdAlertMarginHorizontal:CGFloat = 20
+let mdAlertMinHeight:CGFloat = 150
+
 let appStoreURLString = "http://www.test.com"
 
 private var cardViewHeight:CGFloat {
@@ -83,3 +92,35 @@ enum Direction:Int {
 	case RightToLeft = 4
 }
 
+
+extension UIView {
+
+	class func animateWithScaledDuration(duration: NSTimeInterval, animations: () -> Void) {
+		self.animateWithDuration(duration * animationDurationScalar,
+			animations: animations)
+	}
+
+	class func animateWithScaledDuration(duration: NSTimeInterval, animations: () -> Void, completion: ((Bool) -> Void)?) {
+		self.animateWithDuration(duration * animationDurationScalar,
+			animations: animations,
+			completion: completion)
+	}
+
+	class func animateWithScaledDuration(duration: NSTimeInterval, delay: NSTimeInterval, options: UIViewAnimationOptions, animations: () -> Void, completion: ((Bool) -> Void)?) {
+		self.animateWithDuration(duration * animationDurationScalar,
+			delay: delay,
+			options: options,
+			animations: animations,
+			completion: completion)
+	}
+
+	class func animateWithScaledDuration(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping dampingRatio: CGFloat, initialSpringVelocity velocity: CGFloat, options: UIViewAnimationOptions, animations: () -> Void, completion: ((Bool) -> Void)?) {
+		self.animateWithDuration(duration * animationDurationScalar,
+			delay: delay,
+			usingSpringWithDamping: dampingRatio,
+			initialSpringVelocity: velocity,
+			options: options,
+			animations: animations,
+			completion: completion)
+	}
+}
