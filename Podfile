@@ -4,7 +4,7 @@
 # use_frameworks!
 
 target 'Morse' do
-	pod 'GoogleAnalytics', '~> 3.14'
+	
 end
 
 target 'MorseTests' do
@@ -14,3 +14,5 @@ end
 target 'MorseUITests' do
 
 end
+
+pod 'Google/Analytics'

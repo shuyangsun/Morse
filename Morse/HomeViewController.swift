@@ -145,6 +145,15 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 //		self.animator.addBehavior(self.gravityBehavior)
     }
 
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		let tracker = GAI.sharedInstance().defaultTracker
+		tracker.set(kGAIScreenName, value: homeVCName)
+
+		let builder = GAIDictionaryBuilder.createScreenView()
+		tracker.send(builder.build() as [NSObject : AnyObject])
+	}
+
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 
@@ -457,6 +466,8 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				try managedContext.save()
 			} catch let error as NSError {
 				print("Could not fetch card to delete from Core Data \(error), \(error.userInfo)")
+			} catch {
+
 			}
 		} else {
 			// If the card won't be deleted
@@ -624,6 +635,8 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			try managedContext.save()
 		} catch let error as NSError {
 			print("Could not save \(error), \(error.userInfo)")
+		} catch {
+
 		}
 	}
 
@@ -639,12 +652,8 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 			var cards:[NSManagedObject] = []
 			dispatch_sync(dispatch_queue_create("Fetch Card Views On Home VC Queue", nil)) {
-				do {
-					let results = try managedContext.executeFetchRequest(fetchRequest)
-					cards = results as! [NSManagedObject]
-				} catch let error as NSError {
-					print("Could not fetch \(error), \(error.userInfo)")
-				}
+				let results = try! managedContext.executeFetchRequest(fetchRequest)
+				cards = results as! [NSManagedObject]
 			}
 
 			for card in cards {

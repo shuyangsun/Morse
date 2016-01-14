@@ -37,6 +37,11 @@ class SettingsLanguagesTableViewController: TableViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		self.tableView.reloadData()
+		let tracker = GAI.sharedInstance().defaultTracker
+		tracker.set(kGAIScreenName, value: settingsLanguageVCName)
+
+		let builder = GAIDictionaryBuilder.createScreenView()
+		tracker.send(builder.build() as [NSObject : AnyObject])
 	}
 
     override func didReceiveMemoryWarning() {

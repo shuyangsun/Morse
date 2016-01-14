@@ -22,6 +22,12 @@
 		101A0AB51C1BBA820030A51A /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0AB21C1BBA820030A51A /* Localization.swift */; };
 		101EA6F41C45918000F8E767 /* SettingsOutputTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101EA6F31C45918000F8E767 /* SettingsOutputTableViewController.swift */; };
 		101EA6F91C45C53600F8E767 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 101EA6F81C45C53600F8E767 /* MessageUI.framework */; };
+		102646231C471270001A104C /* GoogleAnalyticsGeneral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102646221C471270001A104C /* GoogleAnalyticsGeneral.swift */; };
+		102646241C471270001A104C /* GoogleAnalyticsGeneral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102646221C471270001A104C /* GoogleAnalyticsGeneral.swift */; };
+		102646251C471270001A104C /* GoogleAnalyticsGeneral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102646221C471270001A104C /* GoogleAnalyticsGeneral.swift */; };
+		102646271C471CE2001A104C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 102646261C471CE2001A104C /* GoogleService-Info.plist */; };
+		102646281C471CE2001A104C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 102646261C471CE2001A104C /* GoogleService-Info.plist */; };
+		102646291C471CE2001A104C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 102646261C471CE2001A104C /* GoogleService-Info.plist */; };
 		10274F731C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10274F721C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift */; };
 		10274F741C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10274F721C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift */; };
 		10274F751C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10274F721C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift */; };
@@ -250,6 +256,8 @@
 		101A0AB21C1BBA820030A51A /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		101EA6F31C45918000F8E767 /* SettingsOutputTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsOutputTableViewController.swift; sourceTree = "<group>"; };
 		101EA6F81C45C53600F8E767 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		102646221C471270001A104C /* GoogleAnalyticsGeneral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleAnalyticsGeneral.swift; sourceTree = "<group>"; };
+		102646261C471CE2001A104C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		10274F721C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewOutputTransitionInteractionController.swift; sourceTree = "<group>"; };
 		10286CCA1C0D1BCF00BD2B43 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		10295BC21C24CF1F0060DBE1 /* OutputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputViewController.swift; sourceTree = "<group>"; };
@@ -549,6 +557,7 @@
 				1052A7461C0BACE90085B0C9 /* Main.storyboard */,
 				1052A74E1C0BACE90085B0C9 /* LaunchScreen.storyboard */,
 				10645FF21C461F7100E1B501 /* Info.plist */,
+				102646261C471CE2001A104C /* GoogleService-Info.plist */,
 				1052A7421C0BACE90085B0C9 /* AppDelegate.swift */,
 				107FF6AF1C0BDD1F003EB294 /* View Controllers */,
 				10286CD11C0D1BD800BD2B43 /* Views */,
@@ -623,6 +632,7 @@
 			isa = PBXGroup;
 			children = (
 				10826A171C0D5C4C00902BCC /* General.swift */,
+				102646221C471270001A104C /* GoogleAnalyticsGeneral.swift */,
 				101A0AB21C1BBA820030A51A /* Localization.swift */,
 				107FF6C31C0C223D003EB294 /* MorseTransmitter.swift */,
 				10295BC71C24EE6B0060DBE1 /* MorseOutputPlayer.swift */,
@@ -864,6 +874,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1052A7501C0BACE90085B0C9 /* LaunchScreen.storyboard in Resources */,
+				102646271C471CE2001A104C /* GoogleService-Info.plist in Resources */,
 				10645FFE1C46206100E1B501 /* Localizable.strings in Resources */,
 				1052A74D1C0BACE90085B0C9 /* Assets.xcassets in Resources */,
 				10F1B5CF1C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */,
@@ -880,6 +891,7 @@
 				1064600E1C46207800E1B501 /* Localizable.strings in Resources */,
 				106460081C46206200E1B501 /* InfoPlist.strings in Resources */,
 				1034771A1C3750DC0036DB44 /* Info.plist in Resources */,
+				102646281C471CE2001A104C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -892,6 +904,7 @@
 				106460031C46206200E1B501 /* InfoPlist.strings in Resources */,
 				10F1B5D11C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */,
 				1034771B1C3750DC0036DB44 /* Info.plist in Resources */,
+				102646291C471CE2001A104C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -940,7 +953,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Morse/Pods-Morse-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -994,6 +1007,7 @@
 				1034771C1C3750DC0036DB44 /* TPCircularBuffer.c in Sources */,
 				103477071C3750DC0036DB44 /* EZAudioPlotGL.m in Sources */,
 				10BFD39E1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */,
+				102646231C471270001A104C /* GoogleAnalyticsGeneral.swift in Sources */,
 				103476F81C3750DC0036DB44 /* EZAudioFile.m in Sources */,
 				10D54A151C42C16D00775318 /* TableViewSwitchCellDelegate.swift in Sources */,
 				10295BC31C24CF1F0060DBE1 /* OutputViewController.swift in Sources */,
@@ -1019,6 +1033,7 @@
 				1052A77D1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */,
 				103BCF8D1C1FBA48003A26CA /* MorseDictionaryViewController.swift in Sources */,
 				103476F91C3750DC0036DB44 /* EZAudioFile.m in Sources */,
+				102646241C471270001A104C /* GoogleAnalyticsGeneral.swift in Sources */,
 				10286CCC1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				103477081C3750DC0036DB44 /* EZAudioPlotGL.m in Sources */,
 				107FF6C51C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
@@ -1070,6 +1085,7 @@
 				1034770C1C3750DC0036DB44 /* EZAudioUtilities.m in Sources */,
 				103477001C3750DC0036DB44 /* EZAudioFloatData.m in Sources */,
 				10286CCD1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
+				102646251C471270001A104C /* GoogleAnalyticsGeneral.swift in Sources */,
 				103476F11C3750DC0036DB44 /* EZAudioDevice.m in Sources */,
 				103476F41C3750DC0036DB44 /* EZAudioDisplayLink.m in Sources */,
 				107FF6C61C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
@@ -1257,6 +1273,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1302,6 +1319,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1322,11 +1340,11 @@
 		};
 		1052A76B1C0BACEA0085B0C9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEEF9DA9BDF6464A418F6FA6 /* Pods-Morse.debug.xcconfig */;
+			baseConfigurationReference = 7D2D2FEEEB788D7C30A935E3 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1344,11 +1362,11 @@
 		};
 		1052A76C1C0BACEA0085B0C9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C06C15918EA839AABF6AEA2B /* Pods-Morse.release.xcconfig */;
+			baseConfigurationReference = B5AE7EBAADA0D76A271A902E /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

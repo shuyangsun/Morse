@@ -122,6 +122,15 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateColorWithAnimation", name: themeDidChangeNotificationName, object: nil)
     }
 
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		let tracker = GAI.sharedInstance().defaultTracker
+		tracker.set(kGAIScreenName, value: dictionaryVCName)
+
+		let builder = GAIDictionaryBuilder.createScreenView()
+		tracker.send(builder.build() as [NSObject : AnyObject])
+	}
+
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		self.addCards()

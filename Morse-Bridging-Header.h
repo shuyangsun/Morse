@@ -12,5 +12,6 @@
 // Framework
 #import "EZAudio.h"
 #import "UIImageEffects.h"
+#import <Google/Analytics.h>
 
 #endif /* BridgeHeader_h */
