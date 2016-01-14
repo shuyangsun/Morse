@@ -11,7 +11,7 @@ import SnapKit
 import AVFoundation
 import CoreData
 
-class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDelegate, CardViewDelegate {
+class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScrollViewDelegate, CardViewDelegate {
 
 	// *****************************
 	// MARK: Views
@@ -72,6 +72,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		self.screenName = homeVCName
 
 		// *****************************
 		// Configure Top Section Container View
@@ -124,7 +125,7 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 
 		if self.scrollViewOverlay == nil {
 			self.scrollViewOverlay = UIButton(frame: CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: self.scrollView.bounds.height))
-			self.scrollViewOverlay.addTarget(self.topSectionViewController, action: "inputCancelled", forControlEvents: .TouchUpInside)
+			self.scrollViewOverlay.addTarget(self.topSectionViewController, action: "inputCancelled:", forControlEvents: .TouchUpInside)
 			self.scrollViewOverlay.backgroundColor = appDelegate.theme.scrollViewOverlayColor
 			self.scrollViewOverlay.opaque = false
 			self.scrollViewOverlay.layer.borderColor = UIColor.clearColor().CGColor
@@ -144,15 +145,6 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		// Configure scrollView animator
 //		self.animator.addBehavior(self.gravityBehavior)
     }
-
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.set(kGAIScreenName, value: homeVCName)
-
-		let builder = GAIDictionaryBuilder.createScreenView()
-		tracker.send(builder.build() as [NSObject : AnyObject])
-	}
 
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
@@ -352,6 +344,10 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 				}
 			}
 		}
+		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			action: "button_press",
+			label: "Card Tapped",
+			value: nil).build() as [NSObject : AnyObject])
 	}
 
 	func cardViewHeld(cardView: CardView) {
@@ -379,6 +375,11 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 					}, completion: nil)
 			}
 		}
+
+		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			action: "hold_gesture_used",
+			label: "Card Held",
+			value: nil).build() as [NSObject : AnyObject])
 	}
 
 	// What happens when the user taps share button
@@ -392,6 +393,11 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 			activityVC.popoverPresentationController?.sourceView = cardView.shareButton
 			self.presentViewController(activityVC, animated: true, completion: nil)
 		}
+
+		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			action: "button_press",
+			label: "Shared Button Tapped",
+			value: nil).build() as [NSObject : AnyObject])
 	}
 
 	// What happens when the user taps output button
@@ -404,6 +410,10 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		outputVC.modalPresentationStyle = .Custom
 		(self.tabBarController as! TabBarController).cardViewOutputTransitionInteractionController.outputVC = outputVC
 		self.presentViewController(outputVC, animated: true, completion: nil)
+		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			action: "button_press",
+			label: "Singal Output Tapped",
+			value: nil).build() as [NSObject : AnyObject])
 	}
 
 	func cardViewTouchesBegan(cardView: CardView, touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -417,6 +427,10 @@ class HomeViewController: UIViewController, UITextViewDelegate, UIScrollViewDele
 		self.scrollView.scrollEnabled = true
 		let ind = self.cardViews.indexOf(cardView)!
 		if deleteCard {
+			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+				action: "swipe_gesture_used",
+				label: "Card Deleted",
+				value: nil).build() as [NSObject : AnyObject])
 			// Remove in UI
 			cardView.removeFromSuperview()
 			self.cardViews.removeAtIndex(ind)

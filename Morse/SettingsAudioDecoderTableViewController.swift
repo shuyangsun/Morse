@@ -45,7 +45,6 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.set(kGAIScreenName, value: settingsAudioDecoderConfigVCName)
 
 		let builder = GAIDictionaryBuilder.createScreenView()
@@ -168,6 +167,10 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 				appDelegate.inputWPM = defaultInputWPM
 				cell.slider.value = Float(defaultInputWPM)
 				cell.changeValueText("\(defaultInputWPM)")
+				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+					action: "button_press",
+					label: "Reset Audio Decoder WPM Tapped",
+					value: nil).build() as [NSObject : AnyObject])
 			case 2:
 				let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 2)) as! TableViewTransmitterConfigurationCell
 				appDelegate.inputPitch = defaultInputPitch
@@ -177,6 +180,10 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 					text = "Hz \(Int(defaultInputPitch))"
 				}
 				cell.changeValueText(text)
+				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+					action: "button_press",
+					label: "Reset Audio Decoder Pitch Tapped",
+					value: nil).build() as [NSObject : AnyObject])
 			default: break
 			}
 		}
@@ -190,6 +197,10 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 
 	func textFieldDidEndEditing(textField: UITextField) {
 		if textField.tag == self._configCellTagWPM {
+			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+				action: "button_press",
+				label: "TextField Audio Decoder WPM Done Button Tapped",
+				value: nil).build() as [NSObject : AnyObject])
 			var number = appDelegate.inputWPM
 			let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) as! TableViewTransmitterConfigurationCell
 			if textField.text != nil && Int(textField.text!) != nil {
@@ -202,6 +213,10 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 			let text = "\(number)"
 			cell.changeValueText(text)
 		} else if textField.tag == self._configCellTagPitch {
+			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+				action: "button_press",
+				label: "TextField Audio Decoder Pitch Done Button Tapped",
+				value: nil).build() as [NSObject : AnyObject])
 			var number = appDelegate.inputPitch
 			let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 2)) as! TableViewTransmitterConfigurationCell
 			if textField.text != nil && Float(textField.text!) != nil {
@@ -226,11 +241,44 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 		case self._switchButtonTagAutoWPM:
 			appDelegate.inputWPMAutomatic = switchButton.on
 			NSTimer.scheduledTimerWithTimeInterval(0.25, target: self.tableView, selector: "reloadData", userInfo: nil, repeats: false)
+			if switchButton.on {
+				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+					action: "switch_toggle",
+					label: "Auto WPM Turned On",
+					value: nil).build() as [NSObject : AnyObject])
+			} else {
+				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+					action: "switch_toggle",
+					label: "Auto WPM Turned Off",
+					value: nil).build() as [NSObject : AnyObject])
+			}
 		case self._switchButtonTagAutoPitch:
 			appDelegate.inputPitchAutomatic = switchButton.on
 			NSTimer.scheduledTimerWithTimeInterval(0.25, target: self.tableView, selector: "reloadData", userInfo: nil, repeats: false)
+			if switchButton.on {
+				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+					action: "switch_toggle",
+					label: "Auto Pitch Turned On",
+					value: nil).build() as [NSObject : AnyObject])
+			} else {
+				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+					action: "switch_toggle",
+					label: "Auto Pitch Turned Off",
+					value: nil).build() as [NSObject : AnyObject])
+			}
 		case self._switchButtonTagAutoCorrect:
 			appDelegate.autoCorrectMissSpelledWordsForAudioInput = switchButton.on
+			if switchButton.on {
+				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+					action: "switch_toggle",
+					label: "Audio Decoder Auto Correct Turned On",
+					value: nil).build() as [NSObject : AnyObject])
+			} else {
+				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+					action: "switch_toggle",
+					label: "Audio Decoder Auto Correct Turned Off",
+					value: nil).build() as [NSObject : AnyObject])
+			}
 		default: break
 		}
 	}
@@ -241,6 +289,10 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 			appDelegate.inputWPM = Int(newValue)
 			cell.slider.value = newValue
 			cell.changeValueText("\(Int(newValue))")
+			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+				action: "button_press",
+				label: "Audio Decoder WPM Minus Tapped",
+				value: nil).build() as [NSObject : AnyObject])
 		} else if cell.tag == self._configCellTagPitch {
 			let newValue = max(cell.slider.value - 1, Float(supportedAudioDecoderPitchRange.startIndex))
 			appDelegate.inputPitch = newValue
@@ -250,6 +302,10 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 				text = "Hz \(Int(newValue))"
 			}
 			cell.changeValueText(text)
+			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+				action: "button_press",
+				label: "Audio Decoder Pitch Minus Tapped",
+				value: nil).build() as [NSObject : AnyObject])
 		}
 	}
 
@@ -259,6 +315,10 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 			appDelegate.inputWPM = Int(newValue)
 			cell.slider.value = newValue
 			cell.changeValueText("\(Int(newValue))")
+			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+				action: "button_press",
+				label: "Audio Decoder WPM Plus Tapped",
+				value: nil).build() as [NSObject : AnyObject])
 		} else if cell.tag == self._configCellTagPitch {
 			let newValue = min(cell.slider.value + 1, Float(supportedAudioDecoderPitchRange.endIndex - 1))
 			appDelegate.inputPitch = newValue
@@ -268,6 +328,10 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 				text = "Hz \(Int(newValue))"
 			}
 			cell.changeValueText(text)
+			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+				action: "button_press",
+				label: "Audio Decoder Pitch Plus Tapped",
+				value: nil).build() as [NSObject : AnyObject])
 		}
 	}
 

@@ -135,7 +135,6 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.set(kGAIScreenName, value: audioDecoderVCName)
 
 		let builder = GAIDictionaryBuilder.createScreenView()

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrollViewDelegate, MorseOutputPlayerDelegate {
+class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate, UIScrollViewDelegate, MorseOutputPlayerDelegate {
 
 	// *****************************
 	// MARK: Views
@@ -52,6 +52,7 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		self.screenName = dictionaryVCName
 
 		// Calculate the min width for a card to show the longest String.
 		let str = NSAttributedString(string: "• • • — — — • • •", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(cardViewMorseFontSizeDictionary)])
@@ -122,15 +123,6 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateColorWithAnimation", name: themeDidChangeNotificationName, object: nil)
     }
 
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.set(kGAIScreenName, value: dictionaryVCName)
-
-		let builder = GAIDictionaryBuilder.createScreenView()
-		tracker.send(builder.build() as [NSObject : AnyObject])
-	}
-
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		self.addCards()
@@ -173,6 +165,10 @@ class MorseDictionaryViewController: UIViewController, CardViewDelegate, UIScrol
 	}
 
 	func cardViewTapped(cardView:CardView) {
+		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			action: "button_press",
+			label: "DicVC Card View Tapped",
+			value: nil).build() as [NSObject : AnyObject])
 		self._toneGenerator.mute()
 		self._toneGenerator.stop()
 		self._outputPlayer.stop()

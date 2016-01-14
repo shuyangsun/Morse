@@ -65,6 +65,7 @@ class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveT
 									self.updateInteractiveTransition(1)
 									NSTimer.scheduledTimerWithTimeInterval(delayFinishTransitionTime, target: self, selector: "finishInteractiveTransition", userInfo: nil, repeats: false)
 								} else {
+									self.updateInteractiveTransition(1)
 									self.finishInteractiveTransition()
 								}
 							}

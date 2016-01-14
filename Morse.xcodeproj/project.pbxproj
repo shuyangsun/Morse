@@ -22,9 +22,9 @@
 		101A0AB51C1BBA820030A51A /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101A0AB21C1BBA820030A51A /* Localization.swift */; };
 		101EA6F41C45918000F8E767 /* SettingsOutputTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101EA6F31C45918000F8E767 /* SettingsOutputTableViewController.swift */; };
 		101EA6F91C45C53600F8E767 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 101EA6F81C45C53600F8E767 /* MessageUI.framework */; };
-		102646231C471270001A104C /* GoogleAnalyticsGeneral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102646221C471270001A104C /* GoogleAnalyticsGeneral.swift */; };
-		102646241C471270001A104C /* GoogleAnalyticsGeneral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102646221C471270001A104C /* GoogleAnalyticsGeneral.swift */; };
-		102646251C471270001A104C /* GoogleAnalyticsGeneral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102646221C471270001A104C /* GoogleAnalyticsGeneral.swift */; };
+		102646231C471270001A104C /* GeneralGoogleAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102646221C471270001A104C /* GeneralGoogleAnalytics.swift */; };
+		102646241C471270001A104C /* GeneralGoogleAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102646221C471270001A104C /* GeneralGoogleAnalytics.swift */; };
+		102646251C471270001A104C /* GeneralGoogleAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102646221C471270001A104C /* GeneralGoogleAnalytics.swift */; };
 		102646271C471CE2001A104C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 102646261C471CE2001A104C /* GoogleService-Info.plist */; };
 		102646281C471CE2001A104C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 102646261C471CE2001A104C /* GoogleService-Info.plist */; };
 		102646291C471CE2001A104C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 102646261C471CE2001A104C /* GoogleService-Info.plist */; };
@@ -256,7 +256,7 @@
 		101A0AB21C1BBA820030A51A /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		101EA6F31C45918000F8E767 /* SettingsOutputTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsOutputTableViewController.swift; sourceTree = "<group>"; };
 		101EA6F81C45C53600F8E767 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		102646221C471270001A104C /* GoogleAnalyticsGeneral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleAnalyticsGeneral.swift; sourceTree = "<group>"; };
+		102646221C471270001A104C /* GeneralGoogleAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralGoogleAnalytics.swift; sourceTree = "<group>"; };
 		102646261C471CE2001A104C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		10274F721C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewOutputTransitionInteractionController.swift; sourceTree = "<group>"; };
 		10286CCA1C0D1BCF00BD2B43 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -632,7 +632,7 @@
 			isa = PBXGroup;
 			children = (
 				10826A171C0D5C4C00902BCC /* General.swift */,
-				102646221C471270001A104C /* GoogleAnalyticsGeneral.swift */,
+				102646221C471270001A104C /* GeneralGoogleAnalytics.swift */,
 				101A0AB21C1BBA820030A51A /* Localization.swift */,
 				107FF6C31C0C223D003EB294 /* MorseTransmitter.swift */,
 				10295BC71C24EE6B0060DBE1 /* MorseOutputPlayer.swift */,
@@ -1007,7 +1007,7 @@
 				1034771C1C3750DC0036DB44 /* TPCircularBuffer.c in Sources */,
 				103477071C3750DC0036DB44 /* EZAudioPlotGL.m in Sources */,
 				10BFD39E1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift in Sources */,
-				102646231C471270001A104C /* GoogleAnalyticsGeneral.swift in Sources */,
+				102646231C471270001A104C /* GeneralGoogleAnalytics.swift in Sources */,
 				103476F81C3750DC0036DB44 /* EZAudioFile.m in Sources */,
 				10D54A151C42C16D00775318 /* TableViewSwitchCellDelegate.swift in Sources */,
 				10295BC31C24CF1F0060DBE1 /* OutputViewController.swift in Sources */,
@@ -1033,7 +1033,7 @@
 				1052A77D1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */,
 				103BCF8D1C1FBA48003A26CA /* MorseDictionaryViewController.swift in Sources */,
 				103476F91C3750DC0036DB44 /* EZAudioFile.m in Sources */,
-				102646241C471270001A104C /* GoogleAnalyticsGeneral.swift in Sources */,
+				102646241C471270001A104C /* GeneralGoogleAnalytics.swift in Sources */,
 				10286CCC1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
 				103477081C3750DC0036DB44 /* EZAudioPlotGL.m in Sources */,
 				107FF6C51C0C223D003EB294 /* MorseTransmitter.swift in Sources */,
@@ -1085,7 +1085,7 @@
 				1034770C1C3750DC0036DB44 /* EZAudioUtilities.m in Sources */,
 				103477001C3750DC0036DB44 /* EZAudioFloatData.m in Sources */,
 				10286CCD1C0D1BCF00BD2B43 /* CardView.swift in Sources */,
-				102646251C471270001A104C /* GoogleAnalyticsGeneral.swift in Sources */,
+				102646251C471270001A104C /* GeneralGoogleAnalytics.swift in Sources */,
 				103476F11C3750DC0036DB44 /* EZAudioDevice.m in Sources */,
 				103476F41C3750DC0036DB44 /* EZAudioDisplayLink.m in Sources */,
 				107FF6C61C0C223D003EB294 /* MorseTransmitter.swift in Sources */,

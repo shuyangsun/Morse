@@ -43,7 +43,6 @@ class SettingsThemeTableViewController: TableViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		self.tableView.reloadData()
-		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.set(kGAIScreenName, value: settingsThemeVCName)
 
 		let builder = GAIDictionaryBuilder.createScreenView()
@@ -113,6 +112,10 @@ class SettingsThemeTableViewController: TableViewController {
 			appDelegate.userDefaults.setInteger(indexPath.section + indexPath.row, forKey: userDefaultsKeyUserSelectedTheme)
 			appDelegate.userDefaults.synchronize()
 			theme = Theme(rawValue: indexPath.section + indexPath.row)!
+			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+				action: "button_press",
+				label: "Theme Changed",
+				value: nil).build() as [NSObject : AnyObject])
 		}
 	}
 

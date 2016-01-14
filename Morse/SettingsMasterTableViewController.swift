@@ -61,7 +61,6 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.set(kGAIScreenName, value: settingsVCName)
 
 		let builder = GAIDictionaryBuilder.createScreenView()
@@ -306,11 +305,33 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		case self._switchButtonTagShareSignature:
 			appDelegate.userDefaults.setBool(switchButton.on, forKey: userDefaultsKeyExtraTextWhenShare)
 			appDelegate.userDefaults.synchronize()
+			if switchButton.on {
+				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+					action: "switch_toggle",
+					label: "Share Signature Turned On",
+					value: nil).build() as [NSObject : AnyObject])
+			} else {
+				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+					action: "switch_toggle",
+					label: "Share Signature Turned Off",
+					value: nil).build() as [NSObject : AnyObject])
+			}
 		case self._switchButtonTagAutoNightMode:
 			appDelegate.userDefaults.setBool(switchButton.on, forKey: userDefaultsKeyAutoNightMode)
 			appDelegate.userDefaults.synchronize()
 			if appDelegate.theme != appDelegate.userSelectedTheme {
 				appDelegate.theme = appDelegate.userSelectedTheme
+			}
+			if switchButton.on {
+				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+					action: "switch_toggle",
+					label: "Auto Night Mode Turned On",
+					value: nil).build() as [NSObject : AnyObject])
+			} else {
+				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+					action: "switch_toggle",
+					label: "Auto Night Mode Turned Off",
+					value: nil).build() as [NSObject : AnyObject])
 			}
 		default: break
 		}

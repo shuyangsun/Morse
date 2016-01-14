@@ -9,6 +9,7 @@
 import Foundation
 
 let homeVCName = "Home"
+let outputVCName = "Signal Output"
 let audioDecoderVCName = "Audio Decoder"
 let dictionaryVCName = "Dictionary"
 let settingsVCName = "Settings"
@@ -17,3 +18,5 @@ let settingsLanguageVCName = "Settings - Language"
 let settingsThemeVCName = "Settings - Theme"
 let settingsOutputConfigVCName = "Settings - Output Configuration"
 let settingsAudioDecoderConfigVCName = "Settings - Audio Decoder Configuration"
+
+let tracker = GAI.sharedInstance().defaultTracker

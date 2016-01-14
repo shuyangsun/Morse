@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
+class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate {
 
 	// *****************************
 	// MARK: Views
@@ -96,6 +96,7 @@ class OutputViewController: UIViewController, MorseOutputPlayerDelegate {
 	// *****************************
     override func viewDidLoad() {
         super.viewDidLoad()
+		self.screenName = outputVCName
 
 		if self.topBarView == nil {
 			self.topBarView = UIView(frame: CGRect(x: 0, y: statusBarHeight, width: self.view.bounds.width, height: topBarHeight + statusBarHeight))

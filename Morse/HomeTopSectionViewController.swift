@@ -178,7 +178,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 
 			// Add cancel button
 			self.cancelButton = CancelButton(origin: CGPoint(x: 0, y: 0), width: self.cancelButtonWidth)
-			self.cancelButton.addTarget(self, action: "inputCancelled", forControlEvents: .TouchUpInside)
+			self.cancelButton.addTarget(self, action: "inputCancelled:", forControlEvents: .TouchUpInside)
 			self.topBarView.addSubview(self.cancelButton)
 
 			self.cancelButton.snp_makeConstraints(closure: { (make) -> Void in
@@ -403,6 +403,21 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	// *****************************
 
 	func textViewTapped(gestureRecognizer:UITapGestureRecognizer) {
+		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			action: "button_press",
+			label: "Text View Tapped",
+			value: nil).build() as [NSObject : AnyObject])
+		if self.isDirectionEncode {
+			tracker.send(GAIDictionaryBuilder.createEventWithCategory("transmitter_action",
+				action: "encode",
+				label: "Encoding Text",
+				value: nil).build() as [NSObject : AnyObject])
+		} else {
+			tracker.send(GAIDictionaryBuilder.createEventWithCategory("transmitter_action",
+				action: "encode",
+				label: "Decoding Morse",
+				value: nil).build() as [NSObject : AnyObject])
+		}
 		// Play sound effect
 		if !appDelegate.interactionSoundDisabled {
 			// TODO: Not working.
@@ -437,6 +452,10 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 
 		// If there is a gesture recognizer, animate round button
 		if gestureRecognizer != nil {
+			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+				action: "button_press",
+				label: "Round Button Tapped",
+				value: nil).build() as [NSObject : AnyObject])
 			let tapLocation = gestureRecognizer!.locationInView(self.roundButtonView)
 			if self.roundButtonView.bounds.contains(tapLocation) {
 				let originalTransform = self.roundButtonView.transform
@@ -558,20 +577,36 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	}
 
 	func keyboardButtonTapped() {
+		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			action: "button_press",
+			label: "Keyboard Button Tapped",
+			value: nil).build() as [NSObject : AnyObject])
 		self.inputTextView.becomeFirstResponder()
 		self.animateAndLayoutUIForInputStart()
 	}
 
 	func microphoneButtonTapped() {
+		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			action: "button_press",
+			label: "Microphone Button Tapped",
+			value: nil).build() as [NSObject : AnyObject])
 		self.animateAndLayoutUIForInputStart()
 		self.inputTextView.userInteractionEnabled = false
 	}
 
 	func audioPlotTapped(gestureRecognizer:UITapGestureRecognizer) {
+		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			action: "button_press",
+			label: "Text View Tapped",
+			value: nil).build() as [NSObject : AnyObject])
 		let text = self.outputTextView.text
 		let morse = self.inputTextView.text
 		if self.inputTextView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) != "" && self.outputTextView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) != "" {
 			self.homeViewController.addCardViewWithText(text, morse: morse, textOnTop: self.isDirectionEncode, animateWithDuration: 0.3)
+			tracker.send(GAIDictionaryBuilder.createEventWithCategory("transmitter_action",
+				action: "card_added",
+				label: "Card Added",
+				value: nil).build() as [NSObject : AnyObject])
 		}
 		self.animateAndLayoutUIForInputEnd()
 	}
@@ -625,7 +660,18 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	// MARK: Other Methods
 	// *****************************
 
-	func inputCancelled() {
+	func inputCancelled(sender:AnyObject) {
+		if sender === self.cancelButton {
+			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+				action: "button_press",
+				label: "Cancel Button Tapped",
+				value: nil).build() as [NSObject : AnyObject])
+		} else if sender === self.homeViewController.scrollViewOverlay {
+			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+				action: "button_press",
+				label: "Scrollview Overlay Tapped",
+				value: nil).build() as [NSObject : AnyObject])
+		}
 		if self.inputTextView.isFirstResponder() {
 			self.inputTextView.resignFirstResponder()
 		}
