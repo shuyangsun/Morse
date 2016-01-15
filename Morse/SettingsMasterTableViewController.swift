@@ -33,6 +33,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 	// Tags for switches
 	private let _switchButtonTagShareSignature = 0
 	private let _switchButtonTagAutoNightMode = 1
+	private let _switchButtonTagDecodeProsign = 2
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,7 +96,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		switch section {
 		case 0: return 2 // General
 		case 1: return 2 // Appearance
-		case 2: return 2 // Transmitter Config
+		case 2: return 3 // Transmitter Config
 		case 3: return 3 // Upgrades
 		case 4: return MFMailComposeViewController.canSendMail() ? 2 : 1 // About
 		case 5: return 1 // Dev Options
@@ -125,7 +126,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				cell.tapFeebackEnabled = false
 				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.extraTextWhenShare, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				(cell as! TableViewSwitchCell).delegate = self
-				(cell as! TableViewSwitchCell).switchButton.tag = self._switchButtonTagShareSignature
+				(cell as! TableViewSwitchCell).tag = self._switchButtonTagShareSignature
 				(cell as! TableViewSwitchCell).switchButton.on = appDelegate.addExtraTextWhenShare
 			default: break
 			}
@@ -142,7 +143,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				cell.tapFeebackEnabled = false
 				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.autoNightMode, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				(cell as! TableViewSwitchCell).delegate = self
-				(cell as! TableViewSwitchCell).switchButton.tag = self._switchButtonTagAutoNightMode
+				(cell as! TableViewSwitchCell).tag = self._switchButtonTagAutoNightMode
 				(cell as! TableViewSwitchCell).switchButton.on = appDelegate.automaticNightMode
 			default: break
 			}
@@ -152,13 +153,21 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Output Cell", forIndexPath: indexPath) as! TableViewCell
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.output
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				cell.accessoryType = .DisclosureIndicator
 			case 1:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Audio Decoder Cell", forIndexPath: indexPath) as! TableViewCell
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.audioDecoder
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				cell.accessoryType = .DisclosureIndicator
+			case 2:
+				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewSwitchCell
+				cell.tapFeebackEnabled = false
+				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.decodeProsign, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				(cell as! TableViewSwitchCell).delegate = self
+				(cell as! TableViewSwitchCell).tag = self._switchButtonTagDecodeProsign
+				(cell as! TableViewSwitchCell).switchButton.on = appDelegate.prosignTranslationType == .Always
 			default: break
 			}
-			cell.accessoryType = .DisclosureIndicator
 		} else if indexPath.section == 3 { // Upgrades
 			switch indexPath.row {
 			case 0:
@@ -333,6 +342,19 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 					action: "switch_toggle",
 					label: "Auto Night Mode Turned Off",
+					value: nil).build() as [NSObject : AnyObject])
+			}
+		case self._switchButtonTagDecodeProsign:
+			appDelegate.prosignTranslationType = switchButton.on ? .Always : .None
+			if switchButton.on {
+				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+					action: "switch_toggle",
+					label: "Translate Prosign Turned On",
+					value: nil).build() as [NSObject : AnyObject])
+			} else {
+				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+					action: "switch_toggle",
+					label: "Translate Prosign Turned Off",
 					value: nil).build() as [NSObject : AnyObject])
 			}
 		default: break

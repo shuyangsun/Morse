@@ -38,8 +38,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return self.userDefaults.boolForKey(userDefaultsKeyExtraTextWhenShare)
 	}
 
-	var prosignTranslationTypeRaw:Int {
-		return self.userDefaults.integerForKey(userDefaultsKeyProsignTranslationTypeRaw)
+	var prosignTranslationType:ProsignTranslationType {
+		get {
+			return ProsignTranslationType(rawValue: self.userDefaults.integerForKey(userDefaultsKeyProsignTranslationType))!
+		}
+		set {
+			self.userDefaults.setInteger(newValue.rawValue, forKey: userDefaultsKeyProsignTranslationType)
+			self.userDefaults.synchronize()
+		}
 	}
 
 	var notFirstLaunch:Bool {
@@ -186,6 +192,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			self.userDefaults.setInteger(defaultOutputWPM, forKey: userDefaultsKeyOutputWPM)
 			self.userDefaults.setFloat(defaultOutputPitch, forKey: userDefaultsKeyOutputPitch)
 			self.userDefaults.setFloat(defaultAutoNightModeThreshold, forKey: userDefaultsKeyAutoNightModeThreshold)
+			self.userDefaults.setInteger(ProsignTranslationType.Always.rawValue, forKey: userDefaultsKeyProsignTranslationType)
 			self.userDefaults.synchronize()
 			self.userDefaults.setObject(NSLocale.preferredLanguages().first!, forKey: userDefaultsKeyFirstLaunchLanguageCode)
 		}

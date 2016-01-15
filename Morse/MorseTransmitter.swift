@@ -50,7 +50,6 @@ private var newPageProsignText:String {
 }
 
 class MorseTransmitter {
-	var prosignTranslationType = ProsignTranslationType(rawValue: appDelegate.prosignTranslationTypeRaw)!
 	private var _text:String?
 	private var _morse:String?
 
@@ -268,8 +267,8 @@ class MorseTransmitter {
 		}
 	}
 
-	init(prosignTranslationType:ProsignTranslationType = ProsignTranslationType(rawValue: appDelegate.prosignTranslationTypeRaw)!) {
-		self.prosignTranslationType = prosignTranslationType
+	init(prosignTranslationType:ProsignTranslationType = appDelegate.prosignTranslationType) {
+		appDelegate.prosignTranslationType = prosignTranslationType
 	}
 
 	// TODO: Not used, because it doesn't work
@@ -539,12 +538,12 @@ class MorseTransmitter {
 			self._currentLetterMorse = ""
 			if unit == .LetterGap {
 				self._morse?.appendContentsOf(unit.rawValue)
-				if self.prosignTranslationType == .Always {
+				if appDelegate.prosignTranslationType == .Always {
 					self._currentWordMorse.appendContentsOf(unit.rawValue)
 				}
 			}
 			if unit == .WordGap {
-				if self.prosignTranslationType == .Always {
+				if appDelegate.prosignTranslationType == .Always {
 					// If we translate prosign, decode the whole sentence again.
 					if let prosignText = MorseTransmitter.prosignMorseToTextStringDictionary[self._currentWordMorse] {
 						if prosignText.characters.last! == "\n" { // Cannot use hasSuffix method, does not work on newline characters.
@@ -626,14 +625,14 @@ class MorseTransmitter {
 			if !self._currentLetterMorse.isEmpty && !self._currentLetterMorse.hasPrefix(" ") {
 				self._currentLetterMorse.appendContentsOf(" ")
 				self._morse?.appendContentsOf(" ")
-				if self.prosignTranslationType == .Always {
+				if appDelegate.prosignTranslationType == .Always {
 					self._currentWordMorse.appendContentsOf(" ")
 				}
 			}
 			// Append this new unit (DIT or DAH) to morse for current character
 			self._currentLetterMorse.appendContentsOf(unit.rawValue)
 			self._morse?.appendContentsOf(unit.rawValue)
-			if self.prosignTranslationType == .Always {
+			if appDelegate.prosignTranslationType == .Always {
 				self._currentWordMorse.appendContentsOf(unit.rawValue)
 			}
 
@@ -670,14 +669,14 @@ class MorseTransmitter {
 		dispatch_sync(encodeQueue) {
 			// Decide if we need to keep portaintial prosign characters.
 			var seperatorCharacters = " \t"
-			if self.prosignTranslationType != .Always {
+			if appDelegate.prosignTranslationType != .Always {
 				seperatorCharacters += "\n\r"
 			}
 			// Seperate the text into words.
 			// WARNING: If translating prosign, this word may contain newline character if translating prosign
 			var words = text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).lowercaseString.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: seperatorCharacters))
 			// Do some additional processing if translating prosign
-			if self.prosignTranslationType == .Always {
+			if appDelegate.prosignTranslationType == .Always {
 				for var i in 0..<words.count {
 					if i + 1 < words.count {
 						// Find adjacent words can connect with newline characters, combine them into one word.
@@ -704,7 +703,7 @@ class MorseTransmitter {
 					if let chMorseString = MorseTransmitter.encodeTextToMorseStringDictionary[ch] {
 						var prefixSpaceForLetter = MorseUnit.LetterGap.rawValue
 						// If there was a series of newline characters
-						if self.prosignTranslationType == .Always && newLineChCounter > 0 {
+						if appDelegate.prosignTranslationType == .Always && newLineChCounter > 0 {
 							// Decide the prefix-space based on the position of this newline character
 							// NOTE: this part only considers two situations: the beginning and the middle of word. The third situation (the end of the word) is handdled later.
 							var prefixSpace = MorseUnit.WordGap.rawValue
@@ -731,7 +730,7 @@ class MorseTransmitter {
 						wordStr += chMorseString
 					} else { // If the character cannot be found, it's possible it a new line character
 						// If this character is a newline character, do something
-						if self.prosignTranslationType == .Always {
+						if appDelegate.prosignTranslationType == .Always {
 							if ch == "\n" || ch == "\r" {
 								newLineChCounter++
 							}
@@ -769,7 +768,7 @@ class MorseTransmitter {
 		// If the morse code is nil or empty, return nil
 		if morse == nil || morse.isEmpty { return nil }
 		// If the morse code only contains code prosign, translate it to prosign and done.
-		if self.prosignTranslationType == .OnlyWhenSingulated {
+		if appDelegate.prosignTranslationType == .OnlyWhenSingulated {
 			// If there exists a prosign for it, return it.
 			if let translatedProsign = MorseTransmitter.prosignMorseToTextStringDictionary[morse!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())] {
 				return translatedProsign
@@ -790,7 +789,7 @@ class MorseTransmitter {
 				// Seperate this word into characters
 				for ch in chArr {
 					// If the user always want to translate prosign and this maybe one prosign (only one character in this word), do it.
-					if self.prosignTranslationType == .Always && chArr.count == 1 {
+					if appDelegate.prosignTranslationType == .Always && chArr.count == 1 {
 						// Check if this is a prosign
 						if let prosignText = MorseTransmitter.prosignMorseToTextStringDictionary[String(ch)] {
 							wordStr = prosignText

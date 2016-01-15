@@ -108,8 +108,8 @@
             </trans-unit>
             <trans-unit id="Cancel">
                 <source>Cancel</source>
-                <note>One of the buttons on the Alert view.</note>
                 <target>取消</target>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Check this out! I converted text to this Morse code using Morse Transmitter! Download here:">
                 <source>Check this out! I converted text to this Morse code using Morse Transmitter! Download here:</source>
@@ -136,6 +136,11 @@
                 <target>联系开发者</target>
                 <note>A button on the settings page to contact developer. (send developer an email)</note>
             </trans-unit>
+            <trans-unit id="Decode Prosign">
+                <source>Decode Prosign</source>
+                <note>There are many sections on the settings page, this switch let the user toggle if the app should decode prosign for Morse code.</note>
+                <target>解码常用缩写</target>
+            </trans-unit>
             <trans-unit id="Default">
                 <source>Default</source>
                 <target>系统默认</target>
@@ -154,8 +159,8 @@
             </trans-unit>
             <trans-unit id="Don't Show Again">
                 <source>Don't Show Again</source>
-                <note>One of the buttons on the Alert view.</note>
                 <target>不再提示</target>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Done">
                 <source>Done</source>
@@ -215,8 +220,8 @@
             </trans-unit>
             <trans-unit id="Got It">
                 <source>Got It</source>
-                <note>One of the buttons on the Alert view.</note>
                 <target>好的</target>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Hold me to expand.">
                 <source>Hold me to expand.</source>
@@ -285,8 +290,8 @@
             </trans-unit>
             <trans-unit id="OK">
                 <source>OK</source>
-                <note>One of the buttons on the Alert view.</note>
                 <target>确认</target>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Output">
                 <source>Output</source>
@@ -310,8 +315,8 @@
             </trans-unit>
             <trans-unit id="Please Restart">
                 <source>Please Restart</source>
-                <note>One of the titles on the Alert view.</note>
                 <target>请重启应用</target>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Please restart this App after changing language.">
                 <source>Please restart this App after changing language.</source>
@@ -330,7 +335,7 @@
             </trans-unit>
             <trans-unit id="Restore Purchases">
                 <source>Restore Purchases</source>
-                <target>购买</target>
+                <target>恢复购买</target>
                 <note>A button on the settings page for user to restore their previous purchases.</note>
             </trans-unit>
             <trans-unit id="SHIFT-TO-WABUN-CODE">
@@ -426,8 +431,8 @@
 2. Swipe up to terminate application in the background.
 
 3. Start application from home screen.</source>
-                <note>One of the titles on the Alert view.</note>
                 <target>为了使语言设置生效，请您通过以下的步骤重新开启应用：  1. 双击主屏幕按键  2. 向上滑动来关闭应用程序  3. 在主屏幕重新开启应用</target>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Touch to type">
                 <source>Touch to type</source>
@@ -602,6 +607,10 @@
             <trans-unit id="Contact Developer">
                 <source>Contact Developer</source>
                 <note>A button on the settings page to contact developer. (send developer an email)</note>
+            </trans-unit>
+            <trans-unit id="Decode Prosign">
+                <source>Decode Prosign</source>
+                <note>There are many sections on the settings page, this switch let the user toggle if the app should decode prosign for Morse code.</note>
             </trans-unit>
             <trans-unit id="Default">
                 <source>Default</source>
@@ -998,6 +1007,10 @@
             <trans-unit id="Contact Developer">
                 <source>Contact Developer</source>
                 <note>A button on the settings page to contact developer. (send developer an email)</note>
+            </trans-unit>
+            <trans-unit id="Decode Prosign">
+                <source>Decode Prosign</source>
+                <note>There are many sections on the settings page, this switch let the user toggle if the app should decode prosign for Morse code.</note>
             </trans-unit>
             <trans-unit id="Default">
                 <source>Default</source>

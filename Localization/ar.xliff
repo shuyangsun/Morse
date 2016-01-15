@@ -116,6 +116,10 @@
         <source>Contact Developer</source>
         <note>A button on the settings page to contact developer. (send developer an email)</note>
       </trans-unit>
+      <trans-unit id="Decode Prosign">
+        <source>Decode Prosign</source>
+        <note>There are many sections on the settings page, this switch let the user toggle if the app should decode prosign for Morse code.</note>
+      </trans-unit>
       <trans-unit id="Default">
         <source>Default</source>
         <note>Means something's default.
@@ -512,6 +516,10 @@
         <source>Contact Developer</source>
         <note>A button on the settings page to contact developer. (send developer an email)</note>
       </trans-unit>
+      <trans-unit id="Decode Prosign">
+        <source>Decode Prosign</source>
+        <note>There are many sections on the settings page, this switch let the user toggle if the app should decode prosign for Morse code.</note>
+      </trans-unit>
       <trans-unit id="Default">
         <source>Default</source>
         <note>Means something's default.
@@ -907,6 +915,10 @@
       <trans-unit id="Contact Developer">
         <source>Contact Developer</source>
         <note>A button on the settings page to contact developer. (send developer an email)</note>
+      </trans-unit>
+      <trans-unit id="Decode Prosign">
+        <source>Decode Prosign</source>
+        <note>There are many sections on the settings page, this switch let the user toggle if the app should decode prosign for Morse code.</note>
       </trans-unit>
       <trans-unit id="Default">
         <source>Default</source>

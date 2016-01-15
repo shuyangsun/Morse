@@ -61,6 +61,9 @@
 /* A button on the settings page to contact developer. (send developer an email) */
 "Contact Developer" = "联系开发者";
 
+/* There are many sections on the settings page, this switch let the user toggle if the app should decode prosign for Morse code. */
+"Decode Prosign" = "解码常用缩写";
+
 /* Means something's default.
    Users can change language in settings app, this is one of the language groups. */
 "Default" = "系统默认";
@@ -178,7 +181,7 @@
 "Reset" = "恢复默认";
 
 /* A button on the settings page for user to restore their previous purchases. */
-"Restore Purchases" = "购买";
+"Restore Purchases" = "恢复购买";
 
 /* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: shift from Morse code to Wabun code. (Wabun code is used by Japanese) */
 "SHIFT-TO-WABUN-CODE" = "使用WABUN代码";

@@ -119,6 +119,7 @@ struct LocalizedStrings {
 		static let brightenUpDisplayWhenOutput = NSLocalizedString("Output Brighten Screen", comment: "There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputing Morse code.")
 		static let theme = NSLocalizedString("Theme", comment: "There are many sections on the settings page, this switch let the user change the color theme of this App.")
 		static let autoNightMode = NSLocalizedString("Switch Automatically", comment: "There are many sections on the settings page, this switch let the user toggle if the app should change to Night theme when the ambient censor detects the surrounding light is low.")
+		static let decodeProsign = NSLocalizedString("Decode Prosign", comment: "There are many sections on the settings page, this switch let the user toggle if the app should decode prosign for Morse code.")
 		static let audioDecoder = NSLocalizedString("Audio Decoder", comment: "This button on the settings page brings up input configuration page.")
 		static let output = NSLocalizedString("Signal Output", comment: "This button on the settings page brings up output configuration page.")
 		static let nightModeDescription = NSLocalizedString("When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme.", comment: "There are many sections on the settings page, this one explains what does Auto Switch button in Appearance section do.")
