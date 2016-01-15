@@ -242,10 +242,6 @@
         <source>OK</source>
         <note>One of the buttons on the Alert view.</note>
       </trans-unit>
-      <trans-unit id="Output">
-        <source>Output</source>
-        <note>One of the buttons on the back of card view, it allows user to output Morse code with flash or speaker.</note>
-      </trans-unit>
       <trans-unit id="Output Brighten Screen">
         <source>Output Brighten Screen</source>
         <note>There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputing Morse code.</note>
@@ -285,10 +281,6 @@
       <trans-unit id="Settings">
         <source>Settings</source>
         <note>The title for settings page.</note>
-      </trans-unit>
-      <trans-unit id="Share">
-        <source>Share</source>
-        <note>One of the buttons on the back of card view, it alows user to share Morse code.</note>
       </trans-unit>
       <trans-unit id="Share Signature">
         <source>Share Signature</source>
@@ -642,10 +634,6 @@
         <source>OK</source>
         <note>One of the buttons on the Alert view.</note>
       </trans-unit>
-      <trans-unit id="Output">
-        <source>Output</source>
-        <note>One of the buttons on the back of card view, it allows user to output Morse code with flash or speaker.</note>
-      </trans-unit>
       <trans-unit id="Output Brighten Screen">
         <source>Output Brighten Screen</source>
         <note>There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputing Morse code.</note>
@@ -685,10 +673,6 @@
       <trans-unit id="Settings">
         <source>Settings</source>
         <note>The title for settings page.</note>
-      </trans-unit>
-      <trans-unit id="Share">
-        <source>Share</source>
-        <note>One of the buttons on the back of card view, it alows user to share Morse code.</note>
       </trans-unit>
       <trans-unit id="Share Signature">
         <source>Share Signature</source>
@@ -1042,10 +1026,6 @@
         <source>OK</source>
         <note>One of the buttons on the Alert view.</note>
       </trans-unit>
-      <trans-unit id="Output">
-        <source>Output</source>
-        <note>One of the buttons on the back of card view, it allows user to output Morse code with flash or speaker.</note>
-      </trans-unit>
       <trans-unit id="Output Brighten Screen">
         <source>Output Brighten Screen</source>
         <note>There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputing Morse code.</note>
@@ -1085,10 +1065,6 @@
       <trans-unit id="Settings">
         <source>Settings</source>
         <note>The title for settings page.</note>
-      </trans-unit>
-      <trans-unit id="Share">
-        <source>Share</source>
-        <note>One of the buttons on the back of card view, it alows user to share Morse code.</note>
       </trans-unit>
       <trans-unit id="Share Signature">
         <source>Share Signature</source>

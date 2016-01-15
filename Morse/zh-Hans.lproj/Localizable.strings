@@ -156,9 +156,6 @@
 /* One of the buttons on the Alert view. */
 "OK" = "确认";
 
-/* One of the buttons on the back of card view, it allows user to output Morse code with flash or speaker. */
-"Output" = "输出信号";
-
 /* There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputing Morse code. */
 "Output Brighten Screen" = "自动提亮屏幕";
 
@@ -188,9 +185,6 @@
 
 /* The title for settings page. */
 "Settings" = "设置";
-
-/* One of the buttons on the back of card view, it alows user to share Morse code. */
-"Share" = "分享";
 
 /* There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code. */
 "Share Signature" = "分享下载链接";
