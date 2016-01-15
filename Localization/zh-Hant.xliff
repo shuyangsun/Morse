@@ -311,7 +311,7 @@
             <trans-unit id="Please Restart">
                 <source>Please Restart</source>
                 <note>One of the titles on the Alert view.</note>
-                <target>請重啟應用</target>
+                <target>請重新開啟應用程序</target>
             </trans-unit>
             <trans-unit id="Please restart this App after changing language.">
                 <source>Please restart this App after changing language.</source>

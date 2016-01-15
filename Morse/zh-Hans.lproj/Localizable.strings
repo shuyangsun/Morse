@@ -166,7 +166,7 @@
 "Pitch: " = "音调：";
 
 /* One of the titles on the Alert view. */
-"Please Restart" = "请重启应用";
+"Please Restart" = "请重新开启应用程序";
 
 /* This is a footer on the first section in language change settings, to reminder user restart the App after changing language. */
 "Please restart this App after changing language." = "更换语言后，请在后台关闭应用，再重新开启，以使设置生效";

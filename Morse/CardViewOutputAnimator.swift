@@ -40,6 +40,8 @@ class CardViewOutputAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 
 					// Add fake output and share buttons
 					let outputButton = UIButton(frame: cardView.outputButton.frame)
+					let outputImage = UIImage(named: theme.outputImageName)
+					outputButton.setImage(outputImage!, forState: .Normal)
 					outputButton.backgroundColor = cardView.outputButton.backgroundColor
 					outputButton.tintColor = cardView.outputButton.tintColor
 					outputButton.setTitleColor(cardView.outputButton.titleColorForState(.Normal)!, forState: .Normal)
@@ -50,6 +52,8 @@ class CardViewOutputAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 					backgroundView.addSubview(outputButton)
 
 					let shareButton = UIButton(frame: cardView.shareButton.frame)
+					let shareImage = UIImage(named: theme.shareImageName)
+					shareButton.setImage(shareImage!, forState: .Normal)
 					shareButton.backgroundColor = cardView.shareButton.backgroundColor
 					shareButton.tintColor = cardView.shareButton.tintColor
 					shareButton.setTitleColor(cardView.shareButton.titleColorForState(.Normal)!, forState: .Normal)

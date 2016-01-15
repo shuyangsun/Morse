@@ -136,9 +136,9 @@ enum Theme: Int {
 
 	var roundButtonBackgroundColor:UIColor? {
 		switch self {
-		case .Default: return MDColorPalette.Red.A200!
+//		case .Default: return MDColorPalette.Red.A200!
 //		case .Night: return MDColorPalette.Blue.A200!
-		case .Night: return nil
+		default: return nil
 		}
 	}
 
@@ -608,15 +608,15 @@ enum Theme: Int {
 
 	var roundButtonMDShadowLevelDefault:Int {
 		switch self {
-		case .Night: return 0
-		default: return 3
+//		case .Default: return 3
+		default: return 0
 		}
 	}
 
 	var roundButtonMDShadowLevelTapped:Int {
 		switch self {
-		case .Night: return 0
-		default: return 4
+		case .Default: return 4
+		default: return 0
 		}
 	}
 
