@@ -43,6 +43,9 @@
 /* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this station is closing. */
 "CLOSING" = "电台关闭";
 
+/* One of the buttons on the Alert view. */
+"Cancel" = "取消";
+
 /* When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL. */
 "Check this out! I converted text to this Morse code using Morse Transmitter! Download here:" = "太腻害了有木有！我用这个App把文字翻译成摩尔斯电码了！你也下载玩玩！";
 
@@ -67,6 +70,9 @@
 
 /* This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations. */
 "Dictionary" = "对照表";
+
+/* One of the buttons on the Alert view. */
+"Don't Show Again" = "不再提示";
 
 /* A Done button.
    Button to tap when the user is done with an action. */
@@ -101,6 +107,9 @@
 
 /* There are categories on the settings page, this is one of the category. */
 "General" = "通用";
+
+/* One of the buttons on the Alert view. */
+"Got It" = "好的";
 
 /* When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen. */
 "Hold me to expand." = "长按此卡片来展开";
@@ -141,7 +150,10 @@
 /* Users can change language in settings app, this is one of the language groups. */
 "North America" = "北美洲";
 
-/* One of the buttons on the back of card view, it alows user to output Morse code with flash or speaker. */
+/* One of the buttons on the Alert view. */
+"OK" = "确认";
+
+/* One of the buttons on the back of card view, it allows user to output Morse code with flash or speaker. */
 "Output" = "输出信号";
 
 /* There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputing Morse code. */
@@ -152,6 +164,9 @@
 
 /* This is a label on the output page, followed by the numer of audio frequency (pitch). */
 "Pitch: " = "音频频率：";
+
+/* One of the titles on the Alert view. */
+"Please Restart" = "请重启应用";
 
 /* This is a footer on the first section in language change settings, to reminder user restart the App after changing language. */
 "Please restart this App after changing language." = "更换语言后，请在后台关闭应用，再重新开启，以使设置生效";
@@ -215,6 +230,15 @@
 
 /* There are many sections on the settings page, this switch let the user change the color theme of this App. */
 "Theme" = "主题";
+
+/* One of the titles on the Alert view. */
+"To make new language setting take effect, please restart application with following steps:
+
+1. Double-tap Home button on your device.
+
+2. Swipe up to terminate application in the background.
+
+3. Start application from home screen." = "为了使语言设置生效，请您通过以下的步骤重新开启应用：  1. 双击主屏幕按键  2. 向上滑动来关闭应用程序  3. 在主屏幕重新开启应用";
 
 /* There is a string on the input text view on home screen, promoting user to touch the text box to start typing. */
 "Touch to type" = "开始输入";

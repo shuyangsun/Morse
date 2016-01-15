@@ -49,7 +49,7 @@ class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveT
 			if let startDate = self.transitionStartDate {
 				delayFinishTransitionTime -= NSDate().timeIntervalSinceDate(startDate)
 			}
-			delayFinishTransitionTime += 0.05
+			delayFinishTransitionTime += 0.2
 			delayFinishTransitionTime = max(0, delayFinishTransitionTime)
 			if state == .Began {
 				self.transitionStartDate = NSDate()
@@ -65,7 +65,6 @@ class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveT
 									self.updateInteractiveTransition(1)
 									NSTimer.scheduledTimerWithTimeInterval(delayFinishTransitionTime, target: self, selector: "finishInteractiveTransition", userInfo: nil, repeats: false)
 								} else {
-									self.updateInteractiveTransition(1)
 									self.finishInteractiveTransition()
 								}
 							}

@@ -665,4 +665,21 @@ enum Theme: Int {
 		default: return UIColor(hex: self.transValConfigViewPlusMinusButtonTintColorNormal.hex, alpha: 0.5)
 		}
 	}
+
+	// *****************************
+	// MARK: Image Names
+
+	var microphoneIconImageName:String {
+		switch self.style {
+		case .Light: return "Microphone Button Dark"
+		case .Dark: return "Microphone Button Light"
+		}
+	}
+
+	var keyboardIconImageName:String {
+		switch self.style {
+		case .Light: return "Keyboard Button Dark"
+		case .Dark: return "Keyboard Button Light"
+		}
+	}
 }

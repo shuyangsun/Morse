@@ -21,7 +21,7 @@
         <source>$(PRODUCT_NAME)</source>
       </trans-unit>
       <trans-unit id="CFBundleShortVersionString">
-        <source>1.0</source>
+        <source>0.0.1</source>
       </trans-unit>
     </body>
   </file>
@@ -90,6 +90,10 @@
         <source>CLOSING</source>
         <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this station is closing.</note>
       </trans-unit>
+      <trans-unit id="Cancel">
+        <source>Cancel</source>
+        <note>One of the buttons on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="Check this out! I converted text to this Morse code using Morse Transmitter! Download here:">
         <source>Check this out! I converted text to this Morse code using Morse Transmitter! Download here:</source>
         <note>When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.</note>
@@ -122,6 +126,10 @@
       <trans-unit id="Dictionary">
         <source>Dictionary</source>
         <note>This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations.</note>
+      </trans-unit>
+      <trans-unit id="Don't Show Again">
+        <source>Don't Show Again</source>
+        <note>One of the buttons on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Done">
         <source>Done</source>
@@ -167,6 +175,10 @@
       <trans-unit id="General">
         <source>General</source>
         <note>There are categories on the settings page, this is one of the category.</note>
+      </trans-unit>
+      <trans-unit id="Got It">
+        <source>Got It</source>
+        <note>One of the buttons on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Hold me to expand.">
         <source>Hold me to expand.</source>
@@ -220,9 +232,13 @@
         <source>North America</source>
         <note>Users can change language in settings app, this is one of the language groups.</note>
       </trans-unit>
+      <trans-unit id="OK">
+        <source>OK</source>
+        <note>One of the buttons on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="Output">
         <source>Output</source>
-        <note>One of the buttons on the back of card view, it alows user to output Morse code with flash or speaker.</note>
+        <note>One of the buttons on the back of card view, it allows user to output Morse code with flash or speaker.</note>
       </trans-unit>
       <trans-unit id="Output Brighten Screen">
         <source>Output Brighten Screen</source>
@@ -235,6 +251,10 @@
       <trans-unit id="Pitch: ">
         <source>Pitch: </source>
         <note>This is a label on the output page, followed by the numer of audio frequency (pitch).</note>
+      </trans-unit>
+      <trans-unit id="Please Restart">
+        <source>Please Restart</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Please restart this App after changing language.">
         <source>Please restart this App after changing language.</source>
@@ -319,6 +339,16 @@
       <trans-unit id="Theme">
         <source>Theme</source>
         <note>There are many sections on the settings page, this switch let the user change the color theme of this App.</note>
+      </trans-unit>
+      <trans-unit id="To make new language setting take effect, please restart application with following steps:\n\n1. Double-tap Home button on your device.\n\n2. Swipe up to terminate application in the background.\n\n3. Start application from home screen.">
+        <source>To make new language setting take effect, please restart application with following steps:
+
+1. Double-tap Home button on your device.
+
+2. Swipe up to terminate application in the background.
+
+3. Start application from home screen.</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Touch to type">
         <source>Touch to type</source>
@@ -456,6 +486,10 @@
         <source>CLOSING</source>
         <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this station is closing.</note>
       </trans-unit>
+      <trans-unit id="Cancel">
+        <source>Cancel</source>
+        <note>One of the buttons on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="Check this out! I converted text to this Morse code using Morse Transmitter! Download here:">
         <source>Check this out! I converted text to this Morse code using Morse Transmitter! Download here:</source>
         <note>When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.</note>
@@ -488,6 +522,10 @@
       <trans-unit id="Dictionary">
         <source>Dictionary</source>
         <note>This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations.</note>
+      </trans-unit>
+      <trans-unit id="Don't Show Again">
+        <source>Don't Show Again</source>
+        <note>One of the buttons on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Done">
         <source>Done</source>
@@ -533,6 +571,10 @@
       <trans-unit id="General">
         <source>General</source>
         <note>There are categories on the settings page, this is one of the category.</note>
+      </trans-unit>
+      <trans-unit id="Got It">
+        <source>Got It</source>
+        <note>One of the buttons on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Hold me to expand.">
         <source>Hold me to expand.</source>
@@ -586,9 +628,13 @@
         <source>North America</source>
         <note>Users can change language in settings app, this is one of the language groups.</note>
       </trans-unit>
+      <trans-unit id="OK">
+        <source>OK</source>
+        <note>One of the buttons on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="Output">
         <source>Output</source>
-        <note>One of the buttons on the back of card view, it alows user to output Morse code with flash or speaker.</note>
+        <note>One of the buttons on the back of card view, it allows user to output Morse code with flash or speaker.</note>
       </trans-unit>
       <trans-unit id="Output Brighten Screen">
         <source>Output Brighten Screen</source>
@@ -601,6 +647,10 @@
       <trans-unit id="Pitch: ">
         <source>Pitch: </source>
         <note>This is a label on the output page, followed by the numer of audio frequency (pitch).</note>
+      </trans-unit>
+      <trans-unit id="Please Restart">
+        <source>Please Restart</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Please restart this App after changing language.">
         <source>Please restart this App after changing language.</source>
@@ -685,6 +735,16 @@
       <trans-unit id="Theme">
         <source>Theme</source>
         <note>There are many sections on the settings page, this switch let the user change the color theme of this App.</note>
+      </trans-unit>
+      <trans-unit id="To make new language setting take effect, please restart application with following steps:\n\n1. Double-tap Home button on your device.\n\n2. Swipe up to terminate application in the background.\n\n3. Start application from home screen.">
+        <source>To make new language setting take effect, please restart application with following steps:
+
+1. Double-tap Home button on your device.
+
+2. Swipe up to terminate application in the background.
+
+3. Start application from home screen.</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Touch to type">
         <source>Touch to type</source>
@@ -822,6 +882,10 @@
         <source>CLOSING</source>
         <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this station is closing.</note>
       </trans-unit>
+      <trans-unit id="Cancel">
+        <source>Cancel</source>
+        <note>One of the buttons on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="Check this out! I converted text to this Morse code using Morse Transmitter! Download here:">
         <source>Check this out! I converted text to this Morse code using Morse Transmitter! Download here:</source>
         <note>When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.</note>
@@ -854,6 +918,10 @@
       <trans-unit id="Dictionary">
         <source>Dictionary</source>
         <note>This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations.</note>
+      </trans-unit>
+      <trans-unit id="Don't Show Again">
+        <source>Don't Show Again</source>
+        <note>One of the buttons on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Done">
         <source>Done</source>
@@ -899,6 +967,10 @@
       <trans-unit id="General">
         <source>General</source>
         <note>There are categories on the settings page, this is one of the category.</note>
+      </trans-unit>
+      <trans-unit id="Got It">
+        <source>Got It</source>
+        <note>One of the buttons on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Hold me to expand.">
         <source>Hold me to expand.</source>
@@ -952,9 +1024,13 @@
         <source>North America</source>
         <note>Users can change language in settings app, this is one of the language groups.</note>
       </trans-unit>
+      <trans-unit id="OK">
+        <source>OK</source>
+        <note>One of the buttons on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="Output">
         <source>Output</source>
-        <note>One of the buttons on the back of card view, it alows user to output Morse code with flash or speaker.</note>
+        <note>One of the buttons on the back of card view, it allows user to output Morse code with flash or speaker.</note>
       </trans-unit>
       <trans-unit id="Output Brighten Screen">
         <source>Output Brighten Screen</source>
@@ -967,6 +1043,10 @@
       <trans-unit id="Pitch: ">
         <source>Pitch: </source>
         <note>This is a label on the output page, followed by the numer of audio frequency (pitch).</note>
+      </trans-unit>
+      <trans-unit id="Please Restart">
+        <source>Please Restart</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Please restart this App after changing language.">
         <source>Please restart this App after changing language.</source>
@@ -1051,6 +1131,16 @@
       <trans-unit id="Theme">
         <source>Theme</source>
         <note>There are many sections on the settings page, this switch let the user change the color theme of this App.</note>
+      </trans-unit>
+      <trans-unit id="To make new language setting take effect, please restart application with following steps:\n\n1. Double-tap Home button on your device.\n\n2. Swipe up to terminate application in the background.\n\n3. Start application from home screen.">
+        <source>To make new language setting take effect, please restart application with following steps:
+
+1. Double-tap Home button on your device.
+
+2. Swipe up to terminate application in the background.
+
+3. Start application from home screen.</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Touch to type">
         <source>Touch to type</source>

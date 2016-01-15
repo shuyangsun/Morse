@@ -31,7 +31,7 @@ class MDAlertAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 
 					alertVC.backgroundView.alpha = 0
 					alertVC.alertView.alpha = 0
-					alertVC.alertView.transform = CGAffineTransformMakeScale(1.5, 1.5)
+					alertVC.alertView.transform = CGAffineTransformMakeScale(2, 2)
 
 					containerView.addSubview(alertVC.view)
 					UIView.animateWithDuration(self.transitionDuration(transitionContext),

@@ -68,7 +68,7 @@ let mdAlertButtonFontSize:CGFloat = 16
 let mdAlertButtonHeight:CGFloat = tableViewCellHeight
 let mdAlertPaddingVertical:CGFloat = 15
 let mdAlertPaddingHorizontal:CGFloat = 20
-let mdAlertMarginHorizontal:CGFloat = 20
+let mdAlertMarginHorizontal:CGFloat = 35
 let mdAlertMarginVertical:CGFloat = mdAlertButtonHeight
 let mdAlertMinHeight:CGFloat = 150
 

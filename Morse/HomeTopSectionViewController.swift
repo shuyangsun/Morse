@@ -340,8 +340,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.keyboardButton.backgroundColor = appDelegate.theme.keyboardButtonBackgroundColor
 			self.keyboardButton.opaque = false
 			self.keyboardButton.alpha = 0
-			self.keyboardButton.setTitleColor(UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha), forState: .Normal)
-			self.keyboardButton.setTitle("KB", forState: .Normal) // TODO: Replace with icon
+			let image = UIImage(named: theme.keyboardIconImageName)
+			self.keyboardButton.setImage(image, forState: .Normal)
 			self.keyboardButton.addTarget(self, action: "keyboardButtonTapped", forControlEvents: .TouchUpInside)
 			let tapGR = UITapGestureRecognizer(target: self, action: "micOrKeyboardButtonTapped:")
 			tapGR.cancelsTouchesInView = false
@@ -364,8 +364,9 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.microphoneButton.backgroundColor = appDelegate.theme.keyboardButtonBackgroundColor
 			self.microphoneButton.opaque = false
 			self.microphoneButton.alpha = 0
-			self.microphoneButton.setTitleColor(UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha), forState: .Normal)
-			self.microphoneButton.setTitle("MIC", forState: .Normal) // TODO: Replace with icon
+			let image = UIImage(named: theme.microphoneIconImageName)
+			self.microphoneButton.setImage(image, forState: .Normal)
+			self.microphoneButton.contentMode = .ScaleAspectFit
 			self.microphoneButton.addTarget(self.homeViewController, action: "microphoneButtonTapped", forControlEvents: .TouchUpInside)
 			let tapGR = UITapGestureRecognizer(target: self, action: "micOrKeyboardButtonTapped:")
 			tapGR.cancelsTouchesInView = false
@@ -861,6 +862,10 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	func updateColor(animated animated:Bool = true) {
 		self.inputTextView.keyboardAppearance = theme.keyboardAppearance
 		self.roundButtonView.addMDShadow(withDepth: theme.roundButtonMDShadowLevelDefault)
+		let micImage = UIImage(named: theme.microphoneIconImageName)
+		self.microphoneButton.setImage(micImage, forState: .Normal)
+		let keyboardImage = UIImage(named: theme.keyboardIconImageName)
+		self.keyboardButton.setImage(keyboardImage, forState: .Normal)
 		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
 		UIView.animateWithDuration(duration,
 			delay: 0,

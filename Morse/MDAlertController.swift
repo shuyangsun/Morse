@@ -190,7 +190,7 @@ class MDAlertController: UIViewController {
 					make.trailing.equalTo(self.buttonOutlineView).offset(-mdAlertPaddingHorizontal)
 				} else {
 					let lastButton = self._actionsAndButtons[i - 1].button
-					make.trailing.equalTo(lastButton.snp_leading).offset(-mdAlertPaddingHorizontal)
+					make.trailing.equalTo(lastButton.snp_leading).offset(-mdAlertPaddingHorizontal * 1.5)
 				}
 			})
 		}
