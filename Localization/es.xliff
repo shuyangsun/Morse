@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
-  <file original="Morse/Base.lproj/LaunchScreen.storyboard" source-language="en" datatype="plaintext" target-language="es">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
-    </header>
-    <body/>
-  </file>
-  <file original="Morse/Base.lproj/Main.storyboard" source-language="en" datatype="plaintext" target-language="es">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
-    </header>
-    <body/>
-  </file>
-  <file original="Morse/Info.plist" source-language="en" datatype="plaintext" target-language="es">
+  <file original="Morse/Base.lproj/Info.plist" source-language="en" datatype="plaintext" target-language="es">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
     </header>
@@ -26,7 +14,13 @@
       </trans-unit>
     </body>
   </file>
-  <file original="Morse/Localizable.strings" source-language="en" datatype="plaintext" target-language="es">
+  <file original="Morse/Base.lproj/LaunchScreen.storyboard" source-language="en" datatype="plaintext" target-language="es">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
+    </header>
+    <body/>
+  </file>
+  <file original="Morse/Base.lproj/Localizable.strings" source-language="en" datatype="plaintext" target-language="es">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
     </header>
@@ -405,6 +399,12 @@
         <note>Explains what Output Brighten Screen does.</note>
       </trans-unit>
     </body>
+  </file>
+  <file original="Morse/Base.lproj/Main.storyboard" source-language="en" datatype="plaintext" target-language="es">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
+    </header>
+    <body/>
   </file>
   <file original="MorseTests/Info.plist" source-language="en" datatype="plaintext" target-language="es">
     <header>

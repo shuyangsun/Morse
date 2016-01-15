@@ -179,6 +179,7 @@
 		10D54A131C42BDE600775318 /* TableViewSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D54A121C42BDE600775318 /* TableViewSwitchCell.swift */; };
 		10D54A151C42C16D00775318 /* TableViewSwitchCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D54A141C42C16D00775318 /* TableViewSwitchCellDelegate.swift */; };
 		10D54A171C42D19600775318 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D54A161C42D19600775318 /* TableViewController.swift */; };
+		10ECA69D1C49759000A63328 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 10ECA69C1C49759000A63328 /* Default-568h@2x.png */; };
 		10F1B5CF1C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */ = {isa = PBXBuildFile; fileRef = 10F1B5CE1C3F750C000AA9C4 /* webAudioToneGenerator.js */; };
 		10F1B5D01C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */ = {isa = PBXBuildFile; fileRef = 10F1B5CE1C3F750C000AA9C4 /* webAudioToneGenerator.js */; };
 		10F1B5D11C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */ = {isa = PBXBuildFile; fileRef = 10F1B5CE1C3F750C000AA9C4 /* webAudioToneGenerator.js */; };
@@ -326,7 +327,6 @@
 		105708FD1C3C39D200AEA1F6 /* ToneGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToneGenerator.swift; sourceTree = "<group>"; };
 		10645FEE1C461C2100E1B501 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		10645FEF1C461C2100E1B501 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		10645FF21C461F7100E1B501 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		10645FF31C461FBE00E1B501 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/Main.strings"; sourceTree = "<group>"; };
 		10645FF41C461FBE00E1B501 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		10645FF51C461FE000E1B501 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -396,6 +396,8 @@
 		10D54A141C42C16D00775318 /* TableViewSwitchCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewSwitchCellDelegate.swift; sourceTree = "<group>"; };
 		10D54A161C42D19600775318 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		10ECA68F1C496E5900A63328 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		10ECA6931C4974AA00A63328 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = Base.lproj/Info.plist; sourceTree = "<group>"; };
+		10ECA69C1C49759000A63328 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		10F1B5CC1C3F6C94000AA9C4 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		10F1B5CE1C3F750C000AA9C4 /* webAudioToneGenerator.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = webAudioToneGenerator.js; sourceTree = "<group>"; };
 		3E1D31A89225BC649F5D83ED /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -540,6 +542,7 @@
 		1052A7361C0BACE90085B0C9 = {
 			isa = PBXGroup;
 			children = (
+				10ECA69C1C49759000A63328 /* Default-568h@2x.png */,
 				1052A7411C0BACE90085B0C9 /* Morse */,
 				1052A7591C0BACEA0085B0C9 /* MorseTests */,
 				1052A7641C0BACEA0085B0C9 /* MorseUITests */,
@@ -566,7 +569,7 @@
 				10645FFB1C46206000E1B501 /* InfoPlist.strings */,
 				1052A7461C0BACE90085B0C9 /* Main.storyboard */,
 				1052A74E1C0BACE90085B0C9 /* LaunchScreen.storyboard */,
-				10645FF21C461F7100E1B501 /* Info.plist */,
+				10ECA6941C4974AA00A63328 /* Info.plist */,
 				102646261C471CE2001A104C /* GoogleService-Info.plist */,
 				1052A7421C0BACE90085B0C9 /* AppDelegate.swift */,
 				107FF6AF1C0BDD1F003EB294 /* View Controllers */,
@@ -831,6 +834,8 @@
 				"zh-Hant",
 				ar,
 				es,
+				"zh-Hans",
+				"en-US",
 			);
 			mainGroup = 1052A7361C0BACE90085B0C9;
 			productRefGroup = 1052A7401C0BACE90085B0C9 /* Products */;
@@ -891,6 +896,7 @@
 				10645FFE1C46206100E1B501 /* Localizable.strings in Resources */,
 				1052A74D1C0BACE90085B0C9 /* Assets.xcassets in Resources */,
 				10F1B5CF1C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */,
+				10ECA69D1C49759000A63328 /* Default-568h@2x.png in Resources */,
 				1052A7481C0BACE90085B0C9 /* Main.storyboard in Resources */,
 				10645FF91C46206000E1B501 /* InfoPlist.strings in Resources */,
 			);
@@ -1267,6 +1273,14 @@
 				10099BB81C46C98C00ED8B3E /* zh-Hans */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		10ECA6941C4974AA00A63328 /* Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				10ECA6931C4974AA00A63328 /* Base */,
+			);
+			name = Info.plist;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

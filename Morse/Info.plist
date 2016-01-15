@@ -54,7 +54,7 @@
 			<key>UIApplicationShortcutItemIconType</key>
 			<string>UIApplicationShortcutIconTypeAudio</string>
 			<key>UIApplicationShortcutItemTitle</key>
-			<string>Audio Decoder</string>
+			<string>Decode Audio</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).audioDecoder</string>
 			<key>UIApplicationShortcutItemUserInfo</key>
