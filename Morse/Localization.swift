@@ -168,6 +168,10 @@ struct LocalizedStrings {
 		static let buttonOK = NSLocalizedString("OK", comment: "One of the buttons on the Alert view.")
 		static let buttonCancel = NSLocalizedString("Cancel", comment: "One of the buttons on the Alert view.")
 		static let buttonDonnotShowAgain = NSLocalizedString("Don't Show Again", comment: "One of the buttons on the Alert view.")
+		static let buttonGotIt = NSLocalizedString("Got It", comment: "One of the buttons on the Alert view.")
+
+		static let titleRestartApp = NSLocalizedString("Please Restart", comment: "One of the titles on the Alert view.")
+		static let messageRestartApp = NSLocalizedString("To make new language setting take effect, please restart application with following steps:\n\n1. Double-tap Home button on your device.\n\n2. Swipe up to terminate application in the background.\n\n3. Start application from home screen.", comment: "One of the titles on the Alert view.")
 	}
 }
 

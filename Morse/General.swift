@@ -82,6 +82,7 @@ let userDefaultsKeyOutputPitch = "Output Pitch"
 let userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput = "Auto Correct Mis-Spelled Words For Audio Input"
 let userDefaultsKeyAutoNightMode = "Auto Night Mode"
 let userDefaultsKeyAutoNightModeThreshold = "Auto Night Mode Threshold"
+let userDefaultsKeyShowRestarAlert = "Show Restart Alert"
 
 // Notification Names
 let inputPitchDidChangeNotificationName = "Input Frequency Did Change Notification"

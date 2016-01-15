@@ -158,6 +158,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return self.userDefaults.floatForKey(userDefaultsKeyAutoNightModeThreshold)
 	}
 
+	var showRestartAlert:Bool {
+		get {
+			return self.userDefaults.boolForKey(userDefaultsKeyShowRestarAlert)
+		}
+		set {
+			self.userDefaults.setBool(newValue, forKey: userDefaultsKeyShowRestarAlert)
+			self.userDefaults.synchronize()
+		}
+	}
+
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		UIApplication.sharedApplication().statusBarStyle = .LightContent
@@ -170,6 +180,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyInputPitchAutomatic)
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyAutoNightMode)
+			self.userDefaults.setBool(true, forKey: userDefaultsKeyShowRestarAlert)
 			self.userDefaults.setInteger(defaultInputWPM, forKey: userDefaultsKeyInputWPM)
 			self.userDefaults.setFloat(defaultInputPitch, forKey: userDefaultsKeyInputPitch)
 			self.userDefaults.setInteger(defaultOutputWPM, forKey: userDefaultsKeyOutputWPM)

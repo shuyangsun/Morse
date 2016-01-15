@@ -11,6 +11,7 @@ import UIKit
 class SettingsLanguagesTableViewController: TableViewController {
 
 	var currentCheckedCell:TableViewLanguageCell?
+	var initialLanguageCode:String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +44,23 @@ class SettingsLanguagesTableViewController: TableViewController {
 
 		let builder = GAIDictionaryBuilder.createScreenView()
 		tracker.send(builder.build() as [NSObject : AnyObject])
+
+		self.initialLanguageCode = appDelegate.currentLocaleLanguageCode
+	}
+
+	override func viewDidDisappear(animated: Bool) {
+		super.viewDidDisappear(animated)
+		if appDelegate.showRestartAlert && appDelegate.currentLocaleLanguageCode != self.initialLanguageCode {
+			let alertController = MDAlertController(title: LocalizedStrings.Alert.titleRestartApp, message: LocalizedStrings.Alert.messageRestartApp)
+			let action1 = MDAlertAction(title: LocalizedStrings.Alert.buttonGotIt)
+			let action2 = MDAlertAction(title: LocalizedStrings.Alert.buttonDonnotShowAgain) {
+				action in
+				appDelegate.showRestartAlert = false
+			}
+			alertController.addAction(action1)
+			alertController.addAction(action2)
+			alertController.show()
+		}
 	}
 
     override func didReceiveMemoryWarning() {

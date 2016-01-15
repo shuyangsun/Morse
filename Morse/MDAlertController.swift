@@ -13,7 +13,16 @@ class MDAlertController: UIViewController {
 	var alertView:UIView!
 	var titleLabel:UILabel!
 	var messageLabel:UILabel!
-	var snapshot:UIView?
+	var snapshot:UIView? {
+		willSet {
+			if newValue != nil {
+				self.view.insertSubview(newValue!, atIndex: 0)
+			}
+			newValue?.snp_makeConstraints(closure: { (make) -> Void in
+				make.edges.equalTo(self.view)
+			})
+		}
+	}
 	var backgroundView:UIView!
 	var buttonOutlineView:UIView! {
 		didSet {
@@ -55,17 +64,19 @@ class MDAlertController: UIViewController {
 			self.titleLabel = UILabel()
 			self.titleLabel.textColor = theme.mdAlertControllerTitleTextColor
 			self.titleLabel.attributedText = titleAttrText
-			self.titleLabel.textAlignment = .Center
 			self.alertView.addSubview(self.titleLabel)
 			self.titleLabel.snp_makeConstraints(closure: { (make) -> Void in
-				make.centerX.equalTo(self.alertView)
-				make.top.equalTo(self.alertView).offset(mdAlertMarginVertical * 1.5)
+				make.leading.equalTo(self.alertView).offset(mdAlertPaddingHorizontal)
+				make.trailing.equalTo(self.alertView).offset(-mdAlertPaddingHorizontal)
+				make.top.equalTo(self.alertView).offset(mdAlertPaddingVertical * 1.5)
 			})
 		}
 
-		let messageAttrText = getAttributedStringFrom(self._alertMessage, withFontSize: mdAlertMessageFontSize, color: theme.mdAlertControllerMessageTextColor, bold: true)
-		var messageStrSize = messageAttrText!.boundingRectWithSize(CGSizeMake(mdAlertWidth - mdAlertMarginHorizontal * 2, 10000), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil)
-		messageStrSize = CGRect(x: messageStrSize.origin.x, y: messageStrSize.origin.y, width: messageStrSize.width, height: messageStrSize.height + 5)
+		let alertWidth = min(self.view.bounds.width - mdAlertMarginHorizontal * 2, mdAlertMaxWidth)
+		let messageAttrText = getAttributedStringFrom(self._alertMessage, withFontSize: mdAlertMessageFontSize, color: theme.mdAlertControllerMessageTextColor, bold: false)
+		var messageStrSize = messageAttrText!.boundingRectWithSize(CGSizeMake(alertWidth - mdAlertPaddingHorizontal * 2, 10000), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil)
+		let height = min(messageStrSize.height + 5, self.view.bounds.height - 2 * mdAlertMarginVertical - mdAlertButtonHeight - mdAlertPaddingVertical * 3 - titleStrSize.height)
+		messageStrSize = CGRect(x: messageStrSize.origin.x, y: messageStrSize.origin.y, width: messageStrSize.width, height: height)
 		if self.messageLabel == nil {
 			self.messageLabel = UILabel()
 			self.messageLabel.numberOfLines = 9999
@@ -73,8 +84,9 @@ class MDAlertController: UIViewController {
 			self.messageLabel.attributedText = messageAttrText
 			self.alertView.addSubview(self.messageLabel)
 			self.messageLabel.snp_makeConstraints(closure: { (make) -> Void in
-				make.center.equalTo(self.alertView)
-				make.width.equalTo(messageStrSize.width)
+				make.leading.equalTo(self.alertView).offset(mdAlertPaddingHorizontal)
+				make.trailing.equalTo(self.alertView).offset(-mdAlertPaddingHorizontal)
+				make.centerY.equalTo(self.alertView)
 				make.height.equalTo(messageStrSize.height)
 			})
 		}
@@ -93,10 +105,10 @@ class MDAlertController: UIViewController {
 			})
 		}
 
-		let alertHeight = min(self.view.bounds.height, max(mdAlertMinHeight, mdAlertButtonHeight + mdAlertMarginVertical * 3 + messageStrSize.height + titleStrSize.height))
+		let alertHeight = min(self.view.bounds.height, max(mdAlertMinHeight, mdAlertButtonHeight + mdAlertPaddingVertical * 3 + messageStrSize.height + titleStrSize.height))
 		self.alertView.snp_makeConstraints(closure: { (make) -> Void in
 			make.center.equalTo(self.view)
-			make.width.equalTo(mdAlertWidth)
+			make.width.equalTo(alertWidth)
 			make.height.equalTo(alertHeight)
 		})
 
@@ -118,6 +130,18 @@ class MDAlertController: UIViewController {
 		self.alertView.addMDShadow(withDepth: 5)
 	}
 
+	override func preferredStatusBarStyle() -> UIStatusBarStyle {
+		return theme.style == .Dark ? .LightContent : .Default
+	}
+
+	override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+		if isPad {
+			return [UIInterfaceOrientationMask.Portrait, UIInterfaceOrientationMask.Landscape]
+		} else {
+			return UIInterfaceOrientationMask.Portrait
+		}
+	}
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -130,6 +154,8 @@ class MDAlertController: UIViewController {
 		let actionOK = MDAlertAction(title: LocalizedStrings.Alert.buttonOK)
 		self.addAction(actionOK)
 		self._didAddCustomAction = false
+		self.modalPresentationStyle = .Custom
+		self.transitioningDelegate = UIApplication.sharedApplication().windows[0].rootViewController as! TabBarController
 	}
 
 	func addAction(action:MDAlertAction) {
@@ -161,10 +187,10 @@ class MDAlertController: UIViewController {
 				make.top.equalTo(self.buttonOutlineView)
 				make.bottom.equalTo(self.buttonOutlineView)
 				if i == 0 {
-					make.trailing.equalTo(self.buttonOutlineView).offset(-mdAlertMarginHorizontal)
+					make.trailing.equalTo(self.buttonOutlineView).offset(-mdAlertPaddingHorizontal)
 				} else {
 					let lastButton = self._actionsAndButtons[i - 1].button
-					make.trailing.equalTo(lastButton.snp_leading).offset(-mdAlertMarginHorizontal)
+					make.trailing.equalTo(lastButton.snp_leading).offset(-mdAlertPaddingHorizontal)
 				}
 			})
 		}
@@ -193,6 +219,16 @@ class MDAlertController: UIViewController {
 				}
 			}
 		}
+	}
+
+	func show() {
+		(UIApplication.sharedApplication().windows[0].rootViewController! as! TabBarController).presentViewController(self, animated: true, completion: nil)
+	}
+
+	func rotationDidChange() {
+		self.snapshot?.removeFromSuperview()
+		self.snapshot = self.presentingViewController?.view.snapshotViewAfterScreenUpdates(false)
+		self.view.insertSubview(self.snapshot!, atIndex: 0)
 	}
 
     /*

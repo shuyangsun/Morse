@@ -13,10 +13,14 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 	var outputVC:OutputViewController? {
 		return self.presentedViewController as? OutputViewController
 	}
+	var alertVC:MDAlertController? {
+		return self.presentedViewController as? MDAlertController
+	}
 	var morseDictionaryVC:MorseDictionaryViewController! = nil
 	var settingsVC:SettingsSplitViewController! = nil
 	let cardViewOutputTransitionInteractionController = CardViewOutputTransitionInteractionController()
 	private let _cardViewOutputAnimator = CardViewOutputAnimator()
+	private let _mdAlertAnimator = MDAlertAnimator()
 
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
 		return theme.style == .Dark ? .LightContent : .Default
@@ -84,6 +88,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 					if let outputVC = self.outputVC {
 						outputVC.view.userInteractionEnabled = true
 					}
+					if let alertVC = self.alertVC {
+						alertVC.rotationDidChange()
+					}
 				}
 			}
 		}
@@ -94,6 +101,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 			source is OutputViewController && presented is HomeViewController {
 			self._cardViewOutputAnimator.reverse = false
 			return self._cardViewOutputAnimator
+		} else if presented is MDAlertController ||
+			source is MDAlertController {
+			self._mdAlertAnimator.reverse = false
+			return self._mdAlertAnimator
 		}
 		return nil
 	}
@@ -102,6 +113,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 		if dismissed is OutputViewController {
 			self._cardViewOutputAnimator.reverse = true
 			return self._cardViewOutputAnimator
+		} else if dismissed is MDAlertController {
+			self._mdAlertAnimator.reverse = true
+			return self._mdAlertAnimator
 		}
 		return nil
 	}

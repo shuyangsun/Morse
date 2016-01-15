@@ -499,14 +499,14 @@ enum Theme: Int {
 
 	var mdAlertControllerBackgroundColor:UIColor {
 		switch self.style {
-		default: return UIColor(hex: 0xFFFFFF, alpha: MDDarkTextHintAlpha)
+		default: return UIColor(hex: 0x000, alpha: 0.65)
 		}
 	}
 
 	var mdAlertControllerAlertBackgroundColor:UIColor {
 		switch self.style {
 		case .Light: return UIColor.whiteColor()
-		case .Dark: return UIColor(hex: 0xAAAAAA)
+		case .Dark: return MDColorPalette.Grey.P800
 		}
 	}
 
@@ -527,7 +527,7 @@ enum Theme: Int {
 	var mdAlertControllerButtonTextColorNormal:UIColor {
 		switch self {
 		case .Default: return MDColorPalette.Blue.A200!
-		case .Night: return MDColorPalette.Blue.A200!
+		case .Night: return MDColorPalette.Blue.A100!
 		}
 	}
 

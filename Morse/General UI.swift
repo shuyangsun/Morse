@@ -61,13 +61,15 @@ let transConfigNumPadDoneButtonFontSize:CGFloat = tableViewCellTextLabelFontSize
 let minusButtonText = "−"
 let plusButtonText = "+"
 
-let mdAlertWidth:CGFloat = 270
-let mdAlertTitleFontSize:CGFloat = 16
-let mdAlertMessageFontSize:CGFloat = 14
-let mdAlertButtonFontSize:CGFloat = 14
+let mdAlertMaxWidth:CGFloat = 450
+let mdAlertTitleFontSize:CGFloat = 18
+let mdAlertMessageFontSize:CGFloat = 18
+let mdAlertButtonFontSize:CGFloat = 16
 let mdAlertButtonHeight:CGFloat = tableViewCellHeight
-let mdAlertMarginVertical:CGFloat = 15
+let mdAlertPaddingVertical:CGFloat = 15
+let mdAlertPaddingHorizontal:CGFloat = 20
 let mdAlertMarginHorizontal:CGFloat = 20
+let mdAlertMarginVertical:CGFloat = mdAlertButtonHeight
 let mdAlertMinHeight:CGFloat = 150
 
 let appStoreURLString = "http://www.test.com"
