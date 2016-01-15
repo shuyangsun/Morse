@@ -305,12 +305,12 @@
             </trans-unit>
             <trans-unit id="Pitch">
                 <source>Pitch</source>
-                <target>音频频率</target>
+                <target>音调</target>
                 <note>Settings category: audio frequency.</note>
             </trans-unit>
             <trans-unit id="Pitch: ">
                 <source>Pitch: </source>
-                <target>音频频率：</target>
+                <target>音调：</target>
                 <note>This is a label on the output page, followed by the numer of audio frequency (pitch).</note>
             </trans-unit>
             <trans-unit id="Please Restart">

@@ -42,12 +42,14 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 	private var _playing = false
 	private var _soundEnabled = appDelegate.soundOutputEnabled {
 		willSet {
-			appDelegate.userDefaults.setBool(newValue, forKey: userDefaultsKeySoundOutputEnabled)
-			appDelegate.userDefaults.synchronize()
+			appDelegate.soundOutputEnabled = newValue
 			if !newValue {
 				// Stop playing if the user wants to disable sound
 				self._toneGenerator.mute()
 			}
+			let soundImage = UIImage(named: newValue ? theme.soundOnImageName : theme.soundOffImageName)
+			self.soundToggleButton.setImage(soundImage!, forState: .Normal)
+
 			let tracker = GAI.sharedInstance().defaultTracker
 			if newValue {
 				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
@@ -64,8 +66,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 	}
 	private var _flashEnabled = appDelegate.flashOutputEnabled {
 		willSet {
-			appDelegate.userDefaults.setBool(newValue, forKey: userDefaultsKeyFlashOutputEnabled)
-			appDelegate.userDefaults.synchronize()
+			appDelegate.flashOutputEnabled = newValue
 			if !newValue {
 				// Turn off flash if not enabling flash.
 				if self._rearCamera != nil && self._rearCamera.hasTorch && self._rearCamera.hasFlash && self._rearCamera.isTorchModeSupported(.On) {
@@ -76,6 +77,9 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 					}
 				}
 			}
+			let flashImage = UIImage(named: newValue ? theme.flashOnImageName : theme.flashOffImageName)
+			self.flashToggleButton.setImage(flashImage!, forState: .Normal)
+
 			let tracker = GAI.sharedInstance().defaultTracker
 			if newValue {
 				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
@@ -110,6 +114,11 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 	}
 	private let _doneButtonWidth:CGFloat = 100
 	private var _originalBrightness:CGFloat = UIScreen.mainScreen().brightness
+	private let _outputVCTopBarHeight:CGFloat = 76
+
+	override func prefersStatusBarHidden() -> Bool {
+		return true
+	}
 
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
 		return .LightContent
@@ -123,30 +132,31 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 		self.screenName = outputVCName
 
 		if self.topBarView == nil {
-			self.topBarView = UIView(frame: CGRect(x: 0, y: statusBarHeight, width: self.view.bounds.width, height: topBarHeight + statusBarHeight))
+			self.topBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: topBarHeight))
 			self.topBarView.backgroundColor = theme.outputVCTopBarColor
 			self.view.addSubview(self.topBarView)
 			self.topBarView.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.view)
 				make.leading.equalTo(self.view)
 				make.trailing.equalTo(self.view)
-				make.height.equalTo(topBarHeight + statusBarHeight)
+				make.height.equalTo(self._outputVCTopBarHeight)
 			})
 
 			if self.progressBarView == nil {
 				let x = layoutDirection == .LeftToRight ? 0 : self.view.bounds.width
-				self.progressBarView = UIView(frame: CGRect(x: x, y: 0, width: 0, height: topBarHeight + statusBarHeight))
+				self.progressBarView = UIView(frame: CGRect(x: x, y: 0, width: 0, height: topBarHeight))
 				self.progressBarView.backgroundColor = theme.progressBarColor
 				self.topBarView.addSubview(self.progressBarView)
 				self.progressBarView.snp_remakeConstraints(closure: { (make) -> Void in
 					make.top.equalTo(self.topBarView)
+					make.bottom.equalTo(self.topBarView)
 					make.leading.equalTo(self.topBarView)
 				})
 				self.topBarView.setNeedsUpdateConstraints()
 			}
 
 			if self.percentageLabel == nil {
-				self.percentageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: topBarHeight, height: topBarHeight))
+				self.percentageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self._outputVCTopBarHeight, height: self._outputVCTopBarHeight))
 				self.percentageLabel.backgroundColor = UIColor.clearColor()
 				self.percentageLabel.textColor = theme.percentageTextColor
 				self.percentageLabel.text = "0%"
@@ -163,12 +173,13 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			}
 
 			if self.flashToggleButton == nil {
-				self.flashToggleButton = UIButton(frame: CGRect(x: 0, y: 0, width: topBarHeight, height: topBarHeight))
+				self.flashToggleButton = UIButton(frame: CGRect(x: 0, y: 0, width: self._outputVCTopBarHeight, height: self._outputVCTopBarHeight))
 				self.flashToggleButton.backgroundColor = UIColor.clearColor()
 				self.flashToggleButton.tintColor = theme.topBarLabelTextColor
 				self.flashToggleButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
 				self.flashToggleButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
-				self.flashToggleButton.setTitle("FLASH", forState: .Normal) // TODO: Use custom image for this button
+				let flashImage = UIImage(named: self._flashEnabled ? theme.flashOnImageName : theme.flashOffImageName)
+				self.flashToggleButton.setImage(flashImage!, forState: .Normal)
 				self.flashToggleButton.addTarget(self, action: "flashToggleButtonTapped", forControlEvents: .TouchUpInside)
 				// If there's no flash available, hide it.
 				if !(self._rearCamera != nil && self._rearCamera.hasTorch && self._rearCamera.hasFlash && self._rearCamera.isTorchModeSupported(.On)) {
@@ -185,12 +196,13 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			}
 
 			if self.soundToggleButton == nil {
-				self.soundToggleButton = UIButton(frame: CGRect(x: 0, y: 0, width: topBarHeight, height: topBarHeight))
+				self.soundToggleButton = UIButton(frame: CGRect(x: 0, y: 0, width: self._outputVCTopBarHeight, height: self._outputVCTopBarHeight))
 				self.soundToggleButton.backgroundColor = UIColor.clearColor()
 				self.soundToggleButton.tintColor = theme.topBarLabelTextColor
 				self.soundToggleButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
 				self.soundToggleButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
-				self.soundToggleButton.setTitle("SOUND", forState: .Normal) // TODO: Use custom image for this button
+				let soundImage = UIImage(named: self._soundEnabled ? theme.soundOnImageName : theme.soundOffImageName)
+				self.soundToggleButton.setImage(soundImage!, forState: .Normal)
 				self.soundToggleButton.addTarget(self, action: "soundToggleButtonTapped", forControlEvents: .TouchUpInside)
 				self.topBarView.addSubview(self.soundToggleButton)
 				self.soundToggleButton.snp_remakeConstraints { (make) -> Void in
@@ -202,7 +214,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			}
 
 			if self.morseTextBackgroundView == nil {
-				self.morseTextBackgroundView = UIView(frame: CGRect(x: 0, y: statusBarHeight + topBarHeight - self._morseTextLabelHeight, width: self.view.bounds.width, height: self._morseTextLabelHeight))
+				self.morseTextBackgroundView = UIView(frame: CGRect(x: 0, y: self._outputVCTopBarHeight - self._morseTextLabelHeight, width: self.view.bounds.width, height: self._morseTextLabelHeight))
 				self.morseTextBackgroundView.backgroundColor = UIColor.clearColor()
 				self.morseTextBackgroundView.opaque = false
 				self.morseTextBackgroundView.alpha = 0.0
@@ -238,7 +250,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 		}
 
 		if self.screenFlashView == nil {
-			self.screenFlashView = UIView(frame: CGRect(x: 0, y: statusBarHeight + topBarHeight, width: self.view.bounds.width, height: self.view.bounds.height - statusBarHeight - topBarHeight))
+			self.screenFlashView = UIView(frame: CGRect(x: 0, y: topBarHeight, width: self.view.bounds.width, height: self.view.bounds.height - topBarHeight))
 			self.screenFlashView.backgroundColor = UIColor.blackColor()
 			let tapGR = UITapGestureRecognizer(target: self, action: "screenFlashViewTapped")
 			self.screenFlashView.addGestureRecognizer(tapGR)
@@ -456,7 +468,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 		self.percentageLabel.text = "\(Int(ceil(completionRatio * 100)))%"
 		let width = self.topBarView.bounds.width * CGFloat(completionRatio)
 		let x = layoutDirection == .LeftToRight ? 0 : self.topBarView.bounds.width - width
-		self.progressBarView.frame = CGRect(x: x, y: 0, width: width, height: topBarHeight + statusBarHeight)
+		self.progressBarView.frame = CGRect(x: x, y: 0, width: width, height: self._outputVCTopBarHeight)
 		let sign:CGFloat = layoutDirection == .LeftToRight ? 1:-1
 		self.morseTextLabel.transform = CGAffineTransformMakeTranslation(sign * CGFloat(completionRatio) * self.morseTextLabel.bounds.width, 0)
 	}
@@ -506,7 +518,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				self.morseTextBackgroundView.alpha = 0.0
 				self.percentageLabel.alpha = 0.0
 				let x = layoutDirection == .LeftToRight ? 0 : self.topBarView.bounds.width
-				self.progressBarView.frame = CGRect(x: x, y: 0, width: 0, height: topBarHeight + statusBarHeight)
+				self.progressBarView.frame = CGRect(x: x, y: 0, width: 0, height: self._outputVCTopBarHeight)
 			}) { succeed in
 				if succeed {
 					self.percentageLabel.text = "0%"

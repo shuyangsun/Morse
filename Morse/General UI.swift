@@ -27,6 +27,8 @@ let cardViewLabelPaddingVerticle:CGFloat = 16
 let cardViewLabelPaddingHorizontal:CGFloat = 15
 let cardViewLabelVerticalGap:CGFloat = 10
 let cardBackViewButtonPadding:CGFloat = 5.0
+let cardBackViewButtonWidth:CGFloat = 76
+let cardBackViewButtonHeight:CGFloat = cardBackViewButtonWidth
 
 let dictionaryVCCardViewMinWidth:CGFloat = 155
 

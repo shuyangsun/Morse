@@ -67,11 +67,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	var soundOutputEnabled:Bool {
-		return self.userDefaults.boolForKey(userDefaultsKeySoundOutputEnabled)
+		get {
+			return self.userDefaults.boolForKey(userDefaultsKeySoundOutputEnabled)
+		}
+		set {
+			self.userDefaults.setBool(newValue, forKey: userDefaultsKeySoundOutputEnabled)
+			self.userDefaults.synchronize()
+		}
 	}
 
 	var flashOutputEnabled:Bool {
-		return self.userDefaults.boolForKey(userDefaultsKeyFlashOutputEnabled)
+		get {
+			return self.userDefaults.boolForKey(userDefaultsKeyFlashOutputEnabled)
+		}
+		set {
+			self.userDefaults.setBool(newValue, forKey: userDefaultsKeyFlashOutputEnabled)
+			self.userDefaults.synchronize()
+		}
 	}
 
 	var outputWPM:Int {

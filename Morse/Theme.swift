@@ -682,4 +682,40 @@ enum Theme: Int {
 		case .Dark: return "Keyboard Button Light"
 		}
 	}
+
+	var outputImageName:String {
+		switch self.style {
+		default: return "Output"
+		}
+	}
+
+	var shareImageName:String {
+		switch self.style {
+		default: return "Share"
+		}
+	}
+
+	var flashOnImageName:String {
+		switch self.style {
+		default: return "Flash On"
+		}
+	}
+
+	var flashOffImageName:String {
+		switch self.style {
+		default: return "Flash Off"
+		}
+	}
+
+	var soundOnImageName:String {
+		switch self.style {
+		default: return "Sound On"
+		}
+	}
+
+	var soundOffImageName:String {
+		switch self.style {
+		default: return "Sound Off"
+		}
+	}
 }

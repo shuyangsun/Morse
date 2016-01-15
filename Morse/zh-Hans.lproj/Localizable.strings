@@ -163,10 +163,10 @@
 "Output Brighten Screen" = "自动提亮屏幕";
 
 /* Settings category: audio frequency. */
-"Pitch" = "音频频率";
+"Pitch" = "音调";
 
 /* This is a label on the output page, followed by the numer of audio frequency (pitch). */
-"Pitch: " = "音频频率：";
+"Pitch: " = "音调：";
 
 /* One of the titles on the Alert view. */
 "Please Restart" = "请重启应用";

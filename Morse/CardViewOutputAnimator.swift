@@ -112,10 +112,8 @@ class CardViewOutputAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 					let outputButton = UIButton(frame: CGRect(x: outputVC.flashToggleButton.frame.origin.x, y: outputVC.flashToggleButton.frame.origin.y, width: topBarHeight, height: topBarHeight))
 					outputButton.backgroundColor = cardView.outputButton.backgroundColor
 					outputButton.tintColor = cardView.outputButton.tintColor
-					outputButton.setTitleColor(cardView.outputButton.titleColorForState(.Normal)!, forState: .Normal)
-					outputButton.setTitleColor(cardView.outputButton.titleColorForState(.Highlighted), forState: .Highlighted)
-					outputButton.setBackgroundImage(cardView.outputButton.backgroundImageForState(.Normal), forState: .Normal)
-					outputButton.setBackgroundImage(cardView.outputButton.backgroundImageForState(.Highlighted), forState: .Highlighted)
+					let outputImage = UIImage(named: theme.outputImageName)
+					outputButton.setImage(outputImage!, forState: .Normal)
 					outputButton.setTitle(cardView.outputButton.titleLabel?.text, forState: .Normal)
 					outputButton.alpha = 0
 					backgroundView.addSubview(outputButton)
@@ -123,10 +121,8 @@ class CardViewOutputAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 					let shareButton = UIButton(frame: CGRect(x: outputVC.soundToggleButton.frame.origin.x, y: outputVC.soundToggleButton.frame.origin.y, width: topBarHeight, height: topBarHeight))
 					shareButton.backgroundColor = cardView.shareButton.backgroundColor
 					shareButton.tintColor = cardView.shareButton.tintColor
-					shareButton.setTitleColor(cardView.shareButton.titleColorForState(.Normal)!, forState: .Normal)
-					shareButton.setTitleColor(cardView.shareButton.titleColorForState(.Highlighted), forState: .Highlighted)
-					shareButton.setBackgroundImage(cardView.shareButton.backgroundImageForState(.Normal), forState: .Normal)
-					shareButton.setBackgroundImage(cardView.shareButton.backgroundImageForState(.Highlighted), forState: .Highlighted)
+					let shareImage = UIImage(named: theme.shareImageName)
+					shareButton.setImage(shareImage!, forState: .Normal)
 					shareButton.setTitle(cardView.shareButton.titleLabel?.text, forState: .Normal)
 					shareButton.alpha = 0
 					backgroundView.addSubview(shareButton)

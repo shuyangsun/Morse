@@ -160,8 +160,6 @@ struct LocalizedStrings {
 	}
 
 	struct Button {
-		static let output = NSLocalizedString("Output", comment: "One of the buttons on the back of card view, it allows user to output Morse code with flash or speaker.")
-		static let share = NSLocalizedString("Share", comment: "One of the buttons on the back of card view, it alows user to share Morse code.")
 		static let done = NSLocalizedString("Done", comment: "Button to tap when the user is done with an action.")
 	}
 

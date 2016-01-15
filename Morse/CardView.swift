@@ -357,19 +357,13 @@ class CardView: UIView {
 			self.outputButton.tintColor = appDelegate.theme.cardBackViewButtonTextColor
 			self.outputButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
 			self.outputButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
-			self.outputButton.setTitle(LocalizedStrings.Button.output, forState: .Normal)
+			let outputImage = UIImage(named: theme.outputImageName)
+			self.outputButton.setImage(outputImage!, forState: .Normal)
 			self.outputButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)
-			// Change the size of button to only fit title label
-			var strSize = self.outputButton.bounds.size
-			if let size = self.outputButton.titleLabel?.attributedText?.size() {
-				// Make the button a little bit larger
-				strSize = CGSize(width: size.width + cardBackViewButtonPadding * 2, height: size.height + cardBackViewButtonPadding * 2)
-			}
-			self.outputButton.bounds.size = strSize
 			self.backView.addSubview(self.outputButton)
 			self.outputButton.snp_remakeConstraints { (make) -> Void in
-				make.width .equalTo(strSize.width)
-				make.height.equalTo(strSize.height)
+				make.width .equalTo(cardBackViewButtonWidth)
+				make.height.equalTo(cardBackViewButtonHeight)
 				make.centerX.equalTo(self).offset(-self.bounds.width/4.0)
 				make.centerY.equalTo(self)
 			}
@@ -381,19 +375,13 @@ class CardView: UIView {
 			self.shareButton.tintColor = appDelegate.theme.cardBackViewButtonTextColor
 			self.shareButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
 			self.shareButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
-			self.shareButton.setTitle(LocalizedStrings.Button.share, forState: .Normal)
+			let shareImage = UIImage(named: theme.shareImageName)
+			self.shareButton.setImage(shareImage!, forState: .Normal)
 			self.shareButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)
-			// Change the size of button to only fit title label
-			var strSize = self.shareButton.bounds.size
-			if let size = self.shareButton.titleLabel?.attributedText?.size() {
-				// Make the button a little bit larger
-				strSize = CGSize(width: size.width + cardBackViewButtonPadding * 2, height: size.height + cardBackViewButtonPadding * 2)
-			}
-			self.shareButton.bounds.size = strSize
 			self.backView.addSubview(self.shareButton)
 			self.shareButton.snp_remakeConstraints { (make) -> Void in
-				make.width .equalTo(strSize.width)
-				make.height.equalTo(strSize.height)
+				make.width .equalTo(cardBackViewButtonWidth)
+				make.height.equalTo(cardBackViewButtonHeight)
 				make.centerX.equalTo(self).offset(self.bounds.width/4.0)
 				make.centerY.equalTo(self)
 			}
