@@ -479,6 +479,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			do {
 				let results = try managedContext.executeFetchRequest(fetchRequest)
 				let cards = results as! [NSManagedObject]
+				print(cards.count)
 				assert(cards.count == 1) // There should only be one card with this unique ID
 				for card in cards {
 					managedContext.deleteObject(card)
@@ -518,7 +519,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		morse = morse.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 		let cardView = CardView(frame: CGRect(x: theme.cardViewHorizontalMargin, y: theme.cardViewGroupVerticalMargin, width: self.scrollView.bounds.width - theme.cardViewHorizontalMargin - theme.cardViewHorizontalMargin, height: theme.cardViewHeight), text: text, morse: morse, textOnTop: textOnTop)
 		cardView.delegate = self
-		cardView.cardUniqueID = "\(UIDevice.currentDevice().identifierForVendor)\(NSDate())\(text)\(morse)".hashValue
+		cardView.cardUniqueID = NSProcessInfo.processInfo().globallyUniqueString.hashValue // Generate a UUID for the card
 
 		cardView.opaque = false
 		cardView.alpha = 0.0

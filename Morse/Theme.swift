@@ -109,7 +109,7 @@ enum Theme: Int {
 
 	var textViewTapFeedbackColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Blue.P200
+		case .Default: return MDColorPalette.LightGreen.P300
 		case .Night: return MDColorPalette.Grey.P500
 		}
 	}
@@ -136,7 +136,7 @@ enum Theme: Int {
 
 	var roundButtonBackgroundColor:UIColor? {
 		switch self {
-//		case .Default: return MDColorPalette.Red.A200!
+		case .Default: return MDColorPalette.LightGreen.P500
 //		case .Night: return MDColorPalette.Blue.A200!
 		default: return nil
 		}
@@ -245,7 +245,7 @@ enum Theme: Int {
 
 	var cardBackViewBackgroundColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Blue.P500
+		case .Default: return MDColorPalette.LightGreen.P500
 		case .Night: return MDColorPalette.Grey.P700
 		}
 	}
@@ -394,7 +394,7 @@ enum Theme: Int {
 
 	var tableViewCellCheckmarkColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Red.A200!
+		case .Default: return MDColorPalette.LightGreen.P500
 		case .Night: return MDColorPalette.Blue.A200!
 		}
 	}
@@ -421,7 +421,7 @@ enum Theme: Int {
 
 	var sliderMinTrackTintColor:UIColor? {
 		switch self {
-		case .Default: return MDColorPalette.Red.A100!
+		case .Default: return MDColorPalette.LightGreen.P500
 		case .Night: return MDColorPalette.Blue.A200!
 		}
 	}
@@ -474,7 +474,7 @@ enum Theme: Int {
 
 	var transValConfigViewPlusMinusButtonTintColorNormal:UIColor {
 		switch self {
-		case .Default: return self.roundButtonBackgroundColor!
+		case .Default: return MDColorPalette.LightGreen.P500
 		case .Night: return self.switchOnTintColor!
 		}
 	}
@@ -526,21 +526,21 @@ enum Theme: Int {
 
 	var mdAlertControllerButtonTextColorNormal:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Blue.A200!
+		case .Default: return MDColorPalette.LightGreen.P500
 		case .Night: return MDColorPalette.Blue.A100!
 		}
 	}
 
 	var mdAlertControllerButtonTextColorHighlighted:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Blue.A100!
+		case .Default: return MDColorPalette.LightGreen.P300
 		case .Night: return MDColorPalette.Blue.A100!
 		}
 	}
 
 	var mdAlertControllerButtonTapFeedbackColor:UIColor {
 		switch self {
-		default: return UIColor(hex: self.mdAlertControllerButtonTextColorNormal.hex, alpha: 0.3)
+		default: return self.textViewTapFeedbackColor
 		}
 	}
 
@@ -608,14 +608,14 @@ enum Theme: Int {
 
 	var roundButtonMDShadowLevelDefault:Int {
 		switch self {
-//		case .Default: return 3
+		case .Default: return 1
 		default: return 0
 		}
 	}
 
 	var roundButtonMDShadowLevelTapped:Int {
 		switch self {
-		case .Default: return 4
+		case .Default: return 2
 		default: return 0
 		}
 	}
