@@ -48,6 +48,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		self.navigationItem.title = LocalizedStrings.Settings.settings
 		self.navigationController?.navigationBar.barTintColor = appDelegate.theme.navigationBarBackgroundColor
 		self.navigationController?.navigationBar.tintColor = appDelegate.theme.navigationBarTitleTextColor
+		self.navigationController?.navigationBar.addMDShadow(withDepth: 2)
 		self.navigationController?.delegate = self
 		var textAttributes = self.navigationController?.navigationBar.titleTextAttributes
 		if textAttributes != nil {
@@ -110,6 +111,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 			switch indexPath.row {
 			case 0:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Languages Cell", forIndexPath: indexPath) as! TableViewCell
+				cell.imageView?.image = UIImage(named: theme.settingsLanguageImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.languages, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				let currentLanguageName = supportedLanguages[appDelegate.currentLocaleLanguageCode]
 				var languageNameOriginal = ""
@@ -123,6 +125,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				cell.accessoryType = .DisclosureIndicator
 			case 1:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewSwitchCell
+				cell.imageView?.image = UIImage(named: theme.settingsShareExtraTextImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.tapFeebackEnabled = false
 				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.extraTextWhenShare, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				(cell as! TableViewSwitchCell).delegate = self
@@ -134,12 +137,14 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 			switch indexPath.row {
 			case 0:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Theme Cell", forIndexPath: indexPath) as! TableViewCell
+				cell.imageView?.image = UIImage(named: theme.settingsThemeImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.theme
 					, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				cell.detailTextLabel?.attributedText = getAttributedStringFrom(appDelegate.userSelectedTheme.name, withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
 				cell.accessoryType = .DisclosureIndicator
 			case 1:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewSwitchCell
+				cell.imageView?.image = UIImage(named: theme.settingsAutoNightModeImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.tapFeebackEnabled = false
 				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.autoNightMode, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				(cell as! TableViewSwitchCell).delegate = self
@@ -151,16 +156,19 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 			switch indexPath.row {
 			case 0:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Output Cell", forIndexPath: indexPath) as! TableViewCell
+				cell.imageView?.image = UIImage(named: theme.settingsSignalOutputImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.output
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				cell.accessoryType = .DisclosureIndicator
 			case 1:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Audio Decoder Cell", forIndexPath: indexPath) as! TableViewCell
+				cell.imageView?.image = UIImage(named: theme.settingsAudioDecoderImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.audioDecoder
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				cell.accessoryType = .DisclosureIndicator
 			case 2:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewSwitchCell
+				cell.imageView?.image = UIImage(named: theme.settingsDecodeProsignImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.tapFeebackEnabled = false
 				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.decodeProsign, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				(cell as! TableViewSwitchCell).delegate = self
@@ -172,14 +180,17 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 			switch indexPath.row {
 			case 0:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
+				cell.imageView?.image = UIImage(named: theme.settingsPurchaseThemesImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseUnlockAllThemes
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			case 1:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
+				cell.imageView?.image = UIImage(named: theme.settingsPurchaseAudioDecoderImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseEnableAudioDecoder
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			case 2:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
+				cell.imageView?.image = UIImage(named: theme.settingsRestorePurchasesImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseRestorePurchases
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			default: break
@@ -187,15 +198,16 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 			cell.separatorInset = UIEdgeInsetsZero
 			cell.preservesSuperviewLayoutMargins = false
 			cell.layoutMargins = UIEdgeInsetsZero
-			cell.textLabel?.textAlignment = .Center
 		} else if indexPath.section == 4 { // About
 			switch indexPath.row {
 			case 0:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
+				cell.imageView?.image = UIImage(named: theme.settingsRateOnAppStoreImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.rateOnAppStore
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			case 1:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
+				cell.imageView?.image = UIImage(named: theme.settingsContactDeveloperImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.contactDeveloper
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			default: break
@@ -203,7 +215,6 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 			cell.separatorInset = UIEdgeInsetsZero
 			cell.preservesSuperviewLayoutMargins = false
 			cell.layoutMargins = UIEdgeInsetsZero
-			cell.textLabel?.textAlignment = .Center
 		} else if indexPath.section == 5 { // Dev options
 			switch indexPath.row {
 			case 0:
@@ -237,6 +248,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 			}
 		}
 
+		cell.imageView?.tintColor = theme.cellImageTintColor
 		cell.updateColor()
 
         return cell

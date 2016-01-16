@@ -63,30 +63,16 @@ class SettingsThemeTableViewController: TableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		switch section {
-		case 0: return 1
-		case 1: return Theme.numberOfThemes - 1
+		case 0: return 2
+		case 1: return Theme.numberOfThemes - 2
 		default: return 0
 		}
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		var cell = TableViewCell()
-		if indexPath.section == 0 {
-			switch indexPath.row {
-			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Theme Name Cell", forIndexPath: indexPath) as! TableViewCell
-			default: break
-			}
-		} else if indexPath.section == 1 {
-			switch indexPath.row {
-			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Theme Name Cell", forIndexPath: indexPath) as! TableViewCell
-			default: break
-			}
-		}
-
-		cell.textLabel?.text = Theme(rawValue: indexPath.section + indexPath.row)?.name
-		if currentCheckedCell == nil && appDelegate.userSelectedTheme.rawValue == indexPath.section + indexPath.row {
+		let cell = tableView.dequeueReusableCellWithIdentifier("Settings Theme Name Cell", forIndexPath: indexPath) as! TableViewCell
+		cell.textLabel?.text = Theme(rawValue: self.rowIndForIndexPath(indexPath))?.name
+		if currentCheckedCell == nil && appDelegate.userSelectedTheme.rawValue == self.rowIndForIndexPath(indexPath) {
 			cell.accessoryType = .Checkmark
 			self.currentCheckedCell = cell
 		}
@@ -110,14 +96,22 @@ class SettingsThemeTableViewController: TableViewController {
 			cell.accessoryType = .Checkmark
 			self.currentCheckedCell = cell
 
-			appDelegate.userDefaults.setInteger(indexPath.section + indexPath.row, forKey: userDefaultsKeyUserSelectedTheme)
+			appDelegate.userDefaults.setInteger(self.rowIndForIndexPath(indexPath), forKey: userDefaultsKeyUserSelectedTheme)
 			appDelegate.userDefaults.synchronize()
-			theme = Theme(rawValue: indexPath.section + indexPath.row)!
+			theme = Theme(rawValue: self.rowIndForIndexPath(indexPath))!
 			let tracker = GAI.sharedInstance().defaultTracker; tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 				action: "button_press",
 				label: "Theme Changed",
 				value: nil).build() as [NSObject : AnyObject])
 		}
+	}
+
+	private func rowIndForIndexPath(indexPath:NSIndexPath) -> Int {
+		var counter = 0
+		for section in 0..<indexPath.section {
+			counter += self.tableView(self.tableView, numberOfRowsInSection: section)
+		}
+		return counter + indexPath.row
 	}
 
 	// *****************************

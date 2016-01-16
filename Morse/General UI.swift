@@ -44,7 +44,7 @@ var sliderWidth:CGFloat {
 	return 200
 }
 
-let tableViewCellHeight:CGFloat = 50
+let tableViewCellHeight:CGFloat = 60
 let tableViewCellHorizontalPadding:CGFloat = 18
 let tableViewCellTextLabelFontSize:CGFloat = 16
 let tableViewCellDetailTextLabelFontSize:CGFloat = tableViewCellTextLabelFontSize

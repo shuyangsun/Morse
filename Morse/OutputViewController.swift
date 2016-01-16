@@ -176,8 +176,6 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				self.flashToggleButton = UIButton(frame: CGRect(x: 0, y: 0, width: self._outputVCTopBarHeight, height: self._outputVCTopBarHeight))
 				self.flashToggleButton.backgroundColor = UIColor.clearColor()
 				self.flashToggleButton.tintColor = theme.topBarLabelTextColor
-				self.flashToggleButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
-				self.flashToggleButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
 				let flashImage = UIImage(named: self._flashEnabled ? theme.flashOnImageName : theme.flashOffImageName)
 				self.flashToggleButton.setImage(flashImage!, forState: .Normal)
 				self.flashToggleButton.addTarget(self, action: "flashToggleButtonTapped", forControlEvents: .TouchUpInside)
@@ -199,8 +197,6 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				self.soundToggleButton = UIButton(frame: CGRect(x: 0, y: 0, width: self._outputVCTopBarHeight, height: self._outputVCTopBarHeight))
 				self.soundToggleButton.backgroundColor = UIColor.clearColor()
 				self.soundToggleButton.tintColor = theme.topBarLabelTextColor
-				self.soundToggleButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
-				self.soundToggleButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
 				let soundImage = UIImage(named: self._soundEnabled ? theme.soundOnImageName : theme.soundOffImageName)
 				self.soundToggleButton.setImage(soundImage!, forState: .Normal)
 				self.soundToggleButton.addTarget(self, action: "soundToggleButtonTapped", forControlEvents: .TouchUpInside)

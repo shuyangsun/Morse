@@ -354,9 +354,6 @@ class CardView: UIView {
 		if self.outputButton == nil {
 			self.outputButton = UIButton(frame: CGRect(x: 0, y: 0, width: self.bounds.width/2.0, height: self.bounds.height))
 			self.outputButton.backgroundColor = UIColor.clearColor()
-			self.outputButton.tintColor = appDelegate.theme.cardBackViewButtonTextColor
-			self.outputButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
-			self.outputButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
 			let outputImage = UIImage(named: theme.outputImageName)
 			self.outputButton.setImage(outputImage!, forState: .Normal)
 			self.outputButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)
@@ -372,9 +369,6 @@ class CardView: UIView {
 		if self.shareButton == nil {
 			self.shareButton = UIButton(frame: CGRect(x: self.bounds.width/2.0, y: 0, width: self.bounds.width/2.0, height: self.bounds.height))
 			self.shareButton.backgroundColor = UIColor.clearColor()
-			self.shareButton.tintColor = appDelegate.theme.cardBackViewButtonTextColor
-			self.shareButton.setTitleColor(appDelegate.theme.cardBackViewButtonTextColor, forState: .Normal)
-			self.shareButton.setTitleColor(appDelegate.theme.cardBackViewButtonSelectedTextColor, forState: .Highlighted)
 			let shareImage = UIImage(named: theme.shareImageName)
 			self.shareButton.setImage(shareImage!, forState: .Normal)
 			self.shareButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)

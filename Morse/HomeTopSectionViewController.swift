@@ -35,7 +35,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 
 	// Button
 	var roundButtonView: RoundButtonView!
-	var cancelButton: CancelButton!
+	var backButton: BackButton!
 	var keyboardButton: UIButton!
 	var microphoneButton:UIButton!
 
@@ -57,7 +57,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		return topBarHeight/2.0 - self.roundButtonMargin
 	}
 
-	private var cancelButtonWidth:CGFloat {
+	private var backButtonWidth:CGFloat {
 		return topBarHeight
 	}
 
@@ -177,18 +177,18 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.topBarView.addSubview(self.roundButtonView)
 
 			// Add cancel button
-			self.cancelButton = CancelButton(origin: CGPoint(x: 0, y: 0), width: self.cancelButtonWidth)
-			self.cancelButton.addTarget(self, action: "inputCancelled:", forControlEvents: .TouchUpInside)
-			self.topBarView.addSubview(self.cancelButton)
+			self.backButton = BackButton(origin: CGPoint(x: 0, y: 0), width: self.backButtonWidth)
+			self.backButton.addTarget(self, action: "inputCancelled:", forControlEvents: .TouchUpInside)
+			self.topBarView.addSubview(self.backButton)
 
-			self.cancelButton.snp_makeConstraints(closure: { (make) -> Void in
+			self.backButton.snp_makeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.topBarView)
 				make.leading.equalTo(self.topBarView)
 				make.width.equalTo(topBarHeight)
-				make.height.equalTo(self.cancelButton.snp_width)
+				make.height.equalTo(self.backButton.snp_width)
 			})
 
-			self.cancelButton.disappearWithDuration(0)
+			self.backButton.disappearWithDuration(0)
 
 			// Configure constraints
 			self.topBarView.snp_remakeConstraints(closure: { (make) -> Void in
@@ -669,7 +669,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 
 	func inputCancelled(sender:AnyObject) {
 		let tracker = GAI.sharedInstance().defaultTracker
-		if sender === self.cancelButton {
+		if sender === self.backButton {
 			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 				action: "button_press",
 				label: "Cancel Button Tapped",
@@ -694,8 +694,6 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		self.homeViewController.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.homeViewController.scrollView.bounds.width, height: 1), animated: true)
 
 		let animationDuration = defaultAnimationDuration/3.0
-		// Show cancel button
-		self.cancelButton.appearWithDuration(animationDuration)
 
 		// Text view stuff
 		self.inputTextView.attributedText = getAttributedStringFrom(" ", withFontSize: textViewInputFontSize, color: theme.textViewInputTextColor)
@@ -764,6 +762,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 					self.homeViewController.scrollViewSnapshotImageView?.alpha = 1
 					self.homeViewController.topSectionContainerView.addMDShadow(withDepth: 3)
 				}) { succeed in
+					// Show cancel button
+					self.backButton.appearWithDuration(animationDuration)
 					// If the top section is hidden, and the microphone button is tapped, blured screenshot will  not beupdated correctly.
 					// The following code updates blured image if that happens.
 					self.homeViewController.updateScrollViewBlurImage()
@@ -777,7 +777,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	private func animateAndLayoutUIForInputEnd() {
 		let animationDuration = TAP_FEED_BACK_DURATION/3.0
 		// Hide cancel button
-		self.cancelButton.disappearWithDuration(animationDuration)
+		self.backButton.disappearWithDuration(animationDuration)
 		// Move text and morse label
 		if self.isDirectionEncode {
 			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in

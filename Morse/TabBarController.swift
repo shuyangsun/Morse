@@ -29,7 +29,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-		self.tabBar.barTintColor = appDelegate.theme.tabBarBackgroundColor
+		self.tabBar.barTintColor = theme.tabBarBackgroundColor
+		self.tabBar.tintColor = theme.tabBarTintColor
 		let controllers = self.viewControllers
 		// Customize tab bar items
 		UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: -60), forBarMetrics: .Default)
@@ -37,15 +38,19 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 			for controller in controllers! {
 				if let homeViewController = controller as? HomeViewController {
 					self.homeVC = homeViewController
-					self.homeVC.tabBarItem = UITabBarItem(tabBarSystemItem: .Featured, tag: 0)
+					let homeTabBarItem = UITabBarItem(title: nil, image: UIImage(named:theme.tabBarItemHomeUnselectedImageName), tag: 0)
+					homeTabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
+					self.homeVC.tabBarItem = homeTabBarItem
 				} else if let dictionaryViewController = controller as? MorseDictionaryViewController {
 					self.morseDictionaryVC = dictionaryViewController
-					self.morseDictionaryVC.tabBarItem = UITabBarItem(tabBarSystemItem: .Bookmarks, tag: 1)
-					self.morseDictionaryVC.tabBarItem.title = nil
+					let dictionaryTabBarItem = UITabBarItem(title: nil, image: UIImage(named:theme.tabBarItemDictionaryUnselectedImageName), tag: 1)
+					dictionaryTabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
+					self.morseDictionaryVC.tabBarItem = dictionaryTabBarItem
 				} else if let settingsViewController = controller as? SettingsSplitViewController {
 					self.settingsVC = settingsViewController
-					self.settingsVC.tabBarItem = UITabBarItem(tabBarSystemItem: .More, tag: 2)
-					self.settingsVC.tabBarItem.title = nil
+					let settingsTabBarItem = UITabBarItem(title: nil, image: UIImage(named:theme.tabBarItemSettingsUnselectedImageName), tag: 2)
+					settingsTabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
+					self.settingsVC.tabBarItem = settingsTabBarItem
 				}
 			}
 		}
@@ -133,6 +138,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 			delay: 0,
 			options: .CurveEaseInOut,
 			animations: {
+				self.tabBar.tintColor = theme.tabBarTintColor
 				self.tabBarController?.tabBar.barTintColor = theme.tabBarBackgroundColor
 		}, completion: nil)
 	}

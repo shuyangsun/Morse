@@ -23,14 +23,16 @@ enum ThemeStyle {
 }
 
 enum Theme: Int {
-	static let numberOfThemes = 2
+	static let numberOfThemes = 3
 
-	case Default = 0, Night
+	case Default = 0, Night, Forest
 
+	// General information about theme
 	var name:String {
 		switch self {
 		case .Default: return LocalizedStrings.ThemeName.defaultName
 		case .Night: return LocalizedStrings.ThemeName.night
+		case .Forest: return LocalizedStrings.ThemeName.forest
 		}
 	}
 
@@ -41,6 +43,69 @@ enum Theme: Int {
 		}
 	}
 
+	// Color pallete
+	var darkPrimaryColor:UIColor {
+		switch self {
+		case .Default: return MDColorPalette.Blue.P700
+		case .Night: return MDColorPalette.Grey.P900
+		case .Forest: return MDColorPalette.Green.P700
+		}
+	}
+
+	var primaryColor:UIColor {
+		switch self {
+		case .Default: return MDColorPalette.Blue.P500
+		case .Night: return MDColorPalette.Grey.P800
+		case .Forest: return MDColorPalette.Green.P500
+		}
+	}
+
+	var lightPrimaryColor:UIColor {
+		switch self {
+		case .Default: return MDColorPalette.Blue.P300
+		case .Night: return MDColorPalette.Grey.P500
+		case .Forest: return MDColorPalette.Green.P300
+		}
+	}
+
+	var accentColor:UIColor {
+		switch self {
+		case .Default: return MDColorPalette.LightGreen.P500
+		case .Night: return MDColorPalette.Blue.A200!
+		case .Forest: return MDColorPalette.Orange.P500
+		}
+	}
+
+	var lightAccentColor: UIColor {
+		switch self {
+		case .Default: return MDColorPalette.LightGreen.P200
+		case .Night: return MDColorPalette.Blue.A100!
+		case .Forest: return MDColorPalette.Orange.P200
+		}
+	}
+
+	var primaryTextColor:UIColor {
+		switch self.style {
+		case .Light: return UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha)
+		case .Dark: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		}
+	}
+
+	var secondaryTextColor:UIColor {
+		switch self.style {
+		case .Light: return UIColor(hex: 0x000, alpha: MDDarkTextSecondaryAlpha)
+		case .Dark: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextSecondaryAlpha)
+		}
+	}
+
+	var hintTextColor:UIColor {
+		switch self.style {
+		case .Light: return UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)
+		case .Dark: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextHintAlpha)
+		}
+	}
+
+	// Some iOS UI Styles about theme
 	var keyboardAppearance:UIKeyboardAppearance {
 		switch self.style {
 		case .Light: return .Default
@@ -59,6 +124,55 @@ enum Theme: Int {
 	// MARK: Colors
 	// *****************************
 
+	// **************************************************************************************************
+
+	var scrollViewBackgroundColor:UIColor {
+		switch self {
+		case .Night: return MDColorPalette.Grey.P900
+		case .Forest: return MDColorPalette.Orange.P100
+		default: return UIColor(hex: 0xEEEEEE)
+		}
+	}
+
+	var textViewBackgroundColor:UIColor {
+		switch self {
+		case .Night: return MDColorPalette.Grey.P700
+		case .Forest: return MDColorPalette.Orange.P50
+		default: return UIColor.whiteColor()
+		}
+	}
+
+	var cardViewBackgroudColor:UIColor {
+		switch self {
+		case .Default: return UIColor.whiteColor()
+		case .Night: return MDColorPalette.Grey.P800
+		case .Forest: return MDColorPalette.Green.P500
+		}
+	}
+
+	var cardViewTextColor:UIColor {
+		switch self {
+		case .Forest: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		default: return self.primaryTextColor
+		}
+	}
+
+	var cardViewMorseColor:UIColor {
+		switch self {
+		case .Forest: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextSecondaryAlpha)
+		default: return self.secondaryTextColor
+		}
+	}
+
+	var audioPlotPitchFilteredColor:UIColor {
+		switch self {
+		case .Night: return UIColor(hex: MDColorPalette.Blue.A400!.hex, alpha: 0.8)
+		default: return UIColor(hex: self.primaryColor.hex, alpha: 0.8)
+		}
+	}
+
+	// **************************************************************************************************
+
 	private var defaultTapFeedbackColorDark:UIColor {
 		return UIColor(hex: 0x000000, alpha: 0.2)
 	}
@@ -69,34 +183,19 @@ enum Theme: Int {
 
 	var statusBarBackgroundColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Blue.P700
-		case .Night: return MDColorPalette.Grey.P900
+		default: return self.darkPrimaryColor
 		}
 	}
 
 	var topBarBackgroundColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Blue.P500
-		case .Night: return MDColorPalette.Grey.P800
+		default: return self.primaryColor
 		}
 	}
 
 	var topBarLabelTextColor:UIColor {
 		switch self {
 		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
-		}
-	}
-
-	var cancelButtonColor:UIColor {
-		switch self {
-		default: return UIColor.whiteColor()
-		}
-	}
-
-	var textViewBackgroundColor:UIColor {
-		switch self {
-		case .Night: return MDColorPalette.Grey.P700
-		default: return UIColor.whiteColor()
 		}
 	}
 
@@ -109,22 +208,19 @@ enum Theme: Int {
 
 	var textViewTapFeedbackColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.LightGreen.P300
-		case .Night: return MDColorPalette.Grey.P500
+		default: return self.lightAccentColor
 		}
 	}
 
 	var textViewHintTextColor:UIColor {
 		switch self {
-		case .Default: return UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)
-		case .Night: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextHintAlpha)
+		default: return self.hintTextColor
 		}
 	}
 
 	var textViewInputTextColor:UIColor {
 		switch self {
-		case .Night: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
-		default: return UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha)
+		default: return self.primaryTextColor
 		}
 	}
 
@@ -136,15 +232,14 @@ enum Theme: Int {
 
 	var roundButtonBackgroundColor:UIColor? {
 		switch self {
-		case .Default: return MDColorPalette.LightGreen.P500
-//		case .Night: return MDColorPalette.Blue.A200!
-		default: return nil
+		case .Night: return nil
+		default: return self.accentColor
 		}
 	}
 
 	var roundButtonTapFeedbackColor:UIColor {
 		switch self {
-		default: return self.defaultTapFeedbackColorLight
+		default: return self.lightAccentColor
 		}
 	}
 
@@ -156,14 +251,7 @@ enum Theme: Int {
 
 	var keyboardButtonTapFeedbackColor:UIColor {
 		switch self {
-		default: return self.textViewTapFeedbackColor
-		}
-	}
-
-	var scrollViewBackgroundColor:UIColor {
-		switch self {
-		case .Default: return UIColor(hex: 0xEEEEEE)
-		case .Night: return MDColorPalette.Grey.P900
+		default: return self.lightAccentColor
 		}
 	}
 
@@ -171,13 +259,6 @@ enum Theme: Int {
 		switch self {
 		case .Night: return UIColor(hex: 0x000, alpha: 0.8)
 		default: return UIColor(hex: 0x000, alpha: 0.35)
-		}
-	}
-
-	var cardViewBackgroudColor:UIColor {
-		switch self {
-		case .Default: return UIColor.whiteColor()
-		case .Night: return MDColorPalette.Grey.P800
 		}
 	}
 
@@ -201,21 +282,7 @@ enum Theme: Int {
 
 	var cardViewTapfeedbackColor:UIColor {
 		switch self {
-		default: return self.textViewTapFeedbackColor
-		}
-	}
-
-	var cardViewTextColor:UIColor {
-		switch self {
-		case .Default: return UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha)
-		case .Night: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
-		}
-	}
-
-	var cardViewMorseColor:UIColor {
-		switch self {
-		case .Default: return UIColor(hex:0x000, alpha: MDDarkTextSecondaryAlpha)
-		case .Night: return UIColor(hex:0xFFFFFF, alpha: MDDarkTextSecondaryAlpha)
+		default: return self.lightAccentColor
 		}
 	}
 
@@ -245,20 +312,7 @@ enum Theme: Int {
 
 	var cardBackViewBackgroundColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.LightGreen.P500
-		case .Night: return MDColorPalette.Grey.P700
-		}
-	}
-
-	var cardBackViewButtonTextColor:UIColor {
-		switch self {
-		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
-		}
-	}
-
-	var cardBackViewButtonSelectedTextColor:UIColor {
-		switch self {
-		default: return UIColor(hex: 0xFFFFFF, alpha: MDDarkTextHintAlpha)
+		default: return self.accentColor
 		}
 	}
 
@@ -277,15 +331,14 @@ enum Theme: Int {
 
 	var progressBarColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.Blue.P500
-		case .Night: return MDColorPalette.Grey.P800
+		default: return self.primaryColor
 		}
 	}
 
 	var percentageTextColor:UIColor {
 		switch self {
-		case .Default: return self.topBarLabelTextColor
 		case .Night: return MDColorPalette.Grey.P400
+		default: return self.topBarLabelTextColor
 		}
 	}
 
@@ -326,9 +379,15 @@ enum Theme: Int {
 		}
 	}
 
+	var tabBarTintColor:UIColor {
+		switch self.style {
+		default: return self.primaryTextColor
+		}
+	}
+
 	var navigationBarBackgroundColor:UIColor {
 		switch self {
-		default: return self.topBarBackgroundColor
+		default: return self.primaryColor
 		}
 	}
 
@@ -340,8 +399,9 @@ enum Theme: Int {
 
 	var tableViewCellBackgroundColor:UIColor {
 		switch self {
-		case .Default: return UIColor.whiteColor()
 		case .Night: return MDColorPalette.Grey.P800
+		case .Forest: return MDColorPalette.Green.P400
+		default: return UIColor.whiteColor()
 		}
 	}
 
@@ -368,8 +428,8 @@ enum Theme: Int {
 
 	var cellTitleTextColor:UIColor {
 		switch self {
-		case .Night: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
-		default: return UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha)
+		case .Forest: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		default: return self.primaryTextColor
 		}
 	}
 
@@ -381,8 +441,15 @@ enum Theme: Int {
 
 	var cellDetailTitleTextColor:UIColor {
 		switch self {
+		case .Forest: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextSecondaryAlpha)
 		case .Night: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextSecondaryAlpha)
-		default: return UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)
+		default: return self.hintTextColor
+		}
+	}
+
+	var cellImageTintColor:UIColor {
+		switch self {
+		default: return self.lightPrimaryColor
 		}
 	}
 
@@ -394,35 +461,31 @@ enum Theme: Int {
 
 	var tableViewCellCheckmarkColor:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.LightGreen.P500
-		case .Night: return MDColorPalette.Blue.A200!
+		default: return self.accentColor
 		}
 	}
 
 	var cellTapFeedBackColor:UIColor {
 		switch self {
-		default: return self.textViewTapFeedbackColor
+		default: return self.lightAccentColor
 		}
 	}
 
 	var tableViewHeaderTextColor:UIColor {
 		switch self {
-		case .Night: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextSecondaryAlpha)
-		default: return UIColor(hex: 0x000, alpha: MDDarkTextSecondaryAlpha)
+		default: return self.secondaryTextColor
 		}
 	}
 
 	var tableViewFooterTextColor:UIColor {
 		switch self {
-		case .Night: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextHintAlpha)
-		default: return UIColor(hex: 0x000, alpha: MDDarkTextHintAlpha)
+		default: return self.hintTextColor
 		}
 	}
 
 	var sliderMinTrackTintColor:UIColor? {
 		switch self {
-		case .Default: return MDColorPalette.LightGreen.P500
-		case .Night: return MDColorPalette.Blue.A200!
+		default: return self.accentColor
 		}
 	}
 
@@ -434,13 +497,13 @@ enum Theme: Int {
 
 	var sliderThumbTintColor:UIColor? {
 		switch self {
-		default: return self.sliderMinTrackTintColor
+		default: return self.accentColor
 		}
 	}
 
 	var switchOnTintColor:UIColor? {
 		switch self {
-		default: return self.sliderMinTrackTintColor
+		default: return self.accentColor
 		}
 	}
 
@@ -458,13 +521,6 @@ enum Theme: Int {
 		}
 	}
 
-	var audioPlotPitchFilteredColor:UIColor {
-		switch self {
-		case .Default: return UIColor(hex: MDColorPalette.Blue.P500.hex, alpha: 0.8)
-		case .Night: return UIColor(hex: MDColorPalette.Blue.A400!.hex, alpha: 0.8)
-		}
-	}
-
 	var scrollViewBlurTintColor:UIColor {
 		switch self {
 		case .Night: return UIColor(hex: 0xFFFFFF, alpha: 0.2)
@@ -474,14 +530,13 @@ enum Theme: Int {
 
 	var transValConfigViewPlusMinusButtonTintColorNormal:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.LightGreen.P500
-		case .Night: return self.switchOnTintColor!
+		default: return self.accentColor
 		}
 	}
 
 	var transValConfigViewNumPadDoneButtonBackgroundColor:UIColor {
 		switch self {
-		default: return MDColorPalette.Blue.A200!
+		default: return self.accentColor
 		}
 	}
 
@@ -512,35 +567,33 @@ enum Theme: Int {
 
 	var mdAlertControllerTitleTextColor:UIColor {
 		switch self.style {
-		case .Light: return UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha)
-		case .Dark: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		default: return self.primaryTextColor
 		}
 	}
 
 	var mdAlertControllerMessageTextColor:UIColor {
 		switch self.style {
-		case .Light: return UIColor(hex: 0x000, alpha: MDDarkTextSecondaryAlpha)
-		case .Dark: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextSecondaryAlpha)
+		default: return self.secondaryTextColor
 		}
 	}
 
 	var mdAlertControllerButtonTextColorNormal:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.LightGreen.P500
 		case .Night: return MDColorPalette.Blue.A100!
+		default: return self.accentColor
 		}
 	}
 
 	var mdAlertControllerButtonTextColorHighlighted:UIColor {
 		switch self {
-		case .Default: return MDColorPalette.LightGreen.P300
 		case .Night: return MDColorPalette.Blue.A100!
+		default: return self.lightAccentColor
 		}
 	}
 
 	var mdAlertControllerButtonTapFeedbackColor:UIColor {
 		switch self {
-		default: return self.textViewTapFeedbackColor
+		default: return self.lightAccentColor
 		}
 	}
 
@@ -580,6 +633,7 @@ enum Theme: Int {
 
 	var cardViewCornerRadius:CGFloat {
 		switch self {
+		case .Forest: return 7
 		default: return 2
 		}
 	}
@@ -669,6 +723,12 @@ enum Theme: Int {
 	// *****************************
 	// MARK: Image Names
 
+	var backButtonImageName:String {
+		switch self.style {
+		default: return "Back"
+		}
+	}
+
 	var microphoneIconImageName:String {
 		switch self.style {
 		case .Light: return "Microphone Button Dark"
@@ -716,6 +776,96 @@ enum Theme: Int {
 	var soundOffImageName:String {
 		switch self.style {
 		default: return "Sound Off"
+		}
+	}
+
+	var tabBarItemHomeUnselectedImageName:String {
+		switch self.style {
+		default: return "Home Dark Unselected"
+		}
+	}
+
+	var tabBarItemDictionaryUnselectedImageName:String {
+		switch self.style {
+		default: return "Dictionary Dark Unselected"
+		}
+	}
+
+	var tabBarItemSettingsUnselectedImageName:String {
+		switch self.style {
+		default: return "Settings Dark Unselected"
+		}
+	}
+
+	var settingsLanguageImageName:String {
+		switch self.style {
+		default: return "Settings Language"
+		}
+	}
+
+	var settingsShareExtraTextImageName:String {
+		switch self.style {
+		default: return "Settings Share Extra Text"
+		}
+	}
+
+	var settingsThemeImageName:String {
+		switch self.style {
+		default: return "Settings Theme"
+		}
+	}
+
+	var settingsAutoNightModeImageName:String {
+		switch self.style {
+		default: return "Settings Auto Night Mode"
+		}
+	}
+
+	var settingsSignalOutputImageName:String {
+		switch self.style {
+		default: return "Settings Singal Output"
+		}
+	}
+
+	var settingsAudioDecoderImageName:String {
+		switch self.style {
+		default: return "Settings Audio Decoder"
+		}
+	}
+
+	var settingsDecodeProsignImageName:String {
+		switch self.style {
+		default: return "Settings Decode Prosign"
+		}
+	}
+
+	var settingsPurchaseThemesImageName:String {
+		switch self.style {
+		default: return "Settings Purchase Themes"
+		}
+	}
+
+	var settingsPurchaseAudioDecoderImageName:String {
+		switch self.style {
+		default: return "Settings Purchase Audio Decoder"
+		}
+	}
+
+	var settingsRestorePurchasesImageName:String {
+		switch self.style {
+		default: return "Settings Restore Purchases"
+		}
+	}
+
+	var settingsRateOnAppStoreImageName:String {
+		switch self.style {
+		default: return "Settings Rate On App Store"
+		}
+	}
+
+	var settingsContactDeveloperImageName:String {
+		switch self.style {
+		default: return "Settings Contact Developer"
 		}
 	}
 }

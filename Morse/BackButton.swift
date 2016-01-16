@@ -1,5 +1,5 @@
 //
-//  CancelButton.swift
+//  BackButton.swift
 //  Morse
 //
 //  Created by Shuyang Sun on 12/4/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CancelButton: UIButton {
+class BackButton: UIButton {
 
 	private var originalTransform:CGAffineTransform!
 
@@ -21,23 +21,9 @@ class CancelButton: UIButton {
 		let frame = CGRect(origin: origin, size: CGSize(width: width, height: width))
 		self.init(frame:frame)
 		self.opaque = false
-		self.layer.cornerRadius = 5
-		self.backgroundColor = UIColor.clearColor()
+		let image = UIImage(named: theme.backButtonImageName)
+		self.setImage(image, forState: .Normal)
 	}
-
-    override func drawRect(rect: CGRect) {
-		super.drawRect(rect)
-		let frame = self.frame
-		let path = UIBezierPath()
-		self.theme.cancelButtonColor.setStroke()
-		path.lineWidth = 3.0
-		path.moveToPoint(CGPoint(x: frame.width/3.0, y: frame.width/3.0))
-		path.addLineToPoint(CGPoint(x: frame.width * (1.0 - 1.0/3.0), y: frame.height * (1.0 - 1.0/3.0)))
-		path.moveToPoint(CGPoint(x: frame.width * (1.0 - 1.0/3.0), y: frame.height/3.0))
-		path.addLineToPoint(CGPoint(x: frame.width/3.0, y: frame.height * (1.0 - 1.0/3.0)))
-		path.stroke()
-		path.closePath()
-    }
 
 	func disappearWithDuration(duration:NSTimeInterval) {
 		self.originalTransform = self.transform
@@ -45,7 +31,7 @@ class CancelButton: UIButton {
 			delay: 0,
 			options: .CurveEaseInOut,
 			animations: {
-				self.transform = CGAffineTransformScale(self.transform, 0, 0)
+				self.transform = CGAffineTransformScale(self.transform, 0.1, 0.1)
 				self.alpha = 0
 			}) { succeed in
 				if succeed {

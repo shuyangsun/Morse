@@ -129,9 +129,9 @@
 		106460031C46206200E1B501 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 106460051C46206200E1B501 /* InfoPlist.strings */; };
 		106460081C46206200E1B501 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1064600A1C46206200E1B501 /* InfoPlist.strings */; };
 		1064600E1C46207800E1B501 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 106460101C46207800E1B501 /* Localizable.strings */; };
-		1073948F1C11F75800EF8C16 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073948E1C11F75800EF8C16 /* CancelButton.swift */; };
-		107394901C11F75800EF8C16 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073948E1C11F75800EF8C16 /* CancelButton.swift */; };
-		107394911C11F75800EF8C16 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073948E1C11F75800EF8C16 /* CancelButton.swift */; };
+		1073948F1C11F75800EF8C16 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073948E1C11F75800EF8C16 /* BackButton.swift */; };
+		107394901C11F75800EF8C16 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073948E1C11F75800EF8C16 /* BackButton.swift */; };
+		107394911C11F75800EF8C16 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073948E1C11F75800EF8C16 /* BackButton.swift */; };
 		107869491C0E5EC00025AD45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7421C0BACE90085B0C9 /* AppDelegate.swift */; };
 		1078694D1C0E5EC00025AD45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1052A7421C0BACE90085B0C9 /* AppDelegate.swift */; };
 		107C922C1C44609900C97EFF /* SettingsAudioDecoderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107C922B1C44609900C97EFF /* SettingsAudioDecoderTableViewController.swift */; };
@@ -368,7 +368,7 @@
 		1064602D1C46226C00E1B501 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1064602E1C46226C00E1B501 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1064602F1C46226D00E1B501 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		1073948E1C11F75800EF8C16 /* CancelButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelButton.swift; sourceTree = "<group>"; };
+		1073948E1C11F75800EF8C16 /* BackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		107C922B1C44609900C97EFF /* SettingsAudioDecoderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAudioDecoderTableViewController.swift; sourceTree = "<group>"; };
 		107C922D1C4460E700C97EFF /* TableViewTransmitterConfigurationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewTransmitterConfigurationCell.swift; sourceTree = "<group>"; };
 		107C922F1C44784B00C97EFF /* TableViewResetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewResetCell.swift; sourceTree = "<group>"; };
@@ -462,7 +462,7 @@
 			children = (
 				10286CCA1C0D1BCF00BD2B43 /* CardView.swift */,
 				109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */,
-				1073948E1C11F75800EF8C16 /* CancelButton.swift */,
+				1073948E1C11F75800EF8C16 /* BackButton.swift */,
 				109266831C2071EA00AD198E /* TableViewCell.swift */,
 				10BFD3A21C1F486700FA4C26 /* TableViewLanguageCell.swift */,
 				10D54A121C42BDE600775318 /* TableViewSwitchCell.swift */,
@@ -1023,7 +1023,7 @@
 				100F7CD81C27513700DDD8EC /* MorseAudioRecorder.swift in Sources */,
 				103477161C3750DC0036DB44 /* EZRecorder.m in Sources */,
 				1030BA0F1C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
-				1073948F1C11F75800EF8C16 /* CancelButton.swift in Sources */,
+				1073948F1C11F75800EF8C16 /* BackButton.swift in Sources */,
 				103477131C3750DC0036DB44 /* EZPlot.m in Sources */,
 				103476C31C374C560036DB44 /* AudioWaveFormViewController.swift in Sources */,
 				1034771C1C3750DC0036DB44 /* TPCircularBuffer.c in Sources */,
@@ -1082,7 +1082,7 @@
 				107FF6AC1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
 				100F7CD91C27513700DDD8EC /* MorseAudioRecorder.swift in Sources */,
 				1030BA101C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
-				107394901C11F75800EF8C16 /* CancelButton.swift in Sources */,
+				107394901C11F75800EF8C16 /* BackButton.swift in Sources */,
 				10295BC41C24CF1F0060DBE1 /* OutputViewController.swift in Sources */,
 				1034770E1C3750DC0036DB44 /* EZMicrophone.m in Sources */,
 				10BFD3A41C1F486700FA4C26 /* TableViewLanguageCell.swift in Sources */,
@@ -1134,7 +1134,7 @@
 				100F7CDA1C27513700DDD8EC /* MorseAudioRecorder.swift in Sources */,
 				103477181C3750DC0036DB44 /* EZRecorder.m in Sources */,
 				1030BA111C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
-				107394911C11F75800EF8C16 /* CancelButton.swift in Sources */,
+				107394911C11F75800EF8C16 /* BackButton.swift in Sources */,
 				103477151C3750DC0036DB44 /* EZPlot.m in Sources */,
 				1034771E1C3750DC0036DB44 /* TPCircularBuffer.c in Sources */,
 				103477091C3750DC0036DB44 /* EZAudioPlotGL.m in Sources */,
