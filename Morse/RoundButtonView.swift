@@ -30,6 +30,7 @@ class RoundButtonView: UIView {
 		let backgroundImage = UIImage(named: "Round Button")
 		self.backgroundImageView = UIImageView(frame: self.bounds)
 		self.backgroundImageView.image = backgroundImage
+
 		self.addSubview(self.backgroundImageView)
 		self.opaque = false
 		self.backgroundColor = appDelegate.theme.roundButtonBackgroundColor

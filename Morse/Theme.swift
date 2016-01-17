@@ -129,7 +129,7 @@ enum Theme: Int {
 	var scrollViewBackgroundColor:UIColor {
 		switch self {
 		case .Night: return MDColorPalette.Grey.P900
-		case .Forest: return MDColorPalette.Orange.P100
+		case .Forest: return self.lightPrimaryColor
 		default: return UIColor(hex: 0xEEEEEE)
 		}
 	}
@@ -137,7 +137,6 @@ enum Theme: Int {
 	var textViewBackgroundColor:UIColor {
 		switch self {
 		case .Night: return MDColorPalette.Grey.P700
-		case .Forest: return MDColorPalette.Orange.P50
 		default: return UIColor.whiteColor()
 		}
 	}
@@ -146,7 +145,7 @@ enum Theme: Int {
 		switch self {
 		case .Default: return UIColor.whiteColor()
 		case .Night: return MDColorPalette.Grey.P800
-		case .Forest: return MDColorPalette.Green.P500
+		case .Forest: return self.darkPrimaryColor
 		}
 	}
 
@@ -168,6 +167,13 @@ enum Theme: Int {
 		switch self {
 		case .Night: return UIColor(hex: MDColorPalette.Blue.A400!.hex, alpha: 0.8)
 		default: return UIColor(hex: self.primaryColor.hex, alpha: 0.8)
+		}
+	}
+
+	var cellImageTintColor:UIColor {
+		switch self {
+		case.Forest: return self.lightAccentColor
+		default: return self.lightPrimaryColor
 		}
 	}
 
@@ -227,6 +233,12 @@ enum Theme: Int {
 	var textViewOutputTextColor:UIColor {
 		switch self {
 		default: return self.textViewInputTextColor
+		}
+	}
+
+	var buttonImageTintColor:UIColor {
+		switch self {
+		default: return UIColor.whiteColor()
 		}
 	}
 
@@ -400,7 +412,7 @@ enum Theme: Int {
 	var tableViewCellBackgroundColor:UIColor {
 		switch self {
 		case .Night: return MDColorPalette.Grey.P800
-		case .Forest: return MDColorPalette.Green.P400
+		case .Forest: return self.cardViewBackgroudColor
 		default: return UIColor.whiteColor()
 		}
 	}
@@ -444,12 +456,6 @@ enum Theme: Int {
 		case .Forest: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextSecondaryAlpha)
 		case .Night: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextSecondaryAlpha)
 		default: return self.hintTextColor
-		}
-	}
-
-	var cellImageTintColor:UIColor {
-		switch self {
-		default: return self.lightPrimaryColor
 		}
 	}
 

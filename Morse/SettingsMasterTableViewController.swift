@@ -131,6 +131,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				(cell as! TableViewSwitchCell).delegate = self
 				(cell as! TableViewSwitchCell).tag = self._switchButtonTagShareSignature
 				(cell as! TableViewSwitchCell).switchButton.on = appDelegate.addExtraTextWhenShare
+				cell.addMDShadow(withDepth: 1)
 			default: break
 			}
 		} else if indexPath.section == 1 { // Appearance
@@ -268,7 +269,9 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 
 	override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
 		switch section {
+		case 0: return LocalizedStrings.Settings.extraTextDescription
 		case 1: return LocalizedStrings.Settings.nightModeDescription
+		case 2: return LocalizedStrings.Settings.decodeProsignDescription
 		case 3: return LocalizedStrings.Settings.upgradesDescription
 		default: return nil
 		}
