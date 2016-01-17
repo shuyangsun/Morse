@@ -71,8 +71,8 @@ enum Theme: Int {
 	var accentColor:UIColor {
 		switch self {
 		case .Default: return MDColorPalette.LightGreen.P500
-		case .Night: return MDColorPalette.Blue.A200!
-		case .Forest: return MDColorPalette.Orange.P500
+		case .Night: return MDColorPalette.Blue.A400!
+		case .Forest: return MDColorPalette.Orange.A400!
 		}
 	}
 
@@ -80,7 +80,7 @@ enum Theme: Int {
 		switch self {
 		case .Default: return MDColorPalette.LightGreen.P200
 		case .Night: return MDColorPalette.Blue.A100!
-		case .Forest: return MDColorPalette.Orange.P200
+		case .Forest: return MDColorPalette.Orange.A200!
 		}
 	}
 
@@ -137,6 +137,7 @@ enum Theme: Int {
 	var textViewBackgroundColor:UIColor {
 		switch self {
 		case .Night: return MDColorPalette.Grey.P700
+		case .Forest: return MDColorPalette.Orange.P50
 		default: return UIColor.whiteColor()
 		}
 	}
@@ -391,9 +392,15 @@ enum Theme: Int {
 		}
 	}
 
-	var tabBarTintColor:UIColor {
+	var tabBarSelectedTintColor:UIColor {
 		switch self.style {
-		default: return self.primaryTextColor
+		default: return self.accentColor
+		}
+	}
+
+	var tabBarUnselectedTintColor:UIColor {
+		switch self.style {
+		default: return self.lightAccentColor
 		}
 	}
 

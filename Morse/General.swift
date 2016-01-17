@@ -102,3 +102,20 @@ func getAttributedStringFrom(text:String?, withFontSize fontSize:CGFloat = UIFon
 			NSForegroundColorAttributeName: color])
 }
 
+extension UIImage {
+	func imageWithTintColor(color:UIColor) -> UIImage! {
+		let rect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
+		 UIGraphicsBeginImageContextWithOptions(rect.size, false, self.scale)
+		let context = UIGraphicsGetCurrentContext()
+		self.drawInRect(rect)
+		CGContextSetFillColorWithColor(context, color.CGColor)
+		CGContextSetBlendMode(context, .SourceAtop)
+		CGContextFillRect(context, rect)
+		let res = UIGraphicsGetImageFromCurrentImageContext()
+		UIGraphicsEndImageContext()
+		return res
+	}
+}
+
+
+

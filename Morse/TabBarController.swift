@@ -30,7 +30,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 		self.tabBar.barTintColor = theme.tabBarBackgroundColor
-		self.tabBar.tintColor = theme.tabBarTintColor
+		self.tabBar.tintColor = theme.tabBarSelectedTintColor
 		let controllers = self.viewControllers
 		// Customize tab bar items
 		UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: -60), forBarMetrics: .Default)
@@ -38,17 +38,23 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 			for controller in controllers! {
 				if let homeViewController = controller as? HomeViewController {
 					self.homeVC = homeViewController
-					let homeTabBarItem = UITabBarItem(title: nil, image: UIImage(named:theme.tabBarItemHomeUnselectedImageName), tag: 0)
+					let image = UIImage(named:theme.tabBarItemHomeUnselectedImageName)!
+					let homeTabBarItem = UITabBarItem(title: nil, image: image.imageWithTintColor(theme.tabBarUnselectedTintColor).imageWithRenderingMode(.AlwaysOriginal), selectedImage: image.imageWithRenderingMode(.AlwaysTemplate))
+					homeTabBarItem.tag = 0
 					homeTabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
 					self.homeVC.tabBarItem = homeTabBarItem
 				} else if let dictionaryViewController = controller as? MorseDictionaryViewController {
 					self.morseDictionaryVC = dictionaryViewController
-					let dictionaryTabBarItem = UITabBarItem(title: nil, image: UIImage(named:theme.tabBarItemDictionaryUnselectedImageName), tag: 1)
+					let image = UIImage(named:theme.tabBarItemDictionaryUnselectedImageName)!
+					let dictionaryTabBarItem = UITabBarItem(title: nil, image: image.imageWithTintColor(theme.tabBarUnselectedTintColor).imageWithRenderingMode(.AlwaysOriginal), selectedImage: image.imageWithRenderingMode(.AlwaysTemplate))
+					dictionaryTabBarItem.tag = 1
 					dictionaryTabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
 					self.morseDictionaryVC.tabBarItem = dictionaryTabBarItem
 				} else if let settingsViewController = controller as? SettingsSplitViewController {
 					self.settingsVC = settingsViewController
-					let settingsTabBarItem = UITabBarItem(title: nil, image: UIImage(named:theme.tabBarItemSettingsUnselectedImageName), tag: 2)
+					let image = UIImage(named:theme.tabBarItemSettingsUnselectedImageName)!
+					let settingsTabBarItem = UITabBarItem(title: nil, image: image.imageWithTintColor(theme.tabBarUnselectedTintColor).imageWithRenderingMode(.AlwaysOriginal), selectedImage: image.imageWithRenderingMode(.AlwaysTemplate))
+					settingsTabBarItem.tag = 2
 					settingsTabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
 					self.settingsVC.tabBarItem = settingsTabBarItem
 				}
@@ -133,12 +139,15 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 	}
 
 	func updateColor(animated animated:Bool = true) {
+		self.homeVC.tabBarItem.image = UIImage(named:theme.tabBarItemHomeUnselectedImageName)!.imageWithTintColor(theme.tabBarUnselectedTintColor).imageWithRenderingMode(.AlwaysOriginal)
+		self.morseDictionaryVC.tabBarItem.image = UIImage(named:theme.tabBarItemDictionaryUnselectedImageName)!.imageWithTintColor(theme.tabBarUnselectedTintColor).imageWithRenderingMode(.AlwaysOriginal)
+		self.settingsVC.tabBarItem.image = UIImage(named:theme.tabBarItemSettingsUnselectedImageName)!.imageWithTintColor(theme.tabBarUnselectedTintColor).imageWithRenderingMode(.AlwaysOriginal)
 		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
 		UIView.animateWithDuration(duration,
 			delay: 0,
 			options: .CurveEaseInOut,
 			animations: {
-				self.tabBar.tintColor = theme.tabBarTintColor
+				self.tabBar.tintColor = theme.tabBarSelectedTintColor
 				self.tabBarController?.tabBar.barTintColor = theme.tabBarBackgroundColor
 		}, completion: nil)
 	}
