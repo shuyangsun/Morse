@@ -99,7 +99,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		case 1: return 2 // Appearance
 		case 2: return 3 // Transmitter Config
 		case 3: return 3 // Upgrades
-		case 4: return MFMailComposeViewController.canSendMail() ? 2 : 1 // About
+		case 4: return MFMailComposeViewController.canSendMail() ? 3 : 2 // About
 		case 5: return 1 // Dev Options
 		default: return 0
 		}
@@ -200,14 +200,17 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 			cell.preservesSuperviewLayoutMargins = false
 			cell.layoutMargins = UIEdgeInsetsZero
 		} else if indexPath.section == 4 { // About
+			cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
 			switch indexPath.row {
 			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
+				cell.imageView?.image = UIImage(named: theme.settingsTellFriendsImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.tellFriends
+					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
+			case 1:
 				cell.imageView?.image = UIImage(named: theme.settingsRateOnAppStoreImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.rateOnAppStore
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
-			case 1:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
+			case 2:
 				cell.imageView?.image = UIImage(named: theme.settingsContactDeveloperImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.contactDeveloper
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
@@ -284,7 +287,15 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		if indexPath.section == 4 { // About
 			switch indexPath.row {
-			case 1:
+			case 0: // Tell Friends
+				let shareStr = LocalizedStrings.General.sharePromote + " " + appStoreLink
+				let activityVC = UIActivityViewController(activityItems: [shareStr], applicationActivities: nil)
+				activityVC.popoverPresentationController?.sourceView = self.tableView(self.tableView, cellForRowAtIndexPath: indexPath)
+				self.presentViewController(activityVC, animated: true, completion: nil)
+			case 1: // Rate on App Store
+				// TODO: SKStoreProductViewController?
+				UIApplication.sharedApplication().openURL(NSURL(string: appStoreReviewLink)!)
+			case 2: // Contact Developer
 				let mailController = MFMailComposeViewController()
 				mailController.mailComposeDelegate = self
 				mailController.setToRecipients([feedbackEmailToRecipient])

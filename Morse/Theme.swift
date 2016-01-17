@@ -878,6 +878,12 @@ enum Theme: Int {
 		}
 	}
 
+	var settingsTellFriendsImageName:String {
+		switch self.style {
+		default: return "Settings Tell Friends"
+		}
+	}
+
 	var settingsRateOnAppStoreImageName:String {
 		switch self.style {
 		default: return "Settings Rate On App Store"

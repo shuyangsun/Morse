@@ -389,7 +389,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		if let morse = cardView.morse {
 			var shareStr = morse
 			if appDelegate.addExtraTextWhenShare {
-				shareStr += "\n" + LocalizedStrings.General.sharePromote + " " + appStoreURLString
+				shareStr += "\n" + LocalizedStrings.General.sharePromote + " " + appStoreLink
 			}
 			let activityVC = UIActivityViewController(activityItems: [shareStr], applicationActivities: nil)
 			activityVC.popoverPresentationController?.sourceView = cardView.shareButton

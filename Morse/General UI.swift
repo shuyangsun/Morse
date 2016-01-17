@@ -74,8 +74,6 @@ let mdAlertMarginHorizontal:CGFloat = 35
 let mdAlertMarginVertical:CGFloat = mdAlertButtonHeight
 let mdAlertMinHeight:CGFloat = 150
 
-let appStoreURLString = "http://www.test.com"
-
 private var cardViewHeight:CGFloat {
 	//		return 74 // This is Google Translate card view's height
 	return 86

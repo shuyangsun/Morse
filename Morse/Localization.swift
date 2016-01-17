@@ -30,7 +30,7 @@ var layoutDirection:UIUserInterfaceLayoutDirection {
 
 struct LocalizedStrings {
 	struct General {
-		static let sharePromote = NSLocalizedString("Check this out! I converted text to this Morse code using Morse Transmitter! Download here:", comment: "When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.")
+		static let sharePromote = NSLocalizedString("Check this out! I can convert text to Morse code using App! Download here:", comment: "When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.")
 	}
 
 	struct FeedbackEmail {
@@ -131,6 +131,7 @@ struct LocalizedStrings {
 		static let purchaseUnlockAllThemes = NSLocalizedString("All Themes", comment: "A button on the settings page for user make in-app purchase to unlock all the thems.")
 		static let purchaseEnableAudioDecoder = NSLocalizedString("Enable Audio Decoder", comment: "A button on the settings page for user make in-app purchase to enable Morse audio decoder.")
 		static let purchaseRestorePurchases = NSLocalizedString("Restore Purchases", comment: "A button on the settings page for user to restore their previous purchases.")
+		static let tellFriends =  NSLocalizedString("Tell Friends", comment: "A button on the settings page for user to share this App's link with friends.")
 		static let rateOnAppStore =  NSLocalizedString("Rate on App Store", comment: "A button on the settings page for user to rate on App Store.")
 		static let contactDeveloper = NSLocalizedString("Contact Developer", comment: "A button on the settings page to contact developer. (send developer an email)")
 		static let reset = NSLocalizedString("Reset", comment: "A button on the settings page to reset some content.")

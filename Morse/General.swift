@@ -96,6 +96,11 @@ let notRecognizedLetterStr = "🙁"
 let feedbackEmailToRecipient = "MorseTransmitter@gmail.com"
 let feedbackEmailMessageBody = ""
 
+// App Store related
+let appID = "TEST_APP_ID"
+let appStoreLink = "itms-apps://itunes.apple.com/app/id\(appID)"
+let appStoreReviewLink = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=\(appID)&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software"
+
 func getAttributedStringFrom(text:String?, withFontSize fontSize:CGFloat = UIFont.systemFontSize(), color:UIColor = UIColor.blackColor(), bold:Bool = false) -> NSMutableAttributedString? {
 	return text == nil ? nil : NSMutableAttributedString(string: text!, attributes:
 		[NSFontAttributeName: bold ? UIFont.boldSystemFontOfSize(fontSize) : UIFont.systemFontOfSize(fontSize),
