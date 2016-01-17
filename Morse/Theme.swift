@@ -580,9 +580,9 @@ enum Theme: Int {
 	}
 
 	var mdAlertControllerAlertBackgroundColor:UIColor {
-		switch self.style {
-		case .Light: return UIColor.whiteColor()
-		case .Dark: return MDColorPalette.Grey.P800
+		switch self {
+		case .Forest: return self.lightPrimaryColor
+		default: return self.cardViewBackgroudColor
 		}
 	}
 

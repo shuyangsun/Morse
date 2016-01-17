@@ -242,12 +242,26 @@ class MDAlertController: UIViewController {
     */
 
 	func updateColor(animated animated:Bool = true) {
+		self.snapshot?.removeFromSuperview()
+		self.snapshot = self.presentingViewController?.view.snapshotViewAfterScreenUpdates(true)
+		self.view.insertSubview(self.snapshot!, atIndex: 0)
+
 		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
 		UIView.animateWithDuration(duration,
 			delay: 0,
 			options: .CurveEaseInOut,
 			animations: {
-
+				self.view.backgroundColor = theme.mdAlertControllerBackgroundColor
+				self.alertView.layer.cornerRadius = theme.mdAlertControllerAlertCornerRadius
+				self.alertView.backgroundColor = theme.mdAlertControllerAlertBackgroundColor
+				self.titleLabel.textColor = theme.mdAlertControllerTitleTextColor
+				self.messageLabel.textColor = theme.mdAlertControllerMessageTextColor
+				for tuple in self._actionsAndButtons {
+					let button = tuple.button
+					let action = tuple.action
+					button.setAttributedTitle(getAttributedStringFrom(action.title.uppercaseString, withFontSize: mdAlertButtonFontSize, color: theme.mdAlertControllerButtonTextColorNormal, bold: true), forState: .Normal)
+					button.setAttributedTitle(getAttributedStringFrom(action.title.uppercaseString, withFontSize: mdAlertButtonFontSize, color: theme.mdAlertControllerButtonTextColorHighlighted, bold: true), forState: .Highlighted)
+				}
 			}, completion: nil)
 	}
 
