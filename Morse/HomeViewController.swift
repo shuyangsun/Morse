@@ -836,6 +836,8 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 					cardView.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
 					if cardView.flipped {
 						cardView.backView.backgroundColor = theme.cardBackViewBackgroundColor
+						cardView.outputButton.tintColor = theme.buttonWithAccentBackgroundTintColor
+						cardView.shareButton.tintColor = theme.buttonWithAccentBackgroundTintColor
 					}
 					if cardView.isProsignEmergencyCard {
 						cardView.backgroundColor = theme.cardViewProsignEmergencyBackgroundColor

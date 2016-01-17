@@ -354,8 +354,9 @@ class CardView: UIView {
 		if self.outputButton == nil {
 			self.outputButton = UIButton(frame: CGRect(x: 0, y: 0, width: self.bounds.width/2.0, height: self.bounds.height))
 			self.outputButton.backgroundColor = UIColor.clearColor()
-			let outputImage = UIImage(named: theme.outputImageName)
-			self.outputButton.setImage(outputImage!, forState: .Normal)
+			let outputImage = UIImage(named: theme.outputImageName)!.imageWithRenderingMode(.AlwaysTemplate)
+			self.outputButton.setImage(outputImage, forState: .Normal)
+			self.outputButton.tintColor = theme.buttonWithAccentBackgroundTintColor
 			self.outputButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)
 			self.backView.addSubview(self.outputButton)
 			self.outputButton.snp_remakeConstraints { (make) -> Void in
@@ -369,8 +370,9 @@ class CardView: UIView {
 		if self.shareButton == nil {
 			self.shareButton = UIButton(frame: CGRect(x: self.bounds.width/2.0, y: 0, width: self.bounds.width/2.0, height: self.bounds.height))
 			self.shareButton.backgroundColor = UIColor.clearColor()
-			let shareImage = UIImage(named: theme.shareImageName)
+			let shareImage = UIImage(named: theme.shareImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 			self.shareButton.setImage(shareImage!, forState: .Normal)
+			self.shareButton.tintColor = theme.buttonWithAccentBackgroundTintColor
 			self.shareButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)
 			self.backView.addSubview(self.shareButton)
 			self.shareButton.snp_remakeConstraints { (make) -> Void in

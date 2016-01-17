@@ -27,9 +27,10 @@ class RoundButtonView: UIView {
 
 	convenience init(origin:CGPoint, radius:CGFloat) {
 		self.init(frame:CGRect(origin: origin, size: CGSize(width: radius * 2, height: radius * 2)))
-		let backgroundImage = UIImage(named: "Round Button")
+		let backgroundImage = UIImage(named: "Round Button")!.imageWithRenderingMode(.AlwaysTemplate)
 		self.backgroundImageView = UIImageView(frame: self.bounds)
 		self.backgroundImageView.image = backgroundImage
+		self.backgroundImageView.tintColor = theme.buttonWithAccentBackgroundTintColor
 
 		self.addSubview(self.backgroundImageView)
 		self.opaque = false

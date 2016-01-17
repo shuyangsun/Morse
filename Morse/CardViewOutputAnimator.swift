@@ -40,10 +40,10 @@ class CardViewOutputAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 
 					// Add fake output and share buttons
 					let outputButton = UIButton(frame: cardView.outputButton.frame)
-					let outputImage = UIImage(named: theme.outputImageName)
-					outputButton.setImage(outputImage!, forState: .Normal)
+					let outputImage = UIImage(named: theme.outputImageName)!.imageWithRenderingMode(.AlwaysTemplate)
+					outputButton.setImage(outputImage, forState: .Normal)
 					outputButton.backgroundColor = cardView.outputButton.backgroundColor
-					outputButton.tintColor = cardView.outputButton.tintColor
+					outputButton.tintColor = theme.buttonWithAccentBackgroundTintColor
 					outputButton.setTitleColor(cardView.outputButton.titleColorForState(.Normal)!, forState: .Normal)
 					outputButton.setTitleColor(cardView.outputButton.titleColorForState(.Highlighted), forState: .Highlighted)
 					outputButton.setBackgroundImage(cardView.outputButton.backgroundImageForState(.Normal), forState: .Normal)
@@ -52,10 +52,10 @@ class CardViewOutputAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 					backgroundView.addSubview(outputButton)
 
 					let shareButton = UIButton(frame: cardView.shareButton.frame)
-					let shareImage = UIImage(named: theme.shareImageName)
-					shareButton.setImage(shareImage!, forState: .Normal)
+					let shareImage = UIImage(named: theme.shareImageName)!.imageWithRenderingMode(.AlwaysTemplate)
+					shareButton.setImage(shareImage, forState: .Normal)
 					shareButton.backgroundColor = cardView.shareButton.backgroundColor
-					shareButton.tintColor = cardView.shareButton.tintColor
+					shareButton.tintColor = theme.buttonWithAccentBackgroundTintColor
 					shareButton.setTitleColor(cardView.shareButton.titleColorForState(.Normal)!, forState: .Normal)
 					shareButton.setTitleColor(cardView.shareButton.titleColorForState(.Highlighted), forState: .Highlighted)
 					shareButton.setBackgroundImage(cardView.shareButton.backgroundImageForState(.Normal), forState: .Normal)
@@ -63,8 +63,7 @@ class CardViewOutputAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 					shareButton.setTitle(cardView.shareButton.titleLabel?.text, forState: .Normal)
 					backgroundView.addSubview(shareButton)
 
-					// Add a snapshot of outputView
-					// Bug: width and height is not updated with frame change, so we need to use transform
+					// Add outputView
 					let scaleX = cardFrame.width/outputVC.view.bounds.width
 					let scaleY = cardFrame.height/outputVC.view.bounds.height
 					outputVC.view.layer.anchorPoint = CGPoint(x: 0, y: 0)
@@ -115,8 +114,8 @@ class CardViewOutputAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 					// Add fake output and share buttons
 					let outputButton = UIButton(frame: CGRect(x: outputVC.flashToggleButton.frame.origin.x, y: outputVC.flashToggleButton.frame.origin.y, width: topBarHeight, height: topBarHeight))
 					outputButton.backgroundColor = cardView.outputButton.backgroundColor
-					outputButton.tintColor = cardView.outputButton.tintColor
-					let outputImage = UIImage(named: theme.outputImageName)
+					outputButton.tintColor = theme.buttonWithAccentBackgroundTintColor
+					let outputImage = UIImage(named: theme.outputImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 					outputButton.setImage(outputImage!, forState: .Normal)
 					outputButton.setTitle(cardView.outputButton.titleLabel?.text, forState: .Normal)
 					outputButton.alpha = 0
@@ -124,9 +123,9 @@ class CardViewOutputAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 
 					let shareButton = UIButton(frame: CGRect(x: outputVC.soundToggleButton.frame.origin.x, y: outputVC.soundToggleButton.frame.origin.y, width: topBarHeight, height: topBarHeight))
 					shareButton.backgroundColor = cardView.shareButton.backgroundColor
-					shareButton.tintColor = cardView.shareButton.tintColor
-					let shareImage = UIImage(named: theme.shareImageName)
-					shareButton.setImage(shareImage!, forState: .Normal)
+					shareButton.tintColor = theme.buttonWithAccentBackgroundTintColor
+					let shareImage = UIImage(named: theme.shareImageName)!.imageWithRenderingMode(.AlwaysTemplate)
+					shareButton.setImage(shareImage, forState: .Normal)
 					shareButton.setTitle(cardView.shareButton.titleLabel?.text, forState: .Normal)
 					shareButton.alpha = 0
 					backgroundView.addSubview(shareButton)
@@ -134,6 +133,7 @@ class CardViewOutputAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 					// Output view that will shrink back
 					let snapshotOutput = outputVC.view.snapshotViewAfterScreenUpdates(false)
 					snapshotOutput.frame = outputVC.view.frame
+					snapshotOutput.layer.cornerRadius = theme.cardViewCornerRadius
 					backgroundView.addSubview(snapshotOutput)
 					UIView.animateWithDuration(self.transitionDuration(transitionContext),
 						delay: 0,

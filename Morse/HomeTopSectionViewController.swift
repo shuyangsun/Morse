@@ -876,6 +876,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 				self.statusBarView.backgroundColor = theme.statusBarBackgroundColor
 				self.topBarView.backgroundColor = theme.topBarBackgroundColor
 				self.roundButtonView.backgroundColor = theme.roundButtonBackgroundColor
+				self.roundButtonView.backgroundImageView.tintColor = theme.buttonWithAccentBackgroundTintColor
+				self.roundButtonView.addMDShadow(withDepth: theme.roundButtonMDShadowLevelDefault)
 				self.topBarLabelText.textColor = theme.topBarLabelTextColor
 				self.topBarLabelMorse.textColor = theme.topBarLabelTextColor
 				self.textBackgroundView.backgroundColor = theme.textViewBackgroundColor

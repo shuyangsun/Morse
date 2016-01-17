@@ -72,7 +72,7 @@ enum Theme: Int {
 		switch self {
 		case .Default: return MDColorPalette.LightGreen.P500
 		case .Night: return MDColorPalette.Blue.A400!
-		case .Forest: return MDColorPalette.Orange.A400!
+		case .Forest: return MDColorPalette.Lime.A200!
 		}
 	}
 
@@ -80,7 +80,7 @@ enum Theme: Int {
 		switch self {
 		case .Default: return MDColorPalette.LightGreen.P200
 		case .Night: return MDColorPalette.Blue.A100!
-		case .Forest: return MDColorPalette.Orange.A200!
+		case .Forest: return MDColorPalette.Lime.A100!
 		}
 	}
 
@@ -137,7 +137,7 @@ enum Theme: Int {
 	var textViewBackgroundColor:UIColor {
 		switch self {
 		case .Night: return MDColorPalette.Grey.P700
-		case .Forest: return MDColorPalette.Orange.P50
+		case .Forest: return MDColorPalette.Green.P100
 		default: return UIColor.whiteColor()
 		}
 	}
@@ -175,6 +175,13 @@ enum Theme: Int {
 		switch self {
 		case.Forest: return self.lightAccentColor
 		default: return self.lightPrimaryColor
+		}
+	}
+
+	var buttonWithAccentBackgroundTintColor:UIColor {
+		switch self {
+		case.Forest: return self.primaryColor
+		default: return UIColor.whiteColor()
 		}
 	}
 
@@ -388,18 +395,19 @@ enum Theme: Int {
 	// Tab bar VC
 	var tabBarBackgroundColor:UIColor {
 		switch self {
+		case .Forest: return self.primaryColor
 		default: return self.scrollViewBackgroundColor
 		}
 	}
 
 	var tabBarSelectedTintColor:UIColor {
-		switch self.style {
+		switch self {
 		default: return self.accentColor
 		}
 	}
 
 	var tabBarUnselectedTintColor:UIColor {
-		switch self.style {
+		switch self {
 		default: return self.lightAccentColor
 		}
 	}
@@ -646,7 +654,7 @@ enum Theme: Int {
 
 	var cardViewCornerRadius:CGFloat {
 		switch self {
-		case .Forest: return 7
+		case .Forest: return 15
 		default: return 2
 		}
 	}
