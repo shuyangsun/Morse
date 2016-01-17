@@ -1,7 +1,3 @@
 /* (No Commment) */
 "CFBundleName" = "电码收发器";
-"Encode Text" = "编码文本";
-"Decode Morse" = "解码电码";
-"Decode Audio" = "解码音频电码";
-"Dictionary" = "对照表";
 

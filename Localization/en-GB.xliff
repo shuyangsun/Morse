@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
-  <file original="Morse/Base.lproj/Info.plist" source-language="en" datatype="plaintext" target-language="en-GB">
+  <file original="Morse/Base.lproj/LaunchScreen.storyboard" source-language="en" datatype="plaintext" target-language="en-GB">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
+    </header>
+    <body/>
+  </file>
+  <file original="Morse/Base.lproj/Main.storyboard" source-language="en" datatype="plaintext" target-language="en-GB">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
+    </header>
+    <body/>
+  </file>
+  <file original="Morse/Info.plist" source-language="en" datatype="plaintext" target-language="en-GB">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
     </header>
@@ -13,13 +25,7 @@
       </trans-unit>
     </body>
   </file>
-  <file original="Morse/Base.lproj/LaunchScreen.storyboard" source-language="en" datatype="plaintext" target-language="en-GB">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
-    </header>
-    <body/>
-  </file>
-  <file original="Morse/Base.lproj/Localizable.strings" source-language="en" datatype="plaintext" target-language="en-GB">
+  <file original="Morse/Localizable.strings" source-language="en" datatype="plaintext" target-language="en-GB">
     <header>
       <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
     </header>
@@ -40,6 +46,10 @@
       <trans-unit id="Adjust in Settings">
         <source>Adjust in Settings</source>
         <note>This is a label on the output page, tells the user how to change some of the values.</note>
+      </trans-unit>
+      <trans-unit id="All Themes">
+        <source>All Themes</source>
+        <note>A button on the settings page for user make in-app purchase to unlock all the thems.</note>
       </trans-unit>
       <trans-unit id="Any purchase will remove all ads.">
         <source>Any purchase will remove all ads.</source>
@@ -135,6 +145,10 @@
         <note>A Done button.
    Button to tap when the user is done with an action.</note>
       </trans-unit>
+      <trans-unit id="Download Link">
+        <source>Download Link</source>
+        <note>There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.</note>
+      </trans-unit>
       <trans-unit id="END-OF-CONTACT">
         <source>END-OF-CONTACT</source>
         <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this is the end of contact.</note>
@@ -170,6 +184,10 @@
       <trans-unit id="Europe">
         <source>Europe</source>
         <note>Users can change language in settings app, this is one of the language groups.</note>
+      </trans-unit>
+      <trans-unit id="Forest">
+        <source>Forest</source>
+        <note>One of the names for color theme.</note>
       </trans-unit>
       <trans-unit id="General">
         <source>General</source>
@@ -275,10 +293,6 @@
         <source>Settings</source>
         <note>The title for settings page.</note>
       </trans-unit>
-      <trans-unit id="Share Signature">
-        <source>Share Signature</source>
-        <note>There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.</note>
-      </trans-unit>
       <trans-unit id="Shift to Wabun">
         <source>Shift to Wabun</source>
         <note>There are many prosign code in Morse, this is the name of one of them.</note>
@@ -357,10 +371,6 @@
         <source>Understood</source>
         <note>There are many prosign code in Morse, this is the name of one of them.</note>
       </trans-unit>
-      <trans-unit id="Unlock All Themes">
-        <source>Unlock All Themes</source>
-        <note>A button on the settings page for user make in-app purchase to unlock all the thems.</note>
-      </trans-unit>
       <trans-unit id="Upgrades">
         <source>Upgrades</source>
         <note>There are categories on the settings page, this is one of the category.</note>
@@ -397,13 +407,15 @@
         <source>When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.</source>
         <note>Explains what Output Brighten Screen does.</note>
       </trans-unit>
+      <trans-unit id="While this option is turned on (recomended), the application will automatically decode prosign based on the context of surronding Morse code.">
+        <source>While this option is turned on (recomended), the application will automatically decode prosign based on the context of surronding Morse code.</source>
+        <note>A description on settings page, explaining what does Decode Prosign switch do.</note>
+      </trans-unit>
+      <trans-unit id="While this option is turned on, an App Store link for this App will be added when you share a Morse code.">
+        <source>While this option is turned on, an App Store link for this App will be added when you share a Morse code.</source>
+        <note>A description on settings page, explaining what Download Link switch do.</note>
+      </trans-unit>
     </body>
-  </file>
-  <file original="Morse/Base.lproj/Main.storyboard" source-language="en" datatype="plaintext" target-language="en-GB">
-    <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
-    </header>
-    <body/>
   </file>
   <file original="MorseTests/Info.plist" source-language="en" datatype="plaintext" target-language="en-GB">
     <header>
@@ -439,6 +451,10 @@
         <source>Adjust in Settings</source>
         <note>This is a label on the output page, tells the user how to change some of the values.</note>
       </trans-unit>
+      <trans-unit id="All Themes">
+        <source>All Themes</source>
+        <note>A button on the settings page for user make in-app purchase to unlock all the thems.</note>
+      </trans-unit>
       <trans-unit id="Any purchase will remove all ads.">
         <source>Any purchase will remove all ads.</source>
         <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
@@ -533,6 +549,10 @@
         <note>A Done button.
    Button to tap when the user is done with an action.</note>
       </trans-unit>
+      <trans-unit id="Download Link">
+        <source>Download Link</source>
+        <note>There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.</note>
+      </trans-unit>
       <trans-unit id="END-OF-CONTACT">
         <source>END-OF-CONTACT</source>
         <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this is the end of contact.</note>
@@ -568,6 +588,10 @@
       <trans-unit id="Europe">
         <source>Europe</source>
         <note>Users can change language in settings app, this is one of the language groups.</note>
+      </trans-unit>
+      <trans-unit id="Forest">
+        <source>Forest</source>
+        <note>One of the names for color theme.</note>
       </trans-unit>
       <trans-unit id="General">
         <source>General</source>
@@ -673,10 +697,6 @@
         <source>Settings</source>
         <note>The title for settings page.</note>
       </trans-unit>
-      <trans-unit id="Share Signature">
-        <source>Share Signature</source>
-        <note>There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.</note>
-      </trans-unit>
       <trans-unit id="Shift to Wabun">
         <source>Shift to Wabun</source>
         <note>There are many prosign code in Morse, this is the name of one of them.</note>
@@ -755,10 +775,6 @@
         <source>Understood</source>
         <note>There are many prosign code in Morse, this is the name of one of them.</note>
       </trans-unit>
-      <trans-unit id="Unlock All Themes">
-        <source>Unlock All Themes</source>
-        <note>A button on the settings page for user make in-app purchase to unlock all the thems.</note>
-      </trans-unit>
       <trans-unit id="Upgrades">
         <source>Upgrades</source>
         <note>There are categories on the settings page, this is one of the category.</note>
@@ -794,6 +810,14 @@
       <trans-unit id="When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.">
         <source>When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.</source>
         <note>Explains what Output Brighten Screen does.</note>
+      </trans-unit>
+      <trans-unit id="While this option is turned on (recomended), the application will automatically decode prosign based on the context of surronding Morse code.">
+        <source>While this option is turned on (recomended), the application will automatically decode prosign based on the context of surronding Morse code.</source>
+        <note>A description on settings page, explaining what does Decode Prosign switch do.</note>
+      </trans-unit>
+      <trans-unit id="While this option is turned on, an App Store link for this App will be added when you share a Morse code.">
+        <source>While this option is turned on, an App Store link for this App will be added when you share a Morse code.</source>
+        <note>A description on settings page, explaining what Download Link switch do.</note>
       </trans-unit>
     </body>
   </file>
@@ -831,6 +855,10 @@
         <source>Adjust in Settings</source>
         <note>This is a label on the output page, tells the user how to change some of the values.</note>
       </trans-unit>
+      <trans-unit id="All Themes">
+        <source>All Themes</source>
+        <note>A button on the settings page for user make in-app purchase to unlock all the thems.</note>
+      </trans-unit>
       <trans-unit id="Any purchase will remove all ads.">
         <source>Any purchase will remove all ads.</source>
         <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
@@ -925,6 +953,10 @@
         <note>A Done button.
    Button to tap when the user is done with an action.</note>
       </trans-unit>
+      <trans-unit id="Download Link">
+        <source>Download Link</source>
+        <note>There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.</note>
+      </trans-unit>
       <trans-unit id="END-OF-CONTACT">
         <source>END-OF-CONTACT</source>
         <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this is the end of contact.</note>
@@ -960,6 +992,10 @@
       <trans-unit id="Europe">
         <source>Europe</source>
         <note>Users can change language in settings app, this is one of the language groups.</note>
+      </trans-unit>
+      <trans-unit id="Forest">
+        <source>Forest</source>
+        <note>One of the names for color theme.</note>
       </trans-unit>
       <trans-unit id="General">
         <source>General</source>
@@ -1065,10 +1101,6 @@
         <source>Settings</source>
         <note>The title for settings page.</note>
       </trans-unit>
-      <trans-unit id="Share Signature">
-        <source>Share Signature</source>
-        <note>There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.</note>
-      </trans-unit>
       <trans-unit id="Shift to Wabun">
         <source>Shift to Wabun</source>
         <note>There are many prosign code in Morse, this is the name of one of them.</note>
@@ -1147,10 +1179,6 @@
         <source>Understood</source>
         <note>There are many prosign code in Morse, this is the name of one of them.</note>
       </trans-unit>
-      <trans-unit id="Unlock All Themes">
-        <source>Unlock All Themes</source>
-        <note>A button on the settings page for user make in-app purchase to unlock all the thems.</note>
-      </trans-unit>
       <trans-unit id="Upgrades">
         <source>Upgrades</source>
         <note>There are categories on the settings page, this is one of the category.</note>
@@ -1186,6 +1214,14 @@
       <trans-unit id="When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.">
         <source>When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.</source>
         <note>Explains what Output Brighten Screen does.</note>
+      </trans-unit>
+      <trans-unit id="While this option is turned on (recomended), the application will automatically decode prosign based on the context of surronding Morse code.">
+        <source>While this option is turned on (recomended), the application will automatically decode prosign based on the context of surronding Morse code.</source>
+        <note>A description on settings page, explaining what does Decode Prosign switch do.</note>
+      </trans-unit>
+      <trans-unit id="While this option is turned on, an App Store link for this App will be added when you share a Morse code.">
+        <source>While this option is turned on, an App Store link for this App will be added when you share a Morse code.</source>
+        <note>A description on settings page, explaining what Download Link switch do.</note>
       </trans-unit>
     </body>
   </file>

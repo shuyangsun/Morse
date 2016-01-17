@@ -10,6 +10,9 @@
 /* This is a label on the output page, tells the user how to change some of the values. */
 "Adjust in Settings" = "可以在設置中更改";
 
+/* A button on the settings page for user make in-app purchase to unlock all the thems. */
+"All Themes" = "解鎖所有主題";
+
 /* There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app. */
 "Any purchase will remove all ads." = "購買任意升級即可去除廣告";
 
@@ -81,6 +84,9 @@
    Button to tap when the user is done with an action. */
 "Done" = "確認";
 
+/* There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code. */
+"Download Link" = "分享下載鏈接";
+
 /* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this is the end of contact. */
 "END-OF-CONTACT" = "對話結束";
 
@@ -107,6 +113,9 @@
 
 /* Users can change language in settings app, this is one of the language groups. */
 "Europe" = "歐洲";
+
+/* One of the names for color theme. */
+"Forest" = "森林";
 
 /* There are categories on the settings page, this is one of the category. */
 "General" = "通用";
@@ -186,9 +195,6 @@
 /* The title for settings page. */
 "Settings" = "設置";
 
-/* There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code. */
-"Share Signature" = "分享下載鏈接";
-
 /* There are many prosign code in Morse, this is the name of one of them. */
 "Shift to Wabun" = "使用WABUN";
 
@@ -248,9 +254,6 @@
 
 /* There are many prosign code in Morse, this is the name of one of them. */
 "Understood" = "明白";
-
-/* A button on the settings page for user make in-app purchase to unlock all the thems. */
-"Unlock All Themes" = "解鎖所有顏色主題";
 
 /* There are categories on the settings page, this is one of the category. */
 "Upgrades" = "升級選項";

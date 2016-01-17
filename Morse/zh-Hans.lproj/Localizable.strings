@@ -10,6 +10,9 @@
 /* This is a label on the output page, tells the user how to change some of the values. */
 "Adjust in Settings" = "可以在设置中更改";
 
+/* A button on the settings page for user make in-app purchase to unlock all the thems. */
+"All Themes" = "解锁所有主题";
+
 /* There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app. */
 "Any purchase will remove all ads." = "购买任意升级即可去除广告";
 
@@ -81,6 +84,9 @@
    Button to tap when the user is done with an action. */
 "Done" = "确认";
 
+/* There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code. */
+"Download Link" = "分享下载链接";
+
 /* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this is the end of contact. */
 "END-OF-CONTACT" = "对话结束";
 
@@ -107,6 +113,9 @@
 
 /* Users can change language in settings app, this is one of the language groups. */
 "Europe" = "欧洲";
+
+/* One of the names for color theme. */
+"Forest" = "森林";
 
 /* There are categories on the settings page, this is one of the category. */
 "General" = "通用";
@@ -186,9 +195,6 @@
 /* The title for settings page. */
 "Settings" = "设置";
 
-/* There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code. */
-"Share Signature" = "分享下载链接";
-
 /* There are many prosign code in Morse, this is the name of one of them. */
 "Shift to Wabun" = "使用WABUN";
 
@@ -249,9 +255,6 @@
 /* There are many prosign code in Morse, this is the name of one of them. */
 "Understood" = "明白";
 
-/* A button on the settings page for user make in-app purchase to unlock all the thems. */
-"Unlock All Themes" = "解锁所有主题";
-
 /* There are categories on the settings page, this is one of the category. */
 "Upgrades" = "升级选项";
 
@@ -278,4 +281,10 @@
 
 /* Explains what Output Brighten Screen does. */
 "When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source." = "如果此选项处于打开状态，输出信号时屏幕会自动变亮，这样您就可以使用屏幕作为信号光源了";
+
+/* A description on settings page, explaining what does Decode Prosign switch do. */
+"While this option is turned on (recomended), the application will automatically decode prosign based on the context of surronding Morse code." = "当此选项处于打开状态时，电码解码器会只能解码常用缩写，建议您打开此选项";
+
+/* A description on settings page, explaining what Download Link switch do. */
+"While this option is turned on, an App Store link for this App will be added when you share a Morse code." = "当此选项处于打开状态时，您分享的摩尔斯电码会带有此应用程序的下载链接";
 
