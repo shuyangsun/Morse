@@ -152,8 +152,17 @@ class SettingsLanguagesTableViewController: TableViewController {
 		let cell = tableView.cellForRowAtIndexPath(indexPath) as! TableViewLanguageCell
 		if cell !== self.currentCheckedCell {
 			self.currentCheckedCell?.accessoryType = .None
-			if self.currentCheckedCell != cell {
-				self.currentCheckedCell?.updateColor()
+			self.currentCheckedCell?.updateColor()
+			cell.accessoryType = .Checkmark
+			self.currentCheckedCell = cell
+			cell.updateColor()
+			let languageCode = cell.languageCode
+			if languageCode.isEmpty {
+				appDelegate.resetLocaleToSystemDefault()
+			} else {
+				appDelegate.updateLocalWithIdentifier(languageCode)
+			}
+			if appDelegate.showRestartAlert {
 				// Tell user to restart app
 				let alertController = MDAlertController(title: LocalizedStrings.Alert.titleRestartApp, message: LocalizedStrings.Alert.messageRestartApp)
 				let action1 = MDAlertAction(title: LocalizedStrings.Alert.buttonGotIt)
@@ -165,16 +174,6 @@ class SettingsLanguagesTableViewController: TableViewController {
 				alertController.addAction(action2)
 				alertController.show()
 			}
-			cell.accessoryType = .Checkmark
-			self.currentCheckedCell = cell
-			cell.updateColor()
-			let languageCode = cell.languageCode
-			if languageCode.isEmpty {
-				appDelegate.resetLocaleToSystemDefault()
-			} else {
-				appDelegate.updateLocalWithIdentifier(languageCode)
-			}
-			// TODO: warn user to restart
 			let tracker = GAI.sharedInstance().defaultTracker
 			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 				action: "button_press",

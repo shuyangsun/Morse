@@ -896,9 +896,21 @@ enum Theme: Int {
 		}
 	}
 
+	var settingsClearCardsImageName:String {
+		switch self.style {
+		default: return "Settings Clear Cards"
+		}
+	}
+
 	var settingsAddTutorialCardsImageName:String {
 		switch self.style {
 		default: return "Settings Add Tutorial Cards"
+		}
+	}
+
+	var settingsRestoreAlertsImageName:String {
+		switch self.style {
+		default: return "Settings Restore Alerts"
 		}
 	}
 }

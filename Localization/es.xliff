@@ -44,6 +44,10 @@
         <target>关于</target>
         <note>There are categories on the settings page, this is one of the category.</note>
       </trans-unit>
+      <trans-unit id="Actions">
+        <source>Actions</source>
+        <note>There are categories on the settings page, this is one of the category.</note>
+      </trans-unit>
       <trans-unit id="Adjust in Settings">
         <source>Adjust in Settings</source>
         <note>This is a label on the output page, tells the user how to change some of the values.</note>
@@ -63,6 +67,10 @@
       <trans-unit id="Arabic">
         <source>Arabic</source>
         <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+      </trans-unit>
+      <trans-unit id="Are you sure you want to delete all the cards? This action is NOT undoable!">
+        <source>Are you sure you want to delete all the cards? This action is NOT undoable!</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Asia">
         <source>Asia</source>
@@ -100,6 +108,10 @@
         <source>Cancel</source>
         <note>One of the buttons on the Alert view.</note>
       </trans-unit>
+      <trans-unit id="Check It Out">
+        <source>Check It Out</source>
+        <note>One of the buttons on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="Check this out! I can convert text to Morse code using App! Download here:">
         <source>Check this out! I can convert text to Morse code using App! Download here:</source>
         <note>When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.</note>
@@ -129,6 +141,10 @@
         <note>Means something's default.
    Users can change language in settings app, this is one of the language groups.</note>
       </trans-unit>
+      <trans-unit id="Delete All Cards">
+        <source>Delete All Cards</source>
+        <note>There are many sections on the settings page, this section let the user clear all the cards on home page.</note>
+      </trans-unit>
       <trans-unit id="Developer Options">
         <source>Developer Options</source>
         <note>There are categories on the settings page, this is one of the category.</note>
@@ -136,6 +152,10 @@
       <trans-unit id="Dictionary">
         <source>Dictionary</source>
         <note>This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations.</note>
+      </trans-unit>
+      <trans-unit id="Do you want to reset all alerts, so they will showup again even if you disabled them before?">
+        <source>Do you want to reset all alerts, so they will showup again even if you disabled them before?</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Don't Show Again">
         <source>Don't Show Again</source>
@@ -246,6 +266,10 @@
         <source>Night</source>
         <note>One of the names for color theme.</note>
       </trans-unit>
+      <trans-unit id="No">
+        <source>No</source>
+        <note>One of the buttons on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="North America">
         <source>North America</source>
         <note>Users can change language in settings app, this is one of the language groups.</note>
@@ -282,9 +306,21 @@
         <source>Reset</source>
         <note>A button on the settings page to reset some content.</note>
       </trans-unit>
+      <trans-unit id="Reset Alerts">
+        <source>Reset Alerts</source>
+        <note>There are many sections on the settings page, this section let the user restore pop-up alerts.</note>
+      </trans-unit>
+      <trans-unit id="Reset Alerts?">
+        <source>Reset Alerts?</source>
+        <note>One of the titles on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="Restore Purchases">
         <source>Restore Purchases</source>
         <note>A button on the settings page for user to restore their previous purchases.</note>
+      </trans-unit>
+      <trans-unit id="Restore Tutorial Cards">
+        <source>Restore Tutorial Cards</source>
+        <note>There are many sections on the settings page, this section let the user restore tutorial cards.</note>
       </trans-unit>
       <trans-unit id="SHIFT-TO-WABUN-CODE">
         <source>SHIFT-TO-WABUN-CODE</source>
@@ -305,6 +341,10 @@
       <trans-unit id="Spanish">
         <source>Spanish</source>
         <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+      </trans-unit>
+      <trans-unit id="Succeed!">
+        <source>Succeed!</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Supported WPM: ">
         <source>Supported WPM: </source>
@@ -372,6 +412,10 @@
         <source>Transmitter Configuration</source>
         <note>There are categories on the settings page, this is one of the category.</note>
       </trans-unit>
+      <trans-unit id="Tutorial cards are successfully restored, you can go check them out now!">
+        <source>Tutorial cards are successfully restored, you can go check them out now!</source>
+        <note>One of the titles on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="UNDERSTOOD">
         <source>UNDERSTOOD</source>
         <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: understood.</note>
@@ -387,6 +431,10 @@
       <trans-unit id="WAIT">
         <source>WAIT</source>
         <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: wait.</note>
+      </trans-unit>
+      <trans-unit id="WARNNING!">
+        <source>WARNNING!</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="WPM (Words Per Minute)">
         <source>WPM (Words Per Minute)</source>
@@ -423,6 +471,14 @@
       <trans-unit id="While this option is turned on, an App Store link for this App will be added when you share a Morse code.">
         <source>While this option is turned on, an App Store link for this App will be added when you share a Morse code.</source>
         <note>A description on settings page, explaining what Download Link switch do.</note>
+      </trans-unit>
+      <trans-unit id="Yes">
+        <source>Yes</source>
+        <note>One of the buttons on the Alert view.</note>
+      </trans-unit>
+      <trans-unit id="Yes, I'm Sure">
+        <source>Yes, I'm Sure</source>
+        <note>One of the buttons on the Alert view.</note>
       </trans-unit>
     </body>
   </file>
@@ -456,6 +512,10 @@
         <source>About</source>
         <note>There are categories on the settings page, this is one of the category.</note>
       </trans-unit>
+      <trans-unit id="Actions">
+        <source>Actions</source>
+        <note>There are categories on the settings page, this is one of the category.</note>
+      </trans-unit>
       <trans-unit id="Adjust in Settings">
         <source>Adjust in Settings</source>
         <note>This is a label on the output page, tells the user how to change some of the values.</note>
@@ -475,6 +535,10 @@
       <trans-unit id="Arabic">
         <source>Arabic</source>
         <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+      </trans-unit>
+      <trans-unit id="Are you sure you want to delete all the cards? This action is NOT undoable!">
+        <source>Are you sure you want to delete all the cards? This action is NOT undoable!</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Asia">
         <source>Asia</source>
@@ -512,6 +576,10 @@
         <source>Cancel</source>
         <note>One of the buttons on the Alert view.</note>
       </trans-unit>
+      <trans-unit id="Check It Out">
+        <source>Check It Out</source>
+        <note>One of the buttons on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="Check this out! I can convert text to Morse code using App! Download here:">
         <source>Check this out! I can convert text to Morse code using App! Download here:</source>
         <note>When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.</note>
@@ -541,6 +609,10 @@
         <note>Means something's default.
    Users can change language in settings app, this is one of the language groups.</note>
       </trans-unit>
+      <trans-unit id="Delete All Cards">
+        <source>Delete All Cards</source>
+        <note>There are many sections on the settings page, this section let the user clear all the cards on home page.</note>
+      </trans-unit>
       <trans-unit id="Developer Options">
         <source>Developer Options</source>
         <note>There are categories on the settings page, this is one of the category.</note>
@@ -548,6 +620,10 @@
       <trans-unit id="Dictionary">
         <source>Dictionary</source>
         <note>This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations.</note>
+      </trans-unit>
+      <trans-unit id="Do you want to reset all alerts, so they will showup again even if you disabled them before?">
+        <source>Do you want to reset all alerts, so they will showup again even if you disabled them before?</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Don't Show Again">
         <source>Don't Show Again</source>
@@ -658,6 +734,10 @@
         <source>Night</source>
         <note>One of the names for color theme.</note>
       </trans-unit>
+      <trans-unit id="No">
+        <source>No</source>
+        <note>One of the buttons on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="North America">
         <source>North America</source>
         <note>Users can change language in settings app, this is one of the language groups.</note>
@@ -694,9 +774,21 @@
         <source>Reset</source>
         <note>A button on the settings page to reset some content.</note>
       </trans-unit>
+      <trans-unit id="Reset Alerts">
+        <source>Reset Alerts</source>
+        <note>There are many sections on the settings page, this section let the user restore pop-up alerts.</note>
+      </trans-unit>
+      <trans-unit id="Reset Alerts?">
+        <source>Reset Alerts?</source>
+        <note>One of the titles on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="Restore Purchases">
         <source>Restore Purchases</source>
         <note>A button on the settings page for user to restore their previous purchases.</note>
+      </trans-unit>
+      <trans-unit id="Restore Tutorial Cards">
+        <source>Restore Tutorial Cards</source>
+        <note>There are many sections on the settings page, this section let the user restore tutorial cards.</note>
       </trans-unit>
       <trans-unit id="SHIFT-TO-WABUN-CODE">
         <source>SHIFT-TO-WABUN-CODE</source>
@@ -717,6 +809,10 @@
       <trans-unit id="Spanish">
         <source>Spanish</source>
         <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+      </trans-unit>
+      <trans-unit id="Succeed!">
+        <source>Succeed!</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Supported WPM: ">
         <source>Supported WPM: </source>
@@ -784,6 +880,10 @@
         <source>Transmitter Configuration</source>
         <note>There are categories on the settings page, this is one of the category.</note>
       </trans-unit>
+      <trans-unit id="Tutorial cards are successfully restored, you can go check them out now!">
+        <source>Tutorial cards are successfully restored, you can go check them out now!</source>
+        <note>One of the titles on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="UNDERSTOOD">
         <source>UNDERSTOOD</source>
         <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: understood.</note>
@@ -799,6 +899,10 @@
       <trans-unit id="WAIT">
         <source>WAIT</source>
         <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: wait.</note>
+      </trans-unit>
+      <trans-unit id="WARNNING!">
+        <source>WARNNING!</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="WPM (Words Per Minute)">
         <source>WPM (Words Per Minute)</source>
@@ -835,6 +939,14 @@
       <trans-unit id="While this option is turned on, an App Store link for this App will be added when you share a Morse code.">
         <source>While this option is turned on, an App Store link for this App will be added when you share a Morse code.</source>
         <note>A description on settings page, explaining what Download Link switch do.</note>
+      </trans-unit>
+      <trans-unit id="Yes">
+        <source>Yes</source>
+        <note>One of the buttons on the Alert view.</note>
+      </trans-unit>
+      <trans-unit id="Yes, I'm Sure">
+        <source>Yes, I'm Sure</source>
+        <note>One of the buttons on the Alert view.</note>
       </trans-unit>
     </body>
   </file>
@@ -868,6 +980,10 @@
         <source>About</source>
         <note>There are categories on the settings page, this is one of the category.</note>
       </trans-unit>
+      <trans-unit id="Actions">
+        <source>Actions</source>
+        <note>There are categories on the settings page, this is one of the category.</note>
+      </trans-unit>
       <trans-unit id="Adjust in Settings">
         <source>Adjust in Settings</source>
         <note>This is a label on the output page, tells the user how to change some of the values.</note>
@@ -887,6 +1003,10 @@
       <trans-unit id="Arabic">
         <source>Arabic</source>
         <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+      </trans-unit>
+      <trans-unit id="Are you sure you want to delete all the cards? This action is NOT undoable!">
+        <source>Are you sure you want to delete all the cards? This action is NOT undoable!</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Asia">
         <source>Asia</source>
@@ -924,6 +1044,10 @@
         <source>Cancel</source>
         <note>One of the buttons on the Alert view.</note>
       </trans-unit>
+      <trans-unit id="Check It Out">
+        <source>Check It Out</source>
+        <note>One of the buttons on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="Check this out! I can convert text to Morse code using App! Download here:">
         <source>Check this out! I can convert text to Morse code using App! Download here:</source>
         <note>When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.</note>
@@ -953,6 +1077,10 @@
         <note>Means something's default.
    Users can change language in settings app, this is one of the language groups.</note>
       </trans-unit>
+      <trans-unit id="Delete All Cards">
+        <source>Delete All Cards</source>
+        <note>There are many sections on the settings page, this section let the user clear all the cards on home page.</note>
+      </trans-unit>
       <trans-unit id="Developer Options">
         <source>Developer Options</source>
         <note>There are categories on the settings page, this is one of the category.</note>
@@ -960,6 +1088,10 @@
       <trans-unit id="Dictionary">
         <source>Dictionary</source>
         <note>This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations.</note>
+      </trans-unit>
+      <trans-unit id="Do you want to reset all alerts, so they will showup again even if you disabled them before?">
+        <source>Do you want to reset all alerts, so they will showup again even if you disabled them before?</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Don't Show Again">
         <source>Don't Show Again</source>
@@ -1070,6 +1202,10 @@
         <source>Night</source>
         <note>One of the names for color theme.</note>
       </trans-unit>
+      <trans-unit id="No">
+        <source>No</source>
+        <note>One of the buttons on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="North America">
         <source>North America</source>
         <note>Users can change language in settings app, this is one of the language groups.</note>
@@ -1106,9 +1242,21 @@
         <source>Reset</source>
         <note>A button on the settings page to reset some content.</note>
       </trans-unit>
+      <trans-unit id="Reset Alerts">
+        <source>Reset Alerts</source>
+        <note>There are many sections on the settings page, this section let the user restore pop-up alerts.</note>
+      </trans-unit>
+      <trans-unit id="Reset Alerts?">
+        <source>Reset Alerts?</source>
+        <note>One of the titles on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="Restore Purchases">
         <source>Restore Purchases</source>
         <note>A button on the settings page for user to restore their previous purchases.</note>
+      </trans-unit>
+      <trans-unit id="Restore Tutorial Cards">
+        <source>Restore Tutorial Cards</source>
+        <note>There are many sections on the settings page, this section let the user restore tutorial cards.</note>
       </trans-unit>
       <trans-unit id="SHIFT-TO-WABUN-CODE">
         <source>SHIFT-TO-WABUN-CODE</source>
@@ -1129,6 +1277,10 @@
       <trans-unit id="Spanish">
         <source>Spanish</source>
         <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+      </trans-unit>
+      <trans-unit id="Succeed!">
+        <source>Succeed!</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Supported WPM: ">
         <source>Supported WPM: </source>
@@ -1196,6 +1348,10 @@
         <source>Transmitter Configuration</source>
         <note>There are categories on the settings page, this is one of the category.</note>
       </trans-unit>
+      <trans-unit id="Tutorial cards are successfully restored, you can go check them out now!">
+        <source>Tutorial cards are successfully restored, you can go check them out now!</source>
+        <note>One of the titles on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="UNDERSTOOD">
         <source>UNDERSTOOD</source>
         <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: understood.</note>
@@ -1211,6 +1367,10 @@
       <trans-unit id="WAIT">
         <source>WAIT</source>
         <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: wait.</note>
+      </trans-unit>
+      <trans-unit id="WARNNING!">
+        <source>WARNNING!</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="WPM (Words Per Minute)">
         <source>WPM (Words Per Minute)</source>
@@ -1247,6 +1407,14 @@
       <trans-unit id="While this option is turned on, an App Store link for this App will be added when you share a Morse code.">
         <source>While this option is turned on, an App Store link for this App will be added when you share a Morse code.</source>
         <note>A description on settings page, explaining what Download Link switch do.</note>
+      </trans-unit>
+      <trans-unit id="Yes">
+        <source>Yes</source>
+        <note>One of the buttons on the Alert view.</note>
+      </trans-unit>
+      <trans-unit id="Yes, I'm Sure">
+        <source>Yes, I'm Sure</source>
+        <note>One of the buttons on the Alert view.</note>
       </trans-unit>
     </body>
   </file>

@@ -175,7 +175,7 @@
                                     <segue destination="r98-NX-cSS" kind="showDetail" id="m0e-S2-zpv"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Settings Basic Cell Not Seperated" textLabel="mjk-ot-aek" style="IBUITableViewCellStyleDefault" id="aas-lI-h79" customClass="TableViewCell" customModule="Morse" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Settings Basic Cell Not Seperated Cell" textLabel="mjk-ot-aek" style="IBUITableViewCellStyleDefault" id="aas-lI-h79" customClass="TableViewCell" customModule="Morse" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="422" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aas-lI-h79" id="Mb3-R2-e6s">

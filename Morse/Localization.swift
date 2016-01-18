@@ -109,13 +109,16 @@ struct LocalizedStrings {
 	struct Settings {
 		static let settings = NSLocalizedString("Settings", comment: "The title for settings page.")
 		static let general = NSLocalizedString("General", comment: "There are categories on the settings page, this is one of the category.")
+		static let actions = NSLocalizedString("Actions", comment: "There are categories on the settings page, this is one of the category.")
 		static let ui = NSLocalizedString("Appearance", comment: "There are categories on the settings page, this is one of the category.")
 		static let transmitterConfiguration = NSLocalizedString("Transmitter Configuration", comment: "There are categories on the settings page, this is one of the category.")
 		static let upgrades = NSLocalizedString("Upgrades", comment: "There are categories on the settings page, this is one of the category.")
 		static let about = NSLocalizedString("About", comment: "There are categories on the settings page, this is one of the category.")
 		static let developerOptions = NSLocalizedString("Developer Options", comment: "There are categories on the settings page, this is one of the category.")
 		static let languages = NSLocalizedString("Language", comment: "There are many sections on the settings page, this section let the user change the App's language.")
+		static let clearCards = NSLocalizedString("Delete All Cards", comment: "There are many sections on the settings page, this section let the user clear all the cards on home page.")
 		static let addTutorialCards = NSLocalizedString("Restore Tutorial Cards", comment: "There are many sections on the settings page, this section let the user restore tutorial cards.")
+		static let restoreAlerts = NSLocalizedString("Reset Alerts", comment: "There are many sections on the settings page, this section let the user restore pop-up alerts.")
 		static let extraTextWhenShare = NSLocalizedString("Download Link", comment: "There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.")
 		static let extraTextDescription = NSLocalizedString("While this option is turned on, an App Store link for this App will be added when you share a Morse code.", comment: "A description on settings page, explaining what Download Link switch do.")
 		static let brightenUpDisplayWhenOutput = NSLocalizedString("Output Brighten Screen", comment: "There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputing Morse code.")
@@ -175,9 +178,18 @@ struct LocalizedStrings {
 		static let buttonDonnotShowAgain = NSLocalizedString("Don't Show Again", comment: "One of the buttons on the Alert view.")
 		static let buttonGotIt = NSLocalizedString("Got It", comment: "One of the buttons on the Alert view.")
 		static let buttonCheckItOut = NSLocalizedString("Check It Out", comment: "One of the buttons on the Alert view.")
+		static let buttonYesImSure = NSLocalizedString("Yes, I'm Sure", comment: "One of the buttons on the Alert view.")
+		static let buttonYes = NSLocalizedString("Yes", comment: "One of the buttons on the Alert view.")
+		static let buttonNo = NSLocalizedString("No", comment: "One of the buttons on the Alert view.")
+
+		static let titleClearCards = NSLocalizedString("WARNNING!", comment: "One of the titles on the Alert view.")
+		static let messageClearCards = NSLocalizedString("Are you sure you want to delete all the cards? This action is NOT undoable!", comment: "One of the titles on the Alert view.")
 
 		static let titleAddTutorialCard = NSLocalizedString("Succeed!", comment: "One of the titles on the Alert view.")
 		static let messageAddTutorialCard = NSLocalizedString("Tutorial cards are successfully restored, you can go check them out now!", comment: "One of the titles on the Alert view.")
+
+		static let titleResetAlert = NSLocalizedString("Reset Alerts?", comment: "One of the titles on the Alert view.")
+		static let messageResetAlert = NSLocalizedString("Do you want to reset all alerts, so they will showup again even if you disabled them before?", comment: "One of the titles on the Alert view.")
 
 		static let titleRestartApp = NSLocalizedString("Please Restart", comment: "One of the titles on the Alert view.")
 		static let messageRestartApp = NSLocalizedString("To make new language setting take effect, please restart application with following steps:\n\n1. Double-tap Home button on your device.\n\n2. Swipe up to terminate application in the background.\n\n3. Start application from home screen.", comment: "One of the titles on the Alert view.")

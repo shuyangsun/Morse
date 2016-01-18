@@ -500,6 +500,36 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		}
 	}
 
+	func deleteAllCards() {
+		for cardView in self.cardViews {
+			cardView.removeFromSuperview()
+			// Remove in Core Data
+			let managedContext = appDelegate.managedObjectContext
+			let fetchRequest = NSFetchRequest(entityName: "Card")
+			let filter = NSPredicate(format: "cardUniqueID == \(cardView.cardUniqueID!)")
+			fetchRequest.predicate = filter
+			do {
+				let results = try managedContext.executeFetchRequest(fetchRequest)
+				let cards = results as! [NSManagedObject]
+				print(cards.count)
+				assert(cards.count == 1) // There should only be one card with this unique ID
+				for card in cards {
+					managedContext.deleteObject(card)
+				}
+				try managedContext.save()
+			} catch let error as NSError {
+				print("Could not fetch card to delete from Core Data \(error), \(error.userInfo)")
+			} catch {
+
+			}
+		}
+		self.currentExpandedCard = nil
+		self.currentFlippedCard = nil
+		self.cardViews = []
+		self.updateScrollViewContentSize()
+		self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
+	}
+
 	func cardViewTouchesCancelled(cardView: CardView, touches: Set<UITouch>?, withEvent event: UIEvent?) {
 		self.scrollView.scrollEnabled = true
 		let ind = self.cardViews.indexOf(cardView)!
