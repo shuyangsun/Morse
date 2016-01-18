@@ -287,7 +287,7 @@ class CardView: UIView {
 	// *****************************
 
 	// Fliping card
-	func flip() {
+	func flip(completion:((Void)->Void)? = nil) {
 		if self.flipped {
 			// Flip to front
 			self.flipped = false // Do NOT move this line to completion block! Will cause bugs.
@@ -298,7 +298,9 @@ class CardView: UIView {
 					self.topLabel.hidden = false
 					self.bottomLabel.hidden = false
 					self.backView.hidden = true
-				}, completion: nil)
+				}) { succeed in
+					completion?()
+			}
 		} else {
 			// Flip to back
 			// Add back views first
@@ -313,7 +315,9 @@ class CardView: UIView {
 					self.topLabel.hidden = true
 					self.bottomLabel.hidden = true
 					self.backView.hidden = false
-				}, completion: nil)
+				}){ succeed in
+					completion?()
+			}
 		}
 	}
 

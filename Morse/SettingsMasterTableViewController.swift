@@ -95,7 +95,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		switch section {
-		case 0: return 2 // General
+		case 0: return 3 // General
 		case 1: return 2 // Appearance
 		case 2: return 3 // Transmitter Config
 		case 3: return 3 // Upgrades
@@ -124,6 +124,11 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				cell.detailTextLabel?.attributedText = getAttributedStringFrom(languageNameOriginal, withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
 				cell.accessoryType = .DisclosureIndicator
 			case 1:
+				cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell Not Seperated", forIndexPath: indexPath) as! TableViewCell
+				cell.imageView?.image = UIImage(named: theme.settingsAddTutorialCardsImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.addTutorialCards
+					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
+			case 2:
 				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewSwitchCell
 				cell.imageView?.image = UIImage(named: theme.settingsShareExtraTextImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.tapFeebackEnabled = false
@@ -131,7 +136,6 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				(cell as! TableViewSwitchCell).delegate = self
 				(cell as! TableViewSwitchCell).tag = self._switchButtonTagShareSignature
 				(cell as! TableViewSwitchCell).switchButton.on = appDelegate.addExtraTextWhenShare
-				cell.addMDShadow(withDepth: 1)
 			default: break
 			}
 		} else if indexPath.section == 1 { // Appearance
@@ -178,19 +182,17 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 			default: break
 			}
 		} else if indexPath.section == 3 { // Upgrades
+			cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
 			switch indexPath.row {
 			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
 				cell.imageView?.image = UIImage(named: theme.settingsPurchaseThemesImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseUnlockAllThemes
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			case 1:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
 				cell.imageView?.image = UIImage(named: theme.settingsPurchaseAudioDecoderImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseEnableAudioDecoder
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			case 2:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
 				cell.imageView?.image = UIImage(named: theme.settingsRestorePurchasesImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseRestorePurchases
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
@@ -285,7 +287,29 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 	}
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		if indexPath.section == 4 { // About
+		if indexPath.section == 0 { // General
+			switch indexPath.row {
+			case 1: // Restore Tutorial Cards
+				if appDelegate.showAddedTutorialCardsAlert {
+					let alertController = MDAlertController(title: LocalizedStrings.Alert.titleAddTutorialCard, message: LocalizedStrings.Alert.messageAddTutorialCard)
+					let action1 = MDAlertAction(title: LocalizedStrings.Alert.buttonGotIt)
+					let action2 = MDAlertAction(title: LocalizedStrings.Alert.buttonDonnotShowAgain) {
+						action in
+						appDelegate.showAddedTutorialCardsAlert = false
+					}
+					alertController.addAction(action1)
+					alertController.addAction(action2)
+					alertController.show()
+				}
+
+				if let tabbarVC = UIApplication.sharedApplication().windows[0].rootViewController as? TabBarController {
+					if let homeVC = tabbarVC.viewControllers![0] as? HomeViewController {
+						homeVC.addTutorialCards(false)
+					}
+				}
+			default: break
+			}
+		} else if indexPath.section == 4 { // About
 			switch indexPath.row {
 			case 0: // Tell Friends
 				let shareStr = LocalizedStrings.General.sharePromote + " " + appStoreLink

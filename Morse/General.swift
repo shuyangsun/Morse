@@ -39,9 +39,9 @@ let defaultOutputWPM = 20
 let defaultInputWPM = 20
 
 let supportedAudioDecoderWPMRange = 14...22
-let supportedAudioDecoderPitchRange = 150...15000
+let supportedAudioDecoderPitchRange = 150...5000
 let supportedOutputWPMRange = 5...50
-let supportedOutputPitchRange = 150...15000
+let supportedOutputPitchRange = supportedAudioDecoderPitchRange
 
 let inputPitchMin:Float = 1
 let inputPitchMax:Float = 2000
@@ -83,6 +83,7 @@ let userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput = "Auto Correct Mis-S
 let userDefaultsKeyAutoNightMode = "Auto Night Mode"
 let userDefaultsKeyAutoNightModeThreshold = "Auto Night Mode Threshold"
 let userDefaultsKeyShowRestarAlert = "Show Restart Alert"
+let userDefaultsKeyShowAddedTutorialCardsAlert = "Show Added Tutorial Cards Alert"
 
 // Notification Names
 let inputPitchDidChangeNotificationName = "Input Frequency Did Change Notification"

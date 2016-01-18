@@ -152,7 +152,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		// If there's no card view on the screen, fetch from core data or add some if first launch
 		if self.cardViews.isEmpty {
 			self.fetchCardsAndUpdateCardViews()
-			self.addCardsIfFirstLaunch()
+			self.addTutorialCards()
 		}
 		self.updateScrollViewContentSize()
 		self.updateMDShadows()
@@ -332,7 +332,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			if cardView !== self.currentFlippedCard {
 				cardView.flip()
 			}
-			self.restoreCurrentFlippedCard()
+			self.restoreCurrentFlippedCard() // This line has to be after flipping the current card!
 			if cardView.flipped {
 				self.currentFlippedCard = cardView
 			}
@@ -536,25 +536,28 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		}
 		self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height + theme.cardViewHeight + theme.cardViewGap)
 		self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
-		UIView.animateWithDuration(duration / 3.0,
-			delay: 0.0,
-			options: .CurveEaseInOut,
-			animations: { () -> Void in
-				self.scrollView.layoutIfNeeded()
-			}) { succeed in
-				if succeed {
+		if duration > 0 {
+			UIView.animateWithDuration(duration / 3.0,
+				delay: 0.0,
+				options: .CurveEaseInOut,
+				animations: { () -> Void in
+					self.scrollView.layoutIfNeeded()
+				}) { succeed in
 					UIView.animateWithDuration(duration * 2.0 / 3.0 * appDelegate.animationDurationScalar,
 						delay: 0.0,
 						options: .CurveEaseInOut,
 						animations: { () -> Void in
 							cardView.alpha = 1.0
 						}) { succeed in
-							if succeed {
-								cardView.opaque = true
-								self.saveCard(text, morse: morse, index: self.cardViews.count - 1, textOnTop: self.topSectionViewController.isDirectionEncode, favorite: false, deletable: true, cardUniqueID: cardView.cardUniqueID!)
-							}
+							cardView.opaque = true
+							self.saveCard(text, morse: morse, index: self.cardViews.count - 1, textOnTop: self.topSectionViewController.isDirectionEncode, favorite: false, deletable: true, cardUniqueID: cardView.cardUniqueID!)
 					}
-				}
+			}
+		} else {
+			self.scrollView.layoutIfNeeded()
+			cardView.alpha = 1.0
+			cardView.opaque = true
+			self.saveCard(text, morse: morse, index: self.cardViews.count - 1, textOnTop: self.topSectionViewController.isDirectionEncode, favorite: false, deletable: true, cardUniqueID: cardView.cardUniqueID!)
 		}
 	}
 
@@ -723,8 +726,8 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	}
 
 	// On the first launch of the game, there are tutorial cards on the home screen, this function adds them.
-	private func addCardsIfFirstLaunch() {
-		if !appDelegate.notFirstLaunch && self.cardViews.isEmpty {
+	func addTutorialCards(checkFirstLaunch:Bool = true) {
+		if checkFirstLaunch && !appDelegate.notFirstLaunch && self.cardViews.isEmpty || !checkFirstLaunch {
 			let localizedTextArrays = [
 				(localized:LocalizedStrings.LaunchCard.text1, english: "Welcome to Morse Transmitter!"),
 				(localized:LocalizedStrings.LaunchCard.text2, english: "Tap me to expand."),

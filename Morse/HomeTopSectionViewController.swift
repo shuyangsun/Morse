@@ -777,85 +777,86 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	private func animateAndLayoutUIForInputEnd() {
 		let animationDuration = TAP_FEED_BACK_DURATION/3.0
 		// Hide cancel button
-		self.backButton.disappearWithDuration(animationDuration)
-		// Move text and morse label
-		if self.isDirectionEncode {
-			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.topBarView)
-				make.leading.equalTo(self.topBarView)
-				make.bottom.equalTo(self.topBarView)
-				make.trailing.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
+		self.backButton.disappearWithDuration(animationDuration) {
+			// Move text and morse label
+			if self.isDirectionEncode {
+				self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(self.topBarView)
+					make.leading.equalTo(self.topBarView)
+					make.bottom.equalTo(self.topBarView)
+					make.trailing.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
+				})
+
+				self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(self.topBarView)
+					make.trailing.equalTo(self.topBarView)
+					make.bottom.equalTo(self.topBarView)
+					make.leading.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
+				})
+			} else {
+				self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(self.topBarView)
+					make.trailing.equalTo(self.topBarView)
+					make.bottom.equalTo(self.topBarView)
+					make.leading.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
+				})
+
+				self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(self.topBarView)
+					make.leading.equalTo(self.topBarView)
+					make.bottom.equalTo(self.topBarView)
+					make.trailing.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
+				})
+			}
+
+			// Text view stuff
+			self.textBoxTapFeedBackView.hidden = false
+			self.textBoxTapFeedBackView.userInteractionEnabled = true
+			self.inputTextView.userInteractionEnabled = true
+			self.outputTextView.text = nil
+			self.inputTextView.attributedText = self.attributedHintTextInput
+			self.outputTextView.attributedText = self.attributedHintTextOutput
+			self.breakLineView.snp_remakeConstraints(closure: { (make) -> Void in
+				make.leading.equalTo(self.textBackgroundView)
+				make.trailing.equalTo(self.textBackgroundView)
+				make.bottom.equalTo(self.textBackgroundView)
+				make.height.equalTo(1.0)
 			})
 
-			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.topBarView)
-				make.trailing.equalTo(self.topBarView)
-				make.bottom.equalTo(self.topBarView)
-				make.leading.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
-			})
-		} else {
-			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.topBarView)
-				make.trailing.equalTo(self.topBarView)
-				make.bottom.equalTo(self.topBarView)
-				make.leading.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
-			})
-
-			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.topBarView)
-				make.leading.equalTo(self.topBarView)
-				make.bottom.equalTo(self.topBarView)
-				make.trailing.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
-			})
-		}
-
-		// Text view stuff
-		self.textBoxTapFeedBackView.hidden = false
-		self.textBoxTapFeedBackView.userInteractionEnabled = true
-		self.inputTextView.userInteractionEnabled = true
-		self.outputTextView.text = nil
-		self.inputTextView.attributedText = self.attributedHintTextInput
-		self.outputTextView.attributedText = self.attributedHintTextOutput
-		self.breakLineView.snp_remakeConstraints(closure: { (make) -> Void in
-			make.leading.equalTo(self.textBackgroundView)
-			make.trailing.equalTo(self.textBackgroundView)
-			make.bottom.equalTo(self.textBackgroundView)
-			make.height.equalTo(1.0)
-		})
-
-		UIView.animateWithDuration(animationDuration * appDelegate.animationDurationScalar,
-			delay: 0,
-//			usingSpringWithDamping: 0.5,
-//			initialSpringVelocity: 0.8,
-			options: .CurveEaseOut,
-			animations: {
-				self.view.layoutIfNeeded()
-				self.homeViewController.scrollViewOverlay.alpha = 0
-				self.homeViewController.micInputSectionContainerView?.alpha = 0
-				self.homeViewController.scrollViewSnapshotImageView?.alpha = 0
-				self.homeViewController.topSectionContainerView.addMDShadow(withDepth: 2)
-			}) { succeed in
-				self.breakLineView.hidden = true
-				// If the input frequency is set to be detected automatically, restore the min frequency.
-				self.homeViewController.micInputSectionViewController?.microphone.stopFetchingAudio()
-				self.homeViewController.micInputSectionContainerView?.removeFromSuperview()
-				self.homeViewController.scrollViewSnapshotImageView?.removeFromSuperview()
-				self.homeViewController.micInputSectionContainerView = nil
-				self.homeViewController.micInputSectionViewController = nil
-				self.homeViewController.scrollViewSnapshotImageView = nil
-				self.inputTextView.attributedText = self.attributedHintTextInput
-				self.outputTextView.attributedText = self.attributedHintTextOutput
-				// Show round button
-				self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: animationDuration)
-				UIView.animateWithDuration(animationDuration * appDelegate.animationDurationScalar,
-					delay: animationDuration,
-					options: .CurveEaseOut,
-					animations: {
-						if !self.isDirectionEncode {
-							self.microphoneButton.alpha = 1
-							self.keyboardButton.alpha = 0
-						}
-					}, completion: nil)
+			UIView.animateWithDuration(animationDuration * appDelegate.animationDurationScalar,
+				delay: 0,
+				//			usingSpringWithDamping: 0.5,
+				//			initialSpringVelocity: 0.8,
+				options: .CurveEaseOut,
+				animations: {
+					self.view.layoutIfNeeded()
+					self.homeViewController.scrollViewOverlay.alpha = 0
+					self.homeViewController.micInputSectionContainerView?.alpha = 0
+					self.homeViewController.scrollViewSnapshotImageView?.alpha = 0
+					self.homeViewController.topSectionContainerView.addMDShadow(withDepth: 2)
+				}) { succeed in
+					self.breakLineView.hidden = true
+					// If the input frequency is set to be detected automatically, restore the min frequency.
+					self.homeViewController.micInputSectionViewController?.microphone.stopFetchingAudio()
+					self.homeViewController.micInputSectionContainerView?.removeFromSuperview()
+					self.homeViewController.scrollViewSnapshotImageView?.removeFromSuperview()
+					self.homeViewController.micInputSectionContainerView = nil
+					self.homeViewController.micInputSectionViewController = nil
+					self.homeViewController.scrollViewSnapshotImageView = nil
+					self.inputTextView.attributedText = self.attributedHintTextInput
+					self.outputTextView.attributedText = self.attributedHintTextOutput
+					// Show round button
+					self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: animationDuration)
+					UIView.animateWithDuration(animationDuration * appDelegate.animationDurationScalar,
+						delay: animationDuration,
+						options: .CurveEaseOut,
+						animations: {
+							if !self.isDirectionEncode {
+								self.microphoneButton.alpha = 1
+								self.keyboardButton.alpha = 0
+							}
+						}, completion: nil)
+			}
 		}
 	}
 

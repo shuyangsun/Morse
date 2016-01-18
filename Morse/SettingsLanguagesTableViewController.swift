@@ -48,21 +48,6 @@ class SettingsLanguagesTableViewController: TableViewController {
 		self.initialLanguageCode = appDelegate.currentLocaleLanguageCode
 	}
 
-	override func viewDidDisappear(animated: Bool) {
-		super.viewDidDisappear(animated)
-		if appDelegate.showRestartAlert && appDelegate.currentLocaleLanguageCode != self.initialLanguageCode {
-			let alertController = MDAlertController(title: LocalizedStrings.Alert.titleRestartApp, message: LocalizedStrings.Alert.messageRestartApp)
-			let action1 = MDAlertAction(title: LocalizedStrings.Alert.buttonGotIt)
-			let action2 = MDAlertAction(title: LocalizedStrings.Alert.buttonDonnotShowAgain) {
-				action in
-				appDelegate.showRestartAlert = false
-			}
-			alertController.addAction(action1)
-			alertController.addAction(action2)
-			alertController.show()
-		}
-	}
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -169,6 +154,16 @@ class SettingsLanguagesTableViewController: TableViewController {
 			self.currentCheckedCell?.accessoryType = .None
 			if self.currentCheckedCell != cell {
 				self.currentCheckedCell?.updateColor()
+				// Tell user to restart app
+				let alertController = MDAlertController(title: LocalizedStrings.Alert.titleRestartApp, message: LocalizedStrings.Alert.messageRestartApp)
+				let action1 = MDAlertAction(title: LocalizedStrings.Alert.buttonGotIt)
+				let action2 = MDAlertAction(title: LocalizedStrings.Alert.buttonDonnotShowAgain) {
+					action in
+					appDelegate.showRestartAlert = false
+				}
+				alertController.addAction(action1)
+				alertController.addAction(action2)
+				alertController.show()
 			}
 			cell.accessoryType = .Checkmark
 			self.currentCheckedCell = cell

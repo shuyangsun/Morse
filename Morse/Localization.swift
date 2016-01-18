@@ -115,6 +115,7 @@ struct LocalizedStrings {
 		static let about = NSLocalizedString("About", comment: "There are categories on the settings page, this is one of the category.")
 		static let developerOptions = NSLocalizedString("Developer Options", comment: "There are categories on the settings page, this is one of the category.")
 		static let languages = NSLocalizedString("Language", comment: "There are many sections on the settings page, this section let the user change the App's language.")
+		static let addTutorialCards = NSLocalizedString("Restore Tutorial Cards", comment: "There are many sections on the settings page, this section let the user restore tutorial cards.")
 		static let extraTextWhenShare = NSLocalizedString("Download Link", comment: "There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.")
 		static let extraTextDescription = NSLocalizedString("While this option is turned on, an App Store link for this App will be added when you share a Morse code.", comment: "A description on settings page, explaining what Download Link switch do.")
 		static let brightenUpDisplayWhenOutput = NSLocalizedString("Output Brighten Screen", comment: "There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputing Morse code.")
@@ -126,6 +127,7 @@ struct LocalizedStrings {
 		static let output = NSLocalizedString("Signal Output", comment: "This button on the settings page brings up output configuration page.")
 		static let nightModeDescription = NSLocalizedString("When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme.", comment: "There are many sections on the settings page, this one explains what does Auto Switch button in Appearance section do.")
 		static let upgradesDescription = NSLocalizedString("Any purchase will remove all ads.", comment: "There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.")
+		static let tapOnNumToTypeDescription = NSLocalizedString("Tap on numbers to enter a value.", comment: "There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.")
 		static let outputBrightenScreenDescription = NSLocalizedString("When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.", comment: "Explains what Output Brighten Screen does.")
 		static let autoCorrectWordDescription = NSLocalizedString("When you have it on, the App will try to auto-correct mis-spelled words when decoding Morse code. The dictionary changes when you change your language setting.", comment: "Explains what Auto Correct Mis Spelled Words does.")
 		static let purchaseUnlockAllThemes = NSLocalizedString("All Themes", comment: "A button on the settings page for user make in-app purchase to unlock all the thems.")
@@ -172,6 +174,10 @@ struct LocalizedStrings {
 		static let buttonCancel = NSLocalizedString("Cancel", comment: "One of the buttons on the Alert view.")
 		static let buttonDonnotShowAgain = NSLocalizedString("Don't Show Again", comment: "One of the buttons on the Alert view.")
 		static let buttonGotIt = NSLocalizedString("Got It", comment: "One of the buttons on the Alert view.")
+		static let buttonCheckItOut = NSLocalizedString("Check It Out", comment: "One of the buttons on the Alert view.")
+
+		static let titleAddTutorialCard = NSLocalizedString("Succeed!", comment: "One of the titles on the Alert view.")
+		static let messageAddTutorialCard = NSLocalizedString("Tutorial cards are successfully restored, you can go check them out now!", comment: "One of the titles on the Alert view.")
 
 		static let titleRestartApp = NSLocalizedString("Please Restart", comment: "One of the titles on the Alert view.")
 		static let messageRestartApp = NSLocalizedString("To make new language setting take effect, please restart application with following steps:\n\n1. Double-tap Home button on your device.\n\n2. Swipe up to terminate application in the background.\n\n3. Start application from home screen.", comment: "One of the titles on the Alert view.")

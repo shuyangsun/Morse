@@ -25,7 +25,7 @@ class BackButton: UIButton {
 		self.setImage(image, forState: .Normal)
 	}
 
-	func disappearWithDuration(duration:NSTimeInterval) {
+	func disappearWithDuration(duration:NSTimeInterval, completion:((Void)->Void)? = nil) {
 		self.originalTransform = self.transform
 		UIView.animateWithDuration(duration * appDelegate.animationDurationScalar,
 			delay: 0,
@@ -34,15 +34,14 @@ class BackButton: UIButton {
 				self.transform = CGAffineTransformScale(self.transform, 0.1, 0.1)
 				self.alpha = 0
 			}) { succeed in
-				if succeed {
-					self.hidden = true
-					self.userInteractionEnabled = false
-				}
+				self.hidden = true
+				self.userInteractionEnabled = false
+				completion?()
 		}
 		self.setNeedsDisplay()
 	}
 
-	func appearWithDuration(duration:NSTimeInterval) {
+	func appearWithDuration(duration:NSTimeInterval, completion:((Void)->Void)? = nil) {
 		self.hidden = false
 		UIView.animateWithDuration(duration * appDelegate.animationDurationScalar,
 			delay: 0.0,
@@ -51,9 +50,8 @@ class BackButton: UIButton {
 				self.transform = self.originalTransform
 				self.alpha = 1.0
 			}) { succeed in
-				if succeed {
-					self.userInteractionEnabled = true
-				}
+				self.userInteractionEnabled = true
+				completion?()
 		}
 		self.setNeedsDisplay()
 	}

@@ -98,8 +98,8 @@
         <source>Cancel</source>
         <note>One of the buttons on the Alert view.</note>
       </trans-unit>
-      <trans-unit id="Check this out! I converted text to this Morse code using Morse Transmitter! Download here:">
-        <source>Check this out! I converted text to this Morse code using Morse Transmitter! Download here:</source>
+      <trans-unit id="Check this out! I can convert text to Morse code using App! Download here:">
+        <source>Check this out! I can convert text to Morse code using App! Download here:</source>
         <note>When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.</note>
       </trans-unit>
       <trans-unit id="Chinese (Simplified)">
@@ -335,6 +335,14 @@
       <trans-unit id="Tap me to output or share.">
         <source>Tap me to output or share.</source>
         <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+      </trans-unit>
+      <trans-unit id="Tap on numbers to enter a value.">
+        <source>Tap on numbers to enter a value.</source>
+        <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
+      </trans-unit>
+      <trans-unit id="Tell Friends">
+        <source>Tell Friends</source>
+        <note>A button on the settings page for user to share this App's link with friends.</note>
       </trans-unit>
       <trans-unit id="Text">
         <source>Text</source>
@@ -502,8 +510,8 @@
         <source>Cancel</source>
         <note>One of the buttons on the Alert view.</note>
       </trans-unit>
-      <trans-unit id="Check this out! I converted text to this Morse code using Morse Transmitter! Download here:">
-        <source>Check this out! I converted text to this Morse code using Morse Transmitter! Download here:</source>
+      <trans-unit id="Check this out! I can convert text to Morse code using App! Download here:">
+        <source>Check this out! I can convert text to Morse code using App! Download here:</source>
         <note>When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.</note>
       </trans-unit>
       <trans-unit id="Chinese (Simplified)">
@@ -739,6 +747,14 @@
       <trans-unit id="Tap me to output or share.">
         <source>Tap me to output or share.</source>
         <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+      </trans-unit>
+      <trans-unit id="Tap on numbers to enter a value.">
+        <source>Tap on numbers to enter a value.</source>
+        <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
+      </trans-unit>
+      <trans-unit id="Tell Friends">
+        <source>Tell Friends</source>
+        <note>A button on the settings page for user to share this App's link with friends.</note>
       </trans-unit>
       <trans-unit id="Text">
         <source>Text</source>
@@ -906,8 +922,8 @@
         <source>Cancel</source>
         <note>One of the buttons on the Alert view.</note>
       </trans-unit>
-      <trans-unit id="Check this out! I converted text to this Morse code using Morse Transmitter! Download here:">
-        <source>Check this out! I converted text to this Morse code using Morse Transmitter! Download here:</source>
+      <trans-unit id="Check this out! I can convert text to Morse code using App! Download here:">
+        <source>Check this out! I can convert text to Morse code using App! Download here:</source>
         <note>When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.</note>
       </trans-unit>
       <trans-unit id="Chinese (Simplified)">
@@ -1143,6 +1159,14 @@
       <trans-unit id="Tap me to output or share.">
         <source>Tap me to output or share.</source>
         <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+      </trans-unit>
+      <trans-unit id="Tap on numbers to enter a value.">
+        <source>Tap on numbers to enter a value.</source>
+        <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
+      </trans-unit>
+      <trans-unit id="Tell Friends">
+        <source>Tell Friends</source>
+        <note>A button on the settings page for user to share this App's link with friends.</note>
       </trans-unit>
       <trans-unit id="Text">
         <source>Text</source>

@@ -895,4 +895,10 @@ enum Theme: Int {
 		default: return "Settings Contact Developer"
 		}
 	}
+
+	var settingsAddTutorialCardsImageName:String {
+		switch self.style {
+		default: return "Settings Add Tutorial Cards"
+		}
+	}
 }

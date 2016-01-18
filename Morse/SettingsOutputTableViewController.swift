@@ -150,6 +150,8 @@ class SettingsOutputTableViewController: TableViewController, TableViewSwitchCel
 	override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
 		switch section {
 		case 0: return LocalizedStrings.Settings.outputBrightenScreenDescription
+		case 1: return LocalizedStrings.Settings.tapOnNumToTypeDescription
+		case 2: return LocalizedStrings.Settings.tapOnNumToTypeDescription
 		default: return nil
 		}
 	}

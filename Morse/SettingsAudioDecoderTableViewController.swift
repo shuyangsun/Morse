@@ -156,6 +156,8 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 	override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
 		switch section {
 		case 0: return LocalizedStrings.Settings.autoCorrectWordDescription
+		case 1: return LocalizedStrings.Settings.tapOnNumToTypeDescription
+		case 2: return LocalizedStrings.Settings.tapOnNumToTypeDescription
 		default: return nil
 		}
 	}

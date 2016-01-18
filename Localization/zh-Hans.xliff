@@ -53,8 +53,8 @@
             </trans-unit>
             <trans-unit id="All Themes">
                 <source>All Themes</source>
-                <note>A button on the settings page for user make in-app purchase to unlock all the thems.</note>
                 <target>解锁所有主题</target>
+                <note>A button on the settings page for user make in-app purchase to unlock all the thems.</note>
             </trans-unit>
             <trans-unit id="Any purchase will remove all ads.">
                 <source>Any purchase will remove all ads.</source>
@@ -116,10 +116,10 @@
                 <target>取消</target>
                 <note>One of the buttons on the Alert view.</note>
             </trans-unit>
-            <trans-unit id="Check this out! I converted text to this Morse code using Morse Transmitter! Download here:">
-                <source>Check this out! I converted text to this Morse code using Morse Transmitter! Download here:</source>
-                <target>太腻害了有木有！我用这个App把文字翻译成摩尔斯电码了！你也下载玩玩！</target>
+            <trans-unit id="Check this out! I can convert text to Morse code using App! Download here:">
+                <source>Check this out! I can convert text to Morse code using App! Download here:</source>
                 <note>When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.</note>
+                <target>太腻害了有木有！这个APP可以把文本转换成摩尔斯电码！你也下载来玩玩！</target>
             </trans-unit>
             <trans-unit id="Chinese (Simplified)">
                 <source>Chinese (Simplified)</source>
@@ -175,8 +175,8 @@
             </trans-unit>
             <trans-unit id="Download Link">
                 <source>Download Link</source>
-                <note>There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.</note>
                 <target>分享下载链接</target>
+                <note>There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.</note>
             </trans-unit>
             <trans-unit id="END-OF-CONTACT">
                 <source>END-OF-CONTACT</source>
@@ -225,8 +225,8 @@
             </trans-unit>
             <trans-unit id="Forest">
                 <source>Forest</source>
-                <note>One of the names for color theme.</note>
                 <target>森林</target>
+                <note>One of the names for color theme.</note>
             </trans-unit>
             <trans-unit id="General">
                 <source>General</source>
@@ -413,6 +413,16 @@
                 <target>点按此卡片来输出信号或分享</target>
                 <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
             </trans-unit>
+            <trans-unit id="Tap on numbers to enter a value.">
+                <source>Tap on numbers to enter a value.</source>
+                <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
+                <target>点按数字来输入新的数值</target>
+            </trans-unit>
+            <trans-unit id="Tell Friends">
+                <source>Tell Friends</source>
+                <note>A button on the settings page for user to share this App's link with friends.</note>
+                <target>告诉朋友</target>
+            </trans-unit>
             <trans-unit id="Text">
                 <source>Text</source>
                 <target>文本</target>
@@ -501,13 +511,13 @@
             </trans-unit>
             <trans-unit id="While this option is turned on (recomended), the application will automatically decode prosign based on the context of surronding Morse code.">
                 <source>While this option is turned on (recomended), the application will automatically decode prosign based on the context of surronding Morse code.</source>
-                <note>A description on settings page, explaining what does Decode Prosign switch do.</note>
                 <target>当此选项处于打开状态时，电码解码器会只能解码常用缩写，建议您打开此选项</target>
+                <note>A description on settings page, explaining what does Decode Prosign switch do.</note>
             </trans-unit>
             <trans-unit id="While this option is turned on, an App Store link for this App will be added when you share a Morse code.">
                 <source>While this option is turned on, an App Store link for this App will be added when you share a Morse code.</source>
-                <note>A description on settings page, explaining what Download Link switch do.</note>
                 <target>当此选项处于打开状态时，您分享的摩尔斯电码会带有此应用程序的下载链接</target>
+                <note>A description on settings page, explaining what Download Link switch do.</note>
             </trans-unit>
         </body>
     </file>
@@ -597,8 +607,8 @@
                 <source>Cancel</source>
                 <note>One of the buttons on the Alert view.</note>
             </trans-unit>
-            <trans-unit id="Check this out! I converted text to this Morse code using Morse Transmitter! Download here:">
-                <source>Check this out! I converted text to this Morse code using Morse Transmitter! Download here:</source>
+            <trans-unit id="Check this out! I can convert text to Morse code using App! Download here:">
+                <source>Check this out! I can convert text to Morse code using App! Download here:</source>
                 <note>When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.</note>
             </trans-unit>
             <trans-unit id="Chinese (Simplified)">
@@ -834,6 +844,14 @@
             <trans-unit id="Tap me to output or share.">
                 <source>Tap me to output or share.</source>
                 <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+            </trans-unit>
+            <trans-unit id="Tap on numbers to enter a value.">
+                <source>Tap on numbers to enter a value.</source>
+                <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
+            </trans-unit>
+            <trans-unit id="Tell Friends">
+                <source>Tell Friends</source>
+                <note>A button on the settings page for user to share this App's link with friends.</note>
             </trans-unit>
             <trans-unit id="Text">
                 <source>Text</source>
@@ -1001,8 +1019,8 @@
                 <source>Cancel</source>
                 <note>One of the buttons on the Alert view.</note>
             </trans-unit>
-            <trans-unit id="Check this out! I converted text to this Morse code using Morse Transmitter! Download here:">
-                <source>Check this out! I converted text to this Morse code using Morse Transmitter! Download here:</source>
+            <trans-unit id="Check this out! I can convert text to Morse code using App! Download here:">
+                <source>Check this out! I can convert text to Morse code using App! Download here:</source>
                 <note>When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.</note>
             </trans-unit>
             <trans-unit id="Chinese (Simplified)">
@@ -1238,6 +1256,14 @@
             <trans-unit id="Tap me to output or share.">
                 <source>Tap me to output or share.</source>
                 <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
+            </trans-unit>
+            <trans-unit id="Tap on numbers to enter a value.">
+                <source>Tap on numbers to enter a value.</source>
+                <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
+            </trans-unit>
+            <trans-unit id="Tell Friends">
+                <source>Tell Friends</source>
+                <note>A button on the settings page for user to share this App's link with friends.</note>
             </trans-unit>
             <trans-unit id="Text">
                 <source>Text</source>
