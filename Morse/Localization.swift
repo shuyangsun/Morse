@@ -133,6 +133,7 @@ struct LocalizedStrings {
 		static let tapOnNumToTypeDescription = NSLocalizedString("Tap on numbers to enter a value.", comment: "There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.")
 		static let outputBrightenScreenDescription = NSLocalizedString("When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.", comment: "Explains what Output Brighten Screen does.")
 		static let autoCorrectWordDescription = NSLocalizedString("When you have it on, the App will try to auto-correct mis-spelled words when decoding Morse code. The dictionary changes when you change your language setting.", comment: "Explains what Auto Correct Mis Spelled Words does.")
+		static let purchaseUnlimitedCardSlots = NSLocalizedString("Unlimited Card Slots", comment: "A button on the settings page for user make in-app purchase to have unlimited card slots.")
 		static let purchaseUnlockAllThemes = NSLocalizedString("All Themes", comment: "A button on the settings page for user make in-app purchase to unlock all the thems.")
 		static let purchaseEnableAudioDecoder = NSLocalizedString("Enable Audio Decoder", comment: "A button on the settings page for user make in-app purchase to enable Morse audio decoder.")
 		static let purchaseUnlockAllFeatures = NSLocalizedString("Unlock All Features", comment: "A button on the settings page for user make in-app purchase to unlock all features.")
@@ -194,6 +195,9 @@ struct LocalizedStrings {
 
 		static let titleRestartApp = NSLocalizedString("Please Restart", comment: "One of the titles on the Alert view.")
 		static let messageRestartApp = NSLocalizedString("To make new language setting take effect, please restart application with following steps:\n\n1. Double-tap Home button on your device.\n\n2. Swipe up to terminate application in the background.\n\n3. Start application from home screen.", comment: "One of the titles on the Alert view.")
+
+		static let titlePleasePurchaseSomething = NSLocalizedString("Please Purchase an Upgrade :)", comment: "One of the titles on the Alert view.")
+		static let messagePleasePurchaseSomething = NSLocalizedString("Please support us by making a purchase.\n\nAfter any purchase, you can share Morse code without download link, and all the ads will be gone!\n\nThank you!", comment: "One of the titles on the Alert view.")
 	}
 }
 

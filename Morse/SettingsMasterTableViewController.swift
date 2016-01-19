@@ -96,7 +96,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		case 1: return 3 // Resets
 		case 2: return 2 // Appearance
 		case 3: return 3 // Transmitter Config
-		case 4: return 4 // Upgrades
+		case 4: return 5 // Upgrades
 		case 5: return MFMailComposeViewController.canSendMail() ? 3 : 2 // About
 		case 6: return 1 // Dev Options
 		default: return 0
@@ -200,18 +200,22 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 			cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
 			switch indexPath.row {
 			case 0:
+				cell.imageView?.image = UIImage(named: theme.settingsPurchaseUnlimitedCardSlotsImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseUnlimitedCardSlots
+					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
+			case 1:
 				cell.imageView?.image = UIImage(named: theme.settingsPurchaseThemesImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseUnlockAllThemes
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
-			case 1:
+			case 2:
 				cell.imageView?.image = UIImage(named: theme.settingsPurchaseAudioDecoderImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseEnableAudioDecoder
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
-			case 2:
+			case 3:
 				cell.imageView?.image = UIImage(named: theme.settingsPurchaseAudioDecoderImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseUnlockAllFeatures
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
-			case 3:
+			case 4:
 				cell.imageView?.image = UIImage(named: theme.settingsRestorePurchasesImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseRestorePurchases
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
@@ -417,6 +421,13 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		let tracker = GAI.sharedInstance().defaultTracker
 		switch switchButton.tag {
 		case self._switchButtonTagShareSignature:
+			if !switchButton.on && !appDelegate.isAbleToTurnOffPromotionalTextWhenShare {
+				switchButton.on = true
+				let alertController = MDAlertController(title: LocalizedStrings.Alert.titlePleasePurchaseSomething, message: LocalizedStrings.Alert.messagePleasePurchaseSomething)
+				let action = MDAlertAction(title: LocalizedStrings.Alert.buttonGotIt)
+				alertController.addAction(action)
+				alertController.show()
+			}
 			appDelegate.userDefaults.setBool(switchButton.on, forKey: userDefaultsKeyExtraTextWhenShare)
 			appDelegate.userDefaults.synchronize()
 			if switchButton.on {

@@ -884,6 +884,12 @@ enum Theme: Int {
 		}
 	}
 
+	var settingsPurchaseUnlimitedCardSlotsImageName:String {
+		switch self.style {
+		default: return "Settings Purchase Unlimited Card Slots"
+		}
+	}
+
 	var settingsPurchaseThemesImageName:String {
 		switch self.style {
 		default: return "Settings Purchase Themes"

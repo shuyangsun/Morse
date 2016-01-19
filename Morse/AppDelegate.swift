@@ -40,6 +40,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 	}
 
+	var isAbleToTurnOffPromotionalTextWhenShare:Bool {
+		get {
+			return self.userDefaults.boolForKey(userDefaultsKeyIsAbleToTurnOffPromotionalTextWhenShare)
+		}
+		set {
+			self.userDefaults.setBool(newValue, forKey: userDefaultsKeyIsAbleToTurnOffPromotionalTextWhenShare)
+			self.userDefaults.synchronize()
+		}
+	}
+
 	var userSelectedTheme:Theme {
 		return Theme(rawValue: self.userDefaults.integerForKey(userDefaultsKeyUserSelectedTheme))!
 	}
@@ -220,6 +230,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyAutoNightMode)
 			self.userDefaults.setBool(false, forKey: userDefaultsKeyAdsRemoved)
+			self.userDefaults.setBool(false, forKey: userDefaultsKeyIsAbleToTurnOffPromotionalTextWhenShare)
 			self.resetAlerts()
 			self.userDefaults.setInteger(defaultInputWPM, forKey: userDefaultsKeyInputWPM)
 			self.userDefaults.setFloat(defaultInputPitch, forKey: userDefaultsKeyInputPitch)

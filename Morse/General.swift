@@ -64,6 +64,7 @@ let printAudiWaveFormWhenDebug = false
 // NSUserDefaultKeys
 let userDefaultsKeyTheme = "Theme"
 let userDefaultsKeyAdsRemoved = "Ads Removed"
+let userDefaultsKeyIsAbleToTurnOffPromotionalTextWhenShare = "Is Able To Turn Off Promotional Text When Share"
 let userDefaultsKeyUserSelectedTheme = "Theme User Selected"
 let userDefaultsKeyExtraTextWhenShare = "Extra Text When Share"
 let userDefaultsKeyProsignTranslationType = "Prosign Translation Type"
