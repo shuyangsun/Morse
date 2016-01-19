@@ -19,6 +19,7 @@ let textViewOutputFontSize:CGFloat = 16
 let cardViewTextFontSizeDictionary:CGFloat = 22
 let cardViewTextProsignFontSizeDictionary:CGFloat = 16
 let cardViewMorseFontSizeDictionary:CGFloat = 16
+let cardViewExpandButtonPadding:CGFloat = 5
 let morseFontSizeProgressBar:CGFloat = 14
 let hintLabelFontSize:CGFloat = 18
 let hintLabelMarginVertical:CGFloat = 15

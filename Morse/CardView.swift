@@ -9,7 +9,11 @@
 import UIKit
 
 class CardView: UIView {
-	var expanded = false
+	var expanded = false {
+		didSet {
+			self.updateExpandButton()
+		}
+	}
 	var flipped = false
 	var isProsignCard = false
 	var isProsignEmergencyCard = false
@@ -42,6 +46,7 @@ class CardView: UIView {
 	// Subviews
 	var topLabel:UILabel!
 	var bottomLabel:UILabel!
+	var expandButton:UIButton!
 	var backView:UIView!
 	var outputButton:UIButton!
 	var shareButton:UIButton!
@@ -98,7 +103,6 @@ class CardView: UIView {
 			self.topLabel.lineBreakMode = .ByWordWrapping
 		}
 		self.addSubview(self.topLabel)
-
 		self.topLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self).offset(cardViewLabelPaddingVerticle)
 			make.trailing.equalTo(self).offset(-cardViewLabelPaddingHorizontal)
@@ -120,34 +124,57 @@ class CardView: UIView {
 			self.bottomLabel.attributedText = getAttributedStringFrom(self.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()), withFontSize: textFontSize, color: textColor, bold: true)
 		}
 		self.addSubview(bottomLabel)
-
 		self.bottomLabel.snp_makeConstraints { (make) -> Void in
 			make.top.equalTo(self.topLabel.snp_bottom).offset(cardViewLabelVerticalGap)
 			make.trailing.equalTo(self).offset(-cardViewLabelPaddingHorizontal)
 			make.leading.equalTo(self).offset(cardViewLabelPaddingHorizontal)
 			make.bottom.equalTo(self).offset(-cardViewLabelPaddingVerticle)
 		}
+
+		if self.expandButton == nil {
+			self.expandButton = UIButton()
+			let image = UIImage(named: theme.cardViewExpandButtonImageName)!.imageWithRenderingMode(.AlwaysTemplate)
+			self.expandButton.setImage(image, forState: .Normal)
+			self.expandButton.tintColor = theme.cardViewExpandButtonColor
+			self.expandButton.alpha = 0
+//			self.expandButton.addTarget(self, action: "expandCard", forControlEvents: .TouchUpInside)
+			self.addSubview(self.expandButton)
+			self.expandButton.snp_remakeConstraints(closure: { (make) -> Void in
+				make.top.equalTo(self).offset(cardViewExpandButtonPadding)
+				make.trailing.equalTo(self).offset(-cardViewExpandButtonPadding)
+			})
+		}
+
+		self.updateExpandButton()
 	}
 
 	required init?(coder aCoder: NSCoder) {
 		super.init(coder: aCoder)
 	}
 
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		if self.canBeExpanded {
+			// TODO
+		}
+	}
+
 	// *****************************
 	// MARK: Callbacks
 	// *****************************
+
+	// This method will be triggered by call back on expand button, or a hold gesture.
+	func expandCard() {
+		self.delegate?.cardViewHeld?(self)
+	}
 
 	func held(gestureRecognizer:UILongPressGestureRecognizer) {
 		if !self.flipped {
 			if gestureRecognizer.state == .Began {
 				let location = gestureRecognizer.locationInView(self)
 				if self.bounds.contains(location) {
-					if let myDelegate = self.delegate {
-						if myDelegate.cardViewHeld != nil {
-							self.animateUserInteractionFeedbackAtLocation(location) {
-								myDelegate.cardViewHeld!(self)
-							}
-						}
+					self.animateUserInteractionFeedbackAtLocation(location) {
+						self.expandCard()
 					}
 				}
 			}
@@ -386,6 +413,19 @@ class CardView: UIView {
 			}
 		}
 		self.shareButton.tintColor = theme.buttonWithAccentBackgroundTintColor
+	}
+
+	func updateExpandButton() {
+		UIView.animateWithScaledDuration(defaultAnimationDuration,
+			delay: 0,
+			options: .CurveEaseInOut,
+			animations: {
+				if self.canBeExpanded && !self.expanded {
+					self.expandButton.alpha = 1
+				} else {
+					self.expandButton.alpha = 0
+				}
+			}, completion: nil)
 	}
 }
 

@@ -29,6 +29,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 	}
 
+	var adsRemoved:Bool {
+		get {
+			return self.userDefaults.boolForKey(userDefaultsKeyAdsRemoved)
+		}
+		set {
+			self.userDefaults.setBool(newValue, forKey: userDefaultsKeyAdsRemoved)
+			self.userDefaults.synchronize()
+			NSNotificationCenter.defaultCenter().postNotificationName(adsShouldDisplayDidChangeNotificationName, object: nil)
+		}
+	}
+
 	var userSelectedTheme:Theme {
 		return Theme(rawValue: self.userDefaults.integerForKey(userDefaultsKeyUserSelectedTheme))!
 	}
@@ -208,6 +219,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyInputPitchAutomatic)
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyAutoNightMode)
+			self.userDefaults.setBool(false, forKey: userDefaultsKeyAdsRemoved)
 			self.resetAlerts()
 			self.userDefaults.setInteger(defaultInputWPM, forKey: userDefaultsKeyInputWPM)
 			self.userDefaults.setFloat(defaultInputPitch, forKey: userDefaultsKeyInputPitch)

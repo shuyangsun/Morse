@@ -135,6 +135,7 @@ struct LocalizedStrings {
 		static let autoCorrectWordDescription = NSLocalizedString("When you have it on, the App will try to auto-correct mis-spelled words when decoding Morse code. The dictionary changes when you change your language setting.", comment: "Explains what Auto Correct Mis Spelled Words does.")
 		static let purchaseUnlockAllThemes = NSLocalizedString("All Themes", comment: "A button on the settings page for user make in-app purchase to unlock all the thems.")
 		static let purchaseEnableAudioDecoder = NSLocalizedString("Enable Audio Decoder", comment: "A button on the settings page for user make in-app purchase to enable Morse audio decoder.")
+		static let purchaseUnlockAllFeatures = NSLocalizedString("Unlock All Features", comment: "A button on the settings page for user make in-app purchase to unlock all features.")
 		static let purchaseRestorePurchases = NSLocalizedString("Restore Purchases", comment: "A button on the settings page for user to restore their previous purchases.")
 		static let tellFriends =  NSLocalizedString("Tell Friends", comment: "A button on the settings page for user to share this App's link with friends.")
 		static let rateOnAppStore =  NSLocalizedString("Rate on App Store", comment: "A button on the settings page for user to rate on App Store.")

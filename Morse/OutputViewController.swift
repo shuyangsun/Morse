@@ -22,13 +22,14 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 	var morseTextBackgroundView:UIView!
 	var morseTextLabel:UILabel!
 	var screenFlashView:UIView!
+	var playButton:UIButton!
 
 	var wpmLabel:UILabel!
 	var pitchLabel:UILabel!
 	var tutorial1Label:UILabel!
 	var tapToStartLabel:UILabel!
 	var swipeToDismissLabel:UILabel!
-	var labels:[UILabel] = []
+	private var _viewsShouldFadeOutWhenPlaying:[UIView] = []
 
 	var panGR:UIPanGestureRecognizer?
 	var pinchGR:UIPinchGestureRecognizer?
@@ -47,8 +48,8 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				// Stop playing if the user wants to disable sound
 				self._toneGenerator.mute()
 			}
-			let soundImage = UIImage(named: newValue ? theme.soundOnImageName : theme.soundOffImageName)
-			self.soundToggleButton.setImage(soundImage!, forState: .Normal)
+			let soundImage = UIImage(named: newValue ? theme.soundOnImageName : theme.soundOffImageName)!.imageWithRenderingMode(.AlwaysTemplate)
+			self.soundToggleButton.setImage(soundImage, forState: .Normal)
 
 			let tracker = GAI.sharedInstance().defaultTracker
 			if newValue {
@@ -77,8 +78,8 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 					}
 				}
 			}
-			let flashImage = UIImage(named: newValue ? theme.flashOnImageName : theme.flashOffImageName)
-			self.flashToggleButton.setImage(flashImage!, forState: .Normal)
+			let flashImage = UIImage(named: newValue ? theme.flashOnImageName : theme.flashOffImageName)!.imageWithRenderingMode(.AlwaysTemplate)
+			self.flashToggleButton.setImage(flashImage, forState: .Normal)
 
 			let tracker = GAI.sharedInstance().defaultTracker
 			if newValue {
@@ -176,8 +177,9 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				self.flashToggleButton = UIButton(frame: CGRect(x: 0, y: 0, width: self._outputVCTopBarHeight, height: self._outputVCTopBarHeight))
 				self.flashToggleButton.backgroundColor = UIColor.clearColor()
 				self.flashToggleButton.tintColor = theme.topBarLabelTextColor
-				let flashImage = UIImage(named: self._flashEnabled ? theme.flashOnImageName : theme.flashOffImageName)
-				self.flashToggleButton.setImage(flashImage!, forState: .Normal)
+				let flashImage = UIImage(named: self._flashEnabled ? theme.flashOnImageName : theme.flashOffImageName)!.imageWithRenderingMode(.AlwaysTemplate)
+				self.flashToggleButton.setImage(flashImage, forState: .Normal)
+				self.flashToggleButton.tintColor = theme.outputVCButtonTintColor
 				self.flashToggleButton.addTarget(self, action: "flashToggleButtonTapped", forControlEvents: .TouchUpInside)
 				// If there's no flash available, hide it.
 				if !(self._rearCamera != nil && self._rearCamera.hasTorch && self._rearCamera.hasFlash && self._rearCamera.isTorchModeSupported(.On)) {
@@ -197,8 +199,9 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				self.soundToggleButton = UIButton(frame: CGRect(x: 0, y: 0, width: self._outputVCTopBarHeight, height: self._outputVCTopBarHeight))
 				self.soundToggleButton.backgroundColor = UIColor.clearColor()
 				self.soundToggleButton.tintColor = theme.topBarLabelTextColor
-				let soundImage = UIImage(named: self._soundEnabled ? theme.soundOnImageName : theme.soundOffImageName)
-				self.soundToggleButton.setImage(soundImage!, forState: .Normal)
+				let soundImage = UIImage(named: self._soundEnabled ? theme.soundOnImageName : theme.soundOffImageName)!.imageWithRenderingMode(.AlwaysTemplate)
+				self.soundToggleButton.setImage(soundImage, forState: .Normal)
+				self.soundToggleButton.tintColor = theme.outputVCButtonTintColor
 				self.soundToggleButton.addTarget(self, action: "soundToggleButtonTapped", forControlEvents: .TouchUpInside)
 				self.topBarView.addSubview(self.soundToggleButton)
 				self.soundToggleButton.snp_remakeConstraints { (make) -> Void in
@@ -248,7 +251,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 		if self.screenFlashView == nil {
 			self.screenFlashView = UIView(frame: CGRect(x: 0, y: topBarHeight, width: self.view.bounds.width, height: self.view.bounds.height - topBarHeight))
 			self.screenFlashView.backgroundColor = UIColor.blackColor()
-			let tapGR = UITapGestureRecognizer(target: self, action: "screenFlashViewTapped")
+			let tapGR = UITapGestureRecognizer(target: self, action: "outputWillStart")
 			self.screenFlashView.addGestureRecognizer(tapGR)
 			self.view.addSubview(self.screenFlashView)
 			self.screenFlashView.snp_remakeConstraints(closure: { (make) -> Void in
@@ -266,21 +269,18 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			}
 		}
 
-		if self.pitchLabel == nil {
-			self.pitchLabel = UILabel()
-			var text = "\(LocalizedStrings.Label.pitchWithColon)\(Int(appDelegate.outputPitch)) Hz"
-			if layoutDirection == .RightToLeft {
-				text = "Hz \(Int(appDelegate.outputPitch))\(LocalizedStrings.Label.pitchWithColon)"
-			}
-			self.pitchLabel.attributedText = getAttributedStringFrom(text, withFontSize: hintLabelFontSize, color: theme.outputVCLabelTextColorEmphasized, bold: false)
-			self.pitchLabel.opaque = false
-			self.pitchLabel.alpha = 0
-			self.labels.append(self.pitchLabel)
-			self.view.addSubview(self.pitchLabel)
-
-			self.pitchLabel.snp_makeConstraints(closure: { (make) -> Void in
+		if self.playButton == nil {
+			self.playButton = UIButton()
+			let playImage = UIImage(named: theme.outputPlayButtonImageName)!.imageWithRenderingMode(.AlwaysTemplate)
+			self.playButton.setImage(playImage, forState: .Normal)
+			self.playButton.tintColor = theme.outputVCButtonTintColor
+			self.playButton.addTarget(self, action: "outputWillStart", forControlEvents: .TouchUpInside)
+			self.playButton.alpha = 0
+			self._viewsShouldFadeOutWhenPlaying.append(self.playButton)
+			self.view.addSubview(self.playButton)
+			self.playButton.snp_makeConstraints(closure: { (make) -> Void in
 				make.centerX.equalTo(self.view)
-				make.centerY.equalTo(self.view)
+				make.centerY.equalTo(self.view).offset(topBarHeight)
 			})
 		}
 
@@ -293,12 +293,30 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			self.wpmLabel.attributedText = getAttributedStringFrom(text, withFontSize: hintLabelFontSize, color: theme.outputVCLabelTextColorEmphasized, bold: false)
 			self.wpmLabel.opaque = false
 			self.wpmLabel.alpha = 0
-			self.labels.append(self.wpmLabel)
+			self._viewsShouldFadeOutWhenPlaying.append(self.wpmLabel)
 			self.view.addSubview(self.wpmLabel)
 
 			self.wpmLabel.snp_makeConstraints(closure: { (make) -> Void in
 				make.centerX.equalTo(self.view)
-				make.bottom.equalTo(self.pitchLabel.snp_top).offset(-hintLabelMarginVertical)
+				make.top.equalTo(self.topBarView.snp_bottom).offset(hintLabelMarginVertical)
+			})
+		}
+
+		if self.pitchLabel == nil {
+			self.pitchLabel = UILabel()
+			var text = "\(LocalizedStrings.Label.pitchWithColon)\(Int(appDelegate.outputPitch)) Hz"
+			if layoutDirection == .RightToLeft {
+				text = "Hz \(Int(appDelegate.outputPitch))\(LocalizedStrings.Label.pitchWithColon)"
+			}
+			self.pitchLabel.attributedText = getAttributedStringFrom(text, withFontSize: hintLabelFontSize, color: theme.outputVCLabelTextColorEmphasized, bold: false)
+			self.pitchLabel.opaque = false
+			self.pitchLabel.alpha = 0
+			self._viewsShouldFadeOutWhenPlaying.append(self.pitchLabel)
+			self.view.addSubview(self.pitchLabel)
+
+			self.pitchLabel.snp_makeConstraints(closure: { (make) -> Void in
+				make.centerX.equalTo(self.view)
+				make.top.equalTo(self.wpmLabel.snp_bottom).offset(hintLabelMarginVertical)
 			})
 		}
 
@@ -307,7 +325,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			self.tutorial1Label.attributedText = getAttributedStringFrom(LocalizedStrings.Label.tutorialOutputVC1, withFontSize: hintLabelFontSize, color: theme.outputVCLabelTextColorNormal, bold: false)
 			self.tutorial1Label.opaque = false
 			self.tutorial1Label.alpha = 0
-			self.labels.append(self.tutorial1Label)
+			self._viewsShouldFadeOutWhenPlaying.append(self.tutorial1Label)
 			self.view.addSubview(self.tutorial1Label)
 
 			self.tutorial1Label.snp_makeConstraints(closure: { (make) -> Void in
@@ -321,7 +339,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			self.swipeToDismissLabel.attributedText = getAttributedStringFrom(LocalizedStrings.Label.swipeToDismiss, withFontSize: hintLabelFontSize, color: theme.outputVCLabelTextColorNormal, bold: false)
 			self.swipeToDismissLabel.opaque = false
 			self.swipeToDismissLabel.alpha = 0
-			self.labels.append(self.swipeToDismissLabel)
+			self._viewsShouldFadeOutWhenPlaying.append(self.swipeToDismissLabel)
 			self.view.addSubview(self.swipeToDismissLabel)
 
 			self.swipeToDismissLabel.snp_makeConstraints(closure: { (make) -> Void in
@@ -335,7 +353,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			self.tapToStartLabel.attributedText = getAttributedStringFrom(LocalizedStrings.Label.tapToStart, withFontSize: hintLabelFontSize, color: theme.outputVCLabelTextColorNormal, bold: false)
 			self.tapToStartLabel.opaque = false
 			self.tapToStartLabel.alpha = 0
-			self.labels.append(self.tapToStartLabel)
+			self._viewsShouldFadeOutWhenPlaying.append(self.tapToStartLabel)
 			self.view.addSubview(self.tapToStartLabel)
 
 			self.tapToStartLabel.snp_makeConstraints(closure: { (make) -> Void in
@@ -356,7 +374,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			delay: 0,
 			options: .CurveEaseInOut,
 			animations: {
-				let _ = self.labels.map { $0.alpha = 1 }
+				let _ = self._viewsShouldFadeOutWhenPlaying.map { $0.alpha = 1 }
 		}, completion: nil)
 	}
 
@@ -393,7 +411,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 		self._flashEnabled = !self._flashEnabled
 	}
 
-	func screenFlashViewTapped() {
+	func outputWillStart() {
 		let tracker = GAI.sharedInstance().defaultTracker
 		if self._playing {
 			self.stopPlaying()
@@ -479,7 +497,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			delay: 0,
 			options: .CurveEaseInOut,
 			animations: {
-				let _ = self.labels.map { $0.alpha = 0 }
+				let _ = self._viewsShouldFadeOutWhenPlaying.map { $0.alpha = 0 }
 				self.view.layoutIfNeeded()
 				self.morseTextBackgroundView.alpha = 1.0
 				self.percentageLabel.alpha = 1.0
@@ -510,7 +528,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			delay: 0,
 			options: .CurveEaseInOut,
 			animations: {
-				let _ = self.labels.map { $0.alpha = 1 }
+				let _ = self._viewsShouldFadeOutWhenPlaying.map { $0.alpha = 1 }
 				self.morseTextBackgroundView.alpha = 0.0
 				self.percentageLabel.alpha = 0.0
 				let x = layoutDirection == .LeftToRight ? 0 : self.topBarView.bounds.width

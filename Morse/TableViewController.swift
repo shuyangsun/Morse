@@ -19,9 +19,17 @@ class TableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
 
+		self.view.backgroundColor = theme.tableViewBackgroundColor
+		self.tableView.separatorColor = theme.tableViewSeparatorColor
+
 		self.tableView.indicatorStyle = theme.scrollViewIndicatorStyle
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateColorWithAnimation", name: themeDidChangeNotificationName, object: nil)
     }
+
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		self.tableView.reloadData()
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -52,7 +60,22 @@ class TableViewController: UITableViewController {
 	}
 
 	func updateColor(animated animated:Bool = true) {
-
+		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
+		UIView.animateWithDuration(duration,
+			delay: 0,
+			options: .CurveEaseInOut,
+			animations: {
+				self.tableView.indicatorStyle = theme.scrollViewIndicatorStyle
+				self.view.backgroundColor = theme.tableViewBackgroundColor
+				self.tableView.separatorColor = theme.tableViewSeparatorColor
+				self.navigationController?.navigationBar.barTintColor = theme.navigationBarBackgroundColor
+				self.navigationController?.navigationBar.tintColor = theme.navigationBarTitleTextColor
+				self.tabBarController?.tabBar.barTintColor = theme.tabBarBackgroundColor
+				self.tabBarController?.tabBar.tintColor = theme.tabBarSelectedTintColor
+			}) { succeed in
+				// Update cell colors:
+				self.tableView.reloadData()
+		}
 	}
 
 	// This method is for using selector
@@ -121,3 +144,4 @@ class TableViewController: UITableViewController {
     */
 
 }
+

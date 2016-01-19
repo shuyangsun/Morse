@@ -28,6 +28,7 @@ var forceTouchAvailable:Bool {
 let defaultAutoNightModeThreshold:Float = 0.2
 // How often should the App check screen's brightness level to decide if should switch to "Night" theme.
 let defaultAutoNightModeUpdateTimeInterval:NSTimeInterval = 5
+let defaultbannerStatusUpdateTimeInterval:NSTimeInterval = 1
 
 let prosignContainerLeft = "["
 let prosignContainerRight = "]"
@@ -62,6 +63,7 @@ let printAudiWaveFormWhenDebug = false
 
 // NSUserDefaultKeys
 let userDefaultsKeyTheme = "Theme"
+let userDefaultsKeyAdsRemoved = "Ads Removed"
 let userDefaultsKeyUserSelectedTheme = "Theme User Selected"
 let userDefaultsKeyExtraTextWhenShare = "Extra Text When Share"
 let userDefaultsKeyProsignTranslationType = "Prosign Translation Type"
@@ -90,6 +92,7 @@ let inputPitchDidChangeNotificationName = "Input Frequency Did Change Notificati
 let inputWPMDidChangeNotificationName = "Input WPM Did Change Notification"
 let themeDidChangeNotificationName = "Theme Did Change Notification"
 let languageDidChangeNotificationName = "Language Did Change Notification"
+let adsShouldDisplayDidChangeNotificationName = "Ads Should Display Did Change Notification"
 
 let notRecognizedLetterStr = "🙁"
 

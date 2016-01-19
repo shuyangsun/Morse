@@ -150,6 +150,12 @@ enum Theme: Int {
 		}
 	}
 
+	var cardViewExpandButtonColor:UIColor {
+		switch self {
+		default: return self.lightPrimaryColor
+		}
+	}
+
 	var cardViewTextColor:UIColor {
 		switch self {
 		case .Forest: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
@@ -368,6 +374,12 @@ enum Theme: Int {
 		}
 	}
 
+	var outputVCButtonTintColor:UIColor {
+		switch self {
+		default: return UIColor.whiteColor()
+		}
+	}
+
 	var outputVCLabelTextColorEmphasized:UIColor {
 		switch self {
 		default: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextSecondaryAlpha)
@@ -501,6 +513,12 @@ enum Theme: Int {
 	var tableViewFooterTextColor:UIColor {
 		switch self {
 		default: return self.hintTextColor
+		}
+	}
+
+	var tableViewFooterUpgradesTextColor:UIColor {
+		switch self {
+		default: return MDColorPalette.Red.P300
 		}
 	}
 
@@ -776,6 +794,12 @@ enum Theme: Int {
 		}
 	}
 
+	var outputPlayButtonImageName:String {
+		switch self {
+		default: return "Output VC Play"
+		}
+	}
+
 	var flashOnImageName:String {
 		switch self.style {
 		default: return "Flash On"
@@ -911,6 +935,12 @@ enum Theme: Int {
 	var settingsRestoreAlertsImageName:String {
 		switch self.style {
 		default: return "Settings Restore Alerts"
+		}
+	}
+
+	var cardViewExpandButtonImageName:String {
+		switch self.style {
+		default: return "Card View Expand Button"
 		}
 	}
 }

@@ -172,6 +172,7 @@
 		10BFD3A31C1F486700FA4C26 /* TableViewLanguageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3A21C1F486700FA4C26 /* TableViewLanguageCell.swift */; };
 		10BFD3A41C1F486700FA4C26 /* TableViewLanguageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3A21C1F486700FA4C26 /* TableViewLanguageCell.swift */; };
 		10BFD3A51C1F486700FA4C26 /* TableViewLanguageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BFD3A21C1F486700FA4C26 /* TableViewLanguageCell.swift */; };
+		10C0B6B61C4E963E00A31F27 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10C0B6B51C4E963E00A31F27 /* iAd.framework */; };
 		10CC4EAA1C38854100B1F0F2 /* MorseTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CC4EA91C38854100B1F0F2 /* MorseTransmitterDelegate.swift */; };
 		10CC4EAB1C38854100B1F0F2 /* MorseTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CC4EA91C38854100B1F0F2 /* MorseTransmitterDelegate.swift */; };
 		10CC4EAC1C38854100B1F0F2 /* MorseTransmitterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CC4EA91C38854100B1F0F2 /* MorseTransmitterDelegate.swift */; };
@@ -391,6 +392,7 @@
 		10BFD3991C1F1C1300FA4C26 /* General UI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "General UI.swift"; sourceTree = "<group>"; };
 		10BFD39D1C1F29A200FA4C26 /* SettingsLanguagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsLanguagesTableViewController.swift; sourceTree = "<group>"; };
 		10BFD3A21C1F486700FA4C26 /* TableViewLanguageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewLanguageCell.swift; sourceTree = "<group>"; };
+		10C0B6B51C4E963E00A31F27 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		10CC4EA91C38854100B1F0F2 /* MorseTransmitterDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseTransmitterDelegate.swift; sourceTree = "<group>"; };
 		10D54A0B1C41FF3D00775318 /* SettingsThemeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsThemeTableViewController.swift; sourceTree = "<group>"; };
 		10D54A121C42BDE600775318 /* TableViewSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewSwitchCell.swift; sourceTree = "<group>"; };
@@ -413,6 +415,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10C0B6B61C4E963E00A31F27 /* iAd.framework in Frameworks */,
 				101EA6F91C45C53600F8E767 /* MessageUI.framework in Frameworks */,
 				1088ACAB1C25A85C00D17028 /* AVFoundation.framework in Frameworks */,
 				10B9C8151C0FB5A4001C5847 /* CoreData.framework in Frameworks */,
@@ -441,6 +444,7 @@
 		02BC1409469B92CAAB0D4D28 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				10C0B6B51C4E963E00A31F27 /* iAd.framework */,
 				3E1D31A89225BC649F5D83ED /* libPods.a */,
 				C8AAA5C3E089448AC67DB20C /* libPods-Morse.a */,
 			);

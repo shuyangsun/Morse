@@ -41,9 +41,6 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
-		self.view.backgroundColor = theme.tableViewBackgroundColor
-		self.tableView.separatorColor = theme.tableViewSeparatorColor
-
 		// Navigation bar configuration
 		self.navigationItem.title = LocalizedStrings.Settings.settings
 		self.navigationController?.navigationBar.barTintColor = appDelegate.theme.navigationBarBackgroundColor
@@ -99,7 +96,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		case 1: return 3 // Resets
 		case 2: return 2 // Appearance
 		case 3: return 3 // Transmitter Config
-		case 4: return 3 // Upgrades
+		case 4: return 4 // Upgrades
 		case 5: return MFMailComposeViewController.canSendMail() ? 3 : 2 // About
 		case 6: return 1 // Dev Options
 		default: return 0
@@ -211,6 +208,10 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseEnableAudioDecoder
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			case 2:
+				cell.imageView?.image = UIImage(named: theme.settingsPurchaseAudioDecoderImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseUnlockAllFeatures
+					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
+			case 3:
 				cell.imageView?.image = UIImage(named: theme.settingsRestorePurchasesImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseRestorePurchases
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
@@ -296,7 +297,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		case 0: return LocalizedStrings.Settings.extraTextDescription
 		case 2: return LocalizedStrings.Settings.nightModeDescription
 		case 3: return LocalizedStrings.Settings.decodeProsignDescription
-		case 4: return LocalizedStrings.Settings.upgradesDescription
+		case 4: return appDelegate.adsRemoved ? nil : LocalizedStrings.Settings.upgradesDescription
 		default: return nil
 		}
 	}
@@ -370,6 +371,15 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				mailController.setMessageBody(feedbackEmailMessageBody, isHTML: false)
 				self.presentViewController(mailController, animated: true, completion: nil)
 			default: break
+			}
+		}
+	}
+
+	override func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+		super.tableView(tableView, willDisplayHeaderView: view, forSection: section)
+		if section == 4 {
+			if let footerView = view as? UITableViewHeaderFooterView {
+				footerView.textLabel?.textColor = theme.tableViewFooterUpgradesTextColor
 			}
 		}
 	}
@@ -463,24 +473,4 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 	// *****************************
 	// MARK: Update Color
 	// *****************************
-
-	override func updateColor(animated animated:Bool = false) {
-		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
-		UIView.animateWithDuration(duration,
-			delay: 0,
-			options: .CurveEaseInOut,
-			animations: {
-				self.tableView.indicatorStyle = theme.scrollViewIndicatorStyle
-				self.view.backgroundColor = theme.tableViewBackgroundColor
-				self.tableView.separatorColor = theme.tableViewSeparatorColor
-				self.navigationController?.navigationBar.barTintColor = theme.navigationBarBackgroundColor
-				self.navigationController?.navigationBar.tintColor = theme.navigationBarTitleTextColor
-				self.tabBarController?.tabBar.barTintColor = theme.tabBarBackgroundColor
-		}, completion: nil)
-			self.tableView.reloadData()
-	}
-
-	func languageDidChange() {
-		self.tableView.reloadData()
-	}
 }

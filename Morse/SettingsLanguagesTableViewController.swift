@@ -19,9 +19,6 @@ class SettingsLanguagesTableViewController: TableViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
-		self.view.backgroundColor = theme.tableViewBackgroundColor
-		self.tableView.separatorColor = theme.tableViewSeparatorColor
-
 		// Navigation bar configuration
 		self.navigationItem.title = LocalizedStrings.Settings.languages
 		self.navigationController?.navigationBar.barTintColor = appDelegate.theme.navigationBarBackgroundColor
@@ -179,28 +176,6 @@ class SettingsLanguagesTableViewController: TableViewController {
 				action: "button_press",
 				label: "Language Changed",
 				value: nil).build() as [NSObject : AnyObject])
-		}
-	}
-
-	// *****************************
-	// MARK: Update Color
-	// *****************************s
-
-	override func updateColor(animated animated:Bool = false) {
-		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
-		UIView.animateWithDuration(duration,
-			delay: 0,
-			options: .CurveEaseInOut,
-			animations: {
-				self.tableView.indicatorStyle = theme.scrollViewIndicatorStyle
-				self.view.backgroundColor = theme.tableViewBackgroundColor
-				self.tableView.separatorColor = theme.tableViewSeparatorColor
-				self.navigationController?.navigationBar.barTintColor = theme.navigationBarBackgroundColor
-				self.navigationController?.navigationBar.tintColor = theme.navigationBarTitleTextColor
-				self.tabBarController?.tabBar.barTintColor = theme.tabBarBackgroundColor
-			}) { succeed in
-				// Update cell colors:
-				self.tableView.reloadData()
 		}
 	}
 

@@ -20,9 +20,6 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 	private var _textFieldOriginalText:String?
 
 	private func setup() {
-
-		self.view.backgroundColor = theme.tableViewBackgroundColor
-		self.tableView.separatorColor = theme.tableViewSeparatorColor
 //		self.tableView.separatorStyle = .None
 
 		// Navigation bar configuration
@@ -355,21 +352,5 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 			}
 			cell.changeValueText(text)
 		}
-	}
-
-	override func updateColor(animated animated:Bool = false) {
-		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
-		UIView.animateWithDuration(duration,
-			delay: 0,
-			options: .CurveEaseInOut,
-			animations: {
-				self.tableView.indicatorStyle = theme.scrollViewIndicatorStyle
-				self.view.backgroundColor = theme.tableViewBackgroundColor
-				self.tableView.separatorColor = theme.tableViewSeparatorColor
-				self.navigationController?.navigationBar.barTintColor = theme.navigationBarBackgroundColor
-				self.navigationController?.navigationBar.tintColor = theme.navigationBarTitleTextColor
-				self.tabBarController?.tabBar.barTintColor = theme.tabBarBackgroundColor
-			}, completion: nil)
-		self.tableView.reloadData()
 	}
 }

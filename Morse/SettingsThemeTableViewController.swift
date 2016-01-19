@@ -19,9 +19,6 @@ class SettingsThemeTableViewController: TableViewController {
 		// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
 		// self.navigationItem.rightBarButtonItem = self.editButtonItem()
 
-		self.view.backgroundColor = theme.tableViewBackgroundColor
-		self.tableView.separatorColor = theme.tableViewSeparatorColor
-
 		// Navigation bar configuration
 		self.navigationItem.title = LocalizedStrings.Settings.theme
 		self.navigationController?.navigationBar.barTintColor = appDelegate.theme.navigationBarBackgroundColor
@@ -112,27 +109,6 @@ class SettingsThemeTableViewController: TableViewController {
 			counter += self.tableView(self.tableView, numberOfRowsInSection: section)
 		}
 		return counter + indexPath.row
-	}
-
-	// *****************************
-	// MARK: Update Color
-	// *****************************
-
-	override func updateColor(animated animated:Bool = true) {
-		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
-		UIView.animateWithDuration(duration,
-			delay: 0,
-			options: .CurveEaseInOut,
-			animations: {
-				self.tableView.indicatorStyle = theme.scrollViewIndicatorStyle
-				self.view.backgroundColor = theme.tableViewBackgroundColor
-				self.tableView.separatorColor = theme.tableViewSeparatorColor
-				self.navigationController?.navigationBar.barTintColor = theme.navigationBarBackgroundColor
-				self.navigationController?.navigationBar.tintColor = theme.navigationBarTitleTextColor
-			}) { succeed in
-				// Update cell colors:
-				self.tableView.reloadData()
-		}
 	}
 
     /*
