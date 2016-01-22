@@ -53,7 +53,7 @@
       </trans-unit>
       <trans-unit id="All Themes">
         <source>All Themes</source>
-        <note>A button on the settings page for user make in-app purchase to unlock all the thems.</note>
+        <note>A button on the settings page for user make in-app purchase to unlock all the themes.</note>
       </trans-unit>
       <trans-unit id="Appearance">
         <source>Appearance</source>
@@ -61,7 +61,7 @@
       </trans-unit>
       <trans-unit id="Arabic">
         <source>Arabic</source>
-        <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="Are you sure you want to delete all the cards? This action is NOT undoable!">
         <source>Are you sure you want to delete all the cards? This action is NOT undoable!</source>
@@ -117,11 +117,11 @@
       </trans-unit>
       <trans-unit id="Chinese (Simplified)">
         <source>Chinese (Simplified)</source>
-        <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="Chinese (Traditional)">
         <source>Chinese (Traditional)</source>
-        <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="Closing">
         <source>Closing</source>
@@ -152,8 +152,8 @@
         <source>Dictionary</source>
         <note>This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations.</note>
       </trans-unit>
-      <trans-unit id="Do you want to reset all alerts, so they will showup again even if you disabled them before?">
-        <source>Do you want to reset all alerts, so they will showup again even if you disabled them before?</source>
+      <trans-unit id="Do you want to reset all alerts, so they will show up again even if you disabled them before?">
+        <source>Do you want to reset all alerts, so they will show up again even if you disabled them before?</source>
         <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Don't Show Again">
@@ -191,11 +191,11 @@
       </trans-unit>
       <trans-unit id="English (United Kingdom)">
         <source>English (United Kingdom)</source>
-        <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="English (United States)">
         <source>English (United States)</source>
-        <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="Error">
         <source>Error</source>
@@ -279,7 +279,7 @@
       </trans-unit>
       <trans-unit id="Output Brighten Screen">
         <source>Output Brighten Screen</source>
-        <note>There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputing Morse code.</note>
+        <note>There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputting Morse code.</note>
       </trans-unit>
       <trans-unit id="Pitch">
         <source>Pitch</source>
@@ -287,7 +287,7 @@
       </trans-unit>
       <trans-unit id="Pitch: ">
         <source>Pitch: </source>
-        <note>This is a label on the output page, followed by the numer of audio frequency (pitch).</note>
+        <note>This is a label on the output page, followed by the number of audio frequency (pitch).</note>
       </trans-unit>
       <trans-unit id="Please Purchase an Upgrade :)">
         <source>Please Purchase an Upgrade :)</source>
@@ -351,7 +351,7 @@ Thank you!</source>
       </trans-unit>
       <trans-unit id="Spanish">
         <source>Spanish</source>
-        <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="Succeed!">
         <source>Succeed!</source>
@@ -451,8 +451,8 @@ Thank you!</source>
         <source>WAIT</source>
         <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: wait.</note>
       </trans-unit>
-      <trans-unit id="WARNNING!">
-        <source>WARNNING!</source>
+      <trans-unit id="WARNING!">
+        <source>WARNING!</source>
         <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="WPM (Words Per Minute)">
@@ -475,16 +475,16 @@ Thank you!</source>
         <source>When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme.</source>
         <note>There are many sections on the settings page, this one explains what does Auto Switch button in Appearance section do.</note>
       </trans-unit>
-      <trans-unit id="When you have it on, the App will try to auto-correct mis-spelled words when decoding Morse code. The dictionary changes when you change your language setting.">
-        <source>When you have it on, the App will try to auto-correct mis-spelled words when decoding Morse code. The dictionary changes when you change your language setting.</source>
+      <trans-unit id="When you have it on, the App will try to auto-correct misspelled words when decoding Morse code. The dictionary changes when you change your language setting.">
+        <source>When you have it on, the App will try to auto-correct misspelled words when decoding Morse code. The dictionary changes when you change your language setting.</source>
         <note>Explains what Auto Correct Mis Spelled Words does.</note>
       </trans-unit>
       <trans-unit id="When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.">
         <source>When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.</source>
         <note>Explains what Output Brighten Screen does.</note>
       </trans-unit>
-      <trans-unit id="While this option is turned on (recomended), the application will automatically decode prosign based on the context of surronding Morse code.">
-        <source>While this option is turned on (recomended), the application will automatically decode prosign based on the context of surronding Morse code.</source>
+      <trans-unit id="While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code.">
+        <source>While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code.</source>
         <note>A description on settings page, explaining what does Decode Prosign switch do.</note>
       </trans-unit>
       <trans-unit id="While this option is turned on, an App Store link for this App will be added when you share a Morse code.">
@@ -541,7 +541,7 @@ Thank you!</source>
       </trans-unit>
       <trans-unit id="All Themes">
         <source>All Themes</source>
-        <note>A button on the settings page for user make in-app purchase to unlock all the thems.</note>
+        <note>A button on the settings page for user make in-app purchase to unlock all the themes.</note>
       </trans-unit>
       <trans-unit id="Appearance">
         <source>Appearance</source>
@@ -549,7 +549,7 @@ Thank you!</source>
       </trans-unit>
       <trans-unit id="Arabic">
         <source>Arabic</source>
-        <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="Are you sure you want to delete all the cards? This action is NOT undoable!">
         <source>Are you sure you want to delete all the cards? This action is NOT undoable!</source>
@@ -605,11 +605,11 @@ Thank you!</source>
       </trans-unit>
       <trans-unit id="Chinese (Simplified)">
         <source>Chinese (Simplified)</source>
-        <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="Chinese (Traditional)">
         <source>Chinese (Traditional)</source>
-        <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="Closing">
         <source>Closing</source>
@@ -640,8 +640,8 @@ Thank you!</source>
         <source>Dictionary</source>
         <note>This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations.</note>
       </trans-unit>
-      <trans-unit id="Do you want to reset all alerts, so they will showup again even if you disabled them before?">
-        <source>Do you want to reset all alerts, so they will showup again even if you disabled them before?</source>
+      <trans-unit id="Do you want to reset all alerts, so they will show up again even if you disabled them before?">
+        <source>Do you want to reset all alerts, so they will show up again even if you disabled them before?</source>
         <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Don't Show Again">
@@ -679,11 +679,11 @@ Thank you!</source>
       </trans-unit>
       <trans-unit id="English (United Kingdom)">
         <source>English (United Kingdom)</source>
-        <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="English (United States)">
         <source>English (United States)</source>
-        <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="Error">
         <source>Error</source>
@@ -767,7 +767,7 @@ Thank you!</source>
       </trans-unit>
       <trans-unit id="Output Brighten Screen">
         <source>Output Brighten Screen</source>
-        <note>There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputing Morse code.</note>
+        <note>There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputting Morse code.</note>
       </trans-unit>
       <trans-unit id="Pitch">
         <source>Pitch</source>
@@ -775,7 +775,7 @@ Thank you!</source>
       </trans-unit>
       <trans-unit id="Pitch: ">
         <source>Pitch: </source>
-        <note>This is a label on the output page, followed by the numer of audio frequency (pitch).</note>
+        <note>This is a label on the output page, followed by the number of audio frequency (pitch).</note>
       </trans-unit>
       <trans-unit id="Please Purchase an Upgrade :)">
         <source>Please Purchase an Upgrade :)</source>
@@ -839,7 +839,7 @@ Thank you!</source>
       </trans-unit>
       <trans-unit id="Spanish">
         <source>Spanish</source>
-        <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="Succeed!">
         <source>Succeed!</source>
@@ -939,8 +939,8 @@ Thank you!</source>
         <source>WAIT</source>
         <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: wait.</note>
       </trans-unit>
-      <trans-unit id="WARNNING!">
-        <source>WARNNING!</source>
+      <trans-unit id="WARNING!">
+        <source>WARNING!</source>
         <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="WPM (Words Per Minute)">
@@ -963,16 +963,16 @@ Thank you!</source>
         <source>When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme.</source>
         <note>There are many sections on the settings page, this one explains what does Auto Switch button in Appearance section do.</note>
       </trans-unit>
-      <trans-unit id="When you have it on, the App will try to auto-correct mis-spelled words when decoding Morse code. The dictionary changes when you change your language setting.">
-        <source>When you have it on, the App will try to auto-correct mis-spelled words when decoding Morse code. The dictionary changes when you change your language setting.</source>
+      <trans-unit id="When you have it on, the App will try to auto-correct misspelled words when decoding Morse code. The dictionary changes when you change your language setting.">
+        <source>When you have it on, the App will try to auto-correct misspelled words when decoding Morse code. The dictionary changes when you change your language setting.</source>
         <note>Explains what Auto Correct Mis Spelled Words does.</note>
       </trans-unit>
       <trans-unit id="When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.">
         <source>When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.</source>
         <note>Explains what Output Brighten Screen does.</note>
       </trans-unit>
-      <trans-unit id="While this option is turned on (recomended), the application will automatically decode prosign based on the context of surronding Morse code.">
-        <source>While this option is turned on (recomended), the application will automatically decode prosign based on the context of surronding Morse code.</source>
+      <trans-unit id="While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code.">
+        <source>While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code.</source>
         <note>A description on settings page, explaining what does Decode Prosign switch do.</note>
       </trans-unit>
       <trans-unit id="While this option is turned on, an App Store link for this App will be added when you share a Morse code.">
@@ -1029,7 +1029,7 @@ Thank you!</source>
       </trans-unit>
       <trans-unit id="All Themes">
         <source>All Themes</source>
-        <note>A button on the settings page for user make in-app purchase to unlock all the thems.</note>
+        <note>A button on the settings page for user make in-app purchase to unlock all the themes.</note>
       </trans-unit>
       <trans-unit id="Appearance">
         <source>Appearance</source>
@@ -1037,7 +1037,7 @@ Thank you!</source>
       </trans-unit>
       <trans-unit id="Arabic">
         <source>Arabic</source>
-        <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="Are you sure you want to delete all the cards? This action is NOT undoable!">
         <source>Are you sure you want to delete all the cards? This action is NOT undoable!</source>
@@ -1093,11 +1093,11 @@ Thank you!</source>
       </trans-unit>
       <trans-unit id="Chinese (Simplified)">
         <source>Chinese (Simplified)</source>
-        <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="Chinese (Traditional)">
         <source>Chinese (Traditional)</source>
-        <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="Closing">
         <source>Closing</source>
@@ -1128,8 +1128,8 @@ Thank you!</source>
         <source>Dictionary</source>
         <note>This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations.</note>
       </trans-unit>
-      <trans-unit id="Do you want to reset all alerts, so they will showup again even if you disabled them before?">
-        <source>Do you want to reset all alerts, so they will showup again even if you disabled them before?</source>
+      <trans-unit id="Do you want to reset all alerts, so they will show up again even if you disabled them before?">
+        <source>Do you want to reset all alerts, so they will show up again even if you disabled them before?</source>
         <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Don't Show Again">
@@ -1167,11 +1167,11 @@ Thank you!</source>
       </trans-unit>
       <trans-unit id="English (United Kingdom)">
         <source>English (United Kingdom)</source>
-        <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="English (United States)">
         <source>English (United States)</source>
-        <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="Error">
         <source>Error</source>
@@ -1255,7 +1255,7 @@ Thank you!</source>
       </trans-unit>
       <trans-unit id="Output Brighten Screen">
         <source>Output Brighten Screen</source>
-        <note>There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputing Morse code.</note>
+        <note>There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputting Morse code.</note>
       </trans-unit>
       <trans-unit id="Pitch">
         <source>Pitch</source>
@@ -1263,7 +1263,7 @@ Thank you!</source>
       </trans-unit>
       <trans-unit id="Pitch: ">
         <source>Pitch: </source>
-        <note>This is a label on the output page, followed by the numer of audio frequency (pitch).</note>
+        <note>This is a label on the output page, followed by the number of audio frequency (pitch).</note>
       </trans-unit>
       <trans-unit id="Please Purchase an Upgrade :)">
         <source>Please Purchase an Upgrade :)</source>
@@ -1327,7 +1327,7 @@ Thank you!</source>
       </trans-unit>
       <trans-unit id="Spanish">
         <source>Spanish</source>
-        <note>Users can change language in settings app, this is one of the language name that will show in user's prefered language.</note>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="Succeed!">
         <source>Succeed!</source>
@@ -1427,8 +1427,8 @@ Thank you!</source>
         <source>WAIT</source>
         <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: wait.</note>
       </trans-unit>
-      <trans-unit id="WARNNING!">
-        <source>WARNNING!</source>
+      <trans-unit id="WARNING!">
+        <source>WARNING!</source>
         <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="WPM (Words Per Minute)">
@@ -1451,16 +1451,16 @@ Thank you!</source>
         <source>When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme.</source>
         <note>There are many sections on the settings page, this one explains what does Auto Switch button in Appearance section do.</note>
       </trans-unit>
-      <trans-unit id="When you have it on, the App will try to auto-correct mis-spelled words when decoding Morse code. The dictionary changes when you change your language setting.">
-        <source>When you have it on, the App will try to auto-correct mis-spelled words when decoding Morse code. The dictionary changes when you change your language setting.</source>
+      <trans-unit id="When you have it on, the App will try to auto-correct misspelled words when decoding Morse code. The dictionary changes when you change your language setting.">
+        <source>When you have it on, the App will try to auto-correct misspelled words when decoding Morse code. The dictionary changes when you change your language setting.</source>
         <note>Explains what Auto Correct Mis Spelled Words does.</note>
       </trans-unit>
       <trans-unit id="When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.">
         <source>When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.</source>
         <note>Explains what Output Brighten Screen does.</note>
       </trans-unit>
-      <trans-unit id="While this option is turned on (recomended), the application will automatically decode prosign based on the context of surronding Morse code.">
-        <source>While this option is turned on (recomended), the application will automatically decode prosign based on the context of surronding Morse code.</source>
+      <trans-unit id="While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code.">
+        <source>While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code.</source>
         <note>A description on settings page, explaining what does Decode Prosign switch do.</note>
       </trans-unit>
       <trans-unit id="While this option is turned on, an App Store link for this App will be added when you share a Morse code.">

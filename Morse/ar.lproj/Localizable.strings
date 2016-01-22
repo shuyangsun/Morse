@@ -1,3 +1,352 @@
+/* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: emergency! (the SOS signal) */
+"!!!EMERGENCY!!!" = "!!!الطوارئ!!!";
+
+/* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: attention! */
+"!ATTENTION!" = "!انتباه!";
+
 /* There are categories on the settings page, this is one of the category. */
-"About" = "关于";
+"About" = "حول";
+
+/* There are categories on the settings page, this is one of the category. */
+"Actions" = "تطبيقات";
+
+/* This is a label on the output page, tells the user how to change some of the values. */
+"Adjust in Settings" = "ضبط إعدادات في";
+
+/* A button on the settings page for user make in-app purchase to unlock all the themes. */
+"All Themes" = "كل المواضيع";
+
+/* There are categories on the settings page, this is one of the category. */
+"Appearance" = "مظهر";
+
+/* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
+"Arabic" = "العربية";
+
+/* One of the titles on the Alert view. */
+"Are you sure you want to delete all the cards? This action is NOT undoable!" = "هل أنت متأكد أنك تريد حذف جميع البطاقات؟ هذا العمل لا التراجع، وقادر!";
+
+/* Users can change language in settings app, this is one of the language groups. */
+"Asia" = "آسيا";
+
+/* There are many prosign code in Morse, this is the name of one of them. */
+"Attention" = "انتباه";
+
+/* This button on the settings page brings up input configuration page. */
+"Audio Decoder" = "فك الصوت";
+
+/* A settings that allows user to choose if they want to use auto correction on audio decoder. */
+"Auto Correct Words" = "السيارات الكلمات الصحيحة";
+
+/* Name of a switch button (audio decoder automatically get wpm and pitch information). */
+"Automatic" = "أوتوماتيكي";
+
+/* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: I'm done, now back to you. */
+"BACK-TO-YOU" = "راجع لك";
+
+/* There are many prosign code in Morse, this is the name of one of them. */
+"Break" = "استراحة";
+
+/* There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app. */
+"By making any purchase, Ads will be gone and you will be able to share Morse code without download link." = "قبل اتخاذ أي شراء، ستزول الإعلانات، وسوف تكون قادرة على المشاركة مورس دون رابط التحميل.";
+
+/* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this station is closing. */
+"CLOSING" = "إغلاق";
+
+/* One of the buttons on the Alert view. */
+"Cancel" = "إلغاء";
+
+/* One of the buttons on the Alert view. */
+"Check It Out" = "تحقق من ذلك";
+
+/* When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL. */
+"Check this out! I can convert text to Morse code using App! Download here:" = "التحقق من ذلك! I يمكن تحويل النص إلى رمز مورس باستخدام التطبيق! حمل هنا:";
+
+/* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
+"Chinese (Simplified)" = "الصينية المبسطة";
+
+/* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
+"Chinese (Traditional)" = "الصينية التقليدية";
+
+/* There are many prosign code in Morse, this is the name of one of them. */
+"Closing" = "إغلاق";
+
+/* A button on the settings page to contact developer. (send developer an email) */
+"Contact Developer" = "الاتصال المطور";
+
+/* There are many sections on the settings page, this switch let the user toggle if the app should decode prosign for Morse code. */
+"Decode Prosign" = "فك الموالية للعلامة";
+
+/* Means something's default.
+   Users can change language in settings app, this is one of the language groups. */
+"Default" = "افتراضي";
+
+/* There are many sections on the settings page, this section let the user clear all the cards on home page. */
+"Delete All Cards" = "حذف جميع البطاقات";
+
+/* There are categories on the settings page, this is one of the category. */
+"Developer Options" = "خيارات المطور";
+
+/* This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations. */
+"Dictionary" = "قاموس";
+
+/* One of the buttons on the Alert view. */
+"Don't Show Again" = "لا تظهر مرة أخرى";
+
+/* A Done button.
+   Button to tap when the user is done with an action. */
+"Done" = "انتهيت";
+
+/* There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code. */
+"Download Link" = "رابط التحميل";
+
+/* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this is the end of contact. */
+"END-OF-CONTACT" = "نهاية الاتصال";
+
+/* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: there was an error. */
+"ERROR" = "خطأ";
+
+/* There are many prosign code in Morse, this is the name of one of them. */
+"Emergency" = "الطوارئ";
+
+/* A button on the settings page for user make in-app purchase to enable Morse audio decoder. */
+"Enable Audio Decoder" = "تمكين الصوت فك";
+
+/* There are many prosign code in Morse, this is the name of one of them. */
+"End of Contact" = "نهاية الاتصال";
+
+/* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
+"English (United Kingdom)" = "الإنجليزية (المملكة المتحدة)";
+
+/* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
+"English (United States)" = "انجليزية الولايات المتحدة)";
+
+/* There are many prosign code in Morse, this is the name of one of them. */
+"Error" = "خطأ";
+
+/* Users can change language in settings app, this is one of the language groups. */
+"Europe" = "أوروبا";
+
+/* One of the names for color theme. */
+"Forest" = "غابة";
+
+/* There are categories on the settings page, this is one of the category. */
+"General" = "جنرال لواء";
+
+/* One of the buttons on the Alert view. */
+"Got It" = "فهمتك";
+
+/* When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen. */
+"Hold me to expand." = "عقد لي في التوسع.";
+
+/* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: any station can start to transmit now. */
+"INVITE-ANY-STATION-TO-TRANSMIT" = "دعوة (أي)";
+
+/* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: the named station can start to transmit now. */
+"INVITE-NAMED-STATION-TO-TRANSMIT" = "دعوة (الاسم)";
+
+/* There are many prosign code in Morse, this is the name of one of them. */
+"Invite (Any)" = "دعوة (أي)";
+
+/* There are many prosign code in Morse, this is the name of one of them. */
+"Invite (Named)" = "دعوة (الاسم)";
+
+/* There are many sections on the settings page, this section let the user change the App's language. */
+"Language" = "لغة";
+
+/* On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse. */
+"Morse" = "مورس";
+
+/* The subject title for feedback email. */
+"Morse Transmitter Feedback" = "مورس الارسال ملاحظات";
+
+/* There are many prosign code in Morse, this is the name of one of them. */
+"New Line" = "خط جديد";
+
+/* There are many prosign code in Morse, this is the name of one of them. */
+"New Page" = "صفحة جديدة";
+
+/* There are many prosign code in Morse, this is the name of one of them. */
+"New Paragraph" = "فقرة جديدة";
+
+/* One of the names for color theme. */
+"Night" = "ليل";
+
+/* One of the buttons on the Alert view. */
+"No" = "لا";
+
+/* Users can change language in settings app, this is one of the language groups. */
+"North America" = "امريكا الشمالية";
+
+/* One of the buttons on the Alert view. */
+"OK" = "حسنا";
+
+/* There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputting Morse code. */
+"Output Brighten Screen" = "الناتج تفتيح الشاشة";
+
+/* Settings category: audio frequency. */
+"Pitch" = "الملعب";
+
+/* One of the titles on the Alert view. */
+"Please Purchase an Upgrade :)" = "يرجى شراء ترقية :)";
+
+/* One of the titles on the Alert view. */
+"Please Restart" = "الرجاء إعادة تشغيل";
+
+/* This is a footer on the first section in language change settings, to reminder user restart the App after changing language. */
+"Please restart this App after changing language." = "الرجاء إعادة تشغيل هذا التطبيق بعد تغيير اللغة.";
+
+/* One of the titles on the Alert view. */
+"Please support us by making a purchase.
+
+After any purchase, you can share Morse code without download link, and all the ads will be gone!
+
+Thank you!" = "يرجى دعم لنا اتخاذ قرار الشراء.
+
+بعد أي عملية شراء، يمكنك مشاركة مورس دون رابط التحميل، وستزول جميع الإعلانات!
+
+شكرا لك!";
+
+/* A button on the settings page for user to rate on App Store. */
+"Rate on App Store" = "سعر الفائدة على المتجر";
+
+/* A button on the settings page to reset some content. */
+"Reset" = "إعادة تعيين";
+
+/* There are many sections on the settings page, this section let the user restore pop-up alerts. */
+"Reset Alerts" = "إعادة تعيين تنبيهات";
+
+/* One of the titles on the Alert view. */
+"Reset Alerts?" = "إعادة تعيين تنبيهات؟";
+
+/* A button on the settings page for user to restore their previous purchases. */
+"Restore Purchases" = "استعادة المشتريات";
+
+/* There are many sections on the settings page, this section let the user restore tutorial cards. */
+"Restore Tutorial Cards" = "استعادة بطاقات تعليمي";
+
+/* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: shift from Morse code to Wabun code. (Wabun code is used by Japanese) */
+"SHIFT-TO-WABUN-CODE" = "التحول إلى Wabun";
+
+/* The title for settings page. */
+"Settings" = "إعدادات";
+
+/* There are many prosign code in Morse, this is the name of one of them. */
+"Shift to Wabun" = "التحول إلى Wabun";
+
+/* This button on the settings page brings up output configuration page. */
+"Signal Output" = "إشارة الإخراج";
+
+/* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
+"Spanish" = "الأسبانية";
+
+/* One of the titles on the Alert view. */
+"Succeed!" = "تنجح!";
+
+/* This is a label on the output page, tells user how to go back to home page. */
+"Swipe down or pinch to go back" = "انتقد أسفل أو قرصة للعودة";
+
+/* When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen. */
+"Swipe to delete me." = "انتقد حذف لي.";
+
+/* There are many sections on the settings page, this switch let the user toggle if the app should change to Night theme when the ambient censor detects the surrounding light is low. */
+"Switch Automatically" = "التبديل تلقائيا";
+
+/* Users can change language in settings app, this is one means the language is system default. */
+"System Default" = "نظام افتراضي";
+
+/* This is a label on the output page, tells user how to finish using audio input. */
+"Tap anywhere to finish" = "انقر في أي مكان لإنهاء";
+
+/* This is a label on the output page, tells user how to play or pause the output. */
+"Tap anywhere to play or pause" = "انقر في أي مكان للعب أو وقفة";
+
+/* When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen. */
+"Tap me to output or share." = "اضغط لي أن الإخراج أو سهم.";
+
+/* There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app. */
+"Tap on numbers to enter a value." = "اضغط على الأرقام لإدخال قيمة.";
+
+/* A button on the settings page for user to share this App's link with friends. */
+"Tell Friends" = "أخبر الأصدقاء";
+
+/* On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse. */
+"Text" = "نص";
+
+/* There are many sections on the settings page, this switch let the user change the color theme of this App. */
+"Theme" = "موضوع";
+
+/* One of the titles on the Alert view. */
+"To make new language setting take effect, please restart application with following steps:
+
+1. Double-tap Home button on your device.
+
+2. Swipe up to terminate application in the background.
+
+3. Start application from home screen." = "لجعل الجديد نافذة المفعول إعداد اللغة، يرجى إعادة تشغيل التطبيق مع الخطوات التالية:
+
+1. مزدوج اضغط زر الصفحة الرئيسية على جهازك.
+
+2. انتقاد حتى إنهاء التطبيق في الخلفية.
+
+3. بدء التطبيق من الشاشة الرئيسية.";
+
+/* There is a string on the input text view on home screen, promoting user to touch the text box to start typing. */
+"Touch to type" = "لمس لكتابة";
+
+/* There are categories on the settings page, this is one of the category. */
+"Transmitter Configuration" = "تكوين الارسال";
+
+/* One of the titles on the Alert view. */
+"Tutorial cards are successfully restored, you can go check them out now!" = "تتم استعادة بطاقات تعليمية بنجاح، يمكنك الذهاب التحقق منها الآن!";
+
+/* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: understood. */
+"UNDERSTOOD" = "فهم";
+
+/* There are many prosign code in Morse, this is the name of one of them. */
+"Understood" = "فهم";
+
+/* A button on the settings page for user make in-app purchase to have unlimited card slots. */
+"Unlimited Card Slots" = "فتحات بطاقة غير محدودة";
+
+/* A button on the settings page for user make in-app purchase to unlock all features. */
+"Unlock All Features" = "فتح جميع الميزات";
+
+/* There are categories on the settings page, this is one of the category. */
+"Upgrades" = "ترقيات";
+
+/* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: wait. */
+"WAIT" = "انتظر";
+
+/* One of the titles on the Alert view. */
+"WARNING!" = "تحذير!";
+
+/* Settings category: word per minute. */
+"WPM (Words Per Minute)" = "كلمة في الدقيقة";
+
+/* There are many prosign code in Morse, this is the name of one of them. */
+"Wait" = "انتظر";
+
+/* When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen. */
+"Welcome to Morse Transmitter!" = "مرحبا بكم في مورس الارسال!";
+
+/* There are many sections on the settings page, this one explains what does Auto Switch button in Appearance section do. */
+"When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme." = "عندما يكون هناك ضوء المحيطة منخفضة مع تبديل تحولت تلقائيا، سوف التطبيق آليا إلى موضوع ليلة.";
+
+/* Explains what Auto Correct Mis Spelled Words does. */
+"When you have it on, the App will try to auto-correct misspelled words when decoding Morse code. The dictionary changes when you change your language setting." = "عندما يكون لديك، سوف التطبيق محاولة الكلمات الصحيحة لصناعة السيارات التي بها أخطاء إملائية عند فك شفرة مورس. القاموس يتغير عند تغيير إعدادات اللغة.";
+
+/* Explains what Output Brighten Screen does. */
+"When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source." = "عندما يكون لديك على، الشاشة سوف تصبح أكثر إشراقا مؤقتا في الوقت الذي ترسل إشارة مورس، لذلك يمكنك استخدامه كمصدر للضوء.";
+
+/* A description on settings page, explaining what does Decode Prosign switch do. */
+"While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code." = "في حين يتم تشغيل هذا الخيار (مستحسن)، فإن تطبيق فك شفرة تلقائيا prosign استنادا إلى سياق المحيطة مورس.";
+
+/* A description on settings page, explaining what Download Link switch do. */
+"While this option is turned on, an App Store link for this App will be added when you share a Morse code." = "في حين يتم تشغيل هذا الخيار، سيتم إضافة رابط المتجر لهذا التطبيق عند مشاركة مورس.";
+
+/* One of the buttons on the Alert view. */
+"Yes" = "نعم فعلا";
+
+/* One of the buttons on the Alert view. */
+"Yes, I'm Sure" = "نعم أنا متأكد";
 

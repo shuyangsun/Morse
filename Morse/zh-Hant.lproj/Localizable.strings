@@ -13,16 +13,13 @@
 /* This is a label on the output page, tells the user how to change some of the values. */
 "Adjust in Settings" = "可以在設置中更改";
 
-/* A button on the settings page for user make in-app purchase to unlock all the thems. */
+/* A button on the settings page for user make in-app purchase to unlock all the themes. */
 "All Themes" = "解鎖所有主題";
-
-/* There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app. */
-"Any purchase will remove all ads." = "購買任意升級即可去除廣告";
 
 /* There are categories on the settings page, this is one of the category. */
 "Appearance" = "用戶界面";
 
-/* Users can change language in settings app, this is one of the language name that will show in user's prefered language. */
+/* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
 "Arabic" = "阿拉伯語";
 
 /* One of the titles on the Alert view. */
@@ -61,10 +58,10 @@
 /* When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL. */
 "Check this out! I can convert text to Morse code using App! Download here:" = "太厉害了！这个应用程序可以把文本转换为摩尔斯电码！你也下载来玩玩！";
 
-/* Users can change language in settings app, this is one of the language name that will show in user's prefered language. */
+/* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
 "Chinese (Simplified)" = "簡體中文";
 
-/* Users can change language in settings app, this is one of the language name that will show in user's prefered language. */
+/* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
 "Chinese (Traditional)" = "正體中文";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
@@ -90,7 +87,7 @@
 "Dictionary" = "對照表";
 
 /* One of the titles on the Alert view. */
-"Do you want to reset all alerts, so they will showup again even if you disabled them before?" = "您之前屏蔽掉的提醒框將會再次出現，確定想要重置所有提醒框麼？";
+"Do you want to reset all alerts, so they will show up again even if you disabled them before?" = "您之前屏蔽掉的提醒對話框將會再次出現，您確定要重置所有提醒對話框麼？";
 
 /* One of the buttons on the Alert view. */
 "Don't Show Again" = "不再提示";
@@ -117,10 +114,10 @@
 /* There are many prosign code in Morse, this is the name of one of them. */
 "End of Contact" = "結束對話";
 
-/* Users can change language in settings app, this is one of the language name that will show in user's prefered language. */
+/* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
 "English (United Kingdom)" = "英語（英式）";
 
-/* Users can change language in settings app, this is one of the language name that will show in user's prefered language. */
+/* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
 "English (United States)" = "英語（美式）";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
@@ -183,14 +180,14 @@
 /* One of the buttons on the Alert view. */
 "OK" = "確認";
 
-/* There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputing Morse code. */
+/* There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputting Morse code. */
 "Output Brighten Screen" = "自動提亮屏幕";
 
 /* Settings category: audio frequency. */
-"Pitch" = "音頻頻率";
+"Pitch" = "音調";
 
-/* This is a label on the output page, followed by the numer of audio frequency (pitch). */
-"Pitch: " = "音頻頻率：";
+/* This is a label on the output page, followed by the number of audio frequency (pitch). */
+"Pitch: " = "音調：";
 
 /* One of the titles on the Alert view. */
 "Please Restart" = "請重新開啟應用程序";
@@ -228,14 +225,14 @@
 /* This button on the settings page brings up output configuration page. */
 "Signal Output" = "電碼輸出";
 
-/* Users can change language in settings app, this is one of the language name that will show in user's prefered language. */
+/* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
 "Spanish" = "西班牙語";
 
 /* One of the titles on the Alert view. */
 "Succeed!" = "完成！";
 
 /* This is a label on the output page, tells the user the range of supported WPM. */
-"Supported WPM: " = "支持的每分鐘字數:";
+"Supported WPM: " = "支持的每分鐘字數：";
 
 /* This is a label on the output page, tells user how to go back to home page. */
 "Swipe down or pinch to go back" = "返回：向下滑動或雙指合攏";
@@ -301,13 +298,13 @@
 "WAIT" = "等等";
 
 /* One of the titles on the Alert view. */
-"WARNNING!" = "注意！";
+"WARNING!" = "注意！";
 
 /* Settings category: word per minute. */
-"WPM (Words Per Minute)" = "每分鐘字數";
+"WPM (Words Per Minute)" = "每分钟字数";
 
 /* This is a label on the output page, followed by the numer of WPM (word per minute). */
-"WPM: " = "每分鐘字數：";
+"WPM: " = "每分钟字数：";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
 "Wait" = "等等";
@@ -319,13 +316,13 @@
 "When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme." = "當此選項處於打開狀態時，如果周圍光線減弱，應用程序會自動切換到夜間模式，以保護視力";
 
 /* Explains what Auto Correct Mis Spelled Words does. */
-"When you have it on, the App will try to auto-correct mis-spelled words when decoding Morse code. The dictionary changes when you change your language setting." = "當此選項處於打開狀態時，音頻解碼器會自動糾錯拼寫錯誤的英文單詞，糾錯的目標語言會隨著您語言設置而更改";
+"When you have it on, the App will try to auto-correct misspelled words when decoding Morse code. The dictionary changes when you change your language setting." = "當此選項處於打開狀態時，音頻解碼器會自動糾錯拼寫錯誤的單詞，糾錯目標語言會隨著您的語言設置更改";
 
 /* Explains what Output Brighten Screen does. */
 "When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source." = "當此選項處於打開狀態時，輸出信號時屏幕會自動變亮，這樣您就可以使用屏幕作為信號光源了";
 
 /* A description on settings page, explaining what does Decode Prosign switch do. */
-"While this option is turned on (recomended), the application will automatically decode prosign based on the context of surronding Morse code." = "當此選項處於打開狀態時，電碼解碼器會只能解碼常用縮寫，建議您打開此選項";
+"While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code." = "當此選項處於打開狀態時，音頻解碼器會自動糾錯拼寫錯誤的單詞，默認語言英語。糾錯的目標語言會隨著您的語言設置而更改";
 
 /* A description on settings page, explaining what Download Link switch do. */
 "While this option is turned on, an App Store link for this App will be added when you share a Morse code." = "當此選項處於打開狀態時，您分享的摩爾斯電碼會帶有此應用程序的下載鏈接";
