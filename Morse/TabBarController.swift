@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import iAd
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewControllerTransitioningDelegate {
 	var homeVC:HomeViewController! = nil
