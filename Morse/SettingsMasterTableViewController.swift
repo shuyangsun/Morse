@@ -55,7 +55,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		}
 		self.navigationController?.navigationBar.titleTextAttributes = textAttributes
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "languageDidChange", name: languageDidChangeNotificationName, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self.tableView, selector: "reloadData", name: languageDidChangeNotificationName, object: nil)
     }
 
 	override func viewWillAppear(animated: Bool) {
@@ -83,7 +83,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-		var result = 6
+		var result = 5
 		#if DEBUG
 			result++
 		#endif
@@ -96,9 +96,9 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		case 1: return 3 // Resets
 		case 2: return 2 // Appearance
 		case 3: return 3 // Transmitter Config
-		case 4: return 5 // Upgrades
-		case 5: return MFMailComposeViewController.canSendMail() ? 3 : 2 // About
-		case 6: return 1 // Dev Options
+//		case 4: return 5 // Upgrades
+		case 4: return MFMailComposeViewController.canSendMail() ? 3 : 2 // About
+		case 5: return 1 // Dev Options
 		default: return 0
 		}
     }
@@ -196,35 +196,35 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				(cell as! TableViewSwitchCell).switchButton.on = appDelegate.prosignTranslationType == .Always
 			default: break
 			}
-		} else if indexPath.section == 4 { // Upgrades
-			cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
-			switch indexPath.row {
-			case 0:
-				cell.imageView?.image = UIImage(named: theme.settingsPurchaseUnlimitedCardSlotsImageName)?.imageWithRenderingMode(.AlwaysTemplate)
-				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseUnlimitedCardSlots
-					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
-			case 1:
-				cell.imageView?.image = UIImage(named: theme.settingsPurchaseThemesImageName)?.imageWithRenderingMode(.AlwaysTemplate)
-				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseUnlockAllThemes
-					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
-			case 2:
-				cell.imageView?.image = UIImage(named: theme.settingsPurchaseAudioDecoderImageName)?.imageWithRenderingMode(.AlwaysTemplate)
-				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseEnableAudioDecoder
-					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
-			case 3:
-				cell.imageView?.image = UIImage(named: theme.settingsPurchaseAudioDecoderImageName)?.imageWithRenderingMode(.AlwaysTemplate)
-				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseUnlockAllFeatures
-					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
-			case 4:
-				cell.imageView?.image = UIImage(named: theme.settingsRestorePurchasesImageName)?.imageWithRenderingMode(.AlwaysTemplate)
-				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseRestorePurchases
-					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
-			default: break
-			}
-			cell.separatorInset = UIEdgeInsetsZero
-			cell.preservesSuperviewLayoutMargins = false
-			cell.layoutMargins = UIEdgeInsetsZero
-		} else if indexPath.section == 5 { // About
+//		} else if indexPath.section == 4 { // Upgrades
+//			cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
+//			switch indexPath.row {
+//			case 0:
+//				cell.imageView?.image = UIImage(named: theme.settingsPurchaseUnlimitedCardSlotsImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+//				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseUnlimitedCardSlots
+//					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
+//			case 1:
+//				cell.imageView?.image = UIImage(named: theme.settingsPurchaseThemesImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+//				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseUnlockAllThemes
+//					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
+//			case 2:
+//				cell.imageView?.image = UIImage(named: theme.settingsPurchaseAudioDecoderImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+//				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseEnableAudioDecoder
+//					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
+//			case 3:
+//				cell.imageView?.image = UIImage(named: theme.settingsPurchaseAudioDecoderImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+//				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseUnlockAllFeatures
+//					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
+//			case 4:
+//				cell.imageView?.image = UIImage(named: theme.settingsRestorePurchasesImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+//				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.purchaseRestorePurchases
+//					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
+//			default: break
+//			}
+//			cell.separatorInset = UIEdgeInsetsZero
+//			cell.preservesSuperviewLayoutMargins = false
+//			cell.layoutMargins = UIEdgeInsetsZero
+		} else if indexPath.section == 4 { // About
 			cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
 			switch indexPath.row {
 			case 0:
@@ -244,7 +244,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 			cell.separatorInset = UIEdgeInsetsZero
 			cell.preservesSuperviewLayoutMargins = false
 			cell.layoutMargins = UIEdgeInsetsZero
-		} else if indexPath.section == 6 { // Dev options
+		} else if indexPath.section == 5 { // Dev options
 			switch indexPath.row {
 			case 0:
 				self.animationDurationCell = tableView.dequeueReusableCellWithIdentifier("Settings Slider Cell", forIndexPath: indexPath) as! TableViewCell
@@ -357,7 +357,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				alertController.show()
 			default: break
 			}
-		} else if indexPath.section == 5 { // About
+		} else if indexPath.section == 4 { // About
 			switch indexPath.row {
 			case 0: // Tell Friends
 				let shareStr = LocalizedStrings.General.sharePromote + " " + appStoreLink

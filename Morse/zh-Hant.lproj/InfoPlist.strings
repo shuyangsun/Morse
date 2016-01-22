@@ -1,3 +1,6 @@
 /* (No Commment) */
 "CFBundleName" = "電碼收發器";
-
+"Encode Text" = "文本編碼";
+"Decode Morse" = "電碼文本解碼";
+"Audio Decoder" = "音頻解碼";
+"Dictionary" = "對照表";

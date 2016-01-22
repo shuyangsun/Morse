@@ -55,10 +55,6 @@
         <source>All Themes</source>
         <note>A button on the settings page for user make in-app purchase to unlock all the thems.</note>
       </trans-unit>
-      <trans-unit id="Any purchase will remove all ads.">
-        <source>Any purchase will remove all ads.</source>
-        <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
-      </trans-unit>
       <trans-unit id="Appearance">
         <source>Appearance</source>
         <note>There are categories on the settings page, this is one of the category.</note>
@@ -98,6 +94,10 @@
       <trans-unit id="Break">
         <source>Break</source>
         <note>There are many prosign code in Morse, this is the name of one of them.</note>
+      </trans-unit>
+      <trans-unit id="By making any purchase, Ads will be gone and you will be able to share Morse code without download link.">
+        <source>By making any purchase, Ads will be gone and you will be able to share Morse code without download link.</source>
+        <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
       </trans-unit>
       <trans-unit id="CLOSING">
         <source>CLOSING</source>
@@ -289,6 +289,10 @@
         <source>Pitch: </source>
         <note>This is a label on the output page, followed by the numer of audio frequency (pitch).</note>
       </trans-unit>
+      <trans-unit id="Please Purchase an Upgrade :)">
+        <source>Please Purchase an Upgrade :)</source>
+        <note>One of the titles on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="Please Restart">
         <source>Please Restart</source>
         <note>One of the titles on the Alert view.</note>
@@ -296,6 +300,14 @@
       <trans-unit id="Please restart this App after changing language.">
         <source>Please restart this App after changing language.</source>
         <note>This is a footer on the first section in language change settings, to reminder user restart the App after changing language.</note>
+      </trans-unit>
+      <trans-unit id="Please support us by making a purchase.\n\nAfter any purchase, you can share Morse code without download link, and all the ads will be gone!\n\nThank you!">
+        <source>Please support us by making a purchase.
+
+After any purchase, you can share Morse code without download link, and all the ads will be gone!
+
+Thank you!</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Rate on App Store">
         <source>Rate on App Store</source>
@@ -422,6 +434,14 @@
       <trans-unit id="Understood">
         <source>Understood</source>
         <note>There are many prosign code in Morse, this is the name of one of them.</note>
+      </trans-unit>
+      <trans-unit id="Unlimited Card Slots">
+        <source>Unlimited Card Slots</source>
+        <note>A button on the settings page for user make in-app purchase to have unlimited card slots.</note>
+      </trans-unit>
+      <trans-unit id="Unlock All Features">
+        <source>Unlock All Features</source>
+        <note>A button on the settings page for user make in-app purchase to unlock all features.</note>
       </trans-unit>
       <trans-unit id="Upgrades">
         <source>Upgrades</source>
@@ -523,10 +543,6 @@
         <source>All Themes</source>
         <note>A button on the settings page for user make in-app purchase to unlock all the thems.</note>
       </trans-unit>
-      <trans-unit id="Any purchase will remove all ads.">
-        <source>Any purchase will remove all ads.</source>
-        <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
-      </trans-unit>
       <trans-unit id="Appearance">
         <source>Appearance</source>
         <note>There are categories on the settings page, this is one of the category.</note>
@@ -566,6 +582,10 @@
       <trans-unit id="Break">
         <source>Break</source>
         <note>There are many prosign code in Morse, this is the name of one of them.</note>
+      </trans-unit>
+      <trans-unit id="By making any purchase, Ads will be gone and you will be able to share Morse code without download link.">
+        <source>By making any purchase, Ads will be gone and you will be able to share Morse code without download link.</source>
+        <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
       </trans-unit>
       <trans-unit id="CLOSING">
         <source>CLOSING</source>
@@ -757,6 +777,10 @@
         <source>Pitch: </source>
         <note>This is a label on the output page, followed by the numer of audio frequency (pitch).</note>
       </trans-unit>
+      <trans-unit id="Please Purchase an Upgrade :)">
+        <source>Please Purchase an Upgrade :)</source>
+        <note>One of the titles on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="Please Restart">
         <source>Please Restart</source>
         <note>One of the titles on the Alert view.</note>
@@ -764,6 +788,14 @@
       <trans-unit id="Please restart this App after changing language.">
         <source>Please restart this App after changing language.</source>
         <note>This is a footer on the first section in language change settings, to reminder user restart the App after changing language.</note>
+      </trans-unit>
+      <trans-unit id="Please support us by making a purchase.\n\nAfter any purchase, you can share Morse code without download link, and all the ads will be gone!\n\nThank you!">
+        <source>Please support us by making a purchase.
+
+After any purchase, you can share Morse code without download link, and all the ads will be gone!
+
+Thank you!</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Rate on App Store">
         <source>Rate on App Store</source>
@@ -890,6 +922,14 @@
       <trans-unit id="Understood">
         <source>Understood</source>
         <note>There are many prosign code in Morse, this is the name of one of them.</note>
+      </trans-unit>
+      <trans-unit id="Unlimited Card Slots">
+        <source>Unlimited Card Slots</source>
+        <note>A button on the settings page for user make in-app purchase to have unlimited card slots.</note>
+      </trans-unit>
+      <trans-unit id="Unlock All Features">
+        <source>Unlock All Features</source>
+        <note>A button on the settings page for user make in-app purchase to unlock all features.</note>
       </trans-unit>
       <trans-unit id="Upgrades">
         <source>Upgrades</source>
@@ -991,10 +1031,6 @@
         <source>All Themes</source>
         <note>A button on the settings page for user make in-app purchase to unlock all the thems.</note>
       </trans-unit>
-      <trans-unit id="Any purchase will remove all ads.">
-        <source>Any purchase will remove all ads.</source>
-        <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
-      </trans-unit>
       <trans-unit id="Appearance">
         <source>Appearance</source>
         <note>There are categories on the settings page, this is one of the category.</note>
@@ -1034,6 +1070,10 @@
       <trans-unit id="Break">
         <source>Break</source>
         <note>There are many prosign code in Morse, this is the name of one of them.</note>
+      </trans-unit>
+      <trans-unit id="By making any purchase, Ads will be gone and you will be able to share Morse code without download link.">
+        <source>By making any purchase, Ads will be gone and you will be able to share Morse code without download link.</source>
+        <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
       </trans-unit>
       <trans-unit id="CLOSING">
         <source>CLOSING</source>
@@ -1225,6 +1265,10 @@
         <source>Pitch: </source>
         <note>This is a label on the output page, followed by the numer of audio frequency (pitch).</note>
       </trans-unit>
+      <trans-unit id="Please Purchase an Upgrade :)">
+        <source>Please Purchase an Upgrade :)</source>
+        <note>One of the titles on the Alert view.</note>
+      </trans-unit>
       <trans-unit id="Please Restart">
         <source>Please Restart</source>
         <note>One of the titles on the Alert view.</note>
@@ -1232,6 +1276,14 @@
       <trans-unit id="Please restart this App after changing language.">
         <source>Please restart this App after changing language.</source>
         <note>This is a footer on the first section in language change settings, to reminder user restart the App after changing language.</note>
+      </trans-unit>
+      <trans-unit id="Please support us by making a purchase.\n\nAfter any purchase, you can share Morse code without download link, and all the ads will be gone!\n\nThank you!">
+        <source>Please support us by making a purchase.
+
+After any purchase, you can share Morse code without download link, and all the ads will be gone!
+
+Thank you!</source>
+        <note>One of the titles on the Alert view.</note>
       </trans-unit>
       <trans-unit id="Rate on App Store">
         <source>Rate on App Store</source>
@@ -1358,6 +1410,14 @@
       <trans-unit id="Understood">
         <source>Understood</source>
         <note>There are many prosign code in Morse, this is the name of one of them.</note>
+      </trans-unit>
+      <trans-unit id="Unlimited Card Slots">
+        <source>Unlimited Card Slots</source>
+        <note>A button on the settings page for user make in-app purchase to have unlimited card slots.</note>
+      </trans-unit>
+      <trans-unit id="Unlock All Features">
+        <source>Unlock All Features</source>
+        <note>A button on the settings page for user make in-app purchase to unlock all features.</note>
       </trans-unit>
       <trans-unit id="Upgrades">
         <source>Upgrades</source>

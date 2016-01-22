@@ -73,7 +73,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		self.canDisplayBannerAds = !appDelegate.adsRemoved // This line has to be at the beginning of view did load
+//		self.canDisplayBannerAds = !appDelegate.adsRemoved // This line has to be at the beginning of view did load
 		self.screenName = homeVCName
 
 		// *****************************
@@ -84,15 +84,15 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			self.topSectionViewController = HomeTopSectionViewController()
 			self.addChildViewController(self.topSectionViewController)
 			self.topSectionViewController.didMoveToParentViewController(self)
-			self.topSectionViewController.view.frame = CGRect(x: 0, y: 0, width: self.originalContentView.bounds.width, height: self.topSectionContainerViewHeight)
+			self.topSectionViewController.view.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.topSectionContainerViewHeight)
 			self.topSectionContainerView = self.topSectionViewController.view
-			self.originalContentView.addSubview(self.topSectionContainerView)
+			self.view.addSubview(self.topSectionContainerView)
 
 			self.topSectionContainerView.clipsToBounds = false
 			self.topSectionContainerView.snp_remakeConstraints { (make) -> Void in
-				make.top.equalTo(self.originalContentView)
-				make.trailing.equalTo(self.originalContentView)
-				make.leading.equalTo(self.originalContentView)
+				make.top.equalTo(self.view)
+				make.trailing.equalTo(self.view)
+				make.leading.equalTo(self.view)
 				make.height.equalTo(self.topSectionContainerViewHeight)
 			}
 			self.topSectionContainerView.addMDShadow(withDepth: 2)
@@ -103,7 +103,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		// *****************************
 		
 		if self.scrollView == nil {
-			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: self.topSectionContainerViewHeight, width: self.originalContentView.bounds.width, height: self.originalContentView.bounds.height - self.topSectionContainerViewHeight))
+			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: self.topSectionContainerViewHeight, width: self.view.bounds.width, height: self.view.bounds.height - self.topSectionContainerViewHeight))
 			self.scrollView.backgroundColor = appDelegate.theme.scrollViewBackgroundColor
 			self.scrollView.userInteractionEnabled = true
 			self.scrollView.bounces = true
@@ -111,17 +111,18 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			self.scrollView.showsVerticalScrollIndicator = true
 			self.scrollView.delegate = self
 			self.scrollView.indicatorStyle = theme.scrollViewIndicatorStyle
-			self.originalContentView.insertSubview(self.scrollView, atIndex: 0)
+			self.view.insertSubview(self.scrollView, atIndex: 0)
 
 			self.scrollView.snp_remakeConstraints { (make) -> Void in
 				make.top.equalTo(self.topSectionContainerView.snp_bottom)
-				make.trailing.equalTo(self.originalContentView)
-				make.leading.equalTo(self.originalContentView)
-				if self.canDisplayBannerAds {
-					make.bottom.equalTo(self.originalContentView)
-				} else {
-					make.bottom.equalTo(self.originalContentView).offset(-self.tabBarHeight)
-				}
+				make.trailing.equalTo(self.view)
+				make.leading.equalTo(self.view)
+				make.bottom.equalTo(self.view).offset(-self.tabBarHeight)
+//				if self.canDisplayBannerAds {
+//					make.bottom.equalTo(self.view)
+//				} else {
+//					make.bottom.equalTo(self.view).offset(-self.tabBarHeight)
+//				}
 			}
 		}
 
@@ -139,7 +140,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			self.scrollViewOverlay.opaque = false
 			self.scrollViewOverlay.alpha = 0
 			self.scrollViewOverlay.titleLabel?.text = nil
-			self.originalContentView.insertSubview(self.scrollViewOverlay, aboveSubview: self.scrollView)
+			self.view.insertSubview(self.scrollViewOverlay, aboveSubview: self.scrollView)
 
 			self.scrollViewOverlay.snp_remakeConstraints(closure: { (make) -> Void in
 				make.edges.equalTo(self.scrollView)
@@ -147,7 +148,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		}
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateColorWithAnimation", name: themeDidChangeNotificationName, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateAdsStatus", name: adsShouldDisplayDidChangeNotificationName, object: nil)
+//		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateAdsStatus", name: adsShouldDisplayDidChangeNotificationName, object: nil)
 
 		// Configure scrollView animator
 //		self.animator.addBehavior(self.gravityBehavior)
@@ -186,7 +187,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			// Show input area
 			self.topSectionHidden = false
 			self.topSectionContainerView.snp_updateConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.originalContentView)
+				make.top.equalTo(self.view)
 			})
 
 			// Update constraints for buttons on text view
@@ -212,7 +213,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 				, delay: 0,
 				options: .CurveEaseOut,
 				animations: {
-					self.originalContentView.layoutIfNeeded()
+					self.view.layoutIfNeeded()
 					self.topSectionViewController.inputTextView.alpha = 1
 					self.topSectionViewController.outputTextView.alpha = 1
 					self.topSectionViewController.keyboardButton.alpha = 0
@@ -227,13 +228,13 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 					}
 			}
 
-		} else if scrollView.contentOffset.y >= hiddingSectionHeight && scrollView.contentSize.height > self.originalContentView.bounds.height && !self.topSectionHidden {
+		} else if scrollView.contentOffset.y >= hiddingSectionHeight && scrollView.contentSize.height > self.view.bounds.height && !self.topSectionHidden {
 			// Only hide input view if the content for scroll view is large enough to be displayed on a full size scroll view.
 			// Hide input area
 			self.topSectionHidden = true
 
 			self.topSectionContainerView.snp_updateConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.originalContentView).offset(-hiddingSectionHeight)
+				make.top.equalTo(self.view).offset(-hiddingSectionHeight)
 			})
 
 			if !self.isDuringInput {
@@ -260,7 +261,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 				, delay: 0,
 				options: .CurveEaseOut,
 				animations: {
-					self.originalContentView.layoutIfNeeded()
+					self.view.layoutIfNeeded()
 					self.topSectionViewController.inputTextView.alpha = 0
 					self.topSectionViewController.outputTextView.alpha = 0
 					self.topSectionViewController.keyboardButton.alpha = 1
@@ -298,7 +299,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			self.scrollViewSnapshotImageView?.contentMode = .ScaleAspectFill
 			self.scrollViewSnapshotImageView?.opaque = false
 			self.scrollViewSnapshotImageView?.alpha = 0
-			self.originalContentView.insertSubview(self.scrollViewSnapshotImageView!, belowSubview: self.scrollViewOverlay)
+			self.view.insertSubview(self.scrollViewSnapshotImageView!, belowSubview: self.scrollViewOverlay)
 			self.scrollViewSnapshotImageView?.snp_makeConstraints(closure: { (make) -> Void in
 				make.edges.equalTo(self.scrollView)
 			})
@@ -318,7 +319,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			self.micInputSectionContainerView!.alpha = 0
 			let tapGR = UITapGestureRecognizer(target: self.topSectionViewController, action: "audioPlotTapped:")
 			self.micInputSectionViewController!.view.addGestureRecognizer(tapGR)
-			self.originalContentView.insertSubview(self.micInputSectionContainerView!, aboveSubview: self.scrollViewOverlay)
+			self.view.insertSubview(self.micInputSectionContainerView!, aboveSubview: self.scrollViewOverlay)
 
 			self.micInputSectionContainerView!.snp_remakeConstraints(closure: { (make) -> Void in
 				make.edges.equalTo(self.scrollViewOverlay)
@@ -913,7 +914,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 						}
 					}
 				}
-				self.originalContentView.layoutIfNeeded()
+				self.view.layoutIfNeeded()
 			}, completion: nil)
 	}
 
@@ -927,17 +928,17 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		self.updateColor()
 	}
 
-	func updateAdsStatus() {
-		self.canDisplayBannerAds = !appDelegate.adsRemoved
-		self.scrollView.snp_remakeConstraints { (make) -> Void in
-			make.top.equalTo(self.topSectionContainerView.snp_bottom)
-			make.trailing.equalTo(self.originalContentView)
-			make.leading.equalTo(self.originalContentView)
-			if self.canDisplayBannerAds {
-				make.bottom.equalTo(self.originalContentView)
-			} else {
-				make.bottom.equalTo(self.originalContentView).offset(-self.tabBarHeight)
-			}
-		}
-	}
+//	func updateAdsStatus() {
+//		self.canDisplayBannerAds = !appDelegate.adsRemoved
+//		self.scrollView.snp_remakeConstraints { (make) -> Void in
+//			make.top.equalTo(self.topSectionContainerView.snp_bottom)
+//			make.trailing.equalTo(self.view)
+//			make.leading.equalTo(self.view)
+//			if self.canDisplayBannerAds {
+//				make.bottom.equalTo(self.view)
+//			} else {
+//				make.bottom.equalTo(self.view).offset(-self.tabBarHeight)
+//			}
+//		}
+//	}
 }

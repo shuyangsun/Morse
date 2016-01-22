@@ -659,9 +659,9 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 //			make.height.equalTo(bottomTextHeight)
 //		}
 //		self.homeViewController.topSectionContainerView.snp_remakeConstraints { (make) -> Void in
-//			make.top.equalTo(self.homeViewController.originalContentView)
-//			make.trailing.equalTo(self.homeViewController.originalContentView)
-//			make.leading.equalTo(self.homeViewController.originalContentView)
+//			make.top.equalTo(self.homeViewController.view)
+//			make.trailing.equalTo(self.homeViewController.view)
+//			make.leading.equalTo(self.homeViewController.view)
 //			make.height.equalTo(totalHeight)
 //		}
 //		print("\(topTextHeight) \(bottomTextHeight) \(totalHeight)")

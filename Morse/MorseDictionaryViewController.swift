@@ -53,7 +53,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		self.canDisplayBannerAds = !appDelegate.adsRemoved
+//		self.canDisplayBannerAds = !appDelegate.adsRemoved
 		self.screenName = dictionaryVCName
 
 		// Calculate the min width for a card to show the longest String.
@@ -62,26 +62,26 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 		self.cardViewMinWidth = max(dictionaryVCCardViewMinWidth, size.width + cardViewLabelPaddingHorizontal * 2)
 
 		if self.statusBarView == nil {
-			self.statusBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.originalContentView.bounds.width, height: statusBarHeight))
+			self.statusBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: statusBarHeight))
 			self.statusBarView.backgroundColor = appDelegate.theme.statusBarBackgroundColor
-			self.originalContentView.addSubview(self.statusBarView)
+			self.view.addSubview(self.statusBarView)
 			self.statusBarView.snp_makeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.originalContentView)
-				make.leading.equalTo(self.originalContentView)
-				make.trailing.equalTo(self.originalContentView)
+				make.top.equalTo(self.view)
+				make.leading.equalTo(self.view)
+				make.trailing.equalTo(self.view)
 				make.height.equalTo(statusBarHeight)
 			})
 		}
 
 		if self.topBarView == nil {
-			self.topBarView = UIView(frame: CGRect(x: 0, y: statusBarHeight, width: self.originalContentView.bounds.width, height: topBarHeight))
+			self.topBarView = UIView(frame: CGRect(x: 0, y: statusBarHeight, width: self.view.bounds.width, height: topBarHeight))
 			self.topBarView.backgroundColor = appDelegate.theme.topBarBackgroundColor
-			self.originalContentView.addSubview(topBarView)
+			self.view.addSubview(topBarView)
 
 			self.topBarView.snp_remakeConstraints(closure: { (make) -> Void in
 				make.top.equalTo(self.statusBarView.snp_bottom)
-				make.leading.equalTo(self.originalContentView)
-				make.trailing.equalTo(self.originalContentView)
+				make.leading.equalTo(self.view)
+				make.trailing.equalTo(self.view)
 				make.height.equalTo(topBarHeight)
 			})
 
@@ -102,7 +102,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 		}
 
 		if self.scrollView == nil {
-			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: statusBarHeight + topBarHeight, width: self.originalContentView.bounds.width, height: self.originalContentView.bounds.height - statusBarHeight - topBarHeight))
+			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: statusBarHeight + topBarHeight, width: self.view.bounds.width, height: self.view.bounds.height - statusBarHeight - topBarHeight))
 			self.scrollView.backgroundColor = appDelegate.theme.scrollViewBackgroundColor
 			self.scrollView.userInteractionEnabled = true
 			self.scrollView.bounces = true
@@ -110,24 +110,25 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 			self.scrollView.showsVerticalScrollIndicator = true
 			self.scrollView.delegate = self
 			self.scrollView.indicatorStyle = theme.scrollViewIndicatorStyle
-			self.originalContentView.insertSubview(self.scrollView, atIndex: 0)
+			self.view.insertSubview(self.scrollView, atIndex: 0)
 
 			self.scrollView.snp_remakeConstraints { (make) -> Void in
 				make.top.equalTo(self.topBarView.snp_bottom)
-				make.trailing.equalTo(self.originalContentView)
-				make.leading.equalTo(self.originalContentView)
-				if self.canDisplayBannerAds {
-					make.bottom.equalTo(self.originalContentView)
-				} else {
-					make.bottom.equalTo(self.originalContentView).offset(-self.tabBarHeight)
-				}
+				make.trailing.equalTo(self.view)
+				make.leading.equalTo(self.view)
+				make.bottom.equalTo(self.view).offset(-self.tabBarHeight)
+//				if self.canDisplayBannerAds {
+//					make.bottom.equalTo(self.view)
+//				} else {
+//					make.bottom.equalTo(self.view).offset(-self.tabBarHeight)
+//				}
 			}
 		}
 
 		self._outputPlayer.delegate = self
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateColorWithAnimation", name: themeDidChangeNotificationName, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateAdsStatus", name: adsShouldDisplayDidChangeNotificationName, object: nil)
+//		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateAdsStatus", name: adsShouldDisplayDidChangeNotificationName, object: nil)
     }
 
 	override func viewDidAppear(animated: Bool) {
@@ -136,7 +137,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 		dispatch_sync(self._updateCardConstraintsQueue) {
 			self.updateCardViewsConstraints()
 		}
-		self.originalContentView.setNeedsUpdateConstraints()
+		self.view.setNeedsUpdateConstraints()
 		self.updateMDShadows()
 	}
 
@@ -215,7 +216,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 						text = text.uppercaseString
 						textFontSize = cardViewTextFontSizeDictionary
 					}
-					let colNum = Int(max(1, floor((self.originalContentView.bounds.width - theme.cardViewHorizontalMargin * 2 + theme.cardViewGap) / (self.cardViewMinWidth + theme.cardViewGap))))
+					let colNum = Int(max(1, floor((self.view.bounds.width - theme.cardViewHorizontalMargin * 2 + theme.cardViewGap) / (self.cardViewMinWidth + theme.cardViewGap))))
 					let width = (self.scrollView.bounds.width - theme.cardViewHorizontalMargin * 2 - CGFloat(colNum - 1) * theme.cardViewGap)/CGFloat(colNum)
 					let cardView = CardView(frame: CGRect(x: theme.cardViewHorizontalMargin, y: theme.cardViewGroupVerticalMargin, width: width, height: theme.cardViewHeight), text: text, morse: morse, textOnTop: true, deletable: false, canBeFlipped: false, textFontSize: textFontSize, morseFontSize: cardViewMorseFontSizeDictionary, isProsignCard: isProsignCard, isProsignEmergencyCard: isProsignEmergencyCard)
 					cardView.delegate = self
@@ -230,7 +231,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 	}
 
 	private func updateCardViewsConstraints() {
-		let colNum = Int(max(1, floor((self.originalContentView.bounds.width - theme.cardViewHorizontalMargin * 2 + theme.cardViewGap) / (self.cardViewMinWidth + theme.cardViewGap))))
+		let colNum = Int(max(1, floor((self.view.bounds.width - theme.cardViewHorizontalMargin * 2 + theme.cardViewGap) / (self.cardViewMinWidth + theme.cardViewGap))))
 		let width = (self.scrollView.bounds.width - theme.cardViewHorizontalMargin * 2 - CGFloat(colNum - 1) * theme.cardViewGap)/CGFloat(colNum)
 		let height = theme.cardViewHeight
 		for i in 0..<self.cardViews.count {
@@ -356,7 +357,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 						}
 					}
 				}
-				self.originalContentView.layoutIfNeeded()
+				self.view.layoutIfNeeded()
 			}, completion: nil)
 	}
 
@@ -370,19 +371,19 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 		self.updateColor()
 	}
 
-	func updateAdsStatus() {
-		self.canDisplayBannerAds = !appDelegate.adsRemoved
-		self.scrollView.snp_remakeConstraints { (make) -> Void in
-			make.top.equalTo(self.topBarView.snp_bottom)
-			make.trailing.equalTo(self.originalContentView)
-			make.leading.equalTo(self.originalContentView)
-			if self.canDisplayBannerAds {
-				make.bottom.equalTo(self.originalContentView)
-			} else {
-				make.bottom.equalTo(self.originalContentView).offset(-self.tabBarHeight)
-			}
-		}
-	}
+//	func updateAdsStatus() {
+//		self.canDisplayBannerAds = !appDelegate.adsRemoved
+//		self.scrollView.snp_remakeConstraints { (make) -> Void in
+//			make.top.equalTo(self.topBarView.snp_bottom)
+//			make.trailing.equalTo(self.view)
+//			make.leading.equalTo(self.view)
+//			if self.canDisplayBannerAds {
+//				make.bottom.equalTo(self.view)
+//			} else {
+//				make.bottom.equalTo(self.view).offset(-self.tabBarHeight)
+//			}
+//		}
+//	}
 
     /*
     // MARK: - Navigation
