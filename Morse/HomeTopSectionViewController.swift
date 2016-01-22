@@ -43,8 +43,6 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	// MARK: UI Related Variables
 	// *****************************
 
-	let textBackgroundViewHeight:CGFloat = 140
-
 	var keyboardButtonViewHeight:CGFloat {
 		return topBarHeight
 	}
@@ -64,6 +62,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	private var isDuringInput:Bool {
 		return self.homeViewController.isDuringInput
 	}
+
+	private var _keyboardHeight:CGFloat = 0
 
 	// *****************************
 	// MARK: Data Related Variables
@@ -225,7 +225,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		// *******************************
 
 		if self.textBackgroundView == nil {
-			self.textBackgroundView = UIView(frame: CGRect(x: 0, y: statusBarHeight + topBarHeight, width: self.view.bounds.width, height: self.textBackgroundViewHeight))
+			self.textBackgroundView = UIView(frame: CGRect(x: 0, y: statusBarHeight + topBarHeight, width: self.view.bounds.width, height: textBackgroundViewHeight))
 			self.textBackgroundView.backgroundColor = appDelegate.theme.textViewBackgroundColor
 			self.textBackgroundView.layer.borderColor = UIColor.clearColor().CGColor
 			self.textBackgroundView.layer.borderWidth = 0
@@ -244,7 +244,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		// *****************************
 
 		if self.inputTextView == nil {
-			self.inputTextView = UITextView(frame: CGRect(x: 0, y: 0, width: self.textBackgroundView.bounds.width, height: self.textBackgroundViewHeight/2.0))
+			self.inputTextView = UITextView(frame: CGRect(x: 0, y: 0, width: self.textBackgroundView.bounds.width, height: textBackgroundViewHeight/2.0))
 			self.inputTextView.backgroundColor = UIColor.clearColor()
 			self.inputTextView.opaque = false
 			self.inputTextView.keyboardType = .ASCIICapable
@@ -262,7 +262,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 				make.top.equalTo(self.textBackgroundView)
 				make.trailing.equalTo(self.textBackgroundView)
 				make.leading.equalTo(self.textBackgroundView)
-				make.height.equalTo(self.textBackgroundView.snp_height).multipliedBy(0.5)
+				make.height.equalTo(textBackgroundViewHeight/2.0)
 			}
 		}
 
@@ -271,7 +271,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		// *****************************
 
 		if self.outputTextView == nil {
-			self.outputTextView = UITextView(frame: CGRect(x: 0, y: self.textBackgroundViewHeight/2.0, width: self.view.bounds.width, height: self.textBackgroundViewHeight/2.0))
+			self.outputTextView = UITextView(frame: CGRect(x: 0, y: textBackgroundViewHeight/2.0, width: self.view.bounds.width, height: textBackgroundViewHeight/2.0))
 			self.outputTextView.backgroundColor = UIColor.clearColor()
 			self.outputTextView.opaque = false
 			self.outputTextView.editable = false
@@ -286,10 +286,10 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.textBackgroundView.addSubview(self.outputTextView)
 
 			self.outputTextView.snp_makeConstraints { (make) -> Void in
-				make.top.equalTo(self.inputTextView.snp_bottom)
 				make.trailing.equalTo(self.textBackgroundView)
 				make.bottom.equalTo(self.textBackgroundView)
 				make.leading.equalTo(self.textBackgroundView)
+				make.height.equalTo(textBackgroundViewHeight/2.0)
 			}
 		}
 
@@ -381,7 +381,13 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		}
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateColorWithAnimation", name: themeDidChangeNotificationName, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
     }
+
+	func keyboardWasShown(notification:NSNotification) {
+		let keyboardSize = notification.userInfo![UIKeyboardFrameBeginUserInfoKey]!.CGRectValue.size
+		self._keyboardHeight = min(keyboardSize.height, keyboardSize.width)
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -635,6 +641,30 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		if outputText != nil {
 			self.outputTextView.scrollRangeToVisible(NSMakeRange(outputText!.startIndex.distanceTo(outputText!.endIndex), 0))
 		}
+
+		// Change textview height
+//		let topTextHeight = max(textView.attributedText.size().height, textBackgroundViewHeight/2.0)
+//		let bottomTextHeight = max(self.outputTextView.attributedText.size().height, textBackgroundViewHeight/2.0)
+//		let totalHeight = max(textBackgroundViewHeight, min(self.homeViewController.view.bounds.height - self._keyboardHeight - self.topBarView.bounds.height - self.statusBarView.bounds.height, topTextHeight + bottomTextHeight)) + self.statusBarView.bounds.height + self.topBarView.bounds.height
+//		self.inputTextView.snp_remakeConstraints { (make) -> Void in
+//			make.top.equalTo(self.textBackgroundView)
+//			make.trailing.equalTo(self.textBackgroundView)
+//			make.leading.equalTo(self.textBackgroundView)
+//			make.height.equalTo(textBackgroundViewHeight).multipliedBy(0.5)
+//		}
+//		self.outputTextView.snp_makeConstraints { (make) -> Void in
+//			make.trailing.equalTo(self.textBackgroundView)
+//			make.bottom.equalTo(self.textBackgroundView)
+//			make.leading.equalTo(self.textBackgroundView)
+//			make.height.equalTo(bottomTextHeight)
+//		}
+//		self.homeViewController.topSectionContainerView.snp_remakeConstraints { (make) -> Void in
+//			make.top.equalTo(self.homeViewController.originalContentView)
+//			make.trailing.equalTo(self.homeViewController.originalContentView)
+//			make.leading.equalTo(self.homeViewController.originalContentView)
+//			make.height.equalTo(totalHeight)
+//		}
+//		print("\(topTextHeight) \(bottomTextHeight) \(totalHeight)")
 	}
 
 	func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
@@ -646,6 +676,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			}
 			textView.resignFirstResponder()
 			self.animateAndLayoutUIForInputEnd()
+
 			return false
 		}
 		return true

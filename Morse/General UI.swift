@@ -12,6 +12,7 @@ let TAP_FEED_BACK_DURATION:NSTimeInterval = 0.4
 let defaultAnimationDuration:NSTimeInterval = 0.35
 
 let topBarHeight:CGFloat = 56
+let textBackgroundViewHeight:CGFloat = 140
 
 let textViewInputFontSize:CGFloat = 16
 let textViewOutputFontSize:CGFloat = 16

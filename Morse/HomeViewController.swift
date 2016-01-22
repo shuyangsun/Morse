@@ -47,7 +47,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	}
 
 	private var topSectionContainerViewHeight:CGFloat {
-		return statusBarHeight + topBarHeight + self.topSectionViewController.textBackgroundViewHeight
+		return statusBarHeight + topBarHeight + textBackgroundViewHeight
 	}
 
 	var isDuringInput:Bool {
