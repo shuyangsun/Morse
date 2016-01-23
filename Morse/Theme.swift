@@ -23,9 +23,12 @@ enum ThemeStyle {
 }
 
 enum Theme: Int {
-	static let numberOfThemes = 3
+	static let numberOfThemes = 4
 
-	case Default = 0, Night, Forest
+	case Default = 0
+	case Night = 1
+	case Forest = 2
+	case Industrial = 3
 
 	// General information about theme
 	var name:String {
@@ -33,12 +36,14 @@ enum Theme: Int {
 		case .Default: return LocalizedStrings.ThemeName.defaultName
 		case .Night: return LocalizedStrings.ThemeName.night
 		case .Forest: return LocalizedStrings.ThemeName.forest
+		case .Industrial: return LocalizedStrings.ThemeName.industrial
 		}
 	}
 
 	var style:ThemeStyle {
 		switch self {
 		case .Night: return .Dark
+		case .Industrial: return .Dark
 		default: return .Light
 		}
 	}
@@ -49,6 +54,7 @@ enum Theme: Int {
 		case .Default: return MDColorPalette.Blue.P700
 		case .Night: return MDColorPalette.Grey.P900
 		case .Forest: return MDColorPalette.Green.P700
+		case .Industrial: return MDColorPalette.BlueGrey.P700
 		}
 	}
 
@@ -57,6 +63,7 @@ enum Theme: Int {
 		case .Default: return MDColorPalette.Blue.P500
 		case .Night: return MDColorPalette.Grey.P800
 		case .Forest: return MDColorPalette.Green.P500
+		case .Industrial: return MDColorPalette.BlueGrey.P500
 		}
 	}
 
@@ -65,6 +72,7 @@ enum Theme: Int {
 		case .Default: return MDColorPalette.Blue.P300
 		case .Night: return MDColorPalette.Grey.P500
 		case .Forest: return MDColorPalette.Green.P300
+		case .Industrial: return MDColorPalette.BlueGrey.P300
 		}
 	}
 
@@ -73,6 +81,7 @@ enum Theme: Int {
 		case .Default: return MDColorPalette.LightGreen.P500
 		case .Night: return MDColorPalette.Blue.A400!
 		case .Forest: return MDColorPalette.Lime.A200!
+		case .Industrial: return MDColorPalette.Teal.A400!
 		}
 	}
 
@@ -81,6 +90,7 @@ enum Theme: Int {
 		case .Default: return MDColorPalette.LightGreen.P200
 		case .Night: return MDColorPalette.Blue.A100!
 		case .Forest: return MDColorPalette.Lime.A100!
+		case .Industrial: return MDColorPalette.Teal.A200!
 		}
 	}
 
@@ -130,6 +140,7 @@ enum Theme: Int {
 		switch self {
 		case .Night: return MDColorPalette.Grey.P900
 		case .Forest: return self.lightPrimaryColor
+		case .Industrial: return self.lightPrimaryColor
 		default: return UIColor(hex: 0xEEEEEE)
 		}
 	}
@@ -138,6 +149,7 @@ enum Theme: Int {
 		switch self {
 		case .Night: return MDColorPalette.Grey.P700
 		case .Forest: return MDColorPalette.Green.P100
+		case .Industrial: return self.lightPrimaryColor
 		default: return UIColor.whiteColor()
 		}
 	}
@@ -146,12 +158,14 @@ enum Theme: Int {
 		switch self {
 		case .Default: return UIColor.whiteColor()
 		case .Night: return MDColorPalette.Grey.P800
-		case .Forest: return self.darkPrimaryColor
+		case .Forest: return MDColorPalette.Green.P600
+		case .Industrial: return self.primaryColor
 		}
 	}
 
 	var cardViewExpandButtonColor:UIColor {
 		switch self {
+		case .Industrial: return self.lightPrimaryColor
 		default: return self.lightPrimaryColor
 		}
 	}
@@ -344,6 +358,7 @@ enum Theme: Int {
 
 	var cardViewBorderColor:UIColor {
 		switch self {
+		case .Industrial: return self.darkPrimaryColor
 		default: return UIColor.clearColor()
 		}
 	}
@@ -440,6 +455,7 @@ enum Theme: Int {
 		switch self {
 		case .Night: return MDColorPalette.Grey.P800
 		case .Forest: return self.cardViewBackgroudColor
+		case .Industrial: return self.cardViewBackgroudColor
 		default: return UIColor.whiteColor()
 		}
 	}
@@ -642,18 +658,21 @@ enum Theme: Int {
 
 	var cardViewHorizontalMargin:CGFloat {
 		switch self {
+		case .Industrial: return 0
 		default: return isPhone ? 16 : 32
 		}
 	}
 
 	var cardViewGroupVerticalMargin:CGFloat {
 		switch self {
+		case .Industrial: return 0
 		default: return cardViewHorizontalMargin
 		}
 	}
 
 	var cardViewGap:CGFloat {
 		switch self {
+		case .Industrial: return 0
 		default: return isPhone ? 16 : 8
 		}
 	}
@@ -666,6 +685,7 @@ enum Theme: Int {
 
 	var cardViewBorderWidth:CGFloat {
 		switch self {
+		case .Industrial: return 1
 		default: return 0
 		}
 	}
@@ -673,6 +693,7 @@ enum Theme: Int {
 	var cardViewCornerRadius:CGFloat {
 		switch self {
 		case .Forest: return 15
+		case .Industrial: return 0
 		default: return 2
 		}
 	}
@@ -695,6 +716,7 @@ enum Theme: Int {
 
 	var cardViewMDShadowLevelDefault:Int {
 		switch self {
+		case .Industrial: return 0
 		default: return 1
 		}
 	}

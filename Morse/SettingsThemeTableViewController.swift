@@ -95,6 +95,7 @@ class SettingsThemeTableViewController: TableViewController {
 
 			appDelegate.userDefaults.setInteger(self.rowIndForIndexPath(indexPath), forKey: userDefaultsKeyUserSelectedTheme)
 			appDelegate.userDefaults.synchronize()
+			print(self.rowIndForIndexPath(indexPath))
 			theme = Theme(rawValue: self.rowIndForIndexPath(indexPath))!
 			let tracker = GAI.sharedInstance().defaultTracker; tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 				action: "button_press",

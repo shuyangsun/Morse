@@ -153,6 +153,7 @@ struct LocalizedStrings {
 		static let defaultName = NSLocalizedString("Default", comment: "Means something's default.")
 		static let night = NSLocalizedString("Night", comment: "One of the names for color theme.")
 		static let forest = NSLocalizedString("Forest", comment: "One of the names for color theme.")
+		static let industrial = NSLocalizedString("Industrial", comment: "One of the names for color theme.")
 	}
 
 	struct Languages {

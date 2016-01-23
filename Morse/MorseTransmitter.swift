@@ -531,7 +531,7 @@ class MorseTransmitter {
 	// This method is called when a piece of audio is processed and a unit is sure will be appended to the Morse code.
 	// Only 4 type of units can be appended: DIT, DAH, LETTERGAP, WORDGAP. UNITGAP will be appended automatically.
 	// ********************************************************************************************************************
-	private func appendUnit(unit:MorseUnit) {
+	private func appendUnit(unit:MorseUnit) { 
 		self._newLineAppended = false
 		if unit == .LetterGap || unit == .WordGap {
 			// If we're appending a gap, reset currentLetterMorse
