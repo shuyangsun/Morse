@@ -72,7 +72,7 @@ enum Theme: Int {
 		case .Default: return MDColorPalette.Blue.P300
 		case .Night: return MDColorPalette.Grey.P500
 		case .Forest: return MDColorPalette.Green.P300
-		case .Industrial: return MDColorPalette.BlueGrey.P300
+		case .Industrial: return MDColorPalette.BlueGrey.P400
 		}
 	}
 
@@ -81,7 +81,7 @@ enum Theme: Int {
 		case .Default: return MDColorPalette.LightGreen.P500
 		case .Night: return MDColorPalette.Blue.A400!
 		case .Forest: return MDColorPalette.Lime.A200!
-		case .Industrial: return MDColorPalette.Teal.A400!
+		case .Industrial: return MDColorPalette.Cyan.A700!
 		}
 	}
 
@@ -90,7 +90,7 @@ enum Theme: Int {
 		case .Default: return MDColorPalette.LightGreen.P200
 		case .Night: return MDColorPalette.Blue.A100!
 		case .Forest: return MDColorPalette.Lime.A100!
-		case .Industrial: return MDColorPalette.Teal.A200!
+		case .Industrial: return MDColorPalette.Cyan.A400!
 		}
 	}
 
@@ -429,12 +429,14 @@ enum Theme: Int {
 
 	var tabBarSelectedTintColor:UIColor {
 		switch self {
+		case .Industrial: return self.lightAccentColor
 		default: return self.accentColor
 		}
 	}
 
 	var tabBarUnselectedTintColor:UIColor {
 		switch self {
+		case .Industrial: return self.accentColor
 		default: return self.lightAccentColor
 		}
 	}
