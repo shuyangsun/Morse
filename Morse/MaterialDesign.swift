@@ -157,18 +157,14 @@ extension UIView {
 				animations: {
 					surfaceReactionView.alpha = 1.0
 				}) { succeed in
-					if succeed {
-						// Hide surface reaction
-						UIView.animateWithDuration(duration * 2.0/3.0,
-							delay: 0.0,
-							options: .CurveEaseOut,
-							animations: {
-								surfaceReactionView.alpha = 0.0
-							}) { succeed in
-								if succeed {
-									surfaceReactionView.removeFromSuperview()
-								}
-						}
+					// Hide surface reaction
+					UIView.animateWithDuration(duration * 2.0/3.0,
+						delay: 0.0,
+						options: .CurveEaseOut,
+						animations: {
+							surfaceReactionView.alpha = 0.0
+						}) { succeed in
+							surfaceReactionView.removeFromSuperview()
 					}
 			}
 		}
@@ -182,11 +178,9 @@ extension UIView {
 			animations: {
 				feedBackView.transform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
 			}) { succeed in
-				if succeed {
-					feedBackView.removeFromSuperview()
-					overlayView.removeFromSuperview()
-					completion?()
-				}
+				feedBackView.removeFromSuperview()
+				overlayView.removeFromSuperview()
+				completion?()
 		}
 
 		// Show the circle

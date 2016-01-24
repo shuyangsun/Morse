@@ -479,15 +479,13 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 						self.roundButtonView.transform = CGAffineTransformScale(self.roundButtonView.transform, 1.15, 1.15)
 						self.roundButtonView.addMDShadow(withDepth: theme.roundButtonMDShadowLevelTapped)
 					}) { succeed in
-						if succeed {
-							UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * appDelegate.animationDurationScalar,
-								delay: 0.0,
-								options: .CurveEaseOut,
-								animations: {
-									self.roundButtonView.transform = originalTransform
-									self.roundButtonView.addMDShadow(withDepth: theme.roundButtonMDShadowLevelDefault)
-								}, completion: nil)
-						}
+						UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * appDelegate.animationDurationScalar,
+							delay: 0.0,
+							options: .CurveEaseOut,
+							animations: {
+								self.roundButtonView.transform = originalTransform
+								self.roundButtonView.addMDShadow(withDepth: theme.roundButtonMDShadowLevelDefault)
+							}, completion: nil)
 				}
 				
 		}

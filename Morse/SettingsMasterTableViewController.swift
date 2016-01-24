@@ -380,7 +380,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 	}
 
 	override func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-		super.tableView(tableView, willDisplayHeaderView: view, forSection: section)
+		super.tableView(tableView, willDisplayFooterView: view, forSection: section)
 		if section == 4 {
 			if let footerView = view as? UITableViewHeaderFooterView {
 				footerView.textLabel?.textColor = theme.tableViewFooterUpgradesTextColor

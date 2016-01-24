@@ -271,19 +271,17 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 						self.topSectionViewController.microphoneButton.alpha = 1
 					}
 				}) { succeed in
-					if succeed {
-						UIView.animateWithDuration(animationDuration
-							, delay: 0,
-							options: .CurveEaseOut,
-							animations: {
-								self.topSectionViewController.keyboardButton.alpha = 1
-								if self.topSectionViewController.isDirectionEncode {
-									self.topSectionViewController.microphoneButton.alpha = 0
-								} else {
-									self.topSectionViewController.microphoneButton.alpha = 1
-								}
-							}, completion: nil)
-					}
+					UIView.animateWithDuration(animationDuration
+						, delay: 0,
+						options: .CurveEaseOut,
+						animations: {
+							self.topSectionViewController.keyboardButton.alpha = 1
+							if self.topSectionViewController.isDirectionEncode {
+								self.topSectionViewController.microphoneButton.alpha = 0
+							} else {
+								self.topSectionViewController.microphoneButton.alpha = 1
+							}
+						}, completion: nil)
 			}
 		}
 		self.restoreCurrentFlippedCard()
@@ -464,14 +462,12 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 				animations: {
 					self.scrollView.layoutIfNeeded()
 				}) { succeed in
-					if succeed {
-						// Update scrollView contentSize
-						self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height - cardView.bounds.height - theme.cardViewGap)
+					// Update scrollView contentSize
+					self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height - cardView.bounds.height - theme.cardViewGap)
 
-						// If the content size of scroll view is smaller than scroll view frame, show top section
-						if self.scrollView.contentSize.height < self.scrollView.bounds.height {
-							self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
-						}
+					// If the content size of scroll view is smaller than scroll view frame, show top section
+					if self.scrollView.contentSize.height < self.scrollView.bounds.height {
+						self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
 					}
 			}
 
@@ -743,10 +739,8 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 					card!.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
 					self.scrollView.layoutIfNeeded()
 				}) { succeed in
-					if succeed {
-						card!.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
-						completion?()
-					}
+					card!.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
+					completion?()
 			}
 		}
 	}

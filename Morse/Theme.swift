@@ -194,6 +194,7 @@ enum Theme: Int {
 	var cellImageTintColor:UIColor {
 		switch self {
 		case.Forest: return self.lightAccentColor
+		case.Industrial: return MDColorPalette.BlueGrey.P100
 		default: return self.lightPrimaryColor
 		}
 	}
@@ -479,6 +480,7 @@ enum Theme: Int {
 	var tableViewSeparatorColor:UIColor? {
 		switch self {
 		case .Night: return MDColorPalette.Grey.P600
+		case .Industrial: return self.cardViewBorderColor
 		default: return nil
 		}
 	}
@@ -530,6 +532,7 @@ enum Theme: Int {
 
 	var tableViewFooterTextColor:UIColor {
 		switch self {
+		case .Industrial: return self.secondaryTextColor
 		default: return self.hintTextColor
 		}
 	}

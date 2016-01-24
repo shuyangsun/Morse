@@ -788,21 +788,23 @@ class MorseTransmitter {
 				var wordStr:String = ""
 				// Seperate this word into characters
 				for ch in chArr {
-					// If the user always want to translate prosign and this maybe one prosign (only one character in this word), do it.
-					if appDelegate.prosignTranslationType == .Always && chArr.count == 1 {
-						// Check if this is a prosign
-						if let prosignText = MorseTransmitter.prosignMorseToTextStringDictionary[String(ch)] {
-							wordStr = prosignText
-							// Break out of the loop so if the letter is "&" or "k" which overlaps with prosign, it does not keep decoding this message.
-							continue
+					if !ch.isEmpty { // This line is here to fix a bug where in some cases empty string will be found in chArr
+						// If the user always want to translate prosign and this maybe one prosign (only one character in this word), do it.
+						if appDelegate.prosignTranslationType == .Always && chArr.count == 1 {
+							// Check if this is a prosign
+							if let prosignText = MorseTransmitter.prosignMorseToTextStringDictionary[String(ch)] {
+								wordStr = prosignText
+								// Break out of the loop so if the letter is "&" or "k" which overlaps with prosign, it does not keep decoding this message.
+								continue
+							}
 						}
-					}
-					// If this is not a prosign, use normal dictionary to translate it.
-					if let chText = MorseTransmitter.decodeMorseStringToTextDictionary[String(ch)] {
-						wordStr += chText
-					} else {
-						// If the dictionary does not recognize this letter, append the error character.
-						wordStr += notRecognizedLetterStr
+						// If this is not a prosign, use normal dictionary to translate it.
+						if let chText = MorseTransmitter.decodeMorseStringToTextDictionary[String(ch)] {
+							wordStr += chText
+						} else {
+							// If the dictionary does not recognize this letter, append the error character.
+							wordStr += notRecognizedLetterStr
+						}
 					}
 				}
 

@@ -58,11 +58,9 @@ class RoundButtonView: UIView {
 			delay: 0.0,
 			options: .CurveEaseInOut,
 			animations: animationClosure) { succeed in
-				if succeed {
-					self.hidden = true
-					self.userInteractionEnabled = false
-					completion?()
-				}
+				self.hidden = true
+				self.userInteractionEnabled = false
+				completion?()
 		}
 	}
 
@@ -93,14 +91,12 @@ class RoundButtonView: UIView {
 			animations: {
 				self.backgroundImageView.transform = CGAffineTransformRotate(self.backgroundImageView.transform, CGFloat(M_PI_2))
 			}) { succeed in
-				if succeed {
-					UIView.animateWithDuration(duration / 2.0 * self.animationDurationScalar,
-						delay: 0.0,
-						options: .CurveLinear,
-						animations: {
-							self.backgroundImageView.transform = CGAffineTransformRotate(self.backgroundImageView.transform, CGFloat(M_PI_2))
-					}, completion: nil)
-				}
+				UIView.animateWithDuration(duration / 2.0 * self.animationDurationScalar,
+					delay: 0.0,
+					options: .CurveLinear,
+					animations: {
+						self.backgroundImageView.transform = CGAffineTransformRotate(self.backgroundImageView.transform, CGFloat(M_PI_2))
+				}, completion: nil)
 		}
 	}
 

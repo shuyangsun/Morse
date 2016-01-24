@@ -274,9 +274,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 			animations: {
 				self.scrollView.layoutIfNeeded()
 			}) { succeed in
-				if succeed {
-					self.updateMDShadows()
-				}
+				self.updateMDShadows()
 		}
 	}
 

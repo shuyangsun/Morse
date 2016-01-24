@@ -502,16 +502,14 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				self.morseTextBackgroundView.alpha = 1.0
 				self.percentageLabel.alpha = 1.0
 			}) { succeed in
-				if succeed {
-					self._startDate = NSDate()
-					self._outputPlayer.start()
-					self._toneGenerator.play()
-					if appDelegate.brightenScreenWhenOutput {
-						self._originalBrightness = UIScreen.mainScreen().brightness
-						UIScreen.mainScreen().brightness = 1
-					}
-					self._progressTimer = NSTimer.scheduledTimerWithTimeInterval(1.0/60.0, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
+				self._startDate = NSDate()
+				self._outputPlayer.start()
+				self._toneGenerator.play()
+				if appDelegate.brightenScreenWhenOutput {
+					self._originalBrightness = UIScreen.mainScreen().brightness
+					UIScreen.mainScreen().brightness = 1
 				}
+				self._progressTimer = NSTimer.scheduledTimerWithTimeInterval(1.0/60.0, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
 		}
 		self._playing = true
 	}
@@ -534,10 +532,8 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				let x = layoutDirection == .LeftToRight ? 0 : self.topBarView.bounds.width
 				self.progressBarView.frame = CGRect(x: x, y: 0, width: 0, height: self._outputVCTopBarHeight)
 			}) { succeed in
-				if succeed {
-					self.percentageLabel.text = "0%"
-					self.morseTextLabel.transform = CGAffineTransformIdentity
-				}
+				self.percentageLabel.text = "0%"
+				self.morseTextLabel.transform = CGAffineTransformIdentity
 		}
 		self._playing = false
 	}

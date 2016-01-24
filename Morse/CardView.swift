@@ -277,9 +277,7 @@ class CardView: UIView {
 						self.transform = CGAffineTransformIdentity
 						self.alpha = 1
 					}) { succeed in
-						if succeed {
-							self.delegate?.cardViewTouchesEnded?(self, touches:touches, withEvent: event, deleteCard: false)
-						}
+						self.delegate?.cardViewTouchesEnded?(self, touches:touches, withEvent: event, deleteCard: false)
 				}
 			}
 		}
@@ -299,9 +297,7 @@ class CardView: UIView {
 					self.transform = CGAffineTransformIdentity
 					self.alpha = 1
 				}) { succeed in
-					if succeed {
-						self.delegate?.cardViewTouchesCancelled?(self, touches:touches, withEvent: event)
-					}
+					self.delegate?.cardViewTouchesCancelled?(self, touches:touches, withEvent: event)
 			}
 		}
 		self._swipping = false
@@ -358,14 +354,12 @@ class CardView: UIView {
 			animations: {
 				self.transform = CGAffineTransformScale(self.transform, 1.04, 1.04)
 			}) { succeed in
-				if succeed {
-					UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
-						delay: 0.0,
-						options: .CurveEaseOut,
-						animations: {
-							self.transform = originalTransform
-						}, completion: nil)
-				}
+				UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
+					delay: 0.0,
+					options: .CurveEaseOut,
+					animations: {
+						self.transform = originalTransform
+					}, completion: nil)
 		}
 	}
 
