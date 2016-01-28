@@ -340,8 +340,9 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.keyboardButton.backgroundColor = appDelegate.theme.keyboardButtonBackgroundColor
 			self.keyboardButton.opaque = false
 			self.keyboardButton.alpha = 0
-			let image = UIImage(named: theme.keyboardIconImageName)
+			let image = UIImage(named: theme.keyboardIconImageName)!.imageWithRenderingMode(.AlwaysTemplate)
 			self.keyboardButton.setImage(image, forState: .Normal)
+			self.keyboardButton.tintColor = theme.keyboardButtonTintColor
 			self.keyboardButton.addTarget(self, action: "keyboardButtonTapped", forControlEvents: .TouchUpInside)
 			let tapGR = UITapGestureRecognizer(target: self, action: "micOrKeyboardButtonTapped:")
 			tapGR.cancelsTouchesInView = false
@@ -364,8 +365,9 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.microphoneButton.backgroundColor = appDelegate.theme.keyboardButtonBackgroundColor
 			self.microphoneButton.opaque = false
 			self.microphoneButton.alpha = 0
-			let image = UIImage(named: theme.microphoneIconImageName)
+			let image = UIImage(named: theme.microphoneIconImageName)!.imageWithRenderingMode(.AlwaysTemplate)
 			self.microphoneButton.setImage(image, forState: .Normal)
+			self.microphoneButton.tintColor = theme.keyboardButtonTintColor
 			self.microphoneButton.contentMode = .ScaleAspectFit
 			self.microphoneButton.addTarget(self.homeViewController, action: "microphoneButtonTapped", forControlEvents: .TouchUpInside)
 			let tapGR = UITapGestureRecognizer(target: self, action: "micOrKeyboardButtonTapped:")
@@ -892,10 +894,6 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	func updateColor(animated animated:Bool = true) {
 		self.inputTextView.keyboardAppearance = theme.keyboardAppearance
 		self.roundButtonView.addMDShadow(withDepth: theme.roundButtonMDShadowLevelDefault)
-		let micImage = UIImage(named: theme.microphoneIconImageName)
-		self.microphoneButton.setImage(micImage, forState: .Normal)
-		let keyboardImage = UIImage(named: theme.keyboardIconImageName)
-		self.keyboardButton.setImage(keyboardImage, forState: .Normal)
 		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
 		UIView.animateWithDuration(duration,
 			delay: 0,
@@ -913,7 +911,9 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 				self.textBackgroundView.backgroundColor = theme.textViewBackgroundColor
 				self.breakLineView.backgroundColor = theme.textViewBreakLineColor
 				self.keyboardButton.backgroundColor = theme.keyboardButtonBackgroundColor
+				self.keyboardButton.tintColor = theme.keyboardButtonTintColor
 				self.microphoneButton.backgroundColor = theme.keyboardButtonBackgroundColor
+				self.microphoneButton.tintColor = theme.keyboardButtonTintColor
 				if self.isDuringInput {
 					self.inputTextView.textColor = theme.textViewInputTextColor
 					self.outputTextView.textColor = theme.textViewOutputTextColor

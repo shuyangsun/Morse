@@ -290,6 +290,15 @@ enum Theme: Int {
 		}
 	}
 
+	var keyboardButtonTintColor:UIColor {
+		switch self {
+		case .Default: return UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha)
+		case .Night: return UIColor(hex: 0xFFFFFF, alpha: MDLightTextPrimaryAlpha)
+		case .Forest: return UIColor(hex: 0x000, alpha: MDDarkTextPrimaryAlpha)
+		case .Industrial: return self.lightAccentColor
+		}
+	}
+
 	var keyboardButtonTapFeedbackColor:UIColor {
 		switch self {
 		default: return self.lightAccentColor
@@ -797,15 +806,13 @@ enum Theme: Int {
 
 	var microphoneIconImageName:String {
 		switch self.style {
-		case .Light: return "Microphone Button Dark"
-		case .Dark: return "Microphone Button Light"
+		default: return "Microphone Button Dark"
 		}
 	}
 
 	var keyboardIconImageName:String {
 		switch self.style {
-		case .Light: return "Keyboard Button Dark"
-		case .Dark: return "Keyboard Button Light"
+		default: return "Keyboard Button Dark"
 		}
 	}
 

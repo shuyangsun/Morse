@@ -760,7 +760,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 				(localized:LocalizedStrings.LaunchCard.text1, english: "Welcome to Morse Transmitter!"),
 				(localized:LocalizedStrings.LaunchCard.text2, english: "Tap me to output or share."),
 				(localized:LocalizedStrings.LaunchCard.text3, english: "Hold me to expand."),
-				(localized:LocalizedStrings.LaunchCard.text4, english: "Swipe to delete me."),
+				(localized:LocalizedStrings.LaunchCard.text4, english: "Swipe to delete me.")
 			]
 			let transmitter = MorseTransmitter()
 			for var i = localizedTextArrays.count - 1; i >= 0; i-- {
