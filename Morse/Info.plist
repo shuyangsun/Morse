@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.0.1</string>
+	<string>0.0.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -25,12 +25,12 @@
 	<key>UIApplicationShortcutItems</key>
 	<array>
 		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>ShortcutItemsIcon Encode Text</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Encode Text</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).encodeText</string>
-			<key>UIApplicationShortcutItemIconFile</key>
-			<string>ShortcutItemsIcon Encode Text</string>
 			<key>UIApplicationShortcutItemUserInfo</key>
 			<dict>
 				<key>action</key>
@@ -38,12 +38,12 @@
 			</dict>
 		</dict>
 		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>ShortcutItemsIcon Decode Morse</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Decode Morse</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).decodeMorse</string>
-			<key>UIApplicationShortcutItemIconFile</key>
-			<string>ShortcutItemsIcon Decode Morse</string>
 			<key>UIApplicationShortcutItemUserInfo</key>
 			<dict>
 				<key>action</key>
@@ -51,12 +51,12 @@
 			</dict>
 		</dict>
 		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>ShortcutItemsIcon Audio Decoder</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Decode Audio</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).audioDecoder</string>
-			<key>UIApplicationShortcutItemIconFile</key>
-			<string>ShortcutItemsIcon Audio Decoder</string>
 			<key>UIApplicationShortcutItemUserInfo</key>
 			<dict>
 				<key>action</key>
@@ -64,12 +64,12 @@
 			</dict>
 		</dict>
 		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>ShortcutItemsIcon Dictionary</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Dictionary</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).dictionary</string>
-			<key>UIApplicationShortcutItemIconFile</key>
-			<string>ShortcutItemsIcon Dictionary</string>
 			<key>UIApplicationShortcutItemUserInfo</key>
 			<dict>
 				<key>action</key>

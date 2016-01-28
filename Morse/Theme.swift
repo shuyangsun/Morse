@@ -960,6 +960,12 @@ enum Theme: Int {
 		}
 	}
 
+	var settingsPrivacyPolicyImageName:String {
+		switch self.style {
+		default: return "Settings Privacy Policy"
+		}
+	}
+
 	var settingsClearCardsImageName:String {
 		switch self.style {
 		default: return "Settings Clear Cards"

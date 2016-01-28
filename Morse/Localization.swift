@@ -147,6 +147,7 @@ struct LocalizedStrings {
 		static let audioDecoderAutoCorrect = NSLocalizedString("Auto Correct Words", comment: "A settings that allows user to choose if they want to use auto correction on audio decoder.")
 		static let done = NSLocalizedString("Done", comment: "A Done button.")
 		static let automaticAudioDecoderValue = NSLocalizedString("Automatic", comment: "Name of a switch button (audio decoder automatically get wpm and pitch information).")
+		static let privacyPolicy = NSLocalizedString("Privacy Policy", comment: "A cell on Settings page connect to privacy policy website.")
 	}
 
 	struct ThemeName {

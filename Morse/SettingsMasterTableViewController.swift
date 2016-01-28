@@ -97,7 +97,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		case 2: return 2 // Appearance
 		case 3: return 3 // Transmitter Config
 //		case 4: return 5 // Upgrades
-		case 4: return MFMailComposeViewController.canSendMail() ? 3 : 2 // About
+		case 4: return MFMailComposeViewController.canSendMail() ? 4 : 3 // About
 		case 5: return 1 // Dev Options
 		default: return 0
 		}
@@ -236,8 +236,17 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.rateOnAppStore
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			case 2:
-				cell.imageView?.image = UIImage(named: theme.settingsContactDeveloperImageName)?.imageWithRenderingMode(.AlwaysTemplate)
-				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.contactDeveloper
+				// If this device can send an email. this cell is "Contact Developer", if not, this cell is Privacy Policy
+				if MFMailComposeViewController.canSendMail() {
+					cell.imageView?.image = UIImage(named: theme.settingsContactDeveloperImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+					cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.contactDeveloper
+						, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
+				} else {
+					fallthrough
+				}
+			case 3:
+				cell.imageView?.image = UIImage(named: theme.settingsPrivacyPolicyImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.privacyPolicy
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			default: break
 			}
@@ -289,9 +298,9 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		case 1: return LocalizedStrings.Settings.actions
 		case 2: return LocalizedStrings.Settings.ui
 		case 3: return LocalizedStrings.Settings.transmitterConfiguration
-		case 4: return	LocalizedStrings.Settings.upgrades
-		case 5: return	LocalizedStrings.Settings.about
-		case 6: return LocalizedStrings.Settings.developerOptions
+//		case 4: return	LocalizedStrings.Settings.upgrades
+		case 4: return	LocalizedStrings.Settings.about
+		case 5: return LocalizedStrings.Settings.developerOptions
 		default: return nil
 		}
 	}
@@ -301,7 +310,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		case 0: return LocalizedStrings.Settings.extraTextDescription
 		case 2: return LocalizedStrings.Settings.nightModeDescription
 		case 3: return LocalizedStrings.Settings.decodeProsignDescription
-		case 4: return appDelegate.adsRemoved ? nil : LocalizedStrings.Settings.upgradesDescription
+//		case 4: return appDelegate.adsRemoved ? nil : LocalizedStrings.Settings.upgradesDescription
 		default: return nil
 		}
 	}
@@ -367,13 +376,19 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 			case 1: // Rate on App Store
 				// TODO: SKStoreProductViewController?
 				UIApplication.sharedApplication().openURL(NSURL(string: appStoreReviewLink)!)
-			case 2: // Contact Developer
-				let mailController = MFMailComposeViewController()
-				mailController.mailComposeDelegate = self
-				mailController.setToRecipients([feedbackEmailToRecipient])
-				mailController.setSubject(LocalizedStrings.FeedbackEmail.subject)
-				mailController.setMessageBody(feedbackEmailMessageBody, isHTML: false)
-				self.presentViewController(mailController, animated: true, completion: nil)
+			case 2: // Contact Developer (Or privacy policy)
+				if MFMailComposeViewController.canSendMail() {
+					let mailController = MFMailComposeViewController()
+					mailController.mailComposeDelegate = self
+					mailController.setToRecipients([feedbackEmailToRecipient])
+					mailController.setSubject(LocalizedStrings.FeedbackEmail.subject)
+					mailController.setMessageBody(feedbackEmailMessageBody, isHTML: false)
+					self.presentViewController(mailController, animated: true, completion: nil)
+				} else {
+					fallthrough
+				}
+			case 3: // Privacy Policy
+				UIApplication.sharedApplication().openURL(NSURL(string: privacyPolicyLink)!)
 			default: break
 			}
 		}
