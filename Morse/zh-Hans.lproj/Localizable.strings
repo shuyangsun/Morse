@@ -144,6 +144,9 @@
 /* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: the named station can start to transmit now. */
 "INVITE-NAMED-STATION-TO-TRANSMIT" = "请指名电台回复";
 
+/* One of the names for color theme. */
+"Industrial" = "工业";
+
 /* There are many prosign code in Morse, this is the name of one of them. */
 "Invite (Any)" = "任意电台回复";
 
@@ -187,13 +190,13 @@
 "Pitch" = "音调";
 
 /* One of the titles on the Alert view. */
-"Please Purchase an Upgrade :)" = "";
-
-/* One of the titles on the Alert view. */
 "Please Restart" = "请重新开启应用程序";
 
 /* This is a footer on the first section in language change settings, to reminder user restart the App after changing language. */
 "Please restart this App after changing language." = "更换语言后，请在后台关闭应用，再重新开启，以使设置生效";
+
+/* A cell on Settings page connect to privacy policy website. */
+"Privacy Policy" = "隐私协议";
 
 /* A button on the settings page for user to rate on App Store. */
 "Rate on App Store" = "评价一下";
@@ -287,9 +290,6 @@
 
 /* There are many prosign code in Morse, this is the name of one of them. */
 "Understood" = "明白";
-
-/* A button on the settings page for user make in-app purchase to have unlimited card slots. */
-"Unlimited Card Slots" = "";
 
 /* There are categories on the settings page, this is one of the category. */
 "Upgrades" = "升级选项";

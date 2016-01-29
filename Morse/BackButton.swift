@@ -10,11 +10,8 @@ import UIKit
 
 class BackButton: UIButton {
 
-	private var originalTransform:CGAffineTransform!
-
-	private var theme:Theme {
-		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-		return delegate.theme
+	private var _animationOffset:CGFloat {
+		return layoutDirection == .LeftToRight ? backButtonAnimationOffset : -backButtonAnimationOffset
 	}
 
 	convenience init(origin:CGPoint, width:CGFloat) {
@@ -26,12 +23,12 @@ class BackButton: UIButton {
 	}
 
 	func disappearWithDuration(duration:NSTimeInterval, completion:((Void)->Void)? = nil) {
-		self.originalTransform = self.transform
+		self.transform = CGAffineTransformIdentity
 		UIView.animateWithDuration(duration * appDelegate.animationDurationScalar,
 			delay: 0,
 			options: .CurveEaseInOut,
 			animations: {
-				self.transform = CGAffineTransformScale(self.transform, 0.1, 0.1)
+				self.transform = CGAffineTransformMakeTranslation(self._animationOffset, 0)
 				self.alpha = 0
 			}) { succeed in
 				self.hidden = true
@@ -43,11 +40,12 @@ class BackButton: UIButton {
 
 	func appearWithDuration(duration:NSTimeInterval, completion:((Void)->Void)? = nil) {
 		self.hidden = false
+		self.transform = CGAffineTransformMakeTranslation(self._animationOffset, 0)
 		UIView.animateWithDuration(duration * appDelegate.animationDurationScalar,
 			delay: 0.0,
 			options: .CurveEaseInOut,
 			animations: {
-				self.transform = self.originalTransform
+				self.transform = CGAffineTransformIdentity
 				self.alpha = 1.0
 			}) { succeed in
 				self.userInteractionEnabled = true

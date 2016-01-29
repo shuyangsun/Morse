@@ -144,6 +144,9 @@
 /* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: the named station can start to transmit now. */
 "INVITE-NAMED-STATION-TO-TRANSMIT" = "دعوة (الاسم)";
 
+/* One of the names for color theme. */
+"Industrial" = "الصناعية";
+
 /* There are many prosign code in Morse, this is the name of one of them. */
 "Invite (Any)" = "دعوة (أي)";
 
@@ -186,6 +189,9 @@
 /* Settings category: audio frequency. */
 "Pitch" = "الملعب";
 
+/* This is a label on the output page, followed by the number of audio frequency (pitch). */
+"Pitch: " = "الملعب:";
+
 /* One of the titles on the Alert view. */
 "Please Purchase an Upgrade :)" = "يرجى شراء ترقية :)";
 
@@ -205,6 +211,9 @@ Thank you!" = "يرجى دعم لنا اتخاذ قرار الشراء.
 بعد أي عملية شراء، يمكنك مشاركة مورس دون رابط التحميل، وستزول جميع الإعلانات!
 
 شكرا لك!";
+
+/* A cell on Settings page connect to privacy policy website. */
+"Privacy Policy" = "سياسة الخصوصية";
 
 /* A button on the settings page for user to rate on App Store. */
 "Rate on App Store" = "سعر الفائدة على المتجر";
@@ -241,6 +250,9 @@ Thank you!" = "يرجى دعم لنا اتخاذ قرار الشراء.
 
 /* One of the titles on the Alert view. */
 "Succeed!" = "تنجح!";
+
+/* This is a label on the output page, tells the user the range of supported WPM. */
+"Supported WPM: " = "كلمات المدعومة في الدقيقة الواحدة:";
 
 /* This is a label on the output page, tells user how to go back to home page. */
 "Swipe down or pinch to go back" = "انتقد أسفل أو قرصة للعودة";
@@ -322,6 +334,9 @@ Thank you!" = "يرجى دعم لنا اتخاذ قرار الشراء.
 
 /* Settings category: word per minute. */
 "WPM (Words Per Minute)" = "كلمة في الدقيقة";
+
+/* This is a label on the output page, followed by the numer of WPM (word per minute). */
+"WPM: " = "كلمة في الدقيقة:";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
 "Wait" = "انتظر";

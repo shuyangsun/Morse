@@ -158,6 +158,7 @@
 		109266841C2071EA00AD198E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109266831C2071EA00AD198E /* TableViewCell.swift */; };
 		109266851C2071EA00AD198E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109266831C2071EA00AD198E /* TableViewCell.swift */; };
 		109266861C2071EA00AD198E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109266831C2071EA00AD198E /* TableViewCell.swift */; };
+		109684DA1C5AD11800942BDE /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109684D91C5AD11800942BDE /* WebViewController.swift */; };
 		109ACDC01C0E0D12006AC535 /* RoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */; };
 		109ACDC11C0E0D12006AC535 /* RoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */; };
 		109ACDC21C0E0D12006AC535 /* RoundButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */; };
@@ -382,6 +383,8 @@
 		1088ACC11C26003400D17028 /* CardViewOutputAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewOutputAnimator.swift; sourceTree = "<group>"; };
 		109266831C2071EA00AD198E /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		1093DA951C4B44180011695E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		109684D91C5AD11800942BDE /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		109684DE1C5AE55900942BDE /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		109ACDBF1C0E0D12006AC535 /* RoundButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButtonView.swift; sourceTree = "<group>"; };
 		109DEA351C4179B400DDC04D /* UIImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageEffects.h; sourceTree = "<group>"; };
 		109DEA361C4179B400DDC04D /* UIImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageEffects.m; sourceTree = "<group>"; };
@@ -704,6 +707,7 @@
 				10D54A0B1C41FF3D00775318 /* SettingsThemeTableViewController.swift */,
 				101EA6F31C45918000F8E767 /* SettingsOutputTableViewController.swift */,
 				107C922B1C44609900C97EFF /* SettingsAudioDecoderTableViewController.swift */,
+				109684D91C5AD11800942BDE /* WebViewController.swift */,
 			);
 			name = "Settings VC";
 			sourceTree = "<group>";
@@ -1044,6 +1048,7 @@
 				1052A74B1C0BACE90085B0C9 /* Morse.xcdatamodeld in Sources */,
 				109DEA371C4179B400DDC04D /* UIImageEffects.m in Sources */,
 				1052A7431C0BACE90085B0C9 /* AppDelegate.swift in Sources */,
+				109684DA1C5AD11800942BDE /* WebViewController.swift in Sources */,
 				10BFD39A1C1F1C1300FA4C26 /* General UI.swift in Sources */,
 				103476FB1C3750DC0036DB44 /* EZAudioFloatConverter.m in Sources */,
 			);
@@ -1182,6 +1187,7 @@
 				10099BB61C46C98C00ED8B3E /* zh-Hans */,
 				10ECA68F1C496E5900A63328 /* zh-Hant */,
 				10B723521C51E20C002C13D5 /* ar */,
+				109684DE1C5AE55900942BDE /* es */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

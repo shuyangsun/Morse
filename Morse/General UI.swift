@@ -13,6 +13,8 @@ let defaultAnimationDuration:NSTimeInterval = 0.35
 
 let topBarHeight:CGFloat = 56
 let textBackgroundViewHeight:CGFloat = 140
+let backButtonAnimationOffset:CGFloat = 30
+let webViewUnloadedTopBarAlpha:CGFloat = 0.7
 
 let textViewInputFontSize:CGFloat = 16
 let textViewOutputFontSize:CGFloat = 16

@@ -22,7 +22,7 @@
                 <target>電碼收發器</target>
             </trans-unit>
             <trans-unit id="CFBundleShortVersionString">
-                <source>0.0.1</source>
+                <source>0.0.2</source>
             </trans-unit>
         </body>
     </file>
@@ -183,8 +183,8 @@
             </trans-unit>
             <trans-unit id="Do you want to reset all alerts, so they will show up again even if you disabled them before?">
                 <source>Do you want to reset all alerts, so they will show up again even if you disabled them before?</source>
-                <note>One of the titles on the Alert view.</note>
                 <target>您之前屏蔽掉的提醒對話框將會再次出現，您確定要重置所有提醒對話框麼？</target>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Don't Show Again">
                 <source>Don't Show Again</source>
@@ -277,6 +277,11 @@
                 <target>請指明電台回复</target>
                 <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: the named station can start to transmit now.</note>
             </trans-unit>
+            <trans-unit id="Industrial">
+                <source>Industrial</source>
+                <note>One of the names for color theme.</note>
+                <target>工業</target>
+            </trans-unit>
             <trans-unit id="Invite (Any)">
                 <source>Invite (Any)</source>
                 <target>任意電台回复</target>
@@ -349,8 +354,8 @@
             </trans-unit>
             <trans-unit id="Pitch: ">
                 <source>Pitch: </source>
-                <note>This is a label on the output page, followed by the number of audio frequency (pitch).</note>
                 <target>音調：</target>
+                <note>This is a label on the output page, followed by the number of audio frequency (pitch).</note>
             </trans-unit>
             <trans-unit id="Please Purchase an Upgrade :)">
                 <source>Please Purchase an Upgrade :)</source>
@@ -373,6 +378,11 @@ After any purchase, you can share Morse code without download link, and all the 
 
 Thank you!</source>
                 <note>One of the titles on the Alert view.</note>
+            </trans-unit>
+            <trans-unit id="Privacy Policy">
+                <source>Privacy Policy</source>
+                <note>A cell on Settings page connect to privacy policy website.</note>
+                <target>隱私協議</target>
             </trans-unit>
             <trans-unit id="Rate on App Store">
                 <source>Rate on App Store</source>
@@ -436,8 +446,8 @@ Thank you!</source>
             </trans-unit>
             <trans-unit id="Supported WPM: ">
                 <source>Supported WPM: </source>
-                <note>This is a label on the output page, tells the user the range of supported WPM.</note>
                 <target>支持的每分鐘字數：</target>
+                <note>This is a label on the output page, tells the user the range of supported WPM.</note>
             </trans-unit>
             <trans-unit id="Swipe down or pinch to go back">
                 <source>Swipe down or pinch to go back</source>
@@ -550,8 +560,8 @@ Thank you!</source>
             </trans-unit>
             <trans-unit id="WARNING!">
                 <source>WARNING!</source>
-                <note>One of the titles on the Alert view.</note>
                 <target>注意！</target>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="WPM (Words Per Minute)">
                 <source>WPM (Words Per Minute)</source>
@@ -560,8 +570,8 @@ Thank you!</source>
             </trans-unit>
             <trans-unit id="WPM: ">
                 <source>WPM: </source>
-                <note>This is a label on the output page, followed by the numer of WPM (word per minute).</note>
                 <target>每分钟字数：</target>
+                <note>This is a label on the output page, followed by the numer of WPM (word per minute).</note>
             </trans-unit>
             <trans-unit id="Wait">
                 <source>Wait</source>
@@ -590,8 +600,8 @@ Thank you!</source>
             </trans-unit>
             <trans-unit id="While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code.">
                 <source>While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code.</source>
-                <note>A description on settings page, explaining what does Decode Prosign switch do.</note>
                 <target>當此選項處於打開狀態時，音頻解碼器會自動糾錯拼寫錯誤的單詞，默認語言英語。糾錯的目標語言會隨著您的語言設置而更改</target>
+                <note>A description on settings page, explaining what does Decode Prosign switch do.</note>
             </trans-unit>
             <trans-unit id="While this option is turned on, an App Store link for this App will be added when you share a Morse code.">
                 <source>While this option is turned on, an App Store link for this App will be added when you share a Morse code.</source>
@@ -826,6 +836,10 @@ Thank you!</source>
                 <source>INVITE-NAMED-STATION-TO-TRANSMIT</source>
                 <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: the named station can start to transmit now.</note>
             </trans-unit>
+            <trans-unit id="Industrial">
+                <source>Industrial</source>
+                <note>One of the names for color theme.</note>
+            </trans-unit>
             <trans-unit id="Invite (Any)">
                 <source>Invite (Any)</source>
                 <note>There are many prosign code in Morse, this is the name of one of them.</note>
@@ -905,6 +919,10 @@ After any purchase, you can share Morse code without download link, and all the 
 
 Thank you!</source>
                 <note>One of the titles on the Alert view.</note>
+            </trans-unit>
+            <trans-unit id="Privacy Policy">
+                <source>Privacy Policy</source>
+                <note>A cell on Settings page connect to privacy policy website.</note>
             </trans-unit>
             <trans-unit id="Rate on App Store">
                 <source>Rate on App Store</source>
@@ -1314,6 +1332,10 @@ Thank you!</source>
                 <source>INVITE-NAMED-STATION-TO-TRANSMIT</source>
                 <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: the named station can start to transmit now.</note>
             </trans-unit>
+            <trans-unit id="Industrial">
+                <source>Industrial</source>
+                <note>One of the names for color theme.</note>
+            </trans-unit>
             <trans-unit id="Invite (Any)">
                 <source>Invite (Any)</source>
                 <note>There are many prosign code in Morse, this is the name of one of them.</note>
@@ -1393,6 +1415,10 @@ After any purchase, you can share Morse code without download link, and all the 
 
 Thank you!</source>
                 <note>One of the titles on the Alert view.</note>
+            </trans-unit>
+            <trans-unit id="Privacy Policy">
+                <source>Privacy Policy</source>
+                <note>A cell on Settings page connect to privacy policy website.</note>
             </trans-unit>
             <trans-unit id="Rate on App Store">
                 <source>Rate on App Store</source>

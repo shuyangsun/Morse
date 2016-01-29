@@ -21,7 +21,7 @@
         <source>$(PRODUCT_NAME)</source>
       </trans-unit>
       <trans-unit id="CFBundleShortVersionString">
-        <source>0.0.1</source>
+        <source>0.0.2</source>
       </trans-unit>
     </body>
   </file>
@@ -229,6 +229,10 @@
         <source>INVITE-NAMED-STATION-TO-TRANSMIT</source>
         <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: the named station can start to transmit now.</note>
       </trans-unit>
+      <trans-unit id="Industrial">
+        <source>Industrial</source>
+        <note>One of the names for color theme.</note>
+      </trans-unit>
       <trans-unit id="Invite (Any)">
         <source>Invite (Any)</source>
         <note>There are many prosign code in Morse, this is the name of one of them.</note>
@@ -308,6 +312,10 @@ After any purchase, you can share Morse code without download link, and all the 
 
 Thank you!</source>
         <note>One of the titles on the Alert view.</note>
+      </trans-unit>
+      <trans-unit id="Privacy Policy">
+        <source>Privacy Policy</source>
+        <note>A cell on Settings page connect to privacy policy website.</note>
       </trans-unit>
       <trans-unit id="Rate on App Store">
         <source>Rate on App Store</source>
@@ -717,6 +725,10 @@ Thank you!</source>
         <source>INVITE-NAMED-STATION-TO-TRANSMIT</source>
         <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: the named station can start to transmit now.</note>
       </trans-unit>
+      <trans-unit id="Industrial">
+        <source>Industrial</source>
+        <note>One of the names for color theme.</note>
+      </trans-unit>
       <trans-unit id="Invite (Any)">
         <source>Invite (Any)</source>
         <note>There are many prosign code in Morse, this is the name of one of them.</note>
@@ -796,6 +808,10 @@ After any purchase, you can share Morse code without download link, and all the 
 
 Thank you!</source>
         <note>One of the titles on the Alert view.</note>
+      </trans-unit>
+      <trans-unit id="Privacy Policy">
+        <source>Privacy Policy</source>
+        <note>A cell on Settings page connect to privacy policy website.</note>
       </trans-unit>
       <trans-unit id="Rate on App Store">
         <source>Rate on App Store</source>
@@ -1205,6 +1221,10 @@ Thank you!</source>
         <source>INVITE-NAMED-STATION-TO-TRANSMIT</source>
         <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: the named station can start to transmit now.</note>
       </trans-unit>
+      <trans-unit id="Industrial">
+        <source>Industrial</source>
+        <note>One of the names for color theme.</note>
+      </trans-unit>
       <trans-unit id="Invite (Any)">
         <source>Invite (Any)</source>
         <note>There are many prosign code in Morse, this is the name of one of them.</note>
@@ -1284,6 +1304,10 @@ After any purchase, you can share Morse code without download link, and all the 
 
 Thank you!</source>
         <note>One of the titles on the Alert view.</note>
+      </trans-unit>
+      <trans-unit id="Privacy Policy">
+        <source>Privacy Policy</source>
+        <note>A cell on Settings page connect to privacy policy website.</note>
       </trans-unit>
       <trans-unit id="Rate on App Store">
         <source>Rate on App Store</source>

@@ -800,7 +800,7 @@ enum Theme: Int {
 
 	var backButtonImageName:String {
 		switch self.style {
-		default: return "Back"
+		default: return layoutDirection == .LeftToRight ? "Back LeftToRight" : "Back RightToLeft"
 		}
 	}
 

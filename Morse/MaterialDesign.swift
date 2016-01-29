@@ -24,6 +24,10 @@ extension UIColor {
 		self.getRed(&r, green: &g, blue: &b, alpha: &a)
 		return Int(r * 255.0) << 16 + Int(g * 255.0) << 8 + Int(b * 255.0)
 	}
+
+	func colorWithAlpha(alpha:CGFloat) -> UIColor {
+		return UIColor(hex: self.hex, alpha: alpha)
+	}
 }
 
 class ShadowLayer: CALayer {

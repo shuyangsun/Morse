@@ -13,6 +13,7 @@ let outputVCName = "Signal Output"
 let audioDecoderVCName = "Audio Decoder"
 let dictionaryVCName = "Dictionary"
 let settingsVCName = "Settings"
+let webVCName = "Web VC"
 
 let settingsLanguageVCName = "Settings - Language"
 let settingsThemeVCName = "Settings - Theme"

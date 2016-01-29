@@ -388,7 +388,9 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 					fallthrough
 				}
 			case 3: // Privacy Policy
-				UIApplication.sharedApplication().openURL(NSURL(string: privacyPolicyLink)!)
+				let webVC = WebViewController()
+				webVC.URLstr = privacyPolicyLink
+				self.presentViewController(webVC, animated: true, completion: nil)
 			default: break
 			}
 		}
