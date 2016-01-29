@@ -224,16 +224,10 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 
 	func updatePitchLabel(showAutomaticStatus:Bool = false) {
 		var pitchNumberText = "\(Int(appDelegate.inputPitch)) Hz"
-		if layoutDirection == .RightToLeft {
-			pitchNumberText = "Hz \(Int(appDelegate.inputPitch))"
-		}
 		if showAutomaticStatus && appDelegate.inputPitchAutomatic {
 			pitchNumberText = LocalizedStrings.Settings.automaticAudioDecoderValue
 		}
-		var text = "\(LocalizedStrings.Label.pitchWithColon)\(pitchNumberText)"
-		if layoutDirection == .RightToLeft {
-			text = "\(pitchNumberText)\(LocalizedStrings.Label.pitchWithColon)"
-		}
+		let text = "\(LocalizedStrings.Label.pitchWithColon)\(pitchNumberText)"
 		self.pitchLabel.attributedText = getAttributedStringFrom(text, withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorEmphasized, bold: false)
 	}
 
@@ -242,10 +236,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 		if showAutomaticStatus && appDelegate.inputWPMAutomatic {
 			wpmNumberText = LocalizedStrings.Settings.automaticAudioDecoderValue
 		}
-		var text = "\(LocalizedStrings.Label.wpmWithColon)\(wpmNumberText)"
-		if layoutDirection == .RightToLeft {
-			text = "\(wpmNumberText)\(LocalizedStrings.Label.wpmWithColon)"
-		}
+		let text = "\(LocalizedStrings.Label.wpmWithColon)\(wpmNumberText)"
 		self.wpmLabel.attributedText = getAttributedStringFrom(text, withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorEmphasized, bold: false)
 	}
 

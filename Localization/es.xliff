@@ -1,372 +1,377 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
-    <file source-language="en" datatype="plaintext" original="Morse/Base.lproj/LaunchScreen.storyboard" target-language="es">
+    <file original="Morse/Base.lproj/LaunchScreen.storyboard" source-language="en" datatype="plaintext" target-language="es">
         <header>
-            <tool build-num="7C68" tool-version="7.2" tool-id="com.apple.dt.xcode" tool-name="Xcode"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"></tool>
         </header>
+        <body></body>
     </file>
-    <file source-language="en" datatype="plaintext" original="Morse/Base.lproj/Main.storyboard" target-language="es">
+    <file original="Morse/Base.lproj/Main.storyboard" source-language="en" datatype="plaintext" target-language="es">
         <header>
-            <tool build-num="7C68" tool-version="7.2" tool-id="com.apple.dt.xcode" tool-name="Xcode"></tool>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"></tool>
         </header>
+        <body></body>
     </file>
-    <file source-language="en" datatype="plaintext" original="Morse/Info.plist" target-language="es">
+    <file original="Morse/Info.plist" source-language="en" datatype="plaintext" target-language="es">
+        <header>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"></tool>
+        </header>
         <body>
             <trans-unit id="CFBundleName">
-                <target>Morse</target>
                 <source>$(PRODUCT_NAME)</source>
+                <target>Morse</target>
             </trans-unit>
             <trans-unit id="CFBundleShortVersionString">
                 <source>0.0.2</source>
             </trans-unit>
         </body>
-        <header>
-            <tool build-num="7C68" tool-version="7.2" tool-id="com.apple.dt.xcode" tool-name="Xcode"></tool>
-        </header>
     </file>
-    <file source-language="en" datatype="plaintext" original="Morse/Localizable.strings" target-language="es">
+    <file original="Morse/Localizable.strings" source-language="en" datatype="plaintext" target-language="es">
+        <header>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"></tool>
+        </header>
         <body>
             <trans-unit id="!!!EMERGENCY!!!">
                 <source>!!!EMERGENCY!!!</source>
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: emergency! (the SOS signal)</note>
                 <target>¡¡¡EMERGENCIA!!!</target>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: emergency! (the SOS signal)</note>
             </trans-unit>
             <trans-unit id="!ATTENTION!">
                 <source>!ATTENTION!</source>
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: attention!</note>
                 <target>¡ATENCIÓN!</target>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: attention!</note>
             </trans-unit>
             <trans-unit id="About">
                 <source>About</source>
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <target>Acerca de</target>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Actions">
                 <source>Actions</source>
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <target>Comportamiento</target>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Adjust in Settings">
                 <source>Adjust in Settings</source>
-                <note>This is a label on the output page, tells the user how to change some of the values.</note>
                 <target>Ajuste en Configuración</target>
+                <note>This is a label on the output page, tells the user how to change some of the values.</note>
             </trans-unit>
             <trans-unit id="All Themes">
                 <source>All Themes</source>
-                <note>A button on the settings page for user make in-app purchase to unlock all the themes.</note>
                 <target>Todos los Temas</target>
+                <note>A button on the settings page for user make in-app purchase to unlock all the themes.</note>
             </trans-unit>
             <trans-unit id="Appearance">
                 <source>Appearance</source>
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <target>Apariencia</target>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Arabic">
                 <source>Arabic</source>
-                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
                 <target>Árabe</target>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Are you sure you want to delete all the cards? This action is NOT undoable!">
                 <source>Are you sure you want to delete all the cards? This action is NOT undoable!</source>
-                <note>One of the titles on the Alert view.</note>
                 <target>¿Seguro que quieres eliminar todas las cartas? Esta acción no se puede deshacer!</target>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Asia">
                 <source>Asia</source>
-                <note>Users can change language in settings app, this is one of the language groups.</note>
                 <target>Asia</target>
+                <note>Users can change language in settings app, this is one of the language groups.</note>
             </trans-unit>
             <trans-unit id="Attention">
                 <source>Attention</source>
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <target>Atención</target>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Audio Decoder">
                 <source>Audio Decoder</source>
-                <note>This button on the settings page brings up input configuration page.</note>
                 <target>Decodificador de audio</target>
+                <note>This button on the settings page brings up input configuration page.</note>
             </trans-unit>
             <trans-unit id="Auto Correct Words">
                 <source>Auto Correct Words</source>
-                <note>A settings that allows user to choose if they want to use auto correction on audio decoder.</note>
                 <target>Auto palabras correctas</target>
+                <note>A settings that allows user to choose if they want to use auto correction on audio decoder.</note>
             </trans-unit>
             <trans-unit id="Automatic">
                 <source>Automatic</source>
-                <note>Name of a switch button (audio decoder automatically get wpm and pitch information).</note>
                 <target>Automático</target>
+                <note>Name of a switch button (audio decoder automatically get wpm and pitch information).</note>
             </trans-unit>
             <trans-unit id="BACK-TO-YOU">
                 <source>BACK-TO-YOU</source>
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: I'm done, now back to you.</note>
                 <target>DE NUEVO A USTED</target>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: I'm done, now back to you.</note>
             </trans-unit>
             <trans-unit id="Break">
                 <source>Break</source>
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <target>Descanso</target>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="By making any purchase, Ads will be gone and you will be able to share Morse code without download link.">
                 <source>By making any purchase, Ads will be gone and you will be able to share Morse code without download link.</source>
-                <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
                 <target>Por realizar cualquier compra, anuncios habrán desaparecido y usted será capaz de compartir el código Morse sin enlace de descarga.</target>
+                <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
             </trans-unit>
             <trans-unit id="CLOSING">
                 <source>CLOSING</source>
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this station is closing.</note>
                 <target>CIERRE</target>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this station is closing.</note>
             </trans-unit>
             <trans-unit id="Cancel">
                 <source>Cancel</source>
-                <note>One of the buttons on the Alert view.</note>
                 <target>Cancelar</target>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Check It Out">
                 <source>Check It Out</source>
-                <note>One of the buttons on the Alert view.</note>
                 <target>Echale un vistazo</target>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Check this out! I can convert text to Morse code using App! Download here:">
                 <source>Check this out! I can convert text to Morse code using App! Download here:</source>
-                <note>When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.</note>
                 <target>¡Mira esto! Puedo convertir texto en código Morse usando App! Descargar aquí:</target>
+                <note>When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.</note>
             </trans-unit>
             <trans-unit id="Chinese (Simplified)">
                 <source>Chinese (Simplified)</source>
-                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
                 <target>Chino (Simplificado)</target>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Chinese (Traditional)">
                 <source>Chinese (Traditional)</source>
-                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
                 <target>Chino (Tradicional)</target>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Closing">
                 <source>Closing</source>
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <target>Cierre</target>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Contact Developer">
                 <source>Contact Developer</source>
-                <note>A button on the settings page to contact developer. (send developer an email)</note>
                 <target>Contactar al desarrollador</target>
+                <note>A button on the settings page to contact developer. (send developer an email)</note>
             </trans-unit>
             <trans-unit id="Decode Prosign">
                 <source>Decode Prosign</source>
-                <note>There are many sections on the settings page, this switch let the user toggle if the app should decode prosign for Morse code.</note>
                 <target>Decode Prosign</target>
+                <note>There are many sections on the settings page, this switch let the user toggle if the app should decode prosign for Morse code.</note>
             </trans-unit>
             <trans-unit id="Default">
                 <source>Default</source>
+                <target>Defecto</target>
                 <note>Means something's default.
    Users can change language in settings app, this is one of the language groups.</note>
-                <target>Defecto</target>
             </trans-unit>
             <trans-unit id="Delete All Cards">
                 <source>Delete All Cards</source>
-                <note>There are many sections on the settings page, this section let the user clear all the cards on home page.</note>
                 <target>Eliminar todo Tarjetas</target>
+                <note>There are many sections on the settings page, this section let the user clear all the cards on home page.</note>
             </trans-unit>
             <trans-unit id="Developer Options">
                 <source>Developer Options</source>
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <target>Opciones de desarrollador</target>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Dictionary">
                 <source>Dictionary</source>
-                <note>This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations.</note>
                 <target>Diccionario</target>
+                <note>This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations.</note>
             </trans-unit>
             <trans-unit id="Do you want to reset all alerts, so they will show up again even if you disabled them before?">
                 <source>Do you want to reset all alerts, so they will show up again even if you disabled them before?</source>
-                <note>One of the titles on the Alert view.</note>
                 <target>¿Desea restablecer todas las alertas, por lo que se mostrará de nuevo, incluso si se les incapacitó antes?</target>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Don't Show Again">
                 <source>Don't Show Again</source>
-                <note>One of the buttons on the Alert view.</note>
                 <target>No volver a mostrar</target>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Done">
                 <source>Done</source>
+                <target>Hecho</target>
                 <note>A Done button.
    Button to tap when the user is done with an action.</note>
-                <target>Hecho</target>
             </trans-unit>
             <trans-unit id="Download Link">
                 <source>Download Link</source>
-                <note>There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.</note>
                 <target>Enlace de descarga</target>
+                <note>There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.</note>
             </trans-unit>
             <trans-unit id="END-OF-CONTACT">
                 <source>END-OF-CONTACT</source>
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this is the end of contact.</note>
                 <target>FIN DE CONTACTO</target>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this is the end of contact.</note>
             </trans-unit>
             <trans-unit id="ERROR">
                 <source>ERROR</source>
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: there was an error.</note>
                 <target>ERROR</target>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: there was an error.</note>
             </trans-unit>
             <trans-unit id="Emergency">
                 <source>Emergency</source>
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <target>Emergencia</target>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Enable Audio Decoder">
                 <source>Enable Audio Decoder</source>
-                <note>A button on the settings page for user make in-app purchase to enable Morse audio decoder.</note>
                 <target>Habilitar Audio Decoder</target>
+                <note>A button on the settings page for user make in-app purchase to enable Morse audio decoder.</note>
             </trans-unit>
             <trans-unit id="End of Contact">
                 <source>End of Contact</source>
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <target>Fin de Contacto</target>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="English (United Kingdom)">
                 <source>English (United Kingdom)</source>
-                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
                 <target>Inglés (Reino Unido)</target>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="English (United States)">
                 <source>English (United States)</source>
-                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
                 <target>Inglés (Estados Unidos)</target>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Error">
                 <source>Error</source>
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <target>Error</target>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Europe">
                 <source>Europe</source>
-                <note>Users can change language in settings app, this is one of the language groups.</note>
                 <target>Europa</target>
+                <note>Users can change language in settings app, this is one of the language groups.</note>
             </trans-unit>
             <trans-unit id="Forest">
                 <source>Forest</source>
-                <note>One of the names for color theme.</note>
                 <target>Bosque</target>
+                <note>One of the names for color theme.</note>
             </trans-unit>
             <trans-unit id="General">
                 <source>General</source>
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <target>General</target>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Got It">
                 <source>Got It</source>
-                <note>One of the buttons on the Alert view.</note>
                 <target>Lo tengo</target>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Hold me to expand.">
                 <source>Hold me to expand.</source>
-                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
                 <target>Abrázame para ampliar.</target>
+                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
             </trans-unit>
             <trans-unit id="INVITE-ANY-STATION-TO-TRANSMIT">
                 <source>INVITE-ANY-STATION-TO-TRANSMIT</source>
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: any station can start to transmit now.</note>
                 <target>INVITAN A CUALQUIER ESTACIÓN DE TRANSMITIR</target>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: any station can start to transmit now.</note>
             </trans-unit>
             <trans-unit id="INVITE-NAMED-STATION-TO-TRANSMIT">
                 <source>INVITE-NAMED-STATION-TO-TRANSMIT</source>
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: the named station can start to transmit now.</note>
                 <target>INVITAN A LA ESTACIÓN DE DENOMINACIONES DE TRANSMITIR</target>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: the named station can start to transmit now.</note>
             </trans-unit>
             <trans-unit id="Industrial">
                 <source>Industrial</source>
-                <note>One of the names for color theme.</note>
                 <target>Industrial</target>
+                <note>One of the names for color theme.</note>
             </trans-unit>
             <trans-unit id="Invite (Any)">
                 <source>Invite (Any)</source>
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <target>Invite (Cualquiera)</target>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Invite (Named)">
                 <source>Invite (Named)</source>
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <target>Invite (Nombrado)</target>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Language">
                 <source>Language</source>
-                <note>There are many sections on the settings page, this section let the user change the App's language.</note>
                 <target>Idioma</target>
+                <note>There are many sections on the settings page, this section let the user change the App's language.</note>
             </trans-unit>
             <trans-unit id="Morse">
                 <source>Morse</source>
-                <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.</note>
                 <target>Morse</target>
+                <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.</note>
             </trans-unit>
             <trans-unit id="Morse Transmitter Feedback">
                 <source>Morse Transmitter Feedback</source>
-                <note>The subject title for feedback email.</note>
                 <target>Transmisor Morse Comentarios</target>
+                <note>The subject title for feedback email.</note>
             </trans-unit>
             <trans-unit id="New Line">
                 <source>New Line</source>
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <target>Nueva línea</target>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="New Page">
                 <source>New Page</source>
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <target>Nueva pagina</target>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="New Paragraph">
                 <source>New Paragraph</source>
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <target>Punto y aparte</target>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Night">
                 <source>Night</source>
-                <note>One of the names for color theme.</note>
                 <target>Noche</target>
+                <note>One of the names for color theme.</note>
             </trans-unit>
             <trans-unit id="No">
                 <source>No</source>
-                <note>One of the buttons on the Alert view.</note>
                 <target>No</target>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="North America">
                 <source>North America</source>
-                <note>Users can change language in settings app, this is one of the language groups.</note>
                 <target>Norteamérica</target>
+                <note>Users can change language in settings app, this is one of the language groups.</note>
             </trans-unit>
             <trans-unit id="OK">
                 <source>OK</source>
-                <note>One of the buttons on the Alert view.</note>
                 <target>Okay</target>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Output Brighten Screen">
                 <source>Output Brighten Screen</source>
-                <note>There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputting Morse code.</note>
                 <target>Salida aclaran pantalla</target>
+                <note>There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputting Morse code.</note>
             </trans-unit>
             <trans-unit id="Pitch">
                 <source>Pitch</source>
-                <note>Settings category: audio frequency.</note>
                 <target>Terreno de juego</target>
+                <note>Settings category: audio frequency.</note>
             </trans-unit>
             <trans-unit id="Pitch: ">
-                <source>Pitch:</source>
+                <source>Pitch: </source>
                 <note>This is a label on the output page, followed by the number of audio frequency (pitch).</note>
-                <target>Terreno de juego:</target>
+                <target>Terreno de juego: </target>
             </trans-unit>
             <trans-unit id="Please Purchase an Upgrade :)">
                 <source>Please Purchase an Upgrade :)</source>
-                <note>One of the titles on the Alert view.</note>
                 <target>Por favor, adquirir una actualización :)</target>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Please Restart">
                 <source>Please Restart</source>
-                <note>One of the titles on the Alert view.</note>
                 <target>Por favor reinicie</target>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Please restart this App after changing language.">
                 <source>Please restart this App after changing language.</source>
-                <note>This is a footer on the first section in language change settings, to reminder user restart the App after changing language.</note>
                 <target>Por favor, reinicie esta aplicación después de cambiar el idioma.</target>
+                <note>This is a footer on the first section in language change settings, to reminder user restart the App after changing language.</note>
             </trans-unit>
             <trans-unit id="Please support us by making a purchase.\n\nAfter any purchase, you can share Morse code without download link, and all the ads will be gone!\n\nThank you!">
                 <source>Please support us by making a purchase.
@@ -374,137 +379,137 @@
 After any purchase, you can share Morse code without download link, and all the ads will be gone!
 
 Thank you!</source>
-                <note>One of the titles on the Alert view.</note>
                 <target>Por favor que nos apoyen al hacer una compra.
 
 Después de cualquier compra, usted puede compartir código Morse sin enlace de descarga, y todos los anuncios se le ha ido!
 
 ¡Gracias!</target>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Privacy Policy">
                 <source>Privacy Policy</source>
-                <note>A cell on Settings page connect to privacy policy website.</note>
                 <target>Política de privacidad</target>
+                <note>A cell on Settings page connect to privacy policy website.</note>
             </trans-unit>
             <trans-unit id="Rate on App Store">
                 <source>Rate on App Store</source>
-                <note>A button on the settings page for user to rate on App Store.</note>
                 <target>Precio en la App Store</target>
+                <note>A button on the settings page for user to rate on App Store.</note>
             </trans-unit>
             <trans-unit id="Reset">
                 <source>Reset</source>
-                <note>A button on the settings page to reset some content.</note>
                 <target>Reiniciar</target>
+                <note>A button on the settings page to reset some content.</note>
             </trans-unit>
             <trans-unit id="Reset Alerts">
                 <source>Reset Alerts</source>
-                <note>There are many sections on the settings page, this section let the user restore pop-up alerts.</note>
                 <target>Restablecer alertas</target>
+                <note>There are many sections on the settings page, this section let the user restore pop-up alerts.</note>
             </trans-unit>
             <trans-unit id="Reset Alerts?">
                 <source>Reset Alerts?</source>
-                <note>One of the titles on the Alert view.</note>
                 <target>Restablecer alertas?</target>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Restore Purchases">
                 <source>Restore Purchases</source>
-                <note>A button on the settings page for user to restore their previous purchases.</note>
                 <target>Restaurar las compras</target>
+                <note>A button on the settings page for user to restore their previous purchases.</note>
             </trans-unit>
             <trans-unit id="Restore Tutorial Cards">
                 <source>Restore Tutorial Cards</source>
-                <note>There are many sections on the settings page, this section let the user restore tutorial cards.</note>
                 <target>Restaurar Tutorial Tarjetas</target>
+                <note>There are many sections on the settings page, this section let the user restore tutorial cards.</note>
             </trans-unit>
             <trans-unit id="SHIFT-TO-WABUN-CODE">
                 <source>SHIFT-TO-WABUN-CODE</source>
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: shift from Morse code to Wabun code. (Wabun code is used by Japanese)</note>
                 <target>CAMBIO DE WABUN</target>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: shift from Morse code to Wabun code. (Wabun code is used by Japanese)</note>
             </trans-unit>
             <trans-unit id="Settings">
                 <source>Settings</source>
-                <note>The title for settings page.</note>
                 <target>Ajustes</target>
+                <note>The title for settings page.</note>
             </trans-unit>
             <trans-unit id="Shift to Wabun">
                 <source>Shift to Wabun</source>
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <target>Shift para Wabun</target>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Signal Output">
                 <source>Signal Output</source>
-                <note>This button on the settings page brings up output configuration page.</note>
                 <target>Señal de salida</target>
+                <note>This button on the settings page brings up output configuration page.</note>
             </trans-unit>
             <trans-unit id="Spanish">
                 <source>Spanish</source>
-                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
                 <target>Español</target>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Succeed!">
                 <source>Succeed!</source>
-                <note>One of the titles on the Alert view.</note>
                 <target>¡Tener éxito!</target>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Supported WPM: ">
-                <source>Supported WPM:</source>
+                <source>Supported WPM: </source>
                 <note>This is a label on the output page, tells the user the range of supported WPM.</note>
-                <target>Palabras soportados por minuto:</target>
+                <target>Palabras apoyados por minuto: </target>
             </trans-unit>
             <trans-unit id="Swipe down or pinch to go back">
                 <source>Swipe down or pinch to go back</source>
-                <note>This is a label on the output page, tells user how to go back to home page.</note>
                 <target>Deslice hacia abajo o pellizcar para volver</target>
+                <note>This is a label on the output page, tells user how to go back to home page.</note>
             </trans-unit>
             <trans-unit id="Swipe to delete me.">
                 <source>Swipe to delete me.</source>
-                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
                 <target>Pase me eliminar.</target>
+                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
             </trans-unit>
             <trans-unit id="Switch Automatically">
                 <source>Switch Automatically</source>
-                <note>There are many sections on the settings page, this switch let the user toggle if the app should change to Night theme when the ambient censor detects the surrounding light is low.</note>
                 <target>Cambiar automáticamente</target>
+                <note>There are many sections on the settings page, this switch let the user toggle if the app should change to Night theme when the ambient censor detects the surrounding light is low.</note>
             </trans-unit>
             <trans-unit id="System Default">
                 <source>System Default</source>
-                <note>Users can change language in settings app, this is one means the language is system default.</note>
                 <target>Sistema por defecto</target>
+                <note>Users can change language in settings app, this is one means the language is system default.</note>
             </trans-unit>
             <trans-unit id="Tap anywhere to finish">
                 <source>Tap anywhere to finish</source>
-                <note>This is a label on the output page, tells user how to finish using audio input.</note>
                 <target>Toque en cualquier lugar de terminar</target>
+                <note>This is a label on the output page, tells user how to finish using audio input.</note>
             </trans-unit>
             <trans-unit id="Tap anywhere to play or pause">
                 <source>Tap anywhere to play or pause</source>
-                <note>This is a label on the output page, tells user how to play or pause the output.</note>
                 <target>Toque en cualquier lugar para jugar o pausa</target>
+                <note>This is a label on the output page, tells user how to play or pause the output.</note>
             </trans-unit>
             <trans-unit id="Tap me to output or share.">
                 <source>Tap me to output or share.</source>
-                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
                 <target>Me Toque para la producción o acción.</target>
+                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
             </trans-unit>
             <trans-unit id="Tap on numbers to enter a value.">
                 <source>Tap on numbers to enter a value.</source>
-                <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
                 <target>Pulse sobre los números para introducir un valor.</target>
+                <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
             </trans-unit>
             <trans-unit id="Tell Friends">
                 <source>Tell Friends</source>
-                <note>A button on the settings page for user to share this App's link with friends.</note>
                 <target>Decirles a los amigos</target>
+                <note>A button on the settings page for user to share this App's link with friends.</note>
             </trans-unit>
             <trans-unit id="Text">
                 <source>Text</source>
-                <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.</note>
                 <target>Text</target>
+                <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.</note>
             </trans-unit>
             <trans-unit id="Theme">
                 <source>Theme</source>
-                <note>There are many sections on the settings page, this switch let the user change the color theme of this App.</note>
                 <target>Tema</target>
+                <note>There are many sections on the settings page, this switch let the user change the color theme of this App.</note>
             </trans-unit>
             <trans-unit id="To make new language setting take effect, please restart application with following steps:\n\n1. Double-tap Home button on your device.\n\n2. Swipe up to terminate application in the background.\n\n3. Start application from home screen.">
                 <source>To make new language setting take effect, please restart application with following steps:
@@ -514,7 +519,6 @@ Después de cualquier compra, usted puede compartir código Morse sin enlace de 
 2. Swipe up to terminate application in the background.
 
 3. Start application from home screen.</source>
-                <note>One of the titles on the Alert view.</note>
                 <target>Para hacer nuevo efecto de la configuración de idioma para llevar, por favor reinicie la aplicación con los pasos siguientes:
 
 1. Pulse dos veces el botón Inicio en su dispositivo.
@@ -522,118 +526,119 @@ Después de cualquier compra, usted puede compartir código Morse sin enlace de 
 2. Deslice el dedo hacia arriba para terminar la aplicación en segundo plano.
 
 3. Inicie la aplicación desde la pantalla principal.</target>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Touch to type">
                 <source>Touch to type</source>
-                <note>There is a string on the input text view on home screen, promoting user to touch the text box to start typing.</note>
                 <target>Toque para escribir</target>
+                <note>There is a string on the input text view on home screen, promoting user to touch the text box to start typing.</note>
             </trans-unit>
             <trans-unit id="Transmitter Configuration">
                 <source>Transmitter Configuration</source>
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <target>Configuración del transmisor</target>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Tutorial cards are successfully restored, you can go check them out now!">
                 <source>Tutorial cards are successfully restored, you can go check them out now!</source>
-                <note>One of the titles on the Alert view.</note>
                 <target>Tarjetas Tutorial se restauran con éxito, usted puede ir a ver hacia fuera ahora!</target>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="UNDERSTOOD">
                 <source>UNDERSTOOD</source>
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: understood.</note>
                 <target>ENTENDIDO</target>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: understood.</note>
             </trans-unit>
             <trans-unit id="Understood">
                 <source>Understood</source>
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <target>Entendido</target>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Unlimited Card Slots">
                 <source>Unlimited Card Slots</source>
-                <note>A button on the settings page for user make in-app purchase to have unlimited card slots.</note>
                 <target>Ranuras para tarjetas ilimitadas</target>
+                <note>A button on the settings page for user make in-app purchase to have unlimited card slots.</note>
             </trans-unit>
             <trans-unit id="Unlock All Features">
                 <source>Unlock All Features</source>
-                <note>A button on the settings page for user make in-app purchase to unlock all features.</note>
                 <target>Desbloquear todas las características</target>
+                <note>A button on the settings page for user make in-app purchase to unlock all features.</note>
             </trans-unit>
             <trans-unit id="Upgrades">
                 <source>Upgrades</source>
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <target>Actualizaciones</target>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="WAIT">
                 <source>WAIT</source>
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: wait.</note>
                 <target>ESPERA</target>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: wait.</note>
             </trans-unit>
             <trans-unit id="WARNING!">
                 <source>WARNING!</source>
-                <note>One of the titles on the Alert view.</note>
                 <target>¡ADVERTENCIA!</target>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="WPM (Words Per Minute)">
                 <source>WPM (Words Per Minute)</source>
-                <note>Settings category: word per minute.</note>
                 <target>Palabras por minuto</target>
+                <note>Settings category: word per minute.</note>
             </trans-unit>
             <trans-unit id="WPM: ">
-                <source>WPM:</source>
+                <source>WPM: </source>
                 <note>This is a label on the output page, followed by the numer of WPM (word per minute).</note>
-                <target>Palabras por minuto:</target>
+                <target>Palabras por minuto: </target>
             </trans-unit>
             <trans-unit id="Wait">
                 <source>Wait</source>
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <target>Espera</target>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Welcome to Morse Transmitter!">
                 <source>Welcome to Morse Transmitter!</source>
-                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
                 <target>Bienvenido al transmisor Morse!</target>
+                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
             </trans-unit>
             <trans-unit id="When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme.">
                 <source>When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme.</source>
-                <note>There are many sections on the settings page, this one explains what does Auto Switch button in Appearance section do.</note>
                 <target>Cuando la luz ambiente es baja con interruptor enciende automáticamente, la aplicación cambiará automáticamente al Tema de la noche.</target>
+                <note>There are many sections on the settings page, this one explains what does Auto Switch button in Appearance section do.</note>
             </trans-unit>
             <trans-unit id="When you have it on, the App will try to auto-correct misspelled words when decoding Morse code. The dictionary changes when you change your language setting.">
                 <source>When you have it on, the App will try to auto-correct misspelled words when decoding Morse code. The dictionary changes when you change your language setting.</source>
-                <note>Explains what Auto Correct Mis Spelled Words does.</note>
                 <target>Cuando lo tienes en el App tratará de palabras mal escritas corrección automática cuando se decodifica el código Morse. El diccionario cambia cuando cambia la configuración de idioma.</target>
+                <note>Explains what Auto Correct Mis Spelled Words does.</note>
             </trans-unit>
             <trans-unit id="When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.">
                 <source>When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.</source>
-                <note>Explains what Output Brighten Screen does.</note>
                 <target>Cuando lo tienes, la pantalla se volverá más brillante temporalmente mientras usted envía señales Morse, así que usted puede utilizarlo como una fuente de luz.</target>
+                <note>Explains what Output Brighten Screen does.</note>
             </trans-unit>
             <trans-unit id="While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code.">
                 <source>While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code.</source>
-                <note>A description on settings page, explaining what does Decode Prosign switch do.</note>
                 <target>Aunque esta opción está activada (recomendado), la aplicación decodificar automáticamente prosign basado en el contexto de los alrededores código Morse.</target>
+                <note>A description on settings page, explaining what does Decode Prosign switch do.</note>
             </trans-unit>
             <trans-unit id="While this option is turned on, an App Store link for this App will be added when you share a Morse code.">
                 <source>While this option is turned on, an App Store link for this App will be added when you share a Morse code.</source>
-                <note>A description on settings page, explaining what Download Link switch do.</note>
                 <target>Aunque esta opción está activada, se agregará un vínculo App Store por esta aplicación cuando se comparte un código Morse.</target>
+                <note>A description on settings page, explaining what Download Link switch do.</note>
             </trans-unit>
             <trans-unit id="Yes">
                 <source>Yes</source>
-                <note>One of the buttons on the Alert view.</note>
                 <target>Sí</target>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Yes, I'm Sure">
                 <source>Yes, I'm Sure</source>
-                <note>One of the buttons on the Alert view.</note>
                 <target>Sí estoy seguro</target>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
         </body>
-        <header>
-            <tool build-num="7C68" tool-version="7.2" tool-id="com.apple.dt.xcode" tool-name="Xcode"></tool>
-        </header>
     </file>
-    <file source-language="en" datatype="plaintext" original="MorseTests/Info.plist" target-language="es">
+    <file original="MorseTests/Info.plist" source-language="en" datatype="plaintext" target-language="es">
+        <header>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"></tool>
+        </header>
         <body>
             <trans-unit id="CFBundleName">
                 <source>$(PRODUCT_NAME)</source>
@@ -642,396 +647,395 @@ Después de cualquier compra, usted puede compartir código Morse sin enlace de 
                 <source>1.0</source>
             </trans-unit>
         </body>
-        <header>
-            <tool build-num="7C68" tool-version="7.2" tool-id="com.apple.dt.xcode" tool-name="Xcode"></tool>
-        </header>
     </file>
-    <file source-language="en" datatype="plaintext" original="MorseTests/Localizable.strings" target-language="es">
+    <file original="MorseTests/Localizable.strings" source-language="en" datatype="plaintext" target-language="es">
+        <header>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"></tool>
+        </header>
         <body>
             <trans-unit id="!!!EMERGENCY!!!">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: emergency! (the SOS signal)</note>
                 <source>!!!EMERGENCY!!!</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: emergency! (the SOS signal)</note>
             </trans-unit>
             <trans-unit id="!ATTENTION!">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: attention!</note>
                 <source>!ATTENTION!</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: attention!</note>
             </trans-unit>
             <trans-unit id="About">
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <source>About</source>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Actions">
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <source>Actions</source>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Adjust in Settings">
-                <note>This is a label on the output page, tells the user how to change some of the values.</note>
                 <source>Adjust in Settings</source>
+                <note>This is a label on the output page, tells the user how to change some of the values.</note>
             </trans-unit>
             <trans-unit id="All Themes">
-                <note>A button on the settings page for user make in-app purchase to unlock all the themes.</note>
                 <source>All Themes</source>
+                <note>A button on the settings page for user make in-app purchase to unlock all the themes.</note>
             </trans-unit>
             <trans-unit id="Appearance">
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <source>Appearance</source>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Arabic">
-                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
                 <source>Arabic</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Are you sure you want to delete all the cards? This action is NOT undoable!">
-                <note>One of the titles on the Alert view.</note>
                 <source>Are you sure you want to delete all the cards? This action is NOT undoable!</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Asia">
-                <note>Users can change language in settings app, this is one of the language groups.</note>
                 <source>Asia</source>
+                <note>Users can change language in settings app, this is one of the language groups.</note>
             </trans-unit>
             <trans-unit id="Attention">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Attention</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Audio Decoder">
-                <note>This button on the settings page brings up input configuration page.</note>
                 <source>Audio Decoder</source>
+                <note>This button on the settings page brings up input configuration page.</note>
             </trans-unit>
             <trans-unit id="Auto Correct Words">
-                <note>A settings that allows user to choose if they want to use auto correction on audio decoder.</note>
                 <source>Auto Correct Words</source>
+                <note>A settings that allows user to choose if they want to use auto correction on audio decoder.</note>
             </trans-unit>
             <trans-unit id="Automatic">
-                <note>Name of a switch button (audio decoder automatically get wpm and pitch information).</note>
                 <source>Automatic</source>
+                <note>Name of a switch button (audio decoder automatically get wpm and pitch information).</note>
             </trans-unit>
             <trans-unit id="BACK-TO-YOU">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: I'm done, now back to you.</note>
                 <source>BACK-TO-YOU</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: I'm done, now back to you.</note>
             </trans-unit>
             <trans-unit id="Break">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Break</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="By making any purchase, Ads will be gone and you will be able to share Morse code without download link.">
-                <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
                 <source>By making any purchase, Ads will be gone and you will be able to share Morse code without download link.</source>
+                <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
             </trans-unit>
             <trans-unit id="CLOSING">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this station is closing.</note>
                 <source>CLOSING</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this station is closing.</note>
             </trans-unit>
             <trans-unit id="Cancel">
-                <note>One of the buttons on the Alert view.</note>
                 <source>Cancel</source>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Check It Out">
-                <note>One of the buttons on the Alert view.</note>
                 <source>Check It Out</source>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Check this out! I can convert text to Morse code using App! Download here:">
-                <note>When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.</note>
                 <source>Check this out! I can convert text to Morse code using App! Download here:</source>
+                <note>When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.</note>
             </trans-unit>
             <trans-unit id="Chinese (Simplified)">
-                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
                 <source>Chinese (Simplified)</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Chinese (Traditional)">
-                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
                 <source>Chinese (Traditional)</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Closing">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Closing</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Contact Developer">
-                <note>A button on the settings page to contact developer. (send developer an email)</note>
                 <source>Contact Developer</source>
+                <note>A button on the settings page to contact developer. (send developer an email)</note>
             </trans-unit>
             <trans-unit id="Decode Prosign">
-                <note>There are many sections on the settings page, this switch let the user toggle if the app should decode prosign for Morse code.</note>
                 <source>Decode Prosign</source>
+                <note>There are many sections on the settings page, this switch let the user toggle if the app should decode prosign for Morse code.</note>
             </trans-unit>
             <trans-unit id="Default">
+                <source>Default</source>
                 <note>Means something's default.
    Users can change language in settings app, this is one of the language groups.</note>
-                <source>Default</source>
             </trans-unit>
             <trans-unit id="Delete All Cards">
-                <note>There are many sections on the settings page, this section let the user clear all the cards on home page.</note>
                 <source>Delete All Cards</source>
+                <note>There are many sections on the settings page, this section let the user clear all the cards on home page.</note>
             </trans-unit>
             <trans-unit id="Developer Options">
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <source>Developer Options</source>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Dictionary">
-                <note>This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations.</note>
                 <source>Dictionary</source>
+                <note>This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations.</note>
             </trans-unit>
             <trans-unit id="Do you want to reset all alerts, so they will show up again even if you disabled them before?">
-                <note>One of the titles on the Alert view.</note>
                 <source>Do you want to reset all alerts, so they will show up again even if you disabled them before?</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Don't Show Again">
-                <note>One of the buttons on the Alert view.</note>
                 <source>Don't Show Again</source>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Done">
+                <source>Done</source>
                 <note>A Done button.
    Button to tap when the user is done with an action.</note>
-                <source>Done</source>
             </trans-unit>
             <trans-unit id="Download Link">
-                <note>There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.</note>
                 <source>Download Link</source>
+                <note>There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.</note>
             </trans-unit>
             <trans-unit id="END-OF-CONTACT">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this is the end of contact.</note>
                 <source>END-OF-CONTACT</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this is the end of contact.</note>
             </trans-unit>
             <trans-unit id="ERROR">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: there was an error.</note>
                 <source>ERROR</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: there was an error.</note>
             </trans-unit>
             <trans-unit id="Emergency">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Emergency</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Enable Audio Decoder">
-                <note>A button on the settings page for user make in-app purchase to enable Morse audio decoder.</note>
                 <source>Enable Audio Decoder</source>
+                <note>A button on the settings page for user make in-app purchase to enable Morse audio decoder.</note>
             </trans-unit>
             <trans-unit id="End of Contact">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>End of Contact</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="English (United Kingdom)">
-                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
                 <source>English (United Kingdom)</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="English (United States)">
-                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
                 <source>English (United States)</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Error">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Error</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Europe">
-                <note>Users can change language in settings app, this is one of the language groups.</note>
                 <source>Europe</source>
+                <note>Users can change language in settings app, this is one of the language groups.</note>
             </trans-unit>
             <trans-unit id="Forest">
-                <note>One of the names for color theme.</note>
                 <source>Forest</source>
+                <note>One of the names for color theme.</note>
             </trans-unit>
             <trans-unit id="General">
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <source>General</source>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Got It">
-                <note>One of the buttons on the Alert view.</note>
                 <source>Got It</source>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Hold me to expand.">
-                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
                 <source>Hold me to expand.</source>
+                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
             </trans-unit>
             <trans-unit id="INVITE-ANY-STATION-TO-TRANSMIT">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: any station can start to transmit now.</note>
                 <source>INVITE-ANY-STATION-TO-TRANSMIT</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: any station can start to transmit now.</note>
             </trans-unit>
             <trans-unit id="INVITE-NAMED-STATION-TO-TRANSMIT">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: the named station can start to transmit now.</note>
                 <source>INVITE-NAMED-STATION-TO-TRANSMIT</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: the named station can start to transmit now.</note>
             </trans-unit>
             <trans-unit id="Industrial">
-                <note>One of the names for color theme.</note>
                 <source>Industrial</source>
+                <note>One of the names for color theme.</note>
             </trans-unit>
             <trans-unit id="Invite (Any)">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Invite (Any)</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Invite (Named)">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Invite (Named)</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Language">
-                <note>There are many sections on the settings page, this section let the user change the App's language.</note>
                 <source>Language</source>
+                <note>There are many sections on the settings page, this section let the user change the App's language.</note>
             </trans-unit>
             <trans-unit id="Morse">
-                <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.</note>
                 <source>Morse</source>
+                <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.</note>
             </trans-unit>
             <trans-unit id="Morse Transmitter Feedback">
-                <note>The subject title for feedback email.</note>
                 <source>Morse Transmitter Feedback</source>
+                <note>The subject title for feedback email.</note>
             </trans-unit>
             <trans-unit id="New Line">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>New Line</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="New Page">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>New Page</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="New Paragraph">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>New Paragraph</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Night">
-                <note>One of the names for color theme.</note>
                 <source>Night</source>
+                <note>One of the names for color theme.</note>
             </trans-unit>
             <trans-unit id="No">
-                <note>One of the buttons on the Alert view.</note>
                 <source>No</source>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="North America">
-                <note>Users can change language in settings app, this is one of the language groups.</note>
                 <source>North America</source>
+                <note>Users can change language in settings app, this is one of the language groups.</note>
             </trans-unit>
             <trans-unit id="OK">
-                <note>One of the buttons on the Alert view.</note>
                 <source>OK</source>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Output Brighten Screen">
-                <note>There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputting Morse code.</note>
                 <source>Output Brighten Screen</source>
+                <note>There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputting Morse code.</note>
             </trans-unit>
             <trans-unit id="Pitch">
-                <note>Settings category: audio frequency.</note>
                 <source>Pitch</source>
+                <note>Settings category: audio frequency.</note>
             </trans-unit>
             <trans-unit id="Pitch: ">
+                <source>Pitch: </source>
                 <note>This is a label on the output page, followed by the number of audio frequency (pitch).</note>
-                <source>Pitch:</source>
             </trans-unit>
             <trans-unit id="Please Purchase an Upgrade :)">
-                <note>One of the titles on the Alert view.</note>
                 <source>Please Purchase an Upgrade :)</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Please Restart">
-                <note>One of the titles on the Alert view.</note>
                 <source>Please Restart</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Please restart this App after changing language.">
-                <note>This is a footer on the first section in language change settings, to reminder user restart the App after changing language.</note>
                 <source>Please restart this App after changing language.</source>
+                <note>This is a footer on the first section in language change settings, to reminder user restart the App after changing language.</note>
             </trans-unit>
             <trans-unit id="Please support us by making a purchase.\n\nAfter any purchase, you can share Morse code without download link, and all the ads will be gone!\n\nThank you!">
-                <note>One of the titles on the Alert view.</note>
                 <source>Please support us by making a purchase.
 
 After any purchase, you can share Morse code without download link, and all the ads will be gone!
 
 Thank you!</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Privacy Policy">
-                <note>A cell on Settings page connect to privacy policy website.</note>
                 <source>Privacy Policy</source>
+                <note>A cell on Settings page connect to privacy policy website.</note>
             </trans-unit>
             <trans-unit id="Rate on App Store">
-                <note>A button on the settings page for user to rate on App Store.</note>
                 <source>Rate on App Store</source>
+                <note>A button on the settings page for user to rate on App Store.</note>
             </trans-unit>
             <trans-unit id="Reset">
-                <note>A button on the settings page to reset some content.</note>
                 <source>Reset</source>
+                <note>A button on the settings page to reset some content.</note>
             </trans-unit>
             <trans-unit id="Reset Alerts">
-                <note>There are many sections on the settings page, this section let the user restore pop-up alerts.</note>
                 <source>Reset Alerts</source>
+                <note>There are many sections on the settings page, this section let the user restore pop-up alerts.</note>
             </trans-unit>
             <trans-unit id="Reset Alerts?">
-                <note>One of the titles on the Alert view.</note>
                 <source>Reset Alerts?</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Restore Purchases">
-                <note>A button on the settings page for user to restore their previous purchases.</note>
                 <source>Restore Purchases</source>
+                <note>A button on the settings page for user to restore their previous purchases.</note>
             </trans-unit>
             <trans-unit id="Restore Tutorial Cards">
-                <note>There are many sections on the settings page, this section let the user restore tutorial cards.</note>
                 <source>Restore Tutorial Cards</source>
+                <note>There are many sections on the settings page, this section let the user restore tutorial cards.</note>
             </trans-unit>
             <trans-unit id="SHIFT-TO-WABUN-CODE">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: shift from Morse code to Wabun code. (Wabun code is used by Japanese)</note>
                 <source>SHIFT-TO-WABUN-CODE</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: shift from Morse code to Wabun code. (Wabun code is used by Japanese)</note>
             </trans-unit>
             <trans-unit id="Settings">
-                <note>The title for settings page.</note>
                 <source>Settings</source>
+                <note>The title for settings page.</note>
             </trans-unit>
             <trans-unit id="Shift to Wabun">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Shift to Wabun</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Signal Output">
-                <note>This button on the settings page brings up output configuration page.</note>
                 <source>Signal Output</source>
+                <note>This button on the settings page brings up output configuration page.</note>
             </trans-unit>
             <trans-unit id="Spanish">
-                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
                 <source>Spanish</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Succeed!">
-                <note>One of the titles on the Alert view.</note>
                 <source>Succeed!</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Supported WPM: ">
+                <source>Supported WPM: </source>
                 <note>This is a label on the output page, tells the user the range of supported WPM.</note>
-                <source>Supported WPM:</source>
             </trans-unit>
             <trans-unit id="Swipe down or pinch to go back">
-                <note>This is a label on the output page, tells user how to go back to home page.</note>
                 <source>Swipe down or pinch to go back</source>
+                <note>This is a label on the output page, tells user how to go back to home page.</note>
             </trans-unit>
             <trans-unit id="Swipe to delete me.">
-                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
                 <source>Swipe to delete me.</source>
+                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
             </trans-unit>
             <trans-unit id="Switch Automatically">
-                <note>There are many sections on the settings page, this switch let the user toggle if the app should change to Night theme when the ambient censor detects the surrounding light is low.</note>
                 <source>Switch Automatically</source>
+                <note>There are many sections on the settings page, this switch let the user toggle if the app should change to Night theme when the ambient censor detects the surrounding light is low.</note>
             </trans-unit>
             <trans-unit id="System Default">
-                <note>Users can change language in settings app, this is one means the language is system default.</note>
                 <source>System Default</source>
+                <note>Users can change language in settings app, this is one means the language is system default.</note>
             </trans-unit>
             <trans-unit id="Tap anywhere to finish">
-                <note>This is a label on the output page, tells user how to finish using audio input.</note>
                 <source>Tap anywhere to finish</source>
+                <note>This is a label on the output page, tells user how to finish using audio input.</note>
             </trans-unit>
             <trans-unit id="Tap anywhere to play or pause">
-                <note>This is a label on the output page, tells user how to play or pause the output.</note>
                 <source>Tap anywhere to play or pause</source>
+                <note>This is a label on the output page, tells user how to play or pause the output.</note>
             </trans-unit>
             <trans-unit id="Tap me to output or share.">
-                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
                 <source>Tap me to output or share.</source>
+                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
             </trans-unit>
             <trans-unit id="Tap on numbers to enter a value.">
-                <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
                 <source>Tap on numbers to enter a value.</source>
+                <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
             </trans-unit>
             <trans-unit id="Tell Friends">
-                <note>A button on the settings page for user to share this App's link with friends.</note>
                 <source>Tell Friends</source>
+                <note>A button on the settings page for user to share this App's link with friends.</note>
             </trans-unit>
             <trans-unit id="Text">
-                <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.</note>
                 <source>Text</source>
+                <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.</note>
             </trans-unit>
             <trans-unit id="Theme">
-                <note>There are many sections on the settings page, this switch let the user change the color theme of this App.</note>
                 <source>Theme</source>
+                <note>There are many sections on the settings page, this switch let the user change the color theme of this App.</note>
             </trans-unit>
             <trans-unit id="To make new language setting take effect, please restart application with following steps:\n\n1. Double-tap Home button on your device.\n\n2. Swipe up to terminate application in the background.\n\n3. Start application from home screen.">
-                <note>One of the titles on the Alert view.</note>
                 <source>To make new language setting take effect, please restart application with following steps:
 
 1. Double-tap Home button on your device.
@@ -1039,97 +1043,98 @@ Thank you!</source>
 2. Swipe up to terminate application in the background.
 
 3. Start application from home screen.</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Touch to type">
-                <note>There is a string on the input text view on home screen, promoting user to touch the text box to start typing.</note>
                 <source>Touch to type</source>
+                <note>There is a string on the input text view on home screen, promoting user to touch the text box to start typing.</note>
             </trans-unit>
             <trans-unit id="Transmitter Configuration">
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <source>Transmitter Configuration</source>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Tutorial cards are successfully restored, you can go check them out now!">
-                <note>One of the titles on the Alert view.</note>
                 <source>Tutorial cards are successfully restored, you can go check them out now!</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="UNDERSTOOD">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: understood.</note>
                 <source>UNDERSTOOD</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: understood.</note>
             </trans-unit>
             <trans-unit id="Understood">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Understood</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Unlimited Card Slots">
-                <note>A button on the settings page for user make in-app purchase to have unlimited card slots.</note>
                 <source>Unlimited Card Slots</source>
+                <note>A button on the settings page for user make in-app purchase to have unlimited card slots.</note>
             </trans-unit>
             <trans-unit id="Unlock All Features">
-                <note>A button on the settings page for user make in-app purchase to unlock all features.</note>
                 <source>Unlock All Features</source>
+                <note>A button on the settings page for user make in-app purchase to unlock all features.</note>
             </trans-unit>
             <trans-unit id="Upgrades">
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <source>Upgrades</source>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="WAIT">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: wait.</note>
                 <source>WAIT</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: wait.</note>
             </trans-unit>
             <trans-unit id="WARNING!">
-                <note>One of the titles on the Alert view.</note>
                 <source>WARNING!</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="WPM (Words Per Minute)">
-                <note>Settings category: word per minute.</note>
                 <source>WPM (Words Per Minute)</source>
+                <note>Settings category: word per minute.</note>
             </trans-unit>
             <trans-unit id="WPM: ">
+                <source>WPM: </source>
                 <note>This is a label on the output page, followed by the numer of WPM (word per minute).</note>
-                <source>WPM:</source>
             </trans-unit>
             <trans-unit id="Wait">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Wait</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Welcome to Morse Transmitter!">
-                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
                 <source>Welcome to Morse Transmitter!</source>
+                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
             </trans-unit>
             <trans-unit id="When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme.">
-                <note>There are many sections on the settings page, this one explains what does Auto Switch button in Appearance section do.</note>
                 <source>When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme.</source>
+                <note>There are many sections on the settings page, this one explains what does Auto Switch button in Appearance section do.</note>
             </trans-unit>
             <trans-unit id="When you have it on, the App will try to auto-correct misspelled words when decoding Morse code. The dictionary changes when you change your language setting.">
-                <note>Explains what Auto Correct Mis Spelled Words does.</note>
                 <source>When you have it on, the App will try to auto-correct misspelled words when decoding Morse code. The dictionary changes when you change your language setting.</source>
+                <note>Explains what Auto Correct Mis Spelled Words does.</note>
             </trans-unit>
             <trans-unit id="When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.">
-                <note>Explains what Output Brighten Screen does.</note>
                 <source>When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.</source>
+                <note>Explains what Output Brighten Screen does.</note>
             </trans-unit>
             <trans-unit id="While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code.">
-                <note>A description on settings page, explaining what does Decode Prosign switch do.</note>
                 <source>While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code.</source>
+                <note>A description on settings page, explaining what does Decode Prosign switch do.</note>
             </trans-unit>
             <trans-unit id="While this option is turned on, an App Store link for this App will be added when you share a Morse code.">
-                <note>A description on settings page, explaining what Download Link switch do.</note>
                 <source>While this option is turned on, an App Store link for this App will be added when you share a Morse code.</source>
+                <note>A description on settings page, explaining what Download Link switch do.</note>
             </trans-unit>
             <trans-unit id="Yes">
-                <note>One of the buttons on the Alert view.</note>
                 <source>Yes</source>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Yes, I'm Sure">
-                <note>One of the buttons on the Alert view.</note>
                 <source>Yes, I'm Sure</source>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
         </body>
-        <header>
-            <tool build-num="7C68" tool-version="7.2" tool-id="com.apple.dt.xcode" tool-name="Xcode"></tool>
-        </header>
     </file>
-    <file source-language="en" datatype="plaintext" original="MorseUITests/Info.plist" target-language="es">
+    <file original="MorseUITests/Info.plist" source-language="en" datatype="plaintext" target-language="es">
+        <header>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"></tool>
+        </header>
         <body>
             <trans-unit id="CFBundleName">
                 <source>$(PRODUCT_NAME)</source>
@@ -1138,396 +1143,395 @@ Thank you!</source>
                 <source>1.0</source>
             </trans-unit>
         </body>
-        <header>
-            <tool build-num="7C68" tool-version="7.2" tool-id="com.apple.dt.xcode" tool-name="Xcode"></tool>
-        </header>
     </file>
-    <file source-language="en" datatype="plaintext" original="MorseUITests/Localizable.strings" target-language="es">
+    <file original="MorseUITests/Localizable.strings" source-language="en" datatype="plaintext" target-language="es">
+        <header>
+            <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"></tool>
+        </header>
         <body>
             <trans-unit id="!!!EMERGENCY!!!">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: emergency! (the SOS signal)</note>
                 <source>!!!EMERGENCY!!!</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: emergency! (the SOS signal)</note>
             </trans-unit>
             <trans-unit id="!ATTENTION!">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: attention!</note>
                 <source>!ATTENTION!</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: attention!</note>
             </trans-unit>
             <trans-unit id="About">
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <source>About</source>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Actions">
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <source>Actions</source>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Adjust in Settings">
-                <note>This is a label on the output page, tells the user how to change some of the values.</note>
                 <source>Adjust in Settings</source>
+                <note>This is a label on the output page, tells the user how to change some of the values.</note>
             </trans-unit>
             <trans-unit id="All Themes">
-                <note>A button on the settings page for user make in-app purchase to unlock all the themes.</note>
                 <source>All Themes</source>
+                <note>A button on the settings page for user make in-app purchase to unlock all the themes.</note>
             </trans-unit>
             <trans-unit id="Appearance">
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <source>Appearance</source>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Arabic">
-                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
                 <source>Arabic</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Are you sure you want to delete all the cards? This action is NOT undoable!">
-                <note>One of the titles on the Alert view.</note>
                 <source>Are you sure you want to delete all the cards? This action is NOT undoable!</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Asia">
-                <note>Users can change language in settings app, this is one of the language groups.</note>
                 <source>Asia</source>
+                <note>Users can change language in settings app, this is one of the language groups.</note>
             </trans-unit>
             <trans-unit id="Attention">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Attention</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Audio Decoder">
-                <note>This button on the settings page brings up input configuration page.</note>
                 <source>Audio Decoder</source>
+                <note>This button on the settings page brings up input configuration page.</note>
             </trans-unit>
             <trans-unit id="Auto Correct Words">
-                <note>A settings that allows user to choose if they want to use auto correction on audio decoder.</note>
                 <source>Auto Correct Words</source>
+                <note>A settings that allows user to choose if they want to use auto correction on audio decoder.</note>
             </trans-unit>
             <trans-unit id="Automatic">
-                <note>Name of a switch button (audio decoder automatically get wpm and pitch information).</note>
                 <source>Automatic</source>
+                <note>Name of a switch button (audio decoder automatically get wpm and pitch information).</note>
             </trans-unit>
             <trans-unit id="BACK-TO-YOU">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: I'm done, now back to you.</note>
                 <source>BACK-TO-YOU</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: I'm done, now back to you.</note>
             </trans-unit>
             <trans-unit id="Break">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Break</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="By making any purchase, Ads will be gone and you will be able to share Morse code without download link.">
-                <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
                 <source>By making any purchase, Ads will be gone and you will be able to share Morse code without download link.</source>
+                <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
             </trans-unit>
             <trans-unit id="CLOSING">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this station is closing.</note>
                 <source>CLOSING</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this station is closing.</note>
             </trans-unit>
             <trans-unit id="Cancel">
-                <note>One of the buttons on the Alert view.</note>
                 <source>Cancel</source>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Check It Out">
-                <note>One of the buttons on the Alert view.</note>
                 <source>Check It Out</source>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Check this out! I can convert text to Morse code using App! Download here:">
-                <note>When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.</note>
                 <source>Check this out! I can convert text to Morse code using App! Download here:</source>
+                <note>When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.</note>
             </trans-unit>
             <trans-unit id="Chinese (Simplified)">
-                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
                 <source>Chinese (Simplified)</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Chinese (Traditional)">
-                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
                 <source>Chinese (Traditional)</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Closing">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Closing</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Contact Developer">
-                <note>A button on the settings page to contact developer. (send developer an email)</note>
                 <source>Contact Developer</source>
+                <note>A button on the settings page to contact developer. (send developer an email)</note>
             </trans-unit>
             <trans-unit id="Decode Prosign">
-                <note>There are many sections on the settings page, this switch let the user toggle if the app should decode prosign for Morse code.</note>
                 <source>Decode Prosign</source>
+                <note>There are many sections on the settings page, this switch let the user toggle if the app should decode prosign for Morse code.</note>
             </trans-unit>
             <trans-unit id="Default">
+                <source>Default</source>
                 <note>Means something's default.
    Users can change language in settings app, this is one of the language groups.</note>
-                <source>Default</source>
             </trans-unit>
             <trans-unit id="Delete All Cards">
-                <note>There are many sections on the settings page, this section let the user clear all the cards on home page.</note>
                 <source>Delete All Cards</source>
+                <note>There are many sections on the settings page, this section let the user clear all the cards on home page.</note>
             </trans-unit>
             <trans-unit id="Developer Options">
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <source>Developer Options</source>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Dictionary">
-                <note>This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations.</note>
                 <source>Dictionary</source>
+                <note>This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations.</note>
             </trans-unit>
             <trans-unit id="Do you want to reset all alerts, so they will show up again even if you disabled them before?">
-                <note>One of the titles on the Alert view.</note>
                 <source>Do you want to reset all alerts, so they will show up again even if you disabled them before?</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Don't Show Again">
-                <note>One of the buttons on the Alert view.</note>
                 <source>Don't Show Again</source>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Done">
+                <source>Done</source>
                 <note>A Done button.
    Button to tap when the user is done with an action.</note>
-                <source>Done</source>
             </trans-unit>
             <trans-unit id="Download Link">
-                <note>There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.</note>
                 <source>Download Link</source>
+                <note>There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.</note>
             </trans-unit>
             <trans-unit id="END-OF-CONTACT">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this is the end of contact.</note>
                 <source>END-OF-CONTACT</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this is the end of contact.</note>
             </trans-unit>
             <trans-unit id="ERROR">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: there was an error.</note>
                 <source>ERROR</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: there was an error.</note>
             </trans-unit>
             <trans-unit id="Emergency">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Emergency</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Enable Audio Decoder">
-                <note>A button on the settings page for user make in-app purchase to enable Morse audio decoder.</note>
                 <source>Enable Audio Decoder</source>
+                <note>A button on the settings page for user make in-app purchase to enable Morse audio decoder.</note>
             </trans-unit>
             <trans-unit id="End of Contact">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>End of Contact</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="English (United Kingdom)">
-                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
                 <source>English (United Kingdom)</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="English (United States)">
-                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
                 <source>English (United States)</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Error">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Error</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Europe">
-                <note>Users can change language in settings app, this is one of the language groups.</note>
                 <source>Europe</source>
+                <note>Users can change language in settings app, this is one of the language groups.</note>
             </trans-unit>
             <trans-unit id="Forest">
-                <note>One of the names for color theme.</note>
                 <source>Forest</source>
+                <note>One of the names for color theme.</note>
             </trans-unit>
             <trans-unit id="General">
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <source>General</source>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Got It">
-                <note>One of the buttons on the Alert view.</note>
                 <source>Got It</source>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Hold me to expand.">
-                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
                 <source>Hold me to expand.</source>
+                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
             </trans-unit>
             <trans-unit id="INVITE-ANY-STATION-TO-TRANSMIT">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: any station can start to transmit now.</note>
                 <source>INVITE-ANY-STATION-TO-TRANSMIT</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: any station can start to transmit now.</note>
             </trans-unit>
             <trans-unit id="INVITE-NAMED-STATION-TO-TRANSMIT">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: the named station can start to transmit now.</note>
                 <source>INVITE-NAMED-STATION-TO-TRANSMIT</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: the named station can start to transmit now.</note>
             </trans-unit>
             <trans-unit id="Industrial">
-                <note>One of the names for color theme.</note>
                 <source>Industrial</source>
+                <note>One of the names for color theme.</note>
             </trans-unit>
             <trans-unit id="Invite (Any)">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Invite (Any)</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Invite (Named)">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Invite (Named)</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Language">
-                <note>There are many sections on the settings page, this section let the user change the App's language.</note>
                 <source>Language</source>
+                <note>There are many sections on the settings page, this section let the user change the App's language.</note>
             </trans-unit>
             <trans-unit id="Morse">
-                <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.</note>
                 <source>Morse</source>
+                <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.</note>
             </trans-unit>
             <trans-unit id="Morse Transmitter Feedback">
-                <note>The subject title for feedback email.</note>
                 <source>Morse Transmitter Feedback</source>
+                <note>The subject title for feedback email.</note>
             </trans-unit>
             <trans-unit id="New Line">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>New Line</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="New Page">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>New Page</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="New Paragraph">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>New Paragraph</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Night">
-                <note>One of the names for color theme.</note>
                 <source>Night</source>
+                <note>One of the names for color theme.</note>
             </trans-unit>
             <trans-unit id="No">
-                <note>One of the buttons on the Alert view.</note>
                 <source>No</source>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="North America">
-                <note>Users can change language in settings app, this is one of the language groups.</note>
                 <source>North America</source>
+                <note>Users can change language in settings app, this is one of the language groups.</note>
             </trans-unit>
             <trans-unit id="OK">
-                <note>One of the buttons on the Alert view.</note>
                 <source>OK</source>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Output Brighten Screen">
-                <note>There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputting Morse code.</note>
                 <source>Output Brighten Screen</source>
+                <note>There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputting Morse code.</note>
             </trans-unit>
             <trans-unit id="Pitch">
-                <note>Settings category: audio frequency.</note>
                 <source>Pitch</source>
+                <note>Settings category: audio frequency.</note>
             </trans-unit>
             <trans-unit id="Pitch: ">
+                <source>Pitch: </source>
                 <note>This is a label on the output page, followed by the number of audio frequency (pitch).</note>
-                <source>Pitch:</source>
             </trans-unit>
             <trans-unit id="Please Purchase an Upgrade :)">
-                <note>One of the titles on the Alert view.</note>
                 <source>Please Purchase an Upgrade :)</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Please Restart">
-                <note>One of the titles on the Alert view.</note>
                 <source>Please Restart</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Please restart this App after changing language.">
-                <note>This is a footer on the first section in language change settings, to reminder user restart the App after changing language.</note>
                 <source>Please restart this App after changing language.</source>
+                <note>This is a footer on the first section in language change settings, to reminder user restart the App after changing language.</note>
             </trans-unit>
             <trans-unit id="Please support us by making a purchase.\n\nAfter any purchase, you can share Morse code without download link, and all the ads will be gone!\n\nThank you!">
-                <note>One of the titles on the Alert view.</note>
                 <source>Please support us by making a purchase.
 
 After any purchase, you can share Morse code without download link, and all the ads will be gone!
 
 Thank you!</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Privacy Policy">
-                <note>A cell on Settings page connect to privacy policy website.</note>
                 <source>Privacy Policy</source>
+                <note>A cell on Settings page connect to privacy policy website.</note>
             </trans-unit>
             <trans-unit id="Rate on App Store">
-                <note>A button on the settings page for user to rate on App Store.</note>
                 <source>Rate on App Store</source>
+                <note>A button on the settings page for user to rate on App Store.</note>
             </trans-unit>
             <trans-unit id="Reset">
-                <note>A button on the settings page to reset some content.</note>
                 <source>Reset</source>
+                <note>A button on the settings page to reset some content.</note>
             </trans-unit>
             <trans-unit id="Reset Alerts">
-                <note>There are many sections on the settings page, this section let the user restore pop-up alerts.</note>
                 <source>Reset Alerts</source>
+                <note>There are many sections on the settings page, this section let the user restore pop-up alerts.</note>
             </trans-unit>
             <trans-unit id="Reset Alerts?">
-                <note>One of the titles on the Alert view.</note>
                 <source>Reset Alerts?</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Restore Purchases">
-                <note>A button on the settings page for user to restore their previous purchases.</note>
                 <source>Restore Purchases</source>
+                <note>A button on the settings page for user to restore their previous purchases.</note>
             </trans-unit>
             <trans-unit id="Restore Tutorial Cards">
-                <note>There are many sections on the settings page, this section let the user restore tutorial cards.</note>
                 <source>Restore Tutorial Cards</source>
+                <note>There are many sections on the settings page, this section let the user restore tutorial cards.</note>
             </trans-unit>
             <trans-unit id="SHIFT-TO-WABUN-CODE">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: shift from Morse code to Wabun code. (Wabun code is used by Japanese)</note>
                 <source>SHIFT-TO-WABUN-CODE</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: shift from Morse code to Wabun code. (Wabun code is used by Japanese)</note>
             </trans-unit>
             <trans-unit id="Settings">
-                <note>The title for settings page.</note>
                 <source>Settings</source>
+                <note>The title for settings page.</note>
             </trans-unit>
             <trans-unit id="Shift to Wabun">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Shift to Wabun</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Signal Output">
-                <note>This button on the settings page brings up output configuration page.</note>
                 <source>Signal Output</source>
+                <note>This button on the settings page brings up output configuration page.</note>
             </trans-unit>
             <trans-unit id="Spanish">
-                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
                 <source>Spanish</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Succeed!">
-                <note>One of the titles on the Alert view.</note>
                 <source>Succeed!</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Supported WPM: ">
+                <source>Supported WPM: </source>
                 <note>This is a label on the output page, tells the user the range of supported WPM.</note>
-                <source>Supported WPM:</source>
             </trans-unit>
             <trans-unit id="Swipe down or pinch to go back">
-                <note>This is a label on the output page, tells user how to go back to home page.</note>
                 <source>Swipe down or pinch to go back</source>
+                <note>This is a label on the output page, tells user how to go back to home page.</note>
             </trans-unit>
             <trans-unit id="Swipe to delete me.">
-                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
                 <source>Swipe to delete me.</source>
+                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
             </trans-unit>
             <trans-unit id="Switch Automatically">
-                <note>There are many sections on the settings page, this switch let the user toggle if the app should change to Night theme when the ambient censor detects the surrounding light is low.</note>
                 <source>Switch Automatically</source>
+                <note>There are many sections on the settings page, this switch let the user toggle if the app should change to Night theme when the ambient censor detects the surrounding light is low.</note>
             </trans-unit>
             <trans-unit id="System Default">
-                <note>Users can change language in settings app, this is one means the language is system default.</note>
                 <source>System Default</source>
+                <note>Users can change language in settings app, this is one means the language is system default.</note>
             </trans-unit>
             <trans-unit id="Tap anywhere to finish">
-                <note>This is a label on the output page, tells user how to finish using audio input.</note>
                 <source>Tap anywhere to finish</source>
+                <note>This is a label on the output page, tells user how to finish using audio input.</note>
             </trans-unit>
             <trans-unit id="Tap anywhere to play or pause">
-                <note>This is a label on the output page, tells user how to play or pause the output.</note>
                 <source>Tap anywhere to play or pause</source>
+                <note>This is a label on the output page, tells user how to play or pause the output.</note>
             </trans-unit>
             <trans-unit id="Tap me to output or share.">
-                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
                 <source>Tap me to output or share.</source>
+                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
             </trans-unit>
             <trans-unit id="Tap on numbers to enter a value.">
-                <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
                 <source>Tap on numbers to enter a value.</source>
+                <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
             </trans-unit>
             <trans-unit id="Tell Friends">
-                <note>A button on the settings page for user to share this App's link with friends.</note>
                 <source>Tell Friends</source>
+                <note>A button on the settings page for user to share this App's link with friends.</note>
             </trans-unit>
             <trans-unit id="Text">
-                <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.</note>
                 <source>Text</source>
+                <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.</note>
             </trans-unit>
             <trans-unit id="Theme">
-                <note>There are many sections on the settings page, this switch let the user change the color theme of this App.</note>
                 <source>Theme</source>
+                <note>There are many sections on the settings page, this switch let the user change the color theme of this App.</note>
             </trans-unit>
             <trans-unit id="To make new language setting take effect, please restart application with following steps:\n\n1. Double-tap Home button on your device.\n\n2. Swipe up to terminate application in the background.\n\n3. Start application from home screen.">
-                <note>One of the titles on the Alert view.</note>
                 <source>To make new language setting take effect, please restart application with following steps:
 
 1. Double-tap Home button on your device.
@@ -1535,94 +1539,92 @@ Thank you!</source>
 2. Swipe up to terminate application in the background.
 
 3. Start application from home screen.</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Touch to type">
-                <note>There is a string on the input text view on home screen, promoting user to touch the text box to start typing.</note>
                 <source>Touch to type</source>
+                <note>There is a string on the input text view on home screen, promoting user to touch the text box to start typing.</note>
             </trans-unit>
             <trans-unit id="Transmitter Configuration">
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <source>Transmitter Configuration</source>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Tutorial cards are successfully restored, you can go check them out now!">
-                <note>One of the titles on the Alert view.</note>
                 <source>Tutorial cards are successfully restored, you can go check them out now!</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="UNDERSTOOD">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: understood.</note>
                 <source>UNDERSTOOD</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: understood.</note>
             </trans-unit>
             <trans-unit id="Understood">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Understood</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Unlimited Card Slots">
-                <note>A button on the settings page for user make in-app purchase to have unlimited card slots.</note>
                 <source>Unlimited Card Slots</source>
+                <note>A button on the settings page for user make in-app purchase to have unlimited card slots.</note>
             </trans-unit>
             <trans-unit id="Unlock All Features">
-                <note>A button on the settings page for user make in-app purchase to unlock all features.</note>
                 <source>Unlock All Features</source>
+                <note>A button on the settings page for user make in-app purchase to unlock all features.</note>
             </trans-unit>
             <trans-unit id="Upgrades">
-                <note>There are categories on the settings page, this is one of the category.</note>
                 <source>Upgrades</source>
+                <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="WAIT">
-                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: wait.</note>
                 <source>WAIT</source>
+                <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: wait.</note>
             </trans-unit>
             <trans-unit id="WARNING!">
-                <note>One of the titles on the Alert view.</note>
                 <source>WARNING!</source>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="WPM (Words Per Minute)">
-                <note>Settings category: word per minute.</note>
                 <source>WPM (Words Per Minute)</source>
+                <note>Settings category: word per minute.</note>
             </trans-unit>
             <trans-unit id="WPM: ">
+                <source>WPM: </source>
                 <note>This is a label on the output page, followed by the numer of WPM (word per minute).</note>
-                <source>WPM:</source>
             </trans-unit>
             <trans-unit id="Wait">
-                <note>There are many prosign code in Morse, this is the name of one of them.</note>
                 <source>Wait</source>
+                <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Welcome to Morse Transmitter!">
-                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
                 <source>Welcome to Morse Transmitter!</source>
+                <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
             </trans-unit>
             <trans-unit id="When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme.">
-                <note>There are many sections on the settings page, this one explains what does Auto Switch button in Appearance section do.</note>
                 <source>When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme.</source>
+                <note>There are many sections on the settings page, this one explains what does Auto Switch button in Appearance section do.</note>
             </trans-unit>
             <trans-unit id="When you have it on, the App will try to auto-correct misspelled words when decoding Morse code. The dictionary changes when you change your language setting.">
-                <note>Explains what Auto Correct Mis Spelled Words does.</note>
                 <source>When you have it on, the App will try to auto-correct misspelled words when decoding Morse code. The dictionary changes when you change your language setting.</source>
+                <note>Explains what Auto Correct Mis Spelled Words does.</note>
             </trans-unit>
             <trans-unit id="When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.">
-                <note>Explains what Output Brighten Screen does.</note>
                 <source>When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.</source>
+                <note>Explains what Output Brighten Screen does.</note>
             </trans-unit>
             <trans-unit id="While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code.">
-                <note>A description on settings page, explaining what does Decode Prosign switch do.</note>
                 <source>While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code.</source>
+                <note>A description on settings page, explaining what does Decode Prosign switch do.</note>
             </trans-unit>
             <trans-unit id="While this option is turned on, an App Store link for this App will be added when you share a Morse code.">
-                <note>A description on settings page, explaining what Download Link switch do.</note>
                 <source>While this option is turned on, an App Store link for this App will be added when you share a Morse code.</source>
+                <note>A description on settings page, explaining what Download Link switch do.</note>
             </trans-unit>
             <trans-unit id="Yes">
-                <note>One of the buttons on the Alert view.</note>
                 <source>Yes</source>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Yes, I'm Sure">
-                <note>One of the buttons on the Alert view.</note>
                 <source>Yes, I'm Sure</source>
+                <note>One of the buttons on the Alert view.</note>
             </trans-unit>
         </body>
-        <header>
-            <tool build-num="7C68" tool-version="7.2" tool-id="com.apple.dt.xcode" tool-name="Xcode"></tool>
-        </header>
     </file>
 </xliff>

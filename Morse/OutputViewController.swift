@@ -286,10 +286,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 
 		if self.wpmLabel == nil {
 			self.wpmLabel = UILabel()
-			var text = "\(LocalizedStrings.Label.wpmWithColon)\(appDelegate.outputWPM)"
-			if layoutDirection == .RightToLeft {
-				text = "\(appDelegate.outputWPM)\(LocalizedStrings.Label.wpmWithColon)"
-			}
+			let text = "\(LocalizedStrings.Label.wpmWithColon)\(appDelegate.outputWPM)"
 			self.wpmLabel.attributedText = getAttributedStringFrom(text, withFontSize: hintLabelFontSize, color: theme.outputVCLabelTextColorEmphasized, bold: false)
 			self.wpmLabel.opaque = false
 			self.wpmLabel.alpha = 0
@@ -304,10 +301,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 
 		if self.pitchLabel == nil {
 			self.pitchLabel = UILabel()
-			var text = "\(LocalizedStrings.Label.pitchWithColon)\(Int(appDelegate.outputPitch)) Hz"
-			if layoutDirection == .RightToLeft {
-				text = "Hz \(Int(appDelegate.outputPitch))\(LocalizedStrings.Label.pitchWithColon)"
-			}
+			let text = "\(LocalizedStrings.Label.pitchWithColon)\(Int(appDelegate.outputPitch)) Hz"
 			self.pitchLabel.attributedText = getAttributedStringFrom(text, withFontSize: hintLabelFontSize, color: theme.outputVCLabelTextColorEmphasized, bold: false)
 			self.pitchLabel.opaque = false
 			self.pitchLabel.alpha = 0

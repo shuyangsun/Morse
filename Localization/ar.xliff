@@ -279,8 +279,8 @@
             </trans-unit>
             <trans-unit id="Industrial">
                 <source>Industrial</source>
-                <note>One of the names for color theme.</note>
                 <target>الصناعية</target>
+                <note>One of the names for color theme.</note>
             </trans-unit>
             <trans-unit id="Invite (Any)">
                 <source>Invite (Any)</source>
@@ -355,7 +355,7 @@
             <trans-unit id="Pitch: ">
                 <source>Pitch: </source>
                 <note>This is a label on the output page, followed by the number of audio frequency (pitch).</note>
-                <target>الملعب:</target>
+                <target>الملعب: </target>
             </trans-unit>
             <trans-unit id="Please Purchase an Upgrade :)">
                 <source>Please Purchase an Upgrade :)</source>
@@ -387,8 +387,8 @@ Thank you!</source>
             </trans-unit>
             <trans-unit id="Privacy Policy">
                 <source>Privacy Policy</source>
-                <note>A cell on Settings page connect to privacy policy website.</note>
                 <target>سياسة الخصوصية</target>
+                <note>A cell on Settings page connect to privacy policy website.</note>
             </trans-unit>
             <trans-unit id="Rate on App Store">
                 <source>Rate on App Store</source>
@@ -453,7 +453,7 @@ Thank you!</source>
             <trans-unit id="Supported WPM: ">
                 <source>Supported WPM: </source>
                 <note>This is a label on the output page, tells the user the range of supported WPM.</note>
-                <target>كلمات المدعومة في الدقيقة الواحدة:</target>
+                <target>كلمات المدعومة في الدقيقة الواحدة: </target>
             </trans-unit>
             <trans-unit id="Swipe down or pinch to go back">
                 <source>Swipe down or pinch to go back</source>
@@ -585,7 +585,7 @@ Thank you!</source>
             <trans-unit id="WPM: ">
                 <source>WPM: </source>
                 <note>This is a label on the output page, followed by the numer of WPM (word per minute).</note>
-                <target>كلمة في الدقيقة:</target>
+                <target>كلمة في الدقيقة: </target>
             </trans-unit>
             <trans-unit id="Wait">
                 <source>Wait</source>

@@ -192,6 +192,9 @@
 /* Settings category: audio frequency. */
 "Pitch" = "Terreno de juego";
 
+/* This is a label on the output page, followed by the number of audio frequency (pitch). */
+"Pitch: " = "Terreno de juego: ";
+
 /* One of the titles on the Alert view. */
 "Please Purchase an Upgrade :)" = "Por favor, adquirir una actualización :)";
 
@@ -250,6 +253,9 @@ Después de cualquier compra, usted puede compartir código Morse sin enlace de 
 
 /* One of the titles on the Alert view. */
 "Succeed!" = "¡Tener éxito!";
+
+/* This is a label on the output page, tells the user the range of supported WPM. */
+"Supported WPM: " = "Palabras apoyados por minuto: ";
 
 /* This is a label on the output page, tells user how to go back to home page. */
 "Swipe down or pinch to go back" = "Deslice hacia abajo o pellizcar para volver";
@@ -331,6 +337,9 @@ Después de cualquier compra, usted puede compartir código Morse sin enlace de 
 
 /* Settings category: word per minute. */
 "WPM (Words Per Minute)" = "Palabras por minuto";
+
+/* This is a label on the output page, followed by the numer of WPM (word per minute). */
+"WPM: " = "Palabras por minuto: ";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
 "Wait" = "Espera";

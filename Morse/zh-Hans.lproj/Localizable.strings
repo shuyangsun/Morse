@@ -189,6 +189,9 @@
 /* Settings category: audio frequency. */
 "Pitch" = "音调";
 
+/* This is a label on the output page, followed by the number of audio frequency (pitch). */
+"Pitch: " = "音调：";
+
 /* One of the titles on the Alert view. */
 "Please Restart" = "请重新开启应用程序";
 
@@ -233,6 +236,9 @@
 
 /* One of the titles on the Alert view. */
 "Succeed!" = "完成！";
+
+/* This is a label on the output page, tells the user the range of supported WPM. */
+"Supported WPM: " = "支持的每分钟字数：";
 
 /* This is a label on the output page, tells user how to go back to home page. */
 "Swipe down or pinch to go back" = "返回：向下滑动或双指合拢";
@@ -302,6 +308,9 @@
 
 /* Settings category: word per minute. */
 "WPM (Words Per Minute)" = "每分钟字数";
+
+/* This is a label on the output page, followed by the numer of WPM (word per minute). */
+"WPM: " = "每分钟字数：";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
 "Wait" = "等等";

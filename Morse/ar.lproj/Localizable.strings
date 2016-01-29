@@ -190,7 +190,7 @@
 "Pitch" = "الملعب";
 
 /* This is a label on the output page, followed by the number of audio frequency (pitch). */
-"Pitch: " = "الملعب:";
+"Pitch: " = "الملعب: ";
 
 /* One of the titles on the Alert view. */
 "Please Purchase an Upgrade :)" = "يرجى شراء ترقية :)";
@@ -252,7 +252,7 @@ Thank you!" = "يرجى دعم لنا اتخاذ قرار الشراء.
 "Succeed!" = "تنجح!";
 
 /* This is a label on the output page, tells the user the range of supported WPM. */
-"Supported WPM: " = "كلمات المدعومة في الدقيقة الواحدة:";
+"Supported WPM: " = "كلمات المدعومة في الدقيقة الواحدة: ";
 
 /* This is a label on the output page, tells user how to go back to home page. */
 "Swipe down or pinch to go back" = "انتقد أسفل أو قرصة للعودة";
@@ -336,7 +336,7 @@ Thank you!" = "يرجى دعم لنا اتخاذ قرار الشراء.
 "WPM (Words Per Minute)" = "كلمة في الدقيقة";
 
 /* This is a label on the output page, followed by the numer of WPM (word per minute). */
-"WPM: " = "كلمة في الدقيقة:";
+"WPM: " = "كلمة في الدقيقة: ";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
 "Wait" = "انتظر";
