@@ -28,7 +28,7 @@ class BackButton: UIButton {
 			delay: 0,
 			options: .CurveEaseInOut,
 			animations: {
-				self.transform = CGAffineTransformMakeTranslation(self._animationOffset, 0)
+				self.transform = CGAffineTransformMakeTranslation(-self._animationOffset, 0)
 				self.alpha = 0
 			}) { succeed in
 				self.hidden = true

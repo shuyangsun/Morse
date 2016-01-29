@@ -485,32 +485,34 @@ class MorseTransmitter {
 					self._counter = 1
 					self._singalStarted = false
 					// Calculate input WPM
-					while self._ditSignalLengthRecordRecent.count > self._unitLengthRecordLength {
-						self._ditSignalLengthRecordRecent.removeFirst()
-					}
-					while self._dahSignalLengthRecordRecent.count > self._unitLengthRecordLength {
-						self._dahSignalLengthRecordRecent.removeFirst()
-					}
-					// If we have enough history record for calculating input WPM, do it like a boss.
-					if !self._ditSignalLengthRecordRecent.isEmpty || !self._dahSignalLengthRecordRecent.isEmpty {
-						var ditLenAvg:Float = 0
-						var dahLenAvg:Float = 0
-						if self._ditSignalLengthRecordRecent.count > 0 {
-							ditLenAvg = Float(self._ditSignalLengthRecordRecent.reduce(0) { $0 + $1 }) / Float(self._ditSignalLengthRecordRecent.count)
+					if appDelegate.inputWPMAutomatic {
+						while self._ditSignalLengthRecordRecent.count > self._unitLengthRecordLength {
+							self._ditSignalLengthRecordRecent.removeFirst()
 						}
-						if self._dahSignalLengthRecordRecent.count > 0 {
-							dahLenAvg = Float(self._dahSignalLengthRecordRecent.reduce(0) { $0 + $1 }) / Float(self._dahSignalLengthRecordRecent.count)
+						while self._dahSignalLengthRecordRecent.count > self._unitLengthRecordLength {
+							self._dahSignalLengthRecordRecent.removeFirst()
 						}
-						#if DEBUG
-							print("DIT: \(ditLenAvg) DAH: \(dahLenAvg)")
-						#endif
-						var wpm = 20
-						if (3...5).contains(ditLenAvg) && (10...13).contains(dahLenAvg) {
-							wpm = 15
-						} else if (2...4).contains(ditLenAvg) && (7...10).contains(dahLenAvg) {
-							wpm = 20
+						// If we have enough history record for calculating input WPM, do it like a boss.
+						if !self._ditSignalLengthRecordRecent.isEmpty || !self._dahSignalLengthRecordRecent.isEmpty {
+							var ditLenAvg:Float = 0
+							var dahLenAvg:Float = 0
+							if self._ditSignalLengthRecordRecent.count > 0 {
+								ditLenAvg = Float(self._ditSignalLengthRecordRecent.reduce(0) { $0 + $1 }) / Float(self._ditSignalLengthRecordRecent.count)
+							}
+							if self._dahSignalLengthRecordRecent.count > 0 {
+								dahLenAvg = Float(self._dahSignalLengthRecordRecent.reduce(0) { $0 + $1 }) / Float(self._dahSignalLengthRecordRecent.count)
+							}
+							#if DEBUG
+								print("DIT: \(ditLenAvg) DAH: \(dahLenAvg)")
+							#endif
+							var wpm = 20
+							if (3...5).contains(ditLenAvg) && (10...13).contains(dahLenAvg) {
+								wpm = 15
+							} else if (2...4).contains(ditLenAvg) && (7...10).contains(dahLenAvg) {
+								wpm = 20
+							}
+							appDelegate.inputWPM = wpm
 						}
-						appDelegate.inputWPM = wpm
 					}
 				} else {
 					// Singal already fell, not during signal

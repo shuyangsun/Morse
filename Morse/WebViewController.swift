@@ -11,7 +11,6 @@ import WebKit
 
 class WebViewController: GAITrackedViewController {
 
-	var statusBarView: UIView!
 	var topBarView: UIView!
 	var progressBarView: UIView!
 	var topBarLabel: UILabel!
@@ -50,43 +49,17 @@ class WebViewController: GAITrackedViewController {
 
 		self.view.backgroundColor = UIColor.whiteColor()
 
-		if self.statusBarView == nil {
-			self.statusBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: statusBarHeight))
-			self.statusBarView.backgroundColor = appDelegate.theme.topBarBackgroundColor.colorWithAlpha(webViewUnloadedTopBarAlpha)
-			self.view.addSubview(self.statusBarView)
-			self.statusBarView.snp_makeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.view)
-				make.leading.equalTo(self.view)
-				make.trailing.equalTo(self.view)
-				make.height.equalTo(statusBarHeight)
-			})
-		}
-
 		if self.topBarView == nil {
-			self.topBarView = UIView(frame: CGRect(x: 0, y: statusBarHeight, width: self.view.bounds.width, height: topBarHeight))
+			self.topBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: topBarHeight + statusBarHeight))
 			self.topBarView.backgroundColor = appDelegate.theme.topBarBackgroundColor.colorWithAlpha(webViewUnloadedTopBarAlpha)
 			self.view.addSubview(topBarView)
 
 			self.topBarView.snp_remakeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.statusBarView.snp_bottom)
+				make.top.equalTo(self.view)
 				make.leading.equalTo(self.view)
 				make.trailing.equalTo(self.view)
-				make.height.equalTo(topBarHeight)
+				make.height.equalTo(topBarHeight + statusBarHeight)
 			})
-
-			if self.topBarLabel == nil {
-				self.topBarLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.topBarView.bounds.width, height: topBarHeight))
-				self.topBarLabel.textAlignment = .Center
-				self.topBarLabel.tintColor = appDelegate.theme.topBarLabelTextColor
-				self.topBarLabel.attributedText = NSAttributedString(string: LocalizedStrings.Settings.privacyPolicy, attributes:
-					[NSFontAttributeName: UIFont.boldSystemFontOfSize(23),
-						NSForegroundColorAttributeName: appDelegate.theme.topBarLabelTextColor])
-				self.topBarView.addSubview(self.topBarLabel)
-
-				self.topBarLabel.snp_remakeConstraints(closure: { (make) -> Void in
-					make.edges.equalTo(self.topBarView).inset(UIEdgeInsetsMake(0, 0, 0, 0))
-				})
-			}
 
 			if self.progressBarView == nil {
 				let x = layoutDirection == .LeftToRight ? 0 : self.view.bounds.width
@@ -101,21 +74,37 @@ class WebViewController: GAITrackedViewController {
 				self.topBarView.setNeedsUpdateConstraints()
 			}
 
+			if self.topBarLabel == nil {
+				self.topBarLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.topBarView.bounds.width, height: topBarHeight))
+				self.topBarLabel.textAlignment = .Center
+				self.topBarLabel.tintColor = appDelegate.theme.topBarLabelTextColor
+				self.topBarLabel.attributedText = NSAttributedString(string: LocalizedStrings.Settings.privacyPolicy, attributes:
+					[NSFontAttributeName: UIFont.boldSystemFontOfSize(23),
+						NSForegroundColorAttributeName: appDelegate.theme.topBarLabelTextColor])
+				self.topBarView.addSubview(self.topBarLabel)
+
+				self.topBarLabel.snp_remakeConstraints(closure: { (make) -> Void in
+					make.top.equalTo(self.topBarView).offset(statusBarHeight)
+					make.centerX.equalTo(self.topBarView)
+					make.bottom.equalTo(self.topBarView)
+				})
+			}
+
+			if self.backButton == nil {
+				self.backButton = BackButton(origin: CGPoint(x: 0, y: 0), width: self.backButtonWidth)
+				self.backButton.addTarget(self, action: "backButtonTapped:", forControlEvents: .TouchUpInside)
+				self.topBarView.addSubview(self.backButton)
+
+				self.backButton.snp_makeConstraints(closure: { (make) -> Void in
+					make.centerY.equalTo(self.topBarLabel)
+					make.leading.equalTo(self.topBarView)
+					make.width.equalTo(topBarHeight)
+					make.height.equalTo(self.backButton.snp_width)
+				})
+				self.backButton.alpha = 0
+			}
+
 			self.topBarView.addMDShadow(withDepth: 2)
-		}
-
-		if self.backButton == nil {
-			self.backButton = BackButton(origin: CGPoint(x: 0, y: 0), width: self.backButtonWidth)
-			self.backButton.addTarget(self, action: "backButtonTapped:", forControlEvents: .TouchUpInside)
-			self.topBarView.addSubview(self.backButton)
-
-			self.backButton.snp_makeConstraints(closure: { (make) -> Void in
-				make.top.equalTo(self.topBarView)
-				make.leading.equalTo(self.topBarView)
-				make.width.equalTo(topBarHeight)
-				make.height.equalTo(self.backButton.snp_width)
-			})
-			self.backButton.alpha = 0
 		}
 
 		if self.webView == nil {
@@ -133,10 +122,6 @@ class WebViewController: GAITrackedViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		self.backButton.appearWithDuration(defaultAnimationDuration)
-		UIView.animateWithScaledDuration(defaultAnimationDuration,
-			animations: {
-				self.statusBarView.backgroundColor = theme.statusBarBackgroundColor
-			}, completion: nil)
 	}
 
     override func didReceiveMemoryWarning() {
@@ -169,7 +154,9 @@ class WebViewController: GAITrackedViewController {
 	}
 
 	func backButtonTapped(sender:AnyObject) {
-		self.dismissViewControllerAnimated(true, completion: nil)
+		self.backButton.disappearWithDuration(defaultAnimationDuration) {
+			self.dismissViewControllerAnimated(true, completion: nil)
+		}
 	}
     
 
