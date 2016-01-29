@@ -102,7 +102,7 @@ let feedbackEmailToRecipient = "MorseTransmitter@gmail.com"
 let feedbackEmailMessageBody = ""
 
 // App Store related
-let appID = "TEST_APP_ID"
+let appID = "1079473715"
 let appStoreLink = "itms-apps://itunes.apple.com/app/id\(appID)"
 let appStoreReviewLink = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=\(appID)&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software"
 let privacyPolicyLink = "https://www.iubenda.com/privacy-policy/7785904"
