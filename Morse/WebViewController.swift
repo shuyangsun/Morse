@@ -30,6 +30,10 @@ class WebViewController: GAITrackedViewController {
 
 	private var _progressTimer:NSTimer!
 
+	override func preferredStatusBarStyle() -> UIStatusBarStyle {
+		return theme.style == .Dark ? .LightContent : .Default
+	}
+
 	// Only support landscape when it's on an iPad
 	override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
 		if isPad {
