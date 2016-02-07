@@ -3,6 +3,6 @@
 "CFBundleName" = "电码收发器";
 "Encode Text" = "文本编码";
 "Decode Morse" = "电码文本解码";
-"Audio Decoder" = "音频解码";
+"Decode Audio" = "音频解码";
 "Dictionary" = "对照表";
 

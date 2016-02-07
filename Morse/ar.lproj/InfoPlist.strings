@@ -2,5 +2,5 @@
 "CFBundleName" = "مورس";
 "Encode Text" = "ترميز";
 "Decode Morse" = "فك تشفير";
-"Audio Decoder" = "فك الصوت";
+"Decode Audio" = "فك الصوت";
 "Dictionary" = "قاموس";

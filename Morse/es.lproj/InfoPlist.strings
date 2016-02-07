@@ -2,6 +2,6 @@
 "CFBundleName" = "Morse";
 "Encode Text" = "Codificación";
 "Decode Morse" = "Descodificar";
-"Audio Decoder" = "Decodificador de Audio";
+"Decode Audio" = "Decodificador de Audio";
 "Dictionary" = "Diccionario";
 
