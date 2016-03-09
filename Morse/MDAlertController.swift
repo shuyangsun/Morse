@@ -8,6 +8,7 @@
 
 import UIKit
 
+/** A class that is similar with UIAlertController, but the presentation style is using Material Design. */
 class MDAlertController: UIViewController {
 
 	var alertView:UIView!
@@ -147,6 +148,12 @@ class MDAlertController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+	/**
+	Initialize a MDAlertController with title and message. If you don't add any action (customized button) to it, there will be an "OK" button by default, which does nothing but dismiss this alert view controller.
+	- Parameters:
+		- title: The title of alert view.
+		- message: The message body of alert view.
+	*/
 	convenience init(title: String?, message: String?) {
 		self.init()
 		self._alertTitle = title
@@ -158,6 +165,11 @@ class MDAlertController: UIViewController {
 		self.transitioningDelegate = UIApplication.sharedApplication().windows[0].rootViewController as! TabBarController
 	}
 
+	/**
+	Add an alert action (button) to this controller. Adding any button will automatically remove the default "OK" button.
+	- Parameters:
+		- action: An action specifying the title, handler of the button.
+	*/
 	func addAction(action:MDAlertAction) {
 		if !self._didAddCustomAction {
 			// If the user hasn't add any custom action, remove the default "OK" action
@@ -178,7 +190,7 @@ class MDAlertController: UIViewController {
 		self._didAddCustomAction = true
 	}
 
-	func updateButtonConstraints() {
+	private func updateButtonConstraints() {
 		let count = self._actionsAndButtons.count
 		for var i = 0; i < count; i++ {
 			let tuple = self._actionsAndButtons[i]
@@ -221,6 +233,9 @@ class MDAlertController: UIViewController {
 		}
 	}
 
+	/**
+	Present this alert view controller. The presenting controller will be the root controller, so the alert view controller will always show at the top of view controller hierarchy.
+	*/
 	func show() {
 		(UIApplication.sharedApplication().windows[0].rootViewController! as! TabBarController).presentViewController(self, animated: true, completion: nil)
 	}
@@ -241,6 +256,11 @@ class MDAlertController: UIViewController {
     }
     */
 
+	/**
+	Responsible for updating the UI when user changes the theme.
+	- Parameters:
+		- animated: A boolean determines if the theme change should be animated.
+	*/
 	func updateColor(animated animated:Bool = true) {
 		self.snapshot?.removeFromSuperview()
 		self.snapshot = self.presentingViewController?.view.snapshotViewAfterScreenUpdates(true)

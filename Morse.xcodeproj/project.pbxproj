@@ -141,9 +141,6 @@
 		107FF6A71C0BC128003EB294 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6A61C0BC128003EB294 /* Theme.swift */; };
 		107FF6A81C0BC128003EB294 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6A61C0BC128003EB294 /* Theme.swift */; };
 		107FF6A91C0BC128003EB294 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6A61C0BC128003EB294 /* Theme.swift */; };
-		107FF6AB1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6AA1C0BC1FC003EB294 /* MaterialDesign.swift */; };
-		107FF6AC1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6AA1C0BC1FC003EB294 /* MaterialDesign.swift */; };
-		107FF6AD1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6AA1C0BC1FC003EB294 /* MaterialDesign.swift */; };
 		107FF6C21C0BE11C003EB294 /* SnapKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 107FF6B81C0BDEC0003EB294 /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		107FF6C41C0C223D003EB294 /* MorseTransmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6C31C0C223D003EB294 /* MorseTransmitter.swift */; };
 		107FF6C51C0C223D003EB294 /* MorseTransmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6C31C0C223D003EB294 /* MorseTransmitter.swift */; };
@@ -180,6 +177,7 @@
 		10D54A131C42BDE600775318 /* TableViewSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D54A121C42BDE600775318 /* TableViewSwitchCell.swift */; };
 		10D54A151C42C16D00775318 /* TableViewSwitchCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D54A141C42C16D00775318 /* TableViewSwitchCellDelegate.swift */; };
 		10D54A171C42D19600775318 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D54A161C42D19600775318 /* TableViewController.swift */; };
+		10DC37DE1C8B7AF500391929 /* MaterialDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DC37DD1C8B7AF500391929 /* MaterialDesign.swift */; };
 		10ECA69D1C49759000A63328 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 10ECA69C1C49759000A63328 /* Default-568h@2x.png */; };
 		10F1B5CF1C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */ = {isa = PBXBuildFile; fileRef = 10F1B5CE1C3F750C000AA9C4 /* webAudioToneGenerator.js */; };
 		10F1B5D01C3F750C000AA9C4 /* webAudioToneGenerator.js in Resources */ = {isa = PBXBuildFile; fileRef = 10F1B5CE1C3F750C000AA9C4 /* webAudioToneGenerator.js */; };
@@ -375,7 +373,6 @@
 		107C922F1C44784B00C97EFF /* TableViewResetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewResetCell.swift; sourceTree = "<group>"; };
 		107C92311C44B89600C97EFF /* TableViewTransmitterConfigurationCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewTransmitterConfigurationCellDelegate.swift; sourceTree = "<group>"; };
 		107FF6A61C0BC128003EB294 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		107FF6AA1C0BC1FC003EB294 /* MaterialDesign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDesign.swift; sourceTree = "<group>"; };
 		107FF6B01C0BDEC0003EB294 /* SnapKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SnapKit.xcodeproj; path = SnapKit/SnapKit.xcodeproj; sourceTree = "<group>"; };
 		107FF6C31C0C223D003EB294 /* MorseTransmitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseTransmitter.swift; sourceTree = "<group>"; };
 		10826A171C0D5C4C00902BCC /* General.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = General.swift; sourceTree = "<group>"; };
@@ -401,6 +398,7 @@
 		10D54A121C42BDE600775318 /* TableViewSwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewSwitchCell.swift; sourceTree = "<group>"; };
 		10D54A141C42C16D00775318 /* TableViewSwitchCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewSwitchCellDelegate.swift; sourceTree = "<group>"; };
 		10D54A161C42D19600775318 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		10DC37DD1C8B7AF500391929 /* MaterialDesign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDesign.swift; sourceTree = "<group>"; };
 		10ECA68F1C496E5900A63328 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		10ECA69C1C49759000A63328 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		10F1B5CC1C3F6C94000AA9C4 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -619,7 +617,7 @@
 			children = (
 				10BFD3991C1F1C1300FA4C26 /* General UI.swift */,
 				107FF6A61C0BC128003EB294 /* Theme.swift */,
-				107FF6AA1C0BC1FC003EB294 /* MaterialDesign.swift */,
+				10DC37DD1C8B7AF500391929 /* MaterialDesign.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -818,7 +816,6 @@
 				TargetAttributes = {
 					1052A73E1C0BACE90085B0C9 = {
 						CreatedOnToolsVersion = 7.1.1;
-						DevelopmentTeam = 7Q6SA8R25D;
 					};
 					1052A7551C0BACEA0085B0C9 = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -1020,7 +1017,6 @@
 				10274F731C26612B007E6489 /* CardViewOutputTransitionInteractionController.swift in Sources */,
 				107C92321C44B89600C97EFF /* TableViewTransmitterConfigurationCellDelegate.swift in Sources */,
 				1052A77C1C0BB09B0085B0C9 /* HomeViewController.swift in Sources */,
-				107FF6AB1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
 				1088ACC21C26003400D17028 /* CardViewOutputAnimator.swift in Sources */,
 				109266841C2071EA00AD198E /* TableViewCell.swift in Sources */,
 				10D54A0C1C41FF3D00775318 /* SettingsThemeTableViewController.swift in Sources */,
@@ -1032,6 +1028,7 @@
 				1030BA0F1C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
 				1073948F1C11F75800EF8C16 /* BackButton.swift in Sources */,
 				103477131C3750DC0036DB44 /* EZPlot.m in Sources */,
+				10DC37DE1C8B7AF500391929 /* MaterialDesign.swift in Sources */,
 				103476C31C374C560036DB44 /* AudioWaveFormViewController.swift in Sources */,
 				1034771C1C3750DC0036DB44 /* TPCircularBuffer.c in Sources */,
 				103477071C3750DC0036DB44 /* EZAudioPlotGL.m in Sources */,
@@ -1087,7 +1084,6 @@
 				1088ACC31C26003400D17028 /* CardViewOutputAnimator.swift in Sources */,
 				10CC4EAB1C38854100B1F0F2 /* MorseTransmitterDelegate.swift in Sources */,
 				109266851C2071EA00AD198E /* TableViewCell.swift in Sources */,
-				107FF6AC1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
 				100F7CD91C27513700DDD8EC /* MorseAudioRecorder.swift in Sources */,
 				1030BA101C1890C20099F2E4 /* CardViewDelegate.swift in Sources */,
 				107394901C11F75800EF8C16 /* BackButton.swift in Sources */,
@@ -1137,7 +1133,6 @@
 				1052A7661C0BACEA0085B0C9 /* MorseUITests.swift in Sources */,
 				1088ACC41C26003400D17028 /* CardViewOutputAnimator.swift in Sources */,
 				109266861C2071EA00AD198E /* TableViewCell.swift in Sources */,
-				107FF6AD1C0BC1FC003EB294 /* MaterialDesign.swift in Sources */,
 				10CC4EAC1C38854100B1F0F2 /* MorseTransmitterDelegate.swift in Sources */,
 				100F7CDA1C27513700DDD8EC /* MorseAudioRecorder.swift in Sources */,
 				103477181C3750DC0036DB44 /* EZRecorder.m in Sources */,

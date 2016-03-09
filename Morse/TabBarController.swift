@@ -138,6 +138,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 		return nil
 	}
 
+	/**
+	 Responsible for updating the UI when user changes the theme.
+	 - parameter animated: A boolean determines if the theme change should be animated.
+	 */
 	func updateColor(animated animated:Bool = true) {
 		self.homeVC.tabBarItem.image = UIImage(named:theme.tabBarItemHomeUnselectedImageName)!.imageWithTintColor(theme.tabBarUnselectedTintColor).imageWithRenderingMode(.AlwaysOriginal)
 		self.morseDictionaryVC.tabBarItem.image = UIImage(named:theme.tabBarItemDictionaryUnselectedImageName)!.imageWithTintColor(theme.tabBarUnselectedTintColor).imageWithRenderingMode(.AlwaysOriginal)

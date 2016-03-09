@@ -40,6 +40,9 @@ class TableViewCell: UITableViewCell {
 		}
 	}
 
+	/**
+	Responsible for updating the UI when user changes the theme.
+	*/
 	func updateColor() {
 		self.tintColor = theme.tableViewCellCheckmarkColor
 		if self.accessoryType == .None {

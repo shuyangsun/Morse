@@ -407,7 +407,11 @@ class MorseTransmitter {
 		self._maxLevelsHistoryRecent = []
 	}
 
+	// ******************************************************************************
 	// This method is called when an audio sample has been recieved in the microphone.
+	// At sample rate 44.1k, this method is called about 44 times per second. Normally
+	// it won't cause a performance issue, but for safety we dispatch it
+	// ******************************************************************************
 	func microphone(microphone: EZMicrophone!, maxFrequencyMagnitude: Float) {
 		dispatch_sync(self._audioAnalysisQueue) {
 			// Setup sample rate

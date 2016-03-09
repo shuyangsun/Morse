@@ -32,6 +32,9 @@ class TableViewLanguageCell: TableViewCell {
         // Configure the view for the selected state
     }
 
+	/**
+	Responsible for updating the UI when user changes the theme.
+	*/
 	override func updateColor() {
 		if self.accessoryType == .None {
 			self.backgroundColor = appDelegate.theme.tableViewCellBackgroundColor

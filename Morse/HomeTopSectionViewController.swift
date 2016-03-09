@@ -891,6 +891,11 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		}
 	}
 
+	/**
+	Responsible for updating the UI when user changes the theme.
+	- Parameters:
+		- animated: A boolean determines if the theme change should be animated.
+	*/
 	func updateColor(animated animated:Bool = true) {
 		self.inputTextView.keyboardAppearance = theme.keyboardAppearance
 		self.roundButtonView.addMDShadow(withDepth: theme.roundButtonMDShadowLevelDefault)

@@ -9,13 +9,26 @@
 import UIKit
 
 extension UIColor {
+
+	// -------------------------------------------------------------------------------------------------------------------------------------
+	/**
+	Initialize a UIColor with hexadecimal value and alpha.
+	- Parameters:
+		- hex: The hexadecimal value for the color, can be represented as 0xAABBCC.
+		- alpha: The alpha value for transparency, between 0 and 1.0. 0 Is transparent, 1 is opaque.
+	*/
 	convenience init(hex:Int, alpha:CGFloat = 1.0) {
 		let red = CGFloat((hex & 0xFF0000) >> 16) / 255.0
 		let green = CGFloat((hex & 0xFF00) >> 8) / 255.0
 		let blue = CGFloat(hex & 0xFF) / 255.0
 		self.init(red:red, green:green, blue:blue, alpha:alpha)
 	}
+	// -------------------------------------------------------------------------------------------------------------------------------------
 
+	// -------------------------------------------------------------------------------------------------------------------------------------
+	/**
+		-Returns: The hexadecimal value of caller (does not contain alpha information).
+	*/
 	var hex:Int {
 		var r:CGFloat = 0
 		var g:CGFloat = 0
@@ -24,18 +37,37 @@ extension UIColor {
 		self.getRed(&r, green: &g, blue: &b, alpha: &a)
 		return Int(r * 255.0) << 16 + Int(g * 255.0) << 8 + Int(b * 255.0)
 	}
+	// -------------------------------------------------------------------------------------------------------------------------------------
 
+	// -------------------------------------------------------------------------------------------------------------------------------------
+	/**
+	Returns the current UIColor with specified alpha value.
+	- Parameters:
+		- alpha: The alpha value for transparency, between 0 and 1.0. 0 Is transparent, 1 is opaque.
+	- Returns: The UIColor which called this method with specified alpha.
+	*/
 	func colorWithAlpha(alpha:CGFloat) -> UIColor {
 		return UIColor(hex: self.hex, alpha: alpha)
 	}
+	// -------------------------------------------------------------------------------------------------------------------------------------
 }
 
-class ShadowLayer: CALayer {
-	// A dummy class for adding bottom shadow
-}
+/**
+ This class is designed to identify which layer is used for shadow display, it's just a subclass of CALayer.
+*/
+class ShadowLayer: CALayer { /*** Nothing Here ***/ }
 
 extension UIView {
-	func addMDShadow(withDepth shadowDepth:Int?, shadowColor:UIColor = UIColor.blackColor(), animatedWithDuration:NSTimeInterval = -1.0) {
+	// -------------------------------------------------------------------------------------------------------------------------------------
+	/**
+	Call this method on UIView to add Material Design shadow on the caller. You can specify the shadow depth and shadow color.
+
+	WARNNING: This shadow will stay with the view, but it is static instead of dynamic. Because of that, this method's performance is significantly better than setting shadow properties on CALayer. However, since it's dynamic, you should update shadow accordingly by recalling this method whenever your view's shape changes.
+	- Parameters:
+		- shadowDepth: The depth value for shadow, it should be an integer ranging from 0 to 5. Any value outside this range will be ignored. 0 means "no shadow", 5 means "deepest shadow". Elements on a higher level of hierarchy (floating higher) should have higher value.
+		- shadowColor (default=black): The color of this shadow. Specifying alpha value for color will have effects on the shadow, but this is not recomended since default alpha value for each shadow level will be added. Specifying alpha value for shadowColor may confused user for the level of hierarchy.
+	*/
+	func addMDShadow(withDepth shadowDepth:Int?, shadowColor:UIColor = UIColor.blackColor()) {
 		// If all the condition meets, add the shadow.
 		if let depth = shadowDepth {
 			if depth >= 1 && depth <= 5 {
@@ -108,8 +140,20 @@ extension UIView {
 			}
 		}
 	}
+	// -------------------------------------------------------------------------------------------------------------------------------------
 
-	func triggerTapFeedBack(atLocation location:CGPoint, withColor color:UIColor = UIColor.whiteColor(), var duration:NSTimeInterval = TAP_FEED_BACK_DURATION, showSurfaceReaction:Bool = true, atBottom:Bool = true, scaleDuration:Bool = false, completion: ((Void) -> Void)? = nil) {
+	// -------------------------------------------------------------------------------------------------------------------------------------
+	/**
+	Call this method on UIView to trigger Material Design style tap feedback at a certain location. It generates a water ripple effect from the starting point.
+	- Parameters:
+		- location: The location to start tap feedback. Usually this value should be a CGPoint that is inside the view's bounds, but you can start it ouside the view's bounds.
+		- color (default=white): The color of water ripple. Specifying the alpha value for this color will effect the alpha value of the tap feedback, it is up to you to use any color or alpha you want. However, the actually alpha value is half of the original color, because we don't want to make the feedback opaque so it blocks the actuall view. So feel free to leave the alpha for color as 1.0, it will be rendered as 0.5.
+		- duration (default=0.4): How many seconds this tap feedback should animate.
+		- showSurfaceReaction (default=true): When this value is true, there will be another layer of animation below the water ripple effect, which is default for Material Design.
+		- atBottom (default=true): Determines if the feedback animation should apear on top or bottom of the view hierarchy. Most of the time we want it at bottom so it doens't cover any subviews. However, if there are subviews on this view that make this animation unatrual, set it to false so it will happen at the top of view hierarchy.
+		- completion (default=nil): A completion block for submitting actions after the feedback animation is over.
+	*/
+	func triggerTapFeedBack(atLocation location:CGPoint, withColor color:UIColor = UIColor.whiteColor(), var duration:NSTimeInterval = TAP_FEED_BACK_DURATION, showSurfaceReaction:Bool = true, atBottom:Bool = true, scaleDuration:Bool = true, completion: ((Void) -> Void)? = nil) {
 		if scaleDuration {
 			duration *= animationDurationScalar
 		}
@@ -203,9 +247,13 @@ extension UIView {
 				feedBackView.alpha = 0.0
 		}, completion: nil)
 	}
+	// -------------------------------------------------------------------------------------------------------------------------------------
 }
 
-// Color Palette
+// -------------------------------------------------------------------------------------------------------------------------------------
+/**
+ A enum getting the colors from Material Design color palette. Use .P# or .A# to get primary color or accent color for a specific color palette respectively.
+*/
 enum MDColorPalette:String {
 	case Red = "Red", Pink = "Pink", Purple = "Purple", DeepPurple = "Deep Purple", Indigo = "Indigo", Blue = "Blue", LightBlue = "Light Blue", Cyan = "Cyan", Teal = "Teal", Green = "Green", LightGreen = "Light Green", Lime = "Lime", Yellow = "Yellow", Amber = "Amber", Orange = "Orange", DeepOrange = "Deep Orange", Brown = "Brown", Grey = "Grey", BlueGrey = "Blue Grey";
 
@@ -549,7 +597,12 @@ enum MDColorPalette:String {
 		return self.P500
 	}
 }
+// -------------------------------------------------------------------------------------------------------------------------------------
 
+// -------------------------------------------------------------------------------------------------------------------------------------
+/*
+ Alpha values for primay, secondary and hint text.
+ */
 let MDDarkTextPrimaryAlpha:CGFloat = 0.87
 let MDDarkTextSecondaryAlpha:CGFloat = 0.54
 let MDDarkTextHintAlpha:CGFloat = 0.38
@@ -557,4 +610,4 @@ let MDDarkTextHintAlpha:CGFloat = 0.38
 let MDLightTextPrimaryAlpha:CGFloat = 1.0
 let MDLightTextSecondaryAlpha:CGFloat = 0.70
 let MDLightTextHintAlpha:CGFloat = 0.30
-
+// -------------------------------------------------------------------------------------------------------------------------------------

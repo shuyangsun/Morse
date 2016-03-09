@@ -159,6 +159,11 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 	// MARK: Card Stuff
 	// *****************************
 
+	/**
+	Private helper function that creates one cardView with given text and morse code. The cardView is created and it's added to the "cardViews" array. Note at this time none of the constraints are set, they the card is simply added onto the scrollView.
+	- parameter text: Text on the card, always on top.
+	- parameter morse: Morse code on the card, always at bottom.
+	*/
 	private func addCardViewWithText(text:String, morse:String) {
 		let cardView = CardView(frame: CGRect(x: appDelegate.theme.cardViewHorizontalMargin, y: appDelegate.theme.cardViewGroupVerticalMargin, width: self.scrollView.bounds.width - appDelegate.theme.cardViewHorizontalMargin - appDelegate.theme.cardViewHorizontalMargin, height: appDelegate.theme.cardViewHeight), text: text, morse: morse, textOnTop: true)
 		cardView.delegate = self
@@ -172,6 +177,11 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 		self.scrollView.addSubview(cardView)
 	}
 
+	/**
+	Private helper function that creates one cardView with given text and morse code. The cardView is created and it's added to the "cardViews" array. Note at this time none of the constraints are set, they the card is simply added onto the scrollView.
+	- parameter text: Text on the card, always on top.
+	- parameter morse: Morse code on the card, always at bottom.
+	*/
 	func cardViewTapped(cardView:CardView) {
 		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
@@ -298,6 +308,10 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 	// MARK: Update Color
 	// *****************************
 
+	/**
+	Responsible for updating the UI when user changes the theme.
+	- parameter animated: A boolean determines if the theme change should be animated.
+	*/
 	func updateColor(animated animated:Bool = true) {
 		dispatch_sync(self._updateCardConstraintsQueue) {
 			self.updateCardViewsConstraints()

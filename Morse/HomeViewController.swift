@@ -841,6 +841,10 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		return image
 	}
 
+	/**
+	Responsible for updating the UI when user changes the theme.
+	- parameter animated: A boolean determines if the theme change should be animated.
+	*/
 	func updateColor(animated animated:Bool = true) {
 		dispatch_sync(self._updateCardConstraintsQueue) {
 			self.updateCardViewsConstraints()

@@ -59,6 +59,10 @@ class TableViewController: UITableViewController {
 		}
 	}
 
+	/**
+	Responsible for updating the UI when user changes the theme.
+	- parameter animated: A boolean determines if the theme change should be animated.
+	*/
 	func updateColor(animated animated:Bool = true) {
 		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
 		UIView.animateWithDuration(duration,
