@@ -497,8 +497,4 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		self.animationDurationScalar = 1
 		self.animationDurationCell.detailTextLabel?.attributedText = getAttributedStringFrom("1.0", withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
 	}
-
-	// *****************************
-	// MARK: Update Color
-	// *****************************
 }
