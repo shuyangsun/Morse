@@ -63,7 +63,7 @@ class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveT
 							if self._shouldFinishTransition {
 								if delayFinishTransitionTime > 0 {
 									self.updateInteractiveTransition(1)
-									NSTimer.scheduledTimerWithTimeInterval(delayFinishTransitionTime, target: self, selector: "finishInteractiveTransition", userInfo: nil, repeats: false)
+									self.finishInteractiveTransition()
 								} else {
 									self.finishInteractiveTransition()
 								}
@@ -93,7 +93,7 @@ class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveT
 //				}
 				if delayFinishTransitionTime > 0 {
 					self.updateInteractiveTransition(1)
-					NSTimer.scheduledTimerWithTimeInterval(delayFinishTransitionTime, target: self, selector: "finishInteractiveTransition", userInfo: nil, repeats: false)
+					self.finishInteractiveTransition()
 				} else {
 					self.finishInteractiveTransition()
 				}
