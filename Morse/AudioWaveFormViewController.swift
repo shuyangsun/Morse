@@ -162,6 +162,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 				sampleRate: Float(self.microphone.audioStreamBasicDescription().mSampleRate))
 		}
 		self._fft.computeFFTWithBuffer(buffer[0], withBufferSize: bufferSize)
+		// COMS 430 Demo 2: dispatch audio related stuff onto main queue.
 		dispatch_async(dispatch_get_main_queue()) {
 			// Update plot for general audio
 			self.audioPlot.updateBuffer(buffer[0], withBufferSize: bufferSize)

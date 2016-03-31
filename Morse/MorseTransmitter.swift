@@ -412,8 +412,9 @@ class MorseTransmitter {
 	// At sample rate 44.1k, this method is called about 44 times per second. Normally
 	// it won't cause a performance issue, but for safety we dispatch it
 	// ******************************************************************************
+	// COMS 430 Demo 2: analyze algorithm
 	func microphone(microphone: EZMicrophone!, maxFrequencyMagnitude: Float) {
-		dispatch_sync(self._audioAnalysisQueue) {
+		dispatch_async(self._audioAnalysisQueue) {
 			// Setup sample rate
 			if self._sampleRate < 0 {
 				self._sampleRate = microphone.audioStreamBasicDescription().mSampleRate

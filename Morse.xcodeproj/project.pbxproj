@@ -236,6 +236,20 @@
 			remoteGlobalIDString = EEBCC9D719CC627D0083B827;
 			remoteInfo = "SnapKit iOS";
 		};
+		10C160DB1CADBC4B001B3DB7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 107FF6B01C0BDEC0003EB294 /* SnapKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 537DCE921C35CC8800B5B899;
+			remoteInfo = "SnapKit tvOS";
+		};
+		10C160DD1CADBC4B001B3DB7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 107FF6B01C0BDEC0003EB294 /* SnapKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 537DCEAF1C35D90A00B5B899;
+			remoteInfo = "SnapKit tvOS Tests";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -640,8 +654,10 @@
 			isa = PBXGroup;
 			children = (
 				107FF6B81C0BDEC0003EB294 /* SnapKit.framework */,
+				10C160DC1CADBC4B001B3DB7 /* SnapKit.framework */,
 				107FF6BA1C0BDEC0003EB294 /* SnapKit.framework */,
 				107FF6BC1C0BDEC0003EB294 /* SnapKit iOS Tests.xctest */,
+				10C160DE1CADBC4B001B3DB7 /* SnapKit tvOS Tests.xctest */,
 				107FF6BE1C0BDEC0003EB294 /* SnapKit OSX Tests.xctest */,
 			);
 			name = Products;
@@ -816,6 +832,7 @@
 				TargetAttributes = {
 					1052A73E1C0BACE90085B0C9 = {
 						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = 7Q6SA8R25D;
 					};
 					1052A7551C0BACEA0085B0C9 = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -886,6 +903,20 @@
 			fileType = wrapper.cfbundle;
 			path = "SnapKit OSX Tests.xctest";
 			remoteRef = 107FF6BD1C0BDEC0003EB294 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		10C160DC1CADBC4B001B3DB7 /* SnapKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SnapKit.framework;
+			remoteRef = 10C160DB1CADBC4B001B3DB7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		10C160DE1CADBC4B001B3DB7 /* SnapKit tvOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SnapKit tvOS Tests.xctest";
+			remoteRef = 10C160DD1CADBC4B001B3DB7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

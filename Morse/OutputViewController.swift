@@ -38,7 +38,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 	// MARK: Data Variables
 	// *****************************
 	var morse:String = ""
-	private let _flashQueue = dispatch_queue_create("Flash Queue", DISPATCH_QUEUE_SERIAL)
+	private let _hardwareInitializationQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)
 	private let _outputPlayer = MorseOutputPlayer()
 	private var _playing = false
 	private var _soundEnabled = appDelegate.soundOutputEnabled {
@@ -67,11 +67,12 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 	}
 	private var _flashEnabled = appDelegate.flashOutputEnabled {
 		willSet {
-			appDelegate.flashOutputEnabled = newValue
-			if !newValue {
-				// Turn off flash if not enabling flash.
-				if self._rearCamera != nil && self._rearCamera.hasTorch && self._rearCamera.hasFlash && self._rearCamera.isTorchModeSupported(.On) {
-					dispatch_async(self._flashQueue) {
+			// COMS 430 Demo 1: initializing flash.
+			dispatch_async(self._hardwareInitializationQueue) {
+				appDelegate.flashOutputEnabled = newValue
+				if !newValue {
+					// Turn off flash if not enabling flash.
+					if self._rearCamera != nil && self._rearCamera.hasTorch && self._rearCamera.hasFlash && self._rearCamera.isTorchModeSupported(.On) {
 						if let _ = try? self._rearCamera.lockForConfiguration() {}
 						self._rearCamera.torchMode = .Off
 						self._rearCamera.unlockForConfiguration()
@@ -437,7 +438,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 
 		// Real Flash
 		if self._flashEnabled && self._rearCamera != nil && self._rearCamera.hasTorch && self._rearCamera.hasFlash && self._rearCamera.isTorchModeSupported(.On) {
-			dispatch_async(self._flashQueue) {
+			dispatch_async(self._hardwareInitializationQueue) {
 				if let _ = try? self._rearCamera.lockForConfiguration() {}
 				self._rearCamera.torchMode = .On
 				self._rearCamera.unlockForConfiguration()
@@ -454,7 +455,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 
 		// Real Flash
 		if self._rearCamera != nil && self._rearCamera.hasTorch && self._rearCamera.hasFlash && self._rearCamera.isTorchModeSupported(.On) {
-			dispatch_async(self._flashQueue) {
+			dispatch_async(self._hardwareInitializationQueue) {
 				if let _ = try? self._rearCamera.lockForConfiguration() {}
 				self._rearCamera.torchMode = .Off
 				self._rearCamera.unlockForConfiguration()

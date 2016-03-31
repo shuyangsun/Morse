@@ -688,10 +688,12 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 
 	func transmitterContentDidChange(text: String, morse: String) {
 		// Set text.
-		self.inputTextView.attributedText = getAttributedStringFrom(morse.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()), withFontSize: textViewInputFontSize, color: theme.textViewInputTextColor)
-		self.outputTextView.attributedText = getAttributedStringFrom(text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()), withFontSize: textViewOutputFontSize, color: theme.textViewOutputTextColor)
-		self.inputTextView.scrollRangeToVisible(NSMakeRange(morse.startIndex.distanceTo(morse.endIndex), 0))
-		self.outputTextView.scrollRangeToVisible(NSMakeRange(text.startIndex.distanceTo(text.endIndex), 0))
+		dispatch_async(dispatch_get_main_queue()) {
+			self.inputTextView.attributedText = getAttributedStringFrom(morse.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()), withFontSize: textViewInputFontSize, color: theme.textViewInputTextColor)
+			self.outputTextView.attributedText = getAttributedStringFrom(text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()), withFontSize: textViewOutputFontSize, color: theme.textViewOutputTextColor)
+			self.inputTextView.scrollRangeToVisible(NSMakeRange(morse.startIndex.distanceTo(morse.endIndex), 0))
+			self.outputTextView.scrollRangeToVisible(NSMakeRange(text.startIndex.distanceTo(text.endIndex), 0))
+		}
 	}
 
 	// *****************************
