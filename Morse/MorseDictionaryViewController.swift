@@ -127,7 +127,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 
 		self._outputPlayer.delegate = self
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateColorWithAnimation", name: themeDidChangeNotificationName, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
 //		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateAdsStatus", name: adsShouldDisplayDidChangeNotificationName, object: nil)
     }
 
@@ -204,7 +204,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 		if self.cardViews.isEmpty {
 			let keys = MorseTransmitter.keys
 			let prosignTitlesAndMorse = LocalizedStrings.Prosign.titlesAndMorse
-			for var i = keys.count + prosignTitlesAndMorse.count - 1; i >= 0; i-- {
+			for i in (0..<keys.count + prosignTitlesAndMorse.count).reverse() {
 				// Adding cards may take a while, so do it in another thread. Has to be synced because it's about UI
 				dispatch_sync(self._createCardViewsQueue) {
 					var text = ""
@@ -234,7 +234,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 				}
 			}
 
-			for var i = self.cardViews.count - 1; i >= 0; i-- {
+			for i in (0..<self.cardViews.count).reverse() {
 				self.scrollView.addSubview(self.cardViews[i])
 			}
 		}

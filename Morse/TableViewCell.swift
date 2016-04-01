@@ -28,7 +28,7 @@ class TableViewCell: UITableViewCell {
 		self.detailTextLabel?.text = nil
 		self.selectionStyle = .None
 
-		let tapGR = UITapGestureRecognizer(target: self, action: "tapped:")
+		let tapGR = UITapGestureRecognizer(target: self, action: #selector(tapped(_:)))
 		tapGR.cancelsTouchesInView = false
 		self.addGestureRecognizer(tapGR)
     }

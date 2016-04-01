@@ -13,8 +13,8 @@ class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveT
 	var transitionStartDate:NSDate? = nil
 	var outputVC:OutputViewController! = nil {
 		willSet {
-			let pinchGR = UIPinchGestureRecognizer(target: self, action: "handleInteractionGR:")
-			let panGR = UIPanGestureRecognizer(target: self, action: "handleInteractionGR:")
+			let pinchGR = UIPinchGestureRecognizer(target: self, action: #selector(handleInteractionGR(_:)))
+			let panGR = UIPanGestureRecognizer(target: self, action: #selector(handleInteractionGR(_:)))
 			
 			if newValue.pinchGR == nil {
 				newValue.pinchGR = pinchGR

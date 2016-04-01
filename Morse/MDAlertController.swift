@@ -113,7 +113,7 @@ class MDAlertController: UIViewController {
 			make.height.equalTo(alertHeight)
 		})
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateColorWithAnimation", name: themeDidChangeNotificationName, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
 	}
 
     override func viewDidLoad() {
@@ -181,7 +181,7 @@ class MDAlertController: UIViewController {
 		let button = UIButton()
 		button.setAttributedTitle(getAttributedStringFrom(action.title.uppercaseString, withFontSize: mdAlertButtonFontSize, color: theme.mdAlertControllerButtonTextColorNormal, bold: true), forState: .Normal)
 		button.setAttributedTitle(getAttributedStringFrom(action.title.uppercaseString, withFontSize: mdAlertButtonFontSize, color: theme.mdAlertControllerButtonTextColorHighlighted, bold: true), forState: .Highlighted)
-		button.addTarget(self, action: "buttonTapped:", forControlEvents: .TouchUpInside)
+		button.addTarget(self, action: #selector(MDAlertController.buttonTapped(_:)), forControlEvents: .TouchUpInside)
 		self._actionsAndButtons.append((action, button))
 		if self.buttonOutlineView != nil {
 			self.buttonOutlineView.addSubview(button)
@@ -192,7 +192,7 @@ class MDAlertController: UIViewController {
 
 	private func updateButtonConstraints() {
 		let count = self._actionsAndButtons.count
-		for var i = 0; i < count; i++ {
+		for i in 0 ..< count {
 			let tuple = self._actionsAndButtons[i]
 			let button = tuple.button
 			button.snp_remakeConstraints(closure: { (make) -> Void in

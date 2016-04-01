@@ -132,7 +132,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 
 		if self.scrollViewOverlay == nil {
 			self.scrollViewOverlay = UIButton(frame: CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: self.scrollView.bounds.height))
-			self.scrollViewOverlay.addTarget(self.topSectionViewController, action: "inputCancelled:", forControlEvents: .TouchUpInside)
+			self.scrollViewOverlay.addTarget(self.topSectionViewController, action: #selector(HomeTopSectionViewController.inputCancelled(_:)), forControlEvents: .TouchUpInside)
 			self.scrollViewOverlay.backgroundColor = appDelegate.theme.scrollViewOverlayColor
 			self.scrollViewOverlay.opaque = false
 			self.scrollViewOverlay.layer.borderColor = UIColor.clearColor().CGColor
@@ -147,7 +147,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			})
 		}
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateColorWithAnimation", name: themeDidChangeNotificationName, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
 //		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateAdsStatus", name: adsShouldDisplayDidChangeNotificationName, object: nil)
 
 		// Configure scrollView animator
@@ -315,7 +315,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			self.micInputSectionContainerView = self.micInputSectionViewController!.view
 			self.micInputSectionContainerView!.opaque = false
 			self.micInputSectionContainerView!.alpha = 0
-			let tapGR = UITapGestureRecognizer(target: self.topSectionViewController, action: "audioPlotTapped:")
+			let tapGR = UITapGestureRecognizer(target: self.topSectionViewController, action: #selector(HomeTopSectionViewController.audioPlotTapped(_:)))
 			self.micInputSectionViewController!.view.addGestureRecognizer(tapGR)
 			self.view.insertSubview(self.micInputSectionContainerView!, aboveSubview: self.scrollViewOverlay)
 
@@ -544,9 +544,9 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	// MARK: Card View Manipulation
 	// *****************************
 
-	func addCardViewWithText(var text:String, var morse:String, textOnTop:Bool = true, deletable:Bool = true, animateWithDuration duration:NSTimeInterval = 0.0) {
-		text = text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-		morse = morse.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+	func addCardViewWithText(text:String, morse:String, textOnTop:Bool = true, deletable:Bool = true, animateWithDuration duration:NSTimeInterval = 0.0) {
+		let text = text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+		let morse = morse.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 		let cardView = CardView(frame: CGRect(x: theme.cardViewHorizontalMargin, y: theme.cardViewGroupVerticalMargin, width: self.scrollView.bounds.width - theme.cardViewHorizontalMargin - theme.cardViewHorizontalMargin, height: theme.cardViewHeight), text: text, morse: morse, textOnTop: textOnTop)
 		cardView.delegate = self
 		cardView.cardUniqueID = NSProcessInfo.processInfo().globallyUniqueString.hashValue // Generate a UUID for the card
@@ -669,9 +669,9 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	// *****************************
 
 	// This method is called after creating a new card on the scrollView, to save it's data into CoreData.
-	private func saveCard(var text: String, var morse:String, index:Int, textOnTop:Bool = true, favorite:Bool = false, deletable:Bool = true, cardUniqueID:Int) {
-		text = text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-		morse = morse.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+	private func saveCard(text: String, morse:String, index:Int, textOnTop:Bool = true, favorite:Bool = false, deletable:Bool = true, cardUniqueID:Int) {
+		let text = text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+		let morse = morse.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 		let managedContext = appDelegate.managedObjectContext
 		let entity = NSEntityDescription.entityForName("Card", inManagedObjectContext:managedContext)
 		let card = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
@@ -763,7 +763,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 				(localized:LocalizedStrings.LaunchCard.text4, english: "Swipe to delete me.")
 			]
 			let transmitter = MorseTransmitter()
-			for var i = localizedTextArrays.count - 1; i >= 0; i-- {
+			for i in (0..<localizedTextArrays.count).reverse() {
 				var text = localizedTextArrays[i].localized
 				// If morse is empty after trimming punchtuations, add english.
 				transmitter.text = text.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())

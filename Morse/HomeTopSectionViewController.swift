@@ -172,13 +172,13 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 
 			// Add round button
 			self.roundButtonView = RoundButtonView(origin: CGPoint(x: self.topBarView.bounds.width/2.0 - self.roundButtonRadius, y: self.roundButtonMargin), radius: self.roundButtonRadius)
-			let tapGR = UITapGestureRecognizer(target: self, action: "roundButtonTapped:")
+			let tapGR = UITapGestureRecognizer(target: self, action: #selector(roundButtonTapped(_:)))
 			self.roundButtonView.addGestureRecognizer(tapGR)
 			self.topBarView.addSubview(self.roundButtonView)
 
 			// Add cancel button
 			self.backButton = BackButton(origin: CGPoint(x: 0, y: 0), width: self.backButtonWidth)
-			self.backButton.addTarget(self, action: "inputCancelled:", forControlEvents: .TouchUpInside)
+			self.backButton.addTarget(self, action: #selector(inputCancelled(_:)), forControlEvents: .TouchUpInside)
 			self.topBarView.addSubview(self.backButton)
 
 			self.backButton.snp_makeConstraints(closure: { (make) -> Void in
@@ -279,7 +279,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.outputTextView.layer.borderColor = UIColor.clearColor().CGColor
 			self.outputTextView.layer.borderWidth = 0
 			// This gestureRecognizer is here to fix a bug where double tapping on outputTextView would resign inputTextView as first responder.
-			let disableDoubleTapGR = UITapGestureRecognizer(target: nil, action: "")
+			let disableDoubleTapGR = UITapGestureRecognizer(target: nil, action: Selector())
 			disableDoubleTapGR.numberOfTapsRequired = 2
 			self.outputTextView.addGestureRecognizer(disableDoubleTapGR)
 			self.outputTextView.indicatorStyle = theme.scrollViewIndicatorStyle
@@ -321,7 +321,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.textBoxTapFeedBackView.layer.borderColor = UIColor.clearColor().CGColor
 			self.textBoxTapFeedBackView.layer.borderWidth = 0
 			self.textBoxTapFeedBackView.opaque = false
-			let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "textViewTapped:")
+			let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(HomeTopSectionViewController.textViewTapped(_:)))
 			tapGestureRecognizer.cancelsTouchesInView = true
 			self.textBoxTapFeedBackView.addGestureRecognizer(tapGestureRecognizer)
 			self.textBackgroundView.addSubview(self.textBoxTapFeedBackView)
@@ -343,8 +343,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			let image = UIImage(named: theme.keyboardIconImageName)!.imageWithRenderingMode(.AlwaysTemplate)
 			self.keyboardButton.setImage(image, forState: .Normal)
 			self.keyboardButton.tintColor = theme.keyboardButtonTintColor
-			self.keyboardButton.addTarget(self, action: "keyboardButtonTapped", forControlEvents: .TouchUpInside)
-			let tapGR = UITapGestureRecognizer(target: self, action: "micOrKeyboardButtonTapped:")
+			self.keyboardButton.addTarget(self, action: #selector(keyboardButtonTapped), forControlEvents: .TouchUpInside)
+			let tapGR = UITapGestureRecognizer(target: self, action: #selector(micOrKeyboardButtonTapped(_:)))
 			tapGR.cancelsTouchesInView = false
 			self.keyboardButton.addGestureRecognizer(tapGR)
 			self.view.addSubview(self.keyboardButton)
@@ -369,8 +369,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.microphoneButton.setImage(image, forState: .Normal)
 			self.microphoneButton.tintColor = theme.keyboardButtonTintColor
 			self.microphoneButton.contentMode = .ScaleAspectFit
-			self.microphoneButton.addTarget(self.homeViewController, action: "microphoneButtonTapped", forControlEvents: .TouchUpInside)
-			let tapGR = UITapGestureRecognizer(target: self, action: "micOrKeyboardButtonTapped:")
+			self.microphoneButton.addTarget(self.homeViewController, action: #selector(HomeTopSectionViewController.microphoneButtonTapped), forControlEvents: .TouchUpInside)
+			let tapGR = UITapGestureRecognizer(target: self, action: #selector(HomeTopSectionViewController.micOrKeyboardButtonTapped(_:)))
 			tapGR.cancelsTouchesInView = false
 			self.microphoneButton.addGestureRecognizer(tapGR)
 			self.view.addSubview(self.microphoneButton)
@@ -382,8 +382,8 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			})
 		}
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateColorWithAnimation", name: themeDidChangeNotificationName, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTopSectionViewController.updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTopSectionViewController.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
     }
 
 	func keyboardWasShown(notification:NSNotification) {

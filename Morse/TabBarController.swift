@@ -64,7 +64,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 		self.transitioningDelegate = self
 		self.modalPresentationStyle = .Custom
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateColorWithAnimation", name: themeDidChangeNotificationName, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
     }
 
     override func didReceiveMemoryWarning() {

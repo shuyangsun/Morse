@@ -92,7 +92,7 @@ class WebViewController: GAITrackedViewController {
 
 			if self.backButton == nil {
 				self.backButton = BackButton(origin: CGPoint(x: 0, y: 0), width: self.backButtonWidth)
-				self.backButton.addTarget(self, action: "backButtonTapped:", forControlEvents: .TouchUpInside)
+				self.backButton.addTarget(self, action: #selector(backButtonTapped(_:)), forControlEvents: .TouchUpInside)
 				self.topBarView.addSubview(self.backButton)
 
 				self.backButton.snp_makeConstraints(closure: { (make) -> Void in
@@ -130,7 +130,7 @@ class WebViewController: GAITrackedViewController {
     }
 
 	func loadCurrentURLRequest() {
-		self._progressTimer = NSTimer.scheduledTimerWithTimeInterval(1.0/60.0, target: self, selector: "updateLoadingProgress", userInfo: nil, repeats: true)
+		self._progressTimer = NSTimer.scheduledTimerWithTimeInterval(1.0/60.0, target: self, selector: #selector(updateLoadingProgress), userInfo: nil, repeats: true)
 		if self.URLstr != nil {
 			let url = NSURL(string: self.URLstr!)
 			if url != nil {

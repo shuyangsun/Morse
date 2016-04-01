@@ -220,7 +220,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		UIApplication.sharedApplication().statusBarStyle = .LightContent
-		NSTimer.scheduledTimerWithTimeInterval(defaultAutoNightModeUpdateTimeInterval, target: self, selector: "updateThemeIfAutoNight", userInfo: nil, repeats: true)
+		NSTimer.scheduledTimerWithTimeInterval(defaultAutoNightModeUpdateTimeInterval, target: self, selector: #selector(updateThemeIfAutoNight), userInfo: nil, repeats: true)
 
 		if !self.notFirstLaunch {
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyExtraTextWhenShare)

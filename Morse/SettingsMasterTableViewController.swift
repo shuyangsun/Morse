@@ -55,7 +55,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		}
 		self.navigationController?.navigationBar.titleTextAttributes = textAttributes
 
-		NSNotificationCenter.defaultCenter().addObserver(self.tableView, selector: "reloadData", name: languageDidChangeNotificationName, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self.tableView, selector: #selector(UITableView.reloadData), name: languageDidChangeNotificationName, object: nil)
     }
 
 	override func viewWillAppear(animated: Bool) {
@@ -85,7 +85,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 		var result = 5
 		#if DEBUG
-			result++
+			result += 1
 		#endif
         return result
     }
@@ -262,7 +262,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				cell.textLabel?.attributedText =  getAttributedStringFrom("Animation Scalar", withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				cell.detailTextLabel?.attributedText = getAttributedStringFrom("\(round(self.animationDurationScalar * 10)/10.0)", withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
 				cell.detailedTextLabelCouldChange = true
-				let tapGR = UITapGestureRecognizer(target: self, action: "resetAnimationDurationScalar")
+				let tapGR = UITapGestureRecognizer(target: self, action: #selector(SettingsMasterTableViewController.resetAnimationDurationScalar))
 				cell.textLabel?.addGestureRecognizer(tapGR)
 				if self.animationDurationSlider == nil {
 					self.animationDurationSlider = UISlider(frame: CGRect(x: cell.contentView.bounds.width - sliderWidth - tableViewCellHorizontalPadding, y: 0, width: sliderWidth, height: cell.bounds.height))
@@ -273,7 +273,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 					self.animationDurationSlider.maximumTrackTintColor = theme.sliderMaxTrackTintColor
 //					self.animationDurationSlider.thumbTintColor = theme.sliderThumbTintColor
 					self.animationDurationSlider.tag = 999
-					self.animationDurationSlider.addTarget(self, action: "sliderValueChanged:", forControlEvents: .ValueChanged)
+					self.animationDurationSlider.addTarget(self, action: #selector(SettingsMasterTableViewController.sliderValueChanged(_:)), forControlEvents: .ValueChanged)
 					cell.contentView.addSubview(self.animationDurationSlider)
 					self.animationDurationSlider.snp_remakeConstraints(closure: { (make) -> Void in
 						make.trailing.equalTo(cell.contentView).offset(-tableViewCellHorizontalPadding)

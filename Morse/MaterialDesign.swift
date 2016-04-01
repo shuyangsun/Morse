@@ -153,7 +153,8 @@ extension UIView {
 		- atBottom (default=true): Determines if the feedback animation should apear on top or bottom of the view hierarchy. Most of the time we want it at bottom so it doens't cover any subviews. However, if there are subviews on this view that make this animation unatrual, set it to false so it will happen at the top of view hierarchy.
 		- completion (default=nil): A completion block for submitting actions after the feedback animation is over.
 	*/
-	func triggerTapFeedBack(atLocation location:CGPoint, withColor color:UIColor = UIColor.whiteColor(), var duration:NSTimeInterval = TAP_FEED_BACK_DURATION, showSurfaceReaction:Bool = true, atBottom:Bool = true, scaleDuration:Bool = true, completion: ((Void) -> Void)? = nil) {
+	func triggerTapFeedBack(atLocation location:CGPoint, withColor color:UIColor = UIColor.whiteColor(), duration:NSTimeInterval = TAP_FEED_BACK_DURATION, showSurfaceReaction:Bool = true, atBottom:Bool = true, scaleDuration:Bool = true, completion: ((Void) -> Void)? = nil) {
+		var duration = duration
 		if scaleDuration {
 			duration *= animationDurationScalar
 		}

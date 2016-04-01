@@ -59,10 +59,10 @@ class CardView: UIView {
 		self.opaque = false
 		self.backgroundColor = appDelegate.theme.cardViewBackgroudColor
 		self.addMDShadow(withDepth: appDelegate.theme.cardViewMDShadowLevelDefault)
-		let holdGR = UILongPressGestureRecognizer(target: self, action: "held:")
+		let holdGR = UILongPressGestureRecognizer(target: self, action: #selector(held(_:)))
 		self.addGestureRecognizer(holdGR)
 
-		let tapGR = UITapGestureRecognizer(target: self, action: "tapped:")
+		let tapGR = UITapGestureRecognizer(target: self, action: #selector(tapped(_:)))
 		self.addGestureRecognizer(tapGR)
 	}
 
@@ -380,7 +380,7 @@ class CardView: UIView {
 			self.outputButton.backgroundColor = UIColor.clearColor()
 			let outputImage = UIImage(named: theme.outputImageName)!.imageWithRenderingMode(.AlwaysTemplate)
 			self.outputButton.setImage(outputImage, forState: .Normal)
-			self.outputButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)
+			self.outputButton.addTarget(self, action: #selector(CardView.backViewButtonTapped(_:)), forControlEvents: .TouchUpInside)
 			self.backView.addSubview(self.outputButton)
 			self.outputButton.snp_remakeConstraints { (make) -> Void in
 				make.width .equalTo(cardBackViewButtonWidth)
@@ -397,7 +397,7 @@ class CardView: UIView {
 			self.shareButton.backgroundColor = UIColor.clearColor()
 			let shareImage = UIImage(named: theme.shareImageName)?.imageWithRenderingMode(.AlwaysTemplate)
 			self.shareButton.setImage(shareImage!, forState: .Normal)
-			self.shareButton.addTarget(self, action: "backViewButtonTapped:", forControlEvents: .TouchUpInside)
+			self.shareButton.addTarget(self, action: #selector(backViewButtonTapped(_:)), forControlEvents: .TouchUpInside)
 			self.backView.addSubview(self.shareButton)
 			self.shareButton.snp_remakeConstraints { (make) -> Void in
 				make.width .equalTo(cardBackViewButtonWidth)
