@@ -41,8 +41,10 @@ private let LETTER_GAP_LENGTH:Float = 3.0
 private let WORD_GAP_LENGTH:Float = 7.0
 
 // Dispatch Queues
-private let encodeQueue = dispatch_queue_create("Encode Queue", nil)
-private let decodeQueue = dispatch_queue_create("Decode Queue", nil)
+private let _encodeQueue = dispatch_queue_create("Encode Queue", nil)
+private let _decodeQueue = dispatch_queue_create("Decode Queue", nil)
+private let _futureQueue = dispatch_queue_create("Transmitter Future Serial Queue", DISPATCH_QUEUE_SERIAL)
+private let _globalQueueDefault = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 
 private let numberOfNewLineForNewPageProsign = 5
 private var newPageProsignText:String {
@@ -674,7 +676,7 @@ class MorseTransmitter {
 		// Create an empty string as result to append content later.
 		var res = ""
 		// Encode on another queue.
-		dispatch_sync(encodeQueue) {
+		dispatch_sync(_encodeQueue) {
 			// Decide if we need to keep portaintial prosign characters.
 			var seperatorCharacters = " \t"
 			if appDelegate.prosignTranslationType != .Always {
@@ -786,7 +788,7 @@ class MorseTransmitter {
 		// Create an empty string as result to append content later.
 		var res = ""
 		// Decode on another queue.
-		dispatch_sync(decodeQueue) {
+		dispatch_sync(_decodeQueue) {
 			// Seperate Morse code into words.
 			let words = morse.componentsSeparatedByString(WORD_GAP_STRING)
 			for word in words {
@@ -831,6 +833,71 @@ class MorseTransmitter {
 			}
 		}
 		return res.isEmpty ? nil : res
+	}
+
+	//----------------------- Future Design for Concurrency -----------------------
+
+	/** Get the text from transmitter. Instead of returning the value on the calling thread,
+		this function tranlsates text on another thread, and execute the completion block
+		when it's done.
+		- parameters:
+			- concurrent: Whether the code of getting this text should be ran concurrently or serially. False by default.
+			- completionDispatchQueue: The queue to execute completion block. By default this is set to main queue.
+			- completion: The completion block to run after text is translated. */
+	func getFutureText(concurrent:Bool = false,
+	                   completionDispatchQueue:dispatch_queue_t? = nil,
+	                   completion:((futureText:String?)->Void)) {
+		// Call helper method:
+		_getFuture(.Text,
+		           completionDispatchQueue: completionDispatchQueue,
+		           concurrent: concurrent,
+		           completion: completion)
+	}
+
+	/** Get the Morse code from transmitter. Instead of returning the value on the calling
+		thread, this function tranlsates Morse code on another thread, and execute the completion
+		block when it's done.
+		- parameters:
+			- concurrent: Whether the code of getting Morse code should be ran concurrently or serially. False by default.
+			- completionDispatchQueue: The queue to execute completion block. By default this is set to main queue.
+			- completion: The completion block to run after Morse code is translated. */
+	func getFutureMorse(concurrent:Bool = false,
+	                    completionDispatchQueue:dispatch_queue_t? = nil,
+	                    completion:((futureText:String?)->Void)) {
+		// Call helper method:
+		_getFuture(.Morse,
+		           completionDispatchQueue: completionDispatchQueue,
+		           concurrent: concurrent,
+		           completion: completion)
+	}
+
+	// A helper method for the 'Future' design of text and Morse code translation.
+	private func _getFuture(type:FutureObjectType,
+	                        concurrent:Bool = false,
+	                        completionDispatchQueue:dispatch_queue_t? = nil,
+	                        completion:((futureText:String?)->Void)) {
+		// Create a completion queue for the completion block to run on. Use main queue if not specified.
+		let completionQueue = (completionDispatchQueue == nil ? dispatch_get_main_queue():completionDispatchQueue)
+		// Create a queue and group to translate text/Morse code.
+		let group = dispatch_group_create()
+		let getTextQueue = concurrent ? _globalQueueDefault:_futureQueue
+		// Get the future place holder.
+		var future:String? = nil
+		dispatch_group_async(group, getTextQueue) {
+			switch type {
+			case .Text: future = self.text
+			case .Morse: future = self.morse
+			}
+		}
+		// When the process is done, call the completion block with 'future', which has the result now.
+		dispatch_group_notify(group, completionQueue) {
+			completion(futureText: future)
+		}
+	}
+
+	// Type of content user wants to get out of 'Future' functions.
+	private enum FutureObjectType {
+		case Text, Morse
 	}
 }
 

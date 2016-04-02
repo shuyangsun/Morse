@@ -630,17 +630,26 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 
 	func textViewDidChange(textView: UITextView) {
 		var outputText:String?
+		let setupOutputTextAttribute = {
+			self.outputTextView.attributedText = getAttributedStringFrom(outputText, withFontSize: textViewOutputFontSize, color: theme.textViewOutputTextColor)
+			if outputText != nil {
+				self.outputTextView.scrollRangeToVisible(NSMakeRange(outputText!.startIndex.distanceTo(outputText!.endIndex), 0))
+			}
+		}
 		if self.isDirectionEncode {
 			self.transmitter.text = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-			outputText = self.transmitter.morse
+			self.transmitter.getFutureMorse() {
+				outputText = $0
+				setupOutputTextAttribute()
+			}
 		} else {
 			self.transmitter.morse = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-			outputText = self.transmitter.text
+			self.transmitter.getFutureText() {
+				outputText = $0
+				setupOutputTextAttribute()
+			}
 		}
-		self.outputTextView.attributedText = getAttributedStringFrom(outputText, withFontSize: textViewOutputFontSize, color: theme.textViewOutputTextColor)
-		if outputText != nil {
-			self.outputTextView.scrollRangeToVisible(NSMakeRange(outputText!.startIndex.distanceTo(outputText!.endIndex), 0))
-		}
+
 
 		// Change textview height
 //		let topTextHeight = max(textView.attributedText.size().height, textBackgroundViewHeight/2.0)
@@ -686,7 +695,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	// MARK: Transmitter Delegate
 	// *****************************
 
-	// COMS 430 Demo 2: analyze algorithm
+	// COMS 430 Demo 2: change text on main thread
 	func transmitterContentDidChange(text: String, morse: String) {
 		// Set text.
 		dispatch_async(dispatch_get_main_queue()) {
