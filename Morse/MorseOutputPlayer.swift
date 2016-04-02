@@ -93,14 +93,14 @@ class MorseOutputPlayer: NSObject {
 		}
 
 		var res:Set<NSTimer> = Set()
-		for var i = 0; i < timeStamp.count - 1; i += 2 {
-			let onTimer = NSTimer.scheduledTimerWithTimeInterval(timeStamp[i], target: self, selector: "startSignal", userInfo: nil, repeats: false)
-			let offTimer = NSTimer.scheduledTimerWithTimeInterval(timeStamp[i + 1], target: self, selector: "stopSignal", userInfo: nil, repeats: false)
+		for i in 0..<timeStamp.count where i % 2 == 0{
+			let onTimer = NSTimer.scheduledTimerWithTimeInterval(timeStamp[i], target: self, selector: #selector(MorseOutputPlayer.startSignal), userInfo: nil, repeats: false)
+			let offTimer = NSTimer.scheduledTimerWithTimeInterval(timeStamp[i + 1], target: self, selector: #selector(MorseOutputPlayer.stopSignal), userInfo: nil, repeats: false)
 
 			res.insert(onTimer)
 			res.insert(offTimer)
 		}
-		let endTimer = NSTimer.scheduledTimerWithTimeInterval(timeStamp.last!, target: self, selector: "playEnded", userInfo: nil, repeats: false)
+		let endTimer = NSTimer.scheduledTimerWithTimeInterval(timeStamp.last!, target: self, selector: #selector(MorseOutputPlayer.playEnded), userInfo: nil, repeats: false)
 		res.insert(endTimer)
 		return res
 	}

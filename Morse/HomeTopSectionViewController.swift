@@ -686,6 +686,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	// MARK: Transmitter Delegate
 	// *****************************
 
+	// COMS 430 Demo 2: analyze algorithm
 	func transmitterContentDidChange(text: String, morse: String) {
 		// Set text.
 		dispatch_async(dispatch_get_main_queue()) {

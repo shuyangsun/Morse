@@ -181,7 +181,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				let flashImage = UIImage(named: self._flashEnabled ? theme.flashOnImageName : theme.flashOffImageName)!.imageWithRenderingMode(.AlwaysTemplate)
 				self.flashToggleButton.setImage(flashImage, forState: .Normal)
 				self.flashToggleButton.tintColor = theme.outputVCButtonTintColor
-				self.flashToggleButton.addTarget(self, action: "flashToggleButtonTapped", forControlEvents: .TouchUpInside)
+				self.flashToggleButton.addTarget(self, action: #selector(OutputViewController.flashToggleButtonTapped), forControlEvents: .TouchUpInside)
 				// If there's no flash available, hide it.
 				if !(self._rearCamera != nil && self._rearCamera.hasTorch && self._rearCamera.hasFlash && self._rearCamera.isTorchModeSupported(.On)) {
 					self.flashToggleButton.userInteractionEnabled = false
@@ -203,7 +203,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				let soundImage = UIImage(named: self._soundEnabled ? theme.soundOnImageName : theme.soundOffImageName)!.imageWithRenderingMode(.AlwaysTemplate)
 				self.soundToggleButton.setImage(soundImage, forState: .Normal)
 				self.soundToggleButton.tintColor = theme.outputVCButtonTintColor
-				self.soundToggleButton.addTarget(self, action: "soundToggleButtonTapped", forControlEvents: .TouchUpInside)
+				self.soundToggleButton.addTarget(self, action: #selector(OutputViewController.soundToggleButtonTapped), forControlEvents: .TouchUpInside)
 				self.topBarView.addSubview(self.soundToggleButton)
 				self.soundToggleButton.snp_remakeConstraints { (make) -> Void in
 					make.top .equalTo(self.topBarView)
@@ -252,7 +252,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 		if self.screenFlashView == nil {
 			self.screenFlashView = UIView(frame: CGRect(x: 0, y: topBarHeight, width: self.view.bounds.width, height: self.view.bounds.height - topBarHeight))
 			self.screenFlashView.backgroundColor = UIColor.blackColor()
-			let tapGR = UITapGestureRecognizer(target: self, action: "outputWillStart")
+			let tapGR = UITapGestureRecognizer(target: self, action: #selector(OutputViewController.outputWillStart))
 			self.screenFlashView.addGestureRecognizer(tapGR)
 			self.view.addSubview(self.screenFlashView)
 			self.screenFlashView.snp_remakeConstraints(closure: { (make) -> Void in
@@ -275,7 +275,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			let playImage = UIImage(named: theme.outputPlayButtonImageName)!.imageWithRenderingMode(.AlwaysTemplate)
 			self.playButton.setImage(playImage, forState: .Normal)
 			self.playButton.tintColor = theme.outputVCButtonTintColor
-			self.playButton.addTarget(self, action: "outputWillStart", forControlEvents: .TouchUpInside)
+			self.playButton.addTarget(self, action: #selector(OutputViewController.outputWillStart), forControlEvents: .TouchUpInside)
 			self.playButton.alpha = 0
 			self._viewsShouldFadeOutWhenPlaying.append(self.playButton)
 			self.view.addSubview(self.playButton)
@@ -504,7 +504,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 					self._originalBrightness = UIScreen.mainScreen().brightness
 					UIScreen.mainScreen().brightness = 1
 				}
-				self._progressTimer = NSTimer.scheduledTimerWithTimeInterval(1.0/60.0, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
+				self._progressTimer = NSTimer.scheduledTimerWithTimeInterval(1.0/60.0, target: self, selector: #selector(OutputViewController.updateProgress), userInfo: nil, repeats: true)
 		}
 		self._playing = true
 	}

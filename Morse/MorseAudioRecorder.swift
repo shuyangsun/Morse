@@ -46,7 +46,7 @@ class MorseAudioRecorder: NSObject {
 	}
 
 	func startRecording() {
-		self._sampleTimer = NSTimer.scheduledTimerWithTimeInterval(audioSampleFrequencyTimeInterval, target: self, selector: "sampleTimerCallback", userInfo: nil, repeats: true)
+		self._sampleTimer = NSTimer.scheduledTimerWithTimeInterval(audioSampleFrequencyTimeInterval, target: self, selector: #selector(MorseAudioRecorder.sampleTimerCallback), userInfo: nil, repeats: true)
 		self._recorder?.record()
 	}
 

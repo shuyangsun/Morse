@@ -243,7 +243,7 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 		switch switchButton.tag {
 		case self._switchButtonTagAutoWPM:
 			appDelegate.inputWPMAutomatic = switchButton.on
-			NSTimer.scheduledTimerWithTimeInterval(0.25, target: self.tableView, selector: "reloadData", userInfo: nil, repeats: false)
+			NSTimer.scheduledTimerWithTimeInterval(0.25, target: self.tableView, selector: #selector(UITableView.reloadData), userInfo: nil, repeats: false)
 			if switchButton.on {
 				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 					action: "switch_toggle",
@@ -257,7 +257,7 @@ class SettingsAudioDecoderTableViewController: TableViewController, TableViewSwi
 			}
 		case self._switchButtonTagAutoPitch:
 			appDelegate.inputPitchAutomatic = switchButton.on
-			NSTimer.scheduledTimerWithTimeInterval(0.25, target: self.tableView, selector: "reloadData", userInfo: nil, repeats: false)
+			NSTimer.scheduledTimerWithTimeInterval(0.25, target: self.tableView, selector: #selector(UITableView.reloadData), userInfo: nil, repeats: false)
 			if switchButton.on {
 				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
 					action: "switch_toggle",

@@ -129,8 +129,8 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 		self.transmitter.resetForAudioInput()
 
 		// Register for notification
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateWPMLabelWithoutAutomaticStatus", name: inputWPMDidChangeNotificationName, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updatePitchLabelWithoutAutomaticStatus", name: inputPitchDidChangeNotificationName, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AudioWaveFormViewController.updateWPMLabelWithoutAutomaticStatus), name: inputWPMDidChangeNotificationName, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AudioWaveFormViewController.updatePitchLabelWithoutAutomaticStatus), name: inputPitchDidChangeNotificationName, object: nil)
     }
 
 	override func viewWillAppear(animated: Bool) {

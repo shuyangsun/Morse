@@ -412,6 +412,7 @@ class MorseTransmitter {
 	// At sample rate 44.1k, this method is called about 44 times per second. Normally
 	// it won't cause a performance issue, but for safety we dispatch it
 	// ******************************************************************************
+
 	// COMS 430 Demo 2: analyze algorithm
 	func microphone(microphone: EZMicrophone!, maxFrequencyMagnitude: Float) {
 		dispatch_async(self._audioAnalysisQueue) {
@@ -463,7 +464,7 @@ class MorseTransmitter {
 			if self._isDuringSignal {
 				if self._singalStarted {
 					// Signal already rose, during signal
-					self._counter++
+					self._counter += 1
 				} else {
 					// Signal rises
 					if !self._text!.isEmpty {
@@ -521,7 +522,7 @@ class MorseTransmitter {
 					}
 				} else {
 					// Singal already fell, not during signal
-					self._counter++
+					self._counter += 1
 
 					if self._lengthRanges.sevenUnit.contains(self._counter) {
 						if !self._wordGapAppended && !self._newLineAppended {
@@ -691,7 +692,7 @@ class MorseTransmitter {
 							(words[i + 1].hasPrefix("\n") || words[i + 1].hasPrefix("\r")) {
 							words[i] += words[i + 1]
 							words.removeAtIndex(i + 1)
-							i--
+							i -= 1
 						}
 					}
 				}
@@ -739,7 +740,7 @@ class MorseTransmitter {
 						// If this character is a newline character, do something
 						if appDelegate.prosignTranslationType == .Always {
 							if ch == "\n" || ch == "\r" {
-								newLineChCounter++
+								newLineChCounter += 1
 							}
 							// If this is the end of word and there are still pending newline characters, deal with them.
 							if newLineChCounter > 0 && chInd == chArr.count - 1 {

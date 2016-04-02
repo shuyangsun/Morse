@@ -44,7 +44,7 @@ class TableViewSwitchCell: TableViewCell {
 		self.switchButton = UISwitch()
 		self.switchButton.onTintColor = theme.switchOnTintColor
 		self.contentView.addSubview(self.switchButton)
-		self.switchButton.addTarget(self, action: "switchToggled", forControlEvents: .ValueChanged)
+		self.switchButton.addTarget(self, action: #selector(TableViewSwitchCell.switchToggled), forControlEvents: .ValueChanged)
 		self.switchButton.snp_remakeConstraints(closure: { (make) -> Void in
 			make.centerY.equalTo(self.contentView)
 			make.height.equalTo(switchButtonHeight)

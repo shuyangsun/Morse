@@ -23,7 +23,7 @@ class TableViewController: UITableViewController {
 		self.tableView.separatorColor = theme.tableViewSeparatorColor
 
 		self.tableView.indicatorStyle = theme.scrollViewIndicatorStyle
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateColorWithAnimation", name: themeDidChangeNotificationName, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TableViewController.updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
     }
 
 	override func viewDidAppear(animated: Bool) {

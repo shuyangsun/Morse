@@ -70,7 +70,7 @@ class TableViewTransmitterConfigurationCell: TableViewCell {
 			self.valueTextField.textColor = theme.transConfigLabelTextColorEmphasized
 			// Add done button
 			let doneButton = UIButton(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: transConfigNumPadDoneButtonHeight))
-			doneButton.addTarget(self.valueTextField, action: "resignFirstResponder", forControlEvents: .TouchUpInside)
+			doneButton.addTarget(self.valueTextField, action: #selector(UIResponder.resignFirstResponder), forControlEvents: .TouchUpInside)
 			doneButton.backgroundColor = theme.transValConfigViewNumPadDoneButtonBackgroundColor
 			doneButton.setAttributedTitle(getAttributedStringFrom(LocalizedStrings.Settings.done, withFontSize: transConfigNumPadDoneButtonFontSize, color: theme.transValConfigViewNumPadDoneButtonTextColorNormal, bold: true), forState: .Normal)
 			doneButton.setAttributedTitle(getAttributedStringFrom(LocalizedStrings.Settings.done, withFontSize: transConfigNumPadDoneButtonFontSize, color: theme.transValConfigViewNumPadDoneButtonTextColorHighlighted, bold: true), forState: .Highlighted)
@@ -89,7 +89,7 @@ class TableViewTransmitterConfigurationCell: TableViewCell {
 			self.minusButton.opaque = false
 			self.minusButton.setAttributedTitle(getAttributedStringFrom(minusButtonText, withFontSize: transConfigMinusPlusFontSize, color: theme.transValConfigViewPlusMinusButtonTintColorNormal, bold: false), forState: .Normal)
 			self.minusButton.setAttributedTitle(getAttributedStringFrom(minusButtonText, withFontSize: transConfigMinusPlusFontSize, color: theme.transValConfigViewPlusMinusButtonTintColorHighlighted, bold: false), forState: .Highlighted)
-			self.minusButton.addTarget(self, action: "minusButtonTapped", forControlEvents: .TouchUpInside)
+			self.minusButton.addTarget(self, action: #selector(TableViewTransmitterConfigurationCell.minusButtonTapped), forControlEvents: .TouchUpInside)
 			self.addSubview(self.minusButton)
 			self.minusButton.snp_makeConstraints(closure: { (make) -> Void in
 				make.centerY.equalTo(self)
@@ -102,7 +102,7 @@ class TableViewTransmitterConfigurationCell: TableViewCell {
 			self.plusButton.opaque = false
 			self.plusButton.setAttributedTitle(getAttributedStringFrom(plusButtonText, withFontSize: transConfigMinusPlusFontSize, color: theme.transValConfigViewPlusMinusButtonTintColorNormal, bold: false), forState: .Normal)
 			self.plusButton.setAttributedTitle(getAttributedStringFrom(plusButtonText, withFontSize: transConfigMinusPlusFontSize, color: theme.transValConfigViewPlusMinusButtonTintColorHighlighted, bold: false), forState: .Highlighted)
-			self.plusButton.addTarget(self, action: "plusButtonTapped", forControlEvents: .TouchUpInside)
+			self.plusButton.addTarget(self, action: #selector(TableViewTransmitterConfigurationCell.plusButtonTapped), forControlEvents: .TouchUpInside)
 			self.addSubview(self.plusButton)
 			self.plusButton.snp_makeConstraints(closure: { (make) -> Void in
 				make.centerY.equalTo(self.minusButton)
@@ -116,7 +116,7 @@ class TableViewTransmitterConfigurationCell: TableViewCell {
 			self.slider.minimumTrackTintColor = theme.sliderMinTrackTintColor
 			self.slider.maximumTrackTintColor = theme.sliderMaxTrackTintColor
 			self.slider.thumbTintColor = theme.sliderThumbTintColor
-			self.slider.addTarget(self, action: "sliderValueChanged", forControlEvents: .ValueChanged)
+			self.slider.addTarget(self, action: #selector(TableViewTransmitterConfigurationCell.sliderValueChanged), forControlEvents: .ValueChanged)
 			self.addSubview(self.slider)
 			self.slider.snp_makeConstraints(closure: { (make) -> Void in
 				make.leading.equalTo(self.minusButton.snp_trailing).offset(transConfigHorizontalMargin)
