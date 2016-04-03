@@ -128,5 +128,43 @@ extension UIImage {
 	}
 }
 
+//-------------------------------- GCD Wrapper --------------------------------
+enum DispatchFuncType { case Async, Sync }
+enum DispatchQueueType { case Concurrent, Serial }
+enum DispatchPriority { case High, Default, Low, Background }
 
+/**
+ A wrapper function to call GCD functions, to make the code more readable.
+	- parameters:
+		- type: Type of dispatch function to call. Async or Sync, default is Async.
+		- queueType: Type of queue to create. Concurrent or Serial, default is Serial.
+		- priority: Priority of concurrent queue. High, Default, Low, or Background. By default it's set to "Default" priority. If the queueType is Serial, this parameter will be ignored.
+		- label: Label for serial queue. If the queueType is Concurrent, this parameter will be ignored. By default this is an empty string.
+		- block: Task block to submit. This cannot be nil.
+ */
+func dispatch(type:DispatchFuncType = .Async,
+              queueType:DispatchQueueType = .Concurrent,
+              priority:DispatchPriority = .Default,
+              label:String = "",
+              block:((Void)->Void))
+{
+	let queue:dispatch_queue_t
+	if queueType == .Serial {
+		queue = dispatch_queue_create(label, DISPATCH_QUEUE_SERIAL)
+	} else {
+		let identifier:dispatch_queue_priority_t
+		switch priority {
+		case .High: identifier = DISPATCH_QUEUE_PRIORITY_HIGH
+		case .Default: identifier = DISPATCH_QUEUE_PRIORITY_DEFAULT
+		case .Low: identifier = DISPATCH_QUEUE_PRIORITY_LOW
+		case .Background: identifier = DISPATCH_QUEUE_PRIORITY_BACKGROUND
+		}
+		queue = dispatch_get_global_queue(identifier, 0)
+	}
+	if type == .Async {
+		dispatch_async(queue, block)
+	} else if type == .Sync {
+		dispatch_sync(queue, block)
+	}
+}
 
