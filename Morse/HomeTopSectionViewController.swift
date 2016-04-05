@@ -638,6 +638,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		}
 		if self.isDirectionEncode {
 			self.transmitter.text = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+			// COMS 430 Demo 0: Future function call
 			self.transmitter.getFutureMorse() {
 				outputText = $0
 				setupOutputTextAttribute()

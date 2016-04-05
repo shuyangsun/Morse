@@ -170,24 +170,26 @@ class MDAlertController: UIViewController {
 	- Parameters:
 		- action: An action specifying the title, handler of the button.
 	*/
-	func addAction(action:MDAlertAction) {
-		if !self._didAddCustomAction {
-			// If the user hasn't add any custom action, remove the default "OK" action
-			if !self._actionsAndButtons.isEmpty {
-				self._actionsAndButtons.first?.button.removeFromSuperview()
-				self._actionsAndButtons.removeFirst()
+	func addAction(actions:MDAlertAction...) {
+		for action in actions {
+			if !self._didAddCustomAction {
+				// If the user hasn't add any custom action, remove the default "OK" action
+				if !self._actionsAndButtons.isEmpty {
+					self._actionsAndButtons.first?.button.removeFromSuperview()
+					self._actionsAndButtons.removeFirst()
+				}
 			}
+			let button = UIButton()
+			button.setAttributedTitle(getAttributedStringFrom(action.title.uppercaseString, withFontSize: mdAlertButtonFontSize, color: theme.mdAlertControllerButtonTextColorNormal, bold: true), forState: .Normal)
+			button.setAttributedTitle(getAttributedStringFrom(action.title.uppercaseString, withFontSize: mdAlertButtonFontSize, color: theme.mdAlertControllerButtonTextColorHighlighted, bold: true), forState: .Highlighted)
+			button.addTarget(self, action: #selector(MDAlertController.buttonTapped(_:)), forControlEvents: .TouchUpInside)
+			self._actionsAndButtons.append((action, button))
+			if self.buttonOutlineView != nil {
+				self.buttonOutlineView.addSubview(button)
+				self.updateButtonConstraints()
+			}
+			self._didAddCustomAction = true
 		}
-		let button = UIButton()
-		button.setAttributedTitle(getAttributedStringFrom(action.title.uppercaseString, withFontSize: mdAlertButtonFontSize, color: theme.mdAlertControllerButtonTextColorNormal, bold: true), forState: .Normal)
-		button.setAttributedTitle(getAttributedStringFrom(action.title.uppercaseString, withFontSize: mdAlertButtonFontSize, color: theme.mdAlertControllerButtonTextColorHighlighted, bold: true), forState: .Highlighted)
-		button.addTarget(self, action: #selector(MDAlertController.buttonTapped(_:)), forControlEvents: .TouchUpInside)
-		self._actionsAndButtons.append((action, button))
-		if self.buttonOutlineView != nil {
-			self.buttonOutlineView.addSubview(button)
-			self.updateButtonConstraints()
-		}
-		self._didAddCustomAction = true
 	}
 
 	private func updateButtonConstraints() {

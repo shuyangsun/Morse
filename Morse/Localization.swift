@@ -200,6 +200,13 @@ struct LocalizedStrings {
 
 		static let titlePleasePurchaseSomething = NSLocalizedString("Please Purchase an Upgrade :)", comment: "One of the titles on the Alert view.")
 		static let messagePleasePurchaseSomething = NSLocalizedString("Please support us by making a purchase.\n\nAfter any purchase, you can share Morse code without download link, and all the ads will be gone!\n\nThank you!", comment: "One of the titles on the Alert view.")
+
+		//-------------------------- Rate on App Store Prompt -------------------------
+		static let titleRateOnAppStorePromote = NSLocalizedString("Rate on App Store?", comment: "Prompt user to rate on App Store (alert Title).")
+		static let messageRateOnAppStorePromote = NSLocalizedString("Love our App? Please rate this version on App Store, so more people would know about us! 😃", comment: "Prompt user to rate on App Store (alert message).")
+		static let buttonRateIt = NSLocalizedString("Rate It", comment: "'Rate it' button for user to go to App Store rating page.")
+		static let buttonNextTime = NSLocalizedString("Next Time", comment: "'Next Time' button for user to go to App Store rating page.")
+		static let buttonNoThanks = NSLocalizedString("No, Thanks", comment: "'No Thanks' button for user to go to App Store rating page.")
 	}
 }
 

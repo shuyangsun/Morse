@@ -167,8 +167,7 @@ class SettingsLanguagesTableViewController: TableViewController {
 					action in
 					appDelegate.showRestartAlert = false
 				}
-				alertController.addAction(action1)
-				alertController.addAction(action2)
+				alertController.addAction(action1, action2)
 				alertController.show()
 			}
 			let tracker = GAI.sharedInstance().defaultTracker

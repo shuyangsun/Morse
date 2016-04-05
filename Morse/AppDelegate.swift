@@ -217,8 +217,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 	}
 
+	// App store rating related:
+	/** Whether the user wants the rating prompt to show up. Will set to false if the user choose "Don't show again." */
+	var showRateOnAppStorePrompt:Bool {
+		get {
+			return self.userDefaults.boolForKey(userDefaultsKeyShowAppStoreRatingPrompt)
+		}
+		set {
+			self.userDefaults.setBool(newValue, forKey: userDefaultsKeyShowAddedTutorialCardsAlert)
+			self.userDefaults.synchronize()
+		}
+	}
+
+	var lastRatedVersionString:String? {
+		get {
+			return self.userDefaults.stringForKey(userDefaultsKeyLastRatedVersion)
+		}
+		set {
+			self.userDefaults.setObject(newValue, forKey: userDefaultsKeyLastRatedVersion)
+			self.userDefaults.synchronize()
+		}
+	}
+	/** Set the "last rated version" string to the current version of OS. */
+	func setRatedThisVersion() {
+		self.lastRatedVersionString = NSProcessInfo.processInfo().operatingSystemVersionString
+	}
+
+	var appLaunchCount:Int {
+		get {
+			return self.userDefaults.integerForKey(userDefaultsKeyAppLaunchCount)
+		}
+		set {
+			self.userDefaults.setInteger(newValue, forKey: userDefaultsKeyAppLaunchCount)
+			self.userDefaults.synchronize()
+		}
+	}
+
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
+		self.appLaunchCount += 1
 		UIApplication.sharedApplication().statusBarStyle = .LightContent
 		NSTimer.scheduledTimerWithTimeInterval(defaultAutoNightModeUpdateTimeInterval, target: self, selector: #selector(updateThemeIfAutoNight), userInfo: nil, repeats: true)
 
@@ -231,6 +268,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyAutoNightMode)
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyAdsRemoved)
 			self.userDefaults.setBool(true, forKey: userDefaultsKeyIsAbleToTurnOffPromotionalTextWhenShare)
+			self.userDefaults.setBool(true, forKey: userDefaultsKeyShowAppStoreRatingPrompt)
 			self.resetAlerts()
 			self.userDefaults.setInteger(defaultInputWPM, forKey: userDefaultsKeyInputWPM)
 			self.userDefaults.setFloat(defaultInputPitch, forKey: userDefaultsKeyInputPitch)

@@ -871,6 +871,7 @@ class MorseTransmitter {
 		           completion: completion)
 	}
 
+	// COMS 430 Demo 0: Future function body
 	// A helper method for the 'Future' design of text and Morse code translation.
 	private func _getFuture(type:FutureObjectType,
 	                        concurrent:Bool = false,

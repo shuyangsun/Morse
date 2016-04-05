@@ -25,6 +25,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
 		return theme.style == .Dark ? .LightContent : .Default
 	}
+	/** Indicates if App Store rating prompt has been show during this launch of application. */
+	var didShowAppStoreRatingPrompt = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +68,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
     }
+
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		self._showAppStoreRatingPrompt()
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -136,6 +143,38 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 			return self.cardViewOutputTransitionInteractionController
 		}
 		return nil
+	}
+
+	/**
+	 Check conditions and shows App Store rating prompt when the user launches app if appropriate. Frequency is specified in General.swift.
+	 */
+	private func _showAppStoreRatingPrompt() {
+		print(appDelegate.appLaunchCount)
+		// Check if the user wants to show prompt, and if the prompt has already been shown.
+		if !self.didShowAppStoreRatingPrompt && appDelegate.showRateOnAppStorePrompt {
+			if appDelegate.lastRatedVersionString == nil ||
+				appDelegate.lastRatedVersionString != NSProcessInfo.processInfo().operatingSystemVersionString {
+			let launchCount = appDelegate.appLaunchCount
+			// Determine if the app should show prompt during this launch
+			if launchCount == appStoreRatingPromptFrequency.firstTime ||
+				(launchCount - appStoreRatingPromptFrequency.firstTime) % appStoreRatingPromptFrequency.repeatStride == 0 {
+				let ratePrompt = MDAlertController(title: LocalizedStrings.Alert.titleRateOnAppStorePromote, message: LocalizedStrings.Alert.messageRateOnAppStorePromote)
+				let actionRateIt = MDAlertAction(title: LocalizedStrings.Alert.buttonRateIt) {
+					action in
+					appDelegate.setRatedThisVersion()
+					UIApplication.sharedApplication().openURL(NSURL(string: appStoreReviewLink)!)
+				}
+				let actionNextTime = MDAlertAction(title: LocalizedStrings.Alert.buttonNextTime)
+				let actionNo = MDAlertAction(title: LocalizedStrings.Alert.buttonNo) {
+					action in
+					appDelegate.showRateOnAppStorePrompt = false
+				}
+				ratePrompt.addAction(actionRateIt, actionNextTime, actionNo)
+				ratePrompt.show()
+			}
+			}
+		}
+		self.didShowAppStoreRatingPrompt = true
 	}
 
 	/**

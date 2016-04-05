@@ -354,7 +354,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				alertController.addAction(action1)
 				alertController.addAction(action2)
 				alertController.show()
-			case 2: // Rest alerts
+			case 2: // Reset alerts
 				let alertController = MDAlertController(title: LocalizedStrings.Alert.titleResetAlert, message: LocalizedStrings.Alert.messageResetAlert)
 				let action1 = MDAlertAction(title: LocalizedStrings.Alert.buttonYes) {
 					action in
