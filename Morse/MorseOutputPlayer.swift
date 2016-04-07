@@ -66,9 +66,11 @@ class MorseOutputPlayer: NSObject {
 
 	func stop() {
 		self.stopSignal()
-		let _ = self._timers.map { $0.invalidate() }
-//		NSObject.cancelPreviousPerformRequestsWithTarget(self) // FIXME: BUG, not working. Invalidate timers one by one can result in performance issue.
-		self._timers = []
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+			let _ = self._timers.map { $0.invalidate() }
+			//		NSObject.cancelPreviousPerformRequestsWithTarget(self) // FIXME: BUG, not working. Invalidate timers one by one can result in performance issue.
+			self._timers = []
+		}
 	}
 
 	func startSignal() {

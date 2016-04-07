@@ -639,13 +639,13 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		if self.isDirectionEncode {
 			self.transmitter.text = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
 			// COMS 430 Demo 0: Future function call
-			self.transmitter.getFutureMorse() {
+			self.transmitter.getFutureMorse {
 				outputText = $0
 				setupOutputTextAttribute()
 			}
 		} else {
 			self.transmitter.morse = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-			self.transmitter.getFutureText() {
+			self.transmitter.getFutureText {
 				outputText = $0
 				setupOutputTextAttribute()
 			}
