@@ -156,6 +156,9 @@
 /* There are many sections on the settings page, this section let the user change the App's language. */
 "Language" = "语言";
 
+/* Prompt user to rate on App Store (alert message). */
+"Love our App? Please rate this version on App Store, so more people would know about us! 😃" = "喜欢我们的应用吗？请在应用商店给我们好评，以便更多的用户了解并使用此APP。谢谢您的使用！";
+
 /* On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse. */
 "Morse" = "电码";
 
@@ -171,11 +174,17 @@
 /* There are many prosign code in Morse, this is the name of one of them. */
 "New Paragraph" = "开始新段落";
 
+/* 'Next Time' button for user to go to App Store rating page. */
+"Next Time" = "下一次";
+
 /* One of the names for color theme. */
 "Night" = "夜间模式";
 
 /* One of the buttons on the Alert view. */
 "No" = "否";
+
+/* 'No Thanks' button for user to go to App Store rating page. */
+"No, Thanks" = "不，谢谢";
 
 /* Users can change language in settings app, this is one of the language groups. */
 "North America" = "北美洲";
@@ -201,8 +210,14 @@
 /* A cell on Settings page connect to privacy policy website. */
 "Privacy Policy" = "隐私协议";
 
+/* 'Rate it' button for user to go to App Store rating page. */
+"Rate It" = "去评价";
+
 /* A button on the settings page for user to rate on App Store. */
 "Rate on App Store" = "评价一下";
+
+/* Prompt user to rate on App Store (alert Title). */
+"Rate on App Store?" = "评价一下？";
 
 /* A button on the settings page to reset some content. */
 "Reset" = "恢复默认";

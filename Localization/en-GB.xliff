@@ -2,32 +2,32 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
   <file original="Morse/Base.lproj/LaunchScreen.storyboard" source-language="en" datatype="plaintext" target-language="en-GB">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3" build-num="7D175"/>
     </header>
     <body/>
   </file>
   <file original="Morse/Base.lproj/Main.storyboard" source-language="en" datatype="plaintext" target-language="en-GB">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3" build-num="7D175"/>
     </header>
     <body/>
   </file>
   <file original="Morse/Info.plist" source-language="en" datatype="plaintext" target-language="en-GB">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3" build-num="7D175"/>
     </header>
     <body>
       <trans-unit id="CFBundleName">
         <source>$(PRODUCT_NAME)</source>
       </trans-unit>
       <trans-unit id="CFBundleShortVersionString">
-        <source>0.0.2</source>
+        <source>1.1.0</source>
       </trans-unit>
     </body>
   </file>
   <file original="Morse/Localizable.strings" source-language="en" datatype="plaintext" target-language="en-GB">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3" build-num="7D175"/>
     </header>
     <body>
       <trans-unit id="!!!EMERGENCY!!!">
@@ -245,6 +245,10 @@
         <source>Language</source>
         <note>There are many sections on the settings page, this section let the user change the App's language.</note>
       </trans-unit>
+      <trans-unit id="Love our App? Please rate this version on App Store, so more people would know about us! 😃">
+        <source>Love our App? Please rate this version on App Store, so more people would know about us! 😃</source>
+        <note>Prompt user to rate on App Store (alert message).</note>
+      </trans-unit>
       <trans-unit id="Morse">
         <source>Morse</source>
         <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.</note>
@@ -265,6 +269,10 @@
         <source>New Paragraph</source>
         <note>There are many prosign code in Morse, this is the name of one of them.</note>
       </trans-unit>
+      <trans-unit id="Next Time">
+        <source>Next Time</source>
+        <note>'Next Time' button for user to go to App Store rating page.</note>
+      </trans-unit>
       <trans-unit id="Night">
         <source>Night</source>
         <note>One of the names for color theme.</note>
@@ -272,6 +280,10 @@
       <trans-unit id="No">
         <source>No</source>
         <note>One of the buttons on the Alert view.</note>
+      </trans-unit>
+      <trans-unit id="No, Thanks">
+        <source>No, Thanks</source>
+        <note>'No Thanks' button for user to go to App Store rating page.</note>
       </trans-unit>
       <trans-unit id="North America">
         <source>North America</source>
@@ -317,9 +329,17 @@ Thank you!</source>
         <source>Privacy Policy</source>
         <note>A cell on Settings page connect to privacy policy website.</note>
       </trans-unit>
+      <trans-unit id="Rate It">
+        <source>Rate It</source>
+        <note>'Rate it' button for user to go to App Store rating page.</note>
+      </trans-unit>
       <trans-unit id="Rate on App Store">
         <source>Rate on App Store</source>
         <note>A button on the settings page for user to rate on App Store.</note>
+      </trans-unit>
+      <trans-unit id="Rate on App Store?">
+        <source>Rate on App Store?</source>
+        <note>Prompt user to rate on App Store (alert Title).</note>
       </trans-unit>
       <trans-unit id="Reset">
         <source>Reset</source>
@@ -511,7 +531,7 @@ Thank you!</source>
   </file>
   <file original="MorseTests/Info.plist" source-language="en" datatype="plaintext" target-language="en-GB">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3" build-num="7D175"/>
     </header>
     <body>
       <trans-unit id="CFBundleName">
@@ -524,7 +544,7 @@ Thank you!</source>
   </file>
   <file original="MorseTests/Localizable.strings" source-language="en" datatype="plaintext" target-language="en-GB">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3" build-num="7D175"/>
     </header>
     <body>
       <trans-unit id="!!!EMERGENCY!!!">
@@ -741,6 +761,10 @@ Thank you!</source>
         <source>Language</source>
         <note>There are many sections on the settings page, this section let the user change the App's language.</note>
       </trans-unit>
+      <trans-unit id="Love our App? Please rate this version on App Store, so more people would know about us! 😃">
+        <source>Love our App? Please rate this version on App Store, so more people would know about us! 😃</source>
+        <note>Prompt user to rate on App Store (alert message).</note>
+      </trans-unit>
       <trans-unit id="Morse">
         <source>Morse</source>
         <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.</note>
@@ -761,6 +785,10 @@ Thank you!</source>
         <source>New Paragraph</source>
         <note>There are many prosign code in Morse, this is the name of one of them.</note>
       </trans-unit>
+      <trans-unit id="Next Time">
+        <source>Next Time</source>
+        <note>'Next Time' button for user to go to App Store rating page.</note>
+      </trans-unit>
       <trans-unit id="Night">
         <source>Night</source>
         <note>One of the names for color theme.</note>
@@ -768,6 +796,10 @@ Thank you!</source>
       <trans-unit id="No">
         <source>No</source>
         <note>One of the buttons on the Alert view.</note>
+      </trans-unit>
+      <trans-unit id="No, Thanks">
+        <source>No, Thanks</source>
+        <note>'No Thanks' button for user to go to App Store rating page.</note>
       </trans-unit>
       <trans-unit id="North America">
         <source>North America</source>
@@ -813,9 +845,17 @@ Thank you!</source>
         <source>Privacy Policy</source>
         <note>A cell on Settings page connect to privacy policy website.</note>
       </trans-unit>
+      <trans-unit id="Rate It">
+        <source>Rate It</source>
+        <note>'Rate it' button for user to go to App Store rating page.</note>
+      </trans-unit>
       <trans-unit id="Rate on App Store">
         <source>Rate on App Store</source>
         <note>A button on the settings page for user to rate on App Store.</note>
+      </trans-unit>
+      <trans-unit id="Rate on App Store?">
+        <source>Rate on App Store?</source>
+        <note>Prompt user to rate on App Store (alert Title).</note>
       </trans-unit>
       <trans-unit id="Reset">
         <source>Reset</source>
@@ -1007,7 +1047,7 @@ Thank you!</source>
   </file>
   <file original="MorseUITests/Info.plist" source-language="en" datatype="plaintext" target-language="en-GB">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3" build-num="7D175"/>
     </header>
     <body>
       <trans-unit id="CFBundleName">
@@ -1020,7 +1060,7 @@ Thank you!</source>
   </file>
   <file original="MorseUITests/Localizable.strings" source-language="en" datatype="plaintext" target-language="en-GB">
     <header>
-      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3" build-num="7D175"/>
     </header>
     <body>
       <trans-unit id="!!!EMERGENCY!!!">
@@ -1237,6 +1277,10 @@ Thank you!</source>
         <source>Language</source>
         <note>There are many sections on the settings page, this section let the user change the App's language.</note>
       </trans-unit>
+      <trans-unit id="Love our App? Please rate this version on App Store, so more people would know about us! 😃">
+        <source>Love our App? Please rate this version on App Store, so more people would know about us! 😃</source>
+        <note>Prompt user to rate on App Store (alert message).</note>
+      </trans-unit>
       <trans-unit id="Morse">
         <source>Morse</source>
         <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.</note>
@@ -1257,6 +1301,10 @@ Thank you!</source>
         <source>New Paragraph</source>
         <note>There are many prosign code in Morse, this is the name of one of them.</note>
       </trans-unit>
+      <trans-unit id="Next Time">
+        <source>Next Time</source>
+        <note>'Next Time' button for user to go to App Store rating page.</note>
+      </trans-unit>
       <trans-unit id="Night">
         <source>Night</source>
         <note>One of the names for color theme.</note>
@@ -1264,6 +1312,10 @@ Thank you!</source>
       <trans-unit id="No">
         <source>No</source>
         <note>One of the buttons on the Alert view.</note>
+      </trans-unit>
+      <trans-unit id="No, Thanks">
+        <source>No, Thanks</source>
+        <note>'No Thanks' button for user to go to App Store rating page.</note>
       </trans-unit>
       <trans-unit id="North America">
         <source>North America</source>
@@ -1309,9 +1361,17 @@ Thank you!</source>
         <source>Privacy Policy</source>
         <note>A cell on Settings page connect to privacy policy website.</note>
       </trans-unit>
+      <trans-unit id="Rate It">
+        <source>Rate It</source>
+        <note>'Rate it' button for user to go to App Store rating page.</note>
+      </trans-unit>
       <trans-unit id="Rate on App Store">
         <source>Rate on App Store</source>
         <note>A button on the settings page for user to rate on App Store.</note>
+      </trans-unit>
+      <trans-unit id="Rate on App Store?">
+        <source>Rate on App Store?</source>
+        <note>Prompt user to rate on App Store (alert Title).</note>
       </trans-unit>
       <trans-unit id="Reset">
         <source>Reset</source>

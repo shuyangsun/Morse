@@ -159,6 +159,9 @@
 /* There are many sections on the settings page, this section let the user change the App's language. */
 "Language" = "Idioma";
 
+/* Prompt user to rate on App Store (alert message). */
+"Love our App? Please rate this version on App Store, so more people would know about us! 😃" = "Amor nuestra aplicación? Por favor calificar esta versión en la App Store, para que más gente sepa acerca de nosotros! 😃";
+
 /* On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse. */
 "Morse" = "Morse";
 
@@ -174,11 +177,17 @@
 /* There are many prosign code in Morse, this is the name of one of them. */
 "New Paragraph" = "Punto y aparte";
 
+/* 'Next Time' button for user to go to App Store rating page. */
+"Next Time" = "La próxima vez";
+
 /* One of the names for color theme. */
 "Night" = "Noche";
 
 /* One of the buttons on the Alert view. */
 "No" = "No";
+
+/* 'No Thanks' button for user to go to App Store rating page. */
+"No, Thanks" = "No, gracias";
 
 /* Users can change language in settings app, this is one of the language groups. */
 "North America" = "Norteamérica";
@@ -218,8 +227,14 @@ Después de cualquier compra, usted puede compartir código Morse sin enlace de 
 /* A cell on Settings page connect to privacy policy website. */
 "Privacy Policy" = "Política de privacidad";
 
+/* 'Rate it' button for user to go to App Store rating page. */
+"Rate It" = "Puntúalo";
+
 /* A button on the settings page for user to rate on App Store. */
 "Rate on App Store" = "Precio en la App Store";
+
+/* Prompt user to rate on App Store (alert Title). */
+"Rate on App Store?" = "Precio en la App Store?";
 
 /* A button on the settings page to reset some content. */
 "Reset" = "Reiniciar";

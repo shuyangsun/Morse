@@ -89,6 +89,9 @@
 /* This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations. */
 "Dictionary" = "قاموس";
 
+/* One of the titles on the Alert view. */
+"Do you want to reset all alerts, so they will show up again even if you disabled them before?" = "هل تريد إعادة تعيين كافة التنبيهات، ولذلك سوف تظهر مرة أخرى حتى لو قمت بتعطيل لهم من قبل؟";
+
 /* One of the buttons on the Alert view. */
 "Don't Show Again" = "لا تظهر مرة أخرى";
 
@@ -156,6 +159,9 @@
 /* There are many sections on the settings page, this section let the user change the App's language. */
 "Language" = "لغة";
 
+/* Prompt user to rate on App Store (alert message). */
+"Love our App? Please rate this version on App Store, so more people would know about us! 😃" = "نحب التطبيقات؟ يرجى تقييم هذا الإصدار على المتجر، وبالتالي فإن أكثر الناس يعرفون عنا! 😃";
+
 /* On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse. */
 "Morse" = "مورس";
 
@@ -171,11 +177,17 @@
 /* There are many prosign code in Morse, this is the name of one of them. */
 "New Paragraph" = "فقرة جديدة";
 
+/* 'Next Time' button for user to go to App Store rating page. */
+"Next Time" = "المره القادمة";
+
 /* One of the names for color theme. */
 "Night" = "ليل";
 
 /* One of the buttons on the Alert view. */
 "No" = "لا";
+
+/* 'No Thanks' button for user to go to App Store rating page. */
+"No, Thanks" = "لا شكرا";
 
 /* Users can change language in settings app, this is one of the language groups. */
 "North America" = "امريكا الشمالية";
@@ -215,8 +227,14 @@ Thank you!" = "يرجى دعم لنا اتخاذ قرار الشراء.
 /* A cell on Settings page connect to privacy policy website. */
 "Privacy Policy" = "سياسة الخصوصية";
 
+/* 'Rate it' button for user to go to App Store rating page. */
+"Rate It" = "قيمه";
+
 /* A button on the settings page for user to rate on App Store. */
 "Rate on App Store" = "سعر الفائدة على المتجر";
+
+/* Prompt user to rate on App Store (alert Title). */
+"Rate on App Store?" = "سعر الفائدة على المتجر؟";
 
 /* A button on the settings page to reset some content. */
 "Reset" = "إعادة تعيين";
