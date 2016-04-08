@@ -638,7 +638,6 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		}
 		if self.isDirectionEncode {
 			self.transmitter.text = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-			// COMS 430 Demo 0: Future function call
 			self.transmitter.getFutureMorse {
 				outputText = $0
 				setupOutputTextAttribute()
@@ -696,7 +695,6 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	// MARK: Transmitter Delegate
 	// *****************************
 
-	// COMS 430 Demo 2: change text on main thread
 	func transmitterContentDidChange(text: String, morse: String) {
 		// Set text.
 		dispatch_async(dispatch_get_main_queue()) {

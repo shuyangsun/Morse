@@ -67,7 +67,6 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 	}
 	private var _flashEnabled = appDelegate.flashOutputEnabled {
 		willSet {
-			// COMS 430 Demo 1: initializing flash.
 			dispatch_async(self._hardwareInitializationQueue) {
 				appDelegate.flashOutputEnabled = newValue
 				if !newValue {

@@ -415,7 +415,6 @@ class MorseTransmitter {
 	// it won't cause a performance issue, but for safety we dispatch it
 	// ******************************************************************************
 
-	// COMS 430 Demo 2: analyze algorithm
 	func microphone(microphone: EZMicrophone!, maxFrequencyMagnitude: Float) {
 		dispatch_async(self._audioAnalysisQueue) {
 			// Setup sample rate
@@ -871,7 +870,6 @@ class MorseTransmitter {
 		           completion: completion)
 	}
 
-	// COMS 430 Demo 0: Future function body
 	// A helper method for the 'Future' design of text and Morse code translation.
 	private func _getFuture(type:FutureObjectType,
 	                        concurrent:Bool = false,
