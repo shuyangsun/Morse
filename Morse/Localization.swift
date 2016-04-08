@@ -15,6 +15,8 @@ let supportedLanguages:[String: (original:String, localized:String)] = [
 	"zh-Hant": ("正體中文", LocalizedStrings.Languages.chineseTraditional),
 	// Europe
 	"en-GB": ("English (U.K.)", LocalizedStrings.Languages.englishUK),
+	"fr": ("Français", LocalizedStrings.Languages.french),
+	"de": ("Deutsche", LocalizedStrings.Languages.german),
 	// NA
 	"en-US": ("English (U.S.)", LocalizedStrings.Languages.englishUS),
 	"es": ("Español", LocalizedStrings.Languages.spanish)
@@ -166,6 +168,8 @@ struct LocalizedStrings {
 		static let systemDefault = NSLocalizedString("System Default", comment: "Users can change language in settings app, this is one means the language is system default.")
 		static let englishUS = NSLocalizedString("English (United States)", comment: "Users can change language in settings app, this is one of the language name that will show in user's preferred language.")
 		static let englishUK = NSLocalizedString("English (United Kingdom)", comment: "Users can change language in settings app, this is one of the language name that will show in user's preferred language.")
+		static let french = NSLocalizedString("French", comment: "Users can change language in settings app, this is one of the language name that will show in user's preferred language.")
+		static let german = NSLocalizedString("German", comment: "Users can change language in settings app, this is one of the language name that will show in user's preferred language.")
 		static let spanish = NSLocalizedString("Spanish", comment: "Users can change language in settings app, this is one of the language name that will show in user's preferred language.")
 		static let chineseSimplified = NSLocalizedString("Chinese (Simplified)", comment: "Users can change language in settings app, this is one of the language name that will show in user's preferred language.")
 		static let chineseTraditional = NSLocalizedString("Chinese (Traditional)", comment: "Users can change language in settings app, this is one of the language name that will show in user's preferred language.")

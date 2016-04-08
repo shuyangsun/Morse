@@ -1,298 +1,315 @@
 /* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: emergency! (the SOS signal) */
-"!!!EMERGENCY!!!" = "緊急求救！";
+"!!!EMERGENCY!!!" = "!!!URGENCE!!!";
 
 /* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: attention! */
-"!ATTENTION!" = "注意！";
+"!ATTENTION!" = "!ATTENTION!";
 
 /* There are categories on the settings page, this is one of the category. */
-"About" = "關於";
+"About" = "Sur";
 
 /* There are categories on the settings page, this is one of the category. */
-"Actions" = "功能選項";
+"Actions" = "actes";
 
 /* This is a label on the output page, tells the user how to change some of the values. */
-"Adjust in Settings" = "可以在設置中更改";
+"Adjust in Settings" = "Réglez dans Paramètres";
 
 /* A button on the settings page for user make in-app purchase to unlock all the themes. */
-"All Themes" = "解鎖所有主題";
+"All Themes" = "Tous les thèmes";
 
 /* There are categories on the settings page, this is one of the category. */
-"Appearance" = "用戶界面";
+"Appearance" = "Apparence";
 
 /* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
-"Arabic" = "阿拉伯語";
+"Arabic" = "Arabe";
 
 /* One of the titles on the Alert view. */
-"Are you sure you want to delete all the cards? This action is NOT undoable!" = "您確定要刪除所有卡片麼？此操作不可被撤銷！";
+"Are you sure you want to delete all the cards? This action is NOT undoable!" = "Êtes-vous sûr de vouloir supprimer toutes les cartes? Cette action est PAS infaisable!";
 
 /* Users can change language in settings app, this is one of the language groups. */
-"Asia" = "亞洲";
+"Asia" = "Asie";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
-"Attention" = "注意";
+"Attention" = "Attention";
 
 /* This button on the settings page brings up input configuration page. */
-"Audio Decoder" = "音頻解碼";
+"Audio Decoder" = "Décodeur Audio";
 
 /* A settings that allows user to choose if they want to use auto correction on audio decoder. */
-"Auto Correct Words" = "自動糾錯";
+"Auto Correct Words" = "Auto mots corrects";
 
 /* Name of a switch button (audio decoder automatically get wpm and pitch information). */
-"Automatic" = "自動";
+"Automatic" = "Automatique";
 
 /* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: I'm done, now back to you. */
-"BACK-TO-YOU" = "請開始回复";
+"BACK-TO-YOU" = "BACK-TO-VOUS";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
-"Break" = "休息";
+"Break" = "Pause";
+
+/* There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app. */
+"By making any purchase, Ads will be gone and you will be able to share Morse code without download link." = "En faisant tout achat, annonces seront partis et vous serez en mesure de partager le code Morse sans lien de téléchargement.";
 
 /* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this station is closing. */
-"CLOSING" = "電台關閉";
+"CLOSING" = "FERMETURE";
 
 /* One of the buttons on the Alert view. */
-"Cancel" = "取消";
+"Cancel" = "Annuler";
 
 /* One of the buttons on the Alert view. */
-"Check It Out" = "去看一下";
+"Check It Out" = "Vérifiez-le";
 
 /* When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL. */
-"Check this out! I can convert text to Morse code using App! Download here:" = "太厉害了！这个应用程序可以把文本转换为摩尔斯电码！你也下载来玩玩！";
+"Check this out! I can convert text to Morse code using App! Download here:" = "Regarde ça! Je peux convertir le texte en utilisant le code Morse App! Télécharger ici:";
 
 /* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
-"Chinese (Simplified)" = "簡體中文";
+"Chinese (Simplified)" = "Chinois simplifié)";
 
 /* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
-"Chinese (Traditional)" = "正體中文";
+"Chinese (Traditional)" = "Chinois (traditionnel)";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
-"Closing" = "關閉電台";
+"Closing" = "Fermeture";
 
 /* A button on the settings page to contact developer. (send developer an email) */
-"Contact Developer" = "聯繫開發者";
+"Contact Developer" = "contacter le développeur";
 
 /* There are many sections on the settings page, this switch let the user toggle if the app should decode prosign for Morse code. */
-"Decode Prosign" = "解碼常用縮寫";
+"Decode Prosign" = "Decode Prosign";
 
 /* Means something's default.
    Users can change language in settings app, this is one of the language groups. */
-"Default" = "系統默認";
+"Default" = "Défaut";
 
 /* There are many sections on the settings page, this section let the user clear all the cards on home page. */
-"Delete All Cards" = "刪除所有卡片";
+"Delete All Cards" = "Supprimer toutes les cartes";
 
 /* There are categories on the settings page, this is one of the category. */
-"Developer Options" = "開發者選項";
+"Developer Options" = "Options de développeur";
 
 /* This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations. */
-"Dictionary" = "對照表";
+"Dictionary" = "dictionnaire";
 
 /* One of the titles on the Alert view. */
-"Do you want to reset all alerts, so they will show up again even if you disabled them before?" = "您之前屏蔽掉的提醒對話框將會再次出現，您確定要重置所有提醒對話框麼？";
+"Do you want to reset all alerts, so they will show up again even if you disabled them before?" = "Voulez-vous réinitialiser toutes les alertes, ils apparaîtront à nouveau, même si vous les invalide avant?";
 
 /* One of the buttons on the Alert view. */
-"Don't Show Again" = "不再提示";
+"Don't Show Again" = "Ne plus afficher";
 
 /* A Done button.
    Button to tap when the user is done with an action. */
-"Done" = "確認";
+"Done" = "Terminé";
 
 /* There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code. */
-"Download Link" = "分享下載鏈接";
+"Download Link" = "Lien de téléchargement";
 
 /* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this is the end of contact. */
-"END-OF-CONTACT" = "對話結束";
+"END-OF-CONTACT" = "FIN DE CONTACT";
 
 /* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: there was an error. */
-"ERROR" = "發送失誤";
+"ERROR" = "ERREUR";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
-"Emergency" = "緊急信號";
+"Emergency" = "Urgence";
 
 /* A button on the settings page for user make in-app purchase to enable Morse audio decoder. */
-"Enable Audio Decoder" = "音頻解碼";
+"Enable Audio Decoder" = "Activer Audio Decoder";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
-"End of Contact" = "結束對話";
+"End of Contact" = "Fin de contact";
 
 /* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
-"English (United Kingdom)" = "英語（英式）";
+"English (United Kingdom)" = "Royaume Uni Anglais)";
 
 /* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
-"English (United States)" = "英語（美式）";
+"English (United States)" = "États Unis Anglais)";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
-"Error" = "失誤";
+"Error" = "Erreur";
 
 /* Users can change language in settings app, this is one of the language groups. */
-"Europe" = "歐洲";
+"Europe" = "Europe";
 
 /* One of the names for color theme. */
-"Forest" = "森林";
+"Forest" = "Forêt";
 
 /* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
-"French" = "法語";
+"French" = "Français";
 
 /* There are categories on the settings page, this is one of the category. */
-"General" = "通用";
+"General" = "Général";
 
 /* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
-"German" = "德語";
+"German" = "Allemand";
 
 /* One of the buttons on the Alert view. */
-"Got It" = "好的";
+"Got It" = "Je l'ai";
 
 /* When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen. */
-"Hold me to expand." = "長按此卡片來展開";
+"Hold me to expand." = "Tenez-moi à se développer.";
 
 /* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: any station can start to transmit now. */
-"INVITE-ANY-STATION-TO-TRANSMIT" = "請任意電台回复";
+"INVITE-ANY-STATION-TO-TRANSMIT" = "INVITENT-TOUT-STATION-TO-TRANSMIT";
 
 /* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: the named station can start to transmit now. */
-"INVITE-NAMED-STATION-TO-TRANSMIT" = "請指明電台回复";
+"INVITE-NAMED-STATION-TO-TRANSMIT" = "INVITENT-NOMMÉ-STATION-TO-TRANSMIT";
 
 /* One of the names for color theme. */
-"Industrial" = "工業";
+"Industrial" = "Industriel";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
-"Invite (Any)" = "任意電台回复";
+"Invite (Any)" = "Inviter (Tous)";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
-"Invite (Named)" = "指名電台回复";
+"Invite (Named)" = "Inviter (Nommé)";
 
 /* There are many sections on the settings page, this section let the user change the App's language. */
-"Language" = "語言";
+"Language" = "La langue";
 
 /* Prompt user to rate on App Store (alert message). */
-"Love our App? Please rate this version on App Store, so more people would know about us! 😃" = "喜歡我們的應用嗎？請在應用商店給我們好評，以便更多的用戶了解並使用此APP。謝謝您的使用！";
+"Love our App? Please rate this version on App Store, so more people would know about us! 😃" = "Aimez notre App? S'il vous plaît noter cette version sur l'App Store, de sorte que plus de gens nous connaître! 😃";
 
 /* On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse. */
-"Morse" = "電碼";
+"Morse" = "Morse";
 
 /* The subject title for feedback email. */
-"Morse Transmitter Feedback" = "摩爾斯電碼收發器：反饋意見";
+"Morse Transmitter Feedback" = "Transmetteur Morse Commentaires";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
-"New Line" = "換行";
+"New Line" = "Nouvelle ligne";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
-"New Page" = "換頁";
+"New Page" = "Nouvelle page";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
-"New Paragraph" = "開始新段落";
+"New Paragraph" = "Nouveau paragraphe";
 
 /* 'Next Time' button for user to go to App Store rating page. */
-"Next Time" = "下一次";
+"Next Time" = "La prochaine fois";
 
 /* One of the names for color theme. */
-"Night" = "夜間模式";
+"Night" = "Nuit";
 
 /* One of the buttons on the Alert view. */
-"No" = "否";
+"No" = "Non";
 
 /* 'No Thanks' button for user to go to App Store rating page. */
-"No, Thanks" = "不，謝謝";
+"No, Thanks" = "Non merci";
 
 /* Users can change language in settings app, this is one of the language groups. */
-"North America" = "北美洲";
+"North America" = "Amérique du Nord";
 
 /* One of the buttons on the Alert view. */
-"OK" = "確認";
+"OK" = "D'accord";
 
 /* There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputting Morse code. */
-"Output Brighten Screen" = "自動提亮屏幕";
+"Output Brighten Screen" = "Sortie écran Brighten";
 
 /* Settings category: audio frequency. */
-"Pitch" = "音調";
+"Pitch" = "Pas";
 
 /* This is a label on the output page, followed by the number of audio frequency (pitch). */
-"Pitch: " = "音調：";
+"Pitch: " = "Pas:";
 
 /* One of the titles on the Alert view. */
-"Please Restart" = "請重新開啟應用程序";
+"Please Purchase an Upgrade :)" = "S'il vous plaît acheter une mise à niveau :)";
+
+/* One of the titles on the Alert view. */
+"Please Restart" = "S'il vous plaît Redémarrez";
 
 /* This is a footer on the first section in language change settings, to reminder user restart the App after changing language. */
-"Please restart this App after changing language." = "更換語言後，請重新開啟應用程序";
+"Please restart this App after changing language." = "S'il vous plaît redémarrer cette application après avoir changé la langue.";
+
+/* One of the titles on the Alert view. */
+"Please support us by making a purchase.
+
+After any purchase, you can share Morse code without download link, and all the ads will be gone!
+
+Thank you!" = "S'il vous plaît nous soutenir en faisant un achat.
+
+Après tout achat, vous pouvez partager le code Morse sans lien de téléchargement, et toutes les annonces seront partis!
+
+Je vous remercie!";
 
 /* A cell on Settings page connect to privacy policy website. */
-"Privacy Policy" = "隱私協議";
+"Privacy Policy" = "Politique de confidentialité";
 
 /* 'Rate it' button for user to go to App Store rating page. */
-"Rate It" = "去評價";
+"Rate It" = "Il Tarif";
 
 /* A button on the settings page for user to rate on App Store. */
-"Rate on App Store" = "評價一下";
+"Rate on App Store" = "Prix ​​sur le App Store";
 
 /* Prompt user to rate on App Store (alert Title). */
-"Rate on App Store?" = "評價一下?";
+"Rate on App Store?" = "Prix ​​sur le App Store?";
 
 /* A button on the settings page to reset some content. */
-"Reset" = "恢復默認";
+"Reset" = "Réinitialiser";
 
 /* There are many sections on the settings page, this section let the user restore pop-up alerts. */
-"Reset Alerts" = "重置提醒對話框";
+"Reset Alerts" = "réinitialiser les alertes";
 
 /* One of the titles on the Alert view. */
-"Reset Alerts?" = "重置提醒對話框？";
+"Reset Alerts?" = "Réinitialiser les alertes?";
 
 /* A button on the settings page for user to restore their previous purchases. */
-"Restore Purchases" = "恢復購買";
+"Restore Purchases" = "Restaurer Achats";
 
 /* There are many sections on the settings page, this section let the user restore tutorial cards. */
-"Restore Tutorial Cards" = "添加教程卡片";
+"Restore Tutorial Cards" = "Restaurer Tutorial Cartes";
 
 /* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: shift from Morse code to Wabun code. (Wabun code is used by Japanese) */
-"SHIFT-TO-WABUN-CODE" = "使用WABUN代碼";
+"SHIFT-TO-WABUN-CODE" = "SHIFT-TO-WABUN-CODE";
 
 /* The title for settings page. */
-"Settings" = "設置";
+"Settings" = "Paramètres";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
-"Shift to Wabun" = "使用WABUN";
+"Shift to Wabun" = "Shift pour Wabun";
 
 /* This button on the settings page brings up output configuration page. */
-"Signal Output" = "電碼輸出";
+"Signal Output" = "signal de sortie";
 
 /* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
-"Spanish" = "西班牙語";
+"Spanish" = "Espanol";
 
 /* One of the titles on the Alert view. */
-"Succeed!" = "完成！";
+"Succeed!" = "Réussir!";
 
 /* This is a label on the output page, tells the user the range of supported WPM. */
-"Supported WPM: " = "支持的每分鐘字數：";
+"Supported WPM: " = "WPM pris en charge:";
 
 /* This is a label on the output page, tells user how to go back to home page. */
-"Swipe down or pinch to go back" = "返回：向下滑動或雙指合攏";
+"Swipe down or pinch to go back" = "Balayer vers le bas ou pincer pour revenir en arrière";
 
 /* When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen. */
-"Swipe to delete me." = "向兩邊滑動來刪除此卡片";
+"Swipe to delete me." = "Balayez pour me supprimer.";
 
 /* There are many sections on the settings page, this switch let the user toggle if the app should change to Night theme when the ambient censor detects the surrounding light is low. */
-"Switch Automatically" = "自動切換";
+"Switch Automatically" = "commutateur automatique";
 
 /* Users can change language in settings app, this is one means the language is system default. */
-"System Default" = "系統默認";
+"System Default" = "Défaillance du système";
 
 /* This is a label on the output page, tells user how to finish using audio input. */
-"Tap anywhere to finish" = "點按來完成解碼";
+"Tap anywhere to finish" = "Appuyez sur n'importe où pour finir";
 
 /* This is a label on the output page, tells user how to play or pause the output. */
-"Tap anywhere to play or pause" = "點按任意地方來開始／停止輸出";
+"Tap anywhere to play or pause" = "Tapez n'importe où pour jouer ou pause";
 
 /* When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen. */
-"Tap me to output or share." = "點按此卡片來輸出信號或分享";
+"Tap me to output or share." = "Touchez-moi à la sortie ou à partager.";
 
 /* There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app. */
-"Tap on numbers to enter a value." = "點按數字來輸入新的數值";
+"Tap on numbers to enter a value." = "Appuyez sur les chiffres pour entrer une valeur.";
 
 /* A button on the settings page for user to share this App's link with friends. */
-"Tell Friends" = "告訴朋友";
+"Tell Friends" = "Dire aux amis";
 
 /* On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse. */
-"Text" = "文本";
+"Text" = "Texte";
 
 /* There are many sections on the settings page, this switch let the user change the color theme of this App. */
-"Theme" = "顏色主題";
+"Theme" = "Thème";
 
 /* One of the titles on the Alert view. */
 "To make new language setting take effect, please restart application with following steps:
@@ -301,62 +318,74 @@
 
 2. Swipe up to terminate application in the background.
 
-3. Start application from home screen." = "為了使語言設置生效，請您通過以下的步驟重新開啟應用：  1. 雙擊主屏幕按鍵  2. 向上滑動來關閉應用程序  3. 在主屏幕重新開啟應用";
+3. Start application from home screen." = "Pour nouvel effet de la langue de prise, s'il vous plaît redémarrer l'application avec les étapes suivantes:
+
+1. Double-cliquez sur le bouton Accueil sur votre appareil.
+
+2. Swipe jusqu'à mettre fin à l'application en arrière-plan.
+
+3. Démarrez l'application à partir de l'écran d'accueil.";
 
 /* There is a string on the input text view on home screen, promoting user to touch the text box to start typing. */
-"Touch to type" = "開始輸入";
+"Touch to type" = "Touchez pour taper";
 
 /* There are categories on the settings page, this is one of the category. */
-"Transmitter Configuration" = "收發器設置";
+"Transmitter Configuration" = "Configuration de l'émetteur";
 
 /* One of the titles on the Alert view. */
-"Tutorial cards are successfully restored, you can go check them out now!" = "已成功添加教程卡片！請您前往主頁面查看。";
+"Tutorial cards are successfully restored, you can go check them out now!" = "cartes Didacticiel sont restaurés avec succès, vous pouvez aller les vérifier maintenant!";
 
 /* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: understood. */
-"UNDERSTOOD" = "明白";
+"UNDERSTOOD" = "ENTENDU";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
-"Understood" = "明白";
+"Understood" = "Entendu";
+
+/* A button on the settings page for user make in-app purchase to have unlimited card slots. */
+"Unlimited Card Slots" = "Slots de cartes illimitées";
+
+/* A button on the settings page for user make in-app purchase to unlock all features. */
+"Unlock All Features" = "Débloquez toutes les fonctionnalités";
 
 /* There are categories on the settings page, this is one of the category. */
-"Upgrades" = "升級選項";
+"Upgrades" = "Mises à jour";
 
 /* One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: wait. */
-"WAIT" = "等等";
+"WAIT" = "ATTENDEZ";
 
 /* One of the titles on the Alert view. */
-"WARNING!" = "注意！";
+"WARNING!" = "ATTENTION!";
 
 /* Settings category: word per minute. */
-"WPM (Words Per Minute)" = "每分钟字数";
+"WPM (Words Per Minute)" = "WPM (mots par minute)";
 
 /* This is a label on the output page, followed by the numer of WPM (word per minute). */
-"WPM: " = "每分钟字数：";
+"WPM: " = "WPM:";
 
 /* There are many prosign code in Morse, this is the name of one of them. */
-"Wait" = "等等";
+"Wait" = "Attendez";
 
 /* When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen. */
-"Welcome to Morse Transmitter!" = "歡迎使用摩爾斯電碼收發器！";
+"Welcome to Morse Transmitter!" = "Bienvenue à l'émetteur Morse!";
 
 /* There are many sections on the settings page, this one explains what does Auto Switch button in Appearance section do. */
-"When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme." = "當此選項處於打開狀態時，如果周圍光線減弱，應用程序會自動切換到夜間模式，以保護視力";
+"When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme." = "Lorsque la lumière ambiante est faible avec Switch automatiquement activé, l'application passera automatiquement au thème Nuit.";
 
 /* Explains what Auto Correct Mis Spelled Words does. */
-"When you have it on, the App will try to auto-correct misspelled words when decoding Morse code. The dictionary changes when you change your language setting." = "當此選項處於打開狀態時，音頻解碼器會自動糾錯拼寫錯誤的單詞，糾錯目標語言會隨著您的語言設置更改";
+"When you have it on, the App will try to auto-correct misspelled words when decoding Morse code. The dictionary changes when you change your language setting." = "Lorsque vous l'avez sur l'App va essayer de mots mal orthographiés correction automatique lors du décodage du code Morse. Le dictionnaire change lorsque vous modifiez votre paramètre de langue.";
 
 /* Explains what Output Brighten Screen does. */
-"When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source." = "當此選項處於打開狀態時，輸出信號時屏幕會自動變亮，這樣您就可以使用屏幕作為信號光源了";
+"When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source." = "Lorsque vous l'avez, l'écran sera temporairement devenu plus lumineux pendant que vous envoyez le signal Morse, de sorte que vous pouvez l'utiliser comme une source de lumière.";
 
 /* A description on settings page, explaining what does Decode Prosign switch do. */
-"While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code." = "當此選項處於打開狀態時，音頻解碼器會自動糾錯拼寫錯誤的單詞，默認語言英語。糾錯的目標語言會隨著您的語言設置而更改";
+"While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code." = "Bien que cette option est activée (recommandé), la demande sera automatiquement décoder Prosign en fonction du contexte d'entourer le code Morse.";
 
 /* A description on settings page, explaining what Download Link switch do. */
-"While this option is turned on, an App Store link for this App will be added when you share a Morse code." = "當此選項處於打開狀態時，您分享的摩爾斯電碼會帶有此應用程序的下載鏈接";
+"While this option is turned on, an App Store link for this App will be added when you share a Morse code." = "Bien que cette option est activée, un lien App Store pour cette appli sera ajoutée lorsque vous partagez un code Morse.";
 
 /* One of the buttons on the Alert view. */
-"Yes" = "是";
+"Yes" = "Oui";
 
 /* One of the buttons on the Alert view. */
-"Yes, I'm Sure" = "我確定";
+"Yes, I'm Sure" = "Oui, je suis sûr";
 

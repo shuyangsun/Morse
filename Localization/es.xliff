@@ -253,10 +253,20 @@
                 <target>Bosque</target>
                 <note>One of the names for color theme.</note>
             </trans-unit>
+            <trans-unit id="French">
+                <source>French</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
+                <target>Francés</target>
+            </trans-unit>
             <trans-unit id="General">
                 <source>General</source>
                 <target>General</target>
                 <note>There are categories on the settings page, this is one of the category.</note>
+            </trans-unit>
+            <trans-unit id="German">
+                <source>German</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
+                <target>Alemán</target>
             </trans-unit>
             <trans-unit id="Got It">
                 <source>Got It</source>
@@ -300,8 +310,8 @@
             </trans-unit>
             <trans-unit id="Love our App? Please rate this version on App Store, so more people would know about us! 😃">
                 <source>Love our App? Please rate this version on App Store, so more people would know about us! 😃</source>
-                <note>Prompt user to rate on App Store (alert message).</note>
                 <target>Amor nuestra aplicación? Por favor calificar esta versión en la App Store, para que más gente sepa acerca de nosotros! 😃</target>
+                <note>Prompt user to rate on App Store (alert message).</note>
             </trans-unit>
             <trans-unit id="Morse">
                 <source>Morse</source>
@@ -330,8 +340,8 @@
             </trans-unit>
             <trans-unit id="Next Time">
                 <source>Next Time</source>
-                <note>'Next Time' button for user to go to App Store rating page.</note>
                 <target>La próxima vez</target>
+                <note>'Next Time' button for user to go to App Store rating page.</note>
             </trans-unit>
             <trans-unit id="Night">
                 <source>Night</source>
@@ -345,8 +355,8 @@
             </trans-unit>
             <trans-unit id="No, Thanks">
                 <source>No, Thanks</source>
-                <note>'No Thanks' button for user to go to App Store rating page.</note>
                 <target>No, gracias</target>
+                <note>'No Thanks' button for user to go to App Store rating page.</note>
             </trans-unit>
             <trans-unit id="North America">
                 <source>North America</source>
@@ -408,8 +418,8 @@ Después de cualquier compra, usted puede compartir código Morse sin enlace de 
             </trans-unit>
             <trans-unit id="Rate It">
                 <source>Rate It</source>
-                <note>'Rate it' button for user to go to App Store rating page.</note>
                 <target>Puntúalo</target>
+                <note>'Rate it' button for user to go to App Store rating page.</note>
             </trans-unit>
             <trans-unit id="Rate on App Store">
                 <source>Rate on App Store</source>
@@ -418,8 +428,8 @@ Después de cualquier compra, usted puede compartir código Morse sin enlace de 
             </trans-unit>
             <trans-unit id="Rate on App Store?">
                 <source>Rate on App Store?</source>
-                <note>Prompt user to rate on App Store (alert Title).</note>
                 <target>Precio en la App Store?</target>
+                <note>Prompt user to rate on App Store (alert Title).</note>
             </trans-unit>
             <trans-unit id="Reset">
                 <source>Reset</source>
@@ -856,9 +866,17 @@ Después de cualquier compra, usted puede compartir código Morse sin enlace de 
                 <source>Forest</source>
                 <note>One of the names for color theme.</note>
             </trans-unit>
+            <trans-unit id="French">
+                <source>French</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
+            </trans-unit>
             <trans-unit id="General">
                 <source>General</source>
                 <note>There are categories on the settings page, this is one of the category.</note>
+            </trans-unit>
+            <trans-unit id="German">
+                <source>German</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Got It">
                 <source>Got It</source>
@@ -1372,9 +1390,17 @@ Thank you!</source>
                 <source>Forest</source>
                 <note>One of the names for color theme.</note>
             </trans-unit>
+            <trans-unit id="French">
+                <source>French</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
+            </trans-unit>
             <trans-unit id="General">
                 <source>General</source>
                 <note>There are categories on the settings page, this is one of the category.</note>
+            </trans-unit>
+            <trans-unit id="German">
+                <source>German</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Got It">
                 <source>Got It</source>

@@ -60,7 +60,7 @@ class SettingsLanguagesTableViewController: TableViewController {
 		switch section {
 		case 0: return 1 // Default
 		case 1: return 3 // Asia
-		case 2 : return 1 // Europe
+		case 2 : return 3 // Europe
 		case 3: return 2 // North America
 		default: return 0
 		}
@@ -80,35 +80,36 @@ class SettingsLanguagesTableViewController: TableViewController {
 				}
 			default: break
 			}
-		} else if indexPath.section == 1 {
-			switch indexPath.row {
-			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Language Detailed Cell", forIndexPath: indexPath) as! TableViewLanguageCell
-				cell.languageCode = "ar"
-			case 1:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Language Detailed Cell", forIndexPath: indexPath) as! TableViewLanguageCell
-				cell.languageCode = "zh-Hans"
-			case 2:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Language Detailed Cell", forIndexPath: indexPath) as! TableViewLanguageCell
-				cell.languageCode = "zh-Hant"
-			default: break
-			}
-		} else if indexPath.section == 2 {
-			switch indexPath.row {
-			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Language Detailed Cell", forIndexPath: indexPath) as! TableViewLanguageCell
-				cell.languageCode = "en-GB"
-			default: break
-			}
-		} else if indexPath.section == 3 {
-			switch indexPath.row {
-			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Language Detailed Cell", forIndexPath: indexPath) as! TableViewLanguageCell
-				cell.languageCode = "en-US"
-			case 1:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Language Detailed Cell", forIndexPath: indexPath) as! TableViewLanguageCell
-				cell.languageCode = "es"
-			default: break
+		} else {
+			cell = tableView.dequeueReusableCellWithIdentifier("Settings Language Detailed Cell", forIndexPath: indexPath) as! TableViewLanguageCell
+			if indexPath.section == 1 {
+				switch indexPath.row {
+				case 0:
+					cell.languageCode = "ar"
+				case 1:
+					cell.languageCode = "zh-Hans"
+				case 2:
+					cell.languageCode = "zh-Hant"
+				default: break
+				}
+			} else if indexPath.section == 2 {
+				switch indexPath.row {
+				case 0:
+					cell.languageCode = "en-GB"
+				case 1:
+					cell.languageCode = "fr"
+				case 2:
+					cell.languageCode = "de"
+				default: break
+				}
+			} else if indexPath.section == 3 {
+				switch indexPath.row {
+				case 0:
+					cell.languageCode = "en-US"
+				case 1:
+					cell.languageCode = "es"
+				default: break
+				}
 			}
 		}
 

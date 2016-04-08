@@ -129,8 +129,14 @@
 /* One of the names for color theme. */
 "Forest" = "森林";
 
+/* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
+"French" = "法语";
+
 /* There are categories on the settings page, this is one of the category. */
 "General" = "通用";
+
+/* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
+"German" = "德语";
 
 /* One of the buttons on the Alert view. */
 "Got It" = "好的";

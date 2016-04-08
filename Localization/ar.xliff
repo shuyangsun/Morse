@@ -184,8 +184,8 @@
             </trans-unit>
             <trans-unit id="Do you want to reset all alerts, so they will show up again even if you disabled them before?">
                 <source>Do you want to reset all alerts, so they will show up again even if you disabled them before?</source>
-                <note>One of the titles on the Alert view.</note>
                 <target>هل تريد إعادة تعيين كافة التنبيهات، ولذلك سوف تظهر مرة أخرى حتى لو قمت بتعطيل لهم من قبل؟</target>
+                <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Don't Show Again">
                 <source>Don't Show Again</source>
@@ -253,10 +253,20 @@
                 <target>غابة</target>
                 <note>One of the names for color theme.</note>
             </trans-unit>
+            <trans-unit id="French">
+                <source>French</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
+                <target>اللغة الفرنسية</target>
+            </trans-unit>
             <trans-unit id="General">
                 <source>General</source>
                 <target>جنرال لواء</target>
                 <note>There are categories on the settings page, this is one of the category.</note>
+            </trans-unit>
+            <trans-unit id="German">
+                <source>German</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
+                <target>ألماني</target>
             </trans-unit>
             <trans-unit id="Got It">
                 <source>Got It</source>
@@ -300,8 +310,8 @@
             </trans-unit>
             <trans-unit id="Love our App? Please rate this version on App Store, so more people would know about us! 😃">
                 <source>Love our App? Please rate this version on App Store, so more people would know about us! 😃</source>
-                <note>Prompt user to rate on App Store (alert message).</note>
                 <target>نحب التطبيقات؟ يرجى تقييم هذا الإصدار على المتجر، وبالتالي فإن أكثر الناس يعرفون عنا! 😃</target>
+                <note>Prompt user to rate on App Store (alert message).</note>
             </trans-unit>
             <trans-unit id="Morse">
                 <source>Morse</source>
@@ -330,8 +340,8 @@
             </trans-unit>
             <trans-unit id="Next Time">
                 <source>Next Time</source>
-                <note>'Next Time' button for user to go to App Store rating page.</note>
                 <target>المره القادمة</target>
+                <note>'Next Time' button for user to go to App Store rating page.</note>
             </trans-unit>
             <trans-unit id="Night">
                 <source>Night</source>
@@ -345,8 +355,8 @@
             </trans-unit>
             <trans-unit id="No, Thanks">
                 <source>No, Thanks</source>
-                <note>'No Thanks' button for user to go to App Store rating page.</note>
                 <target>لا شكرا</target>
+                <note>'No Thanks' button for user to go to App Store rating page.</note>
             </trans-unit>
             <trans-unit id="North America">
                 <source>North America</source>
@@ -408,8 +418,8 @@ Thank you!</source>
             </trans-unit>
             <trans-unit id="Rate It">
                 <source>Rate It</source>
-                <note>'Rate it' button for user to go to App Store rating page.</note>
                 <target>قيمه</target>
+                <note>'Rate it' button for user to go to App Store rating page.</note>
             </trans-unit>
             <trans-unit id="Rate on App Store">
                 <source>Rate on App Store</source>
@@ -418,8 +428,8 @@ Thank you!</source>
             </trans-unit>
             <trans-unit id="Rate on App Store?">
                 <source>Rate on App Store?</source>
-                <note>Prompt user to rate on App Store (alert Title).</note>
                 <target>سعر الفائدة على المتجر؟</target>
+                <note>Prompt user to rate on App Store (alert Title).</note>
             </trans-unit>
             <trans-unit id="Reset">
                 <source>Reset</source>
@@ -856,9 +866,17 @@ Thank you!</source>
                 <source>Forest</source>
                 <note>One of the names for color theme.</note>
             </trans-unit>
+            <trans-unit id="French">
+                <source>French</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
+            </trans-unit>
             <trans-unit id="General">
                 <source>General</source>
                 <note>There are categories on the settings page, this is one of the category.</note>
+            </trans-unit>
+            <trans-unit id="German">
+                <source>German</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Got It">
                 <source>Got It</source>
@@ -1372,9 +1390,17 @@ Thank you!</source>
                 <source>Forest</source>
                 <note>One of the names for color theme.</note>
             </trans-unit>
+            <trans-unit id="French">
+                <source>French</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
+            </trans-unit>
             <trans-unit id="General">
                 <source>General</source>
                 <note>There are categories on the settings page, this is one of the category.</note>
+            </trans-unit>
+            <trans-unit id="German">
+                <source>German</source>
+                <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Got It">
                 <source>Got It</source>

@@ -132,8 +132,14 @@
 /* One of the names for color theme. */
 "Forest" = "غابة";
 
+/* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
+"French" = "اللغة الفرنسية";
+
 /* There are categories on the settings page, this is one of the category. */
 "General" = "جنرال لواء";
+
+/* Users can change language in settings app, this is one of the language name that will show in user's preferred language. */
+"German" = "ألماني";
 
 /* One of the buttons on the Alert view. */
 "Got It" = "فهمتك";

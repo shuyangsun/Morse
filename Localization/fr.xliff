@@ -1,399 +1,401 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
-    <file original="Morse/Base.lproj/LaunchScreen.storyboard" source-language="en" datatype="plaintext" target-language="zh-Hant">
+    <file original="Morse/Base.lproj/LaunchScreen.storyboard" source-language="en" datatype="plaintext" target-language="fr">
         <header>
             <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3" build-num="7D175"></tool>
         </header>
         <body></body>
     </file>
-    <file original="Morse/Base.lproj/Main.storyboard" source-language="en" datatype="plaintext" target-language="zh-Hant">
+    <file original="Morse/Base.lproj/Main.storyboard" source-language="en" datatype="plaintext" target-language="fr">
         <header>
             <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3" build-num="7D175"></tool>
         </header>
         <body></body>
     </file>
-    <file original="Morse/Info.plist" source-language="en" datatype="plaintext" target-language="zh-Hant">
+    <file original="Morse/Info.plist" source-language="en" datatype="plaintext" target-language="fr">
         <header>
             <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3" build-num="7D175"></tool>
         </header>
         <body>
             <trans-unit id="CFBundleName">
                 <source>$(PRODUCT_NAME)</source>
-                <target>電碼收發器</target>
+                <target>Morse</target>
             </trans-unit>
             <trans-unit id="CFBundleShortVersionString">
                 <source>1.1.0</source>
             </trans-unit>
         </body>
     </file>
-    <file original="Morse/Localizable.strings" source-language="en" datatype="plaintext" target-language="zh-Hant">
+    <file original="Morse/Localizable.strings" source-language="en" datatype="plaintext" target-language="fr">
         <header>
             <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3" build-num="7D175"></tool>
         </header>
         <body>
             <trans-unit id="!!!EMERGENCY!!!">
                 <source>!!!EMERGENCY!!!</source>
-                <target>緊急求救！</target>
+                <target>!!!URGENCE!!!</target>
                 <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: emergency! (the SOS signal)</note>
             </trans-unit>
             <trans-unit id="!ATTENTION!">
                 <source>!ATTENTION!</source>
-                <target>注意！</target>
+                <target>!ATTENTION!</target>
                 <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: attention!</note>
             </trans-unit>
             <trans-unit id="About">
                 <source>About</source>
-                <target>關於</target>
+                <target>Sur</target>
                 <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Actions">
                 <source>Actions</source>
-                <target>功能選項</target>
+                <target>actes</target>
                 <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Adjust in Settings">
                 <source>Adjust in Settings</source>
-                <target>可以在設置中更改</target>
+                <target>Réglez dans Paramètres</target>
                 <note>This is a label on the output page, tells the user how to change some of the values.</note>
             </trans-unit>
             <trans-unit id="All Themes">
                 <source>All Themes</source>
-                <target>解鎖所有主題</target>
+                <target>Tous les thèmes</target>
                 <note>A button on the settings page for user make in-app purchase to unlock all the themes.</note>
             </trans-unit>
             <trans-unit id="Appearance">
                 <source>Appearance</source>
-                <target>用戶界面</target>
+                <target>Apparence</target>
                 <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Arabic">
                 <source>Arabic</source>
-                <target>阿拉伯語</target>
+                <target>Arabe</target>
                 <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Are you sure you want to delete all the cards? This action is NOT undoable!">
                 <source>Are you sure you want to delete all the cards? This action is NOT undoable!</source>
-                <target>您確定要刪除所有卡片麼？此操作不可被撤銷！</target>
+                <target>Êtes-vous sûr de vouloir supprimer toutes les cartes? Cette action est PAS infaisable!</target>
                 <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Asia">
                 <source>Asia</source>
-                <target>亞洲</target>
+                <target>Asie</target>
                 <note>Users can change language in settings app, this is one of the language groups.</note>
             </trans-unit>
             <trans-unit id="Attention">
                 <source>Attention</source>
-                <target>注意</target>
+                <target>Attention</target>
                 <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Audio Decoder">
                 <source>Audio Decoder</source>
-                <target>音頻解碼</target>
+                <target>Décodeur Audio</target>
                 <note>This button on the settings page brings up input configuration page.</note>
             </trans-unit>
             <trans-unit id="Auto Correct Words">
                 <source>Auto Correct Words</source>
-                <target>自動糾錯</target>
+                <target>Auto mots corrects</target>
                 <note>A settings that allows user to choose if they want to use auto correction on audio decoder.</note>
             </trans-unit>
             <trans-unit id="Automatic">
                 <source>Automatic</source>
-                <target>自動</target>
+                <target>Automatique</target>
                 <note>Name of a switch button (audio decoder automatically get wpm and pitch information).</note>
             </trans-unit>
             <trans-unit id="BACK-TO-YOU">
                 <source>BACK-TO-YOU</source>
-                <target>請開始回复</target>
+                <target>BACK-TO-VOUS</target>
                 <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: I'm done, now back to you.</note>
             </trans-unit>
             <trans-unit id="Break">
                 <source>Break</source>
-                <target>休息</target>
+                <target>Pause</target>
                 <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="By making any purchase, Ads will be gone and you will be able to share Morse code without download link.">
                 <source>By making any purchase, Ads will be gone and you will be able to share Morse code without download link.</source>
+                <target>En faisant tout achat, annonces seront partis et vous serez en mesure de partager le code Morse sans lien de téléchargement.</target>
                 <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
             </trans-unit>
             <trans-unit id="CLOSING">
                 <source>CLOSING</source>
-                <target>電台關閉</target>
+                <target>FERMETURE</target>
                 <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this station is closing.</note>
             </trans-unit>
             <trans-unit id="Cancel">
                 <source>Cancel</source>
-                <target>取消</target>
+                <target>Annuler</target>
                 <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Check It Out">
                 <source>Check It Out</source>
-                <target>去看一下</target>
+                <target>Vérifiez-le</target>
                 <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Check this out! I can convert text to Morse code using App! Download here:">
                 <source>Check this out! I can convert text to Morse code using App! Download here:</source>
-                <target>太厉害了！这个应用程序可以把文本转换为摩尔斯电码！你也下载来玩玩！</target>
+                <target>Regarde ça! Je peux convertir le texte en utilisant le code Morse App! Télécharger ici:</target>
                 <note>When the user shares Morse code, this is the prefix string attached to it, followed by App Store URL.</note>
             </trans-unit>
             <trans-unit id="Chinese (Simplified)">
                 <source>Chinese (Simplified)</source>
-                <target>簡體中文</target>
+                <target>Chinois simplifié)</target>
                 <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Chinese (Traditional)">
                 <source>Chinese (Traditional)</source>
-                <target>正體中文</target>
+                <target>Chinois (traditionnel)</target>
                 <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Closing">
                 <source>Closing</source>
-                <target>關閉電台</target>
+                <target>Fermeture</target>
                 <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Contact Developer">
                 <source>Contact Developer</source>
-                <target>聯繫開發者</target>
+                <target>contacter le développeur</target>
                 <note>A button on the settings page to contact developer. (send developer an email)</note>
             </trans-unit>
             <trans-unit id="Decode Prosign">
                 <source>Decode Prosign</source>
-                <target>解碼常用縮寫</target>
+                <target>Decode Prosign</target>
                 <note>There are many sections on the settings page, this switch let the user toggle if the app should decode prosign for Morse code.</note>
             </trans-unit>
             <trans-unit id="Default">
                 <source>Default</source>
-                <target>系統默認</target>
+                <target>Défaut</target>
                 <note>Means something's default.
    Users can change language in settings app, this is one of the language groups.</note>
             </trans-unit>
             <trans-unit id="Delete All Cards">
                 <source>Delete All Cards</source>
-                <target>刪除所有卡片</target>
+                <target>Supprimer toutes les cartes</target>
                 <note>There are many sections on the settings page, this section let the user clear all the cards on home page.</note>
             </trans-unit>
             <trans-unit id="Developer Options">
                 <source>Developer Options</source>
-                <target>開發者選項</target>
+                <target>Options de développeur</target>
                 <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Dictionary">
                 <source>Dictionary</source>
-                <target>對照表</target>
+                <target>dictionnaire</target>
                 <note>This is a label on top of the dictionary page, which is a page where you can lookup all Morse characters and representations.</note>
             </trans-unit>
             <trans-unit id="Do you want to reset all alerts, so they will show up again even if you disabled them before?">
                 <source>Do you want to reset all alerts, so they will show up again even if you disabled them before?</source>
-                <target>您之前屏蔽掉的提醒對話框將會再次出現，您確定要重置所有提醒對話框麼？</target>
+                <target>Voulez-vous réinitialiser toutes les alertes, ils apparaîtront à nouveau, même si vous les invalide avant?</target>
                 <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Don't Show Again">
                 <source>Don't Show Again</source>
-                <target>不再提示</target>
+                <target>Ne plus afficher</target>
                 <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Done">
                 <source>Done</source>
-                <target>確認</target>
+                <target>Terminé</target>
                 <note>A Done button.
    Button to tap when the user is done with an action.</note>
             </trans-unit>
             <trans-unit id="Download Link">
                 <source>Download Link</source>
-                <target>分享下載鏈接</target>
+                <target>Lien de téléchargement</target>
                 <note>There are many sections on the settings page, this switch let the user choose if they want to copy the download link and promotional text when they copy Morse code.</note>
             </trans-unit>
             <trans-unit id="END-OF-CONTACT">
                 <source>END-OF-CONTACT</source>
-                <target>對話結束</target>
+                <target>FIN DE CONTACT</target>
                 <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: this is the end of contact.</note>
             </trans-unit>
             <trans-unit id="ERROR">
                 <source>ERROR</source>
-                <target>發送失誤</target>
+                <target>ERREUR</target>
                 <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: there was an error.</note>
             </trans-unit>
             <trans-unit id="Emergency">
                 <source>Emergency</source>
-                <target>緊急信號</target>
+                <target>Urgence</target>
                 <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Enable Audio Decoder">
                 <source>Enable Audio Decoder</source>
-                <target>音頻解碼</target>
+                <target>Activer Audio Decoder</target>
                 <note>A button on the settings page for user make in-app purchase to enable Morse audio decoder.</note>
             </trans-unit>
             <trans-unit id="End of Contact">
                 <source>End of Contact</source>
-                <target>結束對話</target>
+                <target>Fin de contact</target>
                 <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="English (United Kingdom)">
                 <source>English (United Kingdom)</source>
-                <target>英語（英式）</target>
+                <target>Royaume Uni Anglais)</target>
                 <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="English (United States)">
                 <source>English (United States)</source>
-                <target>英語（美式）</target>
+                <target>États Unis Anglais)</target>
                 <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Error">
                 <source>Error</source>
-                <target>失誤</target>
+                <target>Erreur</target>
                 <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Europe">
                 <source>Europe</source>
-                <target>歐洲</target>
+                <target>Europe</target>
                 <note>Users can change language in settings app, this is one of the language groups.</note>
             </trans-unit>
             <trans-unit id="Forest">
                 <source>Forest</source>
-                <target>森林</target>
+                <target>Forêt</target>
                 <note>One of the names for color theme.</note>
             </trans-unit>
             <trans-unit id="French">
                 <source>French</source>
                 <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
-                <target>法語</target>
+                <target>Français</target>
             </trans-unit>
             <trans-unit id="General">
                 <source>General</source>
-                <target>通用</target>
+                <target>Général</target>
                 <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="German">
                 <source>German</source>
                 <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
-                <target>德語</target>
+                <target>Allemand</target>
             </trans-unit>
             <trans-unit id="Got It">
                 <source>Got It</source>
-                <target>好的</target>
+                <target>Je l'ai</target>
                 <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Hold me to expand.">
                 <source>Hold me to expand.</source>
-                <target>長按此卡片來展開</target>
+                <target>Tenez-moi à se développer.</target>
                 <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
             </trans-unit>
             <trans-unit id="INVITE-ANY-STATION-TO-TRANSMIT">
                 <source>INVITE-ANY-STATION-TO-TRANSMIT</source>
-                <target>請任意電台回复</target>
+                <target>INVITENT-TOUT-STATION-TO-TRANSMIT</target>
                 <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: any station can start to transmit now.</note>
             </trans-unit>
             <trans-unit id="INVITE-NAMED-STATION-TO-TRANSMIT">
                 <source>INVITE-NAMED-STATION-TO-TRANSMIT</source>
-                <target>請指明電台回复</target>
+                <target>INVITENT-NOMMÉ-STATION-TO-TRANSMIT</target>
                 <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: the named station can start to transmit now.</note>
             </trans-unit>
             <trans-unit id="Industrial">
                 <source>Industrial</source>
-                <target>工業</target>
+                <target>Industriel</target>
                 <note>One of the names for color theme.</note>
             </trans-unit>
             <trans-unit id="Invite (Any)">
                 <source>Invite (Any)</source>
-                <target>任意電台回复</target>
+                <target>Inviter (Tous)</target>
                 <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Invite (Named)">
                 <source>Invite (Named)</source>
-                <target>指名電台回复</target>
+                <target>Inviter (Nommé)</target>
                 <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Language">
                 <source>Language</source>
-                <target>語言</target>
+                <target>La langue</target>
                 <note>There are many sections on the settings page, this section let the user change the App's language.</note>
             </trans-unit>
             <trans-unit id="Love our App? Please rate this version on App Store, so more people would know about us! 😃">
                 <source>Love our App? Please rate this version on App Store, so more people would know about us! 😃</source>
-                <target>喜歡我們的應用嗎？請在應用商店給我們好評，以便更多的用戶了解並使用此APP。謝謝您的使用！</target>
+                <target>Aimez notre App? S'il vous plaît noter cette version sur l'App Store, de sorte que plus de gens nous connaître! 😃</target>
                 <note>Prompt user to rate on App Store (alert message).</note>
             </trans-unit>
             <trans-unit id="Morse">
                 <source>Morse</source>
-                <target>電碼</target>
+                <target>Morse</target>
                 <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.</note>
             </trans-unit>
             <trans-unit id="Morse Transmitter Feedback">
                 <source>Morse Transmitter Feedback</source>
-                <target>摩爾斯電碼收發器：反饋意見</target>
+                <target>Transmetteur Morse Commentaires</target>
                 <note>The subject title for feedback email.</note>
             </trans-unit>
             <trans-unit id="New Line">
                 <source>New Line</source>
-                <target>換行</target>
+                <target>Nouvelle ligne</target>
                 <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="New Page">
                 <source>New Page</source>
-                <target>換頁</target>
+                <target>Nouvelle page</target>
                 <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="New Paragraph">
                 <source>New Paragraph</source>
-                <target>開始新段落</target>
+                <target>Nouveau paragraphe</target>
                 <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Next Time">
                 <source>Next Time</source>
-                <target>下一次</target>
+                <target>La prochaine fois</target>
                 <note>'Next Time' button for user to go to App Store rating page.</note>
             </trans-unit>
             <trans-unit id="Night">
                 <source>Night</source>
-                <target>夜間模式</target>
+                <target>Nuit</target>
                 <note>One of the names for color theme.</note>
             </trans-unit>
             <trans-unit id="No">
                 <source>No</source>
-                <target>否</target>
+                <target>Non</target>
                 <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="No, Thanks">
                 <source>No, Thanks</source>
-                <target>不，謝謝</target>
+                <target>Non merci</target>
                 <note>'No Thanks' button for user to go to App Store rating page.</note>
             </trans-unit>
             <trans-unit id="North America">
                 <source>North America</source>
-                <target>北美洲</target>
+                <target>Amérique du Nord</target>
                 <note>Users can change language in settings app, this is one of the language groups.</note>
             </trans-unit>
             <trans-unit id="OK">
                 <source>OK</source>
-                <target>確認</target>
+                <target>D'accord</target>
                 <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Output Brighten Screen">
                 <source>Output Brighten Screen</source>
-                <target>自動提亮屏幕</target>
+                <target>Sortie écran Brighten</target>
                 <note>There are many sections on the settings page, this switch let the user choose if they want to make the screen brighter when outputting Morse code.</note>
             </trans-unit>
             <trans-unit id="Pitch">
                 <source>Pitch</source>
-                <target>音調</target>
+                <target>Pas</target>
                 <note>Settings category: audio frequency.</note>
             </trans-unit>
             <trans-unit id="Pitch: ">
                 <source>Pitch: </source>
-                <target>音調：</target>
+                <target>Pas:</target>
                 <note>This is a label on the output page, followed by the number of audio frequency (pitch).</note>
             </trans-unit>
             <trans-unit id="Please Purchase an Upgrade :)">
                 <source>Please Purchase an Upgrade :)</source>
+                <target>S'il vous plaît acheter une mise à niveau :)</target>
                 <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Please Restart">
                 <source>Please Restart</source>
-                <target>請重新開啟應用程序</target>
+                <target>S'il vous plaît Redémarrez</target>
                 <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Please restart this App after changing language.">
                 <source>Please restart this App after changing language.</source>
-                <target>更換語言後，請重新開啟應用程序</target>
+                <target>S'il vous plaît redémarrer cette application après avoir changé la langue.</target>
                 <note>This is a footer on the first section in language change settings, to reminder user restart the App after changing language.</note>
             </trans-unit>
             <trans-unit id="Please support us by making a purchase.\n\nAfter any purchase, you can share Morse code without download link, and all the ads will be gone!\n\nThank you!">
@@ -402,141 +404,146 @@
 After any purchase, you can share Morse code without download link, and all the ads will be gone!
 
 Thank you!</source>
+                <target>S'il vous plaît nous soutenir en faisant un achat.
+
+Après tout achat, vous pouvez partager le code Morse sans lien de téléchargement, et toutes les annonces seront partis!
+
+Je vous remercie!</target>
                 <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Privacy Policy">
                 <source>Privacy Policy</source>
-                <target>隱私協議</target>
+                <target>Politique de confidentialité</target>
                 <note>A cell on Settings page connect to privacy policy website.</note>
             </trans-unit>
             <trans-unit id="Rate It">
                 <source>Rate It</source>
-                <target>去評價</target>
+                <target>Il Tarif</target>
                 <note>'Rate it' button for user to go to App Store rating page.</note>
             </trans-unit>
             <trans-unit id="Rate on App Store">
                 <source>Rate on App Store</source>
-                <target>評價一下</target>
+                <target>Prix ​​sur le App Store</target>
                 <note>A button on the settings page for user to rate on App Store.</note>
             </trans-unit>
             <trans-unit id="Rate on App Store?">
                 <source>Rate on App Store?</source>
-                <target>評價一下?</target>
+                <target>Prix ​​sur le App Store?</target>
                 <note>Prompt user to rate on App Store (alert Title).</note>
             </trans-unit>
             <trans-unit id="Reset">
                 <source>Reset</source>
-                <target>恢復默認</target>
+                <target>Réinitialiser</target>
                 <note>A button on the settings page to reset some content.</note>
             </trans-unit>
             <trans-unit id="Reset Alerts">
                 <source>Reset Alerts</source>
-                <target>重置提醒對話框</target>
+                <target>réinitialiser les alertes</target>
                 <note>There are many sections on the settings page, this section let the user restore pop-up alerts.</note>
             </trans-unit>
             <trans-unit id="Reset Alerts?">
                 <source>Reset Alerts?</source>
-                <target>重置提醒對話框？</target>
+                <target>Réinitialiser les alertes?</target>
                 <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Restore Purchases">
                 <source>Restore Purchases</source>
-                <target>恢復購買</target>
+                <target>Restaurer Achats</target>
                 <note>A button on the settings page for user to restore their previous purchases.</note>
             </trans-unit>
             <trans-unit id="Restore Tutorial Cards">
                 <source>Restore Tutorial Cards</source>
-                <target>添加教程卡片</target>
+                <target>Restaurer Tutorial Cartes</target>
                 <note>There are many sections on the settings page, this section let the user restore tutorial cards.</note>
             </trans-unit>
             <trans-unit id="SHIFT-TO-WABUN-CODE">
                 <source>SHIFT-TO-WABUN-CODE</source>
-                <target>使用WABUN代碼</target>
+                <target>SHIFT-TO-WABUN-CODE</target>
                 <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: shift from Morse code to Wabun code. (Wabun code is used by Japanese)</note>
             </trans-unit>
             <trans-unit id="Settings">
                 <source>Settings</source>
-                <target>設置</target>
+                <target>Paramètres</target>
                 <note>The title for settings page.</note>
             </trans-unit>
             <trans-unit id="Shift to Wabun">
                 <source>Shift to Wabun</source>
-                <target>使用WABUN</target>
+                <target>Shift pour Wabun</target>
                 <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Signal Output">
                 <source>Signal Output</source>
-                <target>電碼輸出</target>
+                <target>signal de sortie</target>
                 <note>This button on the settings page brings up output configuration page.</note>
             </trans-unit>
             <trans-unit id="Spanish">
                 <source>Spanish</source>
-                <target>西班牙語</target>
+                <target>Espanol</target>
                 <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
             </trans-unit>
             <trans-unit id="Succeed!">
                 <source>Succeed!</source>
-                <target>完成！</target>
+                <target>Réussir!</target>
                 <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Supported WPM: ">
                 <source>Supported WPM: </source>
-                <target>支持的每分鐘字數：</target>
+                <target>WPM pris en charge:</target>
                 <note>This is a label on the output page, tells the user the range of supported WPM.</note>
             </trans-unit>
             <trans-unit id="Swipe down or pinch to go back">
                 <source>Swipe down or pinch to go back</source>
-                <target>返回：向下滑動或雙指合攏</target>
+                <target>Balayer vers le bas ou pincer pour revenir en arrière</target>
                 <note>This is a label on the output page, tells user how to go back to home page.</note>
             </trans-unit>
             <trans-unit id="Swipe to delete me.">
                 <source>Swipe to delete me.</source>
-                <target>向兩邊滑動來刪除此卡片</target>
+                <target>Balayez pour me supprimer.</target>
                 <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
             </trans-unit>
             <trans-unit id="Switch Automatically">
                 <source>Switch Automatically</source>
-                <target>自動切換</target>
+                <target>commutateur automatique</target>
                 <note>There are many sections on the settings page, this switch let the user toggle if the app should change to Night theme when the ambient censor detects the surrounding light is low.</note>
             </trans-unit>
             <trans-unit id="System Default">
                 <source>System Default</source>
-                <target>系統默認</target>
+                <target>Défaillance du système</target>
                 <note>Users can change language in settings app, this is one means the language is system default.</note>
             </trans-unit>
             <trans-unit id="Tap anywhere to finish">
                 <source>Tap anywhere to finish</source>
-                <target>點按來完成解碼</target>
+                <target>Appuyez sur n'importe où pour finir</target>
                 <note>This is a label on the output page, tells user how to finish using audio input.</note>
             </trans-unit>
             <trans-unit id="Tap anywhere to play or pause">
                 <source>Tap anywhere to play or pause</source>
-                <target>點按任意地方來開始／停止輸出</target>
+                <target>Tapez n'importe où pour jouer ou pause</target>
                 <note>This is a label on the output page, tells user how to play or pause the output.</note>
             </trans-unit>
             <trans-unit id="Tap me to output or share.">
                 <source>Tap me to output or share.</source>
-                <target>點按此卡片來輸出信號或分享</target>
+                <target>Touchez-moi à la sortie ou à partager.</target>
                 <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
             </trans-unit>
             <trans-unit id="Tap on numbers to enter a value.">
                 <source>Tap on numbers to enter a value.</source>
-                <target>點按數字來輸入新的數值</target>
+                <target>Appuyez sur les chiffres pour entrer une valeur.</target>
                 <note>There are many sections on the settings page, this one explains that any purchase the user makes will remove advertising in the app.</note>
             </trans-unit>
             <trans-unit id="Tell Friends">
                 <source>Tell Friends</source>
-                <target>告訴朋友</target>
+                <target>Dire aux amis</target>
                 <note>A button on the settings page for user to share this App's link with friends.</note>
             </trans-unit>
             <trans-unit id="Text">
                 <source>Text</source>
-                <target>文本</target>
+                <target>Texte</target>
                 <note>On top of the home screen, there are two labels indicating the translate direction. One is Text, the other is Morse.</note>
             </trans-unit>
             <trans-unit id="Theme">
                 <source>Theme</source>
-                <target>顏色主題</target>
+                <target>Thème</target>
                 <note>There are many sections on the settings page, this switch let the user change the color theme of this App.</note>
             </trans-unit>
             <trans-unit id="To make new language setting take effect, please restart application with following steps:\n\n1. Double-tap Home button on your device.\n\n2. Swipe up to terminate application in the background.\n\n3. Start application from home screen.">
@@ -547,115 +554,123 @@ Thank you!</source>
 2. Swipe up to terminate application in the background.
 
 3. Start application from home screen.</source>
-                <target>為了使語言設置生效，請您通過以下的步驟重新開啟應用：  1. 雙擊主屏幕按鍵  2. 向上滑動來關閉應用程序  3. 在主屏幕重新開啟應用</target>
+                <target>Pour nouvel effet de la langue de prise, s'il vous plaît redémarrer l'application avec les étapes suivantes:
+
+1. Double-cliquez sur le bouton Accueil sur votre appareil.
+
+2. Swipe jusqu'à mettre fin à l'application en arrière-plan.
+
+3. Démarrez l'application à partir de l'écran d'accueil.</target>
                 <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Touch to type">
                 <source>Touch to type</source>
-                <target>開始輸入</target>
+                <target>Touchez pour taper</target>
                 <note>There is a string on the input text view on home screen, promoting user to touch the text box to start typing.</note>
             </trans-unit>
             <trans-unit id="Transmitter Configuration">
                 <source>Transmitter Configuration</source>
-                <target>收發器設置</target>
+                <target>Configuration de l'émetteur</target>
                 <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="Tutorial cards are successfully restored, you can go check them out now!">
                 <source>Tutorial cards are successfully restored, you can go check them out now!</source>
-                <target>已成功添加教程卡片！請您前往主頁面查看。</target>
+                <target>cartes Didacticiel sont restaurés avec succès, vous pouvez aller les vérifier maintenant!</target>
                 <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="UNDERSTOOD">
                 <source>UNDERSTOOD</source>
-                <target>明白</target>
+                <target>ENTENDU</target>
                 <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: understood.</note>
             </trans-unit>
             <trans-unit id="Understood">
                 <source>Understood</source>
-                <target>明白</target>
+                <target>Entendu</target>
                 <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Unlimited Card Slots">
                 <source>Unlimited Card Slots</source>
+                <target>Slots de cartes illimitées</target>
                 <note>A button on the settings page for user make in-app purchase to have unlimited card slots.</note>
             </trans-unit>
             <trans-unit id="Unlock All Features">
                 <source>Unlock All Features</source>
+                <target>Débloquez toutes les fonctionnalités</target>
                 <note>A button on the settings page for user make in-app purchase to unlock all features.</note>
             </trans-unit>
             <trans-unit id="Upgrades">
                 <source>Upgrades</source>
-                <target>升級選項</target>
+                <target>Mises à jour</target>
                 <note>There are categories on the settings page, this is one of the category.</note>
             </trans-unit>
             <trans-unit id="WAIT">
                 <source>WAIT</source>
-                <target>等等</target>
+                <target>ATTENDEZ</target>
                 <note>One of the Morse code prosign language, please make it concise and significant (e.g. capitalize, add dashes if appropriate). This one means: wait.</note>
             </trans-unit>
             <trans-unit id="WARNING!">
                 <source>WARNING!</source>
-                <target>注意！</target>
+                <target>ATTENTION!</target>
                 <note>One of the titles on the Alert view.</note>
             </trans-unit>
             <trans-unit id="WPM (Words Per Minute)">
                 <source>WPM (Words Per Minute)</source>
-                <target>每分钟字数</target>
+                <target>WPM (mots par minute)</target>
                 <note>Settings category: word per minute.</note>
             </trans-unit>
             <trans-unit id="WPM: ">
                 <source>WPM: </source>
-                <target>每分钟字数：</target>
+                <target>WPM:</target>
                 <note>This is a label on the output page, followed by the numer of WPM (word per minute).</note>
             </trans-unit>
             <trans-unit id="Wait">
                 <source>Wait</source>
-                <target>等等</target>
+                <target>Attendez</target>
                 <note>There are many prosign code in Morse, this is the name of one of them.</note>
             </trans-unit>
             <trans-unit id="Welcome to Morse Transmitter!">
                 <source>Welcome to Morse Transmitter!</source>
-                <target>歡迎使用摩爾斯電碼收發器！</target>
+                <target>Bienvenue à l'émetteur Morse!</target>
                 <note>When user launches the app for the first time, there are tutorial cards on the home screen. This is one of the text that will be on the screen.</note>
             </trans-unit>
             <trans-unit id="When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme.">
                 <source>When the ambient light is low with Switch Automatically turned on, the app will automatically switch to Night theme.</source>
-                <target>當此選項處於打開狀態時，如果周圍光線減弱，應用程序會自動切換到夜間模式，以保護視力</target>
+                <target>Lorsque la lumière ambiante est faible avec Switch automatiquement activé, l'application passera automatiquement au thème Nuit.</target>
                 <note>There are many sections on the settings page, this one explains what does Auto Switch button in Appearance section do.</note>
             </trans-unit>
             <trans-unit id="When you have it on, the App will try to auto-correct misspelled words when decoding Morse code. The dictionary changes when you change your language setting.">
                 <source>When you have it on, the App will try to auto-correct misspelled words when decoding Morse code. The dictionary changes when you change your language setting.</source>
-                <target>當此選項處於打開狀態時，音頻解碼器會自動糾錯拼寫錯誤的單詞，糾錯目標語言會隨著您的語言設置更改</target>
+                <target>Lorsque vous l'avez sur l'App va essayer de mots mal orthographiés correction automatique lors du décodage du code Morse. Le dictionnaire change lorsque vous modifiez votre paramètre de langue.</target>
                 <note>Explains what Auto Correct Mis Spelled Words does.</note>
             </trans-unit>
             <trans-unit id="When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.">
                 <source>When you have it on, the screen will temporarily become brighter while you send Morse signal, so you can use it as a light source.</source>
-                <target>當此選項處於打開狀態時，輸出信號時屏幕會自動變亮，這樣您就可以使用屏幕作為信號光源了</target>
+                <target>Lorsque vous l'avez, l'écran sera temporairement devenu plus lumineux pendant que vous envoyez le signal Morse, de sorte que vous pouvez l'utiliser comme une source de lumière.</target>
                 <note>Explains what Output Brighten Screen does.</note>
             </trans-unit>
             <trans-unit id="While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code.">
                 <source>While this option is turned on (recommended), the application will automatically decode prosign based on the context of surrounding Morse code.</source>
-                <target>當此選項處於打開狀態時，音頻解碼器會自動糾錯拼寫錯誤的單詞，默認語言英語。糾錯的目標語言會隨著您的語言設置而更改</target>
+                <target>Bien que cette option est activée (recommandé), la demande sera automatiquement décoder Prosign en fonction du contexte d'entourer le code Morse.</target>
                 <note>A description on settings page, explaining what does Decode Prosign switch do.</note>
             </trans-unit>
             <trans-unit id="While this option is turned on, an App Store link for this App will be added when you share a Morse code.">
                 <source>While this option is turned on, an App Store link for this App will be added when you share a Morse code.</source>
-                <target>當此選項處於打開狀態時，您分享的摩爾斯電碼會帶有此應用程序的下載鏈接</target>
+                <target>Bien que cette option est activée, un lien App Store pour cette appli sera ajoutée lorsque vous partagez un code Morse.</target>
                 <note>A description on settings page, explaining what Download Link switch do.</note>
             </trans-unit>
             <trans-unit id="Yes">
                 <source>Yes</source>
-                <target>是</target>
+                <target>Oui</target>
                 <note>One of the buttons on the Alert view.</note>
             </trans-unit>
             <trans-unit id="Yes, I'm Sure">
                 <source>Yes, I'm Sure</source>
-                <target>我確定</target>
+                <target>Oui, je suis sûr</target>
                 <note>One of the buttons on the Alert view.</note>
             </trans-unit>
         </body>
     </file>
-    <file original="MorseTests/Info.plist" source-language="en" datatype="plaintext" target-language="zh-Hant">
+    <file original="MorseTests/Info.plist" source-language="en" datatype="plaintext" target-language="fr">
         <header>
             <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3" build-num="7D175"></tool>
         </header>
@@ -668,7 +683,7 @@ Thank you!</source>
             </trans-unit>
         </body>
     </file>
-    <file original="MorseTests/Localizable.strings" source-language="en" datatype="plaintext" target-language="zh-Hant">
+    <file original="MorseTests/Localizable.strings" source-language="en" datatype="plaintext" target-language="fr">
         <header>
             <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3" build-num="7D175"></tool>
         </header>
@@ -1179,7 +1194,7 @@ Thank you!</source>
             </trans-unit>
         </body>
     </file>
-    <file original="MorseUITests/Info.plist" source-language="en" datatype="plaintext" target-language="zh-Hant">
+    <file original="MorseUITests/Info.plist" source-language="en" datatype="plaintext" target-language="fr">
         <header>
             <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3" build-num="7D175"></tool>
         </header>
@@ -1192,7 +1207,7 @@ Thank you!</source>
             </trans-unit>
         </body>
     </file>
-    <file original="MorseUITests/Localizable.strings" source-language="en" datatype="plaintext" target-language="zh-Hant">
+    <file original="MorseUITests/Localizable.strings" source-language="en" datatype="plaintext" target-language="fr">
         <header>
             <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.3" build-num="7D175"></tool>
         </header>

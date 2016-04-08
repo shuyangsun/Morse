@@ -209,9 +209,17 @@
         <source>Forest</source>
         <note>One of the names for color theme.</note>
       </trans-unit>
+      <trans-unit id="French">
+        <source>French</source>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
+      </trans-unit>
       <trans-unit id="General">
         <source>General</source>
         <note>There are categories on the settings page, this is one of the category.</note>
+      </trans-unit>
+      <trans-unit id="German">
+        <source>German</source>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="Got It">
         <source>Got It</source>
@@ -725,9 +733,17 @@ Thank you!</source>
         <source>Forest</source>
         <note>One of the names for color theme.</note>
       </trans-unit>
+      <trans-unit id="French">
+        <source>French</source>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
+      </trans-unit>
       <trans-unit id="General">
         <source>General</source>
         <note>There are categories on the settings page, this is one of the category.</note>
+      </trans-unit>
+      <trans-unit id="German">
+        <source>German</source>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="Got It">
         <source>Got It</source>
@@ -1241,9 +1257,17 @@ Thank you!</source>
         <source>Forest</source>
         <note>One of the names for color theme.</note>
       </trans-unit>
+      <trans-unit id="French">
+        <source>French</source>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
+      </trans-unit>
       <trans-unit id="General">
         <source>General</source>
         <note>There are categories on the settings page, this is one of the category.</note>
+      </trans-unit>
+      <trans-unit id="German">
+        <source>German</source>
+        <note>Users can change language in settings app, this is one of the language name that will show in user's preferred language.</note>
       </trans-unit>
       <trans-unit id="Got It">
         <source>Got It</source>
