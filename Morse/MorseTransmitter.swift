@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftGenericDataStructure
 
 // *****************************
 // MARK: Types and Constants
@@ -247,6 +248,10 @@ class MorseTransmitter {
 		"• • • — • • —": "$"
 	]
 
+	private let _morseBinaryTreeRoot:BinaryTree<String>
+	private var _currentMorseTreeNode:BinaryTree<String>? = nil
+	private let _morseBinaryTreeInitializationGroup = dispatch_group_create()
+
 	var text:String? {
 		set {
 			self._text = newValue
@@ -271,6 +276,23 @@ class MorseTransmitter {
 
 	init(prosignTranslationType:ProsignTranslationType = appDelegate.prosignTranslationType) {
 		appDelegate.prosignTranslationType = prosignTranslationType
+		// Initialize binary tree
+		self._morseBinaryTreeRoot = BinaryTree(content: nil, enableParent: false)
+		self._currentMorseTreeNode = self._morseBinaryTreeRoot
+		dispatch_group_async(self._morseBinaryTreeInitializationGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+			self._initializeMorseBinaryTree(self._morseBinaryTreeRoot, preMorse: "", level: 0)
+		}
+	}
+
+	private func _initializeMorseBinaryTree(root:BinaryTree<String>, preMorse:String, level:Int) {
+		// We only need to find 7 layers of morse code. Total number of nodes would be 2^7 = 128
+		if level > 7 { return }
+		let leftMorse = preMorse + (level == 0 ? "•":" •")
+		let rightMorse = preMorse + (level == 0 ? "—":" —")
+		root.left = BinaryTree(content: MorseTransmitter.decodeMorseStringToTextDictionary[leftMorse], enableParent: false)
+		root.right = BinaryTree(content: MorseTransmitter.decodeMorseStringToTextDictionary[rightMorse], enableParent: false)
+		_initializeMorseBinaryTree(root.left!, preMorse: leftMorse, level: level + 1)
+		_initializeMorseBinaryTree(root.right!, preMorse: rightMorse, level: level + 1)
 	}
 
 	// TODO: Not used, because it doesn't work
@@ -351,7 +373,7 @@ class MorseTransmitter {
 	var delegate:MorseTransmitterDelegate?
 
 	private let _audioAnalysisQueue = dispatch_queue_create("Audio Analysis Queue", nil)
-	private var _currentLetterMorse = ""
+//	private var _currentLetterMorse = ""
 	private var _currentWordMorse = ""
 	private var _inputWPM:Int {
 		return appDelegate.userDefaults.integerForKey(userDefaultsKeyInputWPM)
@@ -398,9 +420,11 @@ class MorseTransmitter {
 	// WARNNING: MUST call this before using this tramsmitter to process input audio.
 	// ******************************************************************************
 	func resetForAudioInput() {
+		dispatch_group_wait(self._morseBinaryTreeInitializationGroup, DISPATCH_TIME_FOREVER)
 		self._morse = ""
 		self._text = ""
-		self._currentLetterMorse = ""
+//		self._currentLetterMorse = ""
+		self._currentMorseTreeNode = self._morseBinaryTreeRoot
 		self._sampleRate = -1
 		self._counter = 1
 		self._ditSignalLengthRecordRecent = []
@@ -540,11 +564,12 @@ class MorseTransmitter {
 	// This method is called when a piece of audio is processed and a unit is sure will be appended to the Morse code.
 	// Only 4 type of units can be appended: DIT, DAH, LETTERGAP, WORDGAP. UNITGAP will be appended automatically.
 	// ********************************************************************************************************************
-	private func appendUnit(unit:MorseUnit) { 
+	private func appendUnit(unit:MorseUnit) {
 		self._newLineAppended = false
 		if unit == .LetterGap || unit == .WordGap {
 			// If we're appending a gap, reset currentLetterMorse
-			self._currentLetterMorse = ""
+//			self._currentLetterMorse = ""
+//			self._currentMorseTreeNode = self._morseBinaryTreeRoot
 			if unit == .LetterGap {
 				self._morse?.appendContentsOf(unit.rawValue)
 				if appDelegate.prosignTranslationType == .Always {
@@ -628,25 +653,39 @@ class MorseTransmitter {
 				}
 			}
 		} else {
-			let startOfALetter = self._currentLetterMorse.isEmpty
+			let startOfALetter = self._currentMorseTreeNode === self._morseBinaryTreeRoot
 			// We're sure unit is either DIT or DAH at this point
 			// If morse for current character is not empty (means there is a DIT or DAH at the end), append a one unit gap for morse.
-			if !self._currentLetterMorse.isEmpty && !self._currentLetterMorse.hasPrefix(" ") {
-				self._currentLetterMorse.appendContentsOf(" ")
+			if self._currentMorseTreeNode !== self._morseBinaryTreeRoot {
+//				self._currentLetterMorse.appendContentsOf(" ")
 				self._morse?.appendContentsOf(" ")
 				if appDelegate.prosignTranslationType == .Always {
 					self._currentWordMorse.appendContentsOf(" ")
 				}
 			}
 			// Append this new unit (DIT or DAH) to morse for current character
-			self._currentLetterMorse.appendContentsOf(unit.rawValue)
+//			self._currentLetterMorse.appendContentsOf(unit.rawValue)
 			self._morse?.appendContentsOf(unit.rawValue)
 			if appDelegate.prosignTranslationType == .Always {
 				self._currentWordMorse.appendContentsOf(unit.rawValue)
 			}
 
 			// After appending this new unit, change the text.
-			var letter = MorseTransmitter.decodeMorseStringToTextDictionary[self._currentLetterMorse]
+			var letter:String? = nil
+			switch unit {
+			case .Dit:
+				self._currentMorseTreeNode = self._currentMorseTreeNode?.left
+				if let node = self._currentMorseTreeNode {
+					letter = node.content
+				}
+			case .Dah:
+				self._currentMorseTreeNode = self._currentMorseTreeNode?.right
+				if let node = self._currentMorseTreeNode {
+					letter = node.content
+				}
+			default:
+				break
+			}
 			// If this Morse code cannot be found in the dictionary, change letter to the error character.
 			if letter == nil {
 				letter = notRecognizedLetterStr
@@ -659,7 +698,7 @@ class MorseTransmitter {
 			self._text?.appendContentsOf(letter!)
 		}
 
-		// Call the delegate method notifying at least one of text and Morse content is changed.
+		// Call the delegate method to notify text and(or) Morse content has changed.
 		self.delegate?.transmitterContentDidChange?(self._text!, morse: self._morse!)
 	}
 

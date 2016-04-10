@@ -124,6 +124,11 @@
 		105708FE1C3C39D200AEA1F6 /* ToneGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105708FD1C3C39D200AEA1F6 /* ToneGenerator.swift */; };
 		105708FF1C3C39D200AEA1F6 /* ToneGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105708FD1C3C39D200AEA1F6 /* ToneGenerator.swift */; };
 		105709001C3C39D200AEA1F6 /* ToneGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105708FD1C3C39D200AEA1F6 /* ToneGenerator.swift */; };
+		106343391CBAA26D0060CE06 /* SwiftGenericDataStructure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 106343381CBAA26D0060CE06 /* SwiftGenericDataStructure.framework */; };
+		1063433A1CBAA2720060CE06 /* SwiftGenericDataStructure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 106343381CBAA26D0060CE06 /* SwiftGenericDataStructure.framework */; };
+		1063433B1CBAA2720060CE06 /* SwiftGenericDataStructure.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 106343381CBAA26D0060CE06 /* SwiftGenericDataStructure.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1063433C1CBAA2A40060CE06 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 107FF6B81C0BDEC0003EB294 /* SnapKit.framework */; };
+		1063433D1CBAA2A40060CE06 /* SnapKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 107FF6B81C0BDEC0003EB294 /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		10645FF91C46206000E1B501 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 10645FFB1C46206000E1B501 /* InfoPlist.strings */; };
 		10645FFE1C46206100E1B501 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 106460001C46206100E1B501 /* Localizable.strings */; };
 		106460031C46206200E1B501 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 106460051C46206200E1B501 /* InfoPlist.strings */; };
@@ -141,7 +146,6 @@
 		107FF6A71C0BC128003EB294 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6A61C0BC128003EB294 /* Theme.swift */; };
 		107FF6A81C0BC128003EB294 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6A61C0BC128003EB294 /* Theme.swift */; };
 		107FF6A91C0BC128003EB294 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6A61C0BC128003EB294 /* Theme.swift */; };
-		107FF6C21C0BE11C003EB294 /* SnapKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 107FF6B81C0BDEC0003EB294 /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		107FF6C41C0C223D003EB294 /* MorseTransmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6C31C0C223D003EB294 /* MorseTransmitter.swift */; };
 		107FF6C51C0C223D003EB294 /* MorseTransmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6C31C0C223D003EB294 /* MorseTransmitter.swift */; };
 		107FF6C61C0C223D003EB294 /* MorseTransmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107FF6C31C0C223D003EB294 /* MorseTransmitter.swift */; };
@@ -201,6 +205,13 @@
 			remoteGlobalIDString = 1052A73E1C0BACE90085B0C9;
 			remoteInfo = Morse;
 		};
+		1063433E1CBAA2A40060CE06 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 107FF6B01C0BDEC0003EB294 /* SnapKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = EEBCC9D719CC627D0083B827;
+			remoteInfo = "SnapKit iOS";
+		};
 		107FF6B71C0BDEC0003EB294 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 107FF6B01C0BDEC0003EB294 /* SnapKit.xcodeproj */;
@@ -229,13 +240,6 @@
 			remoteGlobalIDString = EECDB3841AC0C9D4006BBC11;
 			remoteInfo = "SnapKit OSX Tests";
 		};
-		107FF6BF1C0BE0D2003EB294 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 107FF6B01C0BDEC0003EB294 /* SnapKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = EEBCC9D719CC627D0083B827;
-			remoteInfo = "SnapKit iOS";
-		};
 		10C160DB1CADBC4B001B3DB7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 107FF6B01C0BDEC0003EB294 /* SnapKit.xcodeproj */;
@@ -259,7 +263,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				107FF6C21C0BE11C003EB294 /* SnapKit.framework in Copy Frameworks */,
+				1063433B1CBAA2720060CE06 /* SwiftGenericDataStructure.framework in Copy Frameworks */,
+				1063433D1CBAA2A40060CE06 /* SnapKit.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,6 +343,7 @@
 		1052A77B1C0BB09B0085B0C9 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		10550C851C486CEC000A47F5 /* MDAlertAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDAlertAnimator.swift; sourceTree = "<group>"; };
 		105708FD1C3C39D200AEA1F6 /* ToneGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToneGenerator.swift; sourceTree = "<group>"; };
+		106343381CBAA26D0060CE06 /* SwiftGenericDataStructure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftGenericDataStructure.framework; path = "../../../Library/Developer/Xcode/DerivedData/SwiftGenericDataStructure-ewpsjyhvvcpepfeaiptiwtsspmvz/Build/Products/Debug-iphoneos/SwiftGenericDataStructure.framework"; sourceTree = "<group>"; };
 		10645FEE1C461C2100E1B501 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		10645FEF1C461C2100E1B501 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		10645FF31C461FBE00E1B501 /* en-US */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-US"; path = "en-US.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -431,7 +437,6 @@
 		10E03F5E1CB75343001202DA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		10ECA68F1C496E5900A63328 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		10ECA69C1C49759000A63328 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		10F1B5CC1C3F6C94000AA9C4 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		10F1B5CE1C3F750C000AA9C4 /* webAudioToneGenerator.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = webAudioToneGenerator.js; sourceTree = "<group>"; };
 		3E1D31A89225BC649F5D83ED /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D2D2FEEEB788D7C30A935E3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -446,11 +451,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1063433A1CBAA2720060CE06 /* SwiftGenericDataStructure.framework in Frameworks */,
 				101EA6F91C45C53600F8E767 /* MessageUI.framework in Frameworks */,
 				1088ACAB1C25A85C00D17028 /* AVFoundation.framework in Frameworks */,
 				10B9C8151C0FB5A4001C5847 /* CoreData.framework in Frameworks */,
 				FEC8CF9F86A81B50E4758243 /* libPods.a in Frameworks */,
+				106343391CBAA26D0060CE06 /* SwiftGenericDataStructure.framework in Frameworks */,
 				21A3B560D3D99C7E6A70F9CE /* libPods-Morse.a in Frameworks */,
+				1063433C1CBAA2A40060CE06 /* SnapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -706,9 +714,9 @@
 		1088ACAC1C25A87800D17028 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				106343381CBAA26D0060CE06 /* SwiftGenericDataStructure.framework */,
 				103476AE1C37472E0036DB44 /* EZAudio */,
 				109DEA311C41796D00DDC04D /* ImageEffects */,
-				10F1B5CC1C3F6C94000AA9C4 /* JavaScriptCore.framework */,
 				1088ACAA1C25A85C00D17028 /* AVFoundation.framework */,
 				10B9C8141C0FB5A4001C5847 /* CoreData.framework */,
 				101EA6F81C45C53600F8E767 /* MessageUI.framework */,
@@ -793,7 +801,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				107FF6C01C0BE0D2003EB294 /* PBXTargetDependency */,
+				1063433F1CBAA2A40060CE06 /* PBXTargetDependency */,
 			);
 			name = Morse;
 			productName = Morse;
@@ -1217,10 +1225,10 @@
 			target = 1052A73E1C0BACE90085B0C9 /* Morse */;
 			targetProxy = 1052A7621C0BACEA0085B0C9 /* PBXContainerItemProxy */;
 		};
-		107FF6C01C0BE0D2003EB294 /* PBXTargetDependency */ = {
+		1063433F1CBAA2A40060CE06 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "SnapKit iOS";
-			targetProxy = 107FF6BF1C0BE0D2003EB294 /* PBXContainerItemProxy */;
+			targetProxy = 1063433E1CBAA2A40060CE06 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1441,9 +1449,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"/Users/shuyangsun/Library/Developer/Xcode/DerivedData/SwiftGenericDataStructure-ewpsjyhvvcpepfeaiptiwtsspmvz/Build/Products/Debug-iphoneos",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Morse/Info.plist;
@@ -1466,9 +1476,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"/Users/shuyangsun/Library/Developer/Xcode/DerivedData/SwiftGenericDataStructure-ewpsjyhvvcpepfeaiptiwtsspmvz/Build/Products/Debug-iphoneos",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Morse/Info.plist;
