@@ -32,7 +32,7 @@ class SettingsLanguagesTableViewController: TableViewController {
 		self.navigationController?.navigationBar.titleTextAttributes = textAttributes
     }
 
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		self.tableView.reloadData()
 
@@ -40,7 +40,7 @@ class SettingsLanguagesTableViewController: TableViewController {
 		tracker.set(kGAIScreenName, value: settingsLanguageVCName)
 
 		let builder = GAIDictionaryBuilder.createScreenView()
-		tracker.send(builder.build() as [NSObject : AnyObject])
+		tracker.send(builder.build() as [AnyHashable: Any])
 
 		self.initialLanguageCode = appDelegate.currentLocaleLanguageCode
 	}
@@ -52,11 +52,11 @@ class SettingsLanguagesTableViewController: TableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		switch section {
 		case 0: return 1 // Default
 		case 1: return 3 // Asia
@@ -66,22 +66,22 @@ class SettingsLanguagesTableViewController: TableViewController {
 		}
     }
 
-	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		var cell:TableViewLanguageCell = TableViewLanguageCell()
 		let currentLanguageCode = appDelegate.currentLocaleLanguageCode
 		if indexPath.section == 0 {
 			switch indexPath.row {
 			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Language Default Cell", forIndexPath: indexPath) as! TableViewLanguageCell
+				cell = tableView.dequeueReusableCell(withIdentifier: "Settings Language Default Cell", for: indexPath) as! TableViewLanguageCell
 				cell.languageCode = ""
 				if currentCheckedCell == nil && currentLanguageCode == appDelegate.firstLaunchSystemLanguageCode {
-					cell.accessoryType = .Checkmark
+					cell.accessoryType = .checkmark
 					self.currentCheckedCell = cell
 				}
 			default: break
 			}
 		} else {
-			cell = tableView.dequeueReusableCellWithIdentifier("Settings Language Detailed Cell", forIndexPath: indexPath) as! TableViewLanguageCell
+			cell = tableView.dequeueReusableCell(withIdentifier: "Settings Language Detailed Cell", for: indexPath) as! TableViewLanguageCell
 			if indexPath.section == 1 {
 				switch indexPath.row {
 				case 0:
@@ -115,7 +115,7 @@ class SettingsLanguagesTableViewController: TableViewController {
 
 		if indexPath.section != 0 {
 			if currentCheckedCell == nil && currentLanguageCode == cell.languageCode {
-				cell.accessoryType = .Checkmark
+				cell.accessoryType = .checkmark
 				self.currentCheckedCell = cell
 			}
 		}
@@ -125,7 +125,7 @@ class SettingsLanguagesTableViewController: TableViewController {
 		return cell
 	}
 
-	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch section {
 		case 0: return LocalizedStrings.Languages.defaultGroup
 		case 1: return LocalizedStrings.Languages.asia
@@ -135,23 +135,23 @@ class SettingsLanguagesTableViewController: TableViewController {
 		}
 	}
 
-	override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
 		switch section {
 		case 0: return LocalizedStrings.Languages.restartReminderFooter
 		default: return nil
 		}
 	}
 
-	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return tableViewCellHeight
 	}
 
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let cell = tableView.cellForRowAtIndexPath(indexPath) as! TableViewLanguageCell
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let cell = tableView.cellForRow(at: indexPath) as! TableViewLanguageCell
 		if cell !== self.currentCheckedCell {
-			self.currentCheckedCell?.accessoryType = .None
+			self.currentCheckedCell?.accessoryType = .none
 			self.currentCheckedCell?.updateColor()
-			cell.accessoryType = .Checkmark
+			cell.accessoryType = .checkmark
 			self.currentCheckedCell = cell
 			cell.updateColor()
 			let languageCode = cell.languageCode
@@ -172,10 +172,10 @@ class SettingsLanguagesTableViewController: TableViewController {
 				alertController.show()
 			}
 			let tracker = GAI.sharedInstance().defaultTracker
-			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "button_press",
 				label: "Language Changed",
-				value: nil).build() as [NSObject : AnyObject])
+				value: nil).build() as [AnyHashable: Any])
 		}
 	}
 

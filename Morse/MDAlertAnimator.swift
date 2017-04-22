@@ -11,64 +11,64 @@ import UIKit
 class MDAlertAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 	var reverse = false
 
-	@objc func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+	@objc func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
 		return defaultAnimationDuration * animationDurationScalar
 	}
 
-	@objc func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-		if transitionContext.isAnimated() {
+	@objc func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+		if transitionContext.isAnimated {
 			if !self.reverse {
 				// Transitioning to MDAlertController
-				if let containerView = transitionContext.containerView() {
-					let alertVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as! MDAlertController
-					let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+				if let containerView = transitionContext.containerView {
+					let alertVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) as! MDAlertController
+					let fromVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
 
 					// Animation magic happens here
 					// Add a background view first
-					let snapshotFromVC = fromVC.view.snapshotViewAfterScreenUpdates(false)
+					let snapshotFromVC = fromVC.view.snapshotView(afterScreenUpdates: false)
 					alertVC.snapshot = snapshotFromVC
 					snapshotFromVC.frame = fromVC.view.frame
 
 					alertVC.backgroundView.alpha = 0
 					alertVC.alertView.alpha = 0
-					alertVC.alertView.transform = CGAffineTransformMakeScale(2, 2)
+					alertVC.alertView.transform = CGAffineTransform(scaleX: 2, y: 2)
 
 					containerView.addSubview(alertVC.view)
-					UIView.animateWithDuration(self.transitionDuration(transitionContext),
+					UIView.animate(withDuration: self.transitionDuration(using: transitionContext),
 						delay: 0,
 						usingSpringWithDamping: 0.5,
 						initialSpringVelocity: 0.5,
-						options: .CurveEaseInOut,
+						options: UIViewAnimationOptions(),
 						animations: {
 							alertVC.backgroundView.alpha = 1
 							alertVC.alertView.alpha = 1
-							alertVC.alertView.transform = CGAffineTransformIdentity
+							alertVC.alertView.transform = CGAffineTransform.identity
 						}) { succeed in
 							alertVC.snapshot?.removeFromSuperview()
-							alertVC.snapshot = fromVC.view.snapshotViewAfterScreenUpdates(false)
+							alertVC.snapshot = fromVC.view.snapshotView(afterScreenUpdates: false)
 							alertVC.snapshot?.frame = fromVC.view.frame
-							alertVC.view.insertSubview(alertVC.snapshot!, atIndex: 0)
-							transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+							alertVC.view.insertSubview(alertVC.snapshot!, at: 0)
+							transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
 					}
 				}
 			} else {
 				// Transitioning back to homeVC
-				if let containerView = transitionContext.containerView() {
-					let alertVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as! MDAlertController
+				if let containerView = transitionContext.containerView {
+					let alertVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) as! MDAlertController
 					containerView.addSubview(alertVC.view)
 
-					UIView.animateWithDuration(self.transitionDuration(transitionContext),
+					UIView.animate(withDuration: self.transitionDuration(using: transitionContext),
 						delay: 0,
 						usingSpringWithDamping: 1,
 						initialSpringVelocity: 0.5,
-						options: .CurveEaseIn,
+						options: .curveEaseIn,
 						animations: {
-							alertVC.alertView.transform = CGAffineTransformMakeScale(0.1, 0.1)
+							alertVC.alertView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
 							containerView.alpha = 0
 						}) { succeed in
 							// FIXME: Not called if interaction time is less than animation time.
 							containerView.removeFromSuperview()
-							transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+							transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
 					}
 				}
 			}

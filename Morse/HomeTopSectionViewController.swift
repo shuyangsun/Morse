@@ -47,23 +47,23 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		return topBarHeight
 	}
 
-	private var roundButtonMargin:CGFloat {
+	fileprivate var roundButtonMargin:CGFloat {
 		return 8
 	}
 
-	private var roundButtonRadius:CGFloat {
+	fileprivate var roundButtonRadius:CGFloat {
 		return topBarHeight/2.0 - self.roundButtonMargin
 	}
 
-	private var backButtonWidth:CGFloat {
+	fileprivate var backButtonWidth:CGFloat {
 		return topBarHeight
 	}
 
-	private var isDuringInput:Bool {
+	fileprivate var isDuringInput:Bool {
 		return self.homeViewController.isDuringInput
 	}
 
-	private var _keyboardHeight:CGFloat = 0
+	fileprivate var _keyboardHeight:CGFloat = 0
 
 	// *****************************
 	// MARK: Data Related Variables
@@ -78,7 +78,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		}
 	}
 
-	private var hintTextInput:String {
+	fileprivate var hintTextInput:String {
 		//		if self.isDirectionEncode {
 		//			return "Touch to type"
 		//		} else {
@@ -88,7 +88,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	}
 
 	// This is deprecatec code, but may be useful in the future
-	private var hintTextOutput:String {
+	fileprivate var hintTextOutput:String {
 		//		if self.isDirectionEncode {
 		//			return "___ ___   ___ ___ ___   . ___ .   . . .   ."
 		//		} else {
@@ -97,15 +97,15 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		return ""
 	}
 
-	private var attributedHintTextInput:NSMutableAttributedString {
+	fileprivate var attributedHintTextInput:NSMutableAttributedString {
 		return NSMutableAttributedString(string: self.hintTextInput, attributes:
-			[NSFontAttributeName: UIFont.systemFontOfSize(textViewInputFontSize),
+			[NSFontAttributeName: UIFont.systemFont(ofSize: textViewInputFontSize),
 				NSForegroundColorAttributeName: theme.textViewHintTextColor])
 	}
 
-	private var attributedHintTextOutput:NSMutableAttributedString {
+	fileprivate var attributedHintTextOutput:NSMutableAttributedString {
 		return NSMutableAttributedString(string: self.hintTextOutput, attributes:
-			[NSFontAttributeName: UIFont.systemFontOfSize(textViewOutputFontSize),
+			[NSFontAttributeName: UIFont.systemFont(ofSize: textViewOutputFontSize),
 				NSForegroundColorAttributeName: theme.textViewHintTextColor])
 	}
 
@@ -115,7 +115,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 
 	// Return the home view controller this one is embedded in
 	var homeViewController:HomeViewController! {
-		return self.parentViewController as! HomeViewController
+		return self.parent as! HomeViewController
 	}
 
 	// *****************************
@@ -154,19 +154,19 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			
 			// Text label
 			self.topBarLabelText = UILabel(frame: CGRect(x: 0, y: 0, width: self.topBarView.bounds.width/2.0 - self.roundButtonRadius - self.roundButtonMargin, height: topBarHeight))
-			self.topBarLabelText.textAlignment = .Center
+			self.topBarLabelText.textAlignment = .center
 			self.topBarLabelText.tintColor = appDelegate.theme.topBarLabelTextColor
 			self.topBarLabelText.attributedText = NSAttributedString(string: LocalizedStrings.Label.topBarTextLabel, attributes:
-				[NSFontAttributeName: UIFont.boldSystemFontOfSize(23),
+				[NSFontAttributeName: UIFont.boldSystemFont(ofSize: 23),
 					NSForegroundColorAttributeName: appDelegate.theme.topBarLabelTextColor])
 			self.topBarView.addSubview(self.topBarLabelText)
 
 			// Morse label
 			self.topBarLabelMorse = UILabel(frame: CGRect(x: self.topBarView.bounds.width/2.0 + self.roundButtonRadius + self.roundButtonMargin, y: 0, width: self.topBarView.bounds.width/2.0 - self.roundButtonRadius - self.roundButtonMargin, height: topBarHeight))
-			self.topBarLabelMorse.textAlignment = .Center
+			self.topBarLabelMorse.textAlignment = .center
 			self.topBarLabelMorse.tintColor = appDelegate.theme.topBarLabelTextColor
 			self.topBarLabelMorse.attributedText = NSAttributedString(string: LocalizedStrings.Label.topBarMorseLabel, attributes:
-				[NSFontAttributeName: UIFont.boldSystemFontOfSize(23),
+				[NSFontAttributeName: UIFont.boldSystemFont(ofSize: 23),
 					NSForegroundColorAttributeName: appDelegate.theme.topBarLabelTextColor])
 			self.topBarView.addSubview(self.topBarLabelMorse)
 
@@ -178,7 +178,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 
 			// Add cancel button
 			self.backButton = BackButton(origin: CGPoint(x: 0, y: 0), width: self.backButtonWidth)
-			self.backButton.addTarget(self, action: #selector(inputCancelled(_:)), forControlEvents: .TouchUpInside)
+			self.backButton.addTarget(self, action: #selector(inputCancelled(_:)), for: .touchUpInside)
 			self.topBarView.addSubview(self.backButton)
 
 			self.backButton.snp_makeConstraints(closure: { (make) -> Void in
@@ -227,7 +227,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		if self.textBackgroundView == nil {
 			self.textBackgroundView = UIView(frame: CGRect(x: 0, y: statusBarHeight + topBarHeight, width: self.view.bounds.width, height: textBackgroundViewHeight))
 			self.textBackgroundView.backgroundColor = appDelegate.theme.textViewBackgroundColor
-			self.textBackgroundView.layer.borderColor = UIColor.clearColor().CGColor
+			self.textBackgroundView.layer.borderColor = UIColor.clear.cgColor
 			self.textBackgroundView.layer.borderWidth = 0
 			self.view.addSubview(self.textBackgroundView)
 
@@ -245,15 +245,15 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 
 		if self.inputTextView == nil {
 			self.inputTextView = UITextView(frame: CGRect(x: 0, y: 0, width: self.textBackgroundView.bounds.width, height: textBackgroundViewHeight/2.0))
-			self.inputTextView.backgroundColor = UIColor.clearColor()
-			self.inputTextView.opaque = false
-			self.inputTextView.keyboardType = .ASCIICapable
-			self.inputTextView.returnKeyType = .Done
+			self.inputTextView.backgroundColor = UIColor.clear
+			self.inputTextView.isOpaque = false
+			self.inputTextView.keyboardType = .asciiCapable
+			self.inputTextView.returnKeyType = .done
 			self.inputTextView.attributedText = self.attributedHintTextInput
 			self.inputTextView.delegate = self
-			self.inputTextView.layer.borderColor = UIColor.clearColor().CGColor
+			self.inputTextView.layer.borderColor = UIColor.clear.cgColor
 			self.inputTextView.layer.borderWidth = 0
-			self.inputTextView.autocorrectionType = .Default
+			self.inputTextView.autocorrectionType = .default
 			self.inputTextView.keyboardAppearance = theme.keyboardAppearance
 			self.inputTextView.indicatorStyle = theme.scrollViewIndicatorStyle
 			self.textBackgroundView.addSubview(self.inputTextView)
@@ -272,11 +272,11 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 
 		if self.outputTextView == nil {
 			self.outputTextView = UITextView(frame: CGRect(x: 0, y: textBackgroundViewHeight/2.0, width: self.view.bounds.width, height: textBackgroundViewHeight/2.0))
-			self.outputTextView.backgroundColor = UIColor.clearColor()
-			self.outputTextView.opaque = false
-			self.outputTextView.editable = false
+			self.outputTextView.backgroundColor = UIColor.clear
+			self.outputTextView.isOpaque = false
+			self.outputTextView.isEditable = false
 			self.outputTextView.attributedText = self.attributedHintTextOutput
-			self.outputTextView.layer.borderColor = UIColor.clearColor().CGColor
+			self.outputTextView.layer.borderColor = UIColor.clear.cgColor
 			self.outputTextView.layer.borderWidth = 0
 			// This gestureRecognizer is here to fix a bug where double tapping on outputTextView would resign inputTextView as first responder.
 			let disableDoubleTapGR = UITapGestureRecognizer(target: nil, action: Selector())
@@ -300,7 +300,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		if self.breakLineView == nil {
 			self.breakLineView = UIView(frame: CGRect(x: 0, y: self.textBackgroundView.bounds.height, width: self.textBackgroundView.bounds.width, height: 1.0))
 			self.breakLineView.backgroundColor = theme.textViewBreakLineColor
-			self.breakLineView.hidden = true
+			self.breakLineView.isHidden = true
 			self.textBackgroundView.addSubview(self.breakLineView)
 
 			self.breakLineView.snp_remakeConstraints(closure: { (make) -> Void in
@@ -317,10 +317,10 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 
 		if self.textBoxTapFeedBackView == nil {
 			self.textBoxTapFeedBackView = UIView(frame: CGRect(x: 0, y: 0, width: self.textBackgroundView.bounds.width, height: self.textBackgroundView.bounds.height))
-			self.textBoxTapFeedBackView.backgroundColor = UIColor.clearColor()
-			self.textBoxTapFeedBackView.layer.borderColor = UIColor.clearColor().CGColor
+			self.textBoxTapFeedBackView.backgroundColor = UIColor.clear
+			self.textBoxTapFeedBackView.layer.borderColor = UIColor.clear.cgColor
 			self.textBoxTapFeedBackView.layer.borderWidth = 0
-			self.textBoxTapFeedBackView.opaque = false
+			self.textBoxTapFeedBackView.isOpaque = false
 			let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(HomeTopSectionViewController.textViewTapped(_:)))
 			tapGestureRecognizer.cancelsTouchesInView = true
 			self.textBoxTapFeedBackView.addGestureRecognizer(tapGestureRecognizer)
@@ -338,12 +338,12 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		if self.keyboardButton == nil {
 			self.keyboardButton = UIButton(frame: CGRect(x: 0, y: self.textBackgroundView.bounds.height - self.keyboardButtonViewHeight, width: self.textBackgroundView.bounds.width, height: self.keyboardButtonViewHeight))
 			self.keyboardButton.backgroundColor = appDelegate.theme.keyboardButtonBackgroundColor
-			self.keyboardButton.opaque = false
+			self.keyboardButton.isOpaque = false
 			self.keyboardButton.alpha = 0
-			let image = UIImage(named: theme.keyboardIconImageName)!.imageWithRenderingMode(.AlwaysTemplate)
-			self.keyboardButton.setImage(image, forState: .Normal)
+			let image = UIImage(named: theme.keyboardIconImageName)!.withRenderingMode(.alwaysTemplate)
+			self.keyboardButton.setImage(image, for: UIControlState())
 			self.keyboardButton.tintColor = theme.keyboardButtonTintColor
-			self.keyboardButton.addTarget(self, action: #selector(keyboardButtonTapped), forControlEvents: .TouchUpInside)
+			self.keyboardButton.addTarget(self, action: #selector(keyboardButtonTapped), for: .touchUpInside)
 			let tapGR = UITapGestureRecognizer(target: self, action: #selector(micOrKeyboardButtonTapped(_:)))
 			tapGR.cancelsTouchesInView = false
 			self.keyboardButton.addGestureRecognizer(tapGR)
@@ -363,13 +363,13 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		if self.microphoneButton == nil {
 			self.microphoneButton = UIButton(frame: CGRect(x: 0, y: self.textBackgroundView.bounds.height - self.keyboardButtonViewHeight, width: self.textBackgroundView.bounds.width, height: self.keyboardButtonViewHeight))
 			self.microphoneButton.backgroundColor = appDelegate.theme.keyboardButtonBackgroundColor
-			self.microphoneButton.opaque = false
+			self.microphoneButton.isOpaque = false
 			self.microphoneButton.alpha = 0
-			let image = UIImage(named: theme.microphoneIconImageName)!.imageWithRenderingMode(.AlwaysTemplate)
-			self.microphoneButton.setImage(image, forState: .Normal)
+			let image = UIImage(named: theme.microphoneIconImageName)!.withRenderingMode(.alwaysTemplate)
+			self.microphoneButton.setImage(image, for: UIControlState())
 			self.microphoneButton.tintColor = theme.keyboardButtonTintColor
-			self.microphoneButton.contentMode = .ScaleAspectFit
-			self.microphoneButton.addTarget(self.homeViewController, action: #selector(HomeTopSectionViewController.microphoneButtonTapped), forControlEvents: .TouchUpInside)
+			self.microphoneButton.contentMode = .scaleAspectFit
+			self.microphoneButton.addTarget(self.homeViewController, action: #selector(HomeTopSectionViewController.microphoneButtonTapped), for: .touchUpInside)
 			let tapGR = UITapGestureRecognizer(target: self, action: #selector(HomeTopSectionViewController.micOrKeyboardButtonTapped(_:)))
 			tapGR.cancelsTouchesInView = false
 			self.microphoneButton.addGestureRecognizer(tapGR)
@@ -382,12 +382,12 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			})
 		}
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTopSectionViewController.updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTopSectionViewController.keyboardWasShown(_:)), name: UIKeyboardDidShowNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(HomeTopSectionViewController.updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(HomeTopSectionViewController.keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
     }
 
-	func keyboardWasShown(notification:NSNotification) {
-		let keyboardSize = notification.userInfo![UIKeyboardFrameBeginUserInfoKey]!.CGRectValue.size
+	func keyboardWasShown(_ notification:Notification) {
+		let keyboardSize = notification.userInfo![UIKeyboardFrameBeginUserInfoKey]!.cgRectValue.size
 		self._keyboardHeight = min(keyboardSize.height, keyboardSize.width)
 	}
 
@@ -411,30 +411,30 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	// MARK: User Interaction Handler
 	// *****************************
 
-	func textViewTapped(gestureRecognizer:UITapGestureRecognizer) {
+	func textViewTapped(_ gestureRecognizer:UITapGestureRecognizer) {
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+		tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 			action: "button_press",
 			label: "Text View Tapped",
-			value: nil).build() as [NSObject : AnyObject])
+			value: nil).build() as [AnyHashable: Any])
 		if self.isDirectionEncode {
-			tracker.send(GAIDictionaryBuilder.createEventWithCategory("transmitter_action",
+			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "transmitter_action",
 				action: "encode",
 				label: "Encoding Text",
-				value: nil).build() as [NSObject : AnyObject])
+				value: nil).build() as [AnyHashable: Any])
 		} else {
-			tracker.send(GAIDictionaryBuilder.createEventWithCategory("transmitter_action",
+			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "transmitter_action",
 				action: "encode",
 				label: "Decoding Morse",
-				value: nil).build() as [NSObject : AnyObject])
+				value: nil).build() as [AnyHashable: Any])
 		}
 		// Play sound effect
 		if !appDelegate.interactionSoundDisabled {
 			// TODO: Not working.
-			if let path = NSBundle.mainBundle().pathForResource("Tock", ofType: "caf") {
-				let tockURL = NSURL(fileURLWithPath: path)
+			if let path = Bundle.main.path(forResource: "Tock", ofType: "caf") {
+				let tockURL = URL(fileURLWithPath: path)
 				do {
-					let audioPlayer = try AVAudioPlayer(contentsOfURL: tockURL)
+					let audioPlayer = try AVAudioPlayer(contentsOf: tockURL)
 					audioPlayer.play()
 				} catch {
 					NSLog("Tap feedback sound on text view play failed.")
@@ -444,46 +444,46 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			}
 		}
 
-		self.textBoxTapFeedBackView.hidden = true
+		self.textBoxTapFeedBackView.isHidden = true
 		if !self.isDuringInput {
 			self.inputTextView.becomeFirstResponder()
 			self.animateAndLayoutUIForInputStart()
-			self.textBackgroundView.triggerTapFeedBack(atLocation: gestureRecognizer.locationInView(self.textBackgroundView), withColor: appDelegate.theme.textViewTapFeedbackColor, duration: TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar)
+			self.textBackgroundView.triggerTapFeedBack(atLocation: gestureRecognizer.location(in: self.textBackgroundView), withColor: appDelegate.theme.textViewTapFeedbackColor, duration: TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar)
 		}
 		self.homeViewController.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.homeViewController.scrollView.bounds.width, height: 1), animated: true)
 	}
 
-	func roundButtonTapped(gestureRecognizer:UITapGestureRecognizer?) {
+	func roundButtonTapped(_ gestureRecognizer:UITapGestureRecognizer?) {
 		// Switch Direction
 		switch self.roundButtonView.buttonAction {
-		case .Switch:
+		case .switch:
 			self.isDirectionEncode = !self.isDirectionEncode
 		}
 
 		// If there is a gesture recognizer, animate round button
 		if gestureRecognizer != nil {
 			let tracker = GAI.sharedInstance().defaultTracker
-			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "button_press",
 				label: "Round Button Tapped",
-				value: nil).build() as [NSObject : AnyObject])
-			let tapLocation = gestureRecognizer!.locationInView(self.roundButtonView)
+				value: nil).build() as [AnyHashable: Any])
+			let tapLocation = gestureRecognizer!.location(in: self.roundButtonView)
 			if self.roundButtonView.bounds.contains(tapLocation) {
 				let originalTransform = self.roundButtonView.transform
 
 				// Animations for button
 				self.roundButtonView.triggerTapFeedBack(atLocation: tapLocation, withColor: appDelegate.theme.roundButtonTapFeedbackColor, duration: TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar)
 				self.roundButtonView.rotateBackgroundImageWithDuration(TAP_FEED_BACK_DURATION/2.0)
-				UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * appDelegate.animationDurationScalar,
+				UIView.animate(withDuration: TAP_FEED_BACK_DURATION/5.0 * appDelegate.animationDurationScalar,
 					delay: 0.0,
-					options: .CurveEaseIn,
+					options: .curveEaseIn,
 					animations: {
-						self.roundButtonView.transform = CGAffineTransformScale(self.roundButtonView.transform, 1.15, 1.15)
+						self.roundButtonView.transform = self.roundButtonView.transform.scaledBy(x: 1.15, y: 1.15)
 						self.roundButtonView.addMDShadow(withDepth: theme.roundButtonMDShadowLevelTapped)
 					}) { succeed in
-						UIView.animateWithDuration(TAP_FEED_BACK_DURATION/5.0 * appDelegate.animationDurationScalar,
+						UIView.animate(withDuration: TAP_FEED_BACK_DURATION/5.0 * appDelegate.animationDurationScalar,
 							delay: 0.0,
-							options: .CurveEaseOut,
+							options: .curveEaseOut,
 							animations: {
 								self.roundButtonView.transform = originalTransform
 								self.roundButtonView.addMDShadow(withDepth: theme.roundButtonMDShadowLevelDefault)
@@ -559,11 +559,11 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			})
 		}
 
-		UIView.animateWithDuration(TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar,
+		UIView.animate(withDuration: TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar,
 			delay: 0,
 			usingSpringWithDamping: 0.5,
 			initialSpringVelocity: 0.8,
-			options: .CurveEaseInOut,
+			options: UIViewAnimationOptions(),
 			animations: {
 				self.topBarView.layoutIfNeeded()
 				self.keyboardButton.alpha = 0
@@ -577,49 +577,49 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	}
 
 	// Microphone button or keyboard button feedback
-	func micOrKeyboardButtonTapped(gestureRecognizer:UITapGestureRecognizer) {
+	func micOrKeyboardButtonTapped(_ gestureRecognizer:UITapGestureRecognizer) {
 		let view = gestureRecognizer.view
 		if view != nil {
-			let location = gestureRecognizer.locationInView(view!)
+			let location = gestureRecognizer.location(in: view!)
 			view!.triggerTapFeedBack(atLocation: location, withColor: theme.textViewTapFeedbackColor)
 		}
 	}
 
 	func keyboardButtonTapped() {
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+		tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 			action: "button_press",
 			label: "Keyboard Button Tapped",
-			value: nil).build() as [NSObject : AnyObject])
+			value: nil).build() as [AnyHashable: Any])
 		self.inputTextView.becomeFirstResponder()
 		self.animateAndLayoutUIForInputStart()
 	}
 
 	func microphoneButtonTapped() {
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+		tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 			action: "button_press",
 			label: "Microphone Button Tapped",
-			value: nil).build() as [NSObject : AnyObject])
+			value: nil).build() as [AnyHashable: Any])
 		self.animateAndLayoutUIForInputStart()
-		self.inputTextView.userInteractionEnabled = false
+		self.inputTextView.isUserInteractionEnabled = false
 	}
 
-	func audioPlotTapped(gestureRecognizer:UITapGestureRecognizer) {
+	func audioPlotTapped(_ gestureRecognizer:UITapGestureRecognizer) {
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+		tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 			action: "button_press",
 			label: "Text View Tapped",
-			value: nil).build() as [NSObject : AnyObject])
+			value: nil).build() as [AnyHashable: Any])
 		let text = self.outputTextView.text
 		let morse = self.inputTextView.text
-		if self.inputTextView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) != "" && self.outputTextView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) != "" {
+		if self.inputTextView.text.trimmingCharacters(in: CharacterSet.whitespaces) != "" && self.outputTextView.text.trimmingCharacters(in: CharacterSet.whitespaces) != "" {
 			self.homeViewController.addCardViewWithText(text, morse: morse, textOnTop: self.isDirectionEncode, animateWithDuration: 0.3)
 			let tracker = GAI.sharedInstance().defaultTracker
-			tracker.send(GAIDictionaryBuilder.createEventWithCategory("transmitter_action",
+			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "transmitter_action",
 				action: "card_added",
 				label: "Card Added",
-				value: nil).build() as [NSObject : AnyObject])
+				value: nil).build() as [AnyHashable: Any])
 		}
 		self.animateAndLayoutUIForInputEnd()
 	}
@@ -628,22 +628,22 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	// MARK: Text View Delegate
 	// *****************************
 
-	func textViewDidChange(textView: UITextView) {
+	func textViewDidChange(_ textView: UITextView) {
 		var outputText:String?
 		let setupOutputTextAttribute = {
 			self.outputTextView.attributedText = getAttributedStringFrom(outputText, withFontSize: textViewOutputFontSize, color: theme.textViewOutputTextColor)
 			if outputText != nil {
-				self.outputTextView.scrollRangeToVisible(NSMakeRange(outputText!.startIndex.distanceTo(outputText!.endIndex), 0))
+				self.outputTextView.scrollRangeToVisible(NSMakeRange(outputText!.characters.distance(from: outputText!.startIndex, to: outputText!.endIndex), 0))
 			}
 		}
 		if self.isDirectionEncode {
-			self.transmitter.text = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+			self.transmitter.text = textView.text.trimmingCharacters(in: CharacterSet.whitespaces)
 			self.transmitter.getFutureMorse {
 				outputText = $0
 				setupOutputTextAttribute()
 			}
 		} else {
-			self.transmitter.morse = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+			self.transmitter.morse = textView.text.trimmingCharacters(in: CharacterSet.whitespaces)
 			self.transmitter.getFutureText {
 				outputText = $0
 				setupOutputTextAttribute()
@@ -676,11 +676,11 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 //		print("\(topTextHeight) \(bottomTextHeight) \(totalHeight)")
 	}
 
-	func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+	func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
 		if text == "\n" {
 			let text = self.isDirectionEncode ? self.inputTextView.text : self.outputTextView.text
 			let morse = self.isDirectionEncode ? self.outputTextView.text : self.inputTextView.text
-			if self.inputTextView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) != "" && self.outputTextView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) != "" {
+			if self.inputTextView.text.trimmingCharacters(in: CharacterSet.whitespaces) != "" && self.outputTextView.text.trimmingCharacters(in: CharacterSet.whitespaces) != "" {
 				self.homeViewController.addCardViewWithText(text, morse: morse, textOnTop: self.isDirectionEncode, animateWithDuration: 0.3)
 			}
 			textView.resignFirstResponder()
@@ -695,13 +695,13 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	// MARK: Transmitter Delegate
 	// *****************************
 
-	func transmitterContentDidChange(text: String, morse: String) {
+	func transmitterContentDidChange(_ text: String, morse: String) {
 		// Set text.
-		dispatch_async(dispatch_get_main_queue()) {
-			self.inputTextView.attributedText = getAttributedStringFrom(morse.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()), withFontSize: textViewInputFontSize, color: theme.textViewInputTextColor)
-			self.outputTextView.attributedText = getAttributedStringFrom(text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()), withFontSize: textViewOutputFontSize, color: theme.textViewOutputTextColor)
-			self.inputTextView.scrollRangeToVisible(NSMakeRange(morse.startIndex.distanceTo(morse.endIndex), 0))
-			self.outputTextView.scrollRangeToVisible(NSMakeRange(text.startIndex.distanceTo(text.endIndex), 0))
+		DispatchQueue.main.async {
+			self.inputTextView.attributedText = getAttributedStringFrom(morse.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), withFontSize: textViewInputFontSize, color: theme.textViewInputTextColor)
+			self.outputTextView.attributedText = getAttributedStringFrom(text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), withFontSize: textViewOutputFontSize, color: theme.textViewOutputTextColor)
+			self.inputTextView.scrollRangeToVisible(NSMakeRange(morse.characters.distance(from: morse.startIndex, to: morse.endIndex), 0))
+			self.outputTextView.scrollRangeToVisible(NSMakeRange(text.characters.distance(from: text.startIndex, to: text.endIndex), 0))
 		}
 	}
 
@@ -709,26 +709,26 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	// MARK: Other Methods
 	// *****************************
 
-	func inputCancelled(sender:AnyObject) {
+	func inputCancelled(_ sender:AnyObject) {
 		let tracker = GAI.sharedInstance().defaultTracker
 		if sender === self.backButton {
-			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "button_press",
 				label: "Cancel Button Tapped",
-				value: nil).build() as [NSObject : AnyObject])
+				value: nil).build() as [AnyHashable: Any])
 		} else if sender === self.homeViewController.scrollViewOverlay {
-			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "button_press",
 				label: "Scrollview Overlay Tapped",
-				value: nil).build() as [NSObject : AnyObject])
+				value: nil).build() as [AnyHashable: Any])
 		}
-		if self.inputTextView.isFirstResponder() {
+		if self.inputTextView.isFirstResponder {
 			self.inputTextView.resignFirstResponder()
 		}
 		self.animateAndLayoutUIForInputEnd()
 	}
 
-	private func animateAndLayoutUIForInputStart() {
+	fileprivate func animateAndLayoutUIForInputStart() {
 //		var delayTime:NSTimeInterval = 0
 //		if self.homeViewController.scrollView.contentOffset > 0 {
 //
@@ -740,18 +740,18 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		// Text view stuff
 		self.inputTextView.attributedText = getAttributedStringFrom(" ", withFontSize: textViewInputFontSize, color: theme.textViewInputTextColor)
 		self.outputTextView.attributedText = getAttributedStringFrom(" ", withFontSize: textViewOutputFontSize, color: theme.textViewOutputTextColor)
-		self.textBoxTapFeedBackView.hidden = true
-		self.textBoxTapFeedBackView.userInteractionEnabled = false
+		self.textBoxTapFeedBackView.isHidden = true
+		self.textBoxTapFeedBackView.isUserInteractionEnabled = false
 
 		// Hide round button
-		UIView.animateWithDuration(animationDuration * appDelegate.animationDurationScalar,
+		UIView.animate(withDuration: animationDuration * appDelegate.animationDurationScalar,
 			delay: 0,
-			options: .CurveEaseOut,
+			options: .curveEaseOut,
 			animations: {
 				self.microphoneButton.alpha = 0
 				self.keyboardButton.alpha = 0
 			}, completion: nil)
-		self.roundButtonView.disappearWithAnimationType([.Scale, .Fade], duration: animationDuration) {
+		self.roundButtonView.disappearWithAnimationType([.scale, .fade], duration: animationDuration) {
 			// Move text and morse label
 			let labelWidth = self.topBarLabelText.bounds.width
 			if self.isDirectionEncode {
@@ -782,7 +782,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 				})
 			}
 
-			self.breakLineView.hidden = false
+			self.breakLineView.isHidden = false
 			self.breakLineView.snp_remakeConstraints(closure: { (make) -> Void in
 				make.leading.equalTo(self.textBackgroundView)
 				make.trailing.equalTo(self.textBackgroundView)
@@ -790,13 +790,13 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 				make.height.equalTo(1.0)
 			})
 			// Set scrollViewOverlay's background color based on the type of input.
-			self.homeViewController.scrollViewOverlay.backgroundColor = self.homeViewController.micInputSectionContainerView == nil ? theme.scrollViewOverlayColor : UIColor.clearColor()
+			self.homeViewController.scrollViewOverlay.backgroundColor = self.homeViewController.micInputSectionContainerView == nil ? theme.scrollViewOverlayColor : UIColor.clear
 
-			UIView.animateWithDuration(animationDuration * appDelegate.animationDurationScalar,
+			UIView.animate(withDuration: animationDuration * appDelegate.animationDurationScalar,
 				delay: animationDuration,
 				//			usingSpringWithDamping: 0.5,
 				//			initialSpringVelocity: 0.8,
-				options: .CurveEaseOut,
+				options: .curveEaseOut,
 				animations: {
 					self.view.layoutIfNeeded()
 					self.homeViewController.scrollViewOverlay.alpha = 1
@@ -816,7 +816,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		self.homeViewController.restoreCurrentFlippedCard()
 	}
 
-	private func animateAndLayoutUIForInputEnd() {
+	fileprivate func animateAndLayoutUIForInputEnd() {
 		let animationDuration = TAP_FEED_BACK_DURATION/3.0
 		// Hide cancel button
 		self.backButton.disappearWithDuration(animationDuration) {
@@ -852,9 +852,9 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			}
 
 			// Text view stuff
-			self.textBoxTapFeedBackView.hidden = false
-			self.textBoxTapFeedBackView.userInteractionEnabled = true
-			self.inputTextView.userInteractionEnabled = true
+			self.textBoxTapFeedBackView.isHidden = false
+			self.textBoxTapFeedBackView.isUserInteractionEnabled = true
+			self.inputTextView.isUserInteractionEnabled = true
 			self.outputTextView.text = nil
 			self.inputTextView.attributedText = self.attributedHintTextInput
 			self.outputTextView.attributedText = self.attributedHintTextOutput
@@ -865,11 +865,11 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 				make.height.equalTo(1.0)
 			})
 
-			UIView.animateWithDuration(animationDuration * appDelegate.animationDurationScalar,
+			UIView.animate(withDuration: animationDuration * appDelegate.animationDurationScalar,
 				delay: 0,
 				//			usingSpringWithDamping: 0.5,
 				//			initialSpringVelocity: 0.8,
-				options: .CurveEaseOut,
+				options: .curveEaseOut,
 				animations: {
 					self.view.layoutIfNeeded()
 					self.homeViewController.scrollViewOverlay.alpha = 0
@@ -877,7 +877,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 					self.homeViewController.scrollViewSnapshotImageView?.alpha = 0
 					self.homeViewController.topSectionContainerView.addMDShadow(withDepth: 2)
 				}) { succeed in
-					self.breakLineView.hidden = true
+					self.breakLineView.isHidden = true
 					// If the input frequency is set to be detected automatically, restore the min frequency.
 					self.homeViewController.micInputSectionViewController?.microphone.stopFetchingAudio()
 					self.homeViewController.micInputSectionContainerView?.removeFromSuperview()
@@ -888,10 +888,10 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 					self.inputTextView.attributedText = self.attributedHintTextInput
 					self.outputTextView.attributedText = self.attributedHintTextOutput
 					// Show round button
-					self.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: animationDuration)
-					UIView.animateWithDuration(animationDuration * appDelegate.animationDurationScalar,
+					self.roundButtonView.appearWithAnimationType([.scale, .fade], duration: animationDuration)
+					UIView.animate(withDuration: animationDuration * appDelegate.animationDurationScalar,
 						delay: animationDuration,
-						options: .CurveEaseOut,
+						options: .curveEaseOut,
 						animations: {
 							if !self.isDirectionEncode {
 								self.microphoneButton.alpha = 1
@@ -907,13 +907,13 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	- Parameters:
 		- animated: A boolean determines if the theme change should be animated.
 	*/
-	func updateColor(animated animated:Bool = true) {
+	func updateColor(animated:Bool = true) {
 		self.inputTextView.keyboardAppearance = theme.keyboardAppearance
 		self.roundButtonView.addMDShadow(withDepth: theme.roundButtonMDShadowLevelDefault)
 		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
-		UIView.animateWithDuration(duration,
+		UIView.animate(withDuration: duration,
 			delay: 0,
-			options: .CurveEaseInOut,
+			options: UIViewAnimationOptions(),
 			animations: {
 				self.inputTextView.indicatorStyle = theme.scrollViewIndicatorStyle
 				self.outputTextView.indicatorStyle = theme.scrollViewIndicatorStyle

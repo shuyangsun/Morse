@@ -12,7 +12,7 @@ class SettingsThemeTableViewController: TableViewController {
 
 	var currentCheckedCell:TableViewCell?
 
-	private func setup() {
+	fileprivate func setup() {
 		// Uncomment the following line to preserve selection between presentations
 		// self.clearsSelectionOnViewWillAppear = false
 
@@ -37,14 +37,14 @@ class SettingsThemeTableViewController: TableViewController {
         self.setup()
     }
 
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		self.tableView.reloadData()
 		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.set(kGAIScreenName, value: settingsThemeVCName)
 
 		let builder = GAIDictionaryBuilder.createScreenView()
-		tracker.send(builder.build() as [NSObject : AnyObject])
+		tracker.send(builder.build() as [AnyHashable: Any])
 	}
 
     override func didReceiveMemoryWarning() {
@@ -54,11 +54,11 @@ class SettingsThemeTableViewController: TableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		switch section {
 		case 0: return 2
 		case 1: return Theme.numberOfThemes - 2
@@ -66,11 +66,11 @@ class SettingsThemeTableViewController: TableViewController {
 		}
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("Settings Theme Name Cell", forIndexPath: indexPath) as! TableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "Settings Theme Name Cell", for: indexPath) as! TableViewCell
 		cell.textLabel?.text = Theme(rawValue: self.rowIndForIndexPath(indexPath))?.name
 		if currentCheckedCell == nil && appDelegate.userSelectedTheme.rawValue == self.rowIndForIndexPath(indexPath) {
-			cell.accessoryType = .Checkmark
+			cell.accessoryType = .checkmark
 			self.currentCheckedCell = cell
 		}
 
@@ -79,32 +79,32 @@ class SettingsThemeTableViewController: TableViewController {
 		return cell
     }
 
-	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return tableViewCellHeight
 	}
 
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let cell = tableView.cellForRowAtIndexPath(indexPath) as! TableViewCell
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let cell = tableView.cellForRow(at: indexPath) as! TableViewCell
 		if cell !== self.currentCheckedCell {
-			self.currentCheckedCell?.accessoryType = .None
+			self.currentCheckedCell?.accessoryType = .none
 			if self.currentCheckedCell != cell {
 				self.currentCheckedCell?.updateColor()
 			}
-			cell.accessoryType = .Checkmark
+			cell.accessoryType = .checkmark
 			self.currentCheckedCell = cell
 
-			appDelegate.userDefaults.setInteger(self.rowIndForIndexPath(indexPath), forKey: userDefaultsKeyUserSelectedTheme)
+			appDelegate.userDefaults.set(self.rowIndForIndexPath(indexPath), forKey: userDefaultsKeyUserSelectedTheme)
 			appDelegate.userDefaults.synchronize()
 			print(self.rowIndForIndexPath(indexPath))
 			theme = Theme(rawValue: self.rowIndForIndexPath(indexPath))!
-			let tracker = GAI.sharedInstance().defaultTracker; tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			let tracker = GAI.sharedInstance().defaultTracker; tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "button_press",
 				label: "Theme Changed",
-				value: nil).build() as [NSObject : AnyObject])
+				value: nil).build() as [AnyHashable: Any])
 		}
 	}
 
-	private func rowIndForIndexPath(indexPath:NSIndexPath) -> Int {
+	fileprivate func rowIndForIndexPath(_ indexPath:IndexPath) -> Int {
 		var counter = 0
 		for section in 0..<indexPath.section {
 			counter += self.tableView(self.tableView, numberOfRowsInSection: section)

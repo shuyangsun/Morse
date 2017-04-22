@@ -9,15 +9,15 @@
 import UIKit
 
 enum ButtonActionType {
-	case Switch
+	case `switch`
 }
 
 class RoundButtonView: UIView {
-	var buttonAction:ButtonActionType = .Switch
+	var buttonAction:ButtonActionType = .switch
 	var backgroundImageView:UIImageView!
 
-	private var animationDurationScalar:Double {
-		let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+	fileprivate var animationDurationScalar:Double {
+		let delegate = UIApplication.shared.delegate as! AppDelegate
 		return delegate.animationDurationScalar
 	}
 
@@ -27,13 +27,13 @@ class RoundButtonView: UIView {
 
 	convenience init(origin:CGPoint, radius:CGFloat) {
 		self.init(frame:CGRect(origin: origin, size: CGSize(width: radius * 2, height: radius * 2)))
-		let backgroundImage = UIImage(named: "Round Button")!.imageWithRenderingMode(.AlwaysTemplate)
+		let backgroundImage = UIImage(named: "Round Button")!.withRenderingMode(.alwaysTemplate)
 		self.backgroundImageView = UIImageView(frame: self.bounds)
 		self.backgroundImageView.image = backgroundImage
 		self.backgroundImageView.tintColor = theme.buttonWithAccentBackgroundTintColor
 
 		self.addSubview(self.backgroundImageView)
-		self.opaque = false
+		self.isOpaque = false
 		self.backgroundColor = appDelegate.theme.roundButtonBackgroundColor
 		self.layer.cornerRadius = radius
 		self.addMDShadow(withDepth: theme.roundButtonMDShadowLevelDefault)
@@ -43,59 +43,59 @@ class RoundButtonView: UIView {
 	    super.init(coder: aDecoder)
 	}
 
-	func disappearWithAnimationType(animationTypes:Set<AnimationType>, duration:NSTimeInterval, completion:((Void)->Void)? = nil) {
+	func disappearWithAnimationType(_ animationTypes:Set<AnimationType>, duration:TimeInterval, completion:((Void)->Void)? = nil) {
 		// Define animation here according to animation types, call it later
 		let animationClosure = {
-			if animationTypes.contains(.Scale) {
-				self.transform = CGAffineTransformScale(self.transform, 0.01, 0.01)
+			if animationTypes.contains(.scale) {
+				self.transform = self.transform.scaledBy(x: 0.01, y: 0.01)
 			}
-			if animationTypes.contains(.Fade) {
+			if animationTypes.contains(.fade) {
 				self.alpha = 0.0
 			}
 			self.addMDShadow(withDepth: 0)
 		}
-		UIView.animateWithDuration(duration * self.animationDurationScalar,
+		UIView.animate(withDuration: duration * self.animationDurationScalar,
 			delay: 0.0,
-			options: .CurveEaseInOut,
+			options: UIViewAnimationOptions(),
 			animations: animationClosure) { succeed in
-				self.hidden = true
-				self.userInteractionEnabled = false
+				self.isHidden = true
+				self.isUserInteractionEnabled = false
 				completion?()
 		}
 	}
 
-	func appearWithAnimationType(animationTypes:Set<AnimationType>, duration:NSTimeInterval) {
+	func appearWithAnimationType(_ animationTypes:Set<AnimationType>, duration:TimeInterval) {
 		// Unhide view first.
-		self.hidden = false
+		self.isHidden = false
 		// Define animation here according to animation types, call it later
 		let animationClosure = {
-			if animationTypes.contains(.Scale) {
-				self.transform = CGAffineTransformIdentity
+			if animationTypes.contains(.scale) {
+				self.transform = CGAffineTransform.identity
 			}
-			if animationTypes.contains(.Fade) {
+			if animationTypes.contains(.fade) {
 				self.alpha = 1
-				self.userInteractionEnabled = true
+				self.isUserInteractionEnabled = true
 			}
 			self.addMDShadow(withDepth: theme.roundButtonMDShadowLevelDefault)
 		}
-		UIView.animateWithDuration(duration * self.animationDurationScalar,
+		UIView.animate(withDuration: duration * self.animationDurationScalar,
 			delay: 0.0,
-			options: .CurveEaseInOut,
+			options: UIViewAnimationOptions(),
 			animations: animationClosure, completion: nil)
 	}
 
-	func rotateBackgroundImageWithDuration(duration:NSTimeInterval) {
-		UIView.animateWithDuration(duration / 2.0 * self.animationDurationScalar,
+	func rotateBackgroundImageWithDuration(_ duration:TimeInterval) {
+		UIView.animate(withDuration: duration / 2.0 * self.animationDurationScalar,
 			delay: 0.0,
-			options: .CurveLinear,
+			options: .curveLinear,
 			animations: {
-				self.backgroundImageView.transform = CGAffineTransformRotate(self.backgroundImageView.transform, CGFloat(M_PI_2))
+				self.backgroundImageView.transform = self.backgroundImageView.transform.rotated(by: CGFloat(M_PI_2))
 			}) { succeed in
-				UIView.animateWithDuration(duration / 2.0 * self.animationDurationScalar,
+				UIView.animate(withDuration: duration / 2.0 * self.animationDurationScalar,
 					delay: 0.0,
-					options: .CurveLinear,
+					options: .curveLinear,
 					animations: {
-						self.backgroundImageView.transform = CGAffineTransformRotate(self.backgroundImageView.transform, CGFloat(M_PI_2))
+						self.backgroundImageView.transform = self.backgroundImageView.transform.rotated(by: CGFloat(M_PI_2))
 				}, completion: nil)
 		}
 	}
@@ -103,7 +103,7 @@ class RoundButtonView: UIView {
 }
 
 enum AnimationType {
-	case Scale
-	case Fade
+	case scale
+	case fade
 }
 

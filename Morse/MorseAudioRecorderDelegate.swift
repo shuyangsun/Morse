@@ -9,5 +9,5 @@
 import Foundation
 
 @objc protocol MorseAudioRecorderDelegate {
-	optional func audioLevelUpdated(level:Float, avgPower:Float, peakPower:Float, recognized:Bool)
+	optional func audioLevelUpdated(_ level:Float, avgPower:Float, peakPower:Float, recognized:Bool)
 }

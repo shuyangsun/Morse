@@ -13,17 +13,17 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 
 	var animationDurationCell:TableViewCell!
 	var animationDurationSlider:UISlider!
-	var animationDurationScalar:NSTimeInterval = appDelegate.animationDurationScalar {
+	var animationDurationScalar:TimeInterval = appDelegate.animationDurationScalar {
 		willSet {
-			appDelegate.userDefaults.setDouble(newValue, forKey: userDefaultsKeyAnimationDurationScalar)
+			appDelegate.userDefaults.set(newValue, forKey: userDefaultsKeyAnimationDurationScalar)
 			appDelegate.userDefaults.synchronize()
 		}
 	}
 
-	private let _cellIdentifier = "Settings Default Cell Identifier"
-	private var _isIPad:Bool {
-		if self.traitCollection.verticalSizeClass == .Regular &&
-			self.traitCollection.horizontalSizeClass == .Regular {
+	fileprivate let _cellIdentifier = "Settings Default Cell Identifier"
+	fileprivate var _isIPad:Bool {
+		if self.traitCollection.verticalSizeClass == .regular &&
+			self.traitCollection.horizontalSizeClass == .regular {
 				return true
 		} else {
 			return false
@@ -31,9 +31,9 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 	}
 
 	// Tags for switches
-	private let _switchButtonTagShareSignature = 0
-	private let _switchButtonTagAutoNightMode = 1
-	private let _switchButtonTagDecodeProsign = 2
+	fileprivate let _switchButtonTagShareSignature = 0
+	fileprivate let _switchButtonTagAutoNightMode = 1
+	fileprivate let _switchButtonTagDecodeProsign = 2
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,19 +55,19 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		}
 		self.navigationController?.navigationBar.titleTextAttributes = textAttributes
 
-		NSNotificationCenter.defaultCenter().addObserver(self.tableView, selector: #selector(UITableView.reloadData), name: languageDidChangeNotificationName, object: nil)
+		NotificationCenter.default.addObserver(self.tableView, selector: #selector(UITableView.reloadData), name: languageDidChangeNotificationName, object: nil)
     }
 
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.set(kGAIScreenName, value: settingsVCName)
 
 		let builder = GAIDictionaryBuilder.createScreenView()
-		tracker.send(builder.build() as [NSObject : AnyObject])
+		tracker.send(builder.build() as [AnyHashable: Any])
 	}
 
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		self.tableView.reloadData()
 
@@ -82,7 +82,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
 		var result = 5
 		#if DEBUG
 			result += 1
@@ -90,7 +90,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
         return result
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		switch section {
 		case 0: return 2 // General
 		case 1: return 3 // Resets
@@ -103,13 +103,13 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		}
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		var cell = TableViewCell()
 		if indexPath.section == 0 { // General
 			switch indexPath.row {
 			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Languages Cell", forIndexPath: indexPath) as! TableViewCell
-				cell.imageView?.image = UIImage(named: theme.settingsLanguageImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+				cell = tableView.dequeueReusableCell(withIdentifier: "Settings Languages Cell", for: indexPath) as! TableViewCell
+				cell.imageView?.image = UIImage(named: theme.settingsLanguageImageName)?.withRenderingMode(.alwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.languages, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				let currentLanguageName = supportedLanguages[appDelegate.currentLocaleLanguageCode]
 				var languageNameOriginal = ""
@@ -120,80 +120,80 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				}
 				// Detailed text displays the current language.
 				cell.detailTextLabel?.attributedText = getAttributedStringFrom(languageNameOriginal, withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
-				cell.accessoryType = .DisclosureIndicator
+				cell.accessoryType = .disclosureIndicator
 			case 1:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewSwitchCell
-				cell.imageView?.image = UIImage(named: theme.settingsShareExtraTextImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+				cell = tableView.dequeueReusableCell(withIdentifier: "Settings Switch Cell", for: indexPath) as! TableViewSwitchCell
+				cell.imageView?.image = UIImage(named: theme.settingsShareExtraTextImageName)?.withRenderingMode(.alwaysTemplate)
 				cell.tapFeebackEnabled = false
 				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.extraTextWhenShare, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				(cell as! TableViewSwitchCell).delegate = self
 				(cell as! TableViewSwitchCell).tag = self._switchButtonTagShareSignature
-				(cell as! TableViewSwitchCell).switchButton.on = appDelegate.addExtraTextWhenShare
+				(cell as! TableViewSwitchCell).switchButton.isOn = appDelegate.addExtraTextWhenShare
 			default: break
 			}
 		} else if indexPath.section == 1 { // Actions
 			switch indexPath.row {
 			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
-				cell.imageView?.image = UIImage(named: theme.settingsAddTutorialCardsImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+				cell = tableView.dequeueReusableCell(withIdentifier: "Settings Basic Cell", for: indexPath) as! TableViewCell
+				cell.imageView?.image = UIImage(named: theme.settingsAddTutorialCardsImageName)?.withRenderingMode(.alwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.addTutorialCards
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			case 1:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
-				cell.imageView?.image = UIImage(named: theme.settingsClearCardsImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+				cell = tableView.dequeueReusableCell(withIdentifier: "Settings Basic Cell", for: indexPath) as! TableViewCell
+				cell.imageView?.image = UIImage(named: theme.settingsClearCardsImageName)?.withRenderingMode(.alwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.clearCards
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			case 2:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
-				cell.imageView?.image = UIImage(named: theme.settingsRestoreAlertsImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+				cell = tableView.dequeueReusableCell(withIdentifier: "Settings Basic Cell", for: indexPath) as! TableViewCell
+				cell.imageView?.image = UIImage(named: theme.settingsRestoreAlertsImageName)?.withRenderingMode(.alwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.restoreAlerts
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			default: break
 			}
-			cell.separatorInset = UIEdgeInsetsZero
+			cell.separatorInset = UIEdgeInsets.zero
 			cell.preservesSuperviewLayoutMargins = false
-			cell.layoutMargins = UIEdgeInsetsZero
+			cell.layoutMargins = UIEdgeInsets.zero
 		} else if indexPath.section == 2 { // Appearance
 			switch indexPath.row {
 			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Theme Cell", forIndexPath: indexPath) as! TableViewCell
-				cell.imageView?.image = UIImage(named: theme.settingsThemeImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+				cell = tableView.dequeueReusableCell(withIdentifier: "Settings Theme Cell", for: indexPath) as! TableViewCell
+				cell.imageView?.image = UIImage(named: theme.settingsThemeImageName)?.withRenderingMode(.alwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.theme
 					, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				cell.detailTextLabel?.attributedText = getAttributedStringFrom(appDelegate.userSelectedTheme.name, withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
-				cell.accessoryType = .DisclosureIndicator
+				cell.accessoryType = .disclosureIndicator
 			case 1:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewSwitchCell
-				cell.imageView?.image = UIImage(named: theme.settingsAutoNightModeImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+				cell = tableView.dequeueReusableCell(withIdentifier: "Settings Switch Cell", for: indexPath) as! TableViewSwitchCell
+				cell.imageView?.image = UIImage(named: theme.settingsAutoNightModeImageName)?.withRenderingMode(.alwaysTemplate)
 				cell.tapFeebackEnabled = false
 				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.autoNightMode, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				(cell as! TableViewSwitchCell).delegate = self
 				(cell as! TableViewSwitchCell).tag = self._switchButtonTagAutoNightMode
-				(cell as! TableViewSwitchCell).switchButton.on = appDelegate.automaticNightMode
+				(cell as! TableViewSwitchCell).switchButton.isOn = appDelegate.automaticNightMode
 			default: break
 			}
 		} else if indexPath.section == 3 { // Transmitter Config
 			switch indexPath.row {
 			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Output Cell", forIndexPath: indexPath) as! TableViewCell
-				cell.imageView?.image = UIImage(named: theme.settingsSignalOutputImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+				cell = tableView.dequeueReusableCell(withIdentifier: "Settings Output Cell", for: indexPath) as! TableViewCell
+				cell.imageView?.image = UIImage(named: theme.settingsSignalOutputImageName)?.withRenderingMode(.alwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.output
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
-				cell.accessoryType = .DisclosureIndicator
+				cell.accessoryType = .disclosureIndicator
 			case 1:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Audio Decoder Cell", forIndexPath: indexPath) as! TableViewCell
-				cell.imageView?.image = UIImage(named: theme.settingsAudioDecoderImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+				cell = tableView.dequeueReusableCell(withIdentifier: "Settings Audio Decoder Cell", for: indexPath) as! TableViewCell
+				cell.imageView?.image = UIImage(named: theme.settingsAudioDecoderImageName)?.withRenderingMode(.alwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.audioDecoder
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
-				cell.accessoryType = .DisclosureIndicator
+				cell.accessoryType = .disclosureIndicator
 			case 2:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewSwitchCell
-				cell.imageView?.image = UIImage(named: theme.settingsDecodeProsignImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+				cell = tableView.dequeueReusableCell(withIdentifier: "Settings Switch Cell", for: indexPath) as! TableViewSwitchCell
+				cell.imageView?.image = UIImage(named: theme.settingsDecodeProsignImageName)?.withRenderingMode(.alwaysTemplate)
 				cell.tapFeebackEnabled = false
 				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.decodeProsign, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				(cell as! TableViewSwitchCell).delegate = self
 				(cell as! TableViewSwitchCell).tag = self._switchButtonTagDecodeProsign
-				(cell as! TableViewSwitchCell).switchButton.on = appDelegate.prosignTranslationType == .Always
+				(cell as! TableViewSwitchCell).switchButton.isOn = appDelegate.prosignTranslationType == .always
 			default: break
 			}
 //		} else if indexPath.section == 4 { // Upgrades
@@ -225,38 +225,38 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 //			cell.preservesSuperviewLayoutMargins = false
 //			cell.layoutMargins = UIEdgeInsetsZero
 		} else if indexPath.section == 4 { // About
-			cell = tableView.dequeueReusableCellWithIdentifier("Settings Basic Cell", forIndexPath: indexPath) as! TableViewCell
+			cell = tableView.dequeueReusableCell(withIdentifier: "Settings Basic Cell", for: indexPath) as! TableViewCell
 			switch indexPath.row {
 			case 0:
-				cell.imageView?.image = UIImage(named: theme.settingsTellFriendsImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+				cell.imageView?.image = UIImage(named: theme.settingsTellFriendsImageName)?.withRenderingMode(.alwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.tellFriends
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			case 1:
-				cell.imageView?.image = UIImage(named: theme.settingsRateOnAppStoreImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+				cell.imageView?.image = UIImage(named: theme.settingsRateOnAppStoreImageName)?.withRenderingMode(.alwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.rateOnAppStore
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			case 2:
 				// If this device can send an email. this cell is "Contact Developer", if not, this cell is Privacy Policy
 				if MFMailComposeViewController.canSendMail() {
-					cell.imageView?.image = UIImage(named: theme.settingsContactDeveloperImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+					cell.imageView?.image = UIImage(named: theme.settingsContactDeveloperImageName)?.withRenderingMode(.alwaysTemplate)
 					cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.contactDeveloper
 						, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				} else {
 					fallthrough
 				}
 			case 3:
-				cell.imageView?.image = UIImage(named: theme.settingsPrivacyPolicyImageName)?.imageWithRenderingMode(.AlwaysTemplate)
+				cell.imageView?.image = UIImage(named: theme.settingsPrivacyPolicyImageName)?.withRenderingMode(.alwaysTemplate)
 				cell.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.privacyPolicy
 					, withFontSize: 16, color: appDelegate.theme.cellTitleTextColor, bold: false)
 			default: break
 			}
-			cell.separatorInset = UIEdgeInsetsZero
+			cell.separatorInset = UIEdgeInsets.zero
 			cell.preservesSuperviewLayoutMargins = false
-			cell.layoutMargins = UIEdgeInsetsZero
+			cell.layoutMargins = UIEdgeInsets.zero
 		} else if indexPath.section == 5 { // Dev options
 			switch indexPath.row {
 			case 0:
-				self.animationDurationCell = tableView.dequeueReusableCellWithIdentifier("Settings Slider Cell", forIndexPath: indexPath) as! TableViewCell
+				self.animationDurationCell = tableView.dequeueReusableCell(withIdentifier: "Settings Slider Cell", for: indexPath) as! TableViewCell
 				cell = self.animationDurationCell
 				cell.tapFeebackEnabled = false
 				cell.textLabel?.attributedText =  getAttributedStringFrom("Animation Scalar", withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
@@ -273,7 +273,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 					self.animationDurationSlider.maximumTrackTintColor = theme.sliderMaxTrackTintColor
 //					self.animationDurationSlider.thumbTintColor = theme.sliderThumbTintColor
 					self.animationDurationSlider.tag = 999
-					self.animationDurationSlider.addTarget(self, action: #selector(SettingsMasterTableViewController.sliderValueChanged(_:)), forControlEvents: .ValueChanged)
+					self.animationDurationSlider.addTarget(self, action: #selector(SettingsMasterTableViewController.sliderValueChanged(_:)), for: .valueChanged)
 					cell.contentView.addSubview(self.animationDurationSlider)
 					self.animationDurationSlider.snp_remakeConstraints(closure: { (make) -> Void in
 						make.trailing.equalTo(cell.contentView).offset(-tableViewCellHorizontalPadding)
@@ -292,7 +292,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
         return cell
     }
 
-	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch section {
 		case 0: return LocalizedStrings.Settings.general
 		case 1: return LocalizedStrings.Settings.actions
@@ -305,7 +305,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		}
 	}
 
-	override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
 		switch section {
 		case 0: return LocalizedStrings.Settings.extraTextDescription
 		case 2: return LocalizedStrings.Settings.nightModeDescription
@@ -315,11 +315,11 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		}
 	}
 
-	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return tableViewCellHeight
 	}
 
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		if indexPath.section == 1 { // Actions
 			switch indexPath.row {
 			case 0: // Restore Tutorial Cards
@@ -335,7 +335,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 					alertController.show()
 				}
 
-				if let tabbarVC = UIApplication.sharedApplication().windows[0].rootViewController as? TabBarController {
+				if let tabbarVC = UIApplication.shared.windows[0].rootViewController as? TabBarController {
 					if let homeVC = tabbarVC.viewControllers![0] as? HomeViewController {
 						homeVC.addTutorialCards(false)
 					}
@@ -344,7 +344,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				let alertController = MDAlertController(title: LocalizedStrings.Alert.titleClearCards, message: LocalizedStrings.Alert.messageClearCards)
 				let action1 = MDAlertAction(title: LocalizedStrings.Alert.buttonYesImSure) {
 					action in
-					if let tabbarVC = UIApplication.sharedApplication().windows[0].rootViewController as? TabBarController {
+					if let tabbarVC = UIApplication.shared.windows[0].rootViewController as? TabBarController {
 						if let homeVC = tabbarVC.viewControllers![0] as? HomeViewController {
 							homeVC.deleteAllCards()
 						}
@@ -371,11 +371,11 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 			case 0: // Tell Friends
 				let shareStr = LocalizedStrings.General.sharePromote + " " + appStoreLink
 				let activityVC = UIActivityViewController(activityItems: [shareStr], applicationActivities: nil)
-				activityVC.popoverPresentationController?.sourceView = self.tableView(self.tableView, cellForRowAtIndexPath: indexPath)
-				self.presentViewController(activityVC, animated: true, completion: nil)
+				activityVC.popoverPresentationController?.sourceView = self.tableView(self.tableView, cellForRowAt: indexPath)
+				self.present(activityVC, animated: true, completion: nil)
 			case 1: // Rate on App Store
 				// TODO: SKStoreProductViewController?
-				UIApplication.sharedApplication().openURL(NSURL(string: appStoreReviewLink)!)
+				UIApplication.shared.openURL(URL(string: appStoreReviewLink)!)
 			case 2: // Contact Developer (Or privacy policy)
 				if MFMailComposeViewController.canSendMail() {
 					let mailController = MFMailComposeViewController()
@@ -383,20 +383,20 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 					mailController.setToRecipients([feedbackEmailToRecipient])
 					mailController.setSubject(LocalizedStrings.FeedbackEmail.subject)
 					mailController.setMessageBody(feedbackEmailMessageBody, isHTML: false)
-					self.presentViewController(mailController, animated: true, completion: nil)
+					self.present(mailController, animated: true, completion: nil)
 				} else {
 					fallthrough
 				}
 			case 3: // Privacy Policy
 				let webVC = WebViewController()
 				webVC.URLstr = privacyPolicyLink
-				self.presentViewController(webVC, animated: true, completion: nil)
+				self.present(webVC, animated: true, completion: nil)
 			default: break
 			}
 		}
 	}
 
-	override func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+	override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
 		super.tableView(tableView, willDisplayFooterView: view, forSection: section)
 		if section == 4 {
 			if let footerView = view as? UITableViewHeaderFooterView {
@@ -405,88 +405,88 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		}
 	}
 
-	func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+	func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
 		switch result {
-		case MFMailComposeResultCancelled:
+		case MFMailComposeResult.cancelled:
 			print("Mail cancelled")
-		case MFMailComposeResultSaved:
+		case MFMailComposeResult.saved:
 			print("Mail saved")
-		case MFMailComposeResultSent:
+		case MFMailComposeResult.sent:
 			print("Mail sent")
-		case MFMailComposeResultFailed:
+		case MFMailComposeResult.failed:
 			if let err = error {
 				print("Mail sent failure: %@", [err.localizedDescription])
 			}
 		default:
 			break
 		}
-		self.dismissViewControllerAnimated(true, completion: nil)
+		self.dismiss(animated: true, completion: nil)
 	}
 
 	// *****************************
 	// MARK: Callbakcs
 	// *****************************
-	func sliderValueChanged(slider:UISlider) {
+	func sliderValueChanged(_ slider:UISlider) {
 		if slider == self.animationDurationSlider {
-			self.animationDurationScalar = NSTimeInterval(slider.value)
+			self.animationDurationScalar = TimeInterval(slider.value)
 			self.animationDurationSlider.value = Float(round(self.animationDurationScalar * 10)/10.0)
 			self.animationDurationCell.detailTextLabel?.attributedText = getAttributedStringFrom("\(round(self.animationDurationScalar * 10)/10.0)", withFontSize: tableViewCellDetailTextLabelFontSize, color: appDelegate.theme.cellDetailTitleTextColor, bold: false)
 		}
 	}
 
-	func switchToggled(switchButton:UISwitch) {
+	func switchToggled(_ switchButton:UISwitch) {
 		let tracker = GAI.sharedInstance().defaultTracker
 		switch switchButton.tag {
 		case self._switchButtonTagShareSignature:
-			if !switchButton.on && !appDelegate.isAbleToTurnOffPromotionalTextWhenShare {
-				switchButton.on = true
+			if !switchButton.isOn && !appDelegate.isAbleToTurnOffPromotionalTextWhenShare {
+				switchButton.isOn = true
 				let alertController = MDAlertController(title: LocalizedStrings.Alert.titlePleasePurchaseSomething, message: LocalizedStrings.Alert.messagePleasePurchaseSomething)
 				let action = MDAlertAction(title: LocalizedStrings.Alert.buttonGotIt)
 				alertController.addAction(action)
 				alertController.show()
 			}
-			appDelegate.userDefaults.setBool(switchButton.on, forKey: userDefaultsKeyExtraTextWhenShare)
+			appDelegate.userDefaults.set(switchButton.isOn, forKey: userDefaultsKeyExtraTextWhenShare)
 			appDelegate.userDefaults.synchronize()
-			if switchButton.on {
-				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			if switchButton.isOn {
+				tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 					action: "switch_toggle",
 					label: "Share Signature Turned On",
-					value: nil).build() as [NSObject : AnyObject])
+					value: nil).build() as [AnyHashable: Any])
 			} else {
-				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+				tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 					action: "switch_toggle",
 					label: "Share Signature Turned Off",
-					value: nil).build() as [NSObject : AnyObject])
+					value: nil).build() as [AnyHashable: Any])
 			}
 		case self._switchButtonTagAutoNightMode:
-			appDelegate.userDefaults.setBool(switchButton.on, forKey: userDefaultsKeyAutoNightMode)
+			appDelegate.userDefaults.set(switchButton.isOn, forKey: userDefaultsKeyAutoNightMode)
 			appDelegate.userDefaults.synchronize()
 			if appDelegate.theme != appDelegate.userSelectedTheme {
 				appDelegate.theme = appDelegate.userSelectedTheme
 			}
-			if switchButton.on {
-				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			if switchButton.isOn {
+				tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 					action: "switch_toggle",
 					label: "Auto Night Mode Turned On",
-					value: nil).build() as [NSObject : AnyObject])
+					value: nil).build() as [AnyHashable: Any])
 			} else {
-				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+				tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 					action: "switch_toggle",
 					label: "Auto Night Mode Turned Off",
-					value: nil).build() as [NSObject : AnyObject])
+					value: nil).build() as [AnyHashable: Any])
 			}
 		case self._switchButtonTagDecodeProsign:
-			appDelegate.prosignTranslationType = switchButton.on ? .Always : .None
-			if switchButton.on {
-				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			appDelegate.prosignTranslationType = switchButton.isOn ? .always : .none
+			if switchButton.isOn {
+				tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 					action: "switch_toggle",
 					label: "Translate Prosign Turned On",
-					value: nil).build() as [NSObject : AnyObject])
+					value: nil).build() as [AnyHashable: Any])
 			} else {
-				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+				tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 					action: "switch_toggle",
 					label: "Translate Prosign Turned Off",
-					value: nil).build() as [NSObject : AnyObject])
+					value: nil).build() as [AnyHashable: Any])
 			}
 		default: break
 		}

@@ -10,7 +10,7 @@ import UIKit
 
 class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveTransition {
 	var transitionInProgress = false
-	var transitionStartDate:NSDate? = nil
+	var transitionStartDate:Date? = nil
 	var outputVC:OutputViewController! = nil {
 		willSet {
 			let pinchGR = UIPinchGestureRecognizer(target: self, action: #selector(handleInteractionGR(_:)))
@@ -29,17 +29,17 @@ class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveT
 		return self.outputVC?.presentingViewController as? TabBarController
 	}
 
-	private var _shouldFinishTransition = false
-	private var _panDistanceToDismiss:CGFloat {
+	fileprivate var _shouldFinishTransition = false
+	fileprivate var _panDistanceToDismiss:CGFloat {
 		return self.tabBarVC.view.bounds.height/2.0
 	}
 
-	func handleInteractionGR(gr:UIGestureRecognizer) {
+	func handleInteractionGR(_ gr:UIGestureRecognizer) {
 		if self.outputVC != nil && self.tabBarVC != nil {
 			var ratio:CGFloat = 0
 			var touchTranslation = CGPoint(x: 0, y: 0)
 			if let panGR = gr as? UIPanGestureRecognizer {
-				touchTranslation = panGR.translationInView(self.tabBarVC.view)
+				touchTranslation = panGR.translation(in: self.tabBarVC.view)
 				ratio = min(1, max(0, touchTranslation.y - slideAndPinchStartDistance)/self._panDistanceToDismiss)
 			} else if let pinchGR = gr as? UIPinchGestureRecognizer {
 				ratio = max(0, 1 - pinchGR.scale)
@@ -47,29 +47,29 @@ class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveT
 			let state = gr.state
 			var delayFinishTransitionTime = defaultAnimationDuration/2.0 * animationDurationScalar
 			if let startDate = self.transitionStartDate {
-				delayFinishTransitionTime -= NSDate().timeIntervalSinceDate(startDate)
+				delayFinishTransitionTime -= Date().timeIntervalSince(startDate)
 			}
 			delayFinishTransitionTime += 0.2
 			delayFinishTransitionTime = max(0, delayFinishTransitionTime)
-			if state == .Began {
-				self.transitionStartDate = NSDate()
-				self.tabBarVC.dismissViewControllerAnimated(true, completion: nil)
+			if state == .began {
+				self.transitionStartDate = Date()
+				self.tabBarVC.dismiss(animated: true, completion: nil)
 				self.transitionInProgress = true
-			} else if state == .Changed && self.transitionInProgress {
+			} else if state == .changed && self.transitionInProgress {
 				if (gr is UIPanGestureRecognizer) && touchTranslation.y >= slideAndPinchStartDistance || gr is UIPinchGestureRecognizer {
 					self._shouldFinishTransition = ratio >= slideAndPinchRatioToDismiss
 					if self.percentComplete != ratio {
 						if ratio >= 1 {
 							if self._shouldFinishTransition {
 								if delayFinishTransitionTime > 0 {
-									self.updateInteractiveTransition(1)
-									self.finishInteractiveTransition()
+									self.update(1)
+									self.finish()
 								} else {
-									self.finishInteractiveTransition()
+									self.finish()
 								}
 							}
 						} else {
-							self.updateInteractiveTransition(ratio)
+							self.update(ratio)
 						}
 					}
 				} else {
@@ -77,7 +77,7 @@ class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveT
 //					self._shouldFinishTransition = false
 					self._shouldFinishTransition = true
 				}
-			} else if state == .Ended || state == .Cancelled && self.transitionInProgress {
+			} else if state == .ended || state == .cancelled && self.transitionInProgress {
 //				if !self._shouldFinishTransition
 ////					|| state == .Cancelled // Commenting out this line because of a bug. cancelInteractiveTransition() not working
 //				{
@@ -92,10 +92,10 @@ class CardViewOutputTransitionInteractionController: UIPercentDrivenInteractiveT
 //					}
 //				}
 				if delayFinishTransitionTime > 0 {
-					self.updateInteractiveTransition(1)
-					self.finishInteractiveTransition()
+					self.update(1)
+					self.finish()
 				} else {
-					self.finishInteractiveTransition()
+					self.finish()
 				}
 				self.transitionInProgress = false
 			}

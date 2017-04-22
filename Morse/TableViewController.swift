@@ -23,10 +23,10 @@ class TableViewController: UITableViewController {
 		self.tableView.separatorColor = theme.tableViewSeparatorColor
 
 		self.tableView.indicatorStyle = theme.scrollViewIndicatorStyle
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TableViewController.updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(TableViewController.updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
     }
 
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		self.tableView.reloadData()
 	}
@@ -38,22 +38,22 @@ class TableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 0
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0
     }
 
-	override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
 		if let headerView = view as? UITableViewHeaderFooterView {
 			headerView.textLabel?.textColor = theme.tableViewHeaderTextColor
 		}
 	}
 
-	override func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+	override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
 		if let footerView = view as? UITableViewHeaderFooterView {
 			footerView.textLabel?.textColor = theme.tableViewFooterTextColor
 		}
@@ -63,11 +63,11 @@ class TableViewController: UITableViewController {
 	Responsible for updating the UI when user changes the theme.
 	- parameter animated: A boolean determines if the theme change should be animated.
 	*/
-	func updateColor(animated animated:Bool = true) {
+	func updateColor(animated:Bool = true) {
 		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
-		UIView.animateWithDuration(duration,
+		UIView.animate(withDuration: duration,
 			delay: 0,
-			options: .CurveEaseInOut,
+			options: UIViewAnimationOptions(),
 			animations: {
 				self.tableView.indicatorStyle = theme.scrollViewIndicatorStyle
 				self.view.backgroundColor = theme.tableViewBackgroundColor

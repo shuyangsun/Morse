@@ -44,7 +44,7 @@ class TableViewSwitchCell: TableViewCell {
 		self.switchButton = UISwitch()
 		self.switchButton.onTintColor = theme.switchOnTintColor
 		self.contentView.addSubview(self.switchButton)
-		self.switchButton.addTarget(self, action: #selector(TableViewSwitchCell.switchToggled), forControlEvents: .ValueChanged)
+		self.switchButton.addTarget(self, action: #selector(TableViewSwitchCell.switchToggled), for: .valueChanged)
 		self.switchButton.snp_remakeConstraints(closure: { (make) -> Void in
 			make.centerY.equalTo(self.contentView)
 			make.height.equalTo(switchButtonHeight)
@@ -53,7 +53,7 @@ class TableViewSwitchCell: TableViewCell {
 		})
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

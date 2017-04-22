@@ -21,9 +21,9 @@ enum MorseUnit:String {
 
 // This enum means how the prosigns are translated. Value 0 is the default translation type.
 enum ProsignTranslationType:Int {
-	case Always = 0
-	case OnlyWhenSingulated = 1
-	case None = 2
+	case always = 0
+	case onlyWhenSingulated = 1
+	case none = 2
 }
 
 // Strings
@@ -41,23 +41,23 @@ private let LETTER_GAP_LENGTH:Float = 3.0
 private let WORD_GAP_LENGTH:Float = 7.0
 
 // Dispatch Queues
-private let _encodeQueue = dispatch_queue_create("Encode Queue", nil)
-private let _decodeQueue = dispatch_queue_create("Decode Queue", nil)
-private let _futureQueue = dispatch_queue_create("Transmitter Future Serial Queue", DISPATCH_QUEUE_SERIAL)
-private let _globalQueueDefault = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+private let _encodeQueue = DispatchQueue(label: "Encode Queue", attributes: [])
+private let _decodeQueue = DispatchQueue(label: "Decode Queue", attributes: [])
+private let _futureQueue = DispatchQueue(label: "Transmitter Future Serial Queue", attributes: [])
+private let _globalQueueDefault = DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default)
 
 private let numberOfNewLineForNewPageProsign = 5
 private var newPageProsignText:String {
-	return String(count: numberOfNewLineForNewPageProsign, repeatedValue: Character("\n"))
+	return String(repeating: "\n", count: numberOfNewLineForNewPageProsign)
 }
 
 class MorseTransmitter {
-	private var _text:String?
-	private var _morse:String?
+	fileprivate var _text:String?
+	fileprivate var _morse:String?
 
 	static let standardWordLength:Int = 50
 
-	private let _getTimeStampQueue = dispatch_queue_create("Get Time Stamp Queue", nil)
+	fileprivate let _getTimeStampQueue = DispatchQueue(label: "Get Time Stamp Queue", attributes: [])
 
 	static let keys:[String] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "à", "å", "ä", "ą", "æ", "ć", "ĉ", "ç", "đ", "ð", "é", "ę", "è", "ĝ", "ĥ", "ĵ", "ł", "ń", "ñ", "ó", "ö", "ø", "ś", "ŝ", "š", "þ", "ü", "ŭ", "ź", "ż", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", ".", ",", "'", "\"", "_", ":", ";", "?", "!", "-", "+", "/", "(", ")", "&", "=", "@", "$"]
 
@@ -254,7 +254,7 @@ class MorseTransmitter {
 		}
 		get {
 			let res = self._text == nil ? self.decodeMorseToText(self._morse) : self._text
-			return res?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+			return res?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 		}
 	}
 
@@ -265,7 +265,7 @@ class MorseTransmitter {
 		}
 		get {
 			let res = self._morse == nil ? self.encodeTextToMorse(self._text) : self._morse
-			return res?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+			return res?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 		}
 	}
 
@@ -274,67 +274,67 @@ class MorseTransmitter {
 	}
 
 	// TODO: Not used, because it doesn't work
-	func morseRangeFromTextRange(range:NSRange) -> NSRange {
+	func morseRangeFromTextRange(_ range:NSRange) -> NSRange {
 		if self.text != nil && self.morse != nil &&
-			range.location > 0 && range.location + range.length <= self.text!.lengthOfBytesUsingEncoding(NSISOLatin1StringEncoding) {
+			range.location > 0 && range.location + range.length <= self.text!.lengthOfBytes(using: String.Encoding.isoLatin1) {
 			let textStr = self.text!
-			let preText = textStr.substringWithRange(textStr.startIndex..<textStr.startIndex.advancedBy(range.location)) // ******TextSelected****** // This is the first "******" part.
-			let postText = textStr.substringWithRange(textStr.startIndex..<textStr.startIndex.advancedBy(range.location + range.length)) // ******TextSelected****** // This is the "******TextSelected" part.
+			let preText = textStr.substring(with: textStr.startIndex..<textStr.characters.index(textStr.startIndex, offsetBy: range.location)) // ******TextSelected****** // This is the first "******" part.
+			let postText = textStr.substring(with: textStr.startIndex..<textStr.characters.index(textStr.startIndex, offsetBy: range.location + range.length)) // ******TextSelected****** // This is the "******TextSelected" part.
 			let preMorse = self.encodeTextToMorse(preText)
 			let endMorse = self.encodeTextToMorse(postText)
-			let location = preMorse?.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
-			let end = endMorse?.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+			let location = preMorse?.lengthOfBytes(using: String.Encoding.utf8)
+			let end = endMorse?.lengthOfBytes(using: String.Encoding.utf8)
 			if location != nil && end != nil {
 				return NSRange(location: location!, length: end! - location!)
 			}
 		}
 
-		let morseLen = self.morse?.lengthOfBytesUsingEncoding(NSISOLatin1StringEncoding)
+		let morseLen = self.morse?.lengthOfBytes(using: String.Encoding.isoLatin1)
 		let defaultLocation = morseLen == nil ? 0 : morseLen!
 		let defaultRange = NSRange(location: defaultLocation, length: 0)
 		return defaultRange
 	}
 
 	// Assumes morse is valid
-	func getTimeStamp(withScalar scalar:Float = 1.0, delay:NSTimeInterval = 0.0) -> [NSTimeInterval]? {
+	func getTimeStamp(withScalar scalar:Float = 1.0, delay:TimeInterval = 0.0) -> [TimeInterval]? {
 		if self.morse == nil || self.morse!.isEmpty { return nil }
 		if scalar <= 0 { return nil }
 		if scalar <= 1.0/60 {
 			NSLog("Input/output scalar(\(scalar)) is less than 1/60, may cause serious encoding or decoding problem.")
 		}
-		var res:[NSTimeInterval] = [delay]
-		dispatch_sync(dispatch_queue_create("Get Time Stamp Queue", nil)) {
+		var res:[TimeInterval] = [delay]
+		DispatchQueue(label: "Get Time Stamp Queue", attributes: []).sync {
 			// Seperate words
-			let words = self.morse!.componentsSeparatedByString(WORD_GAP_STRING)
+			let words = self.morse!.components(separatedBy: WORD_GAP_STRING)
 			var appendedWord = false
 			for word in words {
 				// Seperate letters
-				let letters = word.componentsSeparatedByString(LETTER_GAP_STRING)
+				let letters = word.components(separatedBy: LETTER_GAP_STRING)
 				var appendedLetter = false
 				for letter in letters {
 					// Seperate units
-					let units = letter.componentsSeparatedByString(UNIT_GAP_STRING)
+					let units = letter.components(separatedBy: UNIT_GAP_STRING)
 					var appendedUnit = false
 					for unit in units {
 						if unit == UNIT_DIT_STRING  {
-							res.append(res.last! + NSTimeInterval(DIT_LENGTH * scalar))
-							res.append(res.last! + NSTimeInterval(UNIT_GAP_LENGTH * scalar))
+							res.append(res.last! + TimeInterval(DIT_LENGTH * scalar))
+							res.append(res.last! + TimeInterval(UNIT_GAP_LENGTH * scalar))
 							appendedUnit = true
 						} else if unit == UNIT_DAH_STRING {
-							res.append(res.last! + NSTimeInterval(DAH_LENGTH * scalar))
-							res.append(res.last! + NSTimeInterval(UNIT_GAP_LENGTH * scalar))
+							res.append(res.last! + TimeInterval(DAH_LENGTH * scalar))
+							res.append(res.last! + TimeInterval(UNIT_GAP_LENGTH * scalar))
 							appendedUnit = true
 						}
 					}
 					if appendedUnit {
 						res.removeLast()
-						res.append(res.last! + NSTimeInterval(LETTER_GAP_LENGTH * scalar))
+						res.append(res.last! + TimeInterval(LETTER_GAP_LENGTH * scalar))
 						appendedLetter = true
 					}
 				}
 				if appendedLetter {
 					res.removeLast()
-					res.append(res.last! + NSTimeInterval(WORD_GAP_LENGTH * scalar))
+					res.append(res.last! + TimeInterval(WORD_GAP_LENGTH * scalar))
 					appendedWord = true
 				}
 			}
@@ -350,21 +350,21 @@ class MorseTransmitter {
 	// *****************************
 	var delegate:MorseTransmitterDelegate?
 
-	private let _audioAnalysisQueue = dispatch_queue_create("Audio Analysis Queue", nil)
-	private var _currentLetterMorse = ""
-	private var _currentWordMorse = ""
-	private var _inputWPM:Int {
-		return appDelegate.userDefaults.integerForKey(userDefaultsKeyInputWPM)
+	fileprivate let _audioAnalysisQueue = DispatchQueue(label: "Audio Analysis Queue", attributes: [])
+	fileprivate var _currentLetterMorse = ""
+	fileprivate var _currentWordMorse = ""
+	fileprivate var _inputWPM:Int {
+		return appDelegate.userDefaults.integer(forKey: userDefaultsKeyInputWPM)
 	}
-	private var _sampleRate:Double = -1
-	private let _spellChecker = UITextChecker()
+	fileprivate var _sampleRate:Double = -1
+	fileprivate let _spellChecker = UITextChecker()
 	// This variable means how many callbacks should one unit be with the given WPM and the default sample rate (44100).
-	private var _unitLength:Float {
+	fileprivate var _unitLength:Float {
 		let unitsPerSecond = Double(self._inputWPM) * 50.0 / 60.0
 		return Float(self._sampleRate/1000.0/unitsPerSecond)
 	}
 
-	private var _lengthRanges:(oneUnit:Range<Int>, threeUnit:Range<Int>, sevenUnit:Range<Int>) {
+	fileprivate var _lengthRanges:(oneUnit:CountableRange<Int>, threeUnit:CountableRange<Int>, sevenUnit:CountableRange<Int>) {
 		if (14...18).contains(self._inputWPM) {
 			return (2...5, 6...14, 15...999)
 		} else if (19...23).contains(self._inputWPM) {
@@ -377,22 +377,22 @@ class MorseTransmitter {
 		return (2...5, 7...14, 15...999)
 	}
 
-	private var _isDuringSignal = false
-	private var _singalStarted = false
-	private var _wordGapAppended = true
-	private var _newLineAppended = true
-	private var _counter = 1
+	fileprivate var _isDuringSignal = false
+	fileprivate var _singalStarted = false
+	fileprivate var _wordGapAppended = true
+	fileprivate var _newLineAppended = true
+	fileprivate var _counter = 1
 
 	// The following variables are to help calculating input WPM
-	private var _ditSignalLengthRecordRecent:[Int] = []
-	private var _dahSignalLengthRecordRecent:[Int] = []
-	private let _unitLengthRecordLength = 3
+	fileprivate var _ditSignalLengthRecordRecent:[Int] = []
+	fileprivate var _dahSignalLengthRecordRecent:[Int] = []
+	fileprivate let _unitLengthRecordLength = 3
 
 	// The following variables are to help calculating the threshold of signal rise/fall
-	private var _maxLevelsHistoryRecent:[Float] = []
-	private var _levelsHistoryRecent:[Float] = []
+	fileprivate var _maxLevelsHistoryRecent:[Float] = []
+	fileprivate var _levelsHistoryRecent:[Float] = []
 
-	private var _minLvl = Int.max
+	fileprivate var _minLvl = Int.max
 
 	// ******************************************************************************
 	// WARNNING: MUST call this before using this tramsmitter to process input audio.
@@ -415,8 +415,8 @@ class MorseTransmitter {
 	// it won't cause a performance issue, but for safety we dispatch it
 	// ******************************************************************************
 
-	func microphone(microphone: EZMicrophone!, maxFrequencyMagnitude: Float) {
-		dispatch_async(self._audioAnalysisQueue) {
+	func microphone(_ microphone: EZMicrophone!, maxFrequencyMagnitude: Float) {
+		self._audioAnalysisQueue.async {
 			// Setup sample rate
 			if self._sampleRate < 0 {
 				self._sampleRate = microphone.audioStreamBasicDescription().mSampleRate
@@ -433,7 +433,7 @@ class MorseTransmitter {
 
 			// Calculate when should the isDuringSignal bar be set.
 			self._levelsHistoryRecent.append(level)
-			let recordLengthAll = (self._lengthRanges.oneUnit.startIndex + self._lengthRanges.oneUnit.endIndex - 1)/2
+			let recordLengthAll = (self._lengthRanges.oneUnit.lowerBound + self._lengthRanges.oneUnit.upperBound - 1)/2
 			let recordLengthMax = recordLengthAll * 2
 			while self._levelsHistoryRecent.count > recordLengthAll {
 				self._levelsHistoryRecent.removeFirst()
@@ -540,38 +540,38 @@ class MorseTransmitter {
 	// This method is called when a piece of audio is processed and a unit is sure will be appended to the Morse code.
 	// Only 4 type of units can be appended: DIT, DAH, LETTERGAP, WORDGAP. UNITGAP will be appended automatically.
 	// ********************************************************************************************************************
-	private func appendUnit(unit:MorseUnit) { 
+	fileprivate func appendUnit(_ unit:MorseUnit) { 
 		self._newLineAppended = false
 		if unit == .LetterGap || unit == .WordGap {
 			// If we're appending a gap, reset currentLetterMorse
 			self._currentLetterMorse = ""
 			if unit == .LetterGap {
-				self._morse?.appendContentsOf(unit.rawValue)
-				if appDelegate.prosignTranslationType == .Always {
-					self._currentWordMorse.appendContentsOf(unit.rawValue)
+				self._morse?.append(unit.rawValue)
+				if appDelegate.prosignTranslationType == .always {
+					self._currentWordMorse.append(unit.rawValue)
 				}
 			}
 			if unit == .WordGap {
-				if appDelegate.prosignTranslationType == .Always {
+				if appDelegate.prosignTranslationType == .always {
 					// If we translate prosign, decode the whole sentence again.
 					if let prosignText = MorseTransmitter.prosignMorseToTextStringDictionary[self._currentWordMorse] {
 						if prosignText.characters.last! == "\n" { // Cannot use hasSuffix method, does not work on newline characters.
 							self._newLineAppended = true
 						}
 						// Remove the wrong character appended last time.
-						self._text?.removeAtIndex(self._text!.endIndex.advancedBy(-1))
+						self._text?.remove(at: self._text!.characters.index(self._text!.endIndex, offsetBy: -1))
 						// If a newline was appended, removed the redundant space appended to text last time.
 						if self._newLineAppended {
-							self._text?.removeAtIndex(self._text!.endIndex.advancedBy(-1))
+							self._text?.remove(at: self._text!.characters.index(self._text!.endIndex, offsetBy: -1))
 						}
-						self._text?.appendContentsOf(prosignText)
+						self._text?.append(prosignText)
 					}
 					self._currentWordMorse = ""
 				}
-				self._morse?.appendContentsOf(unit.rawValue)
+				self._morse?.append(unit.rawValue)
 				// Append a space on the text if there's a word gap, don't append if there is a newline before
 				if !self._newLineAppended {
-					self._text?.appendContentsOf(" ")
+					self._text?.append(" ")
 				}
 
 				// If the user wants to auto correct mis-spelled words when using audio input to translate morse, this chunk of code does it.
@@ -592,22 +592,22 @@ class MorseTransmitter {
 						checkedLanguage = defaultSpellCheckLanguageCode
 					}
 					// Find the first mis-spelled range.
-					var misSpelledRange = self._spellChecker.rangeOfMisspelledWordInString(correctedText, range: NSMakeRange(0, correctedText.lengthOfBytesUsingEncoding(NSASCIIStringEncoding)), startingAt: 0, wrap: false, language: checkedLanguage)
+					var misSpelledRange = self._spellChecker.rangeOfMisspelledWord(in: correctedText, range: NSMakeRange(0, correctedText.lengthOfBytes(using: String.Encoding.ascii)), startingAt: 0, wrap: false, language: checkedLanguage)
 					var misSpelledWord = ""
 					// Keep fixing mis-spelled words while there is one.
 					while misSpelledRange.location != NSNotFound {
-						let misSpelledIndexRange = correctedText.startIndex.advancedBy(misSpelledRange.location)..<correctedText.startIndex.advancedBy(misSpelledRange.location + misSpelledRange.length)
-						misSpelledWord = correctedText.substringWithRange(misSpelledIndexRange)
+						let misSpelledIndexRange = correctedText.characters.index(correctedText.startIndex, offsetBy: misSpelledRange.location)..<correctedText.characters.index(correctedText.startIndex, offsetBy: misSpelledRange.location + misSpelledRange.length)
+						misSpelledWord = correctedText.substring(with: misSpelledIndexRange)
 						// See if there is any guess for the word.
-						if let guessedWords = self._spellChecker.guessesForWordRange(misSpelledRange, inString: correctedText, language: checkedLanguage) as? [String] {
+						if let guessedWords = self._spellChecker.guesses(forWordRange: misSpelledRange, in: correctedText, language: checkedLanguage) as? [String] {
 							if !guessedWords.isEmpty {
 								// Convert the word to upper case to avoid case sensitivity
-								let guessedWordsUpperCase = guessedWords.map { $0.uppercaseString }
+								let guessedWordsUpperCase = guessedWords.map { $0.uppercased() }
 								// Check if guessed words already contains the mis-spelled word without case sensitive, sometime spell checker is case sensitive.
-								if !guessedWordsUpperCase.contains(misSpelledWord.uppercaseString) {
+								if !guessedWordsUpperCase.contains(misSpelledWord.uppercased()) {
 									// If there is at least one guessed word, replace the mis-spelled word with the first guessed word.
 									let firstGuessedWord = guessedWords[0]
-									correctedText.replaceRange(misSpelledIndexRange, with: firstGuessedWord)
+									correctedText.replaceSubrange(misSpelledIndexRange, with: firstGuessedWord)
 								}
 							} else if guessedWords.isEmpty {
 								self._spellChecker.ignoreWord(misSpelledWord)
@@ -622,7 +622,7 @@ class MorseTransmitter {
 							#endif
 						}
 						// Keep looking for mis-spelled words
-						misSpelledRange = self._spellChecker.rangeOfMisspelledWordInString(correctedText, range: NSMakeRange(0, correctedText.lengthOfBytesUsingEncoding(NSASCIIStringEncoding)), startingAt: misSpelledRange.location + misSpelledRange.length - 1, wrap: false, language: checkedLanguage)
+						misSpelledRange = self._spellChecker.rangeOfMisspelledWord(in: correctedText, range: NSMakeRange(0, correctedText.lengthOfBytes(using: String.Encoding.ascii)), startingAt: misSpelledRange.location + misSpelledRange.length - 1, wrap: false, language: checkedLanguage)
 					}
 					self._text = correctedText
 				}
@@ -632,17 +632,17 @@ class MorseTransmitter {
 			// We're sure unit is either DIT or DAH at this point
 			// If morse for current character is not empty (means there is a DIT or DAH at the end), append a one unit gap for morse.
 			if !self._currentLetterMorse.isEmpty && !self._currentLetterMorse.hasPrefix(" ") {
-				self._currentLetterMorse.appendContentsOf(" ")
-				self._morse?.appendContentsOf(" ")
-				if appDelegate.prosignTranslationType == .Always {
-					self._currentWordMorse.appendContentsOf(" ")
+				self._currentLetterMorse.append(" ")
+				self._morse?.append(" ")
+				if appDelegate.prosignTranslationType == .always {
+					self._currentWordMorse.append(" ")
 				}
 			}
 			// Append this new unit (DIT or DAH) to morse for current character
-			self._currentLetterMorse.appendContentsOf(unit.rawValue)
-			self._morse?.appendContentsOf(unit.rawValue)
-			if appDelegate.prosignTranslationType == .Always {
-				self._currentWordMorse.appendContentsOf(unit.rawValue)
+			self._currentLetterMorse.append(unit.rawValue)
+			self._morse?.append(unit.rawValue)
+			if appDelegate.prosignTranslationType == .always {
+				self._currentWordMorse.append(unit.rawValue)
 			}
 
 			// After appending this new unit, change the text.
@@ -653,10 +653,10 @@ class MorseTransmitter {
 			}
 			// If in the middle of decoding a letter, remove the last appended letter and append the new one.
 			if !startOfALetter {
-				self._text?.removeAtIndex(self._text!.endIndex.advancedBy(-1))
+				self._text?.remove(at: self._text!.characters.index(self._text!.endIndex, offsetBy: -1))
 			}
 			// If not in the middle of decoding a letter, simply append the new letter.
-			self._text?.appendContentsOf(letter!)
+			self._text?.append(letter!)
 		}
 
 		// Call the delegate method notifying at least one of text and Morse content is changed.
@@ -668,31 +668,31 @@ class MorseTransmitter {
 	// *****************************
 
 	// Ignores invalid character
-	private func encodeTextToMorse(text:String!) -> String? {
+	fileprivate func encodeTextToMorse(_ text:String!) -> String? {
 		// If there's no text, return nil.
 		if text == nil || text.isEmpty { return nil }
 
 		// Create an empty string as result to append content later.
 		var res = ""
 		// Encode on another queue.
-		dispatch_sync(_encodeQueue) {
+		_encodeQueue.sync {
 			// Decide if we need to keep portaintial prosign characters.
 			var seperatorCharacters = " \t"
-			if appDelegate.prosignTranslationType != .Always {
+			if appDelegate.prosignTranslationType != .always {
 				seperatorCharacters += "\n\r"
 			}
 			// Seperate the text into words.
 			// WARNING: If translating prosign, this word may contain newline character if translating prosign
-			var words = text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).lowercaseString.componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: seperatorCharacters))
+			var words = text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).lowercased().components(separatedBy: CharacterSet(charactersIn: seperatorCharacters))
 			// Do some additional processing if translating prosign
-			if appDelegate.prosignTranslationType == .Always {
+			if appDelegate.prosignTranslationType == .always {
 				for var i in 0..<words.count {
 					if i + 1 < words.count {
 						// Find adjacent words can connect with newline characters, combine them into one word.
 						if (words[i].hasSuffix("\n") || words[i].hasSuffix("\r")) &&
 							(words[i + 1].hasPrefix("\n") || words[i + 1].hasPrefix("\r")) {
 							words[i] += words[i + 1]
-							words.removeAtIndex(i + 1)
+							words.remove(at: i + 1)
 							i -= 1
 						}
 					}
@@ -712,7 +712,7 @@ class MorseTransmitter {
 					if let chMorseString = MorseTransmitter.encodeTextToMorseStringDictionary[ch] {
 						var prefixSpaceForLetter = MorseUnit.LetterGap.rawValue
 						// If there was a series of newline characters
-						if appDelegate.prosignTranslationType == .Always && newLineChCounter > 0 {
+						if appDelegate.prosignTranslationType == .always && newLineChCounter > 0 {
 							// Decide the prefix-space based on the position of this newline character
 							// NOTE: this part only considers two situations: the beginning and the middle of word. The third situation (the end of the word) is handdled later.
 							var prefixSpace = MorseUnit.WordGap.rawValue
@@ -739,7 +739,7 @@ class MorseTransmitter {
 						wordStr += chMorseString
 					} else { // If the character cannot be found, it's possible it a new line character
 						// If this character is a newline character, do something
-						if appDelegate.prosignTranslationType == .Always {
+						if appDelegate.prosignTranslationType == .always {
 							if ch == "\n" || ch == "\r" {
 								newLineChCounter += 1
 							}
@@ -773,13 +773,13 @@ class MorseTransmitter {
 	}
 
 	// Assume morse is valid
-	private func decodeMorseToText(morse:String!) -> String? {
+	fileprivate func decodeMorseToText(_ morse:String!) -> String? {
 		// If the morse code is nil or empty, return nil
 		if morse == nil || morse.isEmpty { return nil }
 		// If the morse code only contains code prosign, translate it to prosign and done.
-		if appDelegate.prosignTranslationType == .OnlyWhenSingulated {
+		if appDelegate.prosignTranslationType == .onlyWhenSingulated {
 			// If there exists a prosign for it, return it.
-			if let translatedProsign = MorseTransmitter.prosignMorseToTextStringDictionary[morse!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())] {
+			if let translatedProsign = MorseTransmitter.prosignMorseToTextStringDictionary[morse!.trimmingCharacters(in: CharacterSet.whitespaces)] {
 				return translatedProsign
 			}
 		}
@@ -787,19 +787,19 @@ class MorseTransmitter {
 		// Create an empty string as result to append content later.
 		var res = ""
 		// Decode on another queue.
-		dispatch_sync(_decodeQueue) {
+		_decodeQueue.sync {
 			// Seperate Morse code into words.
-			let words = morse.componentsSeparatedByString(WORD_GAP_STRING)
+			let words = morse.components(separatedBy: WORD_GAP_STRING)
 			for word in words {
 				// Get an array of characters in this word.
-				let chArr = word.componentsSeparatedByString(LETTER_GAP_STRING)
+				let chArr = word.components(separatedBy: LETTER_GAP_STRING)
 				// Initliaze an empty string for later word construction.
 				var wordStr:String = ""
 				// Seperate this word into characters
 				for ch in chArr {
 					if !ch.isEmpty { // This line is here to fix a bug where in some cases empty string will be found in chArr
 						// If the user always want to translate prosign and this maybe one prosign (only one character in this word), do it.
-						if appDelegate.prosignTranslationType == .Always && chArr.count == 1 {
+						if appDelegate.prosignTranslationType == .always && chArr.count == 1 {
 							// Check if this is a prosign
 							if let prosignText = MorseTransmitter.prosignMorseToTextStringDictionary[String(ch)] {
 								wordStr = prosignText
@@ -828,7 +828,7 @@ class MorseTransmitter {
 
 			// Remove the trailing white space.
 			if !res.isEmpty {
-				res.removeAtIndex(res.endIndex.advancedBy(-1))
+				res.remove(at: res.characters.index(res.endIndex, offsetBy: -1))
 			}
 		}
 		return res.isEmpty ? nil : res
@@ -843,11 +843,11 @@ class MorseTransmitter {
 			- concurrent: Whether the code of getting this text should be ran concurrently or serially. False by default.
 			- completionDispatchQueue: The queue to execute completion block. By default this is set to main queue.
 			- completion: The completion block to run after text is translated. */
-	func getFutureText(concurrent:Bool = false,
-	                   completionDispatchQueue:dispatch_queue_t? = nil,
+	func getFutureText(_ concurrent:Bool = false,
+	                   completionDispatchQueue:DispatchQueue? = nil,
 	                   completion:((futureText:String?)->Void)) {
 		// Call helper method:
-		_getFuture(.Text,
+		_getFuture(.text,
 		           completionDispatchQueue: completionDispatchQueue,
 		           concurrent: concurrent,
 		           completion: completion)
@@ -860,43 +860,43 @@ class MorseTransmitter {
 			- concurrent: Whether the code of getting Morse code should be ran concurrently or serially. False by default.
 			- completionDispatchQueue: The queue to execute completion block. By default this is set to main queue.
 			- completion: The completion block to run after Morse code is translated. */
-	func getFutureMorse(concurrent:Bool = false,
-	                    completionDispatchQueue:dispatch_queue_t? = nil,
+	func getFutureMorse(_ concurrent:Bool = false,
+	                    completionDispatchQueue:DispatchQueue? = nil,
 	                    completion:((futureText:String?)->Void)) {
 		// Call helper method:
-		_getFuture(.Morse,
+		_getFuture(.morse,
 		           completionDispatchQueue: completionDispatchQueue,
 		           concurrent: concurrent,
 		           completion: completion)
 	}
 
 	// A helper method for the 'Future' design of text and Morse code translation.
-	private func _getFuture(type:FutureObjectType,
+	fileprivate func _getFuture(_ type:FutureObjectType,
 	                        concurrent:Bool = false,
-	                        completionDispatchQueue:dispatch_queue_t? = nil,
+	                        completionDispatchQueue:DispatchQueue? = nil,
 	                        completion:((futureText:String?)->Void)) {
 		// Create a completion queue for the completion block to run on. Use main queue if not specified.
-		let completionQueue = (completionDispatchQueue == nil ? dispatch_get_main_queue():completionDispatchQueue)
+		let completionQueue = (completionDispatchQueue == nil ? DispatchQueue.main:completionDispatchQueue)
 		// Create a queue and group to translate text/Morse code.
-		let group = dispatch_group_create()
+		let group = DispatchGroup()
 		let getTextQueue = concurrent ? _globalQueueDefault:_futureQueue
 		// Get the future place holder.
 		var future:String? = nil
-		dispatch_group_async(group, getTextQueue) {
+		getTextQueue.async(group: group) {
 			switch type {
-			case .Text: future = self.text
-			case .Morse: future = self.morse
+			case .text: future = self.text
+			case .morse: future = self.morse
 			}
 		}
 		// When the process is done, call the completion block with 'future', which has the result now.
-		dispatch_group_notify(group, completionQueue) {
+		group.notify(queue: completionQueue) {
 			completion(futureText: future)
 		}
 	}
 
 	// Type of content user wants to get out of 'Future' functions.
-	private enum FutureObjectType {
-		case Text, Morse
+	fileprivate enum FutureObjectType {
+		case text, morse
 	}
 }
 

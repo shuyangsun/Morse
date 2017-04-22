@@ -46,7 +46,7 @@ extension UIColor {
 		- alpha: The alpha value for transparency, between 0 and 1.0. 0 Is transparent, 1 is opaque.
 	- Returns: The UIColor which called this method with specified alpha.
 	*/
-	func colorWithAlpha(alpha:CGFloat) -> UIColor {
+	func colorWithAlpha(_ alpha:CGFloat) -> UIColor {
 		return UIColor(hex: self.hex, alpha: alpha)
 	}
 	// -------------------------------------------------------------------------------------------------------------------------------------
@@ -67,7 +67,7 @@ extension UIView {
 		- shadowDepth: The depth value for shadow, it should be an integer ranging from 0 to 5. Any value outside this range will be ignored. 0 means "no shadow", 5 means "deepest shadow". Elements on a higher level of hierarchy (floating higher) should have higher value.
 		- shadowColor (default=black): The color of this shadow. Specifying alpha value for color will have effects on the shadow, but this is not recomended since default alpha value for each shadow level will be added. Specifying alpha value for shadowColor may confused user for the level of hierarchy.
 	*/
-	func addMDShadow(withDepth shadowDepth:Int?, shadowColor:UIColor = UIColor.blackColor()) {
+	func addMDShadow(withDepth shadowDepth:Int?, shadowColor:UIColor = UIColor.black) {
 		// If all the condition meets, add the shadow.
 		if let depth = shadowDepth {
 			if depth >= 1 && depth <= 5 {
@@ -86,7 +86,7 @@ extension UIView {
 				if !foundExistingShadowLayer {
 					bottomLayer = ShadowLayer()
 					bottomLayer.frame = self.layer.bounds
-					bottomLayer.backgroundColor = UIColor.clearColor().CGColor
+					bottomLayer.backgroundColor = UIColor.clear.cgColor
 					// Adding bottom layer will cause some unwanted effects for now, need to be fixed.
 					//					self.layer.addSublayer(bottomLayer)
 				}
@@ -110,15 +110,15 @@ extension UIView {
 					shadowColor.getRed(&r, green: &g, blue: &b, alpha: &a)
 
 					let topLayerShadowPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.bounds.width + 1, height: self.bounds.height + 1), cornerRadius: self.layer.cornerRadius)
-					topLayer.shadowPath = topLayerShadowPath.CGPath
-					topLayer.shadowColor = UIColor(red: r, green: g, blue: b, alpha: shadowVal.topShadowProperties.alpha).CGColor
+					topLayer.shadowPath = topLayerShadowPath.cgPath
+					topLayer.shadowColor = UIColor(red: r, green: g, blue: b, alpha: shadowVal.topShadowProperties.alpha).cgColor
 					topLayer.shadowOffset = CGSize(width: shadowVal.topShadowProperties.xOffset, height: shadowVal.topShadowProperties.yOffset)
 					topLayer.shadowRadius = shadowVal.topShadowProperties.blur
 					topLayer.shadowOpacity = 1.0
 
 					let bottomLayerShadowPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.bounds.width + 1, height: self.bounds.height + 1), cornerRadius: self.layer.cornerRadius)
-					bottomLayer.shadowPath = bottomLayerShadowPath.CGPath
-					bottomLayer.shadowColor = UIColor(red: r, green: g, blue: b, alpha: shadowVal.bottomShadowProperties.alpha).CGColor
+					bottomLayer.shadowPath = bottomLayerShadowPath.cgPath
+					bottomLayer.shadowColor = UIColor(red: r, green: g, blue: b, alpha: shadowVal.bottomShadowProperties.alpha).cgColor
 					bottomLayer.shadowOffset = CGSize(width: shadowVal.bottomShadowProperties.xOffset, height: shadowVal.bottomShadowProperties.yOffset)
 					bottomLayer.shadowRadius = shadowVal.bottomShadowProperties.blur
 					bottomLayer.shadowOpacity = 1.0
@@ -128,13 +128,13 @@ extension UIView {
 
 		if shadowDepth == nil || shadowDepth! < 1 || shadowDepth! > 5 {
 			self.layer.shadowPath = nil
-			self.layer.shadowColor = UIColor.clearColor().CGColor
+			self.layer.shadowColor = UIColor.clear.cgColor
 			if let subLayers = self.layer.sublayers {
 				for subLayer in subLayers {
 					// If there existed a shadow layer
 					if subLayer is ShadowLayer {
 						subLayer.shadowPath = nil
-						subLayer.shadowColor = UIColor.clearColor().CGColor
+						subLayer.shadowColor = UIColor.clear.cgColor
 					}
 				}
 			}
@@ -153,7 +153,7 @@ extension UIView {
 		- atBottom (default=true): Determines if the feedback animation should apear on top or bottom of the view hierarchy. Most of the time we want it at bottom so it doens't cover any subviews. However, if there are subviews on this view that make this animation unatrual, set it to false so it will happen at the top of view hierarchy.
 		- completion (default=nil): A completion block for submitting actions after the feedback animation is over.
 	*/
-	func triggerTapFeedBack(atLocation location:CGPoint, withColor color:UIColor = UIColor.whiteColor(), duration:NSTimeInterval = TAP_FEED_BACK_DURATION, showSurfaceReaction:Bool = true, atBottom:Bool = true, scaleDuration:Bool = true, completion: ((Void) -> Void)? = nil) {
+	func triggerTapFeedBack(atLocation location:CGPoint, withColor color:UIColor = UIColor.white, duration:TimeInterval = TAP_FEED_BACK_DURATION, showSurfaceReaction:Bool = true, atBottom:Bool = true, scaleDuration:Bool = true, completion: ((Void) -> Void)? = nil) {
 		var duration = duration
 		if scaleDuration {
 			duration *= animationDurationScalar
@@ -161,7 +161,7 @@ extension UIView {
 		let overlayView = UIView(frame: self.bounds)
 		overlayView.clipsToBounds = true
 		overlayView.layer.cornerRadius = self.layer.cornerRadius
-		overlayView.backgroundColor = UIColor.clearColor()
+		overlayView.backgroundColor = UIColor.clear
 
 		let surfaceReactionView = UIView(frame: overlayView.bounds)
 		if showSurfaceReaction {
@@ -171,7 +171,7 @@ extension UIView {
 			var a:CGFloat = 0
 			color.getRed(&r, green: &g, blue: &b, alpha: &a)
 			surfaceReactionView.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: a/2.0)
-			surfaceReactionView.opaque = false
+			surfaceReactionView.isOpaque = false
 			surfaceReactionView.alpha = 0.0
 			overlayView.addSubview(surfaceReactionView)
 		}
@@ -179,11 +179,11 @@ extension UIView {
 		let feedBackView = UIView(frame: CGRect(x: location.x, y: location.y, width: 2, height: 2))
 		feedBackView.backgroundColor = color
 		feedBackView.layer.cornerRadius = 1
-		feedBackView.opaque = false
+		feedBackView.isOpaque = false
 		feedBackView.alpha = 0.0
 		overlayView.addSubview(feedBackView)
 		if atBottom {
-			self.insertSubview(overlayView, atIndex: 0)
+			self.insertSubview(overlayView, at: 0)
 		} else {
 			self.addSubview(overlayView)
 		}
@@ -200,16 +200,16 @@ extension UIView {
 
 		if showSurfaceReaction {
 			// Show surface reaction
-			UIView.animateWithDuration(duration / 3.0,
+			UIView.animate(withDuration: duration / 3.0,
 				delay: 0.0,
-				options: .CurveEaseIn,
+				options: .curveEaseIn,
 				animations: {
 					surfaceReactionView.alpha = 1.0
 				}) { succeed in
 					// Hide surface reaction
-					UIView.animateWithDuration(duration * 2.0/3.0,
+					UIView.animate(withDuration: duration * 2.0/3.0,
 						delay: 0.0,
-						options: .CurveEaseOut,
+						options: .curveEaseOut,
 						animations: {
 							surfaceReactionView.alpha = 0.0
 						}) { succeed in
@@ -221,11 +221,11 @@ extension UIView {
 		let circilAnimationDuration = showSurfaceReaction ? duration * 2.0/3.0 : duration
 
 		// Expand the circle
-		UIView.animateWithDuration(circilAnimationDuration,
+		UIView.animate(withDuration: circilAnimationDuration,
 			delay: 0.0,
-			options: .CurveEaseOut,
+			options: .curveEaseOut,
 			animations: {
-				feedBackView.transform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
+				feedBackView.transform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
 			}) { succeed in
 				feedBackView.removeFromSuperview()
 				overlayView.removeFromSuperview()
@@ -233,17 +233,17 @@ extension UIView {
 		}
 
 		// Show the circle
-		UIView.animateWithDuration(circilAnimationDuration/8.0,
+		UIView.animate(withDuration: circilAnimationDuration/8.0,
 			delay: 0.0,
-			options: .CurveEaseOut,
+			options: .curveEaseOut,
 			animations: {
 				feedBackView.alpha = 1.0
 		}, completion: nil)
 
 		// Hid the circle
-		UIView.animateWithDuration(circilAnimationDuration * (1.0 - 1.0/8.0 - 1.0/3.0),
+		UIView.animate(withDuration: circilAnimationDuration * (1.0 - 1.0/8.0 - 1.0/3.0),
 			delay: circilAnimationDuration * (1.0/8.0 + 1.0/3.0),
-			options: .CurveEaseOut,
+			options: .curveEaseOut,
 			animations: {
 				feedBackView.alpha = 0.0
 		}, completion: nil)

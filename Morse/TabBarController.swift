@@ -19,11 +19,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 	var morseDictionaryVC:MorseDictionaryViewController! = nil
 	var settingsVC:SettingsSplitViewController! = nil
 	let cardViewOutputTransitionInteractionController = CardViewOutputTransitionInteractionController()
-	private let _cardViewOutputAnimator = CardViewOutputAnimator()
-	private let _mdAlertAnimator = MDAlertAnimator()
+	fileprivate let _cardViewOutputAnimator = CardViewOutputAnimator()
+	fileprivate let _mdAlertAnimator = MDAlertAnimator()
 
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return theme.style == .Dark ? .LightContent : .Default
+	override var preferredStatusBarStyle : UIStatusBarStyle {
+		return theme.style == .dark ? .lightContent : .default
 	}
 	/** Indicates if App Store rating prompt has been show during this launch of application. */
 	var didShowAppStoreRatingPrompt = false
@@ -35,27 +35,27 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 		self.tabBar.tintColor = theme.tabBarSelectedTintColor
 		let controllers = self.viewControllers
 		// Customize tab bar items
-		UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: -60), forBarMetrics: .Default)
+		UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: -60), for: .default)
 		if controllers != nil {
 			for controller in controllers! {
 				if let homeViewController = controller as? HomeViewController {
 					self.homeVC = homeViewController
 					let image = UIImage(named:theme.tabBarItemHomeUnselectedImageName)!
-					let homeTabBarItem = UITabBarItem(title: nil, image: image.imageWithTintColor(theme.tabBarUnselectedTintColor).imageWithRenderingMode(.AlwaysOriginal), selectedImage: image.imageWithRenderingMode(.AlwaysTemplate))
+					let homeTabBarItem = UITabBarItem(title: nil, image: image.imageWithTintColor(theme.tabBarUnselectedTintColor).withRenderingMode(.alwaysOriginal), selectedImage: image.withRenderingMode(.alwaysTemplate))
 					homeTabBarItem.tag = 0
 					homeTabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
 					self.homeVC.tabBarItem = homeTabBarItem
 				} else if let dictionaryViewController = controller as? MorseDictionaryViewController {
 					self.morseDictionaryVC = dictionaryViewController
 					let image = UIImage(named:theme.tabBarItemDictionaryUnselectedImageName)!
-					let dictionaryTabBarItem = UITabBarItem(title: nil, image: image.imageWithTintColor(theme.tabBarUnselectedTintColor).imageWithRenderingMode(.AlwaysOriginal), selectedImage: image.imageWithRenderingMode(.AlwaysTemplate))
+					let dictionaryTabBarItem = UITabBarItem(title: nil, image: image.imageWithTintColor(theme.tabBarUnselectedTintColor).withRenderingMode(.alwaysOriginal), selectedImage: image.withRenderingMode(.alwaysTemplate))
 					dictionaryTabBarItem.tag = 1
 					dictionaryTabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
 					self.morseDictionaryVC.tabBarItem = dictionaryTabBarItem
 				} else if let settingsViewController = controller as? SettingsSplitViewController {
 					self.settingsVC = settingsViewController
 					let image = UIImage(named:theme.tabBarItemSettingsUnselectedImageName)!
-					let settingsTabBarItem = UITabBarItem(title: nil, image: image.imageWithTintColor(theme.tabBarUnselectedTintColor).imageWithRenderingMode(.AlwaysOriginal), selectedImage: image.imageWithRenderingMode(.AlwaysTemplate))
+					let settingsTabBarItem = UITabBarItem(title: nil, image: image.imageWithTintColor(theme.tabBarUnselectedTintColor).withRenderingMode(.alwaysOriginal), selectedImage: image.withRenderingMode(.alwaysTemplate))
 					settingsTabBarItem.tag = 2
 					settingsTabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
 					self.settingsVC.tabBarItem = settingsTabBarItem
@@ -64,12 +64,12 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 		}
 
 		self.transitioningDelegate = self
-		self.modalPresentationStyle = .Custom
+		self.modalPresentationStyle = .custom
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
     }
 
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		self._showAppStoreRatingPrompt()
 	}
@@ -80,22 +80,22 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
     }
 
 	// Only support landscape when it's on an iPad
-	override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+	override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
 		if isPad {
-			return [UIInterfaceOrientationMask.Portrait, UIInterfaceOrientationMask.Landscape]
+			return [UIInterfaceOrientationMask.portrait, UIInterfaceOrientationMask.landscape]
 		} else {
-			return UIInterfaceOrientationMask.Portrait
+			return UIInterfaceOrientationMask.portrait
 		}
 	}
 
-	override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-		super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+		super.viewWillTransition(to: size, with: coordinator)
 		if let outputVC = self.outputVC {
 			// Doing this because of a layout bug
-			outputVC.view.userInteractionEnabled = false
+			outputVC.view.isUserInteractionEnabled = false
 		}
-		coordinator.animateAlongsideTransition(nil) { context in
-			if let fromVC = context.viewControllerForKey(UITransitionContextFromViewControllerKey) as? TabBarController {
+		coordinator.animate(alongsideTransition: nil) { context in
+			if let fromVC = context.viewController(forKey: UITransitionContextViewControllerKey.from) as? TabBarController {
 				if fromVC === self {
 					if self.homeVC != nil {
 						self.homeVC.rotationDidChange()
@@ -104,7 +104,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 						self.morseDictionaryVC.rotationDidChange()
 					}
 					if let outputVC = self.outputVC {
-						outputVC.view.userInteractionEnabled = true
+						outputVC.view.isUserInteractionEnabled = true
 					}
 					if let alertVC = self.alertVC {
 						alertVC.rotationDidChange()
@@ -114,7 +114,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 		}
 	}
 
-	func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+	func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 		if source is HomeViewController && presented is OutputViewController ||
 			source is OutputViewController && presented is HomeViewController {
 			self._cardViewOutputAnimator.reverse = false
@@ -127,7 +127,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 		return nil
 	}
 
-	func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+	func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 		if dismissed is OutputViewController {
 			self._cardViewOutputAnimator.reverse = true
 			return self._cardViewOutputAnimator
@@ -138,7 +138,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 		return nil
 	}
 
-	func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+	func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
 		if animator === self._cardViewOutputAnimator {
 			return self.cardViewOutputTransitionInteractionController
 		}
@@ -148,12 +148,12 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 	/**
 	 Check conditions and shows App Store rating prompt when the user launches app if appropriate. Frequency is specified in General.swift.
 	 */
-	private func _showAppStoreRatingPrompt() {
+	fileprivate func _showAppStoreRatingPrompt() {
 		print(appDelegate.appLaunchCount)
 		// Check if the user wants to show prompt, and if the prompt has already been shown.
 		if !self.didShowAppStoreRatingPrompt && appDelegate.showRateOnAppStorePrompt {
 			if appDelegate.lastRatedVersionString == nil ||
-				appDelegate.lastRatedVersionString != NSProcessInfo.processInfo().operatingSystemVersionString {
+				appDelegate.lastRatedVersionString != ProcessInfo.processInfo.operatingSystemVersionString {
 			let launchCount = appDelegate.appLaunchCount
 			// Determine if the app should show prompt during this launch
 			if launchCount == appStoreRatingPromptFrequency.firstTime ||
@@ -162,7 +162,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 				let actionRateIt = MDAlertAction(title: LocalizedStrings.Alert.buttonRateIt) {
 					action in
 					appDelegate.setRatedThisVersion()
-					UIApplication.sharedApplication().openURL(NSURL(string: appStoreReviewLink)!)
+					UIApplication.shared.openURL(URL(string: appStoreReviewLink)!)
 				}
 				let actionNextTime = MDAlertAction(title: LocalizedStrings.Alert.buttonNextTime)
 				let actionNo = MDAlertAction(title: LocalizedStrings.Alert.buttonNo) {
@@ -181,14 +181,14 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 	 Responsible for updating the UI when user changes the theme.
 	 - parameter animated: A boolean determines if the theme change should be animated.
 	 */
-	func updateColor(animated animated:Bool = true) {
-		self.homeVC.tabBarItem.image = UIImage(named:theme.tabBarItemHomeUnselectedImageName)!.imageWithTintColor(theme.tabBarUnselectedTintColor).imageWithRenderingMode(.AlwaysOriginal)
-		self.morseDictionaryVC.tabBarItem.image = UIImage(named:theme.tabBarItemDictionaryUnselectedImageName)!.imageWithTintColor(theme.tabBarUnselectedTintColor).imageWithRenderingMode(.AlwaysOriginal)
-		self.settingsVC.tabBarItem.image = UIImage(named:theme.tabBarItemSettingsUnselectedImageName)!.imageWithTintColor(theme.tabBarUnselectedTintColor).imageWithRenderingMode(.AlwaysOriginal)
+	func updateColor(animated:Bool = true) {
+		self.homeVC.tabBarItem.image = UIImage(named:theme.tabBarItemHomeUnselectedImageName)!.imageWithTintColor(theme.tabBarUnselectedTintColor).withRenderingMode(.alwaysOriginal)
+		self.morseDictionaryVC.tabBarItem.image = UIImage(named:theme.tabBarItemDictionaryUnselectedImageName)!.imageWithTintColor(theme.tabBarUnselectedTintColor).withRenderingMode(.alwaysOriginal)
+		self.settingsVC.tabBarItem.image = UIImage(named:theme.tabBarItemSettingsUnselectedImageName)!.imageWithTintColor(theme.tabBarUnselectedTintColor).withRenderingMode(.alwaysOriginal)
 		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
-		UIView.animateWithDuration(duration,
+		UIView.animate(withDuration: duration,
 			delay: 0,
-			options: .CurveEaseInOut,
+			options: UIViewAnimationOptions(),
 			animations: {
 				self.tabBar.tintColor = theme.tabBarSelectedTintColor
 				self.tabBarController?.tabBar.barTintColor = theme.tabBarBackgroundColor

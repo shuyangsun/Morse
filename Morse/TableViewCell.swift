@@ -26,16 +26,16 @@ class TableViewCell: UITableViewCell {
 		self.tintColor = theme.tableViewCellCheckmarkColor
 		self.textLabel?.text = nil
 		self.detailTextLabel?.text = nil
-		self.selectionStyle = .None
+		self.selectionStyle = .none
 
 		let tapGR = UITapGestureRecognizer(target: self, action: #selector(tapped(_:)))
 		tapGR.cancelsTouchesInView = false
 		self.addGestureRecognizer(tapGR)
     }
 
-	func tapped(tapGR:UITapGestureRecognizer) {
+	func tapped(_ tapGR:UITapGestureRecognizer) {
 		if self.tapFeebackEnabled {
-			let location = tapGR.locationInView(self)
+			let location = tapGR.location(in: self)
 			self.triggerTapFeedBack(atLocation:location, withColor: self.tapFeedbackColor, duration: TAP_FEED_BACK_DURATION, atBottom: false)
 		}
 	}
@@ -45,7 +45,7 @@ class TableViewCell: UITableViewCell {
 	*/
 	func updateColor() {
 		self.tintColor = theme.tableViewCellCheckmarkColor
-		if self.accessoryType == .None {
+		if self.accessoryType == .none {
 			self.backgroundColor = theme.tableViewCellBackgroundColor
 			self.textLabel?.attributedText = getAttributedStringFrom(self.textLabel!.text, withFontSize: tableViewCellTextLabelFontSize, color: theme.cellTitleTextColor, bold: false)
 			self.detailTextLabel?.attributedText = getAttributedStringFrom(self.detailTextLabel!.text, withFontSize: tableViewCellDetailTextLabelFontSize, color: theme.cellDetailTitleTextColor, bold: false)

@@ -9,26 +9,26 @@
 import UIKit
 
 var appDelegate:AppDelegate {
-	return UIApplication.sharedApplication().delegate as! AppDelegate
+	return UIApplication.shared.delegate as! AppDelegate
 }
 
 var isPad:Bool {
-	return UI_USER_INTERFACE_IDIOM() == .Pad
+	return UI_USER_INTERFACE_IDIOM() == .pad
 }
 
 var isPhone:Bool {
-	return UI_USER_INTERFACE_IDIOM() == .Phone
+	return UI_USER_INTERFACE_IDIOM() == .phone
 }
 
 var forceTouchAvailable:Bool {
-	return UIView().traitCollection.forceTouchCapability == .Available
+	return UIView().traitCollection.forceTouchCapability == .available
 }
 
 // At what level should the App switch to "Night" theme if "Auto Night Mode" is on.
 let defaultAutoNightModeThreshold:Float = 0.2
 // How often should the App check screen's brightness level to decide if should switch to "Night" theme.
-let defaultAutoNightModeUpdateTimeInterval:NSTimeInterval = 5
-let defaultbannerStatusUpdateTimeInterval:NSTimeInterval = 1
+let defaultAutoNightModeUpdateTimeInterval:TimeInterval = 5
+let defaultbannerStatusUpdateTimeInterval:TimeInterval = 1
 
 let prosignContainerLeft = "["
 let prosignContainerRight = "]"
@@ -50,12 +50,12 @@ let inputPitchMax:Float = 2000
 // Audio
 let defaultSampleRate:Float = 44100.0
 let fttWindowSize:vDSP_Length = 4096
-let audioSampleFrequencyTimeInterval:NSTimeInterval = 0
+let audioSampleFrequencyTimeInterval:TimeInterval = 0
 let defaultInputPitch:Float = 800
 let defaultOutputPitch:Float = 800
 let automaticPitchMin:Float = 500
 var defaultInputPitchErrorRange:Float = 7
-var inputPitchRange:Range<Int> {
+var inputPitchRange:CountableRange<Int> {
 	let settingsPitch = appDelegate.inputPitch
 	return max(Int(inputPitchMin), Int(ceil(settingsPitch - defaultInputPitchErrorRange)))...max(Int(inputPitchMin), Int(defaultInputPitchErrorRange * 2), Int(ceil(settingsPitch + defaultInputPitchErrorRange)))
 }
@@ -111,21 +111,21 @@ let appStoreReviewLink = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa
 let privacyPolicyLink = "https://www.iubenda.com/privacy-policy/7785904"
 let appStoreRatingPromptFrequency = (firstTime:2, repeatStride:6)
 
-func getAttributedStringFrom(text:String?, withFontSize fontSize:CGFloat = UIFont.systemFontSize(), color:UIColor = UIColor.blackColor(), bold:Bool = false) -> NSMutableAttributedString? {
+func getAttributedStringFrom(_ text:String?, withFontSize fontSize:CGFloat = UIFont.systemFontSize, color:UIColor = UIColor.black, bold:Bool = false) -> NSMutableAttributedString? {
 	return text == nil ? nil : NSMutableAttributedString(string: text!, attributes:
-		[NSFontAttributeName: bold ? UIFont.boldSystemFontOfSize(fontSize) : UIFont.systemFontOfSize(fontSize),
+		[NSFontAttributeName: bold ? UIFont.boldSystemFont(ofSize: fontSize) : UIFont.systemFont(ofSize: fontSize),
 			NSForegroundColorAttributeName: color])
 }
 
 extension UIImage {
-	func imageWithTintColor(color:UIColor) -> UIImage! {
+	func imageWithTintColor(_ color:UIColor) -> UIImage! {
 		let rect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
 		 UIGraphicsBeginImageContextWithOptions(rect.size, false, self.scale)
 		let context = UIGraphicsGetCurrentContext()
-		self.drawInRect(rect)
-		CGContextSetFillColorWithColor(context, color.CGColor)
-		CGContextSetBlendMode(context, .SourceAtop)
-		CGContextFillRect(context, rect)
+		self.draw(in: rect)
+		context.setFillColor(color.cgColor)
+		context.setBlendMode(.sourceAtop)
+		context.fill(rect)
 		let res = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
 		return res
@@ -133,9 +133,9 @@ extension UIImage {
 }
 
 //-------------------------------- GCD Wrapper --------------------------------
-enum DispatchFuncType { case Async, Sync }
-enum DispatchQueueType { case Concurrent, Serial }
-enum DispatchPriority { case High, Default, Low, Background }
+enum DispatchFuncType { case async, sync }
+enum DispatchQueueType { case concurrent, serial }
+enum DispatchPriority { case high, `default`, low, background }
 
 /**
  A wrapper function to call GCD functions, to make the code more readable.
@@ -146,29 +146,29 @@ enum DispatchPriority { case High, Default, Low, Background }
 		- label: Label for serial queue. If the queueType is Concurrent, this parameter will be ignored. By default this is an empty string.
 		- block: Task block to submit. This cannot be nil.
  */
-func dispatch(type:DispatchFuncType = .Async,
-              queueType:DispatchQueueType = .Concurrent,
-              priority:DispatchPriority = .Default,
+func dispatch(_ type:DispatchFuncType = .async,
+              queueType:DispatchQueueType = .concurrent,
+              priority:DispatchPriority = .default,
               label:String = "",
               block:((Void)->Void))
 {
-	let queue:dispatch_queue_t
-	if queueType == .Serial {
-		queue = dispatch_queue_create(label, DISPATCH_QUEUE_SERIAL)
+	let queue:DispatchQueue
+	if queueType == .serial {
+		queue = DispatchQueue(label: label, attributes: [])
 	} else {
 		let identifier:dispatch_queue_priority_t
 		switch priority {
-		case .High: identifier = DISPATCH_QUEUE_PRIORITY_HIGH
-		case .Default: identifier = DISPATCH_QUEUE_PRIORITY_DEFAULT
-		case .Low: identifier = DISPATCH_QUEUE_PRIORITY_LOW
-		case .Background: identifier = DISPATCH_QUEUE_PRIORITY_BACKGROUND
+		case .high: identifier = DispatchQueue.GlobalQueuePriority.high
+		case .default: identifier = DispatchQueue.GlobalQueuePriority.default
+		case .low: identifier = DispatchQueue.GlobalQueuePriority.low
+		case .background: identifier = DispatchQueue.GlobalQueuePriority.background
 		}
-		queue = dispatch_get_global_queue(identifier, 0)
+		queue = DispatchQueue.global(priority: identifier)
 	}
-	if type == .Async {
-		dispatch_async(queue, block)
-	} else if type == .Sync {
-		dispatch_sync(queue, block)
+	if type == .async {
+		queue.async(execute: block)
+	} else if type == .sync {
+		queue.sync(execute: block)
 	}
 }
 

@@ -17,7 +17,7 @@ class ToneGenerator: NSObject, EZOutputDataSource, EZOutputDelegate {
 	var sampleRate:Float = defaultSampleRate
 	var amplitude:Float = 1
 	var theta:Float = 0
-	private var _output = EZOutput()
+	fileprivate var _output = EZOutput()
 
 /*
 	private var _webAudioScript:String? {
@@ -36,7 +36,7 @@ class ToneGenerator: NSObject, EZOutputDataSource, EZOutputDelegate {
 
 	override init() {
 		super.init()
-		let inputFormat = EZAudioUtilities.monoFloatFormatWithSampleRate(self.sampleRate)
+		let inputFormat = EZAudioUtilities.monoFloatFormat(withSampleRate: self.sampleRate)
 		self._output = EZOutput(dataSource: self, inputFormat: inputFormat)
 		self._output.delegate = self
 		self._output.volume = 1
@@ -68,11 +68,11 @@ class ToneGenerator: NSObject, EZOutputDataSource, EZOutputDelegate {
 		self._output.volume = 1
 	}
 
-	func output(output: EZOutput!,
-		shouldFillAudioBufferList audioBufferList: UnsafeMutablePointer<AudioBufferList>,
+	func output(_ output: EZOutput!,
+		shouldFill audioBufferList: UnsafeMutablePointer<AudioBufferList>,
 		withNumberOfFrames frames: UInt32,
 		timestamp: UnsafePointer<AudioTimeStamp>) -> OSStatus {
-			let buffer = UnsafeMutablePointer<Float32>(audioBufferList.memory.mBuffers.mData)
+			let buffer = UnsafeMutablePointer<Float32>(audioBufferList.pointee.mBuffers.mData)
 			let twoPI = 2.0 * Float(M_PI)
 			var theta = self.theta
 			let thetaIncrement = twoPI * self.pitch / self.sampleRate;

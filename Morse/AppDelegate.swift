@@ -14,205 +14,205 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 
-	var userDefaults:NSUserDefaults {
-		return NSUserDefaults.standardUserDefaults()
+	var userDefaults:UserDefaults {
+		return UserDefaults.standard
 	}
 
 	var theme:Theme {
 		get {
-			return Theme(rawValue: self.userDefaults.integerForKey(userDefaultsKeyTheme))!
+			return Theme(rawValue: self.userDefaults.integer(forKey: userDefaultsKeyTheme))!
 		}
 		set {
-			self.userDefaults.setInteger(newValue.rawValue, forKey: userDefaultsKeyTheme)
+			self.userDefaults.set(newValue.rawValue, forKey: userDefaultsKeyTheme)
 			self.userDefaults.synchronize()
-			NSNotificationCenter.defaultCenter().postNotificationName(themeDidChangeNotificationName, object: nil)
+			NotificationCenter.default.post(name: Notification.Name(rawValue: themeDidChangeNotificationName), object: nil)
 		}
 	}
 
 	var adsRemoved:Bool {
 		get {
-			return self.userDefaults.boolForKey(userDefaultsKeyAdsRemoved)
+			return self.userDefaults.bool(forKey: userDefaultsKeyAdsRemoved)
 		}
 		set {
-			self.userDefaults.setBool(newValue, forKey: userDefaultsKeyAdsRemoved)
+			self.userDefaults.set(newValue, forKey: userDefaultsKeyAdsRemoved)
 			self.userDefaults.synchronize()
-			NSNotificationCenter.defaultCenter().postNotificationName(adsShouldDisplayDidChangeNotificationName, object: nil)
+			NotificationCenter.default.post(name: Notification.Name(rawValue: adsShouldDisplayDidChangeNotificationName), object: nil)
 		}
 	}
 
 	var isAbleToTurnOffPromotionalTextWhenShare:Bool {
 		get {
-			return self.userDefaults.boolForKey(userDefaultsKeyIsAbleToTurnOffPromotionalTextWhenShare)
+			return self.userDefaults.bool(forKey: userDefaultsKeyIsAbleToTurnOffPromotionalTextWhenShare)
 		}
 		set {
-			self.userDefaults.setBool(newValue, forKey: userDefaultsKeyIsAbleToTurnOffPromotionalTextWhenShare)
+			self.userDefaults.set(newValue, forKey: userDefaultsKeyIsAbleToTurnOffPromotionalTextWhenShare)
 			self.userDefaults.synchronize()
 		}
 	}
 
 	var userSelectedTheme:Theme {
-		return Theme(rawValue: self.userDefaults.integerForKey(userDefaultsKeyUserSelectedTheme))!
+		return Theme(rawValue: self.userDefaults.integer(forKey: userDefaultsKeyUserSelectedTheme))!
 	}
 
 	// UI theme
 	var addExtraTextWhenShare:Bool {
-		return self.userDefaults.boolForKey(userDefaultsKeyExtraTextWhenShare)
+		return self.userDefaults.bool(forKey: userDefaultsKeyExtraTextWhenShare)
 	}
 
 	var prosignTranslationType:ProsignTranslationType {
 		get {
-			return ProsignTranslationType(rawValue: self.userDefaults.integerForKey(userDefaultsKeyProsignTranslationType))!
+			return ProsignTranslationType(rawValue: self.userDefaults.integer(forKey: userDefaultsKeyProsignTranslationType))!
 		}
 		set {
-			self.userDefaults.setInteger(newValue.rawValue, forKey: userDefaultsKeyProsignTranslationType)
+			self.userDefaults.set(newValue.rawValue, forKey: userDefaultsKeyProsignTranslationType)
 			self.userDefaults.synchronize()
 		}
 	}
 
 	var notFirstLaunch:Bool {
-		return self.userDefaults.boolForKey(userDefaultsKeyNotFirstLaunch)
+		return self.userDefaults.bool(forKey: userDefaultsKeyNotFirstLaunch)
 	}
 
 	var interactionSoundDisabled:Bool {
-		return self.userDefaults.boolForKey(userDefaultsKeyInteractionSoundDisabled)
+		return self.userDefaults.bool(forKey: userDefaultsKeyInteractionSoundDisabled)
 	}
 
-	var animationDurationScalar:NSTimeInterval {
-		let result = self.userDefaults.doubleForKey(userDefaultsKeyAnimationDurationScalar)
-		return result == 0 ? 1 : NSTimeInterval(result)
+	var animationDurationScalar:TimeInterval {
+		let result = self.userDefaults.double(forKey: userDefaultsKeyAnimationDurationScalar)
+		return result == 0 ? 1 : TimeInterval(result)
 	}
 
 	var firstLaunchSystemLanguageCode:String {
-		let res = self.userDefaults.stringForKey(userDefaultsKeyFirstLaunchLanguageCode)
+		let res = self.userDefaults.string(forKey: userDefaultsKeyFirstLaunchLanguageCode)
 		return res == nil ? "en" : res!
 	}
 
 	var soundOutputEnabled:Bool {
 		get {
-			return self.userDefaults.boolForKey(userDefaultsKeySoundOutputEnabled)
+			return self.userDefaults.bool(forKey: userDefaultsKeySoundOutputEnabled)
 		}
 		set {
-			self.userDefaults.setBool(newValue, forKey: userDefaultsKeySoundOutputEnabled)
+			self.userDefaults.set(newValue, forKey: userDefaultsKeySoundOutputEnabled)
 			self.userDefaults.synchronize()
 		}
 	}
 
 	var flashOutputEnabled:Bool {
 		get {
-			return self.userDefaults.boolForKey(userDefaultsKeyFlashOutputEnabled)
+			return self.userDefaults.bool(forKey: userDefaultsKeyFlashOutputEnabled)
 		}
 		set {
-			self.userDefaults.setBool(newValue, forKey: userDefaultsKeyFlashOutputEnabled)
+			self.userDefaults.set(newValue, forKey: userDefaultsKeyFlashOutputEnabled)
 			self.userDefaults.synchronize()
 		}
 	}
 
 	var outputWPM:Int {
 		get {
-			return self.userDefaults.integerForKey(userDefaultsKeyOutputWPM)
+			return self.userDefaults.integer(forKey: userDefaultsKeyOutputWPM)
 		}
 		set {
-			appDelegate.userDefaults.setInteger(newValue, forKey: userDefaultsKeyOutputWPM)
+			appDelegate.userDefaults.set(newValue, forKey: userDefaultsKeyOutputWPM)
 			appDelegate.userDefaults.synchronize()
 		}
 	}
 
 	var outputPitch:Float {
 		get {
-			return self.userDefaults.floatForKey(userDefaultsKeyOutputPitch)
+			return self.userDefaults.float(forKey: userDefaultsKeyOutputPitch)
 		}
 		set {
-			appDelegate.userDefaults.setFloat(newValue, forKey: userDefaultsKeyOutputPitch)
+			appDelegate.userDefaults.set(newValue, forKey: userDefaultsKeyOutputPitch)
 			appDelegate.userDefaults.synchronize()
 		}
 	}
 
 	var inputWPM:Int {
 		get {
-			return self.userDefaults.integerForKey(userDefaultsKeyInputWPM)
+			return self.userDefaults.integer(forKey: userDefaultsKeyInputWPM)
 		}
 		set {
-			appDelegate.userDefaults.setInteger(newValue, forKey: userDefaultsKeyInputWPM)
+			appDelegate.userDefaults.set(newValue, forKey: userDefaultsKeyInputWPM)
 			appDelegate.userDefaults.synchronize()
-			NSNotificationCenter.defaultCenter().postNotificationName(inputWPMDidChangeNotificationName, object: nil)
+			NotificationCenter.default.post(name: Notification.Name(rawValue: inputWPMDidChangeNotificationName), object: nil)
 		}
 	}
 
 	var inputWPMAutomatic:Bool {
 		get {
-			return self.userDefaults.boolForKey(userDefaultsKeyInputWPMAutomatic)
+			return self.userDefaults.bool(forKey: userDefaultsKeyInputWPMAutomatic)
 		}
 		set {
-			self.userDefaults.setBool(newValue, forKey: userDefaultsKeyInputWPMAutomatic)
+			self.userDefaults.set(newValue, forKey: userDefaultsKeyInputWPMAutomatic)
 			self.userDefaults.synchronize()
 		}
 	}
 
 	var inputPitch:Float {
 		get {
-			return self.userDefaults.floatForKey(userDefaultsKeyInputPitch)
+			return self.userDefaults.float(forKey: userDefaultsKeyInputPitch)
 		}
 		set {
-			appDelegate.userDefaults.setFloat(newValue, forKey: userDefaultsKeyInputPitch)
+			appDelegate.userDefaults.set(newValue, forKey: userDefaultsKeyInputPitch)
 			appDelegate.userDefaults.synchronize()
-			NSNotificationCenter.defaultCenter().postNotificationName(inputPitchDidChangeNotificationName, object: nil)
+			NotificationCenter.default.post(name: Notification.Name(rawValue: inputPitchDidChangeNotificationName), object: nil)
 		}
 	}
 
 	var inputPitchAutomatic:Bool {
 		get {
-			return self.userDefaults.boolForKey(userDefaultsKeyInputPitchAutomatic)
+			return self.userDefaults.bool(forKey: userDefaultsKeyInputPitchAutomatic)
 		}
 		set {
-			self.userDefaults.setBool(newValue, forKey: userDefaultsKeyInputPitchAutomatic)
+			self.userDefaults.set(newValue, forKey: userDefaultsKeyInputPitchAutomatic)
 			self.userDefaults.synchronize()
 		}
 	}
 
 	var brightenScreenWhenOutput:Bool {
 		get {
-			return self.userDefaults.boolForKey(userDefaultsKeyBrightenScreenWhenOutput)
+			return self.userDefaults.bool(forKey: userDefaultsKeyBrightenScreenWhenOutput)
 		}
 		set {
-			self.userDefaults.setBool(newValue, forKey: userDefaultsKeyBrightenScreenWhenOutput)
+			self.userDefaults.set(newValue, forKey: userDefaultsKeyBrightenScreenWhenOutput)
 			self.userDefaults.synchronize()
 		}
 	}
 
 	var autoCorrectMissSpelledWordsForAudioInput:Bool {
 		get {
-			return self.userDefaults.boolForKey(userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
+			return self.userDefaults.bool(forKey: userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
 		}
 		set {
-			self.userDefaults.setBool(newValue, forKey: userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
+			self.userDefaults.set(newValue, forKey: userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
 			self.userDefaults.synchronize()
 		}
 	}
 
 	var automaticNightMode:Bool {
-		return self.userDefaults.boolForKey(userDefaultsKeyAutoNightMode)
+		return self.userDefaults.bool(forKey: userDefaultsKeyAutoNightMode)
 	}
 
 	var automaticNightModeThreshold:Float {
-		return self.userDefaults.floatForKey(userDefaultsKeyAutoNightModeThreshold)
+		return self.userDefaults.float(forKey: userDefaultsKeyAutoNightModeThreshold)
 	}
 
 	var showRestartAlert:Bool {
 		get {
-			return self.userDefaults.boolForKey(userDefaultsKeyShowRestarAlert)
+			return self.userDefaults.bool(forKey: userDefaultsKeyShowRestarAlert)
 		}
 		set {
-			self.userDefaults.setBool(newValue, forKey: userDefaultsKeyShowRestarAlert)
+			self.userDefaults.set(newValue, forKey: userDefaultsKeyShowRestarAlert)
 			self.userDefaults.synchronize()
 		}
 	}
 
 	var showAddedTutorialCardsAlert:Bool {
 		get {
-			return self.userDefaults.boolForKey(userDefaultsKeyShowAddedTutorialCardsAlert)
+			return self.userDefaults.bool(forKey: userDefaultsKeyShowAddedTutorialCardsAlert)
 		}
 		set {
-			self.userDefaults.setBool(newValue, forKey: userDefaultsKeyShowAddedTutorialCardsAlert)
+			self.userDefaults.set(newValue, forKey: userDefaultsKeyShowAddedTutorialCardsAlert)
 			self.userDefaults.synchronize()
 		}
 	}
@@ -221,63 +221,63 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	/** Whether the user wants the rating prompt to show up. Will set to false if the user choose "Don't show again." */
 	var showRateOnAppStorePrompt:Bool {
 		get {
-			return self.userDefaults.boolForKey(userDefaultsKeyShowAppStoreRatingPrompt)
+			return self.userDefaults.bool(forKey: userDefaultsKeyShowAppStoreRatingPrompt)
 		}
 		set {
-			self.userDefaults.setBool(newValue, forKey: userDefaultsKeyShowAddedTutorialCardsAlert)
+			self.userDefaults.set(newValue, forKey: userDefaultsKeyShowAddedTutorialCardsAlert)
 			self.userDefaults.synchronize()
 		}
 	}
 
 	var lastRatedVersionString:String? {
 		get {
-			return self.userDefaults.stringForKey(userDefaultsKeyLastRatedVersion)
+			return self.userDefaults.string(forKey: userDefaultsKeyLastRatedVersion)
 		}
 		set {
-			self.userDefaults.setObject(newValue, forKey: userDefaultsKeyLastRatedVersion)
+			self.userDefaults.set(newValue, forKey: userDefaultsKeyLastRatedVersion)
 			self.userDefaults.synchronize()
 		}
 	}
 	/** Set the "last rated version" string to the current version of OS. */
 	func setRatedThisVersion() {
-		self.lastRatedVersionString = NSProcessInfo.processInfo().operatingSystemVersionString
+		self.lastRatedVersionString = ProcessInfo.processInfo.operatingSystemVersionString
 	}
 
 	var appLaunchCount:Int {
 		get {
-			return self.userDefaults.integerForKey(userDefaultsKeyAppLaunchCount)
+			return self.userDefaults.integer(forKey: userDefaultsKeyAppLaunchCount)
 		}
 		set {
-			self.userDefaults.setInteger(newValue, forKey: userDefaultsKeyAppLaunchCount)
+			self.userDefaults.set(newValue, forKey: userDefaultsKeyAppLaunchCount)
 			self.userDefaults.synchronize()
 		}
 	}
 
-	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
 		self.appLaunchCount += 1
-		UIApplication.sharedApplication().statusBarStyle = .LightContent
-		NSTimer.scheduledTimerWithTimeInterval(defaultAutoNightModeUpdateTimeInterval, target: self, selector: #selector(updateThemeIfAutoNight), userInfo: nil, repeats: true)
+		UIApplication.shared.statusBarStyle = .lightContent
+		Timer.scheduledTimer(timeInterval: defaultAutoNightModeUpdateTimeInterval, target: self, selector: #selector(updateThemeIfAutoNight), userInfo: nil, repeats: true)
 
 		if !self.notFirstLaunch {
-			self.userDefaults.setBool(true, forKey: userDefaultsKeyExtraTextWhenShare)
-			self.userDefaults.setBool(true, forKey: userDefaultsKeyBrightenScreenWhenOutput)
-			self.userDefaults.setBool(true, forKey: userDefaultsKeyInputWPMAutomatic)
-			self.userDefaults.setBool(true, forKey: userDefaultsKeyInputPitchAutomatic)
-			self.userDefaults.setBool(true, forKey: userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
-			self.userDefaults.setBool(true, forKey: userDefaultsKeyAutoNightMode)
-			self.userDefaults.setBool(true, forKey: userDefaultsKeyAdsRemoved)
-			self.userDefaults.setBool(true, forKey: userDefaultsKeyIsAbleToTurnOffPromotionalTextWhenShare)
-			self.userDefaults.setBool(true, forKey: userDefaultsKeyShowAppStoreRatingPrompt)
+			self.userDefaults.set(true, forKey: userDefaultsKeyExtraTextWhenShare)
+			self.userDefaults.set(true, forKey: userDefaultsKeyBrightenScreenWhenOutput)
+			self.userDefaults.set(true, forKey: userDefaultsKeyInputWPMAutomatic)
+			self.userDefaults.set(true, forKey: userDefaultsKeyInputPitchAutomatic)
+			self.userDefaults.set(true, forKey: userDefaultsKeyAutoCorrectMisSpelledWordsForAudioInput)
+			self.userDefaults.set(true, forKey: userDefaultsKeyAutoNightMode)
+			self.userDefaults.set(true, forKey: userDefaultsKeyAdsRemoved)
+			self.userDefaults.set(true, forKey: userDefaultsKeyIsAbleToTurnOffPromotionalTextWhenShare)
+			self.userDefaults.set(true, forKey: userDefaultsKeyShowAppStoreRatingPrompt)
 			self.resetAlerts()
-			self.userDefaults.setInteger(defaultInputWPM, forKey: userDefaultsKeyInputWPM)
-			self.userDefaults.setFloat(defaultInputPitch, forKey: userDefaultsKeyInputPitch)
-			self.userDefaults.setInteger(defaultOutputWPM, forKey: userDefaultsKeyOutputWPM)
-			self.userDefaults.setFloat(defaultOutputPitch, forKey: userDefaultsKeyOutputPitch)
-			self.userDefaults.setFloat(defaultAutoNightModeThreshold, forKey: userDefaultsKeyAutoNightModeThreshold)
-			self.userDefaults.setInteger(ProsignTranslationType.Always.rawValue, forKey: userDefaultsKeyProsignTranslationType)
+			self.userDefaults.set(defaultInputWPM, forKey: userDefaultsKeyInputWPM)
+			self.userDefaults.set(defaultInputPitch, forKey: userDefaultsKeyInputPitch)
+			self.userDefaults.set(defaultOutputWPM, forKey: userDefaultsKeyOutputWPM)
+			self.userDefaults.set(defaultOutputPitch, forKey: userDefaultsKeyOutputPitch)
+			self.userDefaults.set(defaultAutoNightModeThreshold, forKey: userDefaultsKeyAutoNightModeThreshold)
+			self.userDefaults.set(ProsignTranslationType.always.rawValue, forKey: userDefaultsKeyProsignTranslationType)
 			self.userDefaults.synchronize()
-			self.userDefaults.setObject(NSLocale.preferredLanguages().first!, forKey: userDefaultsKeyFirstLaunchLanguageCode)
+			self.userDefaults.set(Locale.preferredLanguages.first!, forKey: userDefaultsKeyFirstLaunchLanguageCode)
 		}
 
 		// Configure tracker from GoogleService-Info.plist.
@@ -288,7 +288,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Optional: configure GAI options.
 		let gai = GAI.sharedInstance()
 		gai.trackUncaughtExceptions = true  // report uncaught exceptions
-		gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
+		gai.logger.logLevel = GAILogLevel.verbose  // remove before app release
 		#if DEBUG
 			gai.optOut = true
 		#endif
@@ -296,61 +296,61 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func resetAlerts() {
-		self.userDefaults.setBool(true, forKey: userDefaultsKeyShowRestarAlert)
-		self.userDefaults.setBool(true, forKey: userDefaultsKeyShowAddedTutorialCardsAlert)
+		self.userDefaults.set(true, forKey: userDefaultsKeyShowRestarAlert)
+		self.userDefaults.set(true, forKey: userDefaultsKeyShowAddedTutorialCardsAlert)
 		self.userDefaults.synchronize()
 	}
 
-	func applicationWillResignActive(application: UIApplication) {
+	func applicationWillResignActive(_ application: UIApplication) {
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
 		// Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 	}
 
-	func applicationDidEnterBackground(application: UIApplication) {
+	func applicationDidEnterBackground(_ application: UIApplication) {
 		// Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
 		// If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 	}
 
-	func applicationWillEnterForeground(application: UIApplication) {
+	func applicationWillEnterForeground(_ application: UIApplication) {
 		// Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 	}
 
-	func applicationDidBecomeActive(application: UIApplication) {
+	func applicationDidBecomeActive(_ application: UIApplication) {
 		// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 	}
 
-	func applicationWillTerminate(application: UIApplication) {
+	func applicationWillTerminate(_ application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 		// Saves changes in the application's managed object context before the application terminates.
 
 		// If the app is going to terminate, set notFirstLaunch to true.
-		self.userDefaults.setBool(true, forKey: userDefaultsKeyNotFirstLaunch)
+		self.userDefaults.set(true, forKey: userDefaultsKeyNotFirstLaunch)
 		self.userDefaults.synchronize()
 		self.saveContext()
 	}
 
 	// MARK: - Core Data stack
 
-	lazy var applicationDocumentsDirectory: NSURL = {
+	lazy var applicationDocumentsDirectory: URL = {
 	    // The directory the application uses to store the Core Data store file. This code uses a directory named "shuyangsun.Morse" in the application's documents Application Support directory.
-	    let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+	    let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
 	    return urls[urls.count-1]
 	}()
 
 	lazy var managedObjectModel: NSManagedObjectModel = {
 	    // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-	    let modelURL = NSBundle.mainBundle().URLForResource("Morse", withExtension: "momd")!
-	    return NSManagedObjectModel(contentsOfURL: modelURL)!
+	    let modelURL = Bundle.main.url(forResource: "Morse", withExtension: "momd")!
+	    return NSManagedObjectModel(contentsOf: modelURL)!
 	}()
 
 	lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
 	    // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
 	    // Create the coordinator and store
 	    let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-	    let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("SingleViewCoreData.sqlite")
+	    let url = self.applicationDocumentsDirectory.appendingPathComponent("SingleViewCoreData.sqlite")
 	    var failureReason = "There was an error creating or loading the application's saved data."
 	    do {
-	        try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+	        try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
 	    } catch let error as NSError {
 	        // Report any error we got.
 	        var dict = [String: AnyObject]()
@@ -373,7 +373,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	lazy var managedObjectContext: NSManagedObjectContext = {
 	    // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
 	    let coordinator = self.persistentStoreCoordinator
-	    var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+	    var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
 	    managedObjectContext.persistentStoreCoordinator = coordinator
 	    return managedObjectContext
 	}()
@@ -396,10 +396,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func updateThemeIfAutoNight() {
 		if self.automaticNightMode {
-			let brightness = UIScreen.mainScreen().brightness
-			var shouldBeTheme = Theme(rawValue: self.userDefaults.integerForKey(userDefaultsKeyUserSelectedTheme))!
+			let brightness = UIScreen.main.brightness
+			var shouldBeTheme = Theme(rawValue: self.userDefaults.integer(forKey: userDefaultsKeyUserSelectedTheme))!
 			if brightness <= CGFloat(self.automaticNightModeThreshold) {
-				shouldBeTheme = .Night
+				shouldBeTheme = .night
 			}
 			if self.theme != shouldBeTheme {
 				self.theme = shouldBeTheme
@@ -407,9 +407,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 	}
 
-	func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+	func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
 		if let action = shortcutItem.userInfo?["action"] as? String {
-			if let tabbarVC = UIApplication.sharedApplication().keyWindow?.rootViewController as? TabBarController {
+			if let tabbarVC = UIApplication.shared.keyWindow?.rootViewController as? TabBarController {
 				if action == "ENCODE_TEXT" {
 					tabbarVC.selectedIndex = 0
 					if let homeVC = tabbarVC.viewControllers?[0] as? HomeViewController {

@@ -20,6 +20,6 @@ class TableViewResetCell: TableViewCell {
 		self.backgroundColor = theme.resetCellBackgroundColor
 		self.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Settings.reset
 			, withFontSize: tableViewCellTextLabelFontSize, color: theme.resetCellTextColor, bold: false)
-		self.textLabel?.textAlignment = .Center
+		self.textLabel?.textAlignment = .center
     }
 }

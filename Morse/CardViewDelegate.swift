@@ -10,12 +10,12 @@ import UIKit
 
 @objc protocol CardViewDelegate {
 	// CardView Interactions
-	optional func cardViewTapped(cardView:CardView)
-	optional func cardViewHeld(cardView:CardView)
-	optional func cardViewTouchesBegan(cardView:CardView, touches: Set<UITouch>, withEvent event: UIEvent?)
-	optional func cardViewTouchesEnded(cardView:CardView, touches: Set<UITouch>, withEvent event: UIEvent?, deleteCard:Bool)
-	optional func cardViewTouchesCancelled(cardView:CardView, touches: Set<UITouch>?, withEvent event: UIEvent?)
+	optional func cardViewTapped(_ cardView:CardView)
+	optional func cardViewHeld(_ cardView:CardView)
+	optional func cardViewTouchesBegan(_ cardView:CardView, touches: Set<UITouch>, withEvent event: UIEvent?)
+	optional func cardViewTouchesEnded(_ cardView:CardView, touches: Set<UITouch>, withEvent event: UIEvent?, deleteCard:Bool)
+	optional func cardViewTouchesCancelled(_ cardView:CardView, touches: Set<UITouch>?, withEvent event: UIEvent?)
 	// BackView Button Interactions
-	optional func cardViewOutputButtonTapped(cardView:CardView)
-	optional func cardViewShareButtonTapped(cardView:CardView)
+	optional func cardViewOutputButtonTapped(_ cardView:CardView)
+	optional func cardViewShareButtonTapped(_ cardView:CardView)
 }

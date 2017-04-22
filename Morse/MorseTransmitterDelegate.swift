@@ -9,5 +9,5 @@
 import Foundation
 
 @objc protocol MorseTransmitterDelegate {
-	optional func transmitterContentDidChange(text:String, morse:String)
+	optional func transmitterContentDidChange(_ text:String, morse:String)
 }

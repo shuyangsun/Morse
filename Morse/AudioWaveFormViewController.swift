@@ -18,7 +18,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 	var tapToFinishLabel:UILabel!
 
 	var microphone:EZMicrophone!
-	private var _pitchCountDictionary:Dictionary<Int, Int> = Dictionary()
+	fileprivate var _pitchCountDictionary:Dictionary<Int, Int> = Dictionary()
 
 	var transmitter:MorseTransmitter! {
 		willSet {
@@ -26,7 +26,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 		}
 	}
 
-	private var _fft:EZAudioFFTRolling!
+	fileprivate var _fft:EZAudioFFTRolling!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,9 +43,9 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 
 		// Setup audio plot
 		self.audioPlot = EZAudioPlot(frame: self.view.frame)
-		self.audioPlot.backgroundColor = UIColor.clearColor()
+		self.audioPlot.backgroundColor = UIColor.clear
 		self.audioPlot.color = theme.audioPlotColor
-		self.audioPlot.plotType = .Rolling
+		self.audioPlot.plotType = .rolling
 		self.audioPlot.shouldMirror = true
 		self.audioPlot.shouldFill = true
 		self.audioPlot.setRollingHistoryLength(audioPlotRollingHistoryLength)
@@ -55,9 +55,9 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 		}
 
 		self.audioPlotPitchFiltered = EZAudioPlot(frame: self.view.frame)
-		self.audioPlotPitchFiltered.backgroundColor = UIColor.clearColor()
+		self.audioPlotPitchFiltered.backgroundColor = UIColor.clear
 		self.audioPlotPitchFiltered.color = theme.audioPlotPitchFilteredColor
-		self.audioPlotPitchFiltered.plotType = .Rolling
+		self.audioPlotPitchFiltered.plotType = .rolling
 		self.audioPlotPitchFiltered.shouldMirror = true
 		self.audioPlotPitchFiltered.shouldFill = true
 		self.audioPlotPitchFiltered.setRollingHistoryLength(audioPlotRollingHistoryLength)
@@ -90,9 +90,9 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 
 		if self.tutorial1Label == nil {
 			self.tutorial1Label = UILabel()
-			var text = "\(LocalizedStrings.Label.tutorialWaveformVC1)\(supportedAudioDecoderWPMRange.startIndex)-\(supportedAudioDecoderWPMRange.endIndex - 1)"
-			if layoutDirection == .RightToLeft {
-				text = "\(supportedAudioDecoderWPMRange.endIndex - 1)-\(supportedAudioDecoderWPMRange.startIndex)\(LocalizedStrings.Label.tutorialWaveformVC1)"
+			var text = "\(LocalizedStrings.Label.tutorialWaveformVC1)\(supportedAudioDecoderWPMRange.lowerBound)-\(supportedAudioDecoderWPMRange.upperBound - 1)"
+			if layoutDirection == .rightToLeft {
+				text = "\(supportedAudioDecoderWPMRange.upperBound - 1)-\(supportedAudioDecoderWPMRange.lowerBound)\(LocalizedStrings.Label.tutorialWaveformVC1)"
 			}
 			self.tutorial1Label.attributedText = getAttributedStringFrom(text, withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorNormal, bold: false)
 			self.view.addSubview(self.tutorial1Label)
@@ -116,30 +116,30 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 
 		// WARNNING: This chunk of code has to be executed before calling "self.microphone.startFetchingAudio()"!
 		if appDelegate.inputPitchAutomatic {
-			appDelegate.userDefaults.setFloat(automaticPitchMin, forKey: userDefaultsKeyInputPitch)
+			appDelegate.userDefaults.set(automaticPitchMin, forKey: userDefaultsKeyInputPitch)
 			appDelegate.userDefaults.synchronize()
 		}
 
 		// Setup mircrophone
 		self.microphone = EZMicrophone(microphoneDelegate: self)
-		self.microphone.device = EZAudioDevice.currentInputDevice()
+		self.microphone.device = EZAudioDevice.currentInput()
 		self.microphone.startFetchingAudio()
 
 		// Setup transmitter
 		self.transmitter.resetForAudioInput()
 
 		// Register for notification
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AudioWaveFormViewController.updateWPMLabelWithoutAutomaticStatus), name: inputWPMDidChangeNotificationName, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AudioWaveFormViewController.updatePitchLabelWithoutAutomaticStatus), name: inputPitchDidChangeNotificationName, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(AudioWaveFormViewController.updateWPMLabelWithoutAutomaticStatus), name: inputWPMDidChangeNotificationName, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(AudioWaveFormViewController.updatePitchLabelWithoutAutomaticStatus), name: inputPitchDidChangeNotificationName, object: nil)
     }
 
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.set(kGAIScreenName, value: audioDecoderVCName)
 
 		let builder = GAIDictionaryBuilder.createScreenView()
-		tracker.send(builder.build() as [NSObject : AnyObject])
+		tracker.send(builder.build() as [AnyHashable: Any])
 	}
 
     override func didReceiveMemoryWarning() {
@@ -148,21 +148,21 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
     }
 
 	func drawRollingPlot() {
-		self.audioPlotPitchFiltered.plotType = .Rolling
+		self.audioPlotPitchFiltered.plotType = .rolling
 		self.audioPlotPitchFiltered.shouldFill = true
 		self.audioPlotPitchFiltered.shouldMirror = true
 	}
     
-	func microphone(microphone: EZMicrophone!,
+	func microphone(_ microphone: EZMicrophone!,
 		hasAudioReceived buffer: UnsafeMutablePointer<UnsafeMutablePointer<Float>>,
 		withBufferSize bufferSize: UInt32,
 		withNumberOfChannels numberOfChannels: UInt32) {
 		if self._fft == nil {
-			self._fft = EZAudioFFTRolling.fftWithWindowSize(fttWindowSize,
+			self._fft = EZAudioFFTRolling.fft(withWindowSize: fttWindowSize,
 				sampleRate: Float(self.microphone.audioStreamBasicDescription().mSampleRate))
 		}
-		self._fft.computeFFTWithBuffer(buffer[0], withBufferSize: bufferSize)
-		dispatch_async(dispatch_get_main_queue()) {
+		self._fft.computeFFT(withBuffer: buffer[0], withBufferSize: bufferSize)
+		DispatchQueue.main.async {
 			// Update plot for general audio
 			self.audioPlot.updateBuffer(buffer[0], withBufferSize: bufferSize)
 			let maxFrequency = self._fft.maxFrequency
@@ -211,18 +211,18 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 				self.transmitter.microphone(microphone, maxFrequencyMagnitude: self._fft.maxFrequencyMagnitude)
 			} else {
 				// Update the filtered audio plot with 0.
-				buffer[0].memory = 0
+				buffer[0].pointee = 0
 				self.audioPlotPitchFiltered.updateBuffer(buffer[0], withBufferSize: 1)
 				self.transmitter.microphone(microphone, maxFrequencyMagnitude: 0)
 			}
 		}
 	}
 
-	func microphone(microphone: EZMicrophone!, hasAudioStreamBasicDescription audioStreamBasicDescription: AudioStreamBasicDescription) {
+	func microphone(_ microphone: EZMicrophone!, hasAudioStreamBasicDescription audioStreamBasicDescription: AudioStreamBasicDescription) {
 		EZAudioUtilities.printASBD(audioStreamBasicDescription)
 	}
 
-	func updatePitchLabel(showAutomaticStatus:Bool = false) {
+	func updatePitchLabel(_ showAutomaticStatus:Bool = false) {
 		var pitchNumberText = "\(Int(appDelegate.inputPitch)) Hz"
 		if showAutomaticStatus && appDelegate.inputPitchAutomatic {
 			pitchNumberText = LocalizedStrings.Settings.automaticAudioDecoderValue
@@ -231,7 +231,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 		self.pitchLabel.attributedText = getAttributedStringFrom(text, withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorEmphasized, bold: false)
 	}
 
-	func updateWPMLabel(showAutomaticStatus:Bool = false) {
+	func updateWPMLabel(_ showAutomaticStatus:Bool = false) {
 		var wpmNumberText = String(appDelegate.inputWPM)
 		if showAutomaticStatus && appDelegate.inputWPMAutomatic {
 			wpmNumberText = LocalizedStrings.Settings.automaticAudioDecoderValue

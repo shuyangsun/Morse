@@ -28,23 +28,23 @@ class MorseOutputPlayer: NSObject {
 		}
 	}
 	var delegate:MorseOutputPlayerDelegate?
-	var duration:NSTimeInterval {
+	var duration:TimeInterval {
 		return self._timeStamp.isEmpty ? 0 : self._timeStamp.last!
 	}
 
 	// *****************************
 	// MARK: Calculated Variables
 	// *****************************
-	private var _timeStampScalar:Float {
+	fileprivate var _timeStampScalar:Float {
 		return 60.0/Float(appDelegate.outputWPM * MorseTransmitter.standardWordLength)
 	}
 
 	// *****************************
 	// MARK: Private Variables
 	// *****************************
-	private let _transmitter = MorseTransmitter()
-	private var _timeStamp:[NSTimeInterval] = []
-	private var _timers:Set<NSTimer> = Set()
+	fileprivate let _transmitter = MorseTransmitter()
+	fileprivate var _timeStamp:[TimeInterval] = []
+	fileprivate var _timers:Set<Timer> = Set()
 
 	// *****************************
 	// MARK: Initializers
@@ -66,7 +66,7 @@ class MorseOutputPlayer: NSObject {
 
 	func stop() {
 		self.stopSignal()
-		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+		DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.background).async {
 			let _ = self._timers.map { $0.invalidate() }
 			//		NSObject.cancelPreviousPerformRequestsWithTarget(self) // FIXME: BUG, not working. Invalidate timers one by one can result in performance issue.
 			self._timers = []
@@ -89,20 +89,20 @@ class MorseOutputPlayer: NSObject {
 	// MARK: Private Functions
 	// *****************************
 
-	private func createTimers(fromTimeStamp timeStamp:[NSTimeInterval]) -> Set<NSTimer>? {
+	fileprivate func createTimers(fromTimeStamp timeStamp:[TimeInterval]) -> Set<Timer>? {
 		if timeStamp.count <= 1 || timeStamp.count % 2 == 1 {
 			return nil
 		}
 
-		var res:Set<NSTimer> = Set()
+		var res:Set<Timer> = Set()
 		for i in 0..<timeStamp.count where i % 2 == 0{
-			let onTimer = NSTimer.scheduledTimerWithTimeInterval(timeStamp[i], target: self, selector: #selector(MorseOutputPlayer.startSignal), userInfo: nil, repeats: false)
-			let offTimer = NSTimer.scheduledTimerWithTimeInterval(timeStamp[i + 1], target: self, selector: #selector(MorseOutputPlayer.stopSignal), userInfo: nil, repeats: false)
+			let onTimer = Timer.scheduledTimer(timeInterval: timeStamp[i], target: self, selector: #selector(MorseOutputPlayer.startSignal), userInfo: nil, repeats: false)
+			let offTimer = Timer.scheduledTimer(timeInterval: timeStamp[i + 1], target: self, selector: #selector(MorseOutputPlayer.stopSignal), userInfo: nil, repeats: false)
 
 			res.insert(onTimer)
 			res.insert(offTimer)
 		}
-		let endTimer = NSTimer.scheduledTimerWithTimeInterval(timeStamp.last!, target: self, selector: #selector(MorseOutputPlayer.playEnded), userInfo: nil, repeats: false)
+		let endTimer = Timer.scheduledTimer(timeInterval: timeStamp.last!, target: self, selector: #selector(MorseOutputPlayer.playEnded), userInfo: nil, repeats: false)
 		res.insert(endTimer)
 		return res
 	}

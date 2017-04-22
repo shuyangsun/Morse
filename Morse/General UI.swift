@@ -8,8 +8,8 @@
 
 import UIKit
 
-let TAP_FEED_BACK_DURATION:NSTimeInterval = 0.4
-let defaultAnimationDuration:NSTimeInterval = 0.35
+let TAP_FEED_BACK_DURATION:TimeInterval = 0.4
+let defaultAnimationDuration:TimeInterval = 0.35
 
 let topBarHeight:CGFloat = 56
 let textBackgroundViewHeight:CGFloat = 140
@@ -84,44 +84,44 @@ private var cardViewHeight:CGFloat {
 }
 
 var statusBarHeight:CGFloat {
-	return UIApplication.sharedApplication().statusBarFrame.size.height
+	return UIApplication.shared.statusBarFrame.size.height
 }
 
-var animationDurationScalar:NSTimeInterval {
+var animationDurationScalar:TimeInterval {
 	return appDelegate.animationDurationScalar
 }
 
 enum Direction:Int {
-	case BottomToTop = 1
-	case LeftToRight = 2
-	case TopToBottom = 3
-	case RightToLeft = 4
+	case bottomToTop = 1
+	case leftToRight = 2
+	case topToBottom = 3
+	case rightToLeft = 4
 }
 
 
 extension UIView {
 
-	class func animateWithScaledDuration(duration: NSTimeInterval, animations: () -> Void) {
-		self.animateWithDuration(duration * animationDurationScalar,
+	class func animateWithScaledDuration(_ duration: TimeInterval, animations: () -> Void) {
+		self.animate(withDuration: duration * animationDurationScalar,
 			animations: animations)
 	}
 
-	class func animateWithScaledDuration(duration: NSTimeInterval, animations: () -> Void, completion: ((Bool) -> Void)?) {
-		self.animateWithDuration(duration * animationDurationScalar,
+	class func animateWithScaledDuration(_ duration: TimeInterval, animations: () -> Void, completion: ((Bool) -> Void)?) {
+		self.animate(withDuration: duration * animationDurationScalar,
 			animations: animations,
 			completion: completion)
 	}
 
-	class func animateWithScaledDuration(duration: NSTimeInterval, delay: NSTimeInterval, options: UIViewAnimationOptions, animations: () -> Void, completion: ((Bool) -> Void)?) {
-		self.animateWithDuration(duration * animationDurationScalar,
+	class func animateWithScaledDuration(_ duration: TimeInterval, delay: TimeInterval, options: UIViewAnimationOptions, animations: () -> Void, completion: ((Bool) -> Void)?) {
+		self.animate(withDuration: duration * animationDurationScalar,
 			delay: delay,
 			options: options,
 			animations: animations,
 			completion: completion)
 	}
 
-	class func animateWithScaledDuration(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping dampingRatio: CGFloat, initialSpringVelocity velocity: CGFloat, options: UIViewAnimationOptions, animations: () -> Void, completion: ((Bool) -> Void)?) {
-		self.animateWithDuration(duration * animationDurationScalar,
+	class func animateWithScaledDuration(_ duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping dampingRatio: CGFloat, initialSpringVelocity velocity: CGFloat, options: UIViewAnimationOptions, animations: () -> Void, completion: ((Bool) -> Void)?) {
+		self.animate(withDuration: duration * animationDurationScalar,
 			delay: delay,
 			usingSpringWithDamping: dampingRatio,
 			initialSpringVelocity: velocity,

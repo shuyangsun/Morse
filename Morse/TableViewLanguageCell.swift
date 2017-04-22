@@ -26,7 +26,7 @@ class TableViewLanguageCell: TableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
@@ -36,7 +36,7 @@ class TableViewLanguageCell: TableViewCell {
 	Responsible for updating the UI when user changes the theme.
 	*/
 	override func updateColor() {
-		if self.accessoryType == .None {
+		if self.accessoryType == .none {
 			self.backgroundColor = appDelegate.theme.tableViewCellBackgroundColor
 			if self.languageCode == "" {
 				self.textLabel?.attributedText = getAttributedStringFrom(LocalizedStrings.Languages.systemDefault, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)

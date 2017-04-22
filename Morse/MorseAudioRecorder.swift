@@ -10,8 +10,8 @@ import UIKit
 import AVFoundation
 
 class MorseAudioRecorder: NSObject {
-	private var _recorder:AVAudioRecorder? = nil
-	private var _sampleTimer:NSTimer! = nil
+	fileprivate var _recorder:AVAudioRecorder? = nil
+	fileprivate var _sampleTimer:Timer! = nil
 
 	var delegate:MorseAudioRecorderDelegate? = nil
 	var sensitivity:Float = 0.7
@@ -27,17 +27,17 @@ class MorseAudioRecorder: NSObject {
 			self.lowPassResults = lowPassResults
 
 			// Initialize recorder
-			let url = NSURL.fileURLWithPath("/dev/null")
+			let url = URL(fileURLWithPath: "/dev/null")
 			let settings:[String:AnyObject] = [
 				AVSampleRateKey: 44100,
-				AVFormatIDKey: NSNumber(unsignedInt: kAudioFormatAppleLossless),
+				AVFormatIDKey: NSNumber(value: kAudioFormatAppleLossless as UInt32),
 				AVNumberOfChannelsKey: 1,
-				AVEncoderAudioQualityKey: AVAudioQuality.Max.rawValue
+				AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue
 			]
-			self._recorder = try AVAudioRecorder(URL: url, settings: settings)
+			self._recorder = try AVAudioRecorder(url: url, settings: settings)
 			if self._recorder != nil{
 				self._recorder!.prepareToRecord()
-				self._recorder!.meteringEnabled = true
+				self._recorder!.isMeteringEnabled = true
 			}
 		} catch let error as NSError {
 			print("Could not create Recorder \(error), \(error.userInfo)")
@@ -46,7 +46,7 @@ class MorseAudioRecorder: NSObject {
 	}
 
 	func startRecording() {
-		self._sampleTimer = NSTimer.scheduledTimerWithTimeInterval(audioSampleFrequencyTimeInterval, target: self, selector: #selector(MorseAudioRecorder.sampleTimerCallback), userInfo: nil, repeats: true)
+		self._sampleTimer = Timer.scheduledTimer(timeInterval: audioSampleFrequencyTimeInterval, target: self, selector: #selector(MorseAudioRecorder.sampleTimerCallback), userInfo: nil, repeats: true)
 		self._recorder?.record()
 	}
 
@@ -60,10 +60,10 @@ class MorseAudioRecorder: NSObject {
 			recorder.updateMeters()
 
 			let alpha:Float = 0.1
-			let peakPower = recorder.peakPowerForChannel(0)
+			let peakPower = recorder.peakPower(forChannel: 0)
 			self.lowPassResults = alpha * peakPower + (1 - alpha) * self.lowPassResults
 
-			self.delegate?.audioLevelUpdated?(self.lowPassResults, avgPower: recorder.averagePowerForChannel(0), peakPower: recorder.peakPowerForChannel(0), recognized: self.lowPassResults > 0.95)
+			self.delegate?.audioLevelUpdated?(self.lowPassResults, avgPower: recorder.averagePower(forChannel: 0), peakPower: recorder.peakPower(forChannel: 0), recognized: self.lowPassResults > 0.95)
 			self.lowPassResults = 0
 		}
 	}

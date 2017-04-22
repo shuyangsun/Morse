@@ -12,8 +12,8 @@ class SettingsSplitViewController: UISplitViewController, UISplitViewControllerD
 
 	var statusBarView:UIView!
 
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return theme.style == .Dark ? .LightContent : .Default
+	override var preferredStatusBarStyle : UIStatusBarStyle {
+		return theme.style == .dark ? .lightContent : .default
 	}
 
     override func viewDidLoad() {
@@ -21,7 +21,7 @@ class SettingsSplitViewController: UISplitViewController, UISplitViewControllerD
 
         // Do any additional setup after loading the view.
 		self.delegate = self
-		self.preferredDisplayMode = .AllVisible
+		self.preferredDisplayMode = .allVisible
 
 //		self.statusBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: statusBarHeight))
 //		self.statusBarView.backgroundColor = appDelegate.theme.statusBarBackgroundColor
@@ -39,7 +39,7 @@ class SettingsSplitViewController: UISplitViewController, UISplitViewControllerD
         // Dispose of any resources that can be recreated.
     }
 
-	func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
+	func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
 //		if secondaryViewController is UINavigationController &&
 //			(secondaryViewController as! UINavigationController).topViewController is SettingsLanguagesTableViewController &&
 //			((secondaryViewController as! UINavigationController).topViewController as! SettingsLanguagesTableViewController).tableView == nil {

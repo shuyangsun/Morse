@@ -35,7 +35,7 @@ class TableViewTransmitterConfigurationCell: TableViewCell {
 	}
 	var isInteractionEnabled = true {
 		willSet {
-			self.userInteractionEnabled = newValue
+			self.isUserInteractionEnabled = newValue
 			if newValue {
 				self.valueTextField.alpha = 1
 				self.minusButton.alpha = 1
@@ -60,20 +60,20 @@ class TableViewTransmitterConfigurationCell: TableViewCell {
 
 		if self.valueTextField == nil {
 			self.valueTextField = UITextField()
-			self.valueTextField.backgroundColor = UIColor.clearColor()
-			self.valueTextField.borderStyle = .None
-			self.valueTextField.textAlignment = .Center
-			self.valueTextField.keyboardType = .NumberPad
+			self.valueTextField.backgroundColor = UIColor.clear
+			self.valueTextField.borderStyle = .none
+			self.valueTextField.textAlignment = .center
+			self.valueTextField.keyboardType = .numberPad
 			self.valueTextField.clearsOnBeginEditing = true
 			self.valueTextField.keyboardAppearance = theme.keyboardAppearance
-			self.valueTextField.opaque = false
+			self.valueTextField.isOpaque = false
 			self.valueTextField.textColor = theme.transConfigLabelTextColorEmphasized
 			// Add done button
 			let doneButton = UIButton(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: transConfigNumPadDoneButtonHeight))
-			doneButton.addTarget(self.valueTextField, action: #selector(UIResponder.resignFirstResponder), forControlEvents: .TouchUpInside)
+			doneButton.addTarget(self.valueTextField, action: #selector(UIResponder.resignFirstResponder), for: .touchUpInside)
 			doneButton.backgroundColor = theme.transValConfigViewNumPadDoneButtonBackgroundColor
-			doneButton.setAttributedTitle(getAttributedStringFrom(LocalizedStrings.Settings.done, withFontSize: transConfigNumPadDoneButtonFontSize, color: theme.transValConfigViewNumPadDoneButtonTextColorNormal, bold: true), forState: .Normal)
-			doneButton.setAttributedTitle(getAttributedStringFrom(LocalizedStrings.Settings.done, withFontSize: transConfigNumPadDoneButtonFontSize, color: theme.transValConfigViewNumPadDoneButtonTextColorHighlighted, bold: true), forState: .Highlighted)
+			doneButton.setAttributedTitle(getAttributedStringFrom(LocalizedStrings.Settings.done, withFontSize: transConfigNumPadDoneButtonFontSize, color: theme.transValConfigViewNumPadDoneButtonTextColorNormal, bold: true), for: UIControlState())
+			doneButton.setAttributedTitle(getAttributedStringFrom(LocalizedStrings.Settings.done, withFontSize: transConfigNumPadDoneButtonFontSize, color: theme.transValConfigViewNumPadDoneButtonTextColorHighlighted, bold: true), for: .highlighted)
 			self.valueTextField.inputAccessoryView = doneButton
 			self.addSubview(self.valueTextField)
 			self.valueTextField.snp_makeConstraints(closure: { (make) -> Void in
@@ -86,10 +86,10 @@ class TableViewTransmitterConfigurationCell: TableViewCell {
 
 		if self.minusButton == nil {
 			self.minusButton = UIButton()
-			self.minusButton.opaque = false
-			self.minusButton.setAttributedTitle(getAttributedStringFrom(minusButtonText, withFontSize: transConfigMinusPlusFontSize, color: theme.transValConfigViewPlusMinusButtonTintColorNormal, bold: false), forState: .Normal)
-			self.minusButton.setAttributedTitle(getAttributedStringFrom(minusButtonText, withFontSize: transConfigMinusPlusFontSize, color: theme.transValConfigViewPlusMinusButtonTintColorHighlighted, bold: false), forState: .Highlighted)
-			self.minusButton.addTarget(self, action: #selector(TableViewTransmitterConfigurationCell.minusButtonTapped), forControlEvents: .TouchUpInside)
+			self.minusButton.isOpaque = false
+			self.minusButton.setAttributedTitle(getAttributedStringFrom(minusButtonText, withFontSize: transConfigMinusPlusFontSize, color: theme.transValConfigViewPlusMinusButtonTintColorNormal, bold: false), for: UIControlState())
+			self.minusButton.setAttributedTitle(getAttributedStringFrom(minusButtonText, withFontSize: transConfigMinusPlusFontSize, color: theme.transValConfigViewPlusMinusButtonTintColorHighlighted, bold: false), for: .highlighted)
+			self.minusButton.addTarget(self, action: #selector(TableViewTransmitterConfigurationCell.minusButtonTapped), for: .touchUpInside)
 			self.addSubview(self.minusButton)
 			self.minusButton.snp_makeConstraints(closure: { (make) -> Void in
 				make.centerY.equalTo(self)
@@ -99,10 +99,10 @@ class TableViewTransmitterConfigurationCell: TableViewCell {
 
 		if self.plusButton == nil {
 			self.plusButton = UIButton()
-			self.plusButton.opaque = false
-			self.plusButton.setAttributedTitle(getAttributedStringFrom(plusButtonText, withFontSize: transConfigMinusPlusFontSize, color: theme.transValConfigViewPlusMinusButtonTintColorNormal, bold: false), forState: .Normal)
-			self.plusButton.setAttributedTitle(getAttributedStringFrom(plusButtonText, withFontSize: transConfigMinusPlusFontSize, color: theme.transValConfigViewPlusMinusButtonTintColorHighlighted, bold: false), forState: .Highlighted)
-			self.plusButton.addTarget(self, action: #selector(TableViewTransmitterConfigurationCell.plusButtonTapped), forControlEvents: .TouchUpInside)
+			self.plusButton.isOpaque = false
+			self.plusButton.setAttributedTitle(getAttributedStringFrom(plusButtonText, withFontSize: transConfigMinusPlusFontSize, color: theme.transValConfigViewPlusMinusButtonTintColorNormal, bold: false), for: UIControlState())
+			self.plusButton.setAttributedTitle(getAttributedStringFrom(plusButtonText, withFontSize: transConfigMinusPlusFontSize, color: theme.transValConfigViewPlusMinusButtonTintColorHighlighted, bold: false), for: .highlighted)
+			self.plusButton.addTarget(self, action: #selector(TableViewTransmitterConfigurationCell.plusButtonTapped), for: .touchUpInside)
 			self.addSubview(self.plusButton)
 			self.plusButton.snp_makeConstraints(closure: { (make) -> Void in
 				make.centerY.equalTo(self.minusButton)
@@ -112,11 +112,11 @@ class TableViewTransmitterConfigurationCell: TableViewCell {
 
 		if self.slider == nil {
 			self.slider = UISlider(frame: CGRect(x: 0, y: 0, width: 0, height: tableViewCellHeight))
-			self.slider.opaque = false
+			self.slider.isOpaque = false
 			self.slider.minimumTrackTintColor = theme.sliderMinTrackTintColor
 			self.slider.maximumTrackTintColor = theme.sliderMaxTrackTintColor
 			self.slider.thumbTintColor = theme.sliderThumbTintColor
-			self.slider.addTarget(self, action: #selector(TableViewTransmitterConfigurationCell.sliderValueChanged), forControlEvents: .ValueChanged)
+			self.slider.addTarget(self, action: #selector(TableViewTransmitterConfigurationCell.sliderValueChanged), for: .valueChanged)
 			self.addSubview(self.slider)
 			self.slider.snp_makeConstraints(closure: { (make) -> Void in
 				make.leading.equalTo(self.minusButton.snp_trailing).offset(transConfigHorizontalMargin)
@@ -128,7 +128,7 @@ class TableViewTransmitterConfigurationCell: TableViewCell {
 
 		if self.sliderMinLabel == nil {
 			self.sliderMinLabel = UILabel()
-			self.sliderMinLabel.opaque = false
+			self.sliderMinLabel.isOpaque = false
 			self.sliderMinLabel.textColor = theme.transConfigLabelTextColorNormal
 			self.addSubview(self.sliderMinLabel)
 			self.sliderMinLabel.snp_makeConstraints(closure: { (make) -> Void in
@@ -139,7 +139,7 @@ class TableViewTransmitterConfigurationCell: TableViewCell {
 
 		if self.sliderMaxLabel == nil {
 			self.sliderMaxLabel = UILabel()
-			self.sliderMaxLabel.opaque = false
+			self.sliderMaxLabel.isOpaque = false
 			self.sliderMaxLabel.textColor = theme.transConfigLabelTextColorNormal
 			self.addSubview(self.sliderMaxLabel)
 			self.sliderMaxLabel.snp_makeConstraints(closure: { (make) -> Void in
@@ -149,14 +149,14 @@ class TableViewTransmitterConfigurationCell: TableViewCell {
 		}
     }
 
-	func setMinAndMaxValue(sliderMinValue:Float, sliderMaxValue:Float) {
+	func setMinAndMaxValue(_ sliderMinValue:Float, sliderMaxValue:Float) {
 		self.slider.minimumValue = sliderMinValue
 		self.slider.maximumValue = sliderMaxValue
 		self.sliderMinLabel.attributedText = getAttributedStringFrom(self.convertFloatToInteger ? String(Int(sliderMinValue)) : String(sliderMinValue), withFontSize: tableViewCellDetailTextLabelFontSize, color: theme.transConfigLabelTextColorNormal, bold: true)
 		self.sliderMaxLabel.attributedText = getAttributedStringFrom(self.convertFloatToInteger ? String(Int(sliderMaxValue)) : String(sliderMaxValue), withFontSize: tableViewCellDetailTextLabelFontSize, color: theme.transConfigLabelTextColorNormal, bold: true)
 	}
 
-	func changeValueText(valueText:String) {
+	func changeValueText(_ valueText:String) {
 		self.valueTextField.attributedText = getAttributedStringFrom(valueText, withFontSize: transConfigValueLabelFontSize, color: theme.transConfigLabelTextColorEmphasized, bold: true)
 	}
 

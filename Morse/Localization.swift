@@ -27,7 +27,7 @@ let canBeSpellCheckedLanguageCodes:Set<String> = ["en", "es"]
 let defaultSpellCheckLanguageCode = "en"
 
 var layoutDirection:UIUserInterfaceLayoutDirection {
-	return UIView.userInterfaceLayoutDirectionForSemanticContentAttribute(.Unspecified) == .LeftToRight ? .LeftToRight : .RightToLeft
+	return UIView.userInterfaceLayoutDirection(for: .unspecified) == .leftToRight ? .leftToRight : .rightToLeft
 }
 
 struct LocalizedStrings {
@@ -216,28 +216,28 @@ struct LocalizedStrings {
 
 extension AppDelegate {
 	var currentLocaleLanguageCode:String {
-		return NSLocale.preferredLanguages().first!
+		return Locale.preferredLanguages.first!
 	}
 
-	func updateLocalWithIdentifier(languageCode:String) {
-		var locale = self.userDefaults.objectForKey(userDefaultsKeyAppleLanguages) as! [String]
+	func updateLocalWithIdentifier(_ languageCode:String) {
+		var locale = self.userDefaults.object(forKey: userDefaultsKeyAppleLanguages) as! [String]
 		if languageCode.isEmpty {
 			// Restore to default
 		} else {
 			// If the new locale is not the current preferred locale:
 			if locale.first! != languageCode {
 				// Find the locale first.
-				let ind = locale.indexOf(languageCode)
+				let ind = locale.index(of: languageCode)
 				if ind != nil {
-					locale.removeAtIndex(ind!)
+					locale.remove(at: ind!)
 				}
-				locale.insert(languageCode, atIndex: 0)
+				locale.insert(languageCode, at: 0)
 			}
-			self.userDefaults.setObject(locale, forKey: userDefaultsKeyAppleLanguages)
+			self.userDefaults.set(locale, forKey: userDefaultsKeyAppleLanguages)
 			self.userDefaults.synchronize()
 		}
 
-		NSNotificationCenter.defaultCenter().postNotificationName(languageDidChangeNotificationName, object: nil)
+		NotificationCenter.default.post(name: Notification.Name(rawValue: languageDidChangeNotificationName), object: nil)
 	}
 
 	func resetLocaleToSystemDefault() {

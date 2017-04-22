@@ -17,7 +17,7 @@ class MDAlertController: UIViewController {
 	var snapshot:UIView? {
 		willSet {
 			if newValue != nil {
-				self.view.insertSubview(newValue!, atIndex: 0)
+				self.view.insertSubview(newValue!, at: 0)
 			}
 			newValue?.snp_makeConstraints(closure: { (make) -> Void in
 				make.edges.equalTo(self.view)
@@ -34,13 +34,13 @@ class MDAlertController: UIViewController {
 			self.updateButtonConstraints()
 		}
 	}
-	private var _alertTitle:String?
-	private var _alertMessage:String?
-	private var _actionsAndButtons:[(action:MDAlertAction, button:UIButton)] = []
-	private var _didAddCustomAction = false
+	fileprivate var _alertTitle:String?
+	fileprivate var _alertMessage:String?
+	fileprivate var _actionsAndButtons:[(action:MDAlertAction, button:UIButton)] = []
+	fileprivate var _didAddCustomAction = false
 
 	func setup() {
-		self.view.backgroundColor = UIColor.clearColor()
+		self.view.backgroundColor = UIColor.clear
 		if self.backgroundView == nil {
 			self.backgroundView = UIView(frame: self.view.bounds)
 			self.backgroundView.backgroundColor = theme.mdAlertControllerBackgroundColor
@@ -59,7 +59,7 @@ class MDAlertController: UIViewController {
 		}
 
 		let titleAttrText = getAttributedStringFrom(self._alertTitle, withFontSize: mdAlertTitleFontSize, color: theme.mdAlertControllerTitleTextColor, bold: true)
-		var titleStrSize = titleAttrText!.boundingRectWithSize(CGSizeMake(9999, 9999), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil)
+		var titleStrSize = titleAttrText!.boundingRect(with: CGSize(width: 9999, height: 9999), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
 		titleStrSize = CGRect(x: titleStrSize.origin.x, y: titleStrSize.origin.y, width: titleStrSize.width, height: titleStrSize.height + 5)
 		if self.titleLabel == nil {
 			self.titleLabel = UILabel()
@@ -75,7 +75,7 @@ class MDAlertController: UIViewController {
 
 		let alertWidth = min(self.view.bounds.width - mdAlertMarginHorizontal * 2, mdAlertMaxWidth)
 		let messageAttrText = getAttributedStringFrom(self._alertMessage, withFontSize: mdAlertMessageFontSize, color: theme.mdAlertControllerMessageTextColor, bold: false)
-		var messageStrSize = messageAttrText!.boundingRectWithSize(CGSizeMake(alertWidth - mdAlertPaddingHorizontal * 2, 10000), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil)
+		var messageStrSize = messageAttrText!.boundingRect(with: CGSize(width: alertWidth - mdAlertPaddingHorizontal * 2, height: 10000), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
 		let height = min(messageStrSize.height + 5, self.view.bounds.height - 2 * mdAlertMarginVertical - mdAlertButtonHeight - mdAlertPaddingVertical * 3 - titleStrSize.height)
 		messageStrSize = CGRect(x: messageStrSize.origin.x, y: messageStrSize.origin.y, width: messageStrSize.width, height: height)
 		if self.messageLabel == nil {
@@ -94,7 +94,7 @@ class MDAlertController: UIViewController {
 
 		if self.buttonOutlineView == nil {
 			self.buttonOutlineView = UIView()
-			self.buttonOutlineView.backgroundColor = UIColor.clearColor()
+			self.buttonOutlineView.backgroundColor = UIColor.clear
 			self.buttonOutlineView.layer.cornerRadius = theme.mdAlertControllerAlertCornerRadius
 			self.buttonOutlineView.clipsToBounds = true
 			self.alertView.addSubview(self.buttonOutlineView)
@@ -113,7 +113,7 @@ class MDAlertController: UIViewController {
 			make.height.equalTo(alertHeight)
 		})
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
 	}
 
     override func viewDidLoad() {
@@ -126,20 +126,20 @@ class MDAlertController: UIViewController {
 		self.setup()
 	}
 
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		self.alertView.addMDShadow(withDepth: 5)
 	}
 
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return theme.style == .Dark ? .LightContent : .Default
+	override var preferredStatusBarStyle : UIStatusBarStyle {
+		return theme.style == .dark ? .lightContent : .default
 	}
 
-	override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+	override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
 		if isPad {
-			return [UIInterfaceOrientationMask.Portrait, UIInterfaceOrientationMask.Landscape]
+			return [UIInterfaceOrientationMask.portrait, UIInterfaceOrientationMask.landscape]
 		} else {
-			return UIInterfaceOrientationMask.Portrait
+			return UIInterfaceOrientationMask.portrait
 		}
 	}
 
@@ -161,8 +161,8 @@ class MDAlertController: UIViewController {
 		let actionOK = MDAlertAction(title: LocalizedStrings.Alert.buttonOK)
 		self.addAction(actionOK)
 		self._didAddCustomAction = false
-		self.modalPresentationStyle = .Custom
-		self.transitioningDelegate = UIApplication.sharedApplication().windows[0].rootViewController as! TabBarController
+		self.modalPresentationStyle = .custom
+		self.transitioningDelegate = UIApplication.shared.windows[0].rootViewController as! TabBarController
 	}
 
 	/**
@@ -170,7 +170,7 @@ class MDAlertController: UIViewController {
 	- Parameters:
 		- action: An action specifying the title, handler of the button.
 	*/
-	func addAction(actions:MDAlertAction...) {
+	func addAction(_ actions:MDAlertAction...) {
 		for action in actions {
 			if !self._didAddCustomAction {
 				// If the user hasn't add any custom action, remove the default "OK" action
@@ -180,9 +180,9 @@ class MDAlertController: UIViewController {
 				}
 			}
 			let button = UIButton()
-			button.setAttributedTitle(getAttributedStringFrom(action.title.uppercaseString, withFontSize: mdAlertButtonFontSize, color: theme.mdAlertControllerButtonTextColorNormal, bold: true), forState: .Normal)
-			button.setAttributedTitle(getAttributedStringFrom(action.title.uppercaseString, withFontSize: mdAlertButtonFontSize, color: theme.mdAlertControllerButtonTextColorHighlighted, bold: true), forState: .Highlighted)
-			button.addTarget(self, action: #selector(MDAlertController.buttonTapped(_:)), forControlEvents: .TouchUpInside)
+			button.setAttributedTitle(getAttributedStringFrom(action.title.uppercased(), withFontSize: mdAlertButtonFontSize, color: theme.mdAlertControllerButtonTextColorNormal, bold: true), for: UIControlState())
+			button.setAttributedTitle(getAttributedStringFrom(action.title.uppercased(), withFontSize: mdAlertButtonFontSize, color: theme.mdAlertControllerButtonTextColorHighlighted, bold: true), for: .highlighted)
+			button.addTarget(self, action: #selector(MDAlertController.buttonTapped(_:)), for: .touchUpInside)
 			self._actionsAndButtons.append((action, button))
 			if self.buttonOutlineView != nil {
 				self.buttonOutlineView.addSubview(button)
@@ -192,7 +192,7 @@ class MDAlertController: UIViewController {
 		}
 	}
 
-	private func updateButtonConstraints() {
+	fileprivate func updateButtonConstraints() {
 		let count = self._actionsAndButtons.count
 		for i in 0 ..< count {
 			let tuple = self._actionsAndButtons[i]
@@ -210,9 +210,9 @@ class MDAlertController: UIViewController {
 		}
 	}
 
-	func buttonTapped(button:UIButton) {
+	func buttonTapped(_ button:UIButton) {
 		let centerPoint = CGPoint(x: button.bounds.width/2.0, y: button.bounds.height/2.0)
-		let convertedPoint = self.alertView.convertPoint(centerPoint, fromView: button)
+		let convertedPoint = self.alertView.convert(centerPoint, from: button)
 		self.alertView.triggerTapFeedBack(atLocation: convertedPoint, withColor: theme.mdAlertControllerButtonTapFeedbackColor, atBottom:false, scaleDuration: true) {
 			var actionClosure:((MDAlertAction) -> Void)? = nil
 			var action:MDAlertAction? = nil
@@ -225,7 +225,7 @@ class MDAlertController: UIViewController {
 			}
 			if action != nil {
 				if action!.dismissAlertView {
-					self.dismissViewControllerAnimated(true) {
+					self.dismiss(animated: true) {
 						actionClosure?(action!)
 					}
 				} else {
@@ -239,13 +239,13 @@ class MDAlertController: UIViewController {
 	Present this alert view controller. The presenting controller will be the root controller, so the alert view controller will always show at the top of view controller hierarchy.
 	*/
 	func show() {
-		(UIApplication.sharedApplication().windows[0].rootViewController! as! TabBarController).presentViewController(self, animated: true, completion: nil)
+		(UIApplication.shared.windows[0].rootViewController! as! TabBarController).present(self, animated: true, completion: nil)
 	}
 
 	func rotationDidChange() {
 		self.snapshot?.removeFromSuperview()
-		self.snapshot = self.presentingViewController?.view.snapshotViewAfterScreenUpdates(false)
-		self.view.insertSubview(self.snapshot!, atIndex: 0)
+		self.snapshot = self.presentingViewController?.view.snapshotView(afterScreenUpdates: false)
+		self.view.insertSubview(self.snapshot!, at: 0)
 	}
 
     /*
@@ -263,15 +263,15 @@ class MDAlertController: UIViewController {
 	- Parameters:
 		- animated: A boolean determines if the theme change should be animated.
 	*/
-	func updateColor(animated animated:Bool = true) {
+	func updateColor(animated:Bool = true) {
 		self.snapshot?.removeFromSuperview()
-		self.snapshot = self.presentingViewController?.view.snapshotViewAfterScreenUpdates(true)
-		self.view.insertSubview(self.snapshot!, atIndex: 0)
+		self.snapshot = self.presentingViewController?.view.snapshotView(afterScreenUpdates: true)
+		self.view.insertSubview(self.snapshot!, at: 0)
 
 		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
-		UIView.animateWithDuration(duration,
+		UIView.animate(withDuration: duration,
 			delay: 0,
-			options: .CurveEaseInOut,
+			options: UIViewAnimationOptions(),
 			animations: {
 				self.view.backgroundColor = theme.mdAlertControllerBackgroundColor
 				self.alertView.layer.cornerRadius = theme.mdAlertControllerAlertCornerRadius
@@ -281,8 +281,8 @@ class MDAlertController: UIViewController {
 				for tuple in self._actionsAndButtons {
 					let button = tuple.button
 					let action = tuple.action
-					button.setAttributedTitle(getAttributedStringFrom(action.title.uppercaseString, withFontSize: mdAlertButtonFontSize, color: theme.mdAlertControllerButtonTextColorNormal, bold: true), forState: .Normal)
-					button.setAttributedTitle(getAttributedStringFrom(action.title.uppercaseString, withFontSize: mdAlertButtonFontSize, color: theme.mdAlertControllerButtonTextColorHighlighted, bold: true), forState: .Highlighted)
+					button.setAttributedTitle(getAttributedStringFrom(action.title.uppercased(), withFontSize: mdAlertButtonFontSize, color: theme.mdAlertControllerButtonTextColorNormal, bold: true), for: UIControlState())
+					button.setAttributedTitle(getAttributedStringFrom(action.title.uppercased(), withFontSize: mdAlertButtonFontSize, color: theme.mdAlertControllerButtonTextColorHighlighted, bold: true), for: .highlighted)
 				}
 			}, completion: nil)
 	}

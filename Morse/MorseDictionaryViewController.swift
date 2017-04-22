@@ -20,17 +20,17 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 	var topBarLabel: UILabel!
 	var scrollView:UIScrollView!
 
-	private var cardViews:[CardView] = []
-	private var transmitter = MorseTransmitter()
-	private let _toneGenerator = ToneGenerator()
-	private let _outputPlayer = MorseOutputPlayer()
+	fileprivate var cardViews:[CardView] = []
+	fileprivate var transmitter = MorseTransmitter()
+	fileprivate let _toneGenerator = ToneGenerator()
+	fileprivate let _outputPlayer = MorseOutputPlayer()
 
 	// *****************************
 	// MARK: View Related Variables
 	// *****************************
 
 	// Don't need tabBarHeight if using iAd
-	private var tabBarHeight:CGFloat {
+	fileprivate var tabBarHeight:CGFloat {
 		if let tabBarController = self.tabBarController {
 			return tabBarController.tabBar.bounds.height
 		} else {
@@ -40,11 +40,11 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 
 	var cardViewMinWidth:CGFloat = 0.0
 
-	private let _updateCardConstraintsQueue = dispatch_queue_create("Update Card View Constraints On Dictonary VC Queue", nil)
-	private let _createCardViewsQueue = dispatch_queue_create("Create Card Views On Dictonary VC Queue", nil)
+	fileprivate let _updateCardConstraintsQueue = DispatchQueue(label: "Update Card View Constraints On Dictonary VC Queue", attributes: [])
+	fileprivate let _createCardViewsQueue = DispatchQueue(label: "Create Card Views On Dictonary VC Queue", attributes: [])
 
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return theme.style == .Dark ? .LightContent : .Default
+	override var preferredStatusBarStyle : UIStatusBarStyle {
+		return theme.style == .dark ? .lightContent : .default
 	}
 
 	// *****************************
@@ -57,7 +57,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 		self.screenName = dictionaryVCName
 
 		// Calculate the min width for a card to show the longest String.
-		let str = NSAttributedString(string: "• • • — — — • • •", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(cardViewMorseFontSizeDictionary)])
+		let str = NSAttributedString(string: "• • • — — — • • •", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: cardViewMorseFontSizeDictionary)])
 		let size = str.size()
 		self.cardViewMinWidth = max(dictionaryVCCardViewMinWidth, size.width + cardViewLabelPaddingHorizontal * 2)
 
@@ -87,10 +87,10 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 
 			if self.topBarLabel == nil {
 				self.topBarLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.topBarView.bounds.width, height: topBarHeight))
-				self.topBarLabel.textAlignment = .Center
+				self.topBarLabel.textAlignment = .center
 				self.topBarLabel.tintColor = appDelegate.theme.topBarLabelTextColor
 				self.topBarLabel.attributedText = NSAttributedString(string: LocalizedStrings.Label.topBarMorseDictionary, attributes:
-					[NSFontAttributeName: UIFont.boldSystemFontOfSize(23),
+					[NSFontAttributeName: UIFont.boldSystemFont(ofSize: 23),
 						NSForegroundColorAttributeName: appDelegate.theme.topBarLabelTextColor])
 				self.topBarView.addSubview(self.topBarLabel)
 
@@ -104,13 +104,13 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 		if self.scrollView == nil {
 			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: statusBarHeight + topBarHeight, width: self.view.bounds.width, height: self.view.bounds.height - statusBarHeight - topBarHeight))
 			self.scrollView.backgroundColor = appDelegate.theme.scrollViewBackgroundColor
-			self.scrollView.userInteractionEnabled = true
+			self.scrollView.isUserInteractionEnabled = true
 			self.scrollView.bounces = true
 			self.scrollView.showsHorizontalScrollIndicator = false
 			self.scrollView.showsVerticalScrollIndicator = true
 			self.scrollView.delegate = self
 			self.scrollView.indicatorStyle = theme.scrollViewIndicatorStyle
-			self.view.insertSubview(self.scrollView, atIndex: 0)
+			self.view.insertSubview(self.scrollView, at: 0)
 
 			self.scrollView.snp_remakeConstraints { (make) -> Void in
 				make.top.equalTo(self.topBarView.snp_bottom)
@@ -127,21 +127,21 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 
 		self._outputPlayer.delegate = self
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
 //		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateAdsStatus", name: adsShouldDisplayDidChangeNotificationName, object: nil)
     }
 
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		self.addCards()
-		dispatch_sync(self._updateCardConstraintsQueue) {
+		self._updateCardConstraintsQueue.sync {
 			self.updateCardViewsConstraints()
 		}
 		self.view.setNeedsUpdateConstraints()
 		self.updateMDShadows()
 	}
 
-	override func viewWillDisappear(animated: Bool) {
+	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		self._outputPlayer.stop()
 	}
@@ -151,7 +151,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
         // Dispose of any resources that can be recreated.
     }
 
-	func scrollViewDidScroll(scrollView: UIScrollView) {
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
 		self._outputPlayer.stop()
 	}
 
@@ -164,7 +164,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 	- parameter text: Text on the card, always on top.
 	- parameter morse: Morse code on the card, always at bottom.
 	*/
-	private func addCardViewWithText(text:String, morse:String) {
+	fileprivate func addCardViewWithText(_ text:String, morse:String) {
 		let cardView = CardView(frame: CGRect(x: appDelegate.theme.cardViewHorizontalMargin, y: appDelegate.theme.cardViewGroupVerticalMargin, width: self.scrollView.bounds.width - appDelegate.theme.cardViewHorizontalMargin - appDelegate.theme.cardViewHorizontalMargin, height: appDelegate.theme.cardViewHeight), text: text, morse: morse, textOnTop: true)
 		cardView.delegate = self
 
@@ -182,12 +182,12 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 	- parameter text: Text on the card, always on top.
 	- parameter morse: Morse code on the card, always at bottom.
 	*/
-	func cardViewTapped(cardView:CardView) {
+	func cardViewTapped(_ cardView:CardView) {
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+		tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 			action: "button_press",
 			label: "DicVC Card View Tapped",
-			value: nil).build() as [NSObject : AnyObject])
+			value: nil).build() as [AnyHashable: Any])
 		self._toneGenerator.mute()
 		self._toneGenerator.stop()
 		self._outputPlayer.stop()
@@ -200,13 +200,13 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 	}
 
 	// This function does not take care of updating card constraints! It only put cardViews on the scrollView and array.
-	private func addCards() {
+	fileprivate func addCards() {
 		if self.cardViews.isEmpty {
 			let keys = MorseTransmitter.keys
 			let prosignTitlesAndMorse = LocalizedStrings.Prosign.titlesAndMorse
-			for i in (0..<keys.count + prosignTitlesAndMorse.count).reverse() {
+			for i in (0..<keys.count + prosignTitlesAndMorse.count).reversed() {
 				// Adding cards may take a while, so do it in another thread. Has to be synced because it's about UI
-				dispatch_sync(self._createCardViewsQueue) {
+				self._createCardViewsQueue.sync {
 					var text = ""
 					var morse = ""
 					var textFontSize:CGFloat = 0
@@ -223,7 +223,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 						// Add regular cards
 						text = keys[i]
 						morse = MorseTransmitter.encodeTextToMorseStringDictionary[text]!
-						text = text.uppercaseString
+						text = text.uppercased()
 						textFontSize = cardViewTextFontSizeDictionary
 					}
 					let colNum = Int(max(1, floor((self.view.bounds.width - theme.cardViewHorizontalMargin * 2 + theme.cardViewGap) / (self.cardViewMinWidth + theme.cardViewGap))))
@@ -234,20 +234,20 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 				}
 			}
 
-			for i in (0..<self.cardViews.count).reverse() {
+			for i in (0..<self.cardViews.count).reversed() {
 				self.scrollView.addSubview(self.cardViews[i])
 			}
 		}
 	}
 
-	private func updateCardViewsConstraints() {
+	fileprivate func updateCardViewsConstraints() {
 		let colNum = Int(max(1, floor((self.view.bounds.width - theme.cardViewHorizontalMargin * 2 + theme.cardViewGap) / (self.cardViewMinWidth + theme.cardViewGap))))
 		let width = (self.scrollView.bounds.width - theme.cardViewHorizontalMargin * 2 - CGFloat(colNum - 1) * theme.cardViewGap)/CGFloat(colNum)
 		let height = theme.cardViewHeight
 		for i in 0..<self.cardViews.count {
 			let card = self.cardViews[(self.cardViews.count - 1 - i)]
 			var leftOffset = theme.cardViewHorizontalMargin + CGFloat(i%colNum) * (width + theme.cardViewGap)
-			if layoutDirection == .RightToLeft {
+			if layoutDirection == .rightToLeft {
 				leftOffset = theme.cardViewHorizontalMargin + CGFloat((colNum - 1) - (i%colNum)) * (width + theme.cardViewGap)
 			}
 			card.snp_remakeConstraints(closure: { (make) -> Void in
@@ -267,7 +267,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
 	}
 
-	private func updateMDShadows() {
+	fileprivate func updateMDShadows() {
 		self.topBarView.addMDShadow(withDepth: 2)
 		for card in self.cardViews {
 			card.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
@@ -275,12 +275,12 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 	}
 
 	func rotationDidChange() {
-		dispatch_sync(self._updateCardConstraintsQueue) {
+		self._updateCardConstraintsQueue.sync {
 			self.updateCardViewsConstraints()
 		}
-		UIView.animateWithDuration(TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar,
+		UIView.animate(withDuration: TAP_FEED_BACK_DURATION * appDelegate.animationDurationScalar,
 			delay: 0,
-			options: .CurveEaseOut,
+			options: .curveEaseOut,
 			animations: {
 				self.scrollView.layoutIfNeeded()
 			}) { succeed in
@@ -312,14 +312,14 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 	Responsible for updating the UI when user changes the theme.
 	- parameter animated: A boolean determines if the theme change should be animated.
 	*/
-	func updateColor(animated animated:Bool = true) {
-		dispatch_sync(self._updateCardConstraintsQueue) {
+	func updateColor(animated:Bool = true) {
+		self._updateCardConstraintsQueue.sync {
 			self.updateCardViewsConstraints()
 		}
 		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
-		UIView.animateWithDuration(duration,
+		UIView.animate(withDuration: duration,
 			delay: 0,
-			options: .CurveEaseInOut,
+			options: UIViewAnimationOptions(),
 			animations: {
 				self.scrollView.indicatorStyle = theme.scrollViewIndicatorStyle
 				self.scrollView.backgroundColor = theme.scrollViewBackgroundColor
@@ -329,7 +329,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 				for cardView in self.cardViews {
 					cardView.layer.cornerRadius = theme.cardViewCornerRadius
 					cardView.layer.borderWidth = theme.cardViewBorderWidth
-					cardView.layer.borderColor = theme.cardViewBorderColor.CGColor
+					cardView.layer.borderColor = theme.cardViewBorderColor.cgColor
 					if cardView.flipped {
 						cardView.backView.backgroundColor = theme.cardBackViewBackgroundColor
 					}

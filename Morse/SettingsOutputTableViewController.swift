@@ -13,13 +13,13 @@ import UIKit
 class SettingsOutputTableViewController: TableViewController, TableViewSwitchCellDelegate, TableViewTransmitterConfigurationCellDelegate {
 
 	// Tags for switches
-	private let _configCellTagWPM = 0
-	private let _configCellTagPitch = 1
-	private let _switchButtonTagBrightenScreen = 2
+	fileprivate let _configCellTagWPM = 0
+	fileprivate let _configCellTagPitch = 1
+	fileprivate let _switchButtonTagBrightenScreen = 2
 
-	private var _textFieldOriginalText:String?
+	fileprivate var _textFieldOriginalText:String?
 
-	private func setup() {
+	fileprivate func setup() {
 		//		self.tableView.separatorStyle = .None
 
 		// Navigation bar configuration
@@ -40,22 +40,22 @@ class SettingsOutputTableViewController: TableViewController, TableViewSwitchCel
 		self.setup()
 	}
 
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		let tracker = GAI.sharedInstance().defaultTracker
 		tracker.set(kGAIScreenName, value: settingsOutputConfigVCName)
 
 		let builder = GAIDictionaryBuilder.createScreenView()
-		tracker.send(builder.build() as [NSObject : AnyObject])
+		tracker.send(builder.build() as [AnyHashable: Any])
 	}
 
 	// MARK: - Table view data source
 
-	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	override func numberOfSections(in tableView: UITableView) -> Int {
 		return 3
 	}
 
-	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		switch section {
 		case 0: return 1
 		case 1: return 2
@@ -64,54 +64,54 @@ class SettingsOutputTableViewController: TableViewController, TableViewSwitchCel
 		}
 	}
 
-	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		var cell = TableViewCell()
 		if indexPath.section == 1 ||  indexPath.section == 2 {
 			switch indexPath.row {
 			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Audio Decoder Transmitter Configuration Cell", forIndexPath: indexPath) as! TableViewTransmitterConfigurationCell
+				cell = tableView.dequeueReusableCell(withIdentifier: "Settings Audio Decoder Transmitter Configuration Cell", for: indexPath) as! TableViewTransmitterConfigurationCell
 				let configCell = cell as! TableViewTransmitterConfigurationCell
 				if indexPath.section == 1 { // WPM
 					configCell.tag = self._configCellTagWPM
-					configCell.setMinAndMaxValue(Float(supportedOutputWPMRange.startIndex), sliderMaxValue: Float(supportedOutputWPMRange.endIndex - 1))
+					configCell.setMinAndMaxValue(Float(supportedOutputWPMRange.lowerBound), sliderMaxValue: Float(supportedOutputWPMRange.upperBound - 1))
 					configCell.slider.value = Float(appDelegate.outputWPM)
 					configCell.changeValueText(String(appDelegate.outputWPM))
 				} else if indexPath.section == 2 { // Pitch
 					configCell.tag = self._configCellTagPitch
-					configCell.setMinAndMaxValue(Float(supportedOutputPitchRange.startIndex), sliderMaxValue: Float(supportedOutputPitchRange.endIndex - 1))
+					configCell.setMinAndMaxValue(Float(supportedOutputPitchRange.lowerBound), sliderMaxValue: Float(supportedOutputPitchRange.upperBound - 1))
 					configCell.slider.value = Float(appDelegate.outputPitch)
 					var text = "\(Int(appDelegate.outputPitch)) Hz"
-					if layoutDirection == .RightToLeft {
+					if layoutDirection == .rightToLeft {
 						text = "Hz \(Int(appDelegate.outputPitch))"
 					}
 					configCell.changeValueText(text)
 				}
 				configCell.delegate = self
 			case 1:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Reset Cell", forIndexPath: indexPath) as! TableViewResetCell
+				cell = tableView.dequeueReusableCell(withIdentifier: "Settings Reset Cell", for: indexPath) as! TableViewResetCell
 			default: break
 			}
 		} else if indexPath.section == 0 {
 			switch indexPath.row {
 			case 0:
-				cell = tableView.dequeueReusableCellWithIdentifier("Settings Switch Cell", forIndexPath: indexPath) as! TableViewSwitchCell
+				cell = tableView.dequeueReusableCell(withIdentifier: "Settings Switch Cell", for: indexPath) as! TableViewSwitchCell
 				cell.tapFeebackEnabled = false
 				cell.textLabel?.attributedText =  getAttributedStringFrom(LocalizedStrings.Settings.brightenUpDisplayWhenOutput, withFontSize: tableViewCellTextLabelFontSize, color: appDelegate.theme.cellTitleTextColor, bold: false)
 				let switchCell = cell as! TableViewSwitchCell
 				switchCell.delegate = self
 				switchCell.tag = self._switchButtonTagBrightenScreen
-				switchCell.switchButton.on = appDelegate.brightenScreenWhenOutput
+				switchCell.switchButton.isOn = appDelegate.brightenScreenWhenOutput
 			default: break
 			}
 		}
 
-		cell.separatorInset = UIEdgeInsetsZero
+		cell.separatorInset = UIEdgeInsets.zero
 		cell.preservesSuperviewLayoutMargins = false
-		cell.layoutMargins = UIEdgeInsetsZero
+		cell.layoutMargins = UIEdgeInsets.zero
 		return cell
 	}
 
-	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		switch indexPath.row {
 		case 0:
 			if indexPath.section == 1 || indexPath.section == 2 {
@@ -122,11 +122,11 @@ class SettingsOutputTableViewController: TableViewController, TableViewSwitchCel
 		return tableViewCellHeight
 	}
 
-	override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return transConfigSectionHeaderHeight
 	}
 
-	override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let label = UILabel()
 		switch section {
 		case 1:
@@ -144,7 +144,7 @@ class SettingsOutputTableViewController: TableViewController, TableViewSwitchCel
 		return outterView
 	}
 
-	override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
 		switch section {
 		case 0: return LocalizedStrings.Settings.outputBrightenScreenDescription
 		case 1: return LocalizedStrings.Settings.tapOnNumToTypeDescription
@@ -153,167 +153,167 @@ class SettingsOutputTableViewController: TableViewController, TableViewSwitchCel
 		}
 	}
 
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let tracker = GAI.sharedInstance().defaultTracker
 		if indexPath.row == 1 {
 			switch indexPath.section {
 			case 1:
-				let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! TableViewTransmitterConfigurationCell
+				let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TableViewTransmitterConfigurationCell
 				appDelegate.outputWPM = defaultOutputWPM
 				cell.slider.value = Float(defaultOutputWPM)
 				cell.changeValueText("\(defaultOutputWPM)")
-				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+				tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 					action: "button_press",
 					label: "Reset Output WPM Tapped",
-					value: nil).build() as [NSObject : AnyObject])
+					value: nil).build() as [AnyHashable: Any])
 			case 2:
-				let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as! TableViewTransmitterConfigurationCell
+				let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TableViewTransmitterConfigurationCell
 				appDelegate.outputPitch = defaultOutputPitch
 				cell.slider.value = defaultOutputPitch
 				var text = "\(Int(defaultOutputPitch)) Hz"
-				if layoutDirection == .RightToLeft {
+				if layoutDirection == .rightToLeft {
 					text = "Hz \(Int(defaultOutputPitch))"
 				}
 				cell.changeValueText(text)
-				tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+				tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 					action: "button_press",
 					label: "Reset Output Pitch Tapped",
-					value: nil).build() as [NSObject : AnyObject])
+					value: nil).build() as [AnyHashable: Any])
 			default: break
 			}
 		}
 	}
 
-	func textFieldDidBeginEditing(textField: UITextField) {
-		self.tableView.scrollEnabled = false
+	func textFieldDidBeginEditing(_ textField: UITextField) {
+		self.tableView.isScrollEnabled = false
 		self.tableView.allowsSelection = false
 		self._textFieldOriginalText = textField.text
 	}
 
-	func textFieldDidEndEditing(textField: UITextField) {
+	func textFieldDidEndEditing(_ textField: UITextField) {
 		let tracker = GAI.sharedInstance().defaultTracker
 		if textField.tag == self._configCellTagWPM {
 			var number = appDelegate.outputWPM
-			let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as! TableViewTransmitterConfigurationCell
+			let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! TableViewTransmitterConfigurationCell
 			if textField.text != nil && Int(textField.text!) != nil {
 				number = Int(textField.text!)!
-				number = max(supportedOutputWPMRange.startIndex, number)
-				number = min(supportedOutputWPMRange.endIndex - 1, number)
+				number = max(supportedOutputWPMRange.lowerBound, number)
+				number = min(supportedOutputWPMRange.upperBound - 1, number)
 				appDelegate.outputWPM = number
 				cell.slider.value = Float(number)
 			}
 			let text = "\(number)"
 			cell.changeValueText(text)
-			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "button_press",
 				label: "TextField Output WPM Done Button Tapped",
-				value: nil).build() as [NSObject : AnyObject])
+				value: nil).build() as [AnyHashable: Any])
 		} else if textField.tag == self._configCellTagPitch {
-			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "button_press",
 				label: "TextField Output Pitch Done Button Tapped",
-				value: nil).build() as [NSObject : AnyObject])
+				value: nil).build() as [AnyHashable: Any])
 			var number = appDelegate.outputPitch
-			let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as! TableViewTransmitterConfigurationCell
+			let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! TableViewTransmitterConfigurationCell
 			if textField.text != nil && Float(textField.text!) != nil {
 				number = Float(textField.text!)!
-				number = max(Float(supportedOutputPitchRange.startIndex), number)
-				number = min(Float(supportedOutputPitchRange.endIndex - 1), number)
+				number = max(Float(supportedOutputPitchRange.lowerBound), number)
+				number = min(Float(supportedOutputPitchRange.upperBound - 1), number)
 				appDelegate.outputPitch = number
 				cell.slider.value = number
 			}
 			var text = "\(Int(number)) Hz"
-			if layoutDirection == .RightToLeft {
+			if layoutDirection == .rightToLeft {
 				text = "Hz \(Int(number))"
 			}
 			cell.changeValueText(text)
 		}
-		self.tableView.scrollEnabled = true
+		self.tableView.isScrollEnabled = true
 		self.tableView.allowsSelection = true
 	}
 
-	func switchToggled(switchButton:UISwitch) {
+	func switchToggled(_ switchButton:UISwitch) {
 		switch switchButton.tag {
 		case self._switchButtonTagBrightenScreen:
-			appDelegate.brightenScreenWhenOutput = switchButton.on
+			appDelegate.brightenScreenWhenOutput = switchButton.isOn
 		default: break
 		}
 		let tracker = GAI.sharedInstance().defaultTracker
-		if switchButton.on {
-			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+		if switchButton.isOn {
+			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "switch_toggle",
 				label: "Output Brighten Screen Turned On",
-				value: nil).build() as [NSObject : AnyObject])
+				value: nil).build() as [AnyHashable: Any])
 		} else {
-			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "switch_toggle",
 				label: "Output Brighten Screen Turned Off",
-				value: nil).build() as [NSObject : AnyObject])
+				value: nil).build() as [AnyHashable: Any])
 		}
 	}
 
-	func transConfigCell(cell: TableViewTransmitterConfigurationCell, minusButtonTapped button: UIButton) {
+	func transConfigCell(_ cell: TableViewTransmitterConfigurationCell, minusButtonTapped button: UIButton) {
 		let tracker = GAI.sharedInstance().defaultTracker
 		if cell.tag == self._configCellTagWPM {
-			let newValue = max(cell.slider.value - 1, Float(supportedOutputWPMRange.startIndex))
+			let newValue = max(cell.slider.value - 1, Float(supportedOutputWPMRange.lowerBound))
 			appDelegate.outputWPM = Int(newValue)
 			cell.slider.value = newValue
 			cell.changeValueText("\(Int(newValue))")
-			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "button_press",
 				label: "Output WPM Minus Tapped",
-				value: nil).build() as [NSObject : AnyObject])
+				value: nil).build() as [AnyHashable: Any])
 		} else if cell.tag == self._configCellTagPitch {
-			let newValue = max(cell.slider.value - 1, Float(supportedOutputPitchRange.startIndex))
+			let newValue = max(cell.slider.value - 1, Float(supportedOutputPitchRange.lowerBound))
 			appDelegate.outputPitch = newValue
 			cell.slider.value = newValue
 			var text = "\(Int(newValue)) Hz"
-			if layoutDirection == .RightToLeft {
+			if layoutDirection == .rightToLeft {
 				text = "Hz \(Int(newValue))"
 			}
 			cell.changeValueText(text)
-			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "button_press",
 				label: "Output Pitch Minus Tapped",
-				value: nil).build() as [NSObject : AnyObject])
+				value: nil).build() as [AnyHashable: Any])
 		}
 	}
 
-	func transConfigCell(cell: TableViewTransmitterConfigurationCell, plusButtonTapped button: UIButton) {
+	func transConfigCell(_ cell: TableViewTransmitterConfigurationCell, plusButtonTapped button: UIButton) {
 		let tracker = GAI.sharedInstance().defaultTracker
 		if cell.tag == self._configCellTagWPM {
-			let newValue = min(cell.slider.value + 1, Float(supportedOutputWPMRange.endIndex - 1))
+			let newValue = min(cell.slider.value + 1, Float(supportedOutputWPMRange.upperBound - 1))
 			appDelegate.outputWPM = Int(newValue)
 			cell.slider.value = newValue
 			cell.changeValueText("\(Int(newValue))")
-			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "button_press",
 				label: "Output WPM Plus Tapped",
-				value: nil).build() as [NSObject : AnyObject])
+				value: nil).build() as [AnyHashable: Any])
 		} else if cell.tag == self._configCellTagPitch {
-			let newValue = min(cell.slider.value + 1, Float(supportedOutputPitchRange.endIndex - 1))
+			let newValue = min(cell.slider.value + 1, Float(supportedOutputPitchRange.upperBound - 1))
 			appDelegate.outputPitch = newValue
 			cell.slider.value = newValue
 			var text = "\(Int(newValue)) Hz"
-			if layoutDirection == .RightToLeft {
+			if layoutDirection == .rightToLeft {
 				text = "Hz \(Int(newValue))"
 			}
 			cell.changeValueText(text)
-			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "button_press",
 				label: "Output Pitch Plus Tapped",
-				value: nil).build() as [NSObject : AnyObject])
+				value: nil).build() as [AnyHashable: Any])
 		}
 	}
 
-	func transConfigCell(cell: TableViewTransmitterConfigurationCell, sliderValueChanged slider: UISlider) {
+	func transConfigCell(_ cell: TableViewTransmitterConfigurationCell, sliderValueChanged slider: UISlider) {
 		if cell.tag == self._configCellTagWPM {
 			appDelegate.outputWPM = Int(slider.value)
 			cell.changeValueText("\(Int(slider.value))")
 		} else if cell.tag == self._configCellTagPitch {
 			appDelegate.outputPitch = slider.value
 			var text = "\(Int(slider.value)) Hz"
-			if layoutDirection == .RightToLeft {
+			if layoutDirection == .rightToLeft {
 				text = "Hz \(Int(slider.value))"
 			}
 			cell.changeValueText(text)

@@ -23,8 +23,8 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	var scrollView: UIScrollView!
 	var scrollViewOverlay: UIButton!
 
-	private var cardViews:[CardView] = []
-	private var currentExpandedCard:CardView?
+	fileprivate var cardViews:[CardView] = []
+	fileprivate var currentExpandedCard:CardView?
 	var currentFlippedCard:CardView? // Make it internal so the animator can access it
 
 	var scrollViewSnapshotImageView:UIImageView?
@@ -35,10 +35,10 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	// MARK: UI Related Variables
 	// *****************************
 
-	private var topSectionHidden = false
+	fileprivate var topSectionHidden = false
 
 	// Do not need tabBarHeight if using iAd
-	private var tabBarHeight:CGFloat {
+	fileprivate var tabBarHeight:CGFloat {
 		if let tabBarController = self.tabBarController {
 			return tabBarController.tabBar.bounds.height
 		} else {
@@ -46,12 +46,12 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		}
 	}
 
-	private var topSectionContainerViewHeight:CGFloat {
+	fileprivate var topSectionContainerViewHeight:CGFloat {
 		return statusBarHeight + topBarHeight + textBackgroundViewHeight
 	}
 
 	var isDuringInput:Bool {
-		return self.topSectionViewController.inputTextView.isFirstResponder() || self.micInputSectionContainerView != nil
+		return self.topSectionViewController.inputTextView.isFirstResponder || self.micInputSectionContainerView != nil
 	}
 
 	// Animation related variables
@@ -61,11 +61,11 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 //		return UIDynamicAnimator(referenceView: self.scrollView)
 //	}()
 
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return theme.style == .Dark ? .LightContent : .Default
+	override var preferredStatusBarStyle : UIStatusBarStyle {
+		return theme.style == .dark ? .lightContent : .default
 	}
 
-	private let _updateCardConstraintsQueue = dispatch_queue_create("Update Card View Constraints On Dictonary VC Queue", nil)
+	fileprivate let _updateCardConstraintsQueue = DispatchQueue(label: "Update Card View Constraints On Dictonary VC Queue", attributes: [])
 
 	// *****************************
 	// MARK: MVC Life Cycle
@@ -83,7 +83,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		if self.topSectionViewController == nil {
 			self.topSectionViewController = HomeTopSectionViewController()
 			self.addChildViewController(self.topSectionViewController)
-			self.topSectionViewController.didMoveToParentViewController(self)
+			self.topSectionViewController.didMove(toParentViewController: self)
 			self.topSectionViewController.view.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.topSectionContainerViewHeight)
 			self.topSectionContainerView = self.topSectionViewController.view
 			self.view.addSubview(self.topSectionContainerView)
@@ -105,13 +105,13 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		if self.scrollView == nil {
 			self.scrollView = UIScrollView(frame: CGRect(x: 0, y: self.topSectionContainerViewHeight, width: self.view.bounds.width, height: self.view.bounds.height - self.topSectionContainerViewHeight))
 			self.scrollView.backgroundColor = appDelegate.theme.scrollViewBackgroundColor
-			self.scrollView.userInteractionEnabled = true
+			self.scrollView.isUserInteractionEnabled = true
 			self.scrollView.bounces = true
 			self.scrollView.showsHorizontalScrollIndicator = false
 			self.scrollView.showsVerticalScrollIndicator = true
 			self.scrollView.delegate = self
 			self.scrollView.indicatorStyle = theme.scrollViewIndicatorStyle
-			self.view.insertSubview(self.scrollView, atIndex: 0)
+			self.view.insertSubview(self.scrollView, at: 0)
 
 			self.scrollView.snp_remakeConstraints { (make) -> Void in
 				make.top.equalTo(self.topSectionContainerView.snp_bottom)
@@ -132,12 +132,12 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 
 		if self.scrollViewOverlay == nil {
 			self.scrollViewOverlay = UIButton(frame: CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: self.scrollView.bounds.height))
-			self.scrollViewOverlay.addTarget(self.topSectionViewController, action: #selector(HomeTopSectionViewController.inputCancelled(_:)), forControlEvents: .TouchUpInside)
+			self.scrollViewOverlay.addTarget(self.topSectionViewController, action: #selector(HomeTopSectionViewController.inputCancelled(_:)), for: .touchUpInside)
 			self.scrollViewOverlay.backgroundColor = appDelegate.theme.scrollViewOverlayColor
-			self.scrollViewOverlay.opaque = false
-			self.scrollViewOverlay.layer.borderColor = UIColor.clearColor().CGColor
+			self.scrollViewOverlay.isOpaque = false
+			self.scrollViewOverlay.layer.borderColor = UIColor.clear.cgColor
 			self.scrollViewOverlay.layer.borderWidth = 0
-			self.scrollViewOverlay.opaque = false
+			self.scrollViewOverlay.isOpaque = false
 			self.scrollViewOverlay.alpha = 0
 			self.scrollViewOverlay.titleLabel?.text = nil
 			self.view.insertSubview(self.scrollViewOverlay, aboveSubview: self.scrollView)
@@ -147,14 +147,14 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			})
 		}
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
 //		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateAdsStatus", name: adsShouldDisplayDidChangeNotificationName, object: nil)
 
 		// Configure scrollView animator
 //		self.animator.addBehavior(self.gravityBehavior)
     }
 
-	override func viewDidAppear(animated: Bool) {
+	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 
 		// If there's no card view on the screen, fetch from core data or add some if first launch
@@ -166,7 +166,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		self.updateMDShadows()
 	}
 
-	override func viewDidDisappear(animated: Bool) {
+	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 		self.restoreCurrentFlippedCard()
 	}
@@ -180,7 +180,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	// MARK: Scroll View Delegate
 	// *****************************
 
-	func scrollViewDidScroll(scrollView: UIScrollView) {
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
 		let hiddingSectionHeight = self.topSectionContainerViewHeight - self.topSectionViewController.keyboardButtonViewHeight - statusBarHeight
 		let animationDuration = 0.25 * animationDurationScalar
 		if scrollView.contentOffset.y <= 20 && self.topSectionHidden {
@@ -209,9 +209,9 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 				make.trailing.equalTo(self.topSectionViewController.textBackgroundView)
 			})
 
-			UIView.animateWithDuration(animationDuration
+			UIView.animate(withDuration: animationDuration
 				, delay: 0,
-				options: .CurveEaseOut,
+				options: .curveEaseOut,
 				animations: {
 					self.view.layoutIfNeeded()
 					self.topSectionViewController.inputTextView.alpha = 1
@@ -224,7 +224,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 					}
 				}) { succeed in
 					if !self.isDuringInput {
-						self.topSectionViewController.roundButtonView.appearWithAnimationType([.Scale, .Fade], duration: animationDuration)
+						self.topSectionViewController.roundButtonView.appearWithAnimationType([.scale, .fade], duration: animationDuration)
 					}
 			}
 
@@ -238,7 +238,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			})
 
 			if !self.isDuringInput {
-				self.topSectionViewController.roundButtonView.disappearWithAnimationType([.Scale, .Fade], duration: animationDuration)
+				self.topSectionViewController.roundButtonView.disappearWithAnimationType([.scale, .fade], duration: animationDuration)
 			}
 
 			// Update constraints for buttons on text view
@@ -257,9 +257,9 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 					make.trailing.equalTo(self.topSectionViewController.textBackgroundView.snp_centerX)
 				})
 			}
-			UIView.animateWithDuration(animationDuration
+			UIView.animate(withDuration: animationDuration
 				, delay: 0,
-				options: .CurveEaseOut,
+				options: .curveEaseOut,
 				animations: {
 					self.view.layoutIfNeeded()
 					self.topSectionViewController.inputTextView.alpha = 0
@@ -271,9 +271,9 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 						self.topSectionViewController.microphoneButton.alpha = 1
 					}
 				}) { succeed in
-					UIView.animateWithDuration(animationDuration
+					UIView.animate(withDuration: animationDuration
 						, delay: 0,
-						options: .CurveEaseOut,
+						options: .curveEaseOut,
 						animations: {
 							self.topSectionViewController.keyboardButton.alpha = 1
 							if self.topSectionViewController.isDirectionEncode {
@@ -294,8 +294,8 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	func microphoneButtonTapped() {
 		if self.scrollViewSnapshotImageView == nil {
 			self.scrollViewSnapshotImageView = UIImageView(frame: self.scrollView.frame)
-			self.scrollViewSnapshotImageView?.contentMode = .ScaleAspectFill
-			self.scrollViewSnapshotImageView?.opaque = false
+			self.scrollViewSnapshotImageView?.contentMode = .scaleAspectFill
+			self.scrollViewSnapshotImageView?.isOpaque = false
 			self.scrollViewSnapshotImageView?.alpha = 0
 			self.view.insertSubview(self.scrollViewSnapshotImageView!, belowSubview: self.scrollViewOverlay)
 			self.scrollViewSnapshotImageView?.snp_makeConstraints(closure: { (make) -> Void in
@@ -310,10 +310,10 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			self.addChildViewController(self.micInputSectionViewController!)
 			self.micInputSectionViewController!.transmitter = self.topSectionViewController.transmitter
 			self.micInputSectionViewController!.transmitter.delegate = self.topSectionViewController
-			self.micInputSectionViewController!.didMoveToParentViewController(self)
-			self.micInputSectionViewController!.view.frame = CGRect(origin: CGPointZero, size: self.scrollView.bounds.size)
+			self.micInputSectionViewController!.didMove(toParentViewController: self)
+			self.micInputSectionViewController!.view.frame = CGRect(origin: CGPoint.zero, size: self.scrollView.bounds.size)
 			self.micInputSectionContainerView = self.micInputSectionViewController!.view
-			self.micInputSectionContainerView!.opaque = false
+			self.micInputSectionContainerView!.isOpaque = false
 			self.micInputSectionContainerView!.alpha = 0
 			let tapGR = UITapGestureRecognizer(target: self.topSectionViewController, action: #selector(HomeTopSectionViewController.audioPlotTapped(_:)))
 			self.micInputSectionViewController!.view.addGestureRecognizer(tapGR)
@@ -331,7 +331,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	// MARK: Card View Delegate
 	// *****************************
 
-	func cardViewTapped(cardView:CardView) {
+	func cardViewTapped(_ cardView:CardView) {
 		let tappingCurrentExpandedView = self.currentExpandedCard === cardView
 		if !tappingCurrentExpandedView {
 			self.collapseCurrentExpandedCard()
@@ -351,13 +351,13 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			}
 		}
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+		tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 			action: "button_press",
 			label: "Card View Tapped",
-			value: nil).build() as [NSObject : AnyObject])
+			value: nil).build() as [AnyHashable: Any])
 	}
 
-	func cardViewHeld(cardView: CardView) {
+	func cardViewHeld(_ cardView: CardView) {
 		// Expand card view.
 		let heldCurrentExpandedView = self.currentExpandedCard === cardView
 		self.collapseCurrentExpandedCard()
@@ -368,9 +368,9 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 				self.currentExpandedCard = cardView
 				self.updateConstraintsForCardView(cardView)
 				// Change cardView background color animation.
-				UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
+				UIView.animate(withDuration: TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
 					delay: 0,
-					options: .CurveEaseOut,
+					options: .curveEaseOut,
 					animations: {
 						self.scrollView.layoutIfNeeded()
 						cardView.backgroundColor = appDelegate.theme.cardViewExpandedBackgroudColor
@@ -380,14 +380,14 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		}
 
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+		tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 			action: "hold_gesture_used",
 			label: "Card Held",
-			value: nil).build() as [NSObject : AnyObject])
+			value: nil).build() as [AnyHashable: Any])
 	}
 
 	// What happens when the user taps share button
-	func cardViewShareButtonTapped(cardView:CardView) {
+	func cardViewShareButtonTapped(_ cardView:CardView) {
 		if let morse = cardView.morse {
 			var shareStr = morse
 			if appDelegate.addExtraTextWhenShare {
@@ -395,53 +395,53 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			}
 			let activityVC = UIActivityViewController(activityItems: [shareStr], applicationActivities: nil)
 			activityVC.popoverPresentationController?.sourceView = cardView.shareButton
-			self.presentViewController(activityVC, animated: true, completion: nil)
+			self.present(activityVC, animated: true, completion: nil)
 		}
 
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+		tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 			action: "button_press",
 			label: "Shared Button Tapped",
-			value: nil).build() as [NSObject : AnyObject])
+			value: nil).build() as [AnyHashable: Any])
 	}
 
 	// What happens when the user taps output button
-	func cardViewOutputButtonTapped(cardView:CardView) {
+	func cardViewOutputButtonTapped(_ cardView:CardView) {
 		let outputVC = OutputViewController()
 		if let morse = cardView.morse {
 			outputVC.morse = morse
 		}
-		outputVC.transitioningDelegate = self.parentViewController as! TabBarController
-		outputVC.modalPresentationStyle = .Custom
+		outputVC.transitioningDelegate = self.parent as! TabBarController
+		outputVC.modalPresentationStyle = .custom
 		(self.tabBarController as! TabBarController).cardViewOutputTransitionInteractionController.outputVC = outputVC
-		self.presentViewController(outputVC, animated: true, completion: nil)
+		self.present(outputVC, animated: true, completion: nil)
 
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+		tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 			action: "button_press",
 			label: "Singal Output Tapped",
-			value: nil).build() as [NSObject : AnyObject])
+			value: nil).build() as [AnyHashable: Any])
 	}
 
-	func cardViewTouchesBegan(cardView: CardView, touches: Set<UITouch>, withEvent event: UIEvent?) {
-		let ind = self.cardViews.indexOf(cardView)!
+	func cardViewTouchesBegan(_ cardView: CardView, touches: Set<UITouch>, withEvent event: UIEvent?) {
+		let ind = self.cardViews.index(of: cardView)!
 		if ind < self.cardViews.count - 1 {
-			self.scrollView.insertSubview(cardView, atIndex: 0)
+			self.scrollView.insertSubview(cardView, at: 0)
 		}
 	}
 
-	func cardViewTouchesEnded(cardView: CardView, touches: Set<UITouch>, withEvent event: UIEvent?, deleteCard:Bool) {
-		self.scrollView.scrollEnabled = true
-		let ind = self.cardViews.indexOf(cardView)!
+	func cardViewTouchesEnded(_ cardView: CardView, touches: Set<UITouch>, withEvent event: UIEvent?, deleteCard:Bool) {
+		self.scrollView.isScrollEnabled = true
+		let ind = self.cardViews.index(of: cardView)!
 		if deleteCard {
 			let tracker = GAI.sharedInstance().defaultTracker
-			tracker.send(GAIDictionaryBuilder.createEventWithCategory("ui_action",
+			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "swipe_gesture_used",
 				label: "Card Deleted",
-				value: nil).build() as [NSObject : AnyObject])
+				value: nil).build() as [AnyHashable: Any])
 			// Remove in UI
 			cardView.removeFromSuperview()
-			self.cardViews.removeAtIndex(ind)
+			self.cardViews.remove(at: ind)
 			if ind > 0 {
 				// If there is one card below the deleting card, update it's constraint.
 				self.updateConstraintsForCardView(self.cardViews[ind - 1])
@@ -456,9 +456,9 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 
 			// Animations
 //			self.gravityBehavior.addItem(cardView)
-			UIView.animateWithDuration(TAP_FEED_BACK_DURATION / 2.0,
+			UIView.animate(withDuration: TAP_FEED_BACK_DURATION / 2.0,
 				delay: 0,
-				options: .CurveEaseOut,
+				options: .curveEaseOut,
 				animations: {
 					self.scrollView.layoutIfNeeded()
 				}) { succeed in
@@ -477,12 +477,12 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			let filter = NSPredicate(format: "cardUniqueID == \(cardView.cardUniqueID!)")
 			fetchRequest.predicate = filter
 			do {
-				let results = try managedContext.executeFetchRequest(fetchRequest)
+				let results = try managedContext.fetch(fetchRequest)
 				let cards = results as! [NSManagedObject]
 				print(cards.count)
 				assert(cards.count == 1) // There should only be one card with this unique ID
 				for card in cards {
-					managedContext.deleteObject(card)
+					managedContext.delete(card)
 				}
 				try managedContext.save()
 			} catch let error as NSError {
@@ -509,12 +509,12 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			let filter = NSPredicate(format: "cardUniqueID == \(cardView.cardUniqueID!)")
 			fetchRequest.predicate = filter
 			do {
-				let results = try managedContext.executeFetchRequest(fetchRequest)
+				let results = try managedContext.fetch(fetchRequest)
 				let cards = results as! [NSManagedObject]
 				print(cards.count)
 				assert(cards.count == 1) // There should only be one card with this unique ID
 				for card in cards {
-					managedContext.deleteObject(card)
+					managedContext.delete(card)
 				}
 				try managedContext.save()
 			} catch let error as NSError {
@@ -530,9 +530,9 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
 	}
 
-	func cardViewTouchesCancelled(cardView: CardView, touches: Set<UITouch>?, withEvent event: UIEvent?) {
-		self.scrollView.scrollEnabled = true
-		let ind = self.cardViews.indexOf(cardView)!
+	func cardViewTouchesCancelled(_ cardView: CardView, touches: Set<UITouch>?, withEvent event: UIEvent?) {
+		self.scrollView.isScrollEnabled = true
+		let ind = self.cardViews.index(of: cardView)!
 		// If there is a card above it:
 		if ind < self.cardViews.count - 1 {
 			let cardAbove:CardView = self.cardViews[ind + 1]
@@ -544,14 +544,14 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	// MARK: Card View Manipulation
 	// *****************************
 
-	func addCardViewWithText(text:String, morse:String, textOnTop:Bool = true, deletable:Bool = true, animateWithDuration duration:NSTimeInterval = 0.0) {
-		let text = text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-		let morse = morse.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+	func addCardViewWithText(_ text:String, morse:String, textOnTop:Bool = true, deletable:Bool = true, animateWithDuration duration:TimeInterval = 0.0) {
+		let text = text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+		let morse = morse.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 		let cardView = CardView(frame: CGRect(x: theme.cardViewHorizontalMargin, y: theme.cardViewGroupVerticalMargin, width: self.scrollView.bounds.width - theme.cardViewHorizontalMargin - theme.cardViewHorizontalMargin, height: theme.cardViewHeight), text: text, morse: morse, textOnTop: textOnTop)
 		cardView.delegate = self
-		cardView.cardUniqueID = NSProcessInfo.processInfo().globallyUniqueString.hashValue // Generate a UUID for the card
+		cardView.cardUniqueID = ProcessInfo.processInfo.globallyUniqueString.hashValue // Generate a UUID for the card
 
-		cardView.opaque = false
+		cardView.isOpaque = false
 		cardView.alpha = 0.0
 
 		if self.cardViews.isEmpty {
@@ -567,33 +567,33 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height + theme.cardViewHeight + theme.cardViewGap)
 		self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
 		if duration > 0 {
-			UIView.animateWithDuration(duration / 3.0,
+			UIView.animate(withDuration: duration / 3.0,
 				delay: 0.0,
-				options: .CurveEaseInOut,
+				options: UIViewAnimationOptions(),
 				animations: { () -> Void in
 					self.scrollView.layoutIfNeeded()
 				}) { succeed in
-					UIView.animateWithDuration(duration * 2.0 / 3.0 * appDelegate.animationDurationScalar,
+					UIView.animate(withDuration: duration * 2.0 / 3.0 * appDelegate.animationDurationScalar,
 						delay: 0.0,
-						options: .CurveEaseInOut,
+						options: UIViewAnimationOptions(),
 						animations: { () -> Void in
 							cardView.alpha = 1.0
 						}) { succeed in
-							cardView.opaque = true
+							cardView.isOpaque = true
 							self.saveCard(text, morse: morse, index: self.cardViews.count - 1, textOnTop: self.topSectionViewController.isDirectionEncode, favorite: false, deletable: true, cardUniqueID: cardView.cardUniqueID!)
 					}
 			}
 		} else {
 			self.scrollView.layoutIfNeeded()
 			cardView.alpha = 1.0
-			cardView.opaque = true
+			cardView.isOpaque = true
 			self.saveCard(text, morse: morse, index: self.cardViews.count - 1, textOnTop: self.topSectionViewController.isDirectionEncode, favorite: false, deletable: true, cardUniqueID: cardView.cardUniqueID!)
 		}
 	}
 
 	// This method update the constraint for a cardView, and returns it's height when done.
-	private func updateConstraintsForCardView(cardView:CardView, indexInCardViewsArray index:Int? = nil) {
-		let ind = index == nil ? self.cardViews.indexOf(cardView)! : index!
+	fileprivate func updateConstraintsForCardView(_ cardView:CardView, indexInCardViewsArray index:Int? = nil) {
+		let ind = index == nil ? self.cardViews.index(of: cardView)! : index!
 		var heightChange:CGFloat = 0
 		cardView.snp_remakeConstraints(closure: { (make) -> Void in
 			make.left.equalTo(self.scrollView.snp_left).offset(theme.cardViewHorizontalMargin)
@@ -613,17 +613,17 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		var resultHeight:CGFloat = 0
 		// Update view height depends on if it's expanded.
 		if cardView.expanded {
-			cardView.topLabel.lineBreakMode = .ByWordWrapping
+			cardView.topLabel.lineBreakMode = .byWordWrapping
 			cardView.topLabel.numberOfLines = 0
-			cardView.bottomLabel.lineBreakMode = .ByWordWrapping
+			cardView.bottomLabel.lineBreakMode = .byWordWrapping
 			cardView.bottomLabel.numberOfLines = 0
 
 			// Calculate the new height for top and bottom label.
 			// FIX ME: using "+ (theme.cardViewHeight - cardView.paddingTop - cardView.labelVerticalGap - cardView.paddingBottom)/2.0" because of a bug in this calculation.
 			let labelWidth = cardView.topLabel.frame.width
-			let topLabelHeight = cardView.topLabel.attributedText!.boundingRectWithSize(CGSizeMake(labelWidth, CGFloat.max), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
+			let topLabelHeight = cardView.topLabel.attributedText!.boundingRect(with: CGSize(width: labelWidth, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil).height
 				+ (theme.cardViewHeight - cardViewLabelPaddingVerticle * 2 - cardViewLabelVerticalGap)/2.0
-			let bottomLabelHeight = cardView.bottomLabel.attributedText!.boundingRectWithSize(CGSizeMake(labelWidth, CGFloat.max), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
+			let bottomLabelHeight = cardView.bottomLabel.attributedText!.boundingRect(with: CGSize(width: labelWidth, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil).height
 			resultHeight = cardViewLabelPaddingVerticle * 2 + topLabelHeight + cardViewLabelVerticalGap + bottomLabelHeight
 
 			cardView.topLabel.snp_updateConstraints(closure: { (make) -> Void in
@@ -651,7 +651,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: self.scrollView.contentSize.height + heightChange)
 	}
 
-	private func updateCardViewsConstraints() {
+	fileprivate func updateCardViewsConstraints() {
 		for i in 0..<self.cardViews.count {
 			self.updateConstraintsForCardView(self.cardViews[i], indexInCardViewsArray: i)
 		}
@@ -669,13 +669,13 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	// *****************************
 
 	// This method is called after creating a new card on the scrollView, to save it's data into CoreData.
-	private func saveCard(text: String, morse:String, index:Int, textOnTop:Bool = true, favorite:Bool = false, deletable:Bool = true, cardUniqueID:Int) {
-		let text = text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-		let morse = morse.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+	fileprivate func saveCard(_ text: String, morse:String, index:Int, textOnTop:Bool = true, favorite:Bool = false, deletable:Bool = true, cardUniqueID:Int) {
+		let text = text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+		let morse = morse.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 		let managedContext = appDelegate.managedObjectContext
-		let entity = NSEntityDescription.entityForName("Card", inManagedObjectContext:managedContext)
-		let card = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
-		let date = NSDate()
+		let entity = NSEntityDescription.entity(forEntityName: "Card", in:managedContext)
+		let card = NSManagedObject(entity: entity!, insertInto: managedContext)
+		let date = Date()
 		card.setValue(text, forKey: "text")
 		card.setValue(morse, forKey: "morse")
 		card.setValue(index, forKey: "index")
@@ -695,7 +695,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	}
 
 	// Fetch existing cards from core data, and add them onto the scroll view, then layout them.
-	private func fetchCardsAndUpdateCardViews() {
+	fileprivate func fetchCardsAndUpdateCardViews() {
 		// If there is no card on the board, fetch some cards
 		if self.cardViews.isEmpty {
 			let managedContext = appDelegate.managedObjectContext
@@ -705,17 +705,17 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			fetchRequest.sortDescriptors = [sortDescriptor]
 
 			var cards:[NSManagedObject] = []
-			dispatch_sync(dispatch_queue_create("Fetch Card Views On Home VC Queue", nil)) {
-				let results = try! managedContext.executeFetchRequest(fetchRequest)
+			DispatchQueue(label: "Fetch Card Views On Home VC Queue", attributes: []).sync {
+				let results = try! managedContext.fetch(fetchRequest)
 				cards = results as! [NSManagedObject]
 			}
 
 			for card in cards {
-				let cardView = CardView(frame: CGRect(x: theme.cardViewHorizontalMargin, y: theme.cardViewGroupVerticalMargin, width: self.scrollView.bounds.width - theme.cardViewHorizontalMargin - theme.cardViewHorizontalMargin, height: theme.cardViewHeight), text: card.valueForKey("text") as? String, morse: card.valueForKey("morse") as? String, textOnTop: card.valueForKey("textOnTop") as! Bool)
+				let cardView = CardView(frame: CGRect(x: theme.cardViewHorizontalMargin, y: theme.cardViewGroupVerticalMargin, width: self.scrollView.bounds.width - theme.cardViewHorizontalMargin - theme.cardViewHorizontalMargin, height: theme.cardViewHeight), text: card.value(forKey: "text") as? String, morse: card.value(forKey: "morse") as? String, textOnTop: card.value(forKey: "textOnTop") as! Bool)
 				cardView.delegate = self
-				cardView.cardUniqueID = card.valueForKey("cardUniqueID") as? Int
+				cardView.cardUniqueID = card.value(forKey: "cardUniqueID") as? Int
 				self.cardViews.append(cardView)
-				self.scrollView.insertSubview(cardView, atIndex: 0)
+				self.scrollView.insertSubview(cardView, at: 0)
 			}
 			self.updateCardViewsConstraints()
 			self.scrollView.setNeedsUpdateConstraints()
@@ -724,16 +724,16 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	}
 
 	// This function is called by top section VC too, so keep it public.
-	func collapseCurrentExpandedCard(completion: ((Void)->Void)? = nil) {
+	func collapseCurrentExpandedCard(_ completion: ((Void)->Void)? = nil) {
 		// Collapse expanded card
 		let card = self.currentExpandedCard
 		self.currentExpandedCard = nil
 		if card != nil {
 			card!.expanded = false
 			self.updateConstraintsForCardView(card!)
-			UIView.animateWithDuration(TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
+			UIView.animate(withDuration: TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
 				delay: 0,
-				options: .CurveEaseOut,
+				options: .curveEaseOut,
 				animations: {
 					card!.backgroundColor = appDelegate.theme.cardViewBackgroudColor
 					card!.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
@@ -754,7 +754,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	}
 
 	// On the first launch of the game, there are tutorial cards on the home screen, this function adds them.
-	func addTutorialCards(checkFirstLaunch:Bool = true) {
+	func addTutorialCards(_ checkFirstLaunch:Bool = true) {
 		if checkFirstLaunch && !appDelegate.notFirstLaunch && self.cardViews.isEmpty || !checkFirstLaunch {
 			let localizedTextArrays = [
 				(localized:LocalizedStrings.LaunchCard.text1, english: "Welcome to Morse Transmitter!"),
@@ -763,10 +763,10 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 				(localized:LocalizedStrings.LaunchCard.text4, english: "Swipe to delete me.")
 			]
 			let transmitter = MorseTransmitter()
-			for i in (0..<localizedTextArrays.count).reverse() {
+			for i in (0..<localizedTextArrays.count).reversed() {
 				var text = localizedTextArrays[i].localized
 				// If morse is empty after trimming punchtuations, add english.
-				transmitter.text = text.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
+				transmitter.text = text.trimmingCharacters(in: CharacterSet.punctuation)
 				var morse = transmitter.morse
 				if morse == nil || morse!.isEmpty {
 					text += "\n\(localizedTextArrays[i].english)"
@@ -814,7 +814,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: contentHeight)
 	}
 
-	private func updateMDShadows() {
+	fileprivate func updateMDShadows() {
 		if self.isDuringInput {
 			self.topSectionContainerView.addMDShadow(withDepth: 3)
 		} else {
@@ -826,15 +826,15 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		}
 	}
 
-	func updateScrollViewBlurImage(afterScreenUpdates:Bool = false) {
+	func updateScrollViewBlurImage(_ afterScreenUpdates:Bool = false) {
 		let image = self.snapshot(self.scrollView, afterScreenUpdates: afterScreenUpdates)
-		let blurredImage = UIImageEffects.imageByApplyingBlurToImage(image, withRadius: theme.scrollViewBlurRadius, tintColor: theme.scrollViewBlurTintColor, saturationDeltaFactor: 0, maskImage: nil)
+		let blurredImage = UIImageEffects.imageByApplyingBlur(to: image, withRadius: theme.scrollViewBlurRadius, tintColor: theme.scrollViewBlurTintColor, saturationDeltaFactor: 0, maskImage: nil)
 		self.scrollViewSnapshotImageView?.image = blurredImage
 	}
 
-	private func snapshot(view:UIView, afterScreenUpdates:Bool = false) -> UIImage {
+	fileprivate func snapshot(_ view:UIView, afterScreenUpdates:Bool = false) -> UIImage {
 		UIGraphicsBeginImageContext(view.bounds.size)
-		view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: afterScreenUpdates)
+		view.drawHierarchy(in: view.bounds, afterScreenUpdates: afterScreenUpdates)
 		let image = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
 
@@ -845,14 +845,14 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	Responsible for updating the UI when user changes the theme.
 	- parameter animated: A boolean determines if the theme change should be animated.
 	*/
-	func updateColor(animated animated:Bool = true) {
-		dispatch_sync(self._updateCardConstraintsQueue) {
+	func updateColor(animated:Bool = true) {
+		self._updateCardConstraintsQueue.sync {
 			self.updateCardViewsConstraints()
 		}
 		let duration = animated ? defaultAnimationDuration * animationDurationScalar : 0
-		UIView.animateWithDuration(duration,
+		UIView.animate(withDuration: duration,
 			delay: 0,
-			options: .CurveEaseInOut,
+			options: UIViewAnimationOptions(),
 			animations: {
 				self.scrollView.indicatorStyle = theme.scrollViewIndicatorStyle
 				self.scrollView.backgroundColor = theme.scrollViewBackgroundColor
@@ -868,7 +868,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 				for cardView in self.cardViews {
 					cardView.layer.cornerRadius = theme.cardViewCornerRadius
 					cardView.layer.borderWidth = theme.cardViewBorderWidth
-					cardView.layer.borderColor = theme.cardViewBorderColor.CGColor
+					cardView.layer.borderColor = theme.cardViewBorderColor.cgColor
 					cardView.expandButton.tintColor = theme.cardViewExpandButtonColor
 					cardView.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
 					if cardView.flipped {

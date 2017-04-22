@@ -10,45 +10,45 @@ import UIKit
 
 class BackButton: UIButton {
 
-	private var _animationOffset:CGFloat {
-		return layoutDirection == .LeftToRight ? backButtonAnimationOffset : -backButtonAnimationOffset
+	fileprivate var _animationOffset:CGFloat {
+		return layoutDirection == .leftToRight ? backButtonAnimationOffset : -backButtonAnimationOffset
 	}
 
 	convenience init(origin:CGPoint, width:CGFloat) {
 		let frame = CGRect(origin: origin, size: CGSize(width: width, height: width))
 		self.init(frame:frame)
-		self.opaque = false
+		self.isOpaque = false
 		let image = UIImage(named: theme.backButtonImageName)
-		self.setImage(image, forState: .Normal)
+		self.setImage(image, for: UIControlState())
 	}
 
-	func disappearWithDuration(duration:NSTimeInterval, completion:((Void)->Void)? = nil) {
-		self.transform = CGAffineTransformIdentity
-		UIView.animateWithDuration(duration * appDelegate.animationDurationScalar,
+	func disappearWithDuration(_ duration:TimeInterval, completion:((Void)->Void)? = nil) {
+		self.transform = CGAffineTransform.identity
+		UIView.animate(withDuration: duration * appDelegate.animationDurationScalar,
 			delay: 0,
-			options: .CurveEaseInOut,
+			options: UIViewAnimationOptions(),
 			animations: {
-				self.transform = CGAffineTransformMakeTranslation(-self._animationOffset, 0)
+				self.transform = CGAffineTransform(translationX: -self._animationOffset, y: 0)
 				self.alpha = 0
 			}) { succeed in
-				self.hidden = true
-				self.userInteractionEnabled = false
+				self.isHidden = true
+				self.isUserInteractionEnabled = false
 				completion?()
 		}
 		self.setNeedsDisplay()
 	}
 
-	func appearWithDuration(duration:NSTimeInterval, completion:((Void)->Void)? = nil) {
-		self.hidden = false
-		self.transform = CGAffineTransformMakeTranslation(self._animationOffset, 0)
-		UIView.animateWithDuration(duration * appDelegate.animationDurationScalar,
+	func appearWithDuration(_ duration:TimeInterval, completion:((Void)->Void)? = nil) {
+		self.isHidden = false
+		self.transform = CGAffineTransform(translationX: self._animationOffset, y: 0)
+		UIView.animate(withDuration: duration * appDelegate.animationDurationScalar,
 			delay: 0.0,
-			options: .CurveEaseInOut,
+			options: UIViewAnimationOptions(),
 			animations: {
-				self.transform = CGAffineTransformIdentity
+				self.transform = CGAffineTransform.identity
 				self.alpha = 1.0
 			}) { succeed in
-				self.userInteractionEnabled = true
+				self.isUserInteractionEnabled = true
 				completion?()
 		}
 		self.setNeedsDisplay()
