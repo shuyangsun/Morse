@@ -521,14 +521,6 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 				make.leading.equalTo(self.textBackgroundView)
 				make.trailing.equalTo(self.textBackgroundView)
 			})
-
-//			self.keyboardButton.snp_updateConstraints(closure: { (make) -> Void in
-//				make.leading.equalTo(self.textBackgroundView)
-//			})
-//
-//			self.morseMicrophoneButton.snp_updateConstraints(closure: { (make) -> Void in
-//				make.trailing.equalTo(self.textBackgroundView)
-//			})
 		} else {
 			self.topBarLabelText.snp_remakeConstraints({ (make) -> Void in
 				make.top.equalTo(self.topBarView)
