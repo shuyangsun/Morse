@@ -428,7 +428,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 
 	func startSignal() {
 		// Screen Flash
-		self.screenFlashView.backgroundColor = UIColor.white
+		self.screenFlashView.backgroundColor = UIColor.darkGray
 
 		// Sound
 		if self._soundEnabled {
