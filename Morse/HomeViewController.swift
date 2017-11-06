@@ -186,7 +186,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		if scrollView.contentOffset.y <= 20 && self.topSectionHidden {
 			// Show input area
 			self.topSectionHidden = false
-            self.topSectionContainerView.snp.makeConstraints({ (make) -> Void in
+            self.topSectionContainerView.snp.updateConstraints({ (make) -> Void in
 				make.top.equalTo(self.view)
 			})
 
@@ -233,7 +233,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			// Hide input area
 			self.topSectionHidden = true
 
-            self.topSectionContainerView.snp.makeConstraints({ (make) -> Void in
+            self.topSectionContainerView.snp.updateConstraints({ (make) -> Void in
 				make.top.equalTo(self.view).offset(-hiddingSectionHeight)
 			})
 
@@ -366,7 +366,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			if cardView.canBeExpanded {
 				cardView.expanded = true
 				self.currentExpandedCard = cardView
-				self.makeConstraintsForCardView(cardView)
+				self.updateConstraintsForCardView(cardView)
 				// Change cardView background color animation.
 				UIView.animate(withDuration: TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
 					delay: 0,
@@ -444,11 +444,11 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			self.cardViews.remove(at: ind)
 			if ind > 0 {
 				// If there is one card below the deleting card, update it's constraint.
-				self.makeConstraintsForCardView(self.cardViews[ind - 1])
+				self.updateConstraintsForCardView(self.cardViews[ind - 1])
 			}
 			if ind < self.cardViews.count {
 				// If there is one card above the deleting card, update it's constraint. Using "ind" instead of "ind - 1" because this card is already removed, from array.
-				self.makeConstraintsForCardView(self.cardViews[ind])
+				self.updateConstraintsForCardView(self.cardViews[ind])
 			}
 			if self.currentExpandedCard === cardView {
 				self.currentExpandedCard = nil
@@ -560,9 +560,9 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			self.scrollView.insertSubview(cardView, belowSubview: self.cardViews.last!)
 		}
 		self.cardViews.append(cardView)
-		self.makeConstraintsForCardView(cardView)
+		self.updateConstraintsForCardView(cardView)
 		if self.cardViews.count > 1 {
-			self.makeConstraintsForCardView(self.cardViews[self.cardViews.count - 2])
+			self.updateConstraintsForCardView(self.cardViews[self.cardViews.count - 2])
 		}
 		self.scrollView.contentSize = CGSize(width: self.scrollView.contentSize.width, height: self.scrollView.contentSize.height + theme.cardViewHeight + theme.cardViewGap)
 		self.scrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: self.scrollView.bounds.width, height: 1), animated: true)
@@ -592,7 +592,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	}
 
 	// This method update the constraint for a cardView, and returns it's height when done.
-	fileprivate func makeConstraintsForCardView(_ cardView:CardView, indexInCardViewsArray index:Int? = nil) {
+	fileprivate func updateConstraintsForCardView(_ cardView:CardView, indexInCardViewsArray index:Int? = nil) {
 		let ind = index == nil ? self.cardViews.index(of: cardView)! : index!
 		var heightChange:CGFloat = 0
 		cardView.snp.remakeConstraints({ (make) -> Void in
@@ -601,7 +601,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
             if ind == self.cardViews.count - 1 {
                 make.top.equalTo(self.scrollView).offset(theme.cardViewGroupVerticalMargin)
             } else {
-                cardView.snp.makeConstraints({ (make) -> Void in
+                cardView.snp.updateConstraints({ (make) -> Void in
                     make.top.equalTo(self.cardViews[ind + 1].snp.bottom).offset(theme.cardViewGap)
             })
             }
@@ -624,11 +624,11 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			let bottomLabelHeight = cardView.bottomLabel.attributedText!.boundingRect(with: CGSize(width: labelWidth, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil).height
 			resultHeight = cardViewLabelPaddingVerticle * 2 + topLabelHeight + cardViewLabelVerticalGap + bottomLabelHeight
 
-			cardView.topLabel.snp.makeConstraints({ (make) -> Void in
+			cardView.topLabel.snp.updateConstraints({ (make) -> Void in
 				make.height.equalTo(topLabelHeight)
 			})
 
-			cardView.snp.makeConstraints { (make) -> Void in
+			cardView.snp.updateConstraints { (make) -> Void in
 				make.height.equalTo(resultHeight)
 			}
 		} else { // FIX ME: Constraints BUG
@@ -651,7 +651,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 
 	fileprivate func updateCardViewsConstraints() {
 		for i in 0..<self.cardViews.count {
-			self.makeConstraintsForCardView(self.cardViews[i], indexInCardViewsArray: i)
+			self.updateConstraintsForCardView(self.cardViews[i], indexInCardViewsArray: i)
 		}
 
 		var contentHeight:CGFloat = 0
@@ -728,7 +728,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		self.currentExpandedCard = nil
 		if card != nil {
 			card!.expanded = false
-			self.makeConstraintsForCardView(card!)
+			self.updateConstraintsForCardView(card!)
 			UIView.animate(withDuration: TAP_FEED_BACK_DURATION/2.0 * appDelegate.animationDurationScalar,
 				delay: 0,
 				options: .curveEaseOut,
@@ -779,11 +779,11 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 
 	func rotationDidChange() {
 		if self.currentExpandedCard != nil {
-			self.makeConstraintsForCardView(self.currentExpandedCard!)
+			self.updateConstraintsForCardView(self.currentExpandedCard!)
 		}
 		for i in 0..<self.cardViews.count {
 			cardViews[i].updateExpandButton()
-			self.cardViews[i].snp.makeConstraints({ (make) -> Void in
+			self.cardViews[i].snp.updateConstraints({ (make) -> Void in
 				make.width.equalTo(self.scrollView).offset(-(theme.cardViewHorizontalMargin + theme.cardViewHorizontalMargin))
 			})
 		}
