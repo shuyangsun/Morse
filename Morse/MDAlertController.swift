@@ -19,7 +19,7 @@ class MDAlertController: UIViewController {
 			if newValue != nil {
 				self.view.insertSubview(newValue!, at: 0)
 			}
-			newValue?.snp_makeConstraints(closure: { (make) -> Void in
+            newValue?.snp_makeConstraints({ (make) -> Void in
 				make.edges.equalTo(self.view)
 			})
 		}
@@ -45,7 +45,7 @@ class MDAlertController: UIViewController {
 			self.backgroundView = UIView(frame: self.view.bounds)
 			self.backgroundView.backgroundColor = theme.mdAlertControllerBackgroundColor
 			self.view.addSubview(self.backgroundView)
-			self.backgroundView.snp_makeConstraints(closure: { (make) -> Void in
+            self.backgroundView.snp_makeConstraints({ (make) -> Void in
 				make.edges.equalTo(self.view)
 			})
 		}
@@ -66,7 +66,7 @@ class MDAlertController: UIViewController {
 			self.titleLabel.textColor = theme.mdAlertControllerTitleTextColor
 			self.titleLabel.attributedText = titleAttrText
 			self.alertView.addSubview(self.titleLabel)
-			self.titleLabel.snp_makeConstraints(closure: { (make) -> Void in
+            self.titleLabel.snp_makeConstraints({ (make) -> Void in
 				make.leading.equalTo(self.alertView).offset(mdAlertPaddingHorizontal)
 				make.trailing.equalTo(self.alertView).offset(-mdAlertPaddingHorizontal)
 				make.top.equalTo(self.alertView).offset(mdAlertPaddingVertical * 1.5)
@@ -84,7 +84,7 @@ class MDAlertController: UIViewController {
 			self.messageLabel.textColor = theme.mdAlertControllerMessageTextColor
 			self.messageLabel.attributedText = messageAttrText
 			self.alertView.addSubview(self.messageLabel)
-			self.messageLabel.snp_makeConstraints(closure: { (make) -> Void in
+            self.messageLabel.snp_makeConstraints({ (make) -> Void in
 				make.leading.equalTo(self.alertView).offset(mdAlertPaddingHorizontal)
 				make.trailing.equalTo(self.alertView).offset(-mdAlertPaddingHorizontal)
 				make.centerY.equalTo(self.alertView)
@@ -98,7 +98,7 @@ class MDAlertController: UIViewController {
 			self.buttonOutlineView.layer.cornerRadius = theme.mdAlertControllerAlertCornerRadius
 			self.buttonOutlineView.clipsToBounds = true
 			self.alertView.addSubview(self.buttonOutlineView)
-			self.buttonOutlineView.snp_makeConstraints(closure: { (make) -> Void in
+            self.buttonOutlineView.snp_makeConstraints({ (make) -> Void in
 				make.leading.equalTo(self.alertView)
 				make.trailing.equalTo(self.alertView)
 				make.bottom.equalTo(self.alertView)
@@ -107,13 +107,13 @@ class MDAlertController: UIViewController {
 		}
 
 		let alertHeight = min(self.view.bounds.height, max(mdAlertMinHeight, mdAlertButtonHeight + mdAlertPaddingVertical * 3 + messageStrSize.height + titleStrSize.height))
-		self.alertView.snp_makeConstraints(closure: { (make) -> Void in
+        self.alertView.snp_makeConstraints({ (make) -> Void in
 			make.center.equalTo(self.view)
 			make.width.equalTo(alertWidth)
 			make.height.equalTo(alertHeight)
 		})
 
-		NotificationCenter.default.addObserver(self, selector: #selector(updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateColorWithAnimation), name: NSNotification.Name(rawValue: themeDidChangeNotificationName), object: nil)
 	}
 
     override func viewDidLoad() {
@@ -197,7 +197,7 @@ class MDAlertController: UIViewController {
 		for i in 0 ..< count {
 			let tuple = self._actionsAndButtons[i]
 			let button = tuple.button
-			button.snp_remakeConstraints(closure: { (make) -> Void in
+            button.snp_remakeConstraints({ (make) -> Void in
 				make.top.equalTo(self.buttonOutlineView)
 				make.bottom.equalTo(self.buttonOutlineView)
 				if i == 0 {

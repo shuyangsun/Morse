@@ -683,7 +683,8 @@ class MorseTransmitter {
 			}
 			// Seperate the text into words.
 			// WARNING: If translating prosign, this word may contain newline character if translating prosign
-			var words = text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).lowercased().components(separatedBy: CharacterSet(charactersIn: seperatorCharacters))
+            let spaceCharSet = NSCharacterSet.whitespacesAndNewlines
+            var words = text.trimmingCharacters(in: spaceCharSet).lowercased().components(separatedBy: CharacterSet(charactersIn: seperatorCharacters))
 			// Do some additional processing if translating prosign
 			if appDelegate.prosignTranslationType == .always {
 				for var i in 0..<words.count {
@@ -845,12 +846,12 @@ class MorseTransmitter {
 			- completion: The completion block to run after text is translated. */
 	func getFutureText(_ concurrent:Bool = false,
 	                   completionDispatchQueue:DispatchQueue? = nil,
-	                   completion:((_ futureText:String?)->Void)) {
+                       completion:@escaping ((_ futureText:String?)->Void)) {
 		// Call helper method:
 		_getFuture(.text,
-		           completionDispatchQueue: completionDispatchQueue,
-		           concurrent: concurrent,
-		           completion: completion)
+                   concurrent: concurrent,
+                   completionDispatchQueue: completionDispatchQueue,
+                   completion: completion)
 	}
 
 	/** Get the Morse code from transmitter. Instead of returning the value on the calling

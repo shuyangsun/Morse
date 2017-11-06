@@ -135,7 +135,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.statusBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: statusBarHeight))
 			self.statusBarView.backgroundColor = appDelegate.theme.statusBarBackgroundColor
 			self.view.addSubview(self.statusBarView)
-			self.statusBarView.snp_makeConstraints(closure: { (make) -> Void in
+            self.statusBarView.snp_makeConstraints({ (make) -> Void in
 				make.top.equalTo(self.view)
 				make.leading.equalTo(self.view)
 				make.trailing.equalTo(self.view)
@@ -181,7 +181,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.backButton.addTarget(self, action: #selector(inputCancelled(_:)), for: .touchUpInside)
 			self.topBarView.addSubview(self.backButton)
 
-			self.backButton.snp_makeConstraints(closure: { (make) -> Void in
+            self.backButton.snp_makeConstraints({ (make) -> Void in
 				make.top.equalTo(self.topBarView)
 				make.leading.equalTo(self.topBarView)
 				make.width.equalTo(topBarHeight)
@@ -191,28 +191,28 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.backButton.disappearWithDuration(0)
 
 			// Configure constraints
-			self.topBarView.snp_remakeConstraints(closure: { (make) -> Void in
+            self.topBarView.snp_remakeConstraints({ (make) -> Void in
 				make.top.equalTo(self.statusBarView.snp_bottom)
 				make.leading.equalTo(self.view).offset(0)
 				make.trailing.equalTo(self.view).offset(0)
 				make.height.equalTo(topBarHeight)
 			})
 
-			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+            self.topBarLabelText.snp_remakeConstraints({ (make) -> Void in
 				make.top.equalTo(self.topBarView)
 				make.leading.equalTo(self.topBarView)
 				make.bottom.equalTo(self.topBarView)
 				make.trailing.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
 			})
 
-			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+            self.topBarLabelMorse.snp_remakeConstraints({ (make) -> Void in
 				make.top.equalTo(self.topBarView)
 				make.trailing.equalTo(self.topBarView)
 				make.bottom.equalTo(self.topBarView)
 				make.leading.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
 			})
 
-			self.roundButtonView.snp_makeConstraints(closure: { (make) -> Void in
+            self.roundButtonView.snp_makeConstraints({ (make) -> Void in
 				make.centerX.equalTo(self.topBarView)
 				make.centerY.equalTo(self.topBarView)
 				make.height.equalTo(self.roundButtonRadius * 2)
@@ -279,7 +279,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.outputTextView.layer.borderColor = UIColor.clear.cgColor
 			self.outputTextView.layer.borderWidth = 0
 			// This gestureRecognizer is here to fix a bug where double tapping on outputTextView would resign inputTextView as first responder.
-			let disableDoubleTapGR = UITapGestureRecognizer(target: nil, action: Selector())
+			let disableDoubleTapGR = UITapGestureRecognizer()
 			disableDoubleTapGR.numberOfTapsRequired = 2
 			self.outputTextView.addGestureRecognizer(disableDoubleTapGR)
 			self.outputTextView.indicatorStyle = theme.scrollViewIndicatorStyle
@@ -303,7 +303,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.breakLineView.isHidden = true
 			self.textBackgroundView.addSubview(self.breakLineView)
 
-			self.breakLineView.snp_remakeConstraints(closure: { (make) -> Void in
+            self.breakLineView.snp_remakeConstraints({ (make) -> Void in
 				make.leading.equalTo(self.textBackgroundView)
 				make.trailing.equalTo(self.textBackgroundView)
 				make.bottom.equalTo(self.textBackgroundView)
@@ -326,7 +326,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.textBoxTapFeedBackView.addGestureRecognizer(tapGestureRecognizer)
 			self.textBackgroundView.addSubview(self.textBoxTapFeedBackView)
 
-			self.textBoxTapFeedBackView.snp_makeConstraints(closure: { (make) -> Void in
+            self.textBoxTapFeedBackView.snp_makeConstraints({ (make) -> Void in
 				make.edges.equalTo(self.textBackgroundView)
 			})
 		}
@@ -349,7 +349,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.keyboardButton.addGestureRecognizer(tapGR)
 			self.view.addSubview(self.keyboardButton)
 
-			self.keyboardButton.snp_makeConstraints(closure: { (make) -> Void in
+            self.keyboardButton.snp_makeConstraints({ (make) -> Void in
 				make.height.equalTo(self.keyboardButtonViewHeight)
 				make.bottom.equalTo(self.textBackgroundView)
 				make.leading.equalTo(self.textBackgroundView)
@@ -374,7 +374,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			tapGR.cancelsTouchesInView = false
 			self.microphoneButton.addGestureRecognizer(tapGR)
 			self.view.addSubview(self.microphoneButton)
-			self.microphoneButton.snp_makeConstraints(closure: { (make) -> Void in
+            self.microphoneButton.snp_makeConstraints({ (make) -> Void in
 				make.height.equalTo(self.keyboardButtonViewHeight)
 				make.bottom.equalTo(self.textBackgroundView)
 				make.leading.equalTo(self.textBackgroundView)
@@ -382,12 +382,12 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			})
 		}
 
-		NotificationCenter.default.addObserver(self, selector: #selector(HomeTopSectionViewController.updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeTopSectionViewController.updateColorWithAnimation), name: NSNotification.Name(rawValue: themeDidChangeNotificationName), object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(HomeTopSectionViewController.keyboardWasShown(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
     }
 
 	func keyboardWasShown(_ notification:Notification) {
-		let keyboardSize = notification.userInfo![UIKeyboardFrameBeginUserInfoKey]!.cgRectValue.size
+        let keyboardSize = (notification.userInfo![UIKeyboardFrameBeginUserInfoKey]! as AnyObject).cgRectValue.size
 		self._keyboardHeight = min(keyboardSize.height, keyboardSize.width)
 	}
 
@@ -597,24 +597,24 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 
 	func microphoneButtonTapped() {
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+        tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 			action: "button_press",
 			label: "Microphone Button Tapped",
-			value: nil).build() as [AnyHashable: Any])
+            value: nil).build() as! [AnyHashable: Any])
 		self.animateAndLayoutUIForInputStart()
 		self.inputTextView.isUserInteractionEnabled = false
 	}
 
 	func audioPlotTapped(_ gestureRecognizer:UITapGestureRecognizer) {
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+        tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 			action: "button_press",
 			label: "Text View Tapped",
-			value: nil).build() as [AnyHashable: Any])
+            value: nil).build() as! [AnyHashable: Any])
 		let text = self.outputTextView.text
 		let morse = self.inputTextView.text
 		if self.inputTextView.text.trimmingCharacters(in: CharacterSet.whitespaces) != "" && self.outputTextView.text.trimmingCharacters(in: CharacterSet.whitespaces) != "" {
-			self.homeViewController.addCardViewWithText(text, morse: morse, textOnTop: self.isDirectionEncode, animateWithDuration: 0.3)
+            self.homeViewController.addCardViewWithText(text!, morse: morse, textOnTop: self.isDirectionEncode, animateWithDuration: 0.3)
 			let tracker = GAI.sharedInstance().defaultTracker
 			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "transmitter_action",
 				action: "card_added",

@@ -156,14 +156,14 @@ func dispatch(_ type:DispatchFuncType = .async,
 	if queueType == .serial {
 		queue = DispatchQueue(label: label, attributes: [])
 	} else {
-		let identifier:dispatch_queue_priority_t
+		var identifier:DispatchQoS.QoSClass
 		switch priority {
-		case .high: identifier = DispatchQueue.GlobalQueuePriority.high
-		case .default: identifier = DispatchQueue.GlobalQueuePriority.default
-		case .low: identifier = DispatchQueue.GlobalQueuePriority.low
-		case .background: identifier = DispatchQueue.GlobalQueuePriority.background
+		case .high: identifier = .default
+		case .default: identifier = .default
+		case .low: identifier = .background
+		case .background: identifier = .background
 		}
-		queue = DispatchQueue.global(priority: identifier)
+        queue = DispatchQueue.global(qos: identifier)
 	}
 	if type == .async {
 		queue.async(execute: block)

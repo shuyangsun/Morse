@@ -66,7 +66,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 		self.transitioningDelegate = self
 		self.modalPresentationStyle = .custom
 
-		NotificationCenter.default.addObserver(self, selector: #selector(updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(updateColorWithAnimation),name: Notification.Name(themeDidChangeNotificationName), object: nil)
     }
 
 	override func viewDidAppear(_ animated: Bool) {
