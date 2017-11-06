@@ -413,20 +413,20 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 
 	func textViewTapped(_ gestureRecognizer:UITapGestureRecognizer) {
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+		tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 			action: "button_press",
 			label: "Text View Tapped",
-			value: nil).build() as [AnyHashable: Any])
+			value: nil).build() as! [AnyHashable: Any])
 		if self.isDirectionEncode {
-			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "transmitter_action",
+			tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "transmitter_action",
 				action: "encode",
 				label: "Encoding Text",
-				value: nil).build() as [AnyHashable: Any])
+				value: nil).build() as! [AnyHashable: Any])
 		} else {
-			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "transmitter_action",
+			tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "transmitter_action",
 				action: "encode",
 				label: "Decoding Morse",
-				value: nil).build() as [AnyHashable: Any])
+				value: nil).build() as! [AnyHashable: Any])
 		}
 		// Play sound effect
 		if !appDelegate.interactionSoundDisabled {
@@ -463,10 +463,10 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		// If there is a gesture recognizer, animate round button
 		if gestureRecognizer != nil {
 			let tracker = GAI.sharedInstance().defaultTracker
-			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+			tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "button_press",
 				label: "Round Button Tapped",
-				value: nil).build() as [AnyHashable: Any])
+				value: nil).build() as! [AnyHashable: Any])
 			let tapLocation = gestureRecognizer!.location(in: self.roundButtonView)
 			if self.roundButtonView.bounds.contains(tapLocation) {
 				let originalTransform = self.roundButtonView.transform
@@ -494,28 +494,28 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 
 		// Switch text and morse label
 		if self.isDirectionEncode {
-			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+			self.topBarLabelText.snp_remakeConstraints({ (make) -> Void in
 				make.top.equalTo(self.topBarView)
 				make.leading.equalTo(self.topBarView)
 				make.bottom.equalTo(self.topBarView)
 				make.trailing.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
 			})
 
-			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+			self.topBarLabelMorse.snp_remakeConstraints({ (make) -> Void in
 				make.top.equalTo(self.topBarView)
 				make.trailing.equalTo(self.topBarView)
 				make.bottom.equalTo(self.topBarView)
 				make.leading.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
 			})
 
-			self.keyboardButton.snp_remakeConstraints(closure: { (make) -> Void in
+			self.keyboardButton.snp_remakeConstraints({ (make) -> Void in
 				make.height.equalTo(self.keyboardButtonViewHeight)
 				make.bottom.equalTo(self.textBackgroundView)
 				make.leading.equalTo(self.textBackgroundView)
 				make.trailing.equalTo(self.textBackgroundView)
 			})
 
-			self.microphoneButton.snp_remakeConstraints(closure: { (make) -> Void in
+			self.microphoneButton.snp_remakeConstraints({ (make) -> Void in
 				make.height.equalTo(self.keyboardButtonViewHeight)
 				make.bottom.equalTo(self.textBackgroundView)
 				make.leading.equalTo(self.textBackgroundView)
@@ -530,28 +530,28 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 //				make.trailing.equalTo(self.textBackgroundView)
 //			})
 		} else {
-			self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+			self.topBarLabelText.snp_remakeConstraints({ (make) -> Void in
 				make.top.equalTo(self.topBarView)
 				make.trailing.equalTo(self.topBarView)
 				make.bottom.equalTo(self.topBarView)
 				make.leading.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
 			})
 
-			self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+			self.topBarLabelMorse.snp_remakeConstraints({ (make) -> Void in
 				make.top.equalTo(self.topBarView)
 				make.leading.equalTo(self.topBarView)
 				make.bottom.equalTo(self.topBarView)
 				make.trailing.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
 			})
 
-			self.keyboardButton.snp_remakeConstraints(closure: { (make) -> Void in
+			self.keyboardButton.snp_remakeConstraints({ (make) -> Void in
 				make.height.equalTo(self.keyboardButtonViewHeight)
 				make.bottom.equalTo(self.textBackgroundView)
 				make.leading.equalTo(self.textBackgroundView.snp_centerX)
 				make.trailing.equalTo(self.textBackgroundView)
 			})
 
-			self.microphoneButton.snp_remakeConstraints(closure: { (make) -> Void in
+			self.microphoneButton.snp_remakeConstraints({ (make) -> Void in
 				make.height.equalTo(self.keyboardButtonViewHeight)
 				make.bottom.equalTo(self.textBackgroundView)
 				make.leading.equalTo(self.textBackgroundView)
@@ -587,10 +587,10 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 
 	func keyboardButtonTapped() {
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+		tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 			action: "button_press",
 			label: "Keyboard Button Tapped",
-			value: nil).build() as [AnyHashable: Any])
+			value: nil).build() as! [AnyHashable: Any])
 		self.inputTextView.becomeFirstResponder()
 		self.animateAndLayoutUIForInputStart()
 	}

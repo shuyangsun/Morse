@@ -364,7 +364,7 @@ class MorseTransmitter {
 		return Float(self._sampleRate/1000.0/unitsPerSecond)
 	}
 
-	fileprivate var _lengthRanges:(oneUnit:CountableRange<Int>, threeUnit:CountableRange<Int>, sevenUnit:CountableRange<Int>) {
+	fileprivate var _lengthRanges:(oneUnit:CountableClosedRange<Int>, threeUnit:CountableClosedRange<Int>, sevenUnit:CountableClosedRange<Int>) {
 		if (14...18).contains(self._inputWPM) {
 			return (2...5, 6...14, 15...999)
 		} else if (19...23).contains(self._inputWPM) {
@@ -845,7 +845,7 @@ class MorseTransmitter {
 			- completion: The completion block to run after text is translated. */
 	func getFutureText(_ concurrent:Bool = false,
 	                   completionDispatchQueue:DispatchQueue? = nil,
-	                   completion:((futureText:String?)->Void)) {
+	                   completion:((_ futureText:String?)->Void)) {
 		// Call helper method:
 		_getFuture(.text,
 		           completionDispatchQueue: completionDispatchQueue,
@@ -862,11 +862,11 @@ class MorseTransmitter {
 			- completion: The completion block to run after Morse code is translated. */
 	func getFutureMorse(_ concurrent:Bool = false,
 	                    completionDispatchQueue:DispatchQueue? = nil,
-	                    completion:((futureText:String?)->Void)) {
+	                    completion:@escaping ((_ futureText:String?)->Void)) {
 		// Call helper method:
 		_getFuture(.morse,
-		           completionDispatchQueue: completionDispatchQueue,
 		           concurrent: concurrent,
+		           completionDispatchQueue: completionDispatchQueue,
 		           completion: completion)
 	}
 
@@ -874,7 +874,7 @@ class MorseTransmitter {
 	fileprivate func _getFuture(_ type:FutureObjectType,
 	                        concurrent:Bool = false,
 	                        completionDispatchQueue:DispatchQueue? = nil,
-	                        completion:((futureText:String?)->Void)) {
+	                        completion:@escaping ((_ futureText:String?)->Void)) {
 		// Create a completion queue for the completion block to run on. Use main queue if not specified.
 		let completionQueue = (completionDispatchQueue == nil ? DispatchQueue.main:completionDispatchQueue)
 		// Create a queue and group to translate text/Morse code.
@@ -889,8 +889,8 @@ class MorseTransmitter {
 			}
 		}
 		// When the process is done, call the completion block with 'future', which has the result now.
-		group.notify(queue: completionQueue) {
-			completion(futureText: future)
+		group.notify(queue: completionQueue!) {
+			completion(future)
 		}
 	}
 

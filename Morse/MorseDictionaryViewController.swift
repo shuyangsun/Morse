@@ -65,7 +65,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 			self.statusBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: statusBarHeight))
 			self.statusBarView.backgroundColor = appDelegate.theme.statusBarBackgroundColor
 			self.view.addSubview(self.statusBarView)
-			self.statusBarView.snp_makeConstraints(closure: { (make) -> Void in
+			self.statusBarView.snp_makeConstraints({ (make) -> Void in
 				make.top.equalTo(self.view)
 				make.leading.equalTo(self.view)
 				make.trailing.equalTo(self.view)
@@ -78,7 +78,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 			self.topBarView.backgroundColor = appDelegate.theme.topBarBackgroundColor
 			self.view.addSubview(topBarView)
 
-			self.topBarView.snp_remakeConstraints(closure: { (make) -> Void in
+			self.topBarView.snp_remakeConstraints({ (make) -> Void in
 				make.top.equalTo(self.statusBarView.snp_bottom)
 				make.leading.equalTo(self.view)
 				make.trailing.equalTo(self.view)
@@ -94,7 +94,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 						NSForegroundColorAttributeName: appDelegate.theme.topBarLabelTextColor])
 				self.topBarView.addSubview(self.topBarLabel)
 
-				self.topBarLabel.snp_remakeConstraints(closure: { (make) -> Void in
+				self.topBarLabel.snp_remakeConstraints({ (make) -> Void in
 					make.edges.equalTo(self.topBarView).inset(UIEdgeInsetsMake(0, 0, 0, 0))
 				})
 			}
@@ -127,7 +127,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 
 		self._outputPlayer.delegate = self
 
-		NotificationCenter.default.addObserver(self, selector: #selector(updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(updateColorWithAnimation), name: NSNotification.Name(rawValue: themeDidChangeNotificationName), object: nil)
 //		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateAdsStatus", name: adsShouldDisplayDidChangeNotificationName, object: nil)
     }
 
@@ -184,10 +184,10 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 	*/
 	func cardViewTapped(_ cardView:CardView) {
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+		tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 			action: "button_press",
 			label: "DicVC Card View Tapped",
-			value: nil).build() as [AnyHashable: Any])
+			value: nil).build() as! [AnyHashable: Any])
 		self._toneGenerator.mute()
 		self._toneGenerator.stop()
 		self._outputPlayer.stop()
@@ -250,7 +250,7 @@ class MorseDictionaryViewController: GAITrackedViewController, CardViewDelegate,
 			if layoutDirection == .rightToLeft {
 				leftOffset = theme.cardViewHorizontalMargin + CGFloat((colNum - 1) - (i%colNum)) * (width + theme.cardViewGap)
 			}
-			card.snp_remakeConstraints(closure: { (make) -> Void in
+			card.snp_remakeConstraints({ (make) -> Void in
 				make.top.equalTo(self.scrollView).offset(theme.cardViewGroupVerticalMargin + CGFloat(i/colNum) * (height + theme.cardViewGap))
 				make.width.equalTo(width)
 				make.height.equalTo(height)

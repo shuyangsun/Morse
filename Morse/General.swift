@@ -55,7 +55,7 @@ let defaultInputPitch:Float = 800
 let defaultOutputPitch:Float = 800
 let automaticPitchMin:Float = 500
 var defaultInputPitchErrorRange:Float = 7
-var inputPitchRange:CountableRange<Int> {
+var inputPitchRange:CountableClosedRange<Int> {
 	let settingsPitch = appDelegate.inputPitch
 	return max(Int(inputPitchMin), Int(ceil(settingsPitch - defaultInputPitchErrorRange)))...max(Int(inputPitchMin), Int(defaultInputPitchErrorRange * 2), Int(ceil(settingsPitch + defaultInputPitchErrorRange)))
 }
@@ -123,9 +123,9 @@ extension UIImage {
 		 UIGraphicsBeginImageContextWithOptions(rect.size, false, self.scale)
 		let context = UIGraphicsGetCurrentContext()
 		self.draw(in: rect)
-		context.setFillColor(color.cgColor)
-		context.setBlendMode(.sourceAtop)
-		context.fill(rect)
+		context?.setFillColor(color.cgColor)
+		context?.setBlendMode(.sourceAtop)
+		context?.fill(rect)
 		let res = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
 		return res
@@ -150,7 +150,7 @@ func dispatch(_ type:DispatchFuncType = .async,
               queueType:DispatchQueueType = .concurrent,
               priority:DispatchPriority = .default,
               label:String = "",
-              block:((Void)->Void))
+              block:@escaping((Void)->Void))
 {
 	let queue:DispatchQueue
 	if queueType == .serial {

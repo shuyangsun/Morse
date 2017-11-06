@@ -55,16 +55,16 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 		}
 		self.navigationController?.navigationBar.titleTextAttributes = textAttributes
 
-		NotificationCenter.default.addObserver(self.tableView, selector: #selector(UITableView.reloadData), name: languageDidChangeNotificationName, object: nil)
+		NotificationCenter.default.addObserver(self.tableView, selector: #selector(UITableView.reloadData), name: NSNotification.Name(rawValue: languageDidChangeNotificationName), object: nil)
     }
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.set(kGAIScreenName, value: settingsVCName)
+		tracker?.set(kGAIScreenName, value: settingsVCName)
 
 		let builder = GAIDictionaryBuilder.createScreenView()
-		tracker.send(builder.build() as [AnyHashable: Any])
+		tracker?.send(builder?.build() as! [AnyHashable: Any])
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -275,7 +275,7 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 					self.animationDurationSlider.tag = 999
 					self.animationDurationSlider.addTarget(self, action: #selector(SettingsMasterTableViewController.sliderValueChanged(_:)), for: .valueChanged)
 					cell.contentView.addSubview(self.animationDurationSlider)
-					self.animationDurationSlider.snp_remakeConstraints(closure: { (make) -> Void in
+					self.animationDurationSlider.snp_remakeConstraints({ (make) -> Void in
 						make.trailing.equalTo(cell.contentView).offset(-tableViewCellHorizontalPadding)
 						make.top.equalTo(cell.contentView)
 						make.bottom.equalTo(cell.contentView)
@@ -448,15 +448,15 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 			appDelegate.userDefaults.set(switchButton.isOn, forKey: userDefaultsKeyExtraTextWhenShare)
 			appDelegate.userDefaults.synchronize()
 			if switchButton.isOn {
-				tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+				tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 					action: "switch_toggle",
 					label: "Share Signature Turned On",
-					value: nil).build() as [AnyHashable: Any])
+					value: nil).build() as! [AnyHashable: Any])
 			} else {
-				tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+				tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 					action: "switch_toggle",
 					label: "Share Signature Turned Off",
-					value: nil).build() as [AnyHashable: Any])
+					value: nil).build() as! [AnyHashable: Any])
 			}
 		case self._switchButtonTagAutoNightMode:
 			appDelegate.userDefaults.set(switchButton.isOn, forKey: userDefaultsKeyAutoNightMode)
@@ -465,28 +465,28 @@ class SettingsMasterTableViewController: TableViewController, UINavigationContro
 				appDelegate.theme = appDelegate.userSelectedTheme
 			}
 			if switchButton.isOn {
-				tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+				tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 					action: "switch_toggle",
 					label: "Auto Night Mode Turned On",
-					value: nil).build() as [AnyHashable: Any])
+					value: nil).build() as! [AnyHashable: Any])
 			} else {
-				tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+				tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 					action: "switch_toggle",
 					label: "Auto Night Mode Turned Off",
-					value: nil).build() as [AnyHashable: Any])
+					value: nil).build() as! [AnyHashable: Any])
 			}
 		case self._switchButtonTagDecodeProsign:
 			appDelegate.prosignTranslationType = switchButton.isOn ? .always : .none
 			if switchButton.isOn {
-				tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+				tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 					action: "switch_toggle",
 					label: "Translate Prosign Turned On",
-					value: nil).build() as [AnyHashable: Any])
+					value: nil).build() as! [AnyHashable: Any])
 			} else {
-				tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+				tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 					action: "switch_toggle",
 					label: "Translate Prosign Turned Off",
-					value: nil).build() as [AnyHashable: Any])
+					value: nil).build() as! [AnyHashable: Any])
 			}
 		default: break
 		}

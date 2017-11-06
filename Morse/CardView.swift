@@ -139,7 +139,7 @@ class CardView: UIView {
 			self.expandButton.alpha = 0
 //			self.expandButton.addTarget(self, action: "expandCard", forControlEvents: .TouchUpInside)
 			self.addSubview(self.expandButton)
-			self.expandButton.snp_remakeConstraints(closure: { (make) -> Void in
+			self.expandButton.snp_remakeConstraints({ (make) -> Void in
 				make.top.equalTo(self).offset(cardViewExpandButtonPadding)
 				make.trailing.equalTo(self).offset(-cardViewExpandButtonPadding)
 			})

@@ -9,5 +9,5 @@
 import Foundation
 
 @objc protocol TableViewSwitchCellDelegate {
-	optional func switchToggled(_ switchButton:UISwitch)
+	@objc optional func switchToggled(_ switchButton:UISwitch)
 }

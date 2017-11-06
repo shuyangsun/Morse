@@ -240,15 +240,15 @@ class SettingsOutputTableViewController: TableViewController, TableViewSwitchCel
 		}
 		let tracker = GAI.sharedInstance().defaultTracker
 		if switchButton.isOn {
-			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+			tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "switch_toggle",
 				label: "Output Brighten Screen Turned On",
-				value: nil).build() as [AnyHashable: Any])
+				value: nil).build() as! [AnyHashable: Any])
 		} else {
-			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+			tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "switch_toggle",
 				label: "Output Brighten Screen Turned Off",
-				value: nil).build() as [AnyHashable: Any])
+				value: nil).build() as! [AnyHashable: Any])
 		}
 	}
 
