@@ -287,10 +287,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		// Optional: configure GAI options.
 		let gai = GAI.sharedInstance()
-		gai.trackUncaughtExceptions = true  // report uncaught exceptions
-		gai.logger.logLevel = GAILogLevel.verbose  // remove before app release
+        gai?.trackUncaughtExceptions = true  // report uncaught exceptions
+		gai?.logger.logLevel = GAILogLevel.verbose  // remove before app release
 		#if DEBUG
-			gai.optOut = true
+			gai?.optOut = true
 		#endif
 		return true
 	}
@@ -354,8 +354,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	    } catch let error as NSError {
 	        // Report any error we got.
 	        var dict = [String: AnyObject]()
-	        dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-	        dict[NSLocalizedFailureReasonErrorKey] = failureReason
+            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data" as AnyObject
+            dict[NSLocalizedFailureReasonErrorKey] = failureReason as AnyObject
 
 	        dict[NSUnderlyingErrorKey] = error
 	        let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)

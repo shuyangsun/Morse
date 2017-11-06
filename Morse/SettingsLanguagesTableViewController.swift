@@ -37,10 +37,10 @@ class SettingsLanguagesTableViewController: TableViewController {
 		self.tableView.reloadData()
 
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.set(kGAIScreenName, value: settingsLanguageVCName)
+		tracker?.set(kGAIScreenName, value: settingsLanguageVCName)
 
 		let builder = GAIDictionaryBuilder.createScreenView()
-		tracker.send(builder.build() as [AnyHashable: Any])
+        tracker?.send(builder?.build() as! [AnyHashable: Any])
 
 		self.initialLanguageCode = appDelegate.currentLocaleLanguageCode
 	}
@@ -172,10 +172,10 @@ class SettingsLanguagesTableViewController: TableViewController {
 				alertController.show()
 			}
 			let tracker = GAI.sharedInstance().defaultTracker
-			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+            tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "button_press",
 				label: "Language Changed",
-				value: nil).build() as [AnyHashable: Any])
+				value: nil).build() as! [AnyHashable: Any])
 		}
 	}
 

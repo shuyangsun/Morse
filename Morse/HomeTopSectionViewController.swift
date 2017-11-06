@@ -614,12 +614,12 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		let text = self.outputTextView.text
 		let morse = self.inputTextView.text
 		if self.inputTextView.text.trimmingCharacters(in: CharacterSet.whitespaces) != "" && self.outputTextView.text.trimmingCharacters(in: CharacterSet.whitespaces) != "" {
-            self.homeViewController.addCardViewWithText(text!, morse: morse, textOnTop: self.isDirectionEncode, animateWithDuration: 0.3)
+            self.homeViewController.addCardViewWithText(text!, morse: morse!, textOnTop: self.isDirectionEncode, animateWithDuration: 0.3)
 			let tracker = GAI.sharedInstance().defaultTracker
-			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "transmitter_action",
+            tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "transmitter_action",
 				action: "card_added",
 				label: "Card Added",
-				value: nil).build() as [AnyHashable: Any])
+                value: nil).build() as! [AnyHashable: Any])
 		}
 		self.animateAndLayoutUIForInputEnd()
 	}
@@ -681,7 +681,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			let text = self.isDirectionEncode ? self.inputTextView.text : self.outputTextView.text
 			let morse = self.isDirectionEncode ? self.outputTextView.text : self.inputTextView.text
 			if self.inputTextView.text.trimmingCharacters(in: CharacterSet.whitespaces) != "" && self.outputTextView.text.trimmingCharacters(in: CharacterSet.whitespaces) != "" {
-				self.homeViewController.addCardViewWithText(text, morse: morse, textOnTop: self.isDirectionEncode, animateWithDuration: 0.3)
+                self.homeViewController.addCardViewWithText(text!, morse: morse!, textOnTop: self.isDirectionEncode, animateWithDuration: 0.3)
 			}
 			textView.resignFirstResponder()
 			self.animateAndLayoutUIForInputEnd()
@@ -712,15 +712,15 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 	func inputCancelled(_ sender:AnyObject) {
 		let tracker = GAI.sharedInstance().defaultTracker
 		if sender === self.backButton {
-			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+            tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "button_press",
 				label: "Cancel Button Tapped",
-				value: nil).build() as [AnyHashable: Any])
+                value: nil).build() as! [AnyHashable: Any])
 		} else if sender === self.homeViewController.scrollViewOverlay {
-			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+            tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "button_press",
 				label: "Scrollview Overlay Tapped",
-				value: nil).build() as [AnyHashable: Any])
+                value: nil).build() as! [AnyHashable: Any])
 		}
 		if self.inputTextView.isFirstResponder {
 			self.inputTextView.resignFirstResponder()
@@ -755,26 +755,26 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			// Move text and morse label
 			let labelWidth = self.topBarLabelText.bounds.width
 			if self.isDirectionEncode {
-				self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+                self.topBarLabelText.snp_remakeConstraints({ (make) -> Void in
 					make.top.equalTo(self.topBarView)
 					make.bottom.equalTo(self.topBarView)
 					make.width.equalTo(labelWidth)
 					make.centerX.equalTo(self.topBarView)
 				})
-				self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+                self.topBarLabelMorse.snp_remakeConstraints({ (make) -> Void in
 					make.top.equalTo(self.topBarView)
 					make.bottom.equalTo(self.topBarView)
 					make.width.equalTo(labelWidth)
 					make.leading.equalTo(self.topBarView.snp_trailing)
 				})
 			} else {
-				self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+                self.topBarLabelText.snp_remakeConstraints({ (make) -> Void in
 					make.top.equalTo(self.topBarView)
 					make.bottom.equalTo(self.topBarView)
 					make.width.equalTo(labelWidth)
 					make.leading.equalTo(self.topBarView.snp_trailing)
 				})
-				self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+                self.topBarLabelMorse.snp_remakeConstraints({ (make) -> Void in
 					make.top.equalTo(self.topBarView)
 					make.bottom.equalTo(self.topBarView)
 					make.width.equalTo(labelWidth)
@@ -783,7 +783,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			}
 
 			self.breakLineView.isHidden = false
-			self.breakLineView.snp_remakeConstraints(closure: { (make) -> Void in
+            self.breakLineView.snp_remakeConstraints({ (make) -> Void in
 				make.leading.equalTo(self.textBackgroundView)
 				make.trailing.equalTo(self.textBackgroundView)
 				make.bottom.equalTo(self.inputTextView)
@@ -822,28 +822,28 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 		self.backButton.disappearWithDuration(animationDuration) {
 			// Move text and morse label
 			if self.isDirectionEncode {
-				self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+                self.topBarLabelText.snp_remakeConstraints({ (make) -> Void in
 					make.top.equalTo(self.topBarView)
 					make.leading.equalTo(self.topBarView)
 					make.bottom.equalTo(self.topBarView)
 					make.trailing.equalTo(self.topBarView.snp_centerX).offset(-self.roundButtonRadius)
 				})
 
-				self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+                self.topBarLabelMorse.snp_remakeConstraints({ (make) -> Void in
 					make.top.equalTo(self.topBarView)
 					make.trailing.equalTo(self.topBarView)
 					make.bottom.equalTo(self.topBarView)
 					make.leading.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
 				})
 			} else {
-				self.topBarLabelText.snp_remakeConstraints(closure: { (make) -> Void in
+                self.topBarLabelText.snp_remakeConstraints({ (make) -> Void in
 					make.top.equalTo(self.topBarView)
 					make.trailing.equalTo(self.topBarView)
 					make.bottom.equalTo(self.topBarView)
 					make.leading.equalTo(self.topBarView.snp_centerX).offset(self.roundButtonRadius)
 				})
 
-				self.topBarLabelMorse.snp_remakeConstraints(closure: { (make) -> Void in
+                self.topBarLabelMorse.snp_remakeConstraints({ (make) -> Void in
 					make.top.equalTo(self.topBarView)
 					make.leading.equalTo(self.topBarView)
 					make.bottom.equalTo(self.topBarView)
@@ -858,7 +858,7 @@ class HomeTopSectionViewController: UIViewController, UITextViewDelegate, MorseT
 			self.outputTextView.text = nil
 			self.inputTextView.attributedText = self.attributedHintTextInput
 			self.outputTextView.attributedText = self.attributedHintTextOutput
-			self.breakLineView.snp_remakeConstraints(closure: { (make) -> Void in
+            self.breakLineView.snp_remakeConstraints({ (make) -> Void in
 				make.leading.equalTo(self.textBackgroundView)
 				make.trailing.equalTo(self.textBackgroundView)
 				make.bottom.equalTo(self.textBackgroundView)

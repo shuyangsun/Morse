@@ -76,7 +76,7 @@ class TableViewTransmitterConfigurationCell: TableViewCell {
 			doneButton.setAttributedTitle(getAttributedStringFrom(LocalizedStrings.Settings.done, withFontSize: transConfigNumPadDoneButtonFontSize, color: theme.transValConfigViewNumPadDoneButtonTextColorHighlighted, bold: true), for: .highlighted)
 			self.valueTextField.inputAccessoryView = doneButton
 			self.addSubview(self.valueTextField)
-			self.valueTextField.snp_makeConstraints(closure: { (make) -> Void in
+			self.valueTextField.snp_makeConstraints({ (make) -> Void in
 				make.top.equalTo(self).offset(transConfigVerticalMargin)
 				make.centerX.equalTo(self)
 				make.leading.equalTo(self)
@@ -91,7 +91,7 @@ class TableViewTransmitterConfigurationCell: TableViewCell {
 			self.minusButton.setAttributedTitle(getAttributedStringFrom(minusButtonText, withFontSize: transConfigMinusPlusFontSize, color: theme.transValConfigViewPlusMinusButtonTintColorHighlighted, bold: false), for: .highlighted)
 			self.minusButton.addTarget(self, action: #selector(TableViewTransmitterConfigurationCell.minusButtonTapped), for: .touchUpInside)
 			self.addSubview(self.minusButton)
-			self.minusButton.snp_makeConstraints(closure: { (make) -> Void in
+			self.minusButton.snp_makeConstraints({ (make) -> Void in
 				make.centerY.equalTo(self)
 				make.leading.equalTo(self).offset(transConfigHorizontalMargin)
 			})
@@ -104,7 +104,7 @@ class TableViewTransmitterConfigurationCell: TableViewCell {
 			self.plusButton.setAttributedTitle(getAttributedStringFrom(plusButtonText, withFontSize: transConfigMinusPlusFontSize, color: theme.transValConfigViewPlusMinusButtonTintColorHighlighted, bold: false), for: .highlighted)
 			self.plusButton.addTarget(self, action: #selector(TableViewTransmitterConfigurationCell.plusButtonTapped), for: .touchUpInside)
 			self.addSubview(self.plusButton)
-			self.plusButton.snp_makeConstraints(closure: { (make) -> Void in
+			self.plusButton.snp_makeConstraints({ (make) -> Void in
 				make.centerY.equalTo(self.minusButton)
 				make.trailing.equalTo(self).offset(-transConfigHorizontalMargin)
 			})
@@ -118,7 +118,7 @@ class TableViewTransmitterConfigurationCell: TableViewCell {
 			self.slider.thumbTintColor = theme.sliderThumbTintColor
 			self.slider.addTarget(self, action: #selector(TableViewTransmitterConfigurationCell.sliderValueChanged), for: .valueChanged)
 			self.addSubview(self.slider)
-			self.slider.snp_makeConstraints(closure: { (make) -> Void in
+			self.slider.snp_makeConstraints({ (make) -> Void in
 				make.leading.equalTo(self.minusButton.snp_trailing).offset(transConfigHorizontalMargin)
 				make.trailing.equalTo(self.plusButton.snp_leading).offset(-transConfigHorizontalMargin)
 				make.centerY.equalTo(self.minusButton)
@@ -131,7 +131,7 @@ class TableViewTransmitterConfigurationCell: TableViewCell {
 			self.sliderMinLabel.isOpaque = false
 			self.sliderMinLabel.textColor = theme.transConfigLabelTextColorNormal
 			self.addSubview(self.sliderMinLabel)
-			self.sliderMinLabel.snp_makeConstraints(closure: { (make) -> Void in
+			self.sliderMinLabel.snp_makeConstraints({ (make) -> Void in
 				make.top.equalTo(self.slider.snp_bottom).offset(transConfigSliderLabelVerticalMargin)
 				make.leading.equalTo(self.slider)
 			})
@@ -142,7 +142,7 @@ class TableViewTransmitterConfigurationCell: TableViewCell {
 			self.sliderMaxLabel.isOpaque = false
 			self.sliderMaxLabel.textColor = theme.transConfigLabelTextColorNormal
 			self.addSubview(self.sliderMaxLabel)
-			self.sliderMaxLabel.snp_makeConstraints(closure: { (make) -> Void in
+			self.sliderMaxLabel.snp_makeConstraints({ (make) -> Void in
 				make.centerY.equalTo(self.sliderMinLabel)
 				make.trailing.equalTo(self.slider)
 			})

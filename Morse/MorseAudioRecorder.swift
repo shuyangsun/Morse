@@ -28,8 +28,8 @@ class MorseAudioRecorder: NSObject {
 
 			// Initialize recorder
 			let url = URL(fileURLWithPath: "/dev/null")
-			let settings:[String:AnyObject] = [
-				AVSampleRateKey: 44100,
+			let settings:[String:Any] = [
+                AVSampleRateKey: 44100,
 				AVFormatIDKey: NSNumber(value: kAudioFormatAppleLossless as UInt32),
 				AVNumberOfChannelsKey: 1,
 				AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue

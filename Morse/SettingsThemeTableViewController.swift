@@ -41,10 +41,10 @@ class SettingsThemeTableViewController: TableViewController {
 		super.viewWillAppear(animated)
 		self.tableView.reloadData()
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.set(kGAIScreenName, value: settingsThemeVCName)
+        tracker?.set(kGAIScreenName, value: settingsThemeVCName)
 
 		let builder = GAIDictionaryBuilder.createScreenView()
-		tracker.send(builder.build() as [AnyHashable: Any])
+        tracker?.send(builder?.build() as! [AnyHashable: Any])
 	}
 
     override func didReceiveMemoryWarning() {
@@ -97,10 +97,10 @@ class SettingsThemeTableViewController: TableViewController {
 			appDelegate.userDefaults.synchronize()
 			print(self.rowIndForIndexPath(indexPath))
 			theme = Theme(rawValue: self.rowIndForIndexPath(indexPath))!
-			let tracker = GAI.sharedInstance().defaultTracker; tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+            let tracker = GAI.sharedInstance().defaultTracker; tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "button_press",
 				label: "Theme Changed",
-				value: nil).build() as [AnyHashable: Any])
+                value: nil).build() as! [AnyHashable: Any])
 		}
 	}
 

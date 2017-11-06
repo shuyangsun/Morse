@@ -53,15 +53,15 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 
 			let tracker = GAI.sharedInstance().defaultTracker
 			if newValue {
-				tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+				tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 					action: "button_press",
 					label: "Output Sound Enabled",
-					value: nil).build() as [AnyHashable: Any])
+					value: nil).build() as! [AnyHashable: Any])
 			} else {
-				tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+				tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 					action: "button_press",
 					label: "Output Sound Disabled",
-					value: nil).build() as [AnyHashable: Any])
+					value: nil).build() as! [AnyHashable: Any])
 			}
 		}
 	}
@@ -83,15 +83,15 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 
 			let tracker = GAI.sharedInstance().defaultTracker
 			if newValue {
-				tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+				tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 					action: "button_press",
 					label: "Flash Enabled",
-					value: nil).build() as [AnyHashable: Any])
+					value: nil).build() as! [AnyHashable: Any])
 			} else {
-				tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+				tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 					action: "button_press",
 					label: "Flash Disabled",
-					value: nil).build() as [AnyHashable: Any])
+					value: nil).build() as! [AnyHashable: Any])
 			}
 		}
 	}
@@ -136,7 +136,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			self.topBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: topBarHeight))
 			self.topBarView.backgroundColor = theme.outputVCTopBarColor
 			self.view.addSubview(self.topBarView)
-			self.topBarView.snp_remakeConstraints(closure: { (make) -> Void in
+			self.topBarView.snp_remakeConstraints({ (make) -> Void in
 				make.top.equalTo(self.view)
 				make.leading.equalTo(self.view)
 				make.trailing.equalTo(self.view)
@@ -148,7 +148,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				self.progressBarView = UIView(frame: CGRect(x: x, y: 0, width: 0, height: topBarHeight))
 				self.progressBarView.backgroundColor = theme.progressBarColor
 				self.topBarView.addSubview(self.progressBarView)
-				self.progressBarView.snp_remakeConstraints(closure: { (make) -> Void in
+				self.progressBarView.snp_remakeConstraints({ (make) -> Void in
 					make.top.equalTo(self.topBarView)
 					make.bottom.equalTo(self.topBarView)
 					make.leading.equalTo(self.topBarView)
@@ -165,7 +165,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				self.percentageLabel.isOpaque = false
 				self.percentageLabel.alpha = 0
 				self.topBarView.addSubview(self.percentageLabel)
-				self.percentageLabel.snp_remakeConstraints(closure: { (make) -> Void in
+				self.percentageLabel.snp_remakeConstraints({ (make) -> Void in
 					make.top.equalTo(self.topBarView)
 					make.bottom.equalTo(self.topBarView)
 					make.centerX.equalTo(self.topBarView)
@@ -218,7 +218,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				self.morseTextBackgroundView.isOpaque = false
 				self.morseTextBackgroundView.alpha = 0.0
 				self.topBarView.addSubview(self.morseTextBackgroundView)
-				self.morseTextBackgroundView.snp_remakeConstraints(closure: { (make) -> Void in
+				self.morseTextBackgroundView.snp_remakeConstraints({ (make) -> Void in
 					make.leading.equalTo(self.view)
 					make.bottom.equalTo(self.topBarView)
 					make.height.equalTo(self._morseTextLabelHeight)
@@ -234,11 +234,11 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				self.morseTextLabel.attributedText = getAttributedStringFrom(labelStr, withFontSize: morseFontSizeProgressBar, color: theme.morseTextProgressBarColor, bold: false)
 				self.morseTextLabel.textAlignment = .left
 				self.morseTextBackgroundView.addSubview(self.morseTextLabel)
-				self.morseTextLabel.snp_remakeConstraints(closure: { (make) -> Void in
+				self.morseTextLabel.snp_remakeConstraints({ (make) -> Void in
 					make.top.equalTo(self.morseTextBackgroundView)
 					make.bottom.equalTo(self.morseTextBackgroundView)
 					make.width.equalTo(self.morseTextLabel.attributedText!.size().width + 10) // +10 to be safe
-					if layoutDirection == .LeftToRight {
+					if layoutDirection == .leftToRight {
 						make.right.equalTo(self.morseTextBackgroundView.snp_left)
 					} else {
 						make.left.equalTo(self.morseTextBackgroundView.snp_right)
@@ -254,7 +254,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			let tapGR = UITapGestureRecognizer(target: self, action: #selector(OutputViewController.outputWillStart))
 			self.screenFlashView.addGestureRecognizer(tapGR)
 			self.view.addSubview(self.screenFlashView)
-			self.screenFlashView.snp_remakeConstraints(closure: { (make) -> Void in
+			self.screenFlashView.snp_remakeConstraints({ (make) -> Void in
 				make.top.equalTo(self.topBarView.snp_bottom)
 				make.leading.equalTo(self.view)
 				make.trailing.equalTo(self.view)
@@ -278,7 +278,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			self.playButton.alpha = 0
 			self._viewsShouldFadeOutWhenPlaying.append(self.playButton)
 			self.view.addSubview(self.playButton)
-			self.playButton.snp_makeConstraints(closure: { (make) -> Void in
+			self.playButton.snp_makeConstraints({ (make) -> Void in
 				make.centerX.equalTo(self.view)
 				make.centerY.equalTo(self.view).offset(topBarHeight)
 			})
@@ -293,7 +293,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			self._viewsShouldFadeOutWhenPlaying.append(self.wpmLabel)
 			self.view.addSubview(self.wpmLabel)
 
-			self.wpmLabel.snp_makeConstraints(closure: { (make) -> Void in
+			self.wpmLabel.snp_makeConstraints({ (make) -> Void in
 				make.centerX.equalTo(self.view)
 				make.top.equalTo(self.topBarView.snp_bottom).offset(hintLabelMarginVertical)
 			})
@@ -308,7 +308,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			self._viewsShouldFadeOutWhenPlaying.append(self.pitchLabel)
 			self.view.addSubview(self.pitchLabel)
 
-			self.pitchLabel.snp_makeConstraints(closure: { (make) -> Void in
+			self.pitchLabel.snp_makeConstraints({ (make) -> Void in
 				make.centerX.equalTo(self.view)
 				make.top.equalTo(self.wpmLabel.snp_bottom).offset(hintLabelMarginVertical)
 			})
@@ -322,7 +322,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			self._viewsShouldFadeOutWhenPlaying.append(self.tutorial1Label)
 			self.view.addSubview(self.tutorial1Label)
 
-			self.tutorial1Label.snp_makeConstraints(closure: { (make) -> Void in
+			self.tutorial1Label.snp_makeConstraints({ (make) -> Void in
 				make.centerX.equalTo(self.view)
 				make.top.equalTo(self.pitchLabel.snp_bottom).offset(hintLabelMarginVertical)
 			})
@@ -336,7 +336,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			self._viewsShouldFadeOutWhenPlaying.append(self.swipeToDismissLabel)
 			self.view.addSubview(self.swipeToDismissLabel)
 
-			self.swipeToDismissLabel.snp_makeConstraints(closure: { (make) -> Void in
+			self.swipeToDismissLabel.snp_makeConstraints({ (make) -> Void in
 				make.centerX.equalTo(self.view)
 				make.bottom.equalTo(self.view).offset(-hintLabelMarginVertical * 2)
 			})
@@ -350,7 +350,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			self._viewsShouldFadeOutWhenPlaying.append(self.tapToStartLabel)
 			self.view.addSubview(self.tapToStartLabel)
 
-			self.tapToStartLabel.snp_makeConstraints(closure: { (make) -> Void in
+			self.tapToStartLabel.snp_makeConstraints({ (make) -> Void in
 				make.centerX.equalTo(self.view)
 				make.bottom.equalTo(self.swipeToDismissLabel.snp_top).offset(-hintLabelMarginVertical)
 			})
@@ -409,16 +409,16 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 		let tracker = GAI.sharedInstance().defaultTracker
 		if self._playing {
 			self.stopPlaying()
-			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+			tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "button_press",
 				label: "Output Played",
-				value: nil).build() as [AnyHashable: Any])
+				value: nil).build() as! [AnyHashable: Any])
 		} else {
 			self.startPlaying()
-			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+			tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "button_press",
 				label: "Output Stopped",
-				value: nil).build() as [AnyHashable: Any])
+				value: nil).build() as! [AnyHashable: Any])
 		}
 	}
 

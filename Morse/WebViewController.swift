@@ -54,7 +54,7 @@ class WebViewController: GAITrackedViewController {
 			self.topBarView.backgroundColor = appDelegate.theme.topBarBackgroundColor.colorWithAlpha(webViewUnloadedTopBarAlpha)
 			self.view.addSubview(topBarView)
 
-			self.topBarView.snp_remakeConstraints(closure: { (make) -> Void in
+			self.topBarView.snp_remakeConstraints({ (make) -> Void in
 				make.top.equalTo(self.view)
 				make.leading.equalTo(self.view)
 				make.trailing.equalTo(self.view)
@@ -66,7 +66,7 @@ class WebViewController: GAITrackedViewController {
 				self.progressBarView = UIView(frame: CGRect(x: x, y: 0, width: 0, height: topBarHeight))
 				self.progressBarView.backgroundColor = theme.topBarBackgroundColor
 				self.topBarView.insertSubview(self.progressBarView, at: 0)
-				self.progressBarView.snp_remakeConstraints(closure: { (make) -> Void in
+				self.progressBarView.snp_remakeConstraints({ (make) -> Void in
 					make.top.equalTo(self.topBarView)
 					make.bottom.equalTo(self.topBarView)
 					make.leading.equalTo(self.topBarView)
@@ -83,7 +83,7 @@ class WebViewController: GAITrackedViewController {
 						NSForegroundColorAttributeName: appDelegate.theme.topBarLabelTextColor])
 				self.topBarView.addSubview(self.topBarLabel)
 
-				self.topBarLabel.snp_remakeConstraints(closure: { (make) -> Void in
+				self.topBarLabel.snp_remakeConstraints({ (make) -> Void in
 					make.top.equalTo(self.topBarView).offset(statusBarHeight)
 					make.centerX.equalTo(self.topBarView)
 					make.bottom.equalTo(self.topBarView)
@@ -95,7 +95,7 @@ class WebViewController: GAITrackedViewController {
 				self.backButton.addTarget(self, action: #selector(backButtonTapped(_:)), for: .touchUpInside)
 				self.topBarView.addSubview(self.backButton)
 
-				self.backButton.snp_makeConstraints(closure: { (make) -> Void in
+				self.backButton.snp_makeConstraints({ (make) -> Void in
 					make.centerY.equalTo(self.topBarLabel)
 					make.leading.equalTo(self.topBarView)
 					make.width.equalTo(topBarHeight)
@@ -110,7 +110,7 @@ class WebViewController: GAITrackedViewController {
 		if self.webView == nil {
 			self.webView = WKWebView(frame: self.view.bounds)
 			self.view.insertSubview(self.webView, at: 0)
-			self.webView.snp_makeConstraints(closure: { (make) -> Void in
+			self.webView.snp_makeConstraints({ (make) -> Void in
 				make.top.equalTo(self.topBarView.snp_bottom)
 				make.left.equalTo(self.view)
 				make.right.equalTo(self.view)
@@ -147,7 +147,7 @@ class WebViewController: GAITrackedViewController {
 		self.progressBarView.frame = CGRect(x: x, y: 0, width: width, height: self.topBarView.bounds.height)
 		if completionRatio >= 1 {
 			self._progressTimer.invalidate()
-			self.progressBarView.snp_remakeConstraints(closure: { (make) -> Void in
+			self.progressBarView.snp_remakeConstraints({ (make) -> Void in
 				make.edges.equalTo(self.topBarView)
 			})
 		}

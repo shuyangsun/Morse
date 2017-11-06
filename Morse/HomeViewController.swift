@@ -142,12 +142,12 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			self.scrollViewOverlay.titleLabel?.text = nil
 			self.view.insertSubview(self.scrollViewOverlay, aboveSubview: self.scrollView)
 
-			self.scrollViewOverlay.snp_remakeConstraints(closure: { (make) -> Void in
+            self.scrollViewOverlay.snp_remakeConstraints({ (make) -> Void in
 				make.edges.equalTo(self.scrollView)
 			})
 		}
 
-		NotificationCenter.default.addObserver(self, selector: #selector(updateColorWithAnimation), name: themeDidChangeNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateColorWithAnimation), name: NSNotification.Name(rawValue: themeDidChangeNotificationName), object: nil)
 //		NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateAdsStatus", name: adsShouldDisplayDidChangeNotificationName, object: nil)
 
 		// Configure scrollView animator
@@ -186,12 +186,12 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		if scrollView.contentOffset.y <= 20 && self.topSectionHidden {
 			// Show input area
 			self.topSectionHidden = false
-			self.topSectionContainerView.snp_updateConstraints(closure: { (make) -> Void in
+            self.topSectionContainerView.snp_updateConstraints({ (make) -> Void in
 				make.top.equalTo(self.view)
 			})
 
 			// Update constraints for buttons on text view
-			self.topSectionViewController.keyboardButton.snp_remakeConstraints(closure: { (make) -> Void in
+            self.topSectionViewController.keyboardButton.snp_remakeConstraints({ (make) -> Void in
 				make.height.equalTo(self.topSectionViewController.keyboardButtonViewHeight)
 				make.bottom.equalTo(self.topSectionViewController.textBackgroundView)
 				if self.topSectionViewController.isDirectionEncode {
@@ -202,7 +202,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 				make.trailing.equalTo(self.topSectionViewController.textBackgroundView)
 			})
 
-			self.topSectionViewController.microphoneButton.snp_remakeConstraints(closure: { (make) -> Void in
+            self.topSectionViewController.microphoneButton.snp_remakeConstraints({ (make) -> Void in
 				make.height.equalTo(self.topSectionViewController.keyboardButtonViewHeight)
 				make.bottom.equalTo(self.topSectionViewController.textBackgroundView)
 				make.leading.equalTo(self.topSectionViewController.textBackgroundView)
@@ -233,7 +233,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			// Hide input area
 			self.topSectionHidden = true
 
-			self.topSectionContainerView.snp_updateConstraints(closure: { (make) -> Void in
+            self.topSectionContainerView.snp_updateConstraints({ (make) -> Void in
 				make.top.equalTo(self.view).offset(-hiddingSectionHeight)
 			})
 
@@ -243,14 +243,14 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 
 			// Update constraints for buttons on text view
 			if !self.topSectionViewController.isDirectionEncode {
-				self.topSectionViewController.keyboardButton.snp_remakeConstraints(closure: { (make) -> Void in
+				self.topSectionViewController.keyboardButton.snp_remakeConstraints({ (make) -> Void in
 					make.height.equalTo(self.topSectionViewController.keyboardButtonViewHeight)
 					make.bottom.equalTo(self.topSectionViewController.textBackgroundView)
 					make.leading.equalTo(self.topSectionViewController.textBackgroundView.snp_centerX)
 					make.trailing.equalTo(self.topSectionViewController.textBackgroundView)
 				})
 
-				self.topSectionViewController.microphoneButton.snp_remakeConstraints(closure: { (make) -> Void in
+				self.topSectionViewController.microphoneButton.snp_remakeConstraints({ (make) -> Void in
 					make.height.equalTo(self.topSectionViewController.keyboardButtonViewHeight)
 					make.bottom.equalTo(self.topSectionViewController.textBackgroundView)
 					make.leading.equalTo(self.topSectionViewController.textBackgroundView)
@@ -298,7 +298,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			self.scrollViewSnapshotImageView?.isOpaque = false
 			self.scrollViewSnapshotImageView?.alpha = 0
 			self.view.insertSubview(self.scrollViewSnapshotImageView!, belowSubview: self.scrollViewOverlay)
-			self.scrollViewSnapshotImageView?.snp_makeConstraints(closure: { (make) -> Void in
+			self.scrollViewSnapshotImageView?.snp_makeConstraints({ (make) -> Void in
 				make.edges.equalTo(self.scrollView)
 			})
 
@@ -319,7 +319,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			self.micInputSectionViewController!.view.addGestureRecognizer(tapGR)
 			self.view.insertSubview(self.micInputSectionContainerView!, aboveSubview: self.scrollViewOverlay)
 
-			self.micInputSectionContainerView!.snp_remakeConstraints(closure: { (make) -> Void in
+			self.micInputSectionContainerView!.snp_remakeConstraints({ (make) -> Void in
 				make.edges.equalTo(self.scrollViewOverlay)
 			})
 		}
@@ -351,10 +351,10 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			}
 		}
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+        tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 			action: "button_press",
 			label: "Card View Tapped",
-			value: nil).build() as [AnyHashable: Any])
+            value: nil).build() as! [AnyHashable: Any])
 	}
 
 	func cardViewHeld(_ cardView: CardView) {
@@ -380,10 +380,10 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		}
 
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+        tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 			action: "hold_gesture_used",
 			label: "Card Held",
-			value: nil).build() as [AnyHashable: Any])
+            value: nil).build() as! [AnyHashable: Any])
 	}
 
 	// What happens when the user taps share button
@@ -399,10 +399,10 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		}
 
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+        tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 			action: "button_press",
 			label: "Shared Button Tapped",
-			value: nil).build() as [AnyHashable: Any])
+			value: nil).build() as! [AnyHashable: Any])
 	}
 
 	// What happens when the user taps output button
@@ -417,10 +417,10 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		self.present(outputVC, animated: true, completion: nil)
 
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+		tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 			action: "button_press",
 			label: "Singal Output Tapped",
-			value: nil).build() as [AnyHashable: Any])
+			value: nil).build() as! [AnyHashable: Any])
 	}
 
 	func cardViewTouchesBegan(_ cardView: CardView, touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -435,10 +435,10 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		let ind = self.cardViews.index(of: cardView)!
 		if deleteCard {
 			let tracker = GAI.sharedInstance().defaultTracker
-			tracker.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
+			tracker?.send(GAIDictionaryBuilder.createEvent(withCategory: "ui_action",
 				action: "swipe_gesture_used",
 				label: "Card Deleted",
-				value: nil).build() as [AnyHashable: Any])
+				value: nil).build() as! [AnyHashable: Any])
 			// Remove in UI
 			cardView.removeFromSuperview()
 			self.cardViews.remove(at: ind)
@@ -473,7 +473,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 
 			// Remove in Core Data
 			let managedContext = appDelegate.managedObjectContext
-			let fetchRequest = NSFetchRequest(entityName: "Card")
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Card")
 			let filter = NSPredicate(format: "cardUniqueID == \(cardView.cardUniqueID!)")
 			fetchRequest.predicate = filter
 			do {
@@ -505,7 +505,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			cardView.removeFromSuperview()
 			// Remove in Core Data
 			let managedContext = appDelegate.managedObjectContext
-			let fetchRequest = NSFetchRequest(entityName: "Card")
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Card")
 			let filter = NSPredicate(format: "cardUniqueID == \(cardView.cardUniqueID!)")
 			fetchRequest.predicate = filter
 			do {
@@ -595,16 +595,16 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	fileprivate func updateConstraintsForCardView(_ cardView:CardView, indexInCardViewsArray index:Int? = nil) {
 		let ind = index == nil ? self.cardViews.index(of: cardView)! : index!
 		var heightChange:CGFloat = 0
-		cardView.snp_remakeConstraints(closure: { (make) -> Void in
+		cardView.snp_remakeConstraints({ (make) -> Void in
 			make.left.equalTo(self.scrollView.snp_left).offset(theme.cardViewHorizontalMargin)
 			make.width.equalTo(self.scrollView).offset(-(theme.cardViewHorizontalMargin + theme.cardViewHorizontalMargin))
 		})
 		if ind == self.cardViews.count - 1 {
-			cardView.snp_updateConstraints(closure: { (make) -> Void in
+			cardView.snp_updateConstraints({ (make) -> Void in
 				make.top.equalTo(self.scrollView).offset(theme.cardViewGroupVerticalMargin)
 			})
 		} else {
-			cardView.snp_updateConstraints(closure: { (make) -> Void in
+			cardView.snp_updateConstraints({ (make) -> Void in
 				make.top.equalTo(self.cardViews[ind + 1].snp_bottom).offset(theme.cardViewGap)
 			})
 		}
@@ -626,7 +626,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			let bottomLabelHeight = cardView.bottomLabel.attributedText!.boundingRect(with: CGSize(width: labelWidth, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil).height
 			resultHeight = cardViewLabelPaddingVerticle * 2 + topLabelHeight + cardViewLabelVerticalGap + bottomLabelHeight
 
-			cardView.topLabel.snp_updateConstraints(closure: { (make) -> Void in
+			cardView.topLabel.snp_updateConstraints({ (make) -> Void in
 				make.height.equalTo(topLabelHeight)
 			})
 
@@ -640,7 +640,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 				make.leading.equalTo(cardView).offset(cardViewLabelPaddingHorizontal)
 				make.height.equalTo((theme.cardViewHeight - cardViewLabelPaddingVerticle * 2 - cardViewLabelVerticalGap)/2.0)
 			}
-			cardView.snp_updateConstraints(closure: { (make) -> Void in
+			cardView.snp_updateConstraints({ (make) -> Void in
 				make.height.equalTo(theme.cardViewHeight)
 			})
 
@@ -700,7 +700,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		if self.cardViews.isEmpty {
 			let managedContext = appDelegate.managedObjectContext
 
-			let fetchRequest = NSFetchRequest(entityName: "Card")
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Card")
 			let sortDescriptor = NSSortDescriptor(key: "index", ascending: true)
 			fetchRequest.sortDescriptors = [sortDescriptor]
 
@@ -766,7 +766,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			for i in (0..<localizedTextArrays.count).reversed() {
 				var text = localizedTextArrays[i].localized
 				// If morse is empty after trimming punchtuations, add english.
-				transmitter.text = text.trimmingCharacters(in: CharacterSet.punctuation)
+                transmitter.text = text.trimmingCharacters(in: CharacterSet.punctuationCharacters)
 				var morse = transmitter.morse
 				if morse == nil || morse!.isEmpty {
 					text += "\n\(localizedTextArrays[i].english)"
@@ -785,7 +785,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		}
 		for i in 0..<self.cardViews.count {
 			cardViews[i].updateExpandButton()
-			self.cardViews[i].snp_updateConstraints(closure: { (make) -> Void in
+			self.cardViews[i].snp_updateConstraints({ (make) -> Void in
 				make.width.equalTo(self.scrollView).offset(-(theme.cardViewHorizontalMargin + theme.cardViewHorizontalMargin))
 			})
 		}
@@ -838,7 +838,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		let image = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
 
-		return image
+        return image!
 	}
 
 	/**

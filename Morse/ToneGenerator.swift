@@ -72,13 +72,13 @@ class ToneGenerator: NSObject, EZOutputDataSource, EZOutputDelegate {
 		shouldFill audioBufferList: UnsafeMutablePointer<AudioBufferList>,
 		withNumberOfFrames frames: UInt32,
 		timestamp: UnsafePointer<AudioTimeStamp>) -> OSStatus {
-			let buffer = UnsafeMutablePointer<Float32>(audioBufferList.pointee.mBuffers.mData)
-			let twoPI = 2.0 * Float(M_PI)
+			let buffer = UnsafeMutablePointer<Float32>(OpaquePointer(audioBufferList.pointee.mBuffers.mData))
+			let twoPI = 2.0 * Float.pi
 			var theta = self.theta
 			let thetaIncrement = twoPI * self.pitch / self.sampleRate;
 			// Generate sine wave
 			for frame in 0..<Int(frames) {
-				buffer[frame] = self.amplitude * sin(theta)
+                buffer![frame] = self.amplitude * sin(theta)
 				theta += thetaIncrement
 				if theta > twoPI {
 					theta -= twoPI

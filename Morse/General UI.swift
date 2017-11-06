@@ -101,18 +101,18 @@ enum Direction:Int {
 
 extension UIView {
 
-	class func animateWithScaledDuration(_ duration: TimeInterval, animations: () -> Void) {
+    class func animateWithScaledDuration(_ duration: TimeInterval, animations: @escaping () -> Void) {
 		self.animate(withDuration: duration * animationDurationScalar,
 			animations: animations)
 	}
 
-	class func animateWithScaledDuration(_ duration: TimeInterval, animations: () -> Void, completion: ((Bool) -> Void)?) {
+    class func animateWithScaledDuration(_ duration: TimeInterval, animations: @escaping () -> Void, completion: ((Bool) -> Void)?) {
 		self.animate(withDuration: duration * animationDurationScalar,
 			animations: animations,
 			completion: completion)
 	}
 
-	class func animateWithScaledDuration(_ duration: TimeInterval, delay: TimeInterval, options: UIViewAnimationOptions, animations: () -> Void, completion: ((Bool) -> Void)?) {
+    class func animateWithScaledDuration(_ duration: TimeInterval, delay: TimeInterval, options: UIViewAnimationOptions, animations: @escaping () -> Void, completion: ((Bool) -> Void)?) {
 		self.animate(withDuration: duration * animationDurationScalar,
 			delay: delay,
 			options: options,
@@ -120,7 +120,7 @@ extension UIView {
 			completion: completion)
 	}
 
-	class func animateWithScaledDuration(_ duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping dampingRatio: CGFloat, initialSpringVelocity velocity: CGFloat, options: UIViewAnimationOptions, animations: () -> Void, completion: ((Bool) -> Void)?) {
+    class func animateWithScaledDuration(_ duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping dampingRatio: CGFloat, initialSpringVelocity velocity: CGFloat, options: UIViewAnimationOptions, animations: @escaping () -> Void, completion: ((Bool) -> Void)?) {
 		self.animate(withDuration: duration * animationDurationScalar,
 			delay: delay,
 			usingSpringWithDamping: dampingRatio,

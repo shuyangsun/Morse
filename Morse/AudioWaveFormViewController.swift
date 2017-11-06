@@ -71,7 +71,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 			self.updateWPMLabel(true)
 			self.view.addSubview(self.wpmLabel)
 
-			self.wpmLabel.snp_makeConstraints(closure: { (make) -> Void in
+			self.wpmLabel.snp_makeConstraints({ (make) -> Void in
 				make.centerX.equalTo(self.view)
 				make.top.equalTo(self.view).offset(hintLabelMarginVertical * 2)
 			})
@@ -82,7 +82,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 			self.updatePitchLabel(true)
 			self.view.addSubview(self.pitchLabel)
 
-			self.pitchLabel.snp_makeConstraints(closure: { (make) -> Void in
+			self.pitchLabel.snp_makeConstraints({ (make) -> Void in
 				make.centerX.equalTo(self.view)
 				make.top.equalTo(self.wpmLabel.snp_bottom).offset(hintLabelMarginVertical)
 			})
@@ -97,7 +97,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 			self.tutorial1Label.attributedText = getAttributedStringFrom(text, withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorNormal, bold: false)
 			self.view.addSubview(self.tutorial1Label)
 
-			self.tutorial1Label.snp_makeConstraints(closure: { (make) -> Void in
+			self.tutorial1Label.snp_makeConstraints({ (make) -> Void in
 				make.centerX.equalTo(self.view)
 				make.top.equalTo(self.pitchLabel.snp_bottom).offset(hintLabelMarginVertical)
 			})
@@ -108,7 +108,7 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 			self.tapToFinishLabel.attributedText = getAttributedStringFrom(LocalizedStrings.Label.tapToFinish, withFontSize: hintLabelFontSize, color: theme.waveformVCLabelTextColorNormal, bold: false)
 			self.view.addSubview(self.tapToFinishLabel)
 
-			self.tapToFinishLabel.snp_makeConstraints(closure: { (make) -> Void in
+			self.tapToFinishLabel.snp_makeConstraints({ (make) -> Void in
 				make.centerX.equalTo(self.view)
 				make.bottom.equalTo(self.view).offset(-hintLabelMarginVertical * 2)
 			})
@@ -129,17 +129,17 @@ class AudioWaveFormViewController: UIViewController, EZMicrophoneDelegate {
 		self.transmitter.resetForAudioInput()
 
 		// Register for notification
-		NotificationCenter.default.addObserver(self, selector: #selector(AudioWaveFormViewController.updateWPMLabelWithoutAutomaticStatus), name: inputWPMDidChangeNotificationName, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(AudioWaveFormViewController.updatePitchLabelWithoutAutomaticStatus), name: inputPitchDidChangeNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AudioWaveFormViewController.updateWPMLabelWithoutAutomaticStatus), name: NSNotification.Name(rawValue: inputWPMDidChangeNotificationName), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AudioWaveFormViewController.updatePitchLabelWithoutAutomaticStatus), name: NSNotification.Name(rawValue: inputPitchDidChangeNotificationName), object: nil)
     }
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		let tracker = GAI.sharedInstance().defaultTracker
-		tracker.set(kGAIScreenName, value: audioDecoderVCName)
+        tracker?.set(kGAIScreenName, value: audioDecoderVCName)
 
 		let builder = GAIDictionaryBuilder.createScreenView()
-		tracker.send(builder.build() as [AnyHashable: Any])
+        tracker?.send(builder?.build() as! [AnyHashable: Any])
 	}
 
     override func didReceiveMemoryWarning() {
