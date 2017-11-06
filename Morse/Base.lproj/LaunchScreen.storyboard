@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,14 +21,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tqt-Oy-tBT">
-                                <rect key="frame" x="16" y="44" width="343" height="714"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tqt-Oy-tBT">
+                                <rect key="frame" x="128.66666666666666" y="383.66666666666669" width="118" height="45"/>
                                 <attributedString key="attributedText">
-                                    <fragment>
-                                        <string key="content">A B C
-• —   — • • •   — • — •</string>
+                                    <fragment content="Morse">
                                         <attributes>
-                                            <color key="NSColor" red="0.70588235294117641" green="0.99215686274509807" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="NSColor" red="0.17394059896469116" green="0.24193984270095825" blue="0.31265199184417725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" size="40" name="Arial-BoldMT"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -37,19 +34,56 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGD-Pm-aft">
+                                <rect key="frame" x="97.666666666666686" y="450" width="180" height="40"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Transmitter">
+                                        <attributes>
+                                            <color key="NSColor" red="0.21301537752151489" green="0.28483462333679199" blue="0.3679930567741394" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="36" name="Arial-ItalicMT"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kay-ru-s9S">
+                                <rect key="frame" x="16" y="44" width="343" height="332"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch Screen Icon" translatesAutoresizingMaskIntoConstraints="NO" id="X4C-q0-78R">
+                                        <rect key="frame" x="91.666666666666686" y="86.666666666666657" width="160" height="160"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="160" id="7KW-cd-g2V"/>
+                                            <constraint firstAttribute="width" constant="160" id="tZG-rY-EE6"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="X4C-q0-78R" firstAttribute="centerY" secondItem="Kay-ru-s9S" secondAttribute="centerY" id="6rZ-gz-cBR"/>
+                                    <constraint firstItem="X4C-q0-78R" firstAttribute="centerX" secondItem="Kay-ru-s9S" secondAttribute="centerX" id="JrF-10-Smd"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.16862745098039217" green="0.59607843137254901" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.3142734169960022" green="0.69994574785232544" blue="0.85455113649368286" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="Tqt-Oy-tBT" secondAttribute="trailing" id="0du-mf-v8c"/>
-                            <constraint firstItem="Tqt-Oy-tBT" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="2TK-ah-MAV"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="Tqt-Oy-tBT" secondAttribute="leading" id="Hjq-Zf-oNz"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="Tqt-Oy-tBT" secondAttribute="bottom" constant="20" id="emm-Yw-rmg"/>
+                            <constraint firstItem="hGD-Pm-aft" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="6WZ-42-9jg"/>
+                            <constraint firstItem="hGD-Pm-aft" firstAttribute="top" secondItem="Tqt-Oy-tBT" secondAttribute="bottom" constant="21.333333333333314" id="7Lz-gj-g5l"/>
+                            <constraint firstItem="Kay-ru-s9S" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="16" id="CUe-A2-yz0"/>
+                            <constraint firstItem="Tqt-Oy-tBT" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="SWn-rN-rDv"/>
+                            <constraint firstAttribute="trailing" secondItem="Kay-ru-s9S" secondAttribute="trailing" constant="16" id="U5k-ht-BBf"/>
+                            <constraint firstItem="Tqt-Oy-tBT" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="aFX-2L-lig"/>
+                            <constraint firstItem="Kay-ru-s9S" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="diy-jh-NLR"/>
+                            <constraint firstItem="Tqt-Oy-tBT" firstAttribute="top" secondItem="Kay-ru-s9S" secondAttribute="bottom" constant="7.6666666666666856" id="yVk-sS-ugp"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="81" y="387"/>
+            <point key="canvasLocation" x="80.799999999999997" y="386.45320197044339"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Launch Screen Icon" width="16" height="16"/>
+    </resources>
 </document>
