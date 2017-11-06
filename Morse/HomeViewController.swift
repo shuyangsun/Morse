@@ -595,17 +595,6 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	fileprivate func updateConstraintsForCardView(_ cardView:CardView, indexInCardViewsArray index:Int? = nil) {
 		let ind = index == nil ? self.cardViews.index(of: cardView)! : index!
 		var heightChange:CGFloat = 0
-		cardView.snp.remakeConstraints({ (make) -> Void in
-        make.left.equalTo(self.scrollView.snp.left).offset(theme.cardViewHorizontalMargin)
-			make.width.equalTo(self.scrollView).offset(-(theme.cardViewHorizontalMargin + theme.cardViewHorizontalMargin))
-            if ind == self.cardViews.count - 1 {
-                make.top.equalTo(self.scrollView).offset(theme.cardViewGroupVerticalMargin)
-            } else {
-                cardView.snp.updateConstraints({ (make) -> Void in
-                    make.top.equalTo(self.cardViews[ind + 1].snp.bottom).offset(theme.cardViewGap)
-            })
-            }
-		})
 
 		let originalCardViewHeight = cardView.bounds.height
 		var resultHeight:CGFloat = 0
@@ -627,10 +616,6 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			cardView.topLabel.snp.updateConstraints({ (make) -> Void in
 				make.height.equalTo(topLabelHeight)
 			})
-
-			cardView.snp.updateConstraints { (make) -> Void in
-				make.height.equalTo(resultHeight)
-			}
 		} else { // FIX ME: Constraints BUG
 			cardView.topLabel.snp.remakeConstraints { (make) -> Void in
 				make.top.equalTo(cardView).offset(cardViewLabelPaddingVerticle)
@@ -638,12 +623,21 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 				make.leading.equalTo(cardView).offset(cardViewLabelPaddingHorizontal)
 				make.height.equalTo((theme.cardViewHeight - cardViewLabelPaddingVerticle * 2 - cardViewLabelVerticalGap)/2.0)
 			}
-			cardView.snp.makeConstraints({ (make) -> Void in
-				make.height.equalTo(theme.cardViewHeight)
-			})
 
 			resultHeight = theme.cardViewHeight
 		}
+        cardView.snp.remakeConstraints({ (make) -> Void in
+            make.left.equalTo(self.scrollView.snp.left).offset(theme.cardViewHorizontalMargin)
+            make.width.equalTo(self.scrollView).offset(-(theme.cardViewHorizontalMargin + theme.cardViewHorizontalMargin))
+            make.height.equalTo(resultHeight)
+            if ind == self.cardViews.count - 1 {
+                make.top.equalTo(self.scrollView).offset(theme.cardViewGroupVerticalMargin)
+            } else {
+                cardView.snp.updateConstraints({ (make) -> Void in
+                    make.top.equalTo(self.cardViews[ind + 1].snp.bottom).offset(theme.cardViewGap)
+                })
+            }
+        })
 		heightChange = resultHeight - originalCardViewHeight
 		cardView.addMDShadow(withDepth: theme.cardViewMDShadowLevelDefault)
 		self.scrollView.contentSize = CGSize(width: self.scrollView.bounds.width, height: self.scrollView.contentSize.height + heightChange)
