@@ -89,7 +89,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			self.view.addSubview(self.topSectionContainerView)
 
 			self.topSectionContainerView.clipsToBounds = false
-			self.topSectionContainerView.snp_remakeConstraints { (make) -> Void in
+			self.topSectionContainerView.snp.remakeConstraints { (make) -> Void in
 				make.top.equalTo(self.view)
 				make.trailing.equalTo(self.view)
 				make.leading.equalTo(self.view)
@@ -113,8 +113,8 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			self.scrollView.indicatorStyle = theme.scrollViewIndicatorStyle
 			self.view.insertSubview(self.scrollView, at: 0)
 
-			self.scrollView.snp_remakeConstraints { (make) -> Void in
-				make.top.equalTo(self.topSectionContainerView.snp_bottom)
+			self.scrollView.snp.remakeConstraints { (make) -> Void in
+				make.top.equalTo(self.topSectionContainerView.snp.bottom)
 				make.trailing.equalTo(self.view)
 				make.leading.equalTo(self.view)
 				make.bottom.equalTo(self.view).offset(-self.tabBarHeight)
@@ -142,7 +142,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			self.scrollViewOverlay.titleLabel?.text = nil
 			self.view.insertSubview(self.scrollViewOverlay, aboveSubview: self.scrollView)
 
-            self.scrollViewOverlay.snp_remakeConstraints({ (make) -> Void in
+            self.scrollViewOverlay.snp.remakeConstraints({ (make) -> Void in
 				make.edges.equalTo(self.scrollView)
 			})
 		}
@@ -186,23 +186,23 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		if scrollView.contentOffset.y <= 20 && self.topSectionHidden {
 			// Show input area
 			self.topSectionHidden = false
-            self.topSectionContainerView.snp_updateConstraints({ (make) -> Void in
+            self.topSectionContainerView.snp.updateConstraints({ (make) -> Void in
 				make.top.equalTo(self.view)
 			})
 
 			// Update constraints for buttons on text view
-            self.topSectionViewController.keyboardButton.snp_remakeConstraints({ (make) -> Void in
+            self.topSectionViewController.keyboardButton.snp.remakeConstraints({ (make) -> Void in
 				make.height.equalTo(self.topSectionViewController.keyboardButtonViewHeight)
 				make.bottom.equalTo(self.topSectionViewController.textBackgroundView)
 				if self.topSectionViewController.isDirectionEncode {
 					make.leading.equalTo(self.topSectionViewController.textBackgroundView)
 				} else {
-					make.leading.equalTo(self.topSectionViewController.textBackgroundView.snp_centerX)
+					make.leading.equalTo(self.topSectionViewController.textBackgroundView.snp.centerX)
 				}
 				make.trailing.equalTo(self.topSectionViewController.textBackgroundView)
 			})
 
-            self.topSectionViewController.microphoneButton.snp_remakeConstraints({ (make) -> Void in
+            self.topSectionViewController.microphoneButton.snp.remakeConstraints({ (make) -> Void in
 				make.height.equalTo(self.topSectionViewController.keyboardButtonViewHeight)
 				make.bottom.equalTo(self.topSectionViewController.textBackgroundView)
 				make.leading.equalTo(self.topSectionViewController.textBackgroundView)
@@ -233,7 +233,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			// Hide input area
 			self.topSectionHidden = true
 
-            self.topSectionContainerView.snp_updateConstraints({ (make) -> Void in
+            self.topSectionContainerView.snp.updateConstraints({ (make) -> Void in
 				make.top.equalTo(self.view).offset(-hiddingSectionHeight)
 			})
 
@@ -243,18 +243,18 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 
 			// Update constraints for buttons on text view
 			if !self.topSectionViewController.isDirectionEncode {
-				self.topSectionViewController.keyboardButton.snp_remakeConstraints({ (make) -> Void in
+				self.topSectionViewController.keyboardButton.snp.remakeConstraints({ (make) -> Void in
 					make.height.equalTo(self.topSectionViewController.keyboardButtonViewHeight)
 					make.bottom.equalTo(self.topSectionViewController.textBackgroundView)
-					make.leading.equalTo(self.topSectionViewController.textBackgroundView.snp_centerX)
+					make.leading.equalTo(self.topSectionViewController.textBackgroundView.snp.centerX)
 					make.trailing.equalTo(self.topSectionViewController.textBackgroundView)
 				})
 
-				self.topSectionViewController.microphoneButton.snp_remakeConstraints({ (make) -> Void in
+				self.topSectionViewController.microphoneButton.snp.remakeConstraints({ (make) -> Void in
 					make.height.equalTo(self.topSectionViewController.keyboardButtonViewHeight)
 					make.bottom.equalTo(self.topSectionViewController.textBackgroundView)
 					make.leading.equalTo(self.topSectionViewController.textBackgroundView)
-					make.trailing.equalTo(self.topSectionViewController.textBackgroundView.snp_centerX)
+					make.trailing.equalTo(self.topSectionViewController.textBackgroundView.snp.centerX)
 				})
 			}
 			UIView.animate(withDuration: animationDuration
@@ -298,7 +298,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			self.scrollViewSnapshotImageView?.isOpaque = false
 			self.scrollViewSnapshotImageView?.alpha = 0
 			self.view.insertSubview(self.scrollViewSnapshotImageView!, belowSubview: self.scrollViewOverlay)
-			self.scrollViewSnapshotImageView?.snp_makeConstraints({ (make) -> Void in
+			self.scrollViewSnapshotImageView?.snp.makeConstraints({ (make) -> Void in
 				make.edges.equalTo(self.scrollView)
 			})
 
@@ -319,7 +319,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			self.micInputSectionViewController!.view.addGestureRecognizer(tapGR)
 			self.view.insertSubview(self.micInputSectionContainerView!, aboveSubview: self.scrollViewOverlay)
 
-			self.micInputSectionContainerView!.snp_remakeConstraints({ (make) -> Void in
+			self.micInputSectionContainerView!.snp.remakeConstraints({ (make) -> Void in
 				make.edges.equalTo(self.scrollViewOverlay)
 			})
 		}
@@ -595,19 +595,17 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 	fileprivate func updateConstraintsForCardView(_ cardView:CardView, indexInCardViewsArray index:Int? = nil) {
 		let ind = index == nil ? self.cardViews.index(of: cardView)! : index!
 		var heightChange:CGFloat = 0
-		cardView.snp_remakeConstraints({ (make) -> Void in
-			make.left.equalTo(self.scrollView.snp_left).offset(theme.cardViewHorizontalMargin)
+		cardView.snp.remakeConstraints({ (make) -> Void in
+        make.left.equalTo(self.scrollView.snp.left).offset(theme.cardViewHorizontalMargin)
 			make.width.equalTo(self.scrollView).offset(-(theme.cardViewHorizontalMargin + theme.cardViewHorizontalMargin))
+            if ind == self.cardViews.count - 1 {
+                make.top.equalTo(self.scrollView).offset(theme.cardViewGroupVerticalMargin)
+            } else {
+                cardView.snp.updateConstraints({ (make) -> Void in
+                    make.top.equalTo(self.cardViews[ind + 1].snp.bottom).offset(theme.cardViewGap)
+            })
+            }
 		})
-		if ind == self.cardViews.count - 1 {
-			cardView.snp_updateConstraints({ (make) -> Void in
-				make.top.equalTo(self.scrollView).offset(theme.cardViewGroupVerticalMargin)
-			})
-		} else {
-			cardView.snp_updateConstraints({ (make) -> Void in
-				make.top.equalTo(self.cardViews[ind + 1].snp_bottom).offset(theme.cardViewGap)
-			})
-		}
 
 		let originalCardViewHeight = cardView.bounds.height
 		var resultHeight:CGFloat = 0
@@ -626,21 +624,21 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 			let bottomLabelHeight = cardView.bottomLabel.attributedText!.boundingRect(with: CGSize(width: labelWidth, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil).height
 			resultHeight = cardViewLabelPaddingVerticle * 2 + topLabelHeight + cardViewLabelVerticalGap + bottomLabelHeight
 
-			cardView.topLabel.snp_updateConstraints({ (make) -> Void in
+			cardView.topLabel.snp.updateConstraints({ (make) -> Void in
 				make.height.equalTo(topLabelHeight)
 			})
 
-			cardView.snp_updateConstraints { (make) -> Void in
+			cardView.snp.updateConstraints { (make) -> Void in
 				make.height.equalTo(resultHeight)
 			}
 		} else { // FIX ME: Constraints BUG
-			cardView.topLabel.snp_remakeConstraints { (make) -> Void in
+			cardView.topLabel.snp.remakeConstraints { (make) -> Void in
 				make.top.equalTo(cardView).offset(cardViewLabelPaddingVerticle)
 				make.trailing.equalTo(cardView).offset(-cardViewLabelPaddingHorizontal)
 				make.leading.equalTo(cardView).offset(cardViewLabelPaddingHorizontal)
 				make.height.equalTo((theme.cardViewHeight - cardViewLabelPaddingVerticle * 2 - cardViewLabelVerticalGap)/2.0)
 			}
-			cardView.snp_updateConstraints({ (make) -> Void in
+			cardView.snp.makeConstraints({ (make) -> Void in
 				make.height.equalTo(theme.cardViewHeight)
 			})
 
@@ -785,7 +783,7 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 		}
 		for i in 0..<self.cardViews.count {
 			cardViews[i].updateExpandButton()
-			self.cardViews[i].snp_updateConstraints({ (make) -> Void in
+			self.cardViews[i].snp.updateConstraints({ (make) -> Void in
 				make.width.equalTo(self.scrollView).offset(-(theme.cardViewHorizontalMargin + theme.cardViewHorizontalMargin))
 			})
 		}
@@ -928,8 +926,8 @@ class HomeViewController: GAITrackedViewController, UITextViewDelegate, UIScroll
 
 //	func updateAdsStatus() {
 //		self.canDisplayBannerAds = !appDelegate.adsRemoved
-//		self.scrollView.snp_remakeConstraints { (make) -> Void in
-//			make.top.equalTo(self.topSectionContainerView.snp_bottom)
+//		self.scrollView.snp.remakeConstraints { (make) -> Void in
+//			make.top.equalTo(self.topSectionContainerView.snp.bottom)
 //			make.trailing.equalTo(self.view)
 //			make.leading.equalTo(self.view)
 //			if self.canDisplayBannerAds {
