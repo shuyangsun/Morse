@@ -35,7 +35,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UIViewCo
 		self.tabBar.tintColor = theme.tabBarSelectedTintColor
 		let controllers = self.viewControllers
 		// Customize tab bar items
-		UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: -60), for: .default)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.clear],
+                                                            for: .normal)
 		if controllers != nil {
 			for controller in controllers! {
 				if let homeViewController = controller as? HomeViewController {
