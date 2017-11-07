@@ -118,12 +118,16 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 	fileprivate let _outputVCTopBarHeight:CGFloat = 76
 
 	override var prefersStatusBarHidden : Bool {
-		return true
+		return false
 	}
 
 	override var preferredStatusBarStyle : UIStatusBarStyle {
 		return .lightContent
 	}
+    
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .fade
+    }
 
 	// *****************************
 	// MARK: MVC Lifecycle
