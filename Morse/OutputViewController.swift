@@ -352,7 +352,11 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 
 			self.swipeToDismissLabel.snp.makeConstraints({ (make) -> Void in
 				make.centerX.equalTo(self.view)
-				make.bottom.equalTo(self.view).offset(-hintLabelMarginVertical * 2)
+                if #available(iOS 11.0, *) {
+                    make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottomMargin).offset(-hintLabelMarginVertical * 2)
+                } else {
+                    make.bottom.equalTo(self.view).offset(-hintLabelMarginVertical * 2)
+                }
 			})
 		}
 
