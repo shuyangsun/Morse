@@ -138,21 +138,26 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 
 		if self.topBarView == nil {
 			self.topBarView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: topBarHeight))
+            self.topBarView.clipsToBounds = true
 			self.topBarView.backgroundColor = theme.outputVCTopBarColor
 			self.view.addSubview(self.topBarView)
-			self.topBarView.snp_remakeConstraints({ (make) -> Void in
+			self.topBarView.snp.remakeConstraints({ (make) -> Void in
 				make.top.equalTo(self.view)
 				make.leading.equalTo(self.view)
 				make.trailing.equalTo(self.view)
-				make.height.equalTo(self._outputVCTopBarHeight)
+                if #available(iOS 11.0, *) {
+                    make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(self._outputVCTopBarHeight)
+                } else {
+                    make.height.equalTo(self._outputVCTopBarHeight)
+                }
 			})
 
 			if self.progressBarView == nil {
 				let x = layoutDirection == .leftToRight ? 0 : self.view.bounds.width
-				self.progressBarView = UIView(frame: CGRect(x: x, y: 0, width: 0, height: topBarHeight))
+				self.progressBarView = UIView(frame: CGRect(x: x, y: 0, width: 0, height: 9999.0))
 				self.progressBarView.backgroundColor = theme.progressBarColor
 				self.topBarView.addSubview(self.progressBarView)
-				self.progressBarView.snp_remakeConstraints({ (make) -> Void in
+				self.progressBarView.snp.remakeConstraints({ (make) -> Void in
 					make.top.equalTo(self.topBarView)
 					make.bottom.equalTo(self.topBarView)
 					make.leading.equalTo(self.topBarView)
@@ -162,6 +167,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 
 			if self.percentageLabel == nil {
 				self.percentageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self._outputVCTopBarHeight, height: self._outputVCTopBarHeight))
+                self.percentageLabel.font = UIFont.preferredFont(forTextStyle: .headline)
 				self.percentageLabel.backgroundColor = UIColor.clear
 				self.percentageLabel.textColor = theme.percentageTextColor
 				self.percentageLabel.text = "0%"
@@ -169,11 +175,17 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				self.percentageLabel.isOpaque = false
 				self.percentageLabel.alpha = 0
 				self.topBarView.addSubview(self.percentageLabel)
-				self.percentageLabel.snp_remakeConstraints({ (make) -> Void in
-					make.top.equalTo(self.topBarView)
+				self.percentageLabel.snp.remakeConstraints({ (make) -> Void in
 					make.bottom.equalTo(self.topBarView)
-					make.centerX.equalTo(self.topBarView)
-					make.width.equalTo(self.percentageLabel.snp_height)
+                    
+                    if #available(iOS 11.0, *) {
+                        make.top.equalTo(self.view.safeAreaLayoutGuide.snp.topMargin)
+                        make.centerX.equalTo(self.view.safeAreaLayoutGuide.snp.centerX)
+                    } else {
+                        make.top.equalTo(self.topBarView)
+                        make.centerX.equalTo(self.view)
+                    }
+                    
 				})
 			}
 
@@ -191,11 +203,10 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 					self.flashToggleButton.isHidden = true
 				}
 				self.topBarView.addSubview(self.flashToggleButton)
-				self.flashToggleButton.snp_remakeConstraints { (make) -> Void in
-					make.top .equalTo(self.topBarView)
-					make.bottom.equalTo(self.topBarView)
+				self.flashToggleButton.snp.remakeConstraints { (make) -> Void in
 					make.leading.equalTo(self.topBarView)
-					make.width.equalTo(self.flashToggleButton.snp_height)
+					make.width.equalTo(self.flashToggleButton.snp.height)
+                    make.centerY.equalTo(self.percentageLabel)
 				}
 			}
 
@@ -208,11 +219,10 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				self.soundToggleButton.tintColor = theme.outputVCButtonTintColor
 				self.soundToggleButton.addTarget(self, action: #selector(OutputViewController.soundToggleButtonTapped), for: .touchUpInside)
 				self.topBarView.addSubview(self.soundToggleButton)
-				self.soundToggleButton.snp_remakeConstraints { (make) -> Void in
-					make.top .equalTo(self.topBarView)
-					make.bottom.equalTo(self.topBarView)
+				self.soundToggleButton.snp.remakeConstraints { (make) -> Void in
 					make.trailing.equalTo(self.topBarView)
-					make.width.equalTo(self.soundToggleButton.snp_height)
+					make.width.equalTo(self.soundToggleButton.snp.height)
+                    make.centerY.equalTo(self.percentageLabel)
 				}
 			}
 
@@ -222,7 +232,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				self.morseTextBackgroundView.isOpaque = false
 				self.morseTextBackgroundView.alpha = 0.0
 				self.topBarView.addSubview(self.morseTextBackgroundView)
-				self.morseTextBackgroundView.snp_remakeConstraints({ (make) -> Void in
+				self.morseTextBackgroundView.snp.remakeConstraints({ (make) -> Void in
 					make.leading.equalTo(self.view)
 					make.bottom.equalTo(self.topBarView)
 					make.height.equalTo(self._morseTextLabelHeight)
@@ -238,14 +248,14 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				self.morseTextLabel.attributedText = getAttributedStringFrom(labelStr, withFontSize: morseFontSizeProgressBar, color: theme.morseTextProgressBarColor, bold: false)
 				self.morseTextLabel.textAlignment = .left
 				self.morseTextBackgroundView.addSubview(self.morseTextLabel)
-				self.morseTextLabel.snp_remakeConstraints({ (make) -> Void in
+				self.morseTextLabel.snp.remakeConstraints({ (make) -> Void in
 					make.top.equalTo(self.morseTextBackgroundView)
 					make.bottom.equalTo(self.morseTextBackgroundView)
 					make.width.equalTo(self.morseTextLabel.attributedText!.size().width + 10) // +10 to be safe
 					if layoutDirection == .leftToRight {
-						make.right.equalTo(self.morseTextBackgroundView.snp_left)
+						make.right.equalTo(self.morseTextBackgroundView.snp.left)
 					} else {
-						make.left.equalTo(self.morseTextBackgroundView.snp_right)
+						make.left.equalTo(self.morseTextBackgroundView.snp.right)
 					}
 				})
 				self.topBarView.setNeedsUpdateConstraints()
@@ -258,8 +268,8 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			let tapGR = UITapGestureRecognizer(target: self, action: #selector(OutputViewController.outputWillStart))
 			self.screenFlashView.addGestureRecognizer(tapGR)
 			self.view.addSubview(self.screenFlashView)
-			self.screenFlashView.snp_remakeConstraints({ (make) -> Void in
-				make.top.equalTo(self.topBarView.snp_bottom)
+			self.screenFlashView.snp.remakeConstraints({ (make) -> Void in
+				make.top.equalTo(self.topBarView.snp.bottom)
 				make.leading.equalTo(self.view)
 				make.trailing.equalTo(self.view)
 				make.bottom.equalTo(self.view)
@@ -282,7 +292,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			self.playButton.alpha = 0
 			self._viewsShouldFadeOutWhenPlaying.append(self.playButton)
 			self.view.addSubview(self.playButton)
-			self.playButton.snp_makeConstraints({ (make) -> Void in
+			self.playButton.snp.makeConstraints({ (make) -> Void in
 				make.centerX.equalTo(self.view)
 				make.centerY.equalTo(self.view).offset(topBarHeight)
 			})
@@ -297,9 +307,9 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			self._viewsShouldFadeOutWhenPlaying.append(self.wpmLabel)
 			self.view.addSubview(self.wpmLabel)
 
-			self.wpmLabel.snp_makeConstraints({ (make) -> Void in
+			self.wpmLabel.snp.makeConstraints({ (make) -> Void in
 				make.centerX.equalTo(self.view)
-				make.top.equalTo(self.topBarView.snp_bottom).offset(hintLabelMarginVertical)
+				make.top.equalTo(self.topBarView.snp.bottom).offset(hintLabelMarginVertical)
 			})
 		}
 
@@ -312,9 +322,9 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			self._viewsShouldFadeOutWhenPlaying.append(self.pitchLabel)
 			self.view.addSubview(self.pitchLabel)
 
-			self.pitchLabel.snp_makeConstraints({ (make) -> Void in
+			self.pitchLabel.snp.makeConstraints({ (make) -> Void in
 				make.centerX.equalTo(self.view)
-				make.top.equalTo(self.wpmLabel.snp_bottom).offset(hintLabelMarginVertical)
+				make.top.equalTo(self.wpmLabel.snp.bottom).offset(hintLabelMarginVertical)
 			})
 		}
 
@@ -326,9 +336,9 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			self._viewsShouldFadeOutWhenPlaying.append(self.tutorial1Label)
 			self.view.addSubview(self.tutorial1Label)
 
-			self.tutorial1Label.snp_makeConstraints({ (make) -> Void in
+			self.tutorial1Label.snp.makeConstraints({ (make) -> Void in
 				make.centerX.equalTo(self.view)
-				make.top.equalTo(self.pitchLabel.snp_bottom).offset(hintLabelMarginVertical)
+				make.top.equalTo(self.pitchLabel.snp.bottom).offset(hintLabelMarginVertical)
 			})
 		}
 
@@ -340,7 +350,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			self._viewsShouldFadeOutWhenPlaying.append(self.swipeToDismissLabel)
 			self.view.addSubview(self.swipeToDismissLabel)
 
-			self.swipeToDismissLabel.snp_makeConstraints({ (make) -> Void in
+			self.swipeToDismissLabel.snp.makeConstraints({ (make) -> Void in
 				make.centerX.equalTo(self.view)
 				make.bottom.equalTo(self.view).offset(-hintLabelMarginVertical * 2)
 			})
@@ -354,9 +364,9 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 			self._viewsShouldFadeOutWhenPlaying.append(self.tapToStartLabel)
 			self.view.addSubview(self.tapToStartLabel)
 
-			self.tapToStartLabel.snp_makeConstraints({ (make) -> Void in
+			self.tapToStartLabel.snp.makeConstraints({ (make) -> Void in
 				make.centerX.equalTo(self.view)
-				make.bottom.equalTo(self.swipeToDismissLabel.snp_top).offset(-hintLabelMarginVertical)
+				make.bottom.equalTo(self.swipeToDismissLabel.snp.top).offset(-hintLabelMarginVertical)
 			})
 		}
 
@@ -432,7 +442,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 
 	func startSignal() {
 		// Screen Flash
-		self.screenFlashView.backgroundColor = UIColor.darkGray
+		self.screenFlashView.backgroundColor = UIColor(hex: 0x303030)
 
 		// Sound
 		if self._soundEnabled {
@@ -480,7 +490,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 		self.percentageLabel.text = "\(Int(ceil(completionRatio * 100)))%"
 		let width = self.topBarView.bounds.width * CGFloat(completionRatio)
 		let x = layoutDirection == .leftToRight ? 0 : self.topBarView.bounds.width - width
-		self.progressBarView.frame = CGRect(x: x, y: 0, width: width, height: self._outputVCTopBarHeight)
+		self.progressBarView.frame = CGRect(x: x, y: 0, width: width, height: 9999.0)
 		let sign:CGFloat = layoutDirection == .leftToRight ? 1:-1
 		self.morseTextLabel.transform = CGAffineTransform(translationX: sign * CGFloat(completionRatio) * self.morseTextLabel.bounds.width, y: 0)
 	}
@@ -528,7 +538,7 @@ class OutputViewController: GAITrackedViewController, MorseOutputPlayerDelegate 
 				self.morseTextBackgroundView.alpha = 0.0
 				self.percentageLabel.alpha = 0.0
 				let x = layoutDirection == .leftToRight ? 0 : self.topBarView.bounds.width
-				self.progressBarView.frame = CGRect(x: x, y: 0, width: 0, height: self._outputVCTopBarHeight)
+				self.progressBarView.frame = CGRect(x: x, y: 0, width: 0, height: 9999.0)
 			}) { succeed in
 				self.percentageLabel.text = "0%"
 				self.morseTextLabel.transform = CGAffineTransform.identity
